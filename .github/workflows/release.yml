@@ -33,9 +33,17 @@ jobs:
 
       - name: Commit changes
         shell: bash
+        env:
+          GIT_USER: ${{ secrets.GIT_USER }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "${GIT_USER}"
+          git config user.email "${GIT_EMAIL}"
+          
           git add package.json CHANGELOG
           git commit -m "chore: release v$(node -p "require('./package.json').version")" || echo "Nothing to commit"
+
+          git remote set-url origin https://${GIT_USER}:${GH_PAT}@github.com/${GITHUB_REPOSITORY}.git
+
           git push
