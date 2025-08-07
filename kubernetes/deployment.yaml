@@ -1,0 +1,245 @@
+# Production Kubernetes deployment with RSA key secrets management
+# This configuration replaces Docker volume mounts with proper Kubernetes secrets
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-template-api
+  labels:
+    app: node-template
+    component: api
+    environment: production
+spec:
+  # Deployment configuration
+  replicas: 3  # High availability with multiple replicas
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1      # Allow 1 pod to be unavailable during updates
+      maxSurge: 1           # Allow 1 extra pod during updates
+
+  # Pod selector
+  selector:
+    matchLabels:
+      app: node-template
+      component: api
+
+  # Pod template specification
+  template:
+    metadata:
+      labels:
+        app: node-template
+        component: api
+        environment: production
+      annotations:
+        # Prometheus monitoring annotations
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8080"
+
+    spec:
+      # Security context for the pod
+      securityContext:
+        runAsNonRoot: true    # Run as non-root user
+        runAsUser: 1001       # Use nodejs user (same as Dockerfile)
+        runAsGroup: 1001      # Use nodejs group
+        fsGroup: 1001         # File system group
+        seccompProfile:
+          type: RuntimeDefault
+
+      # Container specification
+      containers:
+      - name: node-template-api
+        image: node-template:latest  # Replace with your actual image
+        imagePullPolicy: Always
+
+        # Container security context
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false  # Set to true if app doesn't write to filesystem
+          capabilities:
+            drop:
+              - ALL  # Drop all capabilities for security
+
+        # Environment variables
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "8080"
+        # Add other environment variables from ConfigMap or directly
+
+        # Environment variables from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: node-template-config
+        - secretRef:
+            name: node-template-secrets
+
+        # Container ports
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+
+        # Volume mounts - RSA keys from Kubernetes secret
+        volumeMounts:
+        - name: rsa-keys
+          mountPath: /app/keys
+          readOnly: true  # Mount as read-only for security
+        - name: logs
+          mountPath: /app/logs
+
+        # Resource requirements
+        resources:
+          requests:
+            memory: "256Mi"   # Minimum memory required
+            cpu: "250m"       # Minimum CPU required (0.25 cores)
+          limits:
+            memory: "1Gi"     # Maximum memory allowed
+            cpu: "1000m"      # Maximum CPU allowed (1 core)
+
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30  # Wait 30s after container start
+          periodSeconds: 10        # Check every 10 seconds
+          timeoutSeconds: 5        # Timeout after 5 seconds
+          failureThreshold: 3      # Restart after 3 failed checks
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5   # Start checking after 5 seconds
+          periodSeconds: 5         # Check every 5 seconds
+          timeoutSeconds: 3        # Timeout after 3 seconds
+          failureThreshold: 2      # Remove from load balancer after 2 failures
+
+        # Startup probe for slow-starting applications
+        startupProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10  # Wait 10s before first check
+          periodSeconds: 10        # Check every 10 seconds
+          timeoutSeconds: 5        # Timeout after 5 seconds
+          failureThreshold: 6      # Allow up to 60 seconds for startup (6 * 10s)
+
+      # Volume definitions
+      volumes:
+      - name: rsa-keys
+        secret:
+          secretName: rsa-keys      # Reference to the RSA keys secret
+          defaultMode: 0400         # Secure file permissions (read-only for owner)
+          items:
+          - key: private-key
+            path: private.pem
+            mode: 0400              # Private key: read-only for owner
+          - key: public-key
+            path: public.pem
+            mode: 0444              # Public key: read-only for all
+
+      - name: logs
+        emptyDir:
+          sizeLimit: 1Gi            # Limit log volume size
+
+      # Restart policy
+      restartPolicy: Always
+
+      # DNS configuration
+      dnsPolicy: ClusterFirst
+
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
+
+---
+# Service to expose the deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-template-api-service
+  labels:
+    app: node-template
+    component: api
+spec:
+  type: ClusterIP  # Internal service (use LoadBalancer or NodePort for external access)
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: node-template
+    component: api
+
+---
+# ConfigMap for non-sensitive configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-template-config
+  labels:
+    app: node-template
+    component: config
+data:
+  # Non-sensitive environment variables
+  API_VERSION: "v1"
+  DEFAULT_TIME_ZONE: "America/Bogota"
+  DEFAULT_LANG: "en"
+  SUPPORTED_LANGUAGES: "en,es,fr,de,pt"
+  LOG_LEVEL: "info"
+  ENABLE_REGISTRATION: "true"
+  ENABLE_EMAIL_VERIFICATION: "true"
+  ENABLE_API_RATE_LIMITING: "true"
+  # Add other non-sensitive configuration here
+
+---
+# Secret for sensitive configuration (template - replace with actual values)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: node-template-secrets
+  labels:
+    app: node-template
+    component: secrets
+type: Opaque
+data:
+  # Base64 encoded sensitive values
+  # Example: echo -n "your_value" | base64
+  DB_PASSWORD: ""           # Replace with actual base64 encoded password
+  JWT_SESSION_SECRET: ""    # Replace with actual base64 encoded secret
+  REDIS_PASSWORD: ""        # Replace with actual base64 encoded password
+  # Add other sensitive environment variables here
+
+---
+# Horizontal Pod Autoscaler for automatic scaling
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: node-template-api-hpa
+  labels:
+    app: node-template
+    component: autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: node-template-api
+  minReplicas: 3              # Minimum number of replicas
+  maxReplicas: 10             # Maximum number of replicas
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70  # Scale up when CPU usage exceeds 70%
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80  # Scale up when memory usage exceeds 80%
