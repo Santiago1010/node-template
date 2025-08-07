@@ -26,7 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ env.PR_NUMBER }}
-        run: node scripts/release.js
+        run: node scripts/release.script.js
 
       - name: Commit version bump & changelog
         run: |
