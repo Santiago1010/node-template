@@ -1,14 +1,13 @@
-# .github/workflows/release.yml
 name: Release Automation
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [closed]
     branches: [development]
 
 jobs:
   release:
-    # Solo corre si el PR fue mergeado (no si fue cerrado sin merge)
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
