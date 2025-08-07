@@ -17,15 +17,11 @@ COPY package*.json ./
 # Build arguments
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV} \
-    PORT=8080
+    PORT=8080 \
+    HUSKY=0
 
-# Install dependencies based on environment
-RUN if [ "$NODE_ENV" = "production" ]; then \
-        npm ci --omit=dev --silent; \
-    else \
-        npm ci --silent; \
-    fi && \
-    npm cache clean --force
+# Install dependencies
+RUN npm ci --omit=dev --silent
 
 # Copy application code
 COPY --chown=nodejs:nodejs . .
