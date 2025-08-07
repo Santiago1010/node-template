@@ -20,8 +20,8 @@ ENV NODE_ENV=${NODE_ENV} \
     PORT=8080 \
     HUSKY=0
 
-# Install dependencies
-RUN npm ci --omit=dev --silent
+# Install dependencies without running Husky or any prepare scripts
+RUN npm ci --omit=dev --ignore-scripts --silent
 
 # Copy application code
 COPY --chown=nodejs:nodejs . .
