@@ -1,7 +1,5 @@
 # Production Docker Compose with RSA key management and service dependencies
 
-version: '3.8'
-
 services:
   node_template:
     build:
@@ -59,26 +57,26 @@ services:
       - node-network
 
   # MySQL/MariaDB database
-  mysql:
-    image: mariadb:11
-    container_name: node_template_db
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${DB_NAME:-node_template}
-      MYSQL_USER: ${DB_USERNAME:-appuser}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-userpassword}
-    ports:
-      - "${DB_PORT:-3306}:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-rootpassword}"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-    networks:
-      - node-network
+  # mysql:
+  #   image: mariadb:11
+  #   container_name: node_template_db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+  #     MYSQL_DATABASE: ${DB_NAME:-node_template}
+  #     MYSQL_USER: ${DB_USERNAME:-appuser}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD:-userpassword}
+  #   ports:
+  #     - "${DB_PORT:-3306}:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-rootpassword}"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 60s
+  #   networks:
+  #     - node-network
 
   # Kubernetes deployment (optional)
   kubernetes:
@@ -111,5 +109,5 @@ networks:
 volumes:
   redis_data:
     driver: local
-  mysql_data:
-    driver: local
+  # mysql_data:
+  #   driver: local
