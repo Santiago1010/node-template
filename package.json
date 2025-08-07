@@ -30,6 +30,14 @@
   },
   "type": "commonjs",
   "main": "index.js",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "**/*": ["biome check --fix --unsafe", "biome format --write", "git add ."]
+  },
   "scripts": {
     "dev": "node --watch index.js",
     "dev:inspect": "node --watch --inspect index.js",
