@@ -16,8 +16,8 @@ const morgan = require('morgan');
 const Boom = require('@hapi/boom');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const config = require('./configurations');
-const i18n = require('./configurations/i18n');
+const config = require('./config/env');
+const i18n = require('./config/i18n');
 const errorHandler = require('./middlewares/errorHandler.middleware');
 const routerApi = require('./routes');
 const HostsService = require('./services/web/configurations/hosts');
