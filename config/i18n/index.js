@@ -1,0 +1,31 @@
+// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
+const { I18n } = require('i18n');
+
+// ------------------------- INTERNAL DEPENDENCIES ------------------------- //
+const config = require('../../configurations');
+const { paths } = require('../../helpers/constants.helper');
+
+const i18n = new I18n({
+  locales: ['es', 'en'],
+  directory: paths.locales,
+  fallbacks: { 'en-*': 'en' },
+  defaultLocale: config.lang || 'en',
+  autoReload: true,
+  syncFiles: true,
+  logWarnFn: console.warn,
+  logErrorFn: console.error,
+  objectNotation: true,
+  header: 'Accept-Language',
+  queryParameter: 'lang',
+  cookie: {
+    name: 'lang',
+    options: {
+      path: '/',
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+    },
+  },
+});
+
+i18n.setLocale(config.lang);
+
+module.exports = i18n;
