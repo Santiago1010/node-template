@@ -28,10 +28,11 @@ jobs:
           PR_NUMBER: ${{ env.PR_NUMBER }}
         run: node scripts/release.script.js
 
-      - name: Commit version bump & changelog
+      - name: Commit changes
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add package.json CHANGELOG
-          git commit -m "chore: release v$(node -p \"require('./package.json').version\")" || echo "Nothing to commit"
+          git commit -m "chore: release v$(node -p "require('./package.json').version")" || echo "Nothing to commit"
           git push
