@@ -1,0 +1,18 @@
+// Sequelize CLI configuration file
+// This file tells Sequelize CLI where to find and store various files
+
+const path = require('path');
+
+module.exports = {
+  // Configuration file location
+  config: path.resolve('config', 'database', 'index.js'),
+
+  // Models directory
+  'models-path': path.resolve('models'),
+
+  // Seeders directory
+  'seeders-path': path.resolve('database', 'seeders'),
+
+  // Migrations directory
+  'migrations-path': path.resolve('database', 'migrations'),
+};
