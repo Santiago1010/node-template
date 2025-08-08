@@ -1,11 +1,14 @@
+// --------------------------- NODE DEPENDENCIES --------------------------- //
+const fs = require('fs');
+const path = require('path');
+
+// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
+const moment = require('moment');
+
 /**
  * Auto-versioning script for GitHub Actions
  * Updates package.json version and CHANGELOG.md based on PR labels and content
  */
-
-const fs = require('fs');
-const path = require('path');
-
 class AutoVersioning {
   constructor() {
     this.token = process.env.GITHUB_TOKEN;
@@ -135,10 +138,11 @@ class AutoVersioning {
    * Updates CHANGELOG.md with new version entry
    */
   updateChangelog(version, bumpType) {
-    const date = new Date().toISOString().split('T')[0];
+    // Reemplazar la línea de fecha con moment.js
+    const date = moment().toDate(); // Fecha UTC en formato ISO
+
     const entries = this.formatChangelogEntries();
 
-    // Determine change type for better categorization
     const changeTypeMap = {
       major: 'Breaking Changes',
       minor: 'Features',
@@ -146,36 +150,21 @@ class AutoVersioning {
     };
 
     const changeType = changeTypeMap[bumpType] || 'Changes';
+    const newSection = `### ${changeType}\n${entries.join('\n')}\n\n**Pull Request**: [#${this.prNumber}] ${this.prTitle}\n\n`;
 
-    const newEntry = `## [${version}] - ${date}
+    let existingContent = fs.existsSync(this.changelogPath)
+      ? fs.readFileSync(this.changelogPath, 'utf8')
+      : `# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n`;
 
-### ${changeType}
-${entries.join('\n')}
-
-**Pull Request**: [#${this.prNumber}] ${this.prTitle}
-
-`;
-
-    // Read existing changelog or create new one
-    let existingContent = '';
-    if (fs.existsSync(this.changelogPath)) {
-      existingContent = fs.readFileSync(this.changelogPath, 'utf8');
+    const dateHeaderRegex = new RegExp(`## \\[${version}\\] - ${date}`);
+    if (dateHeaderRegex.test(existingContent)) {
+      existingContent = existingContent.replace(new RegExp(`(## \\[${version}\\] - ${date}\\n)`), `$1${newSection}`);
     } else {
-      // Create initial changelog structure
-      existingContent = `# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-`;
+      const newEntry = `## [${version}] - ${date}\n\n${newSection}`;
+      existingContent = existingContent.replace(/(# Changelog\s*\n)/, `$1${newEntry}`);
     }
 
-    // Prepend new entry to existing content
-    const updatedContent = existingContent.replace(/(# Changelog\s*\n\s*.*?\n\s*.*?\n\s*)/, `$1${newEntry}`);
-
-    fs.writeFileSync(this.changelogPath, updatedContent);
+    fs.writeFileSync(this.changelogPath, existingContent);
   }
 
   /**
