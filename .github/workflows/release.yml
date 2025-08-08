@@ -1,22 +1,134 @@
-name: Release Automation
+name: 'Auto Version & Changelog'
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: [closed]
+    inputs:
+      pr_number:
+        description: 'Pull Request number to process'
+        required: true
+        type: number
+      pr_title:
+        description: 'PR Title (optional)'
+        required: false
+        type: string
+  pull_request_review:
     branches: [develop]
-    
-permissions:
-  contents: write
+    types: [submitted]
 
 jobs:
-  changelog:
+  auto-version:
+    name: 'Auto Version and Changelog Update'
+    # Run only when PR is approved or manually triggered
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request_review' &&
+      github.event.review.state == 'approved')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write       # Required to commit changes
+      pull-requests: write  # Required for merging PRs
+      actions: read
+      checks: read          # Required to verify approval status
+
     steps:
-      - name: "✏️ Generate release changelog"
-        uses: janheinrichmerker/action-github-changelog-generator@v2.4
+      - name: 'Determine PR Number'
+        id: set_pr_number
+        run: |
+          # Set PR number based on trigger type
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
+          else
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 'Verify PR Approval Status'
+        if: github.event_name == 'pull_request_review'
+        uses: actions/github-script@v7
+        id: check_approval
         with:
+          script: |
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ github.event.pull_request.number }}
+            })
+
+            // Check for at least one APPROVED review
+            const hasApproval = reviews.some(review =>
+              review.state === 'APPROVED' &&
+              review.commit_id === github.event.pull_request.head.sha
+            )
+
+            if (!hasApproval) {
+              core.setFailed('❌ PR has not been approved')
+            }
+
+      - name: 'Checkout PR Branch'
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ steps.set_pr_number.outputs.pr_number }}/head
           token: ${{ secrets.GITHUB_TOKEN }}
-          repo: git@github.com:Santiago1010/node-template.git
-          user: Santiago1010
-          output: CHANGELOG
+          fetch-depth: 0  # Required for version history
+
+      - name: 'Setup Node.js Environment'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 'Install Dependencies'
+        run: npm ci  # Clean install for consistency
+
+      - name: 'Execute Auto-Versioning Script'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.set_pr_number.outputs.pr_number }}
+        run: node .github/scripts/auto-version.script.js
+
+      - name: 'Commit and Push Changes'
+        id: commit_changes
+        run: |
+          # Configure git user
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Check for changes and commit if needed
+          if [ -n "$(git status --porcelain)" ]; then
+            git add package.json CHANGELOG.md
+            git commit -m "chore: auto-update version and changelog [skip ci]"
+            git push --force-with-lease  # Safely overwrite remote
+            echo "✅ Version updated successfully"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "ℹ️ No changes detected"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 'Add PR Comment (When Changes Made)'
+        if: steps.commit_changes.outputs.changes_detected == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Post version update notification
+            const pkg = require('./package.json');
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.set_pr_number.outputs.pr_number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 **Auto-versioning complete!**\n\n` +
+                    `📦 New version: \`${pkg.version}\`\n` +
+                    `📋 CHANGELOG.md and package.json updated\n\n` +
+                    `> This PR is ready for merging.`
+            });
+
+      - name: 'Merge PR (Workflow Dispatch Only)'
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          # Merge using GitHub CLI with safety checks
+          gh pr merge ${{ steps.set_pr_number.outputs.pr_number }} \
+            --squash \
+            --auto \
+            --subject "Release: $(date +'%Y-%m-%d')"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

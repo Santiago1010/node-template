@@ -1,7 +1,8 @@
 .
 ├── app.js
 ├── biome.json
-├── CHANGELOG
+├── CHANGELOG.md
+├── .commitlintrc.js
 ├── config
 │   ├── cache
 │   │   └── redisClient.js
@@ -17,9 +18,25 @@
 │           └── es.json
 ├── context
 │   └── structure.txt
+├── .debug
 ├── docker-compose.yml
 ├── Dockerfile
+├── .dockerignore
+├── .editorconfig
+├── .env
+├── .env.example
+├── .gitattributes
+├── .gitconfig
+├── .github
+│   ├── scripts
+│   │   └── auto-version.script.js
+│   └── workflows
+│       └── release.yml
+├── .gitignore
 ├── index.js
+├── kubernetes
+│   ├── deployment.yaml
+│   └── keys
 ├── LICENSE
 ├── migrations
 ├── models
@@ -28,6 +45,12 @@
 ├── package-lock.json
 ├── README.md
 ├── scripts
-└── seeders
+│   ├── generate-rsa-keys.sh
+│   └── release.script.js
+├── seeders
+├── .sequelizerc
+└── .vscode
+    ├── extensions.json
+    └── settings.json
 
-12 directories, 19 files
+18 directories, 36 files
