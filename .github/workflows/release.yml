@@ -50,13 +50,18 @@ jobs:
 
             console.log('PR Title:', pr.title)
             console.log('PR Body:', pr.body ? 'Present' : 'Empty')
+            console.log('PR Head Branch:', pr.head.ref)
 
             core.setOutput('pr_title', pr.title)
             core.setOutput('pr_body', pr.body || '')
+            core.setOutput('head_ref', pr.head.ref)
+            core.setOutput('head_sha', pr.head.sha)
 
             return {
               title: pr.title,
-              body: pr.body || ''
+              body: pr.body || '',
+              head_ref: pr.head.ref,
+              head_sha: pr.head.sha
             }
 
       - name: 'Verify PR Approval Status'
@@ -75,12 +80,16 @@ jobs:
 
             if (!hasApproval) {
               core.setFailed('❌ PR has not been approved')
+              return false
             }
+
+            console.log('✅ PR is approved')
+            return true
 
       - name: 'Checkout PR Branch'
         uses: actions/checkout@v4
         with:
-          ref: refs/pull/${{ steps.set_pr_number.outputs.pr_number }}/head
+          ref: ${{ steps.get_pr_info.outputs.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0  # Required for version history
 
@@ -109,13 +118,44 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
+          # Verify we're on the correct branch
+          CURRENT_BRANCH=$(git branch --show-current)
+          echo "Current branch: $CURRENT_BRANCH"
+
+          if [ -z "$CURRENT_BRANCH" ]; then
+            echo "❌ Error: Not on a branch (detached HEAD)"
+            exit 1
+          fi
+
           # Check for changes and commit if needed
           if [ -n "$(git status --porcelain)" ]; then
+            echo "📋 Changes detected:"
+            git status --short
+
             git add package.json CHANGELOG.md
             git commit -m "chore: auto-update version and changelog [skip ci]"
-            git push --force-with-lease  # Safely overwrite remote
-            echo "✅ Version updated successfully"
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
+
+            # Push with retry mechanism
+            MAX_RETRIES=3
+            RETRY_COUNT=0
+
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              if git push origin HEAD:${{ steps.get_pr_info.outputs.head_ref }}; then
+                echo "✅ Version updated successfully"
+                echo "changes_detected=true" >> $GITHUB_OUTPUT
+                break
+              else
+                RETRY_COUNT=$((RETRY_COUNT + 1))
+                if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                  echo "⚠️ Push failed, retrying in 5 seconds... (attempt $RETRY_COUNT/$MAX_RETRIES)"
+                  sleep 5
+                  git pull --rebase origin ${{ steps.get_pr_info.outputs.head_ref }}
+                else
+                  echo "❌ Push failed after $MAX_RETRIES attempts"
+                  exit 1
+                fi
+              fi
+            done
           else
             echo "ℹ️ No changes detected"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
@@ -126,25 +166,57 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            // Post version update notification
-            const pkg = require('./package.json');
-            github.rest.issues.createComment({
-              issue_number: ${{ steps.set_pr_number.outputs.pr_number }},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🚀 **Auto-versioning complete!**\n\n` +
-                    `📦 New version: \`${pkg.version}\`\n` +
-                    `📋 CHANGELOG.md and package.json updated\n\n` +
-                    `> This PR is ready for merging.`
-            });
+            try {
+              // Post version update notification
+              const pkg = require('./package.json');
+              await github.rest.issues.createComment({
+                issue_number: ${{ steps.set_pr_number.outputs.pr_number }},
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🚀 **Auto-versioning complete!**\n\n` +
+                      `📦 New version: \`${pkg.version}\`\n` +
+                      `📋 CHANGELOG.md and package.json updated\n\n` +
+                      `> This PR is ready for merging.`
+              });
+              console.log('✅ PR comment added successfully');
+            } catch (error) {
+              console.error('❌ Failed to add PR comment:', error.message);
+              // Don't fail the workflow for comment errors
+            }
 
       - name: 'Merge PR (Workflow Dispatch Only)'
         if: github.event_name == 'workflow_dispatch'
-        run: |
-          # Merge using GitHub CLI with safety checks
-          gh pr merge ${{ steps.set_pr_number.outputs.pr_number }} \
-            --squash \
-            --auto \
-            --subject "Release: $(date +'%Y-%m-%d')"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              // Check if PR is still mergeable
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: ${{ steps.set_pr_number.outputs.pr_number }}
+              });
+
+              if (pr.state !== 'open') {
+                throw new Error(`PR is ${pr.state}, cannot merge`);
+              }
+
+              if (pr.mergeable === false) {
+                throw new Error('PR has merge conflicts');
+              }
+
+              // Merge the PR
+              const { data: merge } = await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: ${{ steps.set_pr_number.outputs.pr_number }},
+                commit_title: `Release: ${new Date().toISOString().split('T')[0]}`,
+                commit_message: `Auto-merged after version update\n\nPR: #${{ steps.set_pr_number.outputs.pr_number }}`,
+                merge_method: 'squash'
+              });
+
+              console.log('✅ PR merged successfully:', merge.sha);
+            } catch (error) {
+              console.error('❌ Failed to merge PR:', error.message);
+              core.setFailed(`Failed to merge PR: ${error.message}`);
+            }
