@@ -52,6 +52,7 @@ jobs:
             console.log('PR Body:', pr.body ? 'Present' : 'Empty')
             console.log('PR Head Branch:', pr.head.ref)
             console.log('PR Base Branch:', pr.base.ref)
+            console.log('PR Author:', pr.user.login)
 
             // Get PR labels
             const labels = pr.labels || []
@@ -66,22 +67,57 @@ jobs:
 
             console.log('PR Commits:', commits.length)
 
+            // Get PR reviews to find approver
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: ${{ steps.set_pr_number.outputs.pr_number }}
+            })
+
+            const approvedReview = reviews.find(review => review.state === 'APPROVED')
+            const approver = approvedReview ? approvedReview.user.login : ''
+            console.log('PR Approver:', approver || 'None')
+
+            // Get associated projects (if any)
+            let projects = []
+            try {
+              const { data: prProjects } = await github.rest.projects.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              })
+              projects = prProjects.map(p => p.name)
+            } catch (error) {
+              console.log('Could not fetch projects:', error.message)
+            }
+
+            // Get milestone info
+            const milestone = pr.milestone ? pr.milestone.title : ''
+            console.log('PR Milestone:', milestone || 'None')
+
             core.setOutput('pr_title', pr.title)
             core.setOutput('pr_body', pr.body || '')
+            core.setOutput('pr_author', pr.user.login)
+            core.setOutput('pr_approver', approver)
             core.setOutput('head_ref', pr.head.ref)
             core.setOutput('head_sha', pr.head.sha)
             core.setOutput('base_ref', pr.base.ref)
             core.setOutput('pr_labels', JSON.stringify(labels))
             core.setOutput('pr_commits', JSON.stringify(commits))
+            core.setOutput('pr_projects', JSON.stringify(projects))
+            core.setOutput('pr_milestone', milestone)
 
             return {
               title: pr.title,
               body: pr.body || '',
+              author: pr.user.login,
+              approver: approver,
               head_ref: pr.head.ref,
               head_sha: pr.head.sha,
               base_ref: pr.base.ref,
               labels: labels,
-              commits: commits
+              commits: commits,
+              projects: projects,
+              milestone: milestone
             }
 
       - name: 'Verify PR Approval Status'
@@ -110,7 +146,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.get_pr_info.outputs.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_VERSION_TOKEN }}
           fetch-depth: 0  # Required for version history
 
       - name: 'Setup Node.js Environment'
@@ -124,13 +160,17 @@ jobs:
 
       - name: 'Execute Auto-Versioning Script'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.AUTO_VERSION_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ steps.set_pr_number.outputs.pr_number }}
           PR_TITLE: ${{ steps.get_pr_info.outputs.pr_title }}
           PR_BODY: ${{ steps.get_pr_info.outputs.pr_body }}
+          PR_AUTHOR: ${{ steps.get_pr_info.outputs.pr_author }}
+          PR_APPROVER: ${{ steps.get_pr_info.outputs.pr_approver }}
           PR_LABELS: ${{ steps.get_pr_info.outputs.pr_labels }}
           PR_COMMITS: ${{ steps.get_pr_info.outputs.pr_commits }}
+          PR_PROJECTS: ${{ steps.get_pr_info.outputs.pr_projects }}
+          PR_MILESTONE: ${{ steps.get_pr_info.outputs.pr_milestone }}
         run: node .github/scripts/auto-version.script.js
 
       - name: 'Commit and Push Changes'
@@ -204,7 +244,9 @@ jobs:
                 repo: context.repo.repo,
                 body: `🚀 **Auto-versioning complete!**\n\n` +
                       `📦 New version: \`${pkg.version}\`\n` +
-                      `📋 CHANGELOG.md and package.json updated\n\n` +
+                      `📋 CHANGELOG.md and package.json updated\n` +
+                      `👤 Author: ${{ steps.get_pr_info.outputs.pr_author }}\n` +
+                      `✅ Approved by: ${{ steps.get_pr_info.outputs.pr_approver }}\n\n` +
                       `> This PR is ready for merging.`
               });
               console.log('✅ PR comment added successfully');
