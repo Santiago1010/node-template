@@ -17,6 +17,7 @@ class AutoVersioning {
     this.prTitle = process.env.PR_TITLE;
     this.prBody = process.env.PR_BODY || '';
     this.prLabels = JSON.parse(process.env.PR_LABELS || '[]');
+    this.prCommits = JSON.parse(process.env.PR_COMMITS || '[]');
 
     this.packagePath = path.join(process.cwd(), 'package.json');
     this.changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
@@ -135,13 +136,42 @@ class AutoVersioning {
   }
 
   /**
+   * Formats commits list for changelog
+   */
+  formatCommitsForChangelog() {
+    if (!this.prCommits || this.prCommits.length === 0) {
+      return '';
+    }
+
+    const repoUrl = `https://github.com/${this.repo}`;
+    const commitEntries = this.prCommits
+      .filter((commit) => commit.commit && commit.sha)
+      .slice(-10) // Limit to last 10 commits to avoid overly long changelogs
+      .map((commit) => {
+        const shortSha = commit.sha.substring(0, 7);
+        const message = commit.commit.message.split('\n')[0]; // First line only
+        const commitUrl = `${repoUrl}/commit/${commit.sha}`;
+
+        return `  - [\`${shortSha}\`](${commitUrl}) ${message}`;
+      });
+
+    if (commitEntries.length === 0) {
+      return '';
+    }
+
+    return `\n**Commits:**\n${commitEntries.join('\n')}`;
+  }
+
+  /**
    * Updates CHANGELOG.md with new version entry
    */
   updateChangelog(version, bumpType) {
-    // Reemplazar la línea de fecha con moment.js
-    const date = moment().toDate(); // Fecha UTC en formato ISO
+    // Usar moment.js para formatear la fecha
+    const date = moment().format('YYYY-MM-DD');
+    const datetime = moment().format('YYYY-MM-DD HH:mm:ss UTC');
 
     const entries = this.formatChangelogEntries();
+    const commitsList = this.formatCommitsForChangelog();
 
     const changeTypeMap = {
       major: 'Breaking Changes',
@@ -150,21 +180,78 @@ class AutoVersioning {
     };
 
     const changeType = changeTypeMap[bumpType] || 'Changes';
-    const newSection = `### ${changeType}\n${entries.join('\n')}\n\n**Pull Request**: [#${this.prNumber}] ${this.prTitle}\n\n`;
 
-    let existingContent = fs.existsSync(this.changelogPath)
-      ? fs.readFileSync(this.changelogPath, 'utf8')
-      : `# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n`;
+    // Create the PR section
+    const prSection = `### ${changeType}
+${entries.join('\n')}
 
-    const dateHeaderRegex = new RegExp(`## \\[${version}\\] - ${date}`);
-    if (dateHeaderRegex.test(existingContent)) {
-      existingContent = existingContent.replace(new RegExp(`(## \\[${version}\\] - ${date}\\n)`), `$1${newSection}`);
+**Pull Request**: [#${this.prNumber}](https://github.com/${this.repo}/pull/${this.prNumber}) - ${this.prTitle}${commitsList}
+
+---
+`;
+
+    // Read or create CHANGELOG.md
+    let existingContent = '';
+    if (fs.existsSync(this.changelogPath)) {
+      existingContent = fs.readFileSync(this.changelogPath, 'utf8');
     } else {
-      const newEntry = `## [${version}] - ${date}\n\n${newSection}`;
-      existingContent = existingContent.replace(/(# Changelog\s*\n)/, `$1${newEntry}`);
+      existingContent = `# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+`;
     }
 
+    // Check if version already exists
+    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
+
+    if (versionHeaderRegex.test(existingContent)) {
+      // Version exists, add to existing section
+      const versionSectionStart = existingContent.search(versionHeaderRegex);
+      const nextVersionMatch = existingContent.substring(versionSectionStart + 1).match(/^## \[/m);
+      const versionSectionEnd = nextVersionMatch
+        ? versionSectionStart + 1 + nextVersionMatch.index
+        : existingContent.length;
+
+      const beforeVersion = existingContent.substring(0, versionSectionStart);
+      const versionHeader = existingContent.substring(
+        versionSectionStart,
+        existingContent.indexOf('\n', versionSectionStart) + 1
+      );
+      const afterVersionHeader = existingContent.substring(versionSectionEnd);
+
+      existingContent = beforeVersion + versionHeader + '\n' + prSection + afterVersionHeader;
+    } else {
+      // Version doesn't exist, create new section
+      const newVersionSection = `## [${version}] - ${date}\n*Released: ${datetime}*\n\n${prSection}`;
+
+      // Find the right place to insert (after the header but before other versions)
+      const headerEndMatch = existingContent.match(/^(# Changelog.*?)\n\n/s);
+      if (headerEndMatch) {
+        const headerEnd = headerEndMatch.index + headerEndMatch[0].length;
+        const beforeHeader = existingContent.substring(0, headerEnd);
+        const afterHeader = existingContent.substring(headerEnd);
+        existingContent = beforeHeader + newVersionSection + afterHeader;
+      } else {
+        // Fallback: add after first line
+        const firstLineEnd = existingContent.indexOf('\n') + 1;
+        const beforeFirstLine = existingContent.substring(0, firstLineEnd);
+        const afterFirstLine = existingContent.substring(firstLineEnd);
+        existingContent = beforeFirstLine + '\n' + newVersionSection + afterFirstLine;
+      }
+    }
+
+    // Write the updated changelog
     fs.writeFileSync(this.changelogPath, existingContent);
+
+    console.log(`📝 Changelog entry created for version ${version}`);
+    console.log(`📅 Date: ${date} (${datetime})`);
+    console.log(`🏷️  Change type: ${changeType}`);
+    console.log(`📋 Entries: ${entries.length}`);
+    console.log(`📎 Commits: ${this.prCommits.length}`);
   }
 
   /**
@@ -175,6 +262,7 @@ class AutoVersioning {
       console.log(`🚀 Starting auto-versioning for PR #${this.prNumber}`);
       console.log(`📝 PR Title: ${this.prTitle}`);
       console.log(`🏷️  PR Labels: ${this.prLabels.map((l) => l.name).join(', ') || 'none'}`);
+      console.log(`📎 PR Commits: ${this.prCommits.length}`);
 
       const bumpType = this.determineVersionBump();
       console.log(`📈 Version bump type: ${bumpType}`);
@@ -185,7 +273,7 @@ class AutoVersioning {
       this.updateChangelog(newVersion, bumpType);
       console.log(`📋 Changelog updated with version ${newVersion}`);
 
-      // Output for GitHub Actions
+      // Output for GitHub Actions (legacy format for backward compatibility)
       console.log(`::set-output name=version::${newVersion}`);
       console.log(`::set-output name=bump_type::${bumpType}`);
 
