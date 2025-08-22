@@ -33,6 +33,13 @@
 │   └── workflows
 │       └── release.yml
 ├── .gitignore
+├── helpers
+│   ├── constants.helper.js
+│   ├── context.helper.js
+│   ├── debug.helper.js
+│   ├── numbers.helper.js
+│   ├── strings.helper.js
+│   └── utilities.helper.js
 ├── index.js
 ├── kubernetes
 │   ├── deployment.yaml
@@ -45,12 +52,11 @@
 ├── package-lock.json
 ├── README.md
 ├── scripts
-│   ├── generate-rsa-keys.sh
-│   └── release.script.js
+│   └── generate-rsa-keys.sh
 ├── seeders
 ├── .sequelizerc
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-18 directories, 36 files
+19 directories, 41 files

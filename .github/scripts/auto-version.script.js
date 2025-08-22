@@ -49,24 +49,20 @@ class AutoVersioning {
   determineVersionBump() {
     const labelNames = this.prLabels.map((label) => label.name.toLowerCase());
 
-    // Define version bump patterns
     const versionPatterns = {
       major: ['major', 'version:major', 'breaking', 'breaking-change'],
       minor: ['minor', 'version:minor', 'feature', 'feat'],
       patch: ['patch', 'version:patch', 'fix', 'bugfix', 'hotfix'],
     };
 
-    // Check for major version first (highest priority)
     if (versionPatterns.major.some((pattern) => labelNames.includes(pattern))) {
       return 'major';
     }
 
-    // Then check for minor version
     if (versionPatterns.minor.some((pattern) => labelNames.includes(pattern))) {
       return 'minor';
     }
 
-    // Default to patch if no specific version labels found
     return 'patch';
   }
 
@@ -112,7 +108,7 @@ class AutoVersioning {
   mapLabelsToTypeOfChange() {
     const labelNames = this.prLabels.map((label) => label.name.toLowerCase());
 
-    const typeMapping = {
+    return {
       new_feature: labelNames.some((l) => ['feat', 'feature', 'type:feature', 'enhancement'].includes(l)),
       bug_fix: labelNames.some((l) => ['fix', 'bug', 'patch', 'bugfix'].includes(l)),
       breaking_change: labelNames.some((l) => ['breaking', 'major', 'breaking-change'].includes(l)),
@@ -123,57 +119,75 @@ class AutoVersioning {
       build_system: labelNames.some((l) => ['build', 'deps', 'dependencies'].includes(l)),
       ci_cd: labelNames.some((l) => ['ci', 'cd', 'workflow', 'actions', 'chore'].includes(l)),
     };
-
-    return typeMapping;
   }
 
   /**
-   * Extracts sections from PR body for "What Changed"
+   * Extracts and categorizes changes from PR body with better parsing
    */
   extractWhatChanged() {
     if (!this.prBody.trim()) {
-      return { added: ['N/A'], changed: ['N/A'], fixed: ['N/A'], removed: ['N/A'] };
+      return { added: [], changed: [], fixed: [], removed: [] };
     }
 
-    const sections = {
-      added: [],
-      changed: [],
-      fixed: [],
-      removed: [],
-    };
-
+    const sections = { added: [], changed: [], fixed: [], removed: [] };
     const bodyLower = this.prBody.toLowerCase();
 
-    // Simple heuristics to categorize changes
-    if (bodyLower.includes('add') || bodyLower.includes('new') || bodyLower.includes('implement')) {
-      sections.added.push('Enhanced functionality based on PR description');
+    // Buscar secciones específicas en el body del PR
+    const addedMatch = this.prBody.match(/(?:### Added|## Added|Added:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
+    const changedMatch = this.prBody.match(/(?:### Changed|## Changed|Changed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
+    const fixedMatch = this.prBody.match(/(?:### Fixed|## Fixed|Fixed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
+    const removedMatch = this.prBody.match(/(?:### Removed|## Removed|Removed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
+
+    // Procesar secciones encontradas
+    if (addedMatch) {
+      sections.added = this.extractBulletPoints(addedMatch[1]);
+    }
+    if (changedMatch) {
+      sections.changed = this.extractBulletPoints(changedMatch[1]);
+    }
+    if (fixedMatch) {
+      sections.fixed = this.extractBulletPoints(fixedMatch[1]);
+    }
+    if (removedMatch) {
+      sections.removed = this.extractBulletPoints(removedMatch[1]);
     }
 
-    if (
-      bodyLower.includes('updat') ||
-      bodyLower.includes('modif') ||
-      bodyLower.includes('chang') ||
-      bodyLower.includes('improv')
-    ) {
-      sections.changed.push('Updated components based on PR description');
-    }
-
-    if (bodyLower.includes('fix') || bodyLower.includes('resolv') || bodyLower.includes('correct')) {
-      sections.fixed.push('Fixed issues based on PR description');
-    }
-
-    if (bodyLower.includes('remov') || bodyLower.includes('delet')) {
-      sections.removed.push('Removed components based on PR description');
-    }
-
-    // Fill empty sections with N/A
-    Object.keys(sections).forEach((key) => {
-      if (sections[key].length === 0) {
-        sections[key] = ['N/A'];
+    // Si no hay secciones específicas, usar heurísticas basadas en el título y contenido
+    if (Object.values(sections).every((arr) => arr.length === 0)) {
+      if (bodyLower.includes('add') || bodyLower.includes('new') || bodyLower.includes('implement')) {
+        sections.added.push(this.prTitle);
       }
-    });
+      if (
+        bodyLower.includes('updat') ||
+        bodyLower.includes('modif') ||
+        bodyLower.includes('chang') ||
+        bodyLower.includes('improv')
+      ) {
+        sections.changed.push(this.prTitle);
+      }
+      if (bodyLower.includes('fix') || bodyLower.includes('resolv') || bodyLower.includes('correct')) {
+        sections.fixed.push(this.prTitle);
+      }
+      if (bodyLower.includes('remov') || bodyLower.includes('delet')) {
+        sections.removed.push(this.prTitle);
+      }
+    }
 
     return sections;
+  }
+
+  /**
+   * Extrae puntos de una sección de texto
+   */
+  extractBulletPoints(text) {
+    if (!text) return [];
+
+    return text
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith('- ') || line.startsWith('* ') || line.match(/^\d+\./))
+      .map((line) => line.replace(/^[-*]\s*/, '').replace(/^\d+\.\s*/, ''))
+      .filter((line) => line.length > 0);
   }
 
   /**
@@ -181,7 +195,7 @@ class AutoVersioning {
    */
   extractRelatedIssues() {
     if (!this.prBody.trim()) {
-      return 'N/A';
+      return [];
     }
 
     const issuePatterns = [/(?:closes?|fixes?|resolves?)\s+#(\d+)/gi, /(?:related\s+to|see)\s+#(\d+)/gi, /#(\d+)/g];
@@ -192,17 +206,10 @@ class AutoVersioning {
       let match = pattern.exec(this.prBody);
       while (match !== null) {
         issues.add(match[1]);
-        match = pattern.exec(this.prBody);
       }
     });
 
-    if (issues.size === 0) {
-      return 'N/A';
-    }
-
-    return Array.from(issues)
-      .map((issue) => `#${issue}`)
-      .join(', ');
+    return Array.from(issues);
   }
 
   /**
@@ -210,162 +217,130 @@ class AutoVersioning {
    */
   formatCommitsForChangelog() {
     if (!this.prCommits || this.prCommits.length === 0) {
-      return '';
+      return [];
     }
 
     const repoUrl = `https://github.com/${this.repo}`;
-    const commitEntries = this.prCommits
+
+    return this.prCommits
       .filter((commit) => commit.commit && commit.sha)
-      .slice(-10) // Limit to last 10 commits to avoid overly long changelogs
+      .slice(-10)
       .map((commit) => {
         const shortSha = commit.sha.substring(0, 7);
-        const message = commit.commit.message.split('\n')[0]; // First line only
+        const message = commit.commit.message.split('\n')[0];
         const commitUrl = `${repoUrl}/commit/${commit.sha}`;
-
-        return `  - [\`${shortSha}\`](${commitUrl}) ${message}`;
+        return { shortSha, message, url: commitUrl };
       });
-
-    if (commitEntries.length === 0) {
-      return '';
-    }
-
-    return `**Commits:**\n${commitEntries.join('\n')}`;
   }
 
   /**
-   * Generates the complete changelog entry with the exact required format
+   * Generates a clean and well-formatted changelog entry
    */
   generateChangelogEntry(version) {
     const date = moment().format('YYYY-MM-DD');
     const datetime = moment().utc().format('YYYY-MM-DD HH:mm:ss UTC');
-
     const repoUrl = `https://github.com/${this.repo}`;
     const prUrl = `${repoUrl}/pull/${this.prNumber}`;
 
-    // Clean PR body for summary (first few sentences, remove markdown)
+    // Limpiar el resumen del PR
     let summary = this.prBody.trim();
     if (summary) {
-      // Remove markdown headers and take first paragraph
       summary = summary
         .split('\n\n')[0]
         .replace(/^#+\s*/gm, '')
         .replace(/\*\*(.*?)\*\*/g, '$1')
         .trim();
 
-      if (summary.length > 500) {
-        summary = summary.substring(0, 500) + '...';
+      if (summary.length > 300) {
+        summary = summary.substring(0, 300) + '...';
       }
     } else {
       summary = this.prTitle;
     }
 
-    // Type of Change checkboxes
+    // Type of Change
     const typeMapping = this.mapLabelsToTypeOfChange();
-    const typeOfChange = [
-      `- [${typeMapping.new_feature ? 'x' : ' '}] New feature (adds functionality)`,
-      `- [${typeMapping.bug_fix ? 'x' : ' '}] Bug fix (non-breaking change)`,
-      `- [${typeMapping.breaking_change ? 'x' : ' '}] Breaking change (breaks existing functionality)`,
-      `- [${typeMapping.documentation ? 'x' : ' '}] Documentation update`,
-      `- [${typeMapping.refactoring ? 'x' : ' '}] Code refactoring (no functional changes)`,
-      `- [${typeMapping.performance ? 'x' : ' '}] Performance improvement`,
-      `- [${typeMapping.testing ? 'x' : ' '}] Test coverage improvement`,
-      `- [${typeMapping.build_system ? 'x' : ' '}] Build system changes`,
-      `- [${typeMapping.ci_cd ? 'x' : ' '}] CI/CD changes`,
-    ].join('\n');
+    const checkedTypes = Object.entries(typeMapping)
+      .filter(([_, checked]) => checked)
+      .map(([type, _]) => type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
 
-    // What Changed sections
+    // What Changed
     const whatChanged = this.extractWhatChanged();
-    const whatChangedSection = [
-      '### Added',
-      ...whatChanged.added.map((item) => `- ${item}`),
-      '',
-      '### Changed',
-      ...whatChanged.changed.map((item) => `- ${item}`),
-      '',
-      '### Fixed',
-      ...whatChanged.fixed.map((item) => `- ${item}`),
-      '',
-      '### Removed',
-      ...whatChanged.removed.map((item) => `- ${item}`),
-    ].join('\n');
 
-    // Testing section (simple heuristic)
-    const bodyLower = this.prBody.toLowerCase();
-    const testingChecklist = [
-      `- [${bodyLower.includes('unit test') ? 'x' : ' '}] Unit tests added/updated`,
-      `- [${bodyLower.includes('integration test') ? 'x' : ' '}] Integration tests added/updated`,
-      `- [x] Manual testing completed`,
-      `- [${bodyLower.includes('test') && !bodyLower.includes('no test') ? 'x' : ' '}] All tests passing`,
-    ].join('\n');
+    // Related Issues
+    const relatedIssues = this.extractRelatedIssues();
 
-    // Additional Notes with metadata
-    const labelsList = this.prLabels.length > 0 ? this.prLabels.map((l) => l.name).join(', ') : 'none';
-    const additionalNotes = [
-      `- Labels: ${labelsList}`,
-      `- Author: ${this.prAuthor || 'Unknown'}`,
-      this.prApprover ? `- Approved by: ${this.prApprover}` : '',
-      this.prProjects.length > 0 ? `- Projects: ${this.prProjects.join(', ')}` : '',
-      this.prMilestone ? `- Milestone: ${this.prMilestone}` : '',
-      `- The changelog includes the last ${Math.min(this.prCommits.length, 10)} commits with SHA and message`,
-      `- Date formatting follows YYYY-MM-DD pattern with UTC timestamps`,
-      `- Auto-generated changelog entry based on PR content and metadata`,
-    ]
-      .filter((note) => note)
-      .join('\n');
+    // Commits
+    const commits = this.formatCommitsForChangelog();
 
-    // Checklist (simple heuristic)
-    const checklist = [
-      '- [x] Follows project style guidelines',
-      '- [x] Self-reviewed my code',
-      `- [${bodyLower.includes('comment') ? 'x' : ' '}] Commented complex logic`,
-      `- [${bodyLower.includes('doc') ? 'x' : ' '}] Updated documentation`,
-      '- [x] No new warnings',
-      `- [${bodyLower.includes('test') && !bodyLower.includes('no test') ? 'x' : ' '}] Existing and new tests pass locally`,
-    ].join('\n');
+    // Metadata
+    const labelsList = this.prLabels.map((l) => l.name).join(', ') || 'none';
 
-    const commitsSection = this.formatCommitsForChangelog();
+    // Construir la entrada del changelog
+    let changelogEntry = `## [${version}] - ${date}\n\n`;
+    changelogEntry += `**Released:** ${datetime}\n\n`;
+    changelogEntry += `### [${this.prTitle}](${prUrl})\n\n`;
 
-    // Generate the complete changelog entry
-    const changelogEntry = `# [${version}] - ${date}
-> *Released: ${datetime}*
+    if (summary !== this.prTitle) {
+      changelogEntry += `**Summary:** ${summary}\n\n`;
+    }
 
----
+    if (checkedTypes.length > 0) {
+      changelogEntry += `**Type of Change:** ${checkedTypes.join(', ')}\n\n`;
+    }
 
-## [${this.prTitle}](${prUrl} "${this.prTitle}")
+    // What Changed sections (solo mostrar secciones no vacías)
+    let hasChanges = false;
+    if (whatChanged.added.length > 0) {
+      changelogEntry += `**Added:**\n${whatChanged.added.map((item) => `- ${item}`).join('\n')}\n\n`;
+      hasChanges = true;
+    }
+    if (whatChanged.changed.length > 0) {
+      changelogEntry += `**Changed:**\n${whatChanged.changed.map((item) => `- ${item}`).join('\n')}\n\n`;
+      hasChanges = true;
+    }
+    if (whatChanged.fixed.length > 0) {
+      changelogEntry += `**Fixed:**\n${whatChanged.fixed.map((item) => `- ${item}`).join('\n')}\n\n`;
+      hasChanges = true;
+    }
+    if (whatChanged.removed.length > 0) {
+      changelogEntry += `**Removed:**\n${whatChanged.removed.map((item) => `- ${item}`).join('\n')}\n\n`;
+      hasChanges = true;
+    }
 
-## 📋 Summary
-${summary}
+    // Si no hay cambios específicos, usar el título del PR
+    if (!hasChanges) {
+      changelogEntry += `**Changes:**\n- ${this.prTitle}\n\n`;
+    }
 
-## 🎯 Type of Change
-${typeOfChange}
+    // Related Issues
+    if (relatedIssues.length > 0) {
+      const issueLinks = relatedIssues.map((issue) => `[#${issue}](${repoUrl}/issues/${issue})`).join(', ');
+      changelogEntry += `**Related Issues:** ${issueLinks}\n\n`;
+    }
 
-## 🔍 What Changed
-${whatChangedSection}
+    // Metadata
+    changelogEntry += `**Details:**\n`;
+    changelogEntry += `- Author: [@${this.prAuthor}](https://github.com/${this.prAuthor})\n`;
+    if (this.prApprover) {
+      changelogEntry += `- Approved by: [@${this.prApprover}](https://github.com/${this.prApprover})\n`;
+    }
+    changelogEntry += `- Labels: ${labelsList}\n`;
+    if (this.prMilestone) {
+      changelogEntry += `- Milestone: ${this.prMilestone}\n`;
+    }
+    changelogEntry += `- Commits: ${commits.length}\n\n`;
 
-## 🧪 Testing
-${testingChecklist}
+    // Commits (mostrar solo los más relevantes)
+    if (commits.length > 0) {
+      changelogEntry += `**Commits:**\n`;
+      commits.forEach((commit) => {
+        changelogEntry += `- [\`${commit.shortSha}\`](${commit.url}) ${commit.message}\n`;
+      });
+      changelogEntry += `\n`;
+    }
 
-**Test Instructions:**
-1. Review the changes implemented in this PR
-2. Verify functionality works as expected
-3. Run existing test suite to ensure no regressions
-4. Test edge cases if applicable
-5. Confirm documentation is updated if needed
-
-## 🔗 Related Issues
-${this.extractRelatedIssues()}
-
-## 📝 Additional Notes
-${additionalNotes}
-
-## ✅ Checklist
-${checklist}
-
-${commitsSection}
-
----
-
-`;
+    changelogEntry += `---\n\n`;
 
     return changelogEntry;
   }
@@ -376,60 +351,58 @@ ${commitsSection}
   updateChangelog(version) {
     const changelogEntry = this.generateChangelogEntry(version);
 
-    // Read or create CHANGELOG.md
+    // Leer o crear CHANGELOG.md
     let existingContent = '';
     if (fs.existsSync(this.changelogPath)) {
       existingContent = fs.readFileSync(this.changelogPath, 'utf8');
     } else {
-      existingContent = `# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-`;
+      existingContent = `# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n`;
     }
 
-    // Check if version already exists
-    const versionHeaderRegex = new RegExp(`^# \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
+    // Buscar si ya existe esta versión
+    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
 
     if (versionHeaderRegex.test(existingContent)) {
-      // Version exists, replace the existing section
-      const versionStart = existingContent.search(versionHeaderRegex);
-      const nextVersionMatch = existingContent.substring(versionStart + 1).match(/^# \[/m);
-      const versionEnd = nextVersionMatch ? versionStart + 1 + nextVersionMatch.index : existingContent.length;
+      // La versión ya existe, reemplazar la sección completa
+      const lines = existingContent.split('\n');
+      const versionLineIndex = lines.findIndex((line) => versionHeaderRegex.test(line));
 
-      const beforeVersion = existingContent.substring(0, versionStart);
-      const afterVersion = existingContent.substring(versionEnd);
+      // Encontrar el final de esta sección (próxima versión o final del archivo)
+      let endIndex = lines.length;
+      for (let i = versionLineIndex + 1; i < lines.length; i++) {
+        if (lines[i].match(/^## \[/)) {
+          endIndex = i;
+          break;
+        }
+      }
 
-      existingContent = beforeVersion + changelogEntry + afterVersion;
+      // Reemplazar la sección
+      const beforeVersion = lines.slice(0, versionLineIndex).join('\n');
+      const afterVersion = lines.slice(endIndex).join('\n');
+
+      let separator = beforeVersion.length > 0 ? '\n' : '';
+      existingContent = beforeVersion + separator + changelogEntry + afterVersion;
     } else {
-      // Version doesn't exist, create new section
-      // Find the right place to insert (after the header but before other versions)
-      const headerEndMatch = existingContent.match(/^(# Changelog.*?)\n\n/s);
-      if (headerEndMatch) {
-        const headerEnd = headerEndMatch.index + headerEndMatch[0].length;
-        const beforeHeader = existingContent.substring(0, headerEnd);
-        const afterHeader = existingContent.substring(headerEnd);
-        existingContent = beforeHeader + changelogEntry + afterHeader;
+      // Nueva versión, insertar al principio del contenido (después del header)
+      const headerMatch = existingContent.match(/(^# Changelog[\s\S]*?---\n\n)/);
+      if (headerMatch) {
+        const header = headerMatch[1];
+        const content = existingContent.substring(header.length);
+        existingContent = header + changelogEntry + content;
       } else {
-        // Fallback: add after first line
-        const firstLineEnd = existingContent.indexOf('\n') + 1;
-        const beforeFirstLine = existingContent.substring(0, firstLineEnd);
-        const afterFirstLine = existingContent.substring(firstLineEnd);
-        existingContent = beforeFirstLine + '\n' + changelogEntry + afterFirstLine;
+        // Fallback: agregar después de la primera línea
+        const lines = existingContent.split('\n');
+        lines.splice(1, 0, '', changelogEntry);
+        existingContent = lines.join('\n');
       }
     }
 
-    // Write the updated changelog
+    // Escribir el changelog actualizado
     fs.writeFileSync(this.changelogPath, existingContent);
 
     console.log(`📝 Changelog entry created for version ${version}`);
-    console.log(`📅 Date: ${moment().format('YYYY-MM-DD')} (${moment().utc().format('YYYY-MM-DD HH:mm:ss UTC')})`);
-    console.log(`🏷️  Labels: ${this.prLabels.map((l) => l.name).join(', ') || 'none'}`);
+    console.log(`📅 Date: ${moment().format('YYYY-MM-DD')}`);
     console.log(`👤 Author: ${this.prAuthor || 'Unknown'}`);
-    console.log(`✅ Approver: ${this.prApprover || 'Not specified'}`);
     console.log(`📎 Commits: ${this.prCommits.length}`);
   }
 
@@ -441,7 +414,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       console.log(`🚀 Starting auto-versioning for PR #${this.prNumber}`);
       console.log(`📝 PR Title: ${this.prTitle}`);
       console.log(`🏷️  PR Labels: ${this.prLabels.map((l) => l.name).join(', ') || 'none'}`);
-      console.log(`📎 PR Commits: ${this.prCommits.length}`);
 
       const bumpType = this.determineVersionBump();
       console.log(`📈 Version bump type: ${bumpType}`);
@@ -452,7 +424,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       this.updateChangelog(newVersion);
       console.log(`📋 Changelog updated with version ${newVersion}`);
 
-      // Output for GitHub Actions
+      // Output para GitHub Actions
       console.log(`::set-output name=version::${newVersion}`);
       console.log(`::set-output name=bump_type::${bumpType}`);
 
