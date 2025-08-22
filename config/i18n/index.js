@@ -2,7 +2,7 @@
 const { I18n } = require('i18n');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const config = require('../../configurations');
+const config = require('../../config/env');
 const { paths } = require('../../helpers/constants.helper');
 
 const i18n = new I18n({

@@ -22,7 +22,7 @@ const paths = {
   controllers: root + '/controllers', // Path for controller files
   diagrams: root + '/context', // Path for context diagrams
   services: root + '/services', // Path for service files
-  locales: root + '/configurations/i18n/locales', // Path for localization files
+  locales: root + '/config/env/i18n/locales', // Path for localization files
   routes: root + '/routes', // Path for route definitions
   models: root + '/models', // Path for data models
   sync_models: root + '/sync_models', // Path for synchronized models

@@ -6,7 +6,7 @@ const debug = require('debug');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 const app = require('./app');
-const config = require('./configurations');
+const config = require('./config/env');
 
 // --------------------------- DEBUG SETUP ---------------------------- //
 const debugServer = debug('app:server');

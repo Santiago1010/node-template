@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 // Project-specific modules and configurations
-const { modes } = require('../helpers/constants.helper');
+const { modes } = require('../../helpers/constants.helper');
 
 // ----------------- DECLARATION OF VARIABLES AND CONSTANTS ----------------- //
 // Set default timezone and locale for moment.js based on configuration

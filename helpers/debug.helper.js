@@ -104,7 +104,7 @@ const ensureLogsDirectory = () => {
  * @param {boolean} [allowDevMode=false] - If true, enables debug mode for development environments
  * @returns {boolean} True if debug mode is enabled and valid, false otherwise
  */
-const checkDebugMode = (allowDevMode = false) => {
+const isDebugMode = (allowDevMode = false) => {
   // Always enable debug mode in local environment
   if (isLocal) return true;
 
@@ -141,7 +141,7 @@ const checkDebugMode = (allowDevMode = false) => {
  * @param {boolean} [allowDevMode=false] - If true, allows development environments to be considered local
  * @returns {boolean} True if the current environment is local or development, false otherwise
  */
-const checkDevelopmentMode = (allowDevMode = false) => {
+const isDevelopmentMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
   return allowDevMode && modes[mode] === DEVELOPMENT_MODE_VALUE;
@@ -212,7 +212,7 @@ const createSeparator = (lineLength = DEFAULT_LINE_LENGTH) => {
  * @returns {Function|false} A logging function or false if debug mode is disabled
  */
 const wrapLogging = (header, additionalData) => {
-  if (!checkDebugMode()) return false;
+  if (!isDebugMode()) return false;
 
   const lineLength = DEFAULT_LINE_LENGTH;
 
@@ -240,7 +240,7 @@ const wrapLogging = (header, additionalData) => {
  * @param {...any} args - Arguments to log
  */
 const clog = (title, ...args) => {
-  if (!checkDebugMode()) return;
+  if (!isDebugMode()) return;
 
   const lineLength = DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
@@ -263,7 +263,7 @@ const clog = (title, ...args) => {
  * @param {...any} args - Arguments to log as errors
  */
 const cerror = (title, ...args) => {
-  if (!checkDebugMode()) return;
+  if (!isDebugMode()) return;
 
   const lineLength = DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
@@ -286,7 +286,7 @@ const cerror = (title, ...args) => {
  * @param {...any} args - Arguments to inspect with full depth
  */
 const cdir = (title, ...args) => {
-  if (!checkDebugMode()) return;
+  if (!isDebugMode()) return;
 
   const lineLength = DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
@@ -309,7 +309,7 @@ const cdir = (title, ...args) => {
  * @param {...any} args - Arguments to log
  */
 const clear = (title, ...args) => {
-  if (!checkDebugMode()) return;
+  if (!isDebugMode()) return;
 
   const lineLength = DEFAULT_LINE_LENGTH;
   console.clear();
@@ -333,7 +333,7 @@ const clear = (title, ...args) => {
  * @param {...any} args - Arguments to inspect with full depth
  */
 const clir = (title, ...args) => {
-  if (!checkDebugMode()) return;
+  if (!isDebugMode()) return;
 
   const lineLength = DEFAULT_LINE_LENGTH;
   console.clear();
@@ -420,15 +420,77 @@ const registerError = (location, error, statusCode, additionalData = null) => {
   return new Boom.Boom(error.message || error, { statusCode });
 };
 
-// ----------------- MODULE EXPORTS ----------------- //
+/**
+ * Custom logging function that ALWAYS outputs messages with a formatted title.
+ * Works independently of debug mode status.
+ *
+ * @param {string} title - Title for the log section
+ * @param {...any} args - Arguments to log
+ */
+const plog = (title, ...args) => {
+  const lineLength = DEFAULT_LINE_LENGTH;
+  console.log(createHeader(title, lineLength));
 
+  // Log each argument individually
+  if (args.length === 1) {
+    console.log(args[0]);
+  } else if (args.length > 1) {
+    args.forEach((arg) => console.log(arg));
+  }
+
+  console.log(createSeparator(lineLength));
+};
+
+/**
+ * Custom directory inspection logging function that ALWAYS outputs detailed object information.
+ * Works independently of debug mode status.
+ *
+ * @param {string} title - Title for the log section
+ * @param {...any} args - Arguments to inspect with full depth
+ */
+const pdir = (title, ...args) => {
+  const lineLength = DEFAULT_LINE_LENGTH;
+  console.log(createHeader(title, lineLength));
+
+  // Inspect each argument individually with full depth
+  if (args.length === 1) {
+    console.dir(args[0], { depth: null });
+  } else if (args.length > 1) {
+    args.forEach((arg) => console.dir(arg, { depth: null }));
+  }
+
+  console.log(createSeparator(lineLength));
+};
+
+/**
+ * Custom error logging function that ALWAYS outputs error messages with a formatted title.
+ * Works independently of debug mode status.
+ *
+ * @param {string} title - Title for the log section
+ * @param {...any} args - Arguments to log as errors
+ */
+const perror = (title, ...args) => {
+  const lineLength = DEFAULT_LINE_LENGTH;
+  console.log(createHeader(title, lineLength));
+
+  // Log each error argument individually
+  if (args.length === 1) {
+    console.error(args[0]);
+  } else if (args.length > 1) {
+    args.forEach((arg) => console.error(arg));
+  }
+
+  console.log(createSeparator(lineLength));
+};
+
+// ----------------- MODULE EXPORTS ----------------- //
 module.exports = {
   // Core debug functions
-  checkDebugMode,
-  checkDevelopmentMode,
+  isDebugMode,
+  isDevelopmentMode,
   setDebugMode,
 
-  // Logging functions
+  // Debug logging functions (conditional)
   wrapLogging,
   clog,
   cdir,
@@ -436,10 +498,15 @@ module.exports = {
   clear,
   clir,
 
+  // Permanent logging functions (always active)
+  plog,
+  pdir,
+  perror,
+
   // Error handling
   registerError,
 
-  // Utility functions (exposed for testing or advanced usage)
+  // Utility functions
   createHeader,
   createSeparator,
 };
