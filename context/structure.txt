@@ -38,7 +38,8 @@
 │   ├── context.helper.js
 │   ├── debug.helper.js
 │   ├── numbers.helper.js
-│   └── strings.helper.js
+│   ├── strings.helper.js
+│   └── utilities.helper.js
 ├── index.js
 ├── kubernetes
 │   ├── deployment.yaml
@@ -58,4 +59,4 @@
     ├── extensions.json
     └── settings.json
 
-19 directories, 40 files
+19 directories, 41 files

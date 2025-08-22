@@ -4,9 +4,6 @@
 // Module providing comprehensive utilities for string operations, validation,
 // formatting, transformation, and text processing functions.
 //
-// @version 2.0.0
-// @author Your Name
-// @created 2025-08-22
 // =============================================================================
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
@@ -153,23 +150,6 @@ const isURL = (url) => {
  */
 const isPhoneNumber = (phone) => {
   return isValidString(phone) && STRING_CONSTANTS.PHONE_PATTERN.test(phone);
-};
-
-/**
- * Checks if a given string is empty or not
- *
- * @param {string} str - The string to check
- * @returns {boolean} True if string is empty, false otherwise
- *
- * @example
- * isEmpty('') // true
- * isEmpty('   ') // true
- * isEmpty(null) // true
- * isEmpty(undefined) // true
- * isEmpty('Hello World') // false
- */
-const isEmpty = (str) => {
-  return typeof str !== 'string' || str.trim().length === 0;
 };
 
 /**
@@ -602,93 +582,6 @@ const toScreamingSnakeCase = (str) => {
 };
 
 // =============================================================================
-// ARRAY CONVERSION FUNCTIONS
-// =============================================================================
-
-/**
- * Converts a given string or array to an array.
- *
- * @param {string|array} input - The string or array to convert
- * @param {string} [separator=' '] - The separator to use when splitting a string
- * @param {object} [options] - An object with options for the conversion
- * @param {boolean} [options.numberElements=false] - If true, convert string elements to numbers if possible
- * @param {boolean} [options.uniqueElements=false] - If true, remove duplicate elements from the array
- * @param {boolean} [options.trimElements=true] - If true, trim string elements
- * @returns {array|null} The array, or null if the input is invalid
- *
- * @example
- * stringToArray('hello world') // ['hello', 'world']
- * stringToArray('hello world', { numberElements: true }) // ['hello', 'world']
- * stringToArray('hello world', { uniqueElements: true }) // ['hello', 'world']
- * stringToArray('hello world', { trimElements: false }) // ['hello', 'world']
- * stringToArray(['hello', 'world']) // ['hello', 'world']
- * stringToArray(['hello', 'world'], { numberElements: true }) // ['hello', 'world']
- * stringToArray(['hello', 'world'], { uniqueElements: true }) // ['hello', 'world']
- * stringToArray(['hello', 'world'], { trimElements: false }) // ['hello', 'world']
- */
-const stringToArray = (
-  input,
-  separator = ' ',
-  { numberElements = false, uniqueElements = false, trimElements = true } = {}
-) => {
-  let array = null;
-
-  if (Array.isArray(input)) {
-    array = input;
-  } else if (typeof input === 'string') {
-    array = input.split(separator);
-  } else {
-    cerror('String To Array', 'Invalid input: must be string or array');
-    return null;
-  }
-
-  if (trimElements && !Array.isArray(input)) {
-    array = array.map((element) => (typeof element === 'string' ? element.trim() : element));
-  }
-
-  if (numberElements) {
-    array = array.map((element) => {
-      if (typeof element === 'string') {
-        const parsed = Number(element);
-        return isNaN(parsed) ? element : parsed;
-      }
-
-      return element;
-    });
-  }
-
-  if (uniqueElements) array = [...new Set(array)];
-
-  return array;
-};
-
-/**
- * Converts a given array to a string.
- *
- * @param {array} array - The array to convert
- * @param {string} [conjunction='and'] - The conjunction to use when joining the array
- * @returns {string|null} The string representation of the array, or null if the input is invalid
- *
- * @example
- * arrayToString(['hello', 'world']) // 'hello and world'
- * arrayToString(['hello', 'world', 'foo'], 'or') // 'hello, world or foo'
- */
-const arrayToString = (array, conjunction = 'and') => {
-  if (!Array.isArray(array)) {
-    cerror('Array To String', 'Invalid input: must be an array');
-    return null;
-  }
-
-  if (array.length === 0) return '';
-
-  if (array.length === 1) return String(array[0]);
-
-  if (array.length === 2) return `${array[0]} ${conjunction} ${array[1]}`;
-
-  return `${array.slice(0, -1).join(', ')} ${conjunction} ${array[array.length - 1]}`;
-};
-
-// =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
 
@@ -1024,7 +917,6 @@ module.exports = {
   isEmail,
   isURL,
   isPhoneNumber,
-  isEmpty,
   isPalindrome,
 
   // Basic String Operations
@@ -1049,10 +941,6 @@ module.exports = {
   toSnakeCase,
   toKebabCase,
   toScreamingSnakeCase,
-
-  // Array Conversion Functions
-  stringToArray,
-  arrayToString,
 
   // String Generation Utilities
   newlines,
