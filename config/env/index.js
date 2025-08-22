@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 // Project-specific modules and configurations
-const { modes } = require('../../helpers/constants.helper');
+const { MODES } = require('../../helpers/constants.helper');
 
 // ----------------- DECLARATION OF VARIABLES AND CONSTANTS ----------------- //
 // Set default timezone and locale for moment.js based on configuration
@@ -22,7 +22,7 @@ const config = {
   port: process.env.PORT,
   url: process.env.BASE_URL?.replace('${PORT}', process.env.PORT),
   apiVersion: process.env.API_VERSION,
-  isLocal: modes[process.env.NODE_ENV] === 0,
+  isLocal: MODES[process.env.NODE_ENV] === 0,
 
   // Internationalization
   lang: process.env.DEFAULT_LANG,

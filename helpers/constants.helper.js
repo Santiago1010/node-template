@@ -131,6 +131,58 @@ const NUMBER_CONSTANTS = {
   DEFAULT_LOCALE: 'en-US',
 };
 
+const STRING_CONSTANTS = {
+  DEFAULT_TRUNCATE_LENGTH: 50,
+  DEFAULT_ELLIPSIS: '...',
+  DEFAULT_WORD_WRAP_WIDTH: 80,
+
+  ALPHANUMERIC: /^[a-zA-Z0-9]+$/,
+  ALPHA_ONLY: /^[a-zA-Z]+$/,
+  NUMERIC_ONLY: /^[0-9]+$/,
+  WHITESPACE: /\s/g,
+
+  EMAIL_PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  URL_PATTERN:
+    /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/,
+  PHONE_PATTERN: /^[\+]?[1-9][\d]{0,15}$/,
+
+  SPECIAL_CHARS: /[^\w\s]/g,
+  DIACRITICS: /[\u0300-\u036f]/g,
+
+  TITLE_CASE_EXCEPTIONS: [
+    'a',
+    'an',
+    'and',
+    'as',
+    'at',
+    'but',
+    'by',
+    'for',
+    'if',
+    'in',
+    'nor',
+    'of',
+    'on',
+    'or',
+    'so',
+    'the',
+    'to',
+    'up',
+    'yet',
+  ],
+};
+
+const ESCAPE_SEQUENCES = {
+  n: '⏎\n',
+  t: '⇥',
+  "'": "\\'",
+  '"': '\\"',
+  '/': '\\/',
+  b: '⌫',
+  f: '↡',
+  r: '␍⏎',
+};
+
 // Export all the constants to be used in other parts of the application
 module.exports = {
   ROOT,
@@ -139,4 +191,6 @@ module.exports = {
   PREFIXES,
   METHODS,
   NUMBER_CONSTANTS,
+  STRING_CONSTANTS,
+  ESCAPE_SEQUENCES,
 };
