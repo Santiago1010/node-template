@@ -50,6 +50,26 @@
 │   ├── tools
 │   ├── utilities.helper.js
 │   └── validations
+├── .husky
+│   ├── _
+│   │   ├── applypatch-msg
+│   │   ├── commit-msg
+│   │   ├── .gitignore
+│   │   ├── h
+│   │   ├── husky.sh
+│   │   ├── post-applypatch
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-rewrite
+│   │   ├── pre-applypatch
+│   │   ├── pre-auto-gc
+│   │   ├── pre-commit
+│   │   ├── pre-merge-commit
+│   │   ├── prepare-commit-msg
+│   │   ├── pre-push
+│   │   └── pre-rebase
+│   └── pre-commit
 ├── index.js
 ├── kubernetes
 │   ├── deployment.yaml
@@ -65,8 +85,22 @@
 │   └── generate-rsa-keys.sh
 ├── seeders
 ├── .sequelizerc
+├── tests
+│   ├── e2e
+│   └── unit
+│       └── helpers
+│           ├── cache
+│           ├── constants
+│           ├── context
+│           ├── debug
+│           ├── encrypt
+│           ├── numbers
+│           ├── performance
+│           ├── security
+│           ├── strings
+│           └── utilities
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-24 directories, 46 files
+40 directories, 64 files
