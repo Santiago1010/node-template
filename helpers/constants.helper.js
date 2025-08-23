@@ -397,6 +397,16 @@ const THREAT_LEVELS = {
   CRITICAL: 'critical',
 };
 
+const CACHE_CONFIG = {
+  DEFAULT_TTL: 3600, // 1 hour in seconds
+  MAX_KEY_LENGTH: 512,
+  MAX_VALUE_SIZE: 1024 * 1024, // 1MB
+  TAG_PREFIX: 'tag:',
+  METRICS_PREFIX: 'metrics:',
+  LOCK_PREFIX: 'lock:',
+  DEFAULT_LOCK_TTL: 30, // 30 seconds
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -415,4 +425,5 @@ module.exports = {
   SECURITY_CONFIG,
   SECURITY_PATTERNS,
   THREAT_LEVELS,
+  CACHE_CONFIG,
 };
