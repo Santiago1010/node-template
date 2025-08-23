@@ -24,11 +24,11 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const i18n = require('../../config/i18n');
 const numberHelper = require('../numbers.helper');
 const securityHelper = require('../security.helper');
 const stringHelper = require('../strings.helper');
 const utilitiesHelper = require('../utilities.helper');
+const i18n = require('../../config/i18n');
 const { THREAT_LEVELS } = require('../constants.helper');
 const { cerror } = require('../debug.helper');
 
