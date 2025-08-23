@@ -37,7 +37,9 @@
 │   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── debug.helper.js
+│   ├── encrypt.helper.js
 │   ├── numbers.helper.js
+│   ├── security.helper.js
 │   ├── strings.helper.js
 │   └── utilities.helper.js
 ├── index.js
@@ -59,4 +61,4 @@
     ├── extensions.json
     └── settings.json
 
-19 directories, 41 files
+19 directories, 43 files
