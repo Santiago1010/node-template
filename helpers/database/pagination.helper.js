@@ -27,7 +27,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PAGINATION_CONFIG } = require('../constants.helper');
+const { DB_CONFIG } = require('../constants.helper');
 const { cerror } = require('../debug.helper');
 
 /**
@@ -39,12 +39,15 @@ const { cerror } = require('../debug.helper');
 const validatePaginationParams = (limit, page) => {
   // Convert and validate limit
   const parsedLimit = Math.max(
-    PAGINATION_CONFIG.MIN_LIMIT,
-    Math.min(PAGINATION_CONFIG.MAX_LIMIT, parseInt(limit) || PAGINATION_CONFIG.DEFAULT_LIMIT)
+    DB_CONFIG.PAGINATION_CONFIG.MIN_LIMIT,
+    Math.min(DB_CONFIG.PAGINATION_CONFIG.MAX_LIMIT, parseInt(limit) || DB_CONFIG.PAGINATION_CONFIG.DEFAULT_LIMIT)
   );
 
   // Convert and validate page
-  const parsedPage = Math.max(PAGINATION_CONFIG.MIN_PAGE, parseInt(page) || PAGINATION_CONFIG.DEFAULT_PAGE);
+  const parsedPage = Math.max(
+    DB_CONFIG.PAGINATION_CONFIG.MIN_PAGE,
+    parseInt(page) || DB_CONFIG.PAGINATION_CONFIG.DEFAULT_PAGE
+  );
 
   return { limit: parsedLimit, page: parsedPage };
 };
@@ -60,8 +63,8 @@ const validatePaginationParams = (limit, page) => {
  */
 const paginateModel = async (
   Model,
-  limit = PAGINATION_CONFIG.DEFAULT_LIMIT,
-  page = PAGINATION_CONFIG.DEFAULT_PAGE,
+  limit = DB_CONFIG.PAGINATION_CONFIG.DEFAULT_LIMIT,
+  page = DB_CONFIG.PAGINATION_CONFIG.DEFAULT_PAGE,
   queryOptions = {}
 ) => {
   try {
