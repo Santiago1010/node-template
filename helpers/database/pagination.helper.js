@@ -1,7 +1,26 @@
 // =============================================================================
 // PAGINATION HELPER - Database pagination helper
 // =============================================================================
-// TODO: Add comprehensive documentation for this file
+// Comprehensive pagination utility for Sequelize-based applications
+//
+// This module provides a complete solution for implementing standardized pagination
+// across API endpoints. It handles:
+// - Parameter validation and sanitization
+// - Database query execution with Sequelize's findAndCountAll
+// - Generation of pagination metadata
+// - URL construction for navigation links
+// - Type-safe query parameter conversion
+//
+// Key Features:
+// - Configurable limits with safety boundaries
+// - Consistent response format across all endpoints
+// - Automatic URL generation for next/previous pages
+// - Proper error handling and validation
+// - Support for additional Sequelize query options
+//
+// Usage Example:
+// const { paginate } = require('./pagination.helper');
+// const result = await paginate(UserModel, req, { where: { active: true } });
 //
 // =============================================================================
 
