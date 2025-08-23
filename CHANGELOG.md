@@ -1,5 +1,65 @@
 
 
+## [1.0.6] - 2025-08-23
+
+**Released:** 2025-08-23 16:36:09 UTC
+
+### [Add Comprehensive Helper Modules and Pre-commit Hook](https://github.com/Santiago1010/node-template/pull/28)
+
+**Summary:** 📋 Summary
+This PR introduces multiple new helper modules (cache, encryption, performance, security) and enhances existing ones (constants, context). It also adds Husky pre-commit hooks for automated linting and formatting.
+
+🎯 Type of Change
+- [x] New feature (adds functionality)
+- [ ] Breakin...
+
+**Type of Change:** New Feature
+
+**Added:**
+- Husky pre-commit hook for automated linting and formatting
+- AsyncLocalStorage configuration for request context management
+- Cache helper with Redis integration and advanced features (tags, locks, metrics)
+- Enhanced constants helper with security, caching, and performance configurations
+- Comprehensive context helper with improved request context management
+- Encryption helper with RSA/AES support and password hashing
+- Performance helper with monitoring, metrics, and optimization utilities
+- Security helper with validation, rate limiting, and threat detection
+- Test directory structure for new helpers
+
+**Changed:**
+- Updated project structure documentation
+- Refactored models index file formatting
+- Enhanced constants with security patterns and configuration objects
+- Improved context helper with better security and validation
+
+**Fixed:**
+- N/A
+
+**Removed:**
+- N/A
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`688576b`](https://github.com/Santiago1010/node-template/commit/688576b9fd60f9fd6915948a0d17debcca4dd40c) chore(deps): simplify lint-staged configuration and update project structure
+- [`d045b67`](https://github.com/Santiago1010/node-template/commit/d045b67c6bf6de0b7bd8219e2ee2ebadd952394e) feat(security): implement comprehensive encryption helper module
+- [`04cd283`](https://github.com/Santiago1010/node-template/commit/04cd283050c8cad8aadec0f80f9a5d035d0ee29a) feat(context): enhance async local storage context management
+- [`6e78621`](https://github.com/Santiago1010/node-template/commit/6e786211d532d647da4a4cc369be0469295b5d6b) feat(security): implement comprehensive security helper with multi-layer protection
+- [`5cf64f4`](https://github.com/Santiago1010/node-template/commit/5cf64f4b90b65a680c0e45c7a38c3ba3655c0392) feat(cache): implement Redis cache helper with advanced features
+- [`37552d9`](https://github.com/Santiago1010/node-template/commit/37552d9c7fb2ce5c8a897b0983291e8cb1a73d07) feat(performance): implement comprehensive performance monitoring and optimization utilities
+- [`ea9f907`](https://github.com/Santiago1010/node-template/commit/ea9f907e00c258fa66f91eb4f3bc42c4ccb8b262) refactor(performance): centralize performance configuration in constants
+- [`361283e`](https://github.com/Santiago1010/node-template/commit/361283e49779956c6f960a37db6413683b655583) chore: update project structure documentation in changelog
+- [`f24d1b1`](https://github.com/Santiago1010/node-template/commit/f24d1b1033643b52d11cc7a1718d2ef17ef8659b) chore: add husky pre-commit hook and test directory structure
+- [`37049ea`](https://github.com/Santiago1010/node-template/commit/37049ea0601500cfa41c5fd8cfe7db5f17fc33ab) build(deps): update pre-commit hook to use format:write script
+
+---
+
+
+
 ## [1.0.5] - 2025-08-22
 
 **Released:** 2025-08-22 23:59:06 UTC

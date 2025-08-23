@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "keywords": [
     "template",
@@ -36,17 +36,14 @@
     }
   },
   "lint-staged": {
-    "**/*": [
-      "biome check --fix --unsafe",
-      "biome format --write",
-      "git add ."
-    ]
+    "**/*": ["biome check --fix --unsafe", "biome format --write", "git add ."]
   },
   "scripts": {
     "dev": "node --watch index.js",
     "dev:inspect": "node --watch --inspect index.js",
     "debug": "node ./scripts/debug.script.js",
     "format": "biome format",
+    "format:write": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
