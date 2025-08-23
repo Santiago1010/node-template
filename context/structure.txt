@@ -40,16 +40,21 @@
 │   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── database
+│   │   ├── pagination.helper.js
+│   │   └── utilities.helper.js
 │   ├── debug.helper.js
 │   ├── docs
+│   │   ├── commonParameters.helper.js
+│   │   └── docsGenerator.helper.js
 │   ├── encrypt.helper.js
 │   ├── numbers.helper.js
 │   ├── performance.helper.js
 │   ├── security.helper.js
 │   ├── strings.helper.js
-│   ├── tools
 │   ├── utilities.helper.js
 │   └── validations
+│       ├── commonSchemas.helper.js
+│       ├── databaseSchemas.helper.js
 │       └── validations.factory.js
 ├── index.js
 ├── kubernetes
@@ -62,6 +67,11 @@
 ├── package.json
 ├── package-lock.json
 ├── README.md
+├── schemas
+│   ├── params
+│   ├── responses
+│   └── validations
+│       └── filters.schema.js
 ├── scripts
 │   └── generate-rsa-keys.sh
 ├── seeders
@@ -84,4 +94,4 @@
     ├── extensions.json
     └── settings.json
 
-38 directories, 47 files
+41 directories, 54 files
