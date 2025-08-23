@@ -408,6 +408,66 @@ const detectSQLInjection = (input) => {
   }
 };
 
+/**
+ * Sanitizes HTML content with configurable options
+ * @param {string} html - HTML content to sanitize
+ * @param {Object} options - Sanitization options
+ * @returns {string} Sanitized HTML
+ */
+const sanitizeHTML = (html, options = {}) => {
+  const {
+    allowedTags = ['p', 'br', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    allowedAttributes = ['class', 'style'],
+    stripDangerousTags = true,
+  } = options;
+
+  let sanitized = html;
+
+  if (stripDangerousTags) {
+    sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
+    sanitized = sanitized.replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '');
+    sanitized = sanitized.replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
+  }
+
+  const tagPattern = new RegExp(`</?(?!(${allowedTags.join('|')})\\b)[^>]+>`, 'gi');
+  sanitized = sanitized.replace(tagPattern, '');
+
+  // Sanitizar atributos
+  sanitized = sanitized.replace(/<(\w+)([^>]*)>/gi, (_, tag, attributes) => {
+    if (!allowedTags.includes(tag)) return '';
+
+    const allowedAttrsPattern = new RegExp(`\\s+(${allowedAttributes.join('|')})\\s*=\\s*(["'])(.*?)\\2`, 'gi');
+    const safeAttributes = (attributes.match(allowedAttrsPattern) || []).join(' ');
+
+    return `<${tag}${safeAttributes ? ' ' + safeAttributes : ''}>`;
+  });
+
+  return sanitized;
+};
+
+/**
+ * Detects potential XSS attacks in HTML content
+ * @param {string} content - Content to check
+ * @returns {boolean} True if XSS patterns detected
+ */
+const detectXSS = (content) => {
+  const xssPatterns = [
+    /<script\b/i,
+    /javascript:/i,
+    /onerror\s*=/i,
+    /onload\s*=/i,
+    /onclick\s*=/i,
+    /onmouseover\s*=/i,
+    /alert\(/i,
+    /eval\(/i,
+    /document\.cookie/i,
+    /window\.location/i,
+  ];
+
+  return xssPatterns.some((pattern) => pattern.test(content));
+};
+
 // =============================================================================
 // PASSWORD SECURITY
 // =============================================================================
@@ -1358,6 +1418,8 @@ module.exports = {
   validateUrl,
   validateAndSanitizeObject,
   detectSQLInjection,
+  sanitizeHTML,
+  detectXSS,
 
   // Password Security
   validatePasswordStrength,

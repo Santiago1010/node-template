@@ -25,14 +25,23 @@
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const i18n = require('../../config/i18n');
-const numberHelper = require('../helpers/numbers.helper');
-const stringHelper = require('../helpers/strings.helper');
-// const securityHelper = require('../helpers/security.helper');
-const utilitiesHelper = require('../helpers/utilities.helper');
+const numberHelper = require('../numbers.helper');
+const securityHelper = require('../security.helper');
+const stringHelper = require('../strings.helper');
+const utilitiesHelper = require('../utilities.helper');
+const { THREAT_LEVELS } = require('../constants.helper');
 const { cerror } = require('../debug.helper');
 
 const getFieldName = (name) => {
   return typeof i18n !== 'undefined' ? i18n.__mf('fields.' + name) : `fields.${name}`;
+};
+
+const defaultStringSanitizer = (value) => {
+  if (typeof value !== 'string') return value;
+  return securityHelper.validateAndSanitizeString(value, {
+    allowHTML: false,
+    allowSpecialChars: true,
+  }).sanitized;
 };
 
 /**
@@ -226,6 +235,8 @@ const stringSchema = (
 ) => {
   const fieldName = getFieldName(name);
   const validationSchema = { in: location };
+
+  formattingFunctions.push(defaultStringSanitizer);
 
   // Initial configuration for optional fields
   if (!required) {
@@ -1701,6 +1712,119 @@ const uuidSchema = (
   return validationSchema;
 };
 
+/**
+ * Generates a schema for validating HTML content fields with secure sanitization.
+ *
+ * @param {string} name - Logical field name (used for i18n messages).
+ * @param {string} [location='body'] - 'body' | 'query' | 'params' | 'headers' | 'cookies' | etc.
+ * @param {Object} [options={}] - Object with options:
+ *   @property {boolean} [required=true] - Whether field is required.
+ *   @property {boolean} [allowNull=false] - Whether null is an acceptable value.
+ *   @property {function[]} [formattingFunctions=[]] - Array of functions to format the value.
+ *   @property {number} [minLength] - Minimum HTML content length.
+ *   @property {number} [maxLength=10000] - Maximum HTML content length.
+ *   @property {boolean} [stripDangerousTags=true] - Whether to strip potentially dangerous tags.
+ *   @property {Array} [allowedTags=['p','br','strong','em','u','ul','ol','li','h1','h2','h3','h4','h5','h6']] - Allowed HTML tags.
+ *   @property {Array} [allowedAttributes=['class','style']] - Allowed HTML attributes.
+ *
+ * @returns {Object} Express-validator schema.
+ */
+const htmlSchema = (
+  name,
+  location = 'body',
+  {
+    required = true,
+    allowNull = false,
+    formattingFunctions = [],
+    minLength,
+    maxLength = 10000,
+    stripDangerousTags = true,
+    allowedTags = ['p', 'br', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    allowedAttributes = ['class', 'style'],
+  } = {}
+) => {
+  const fieldName = getFieldName(name);
+  const validationSchema = { in: location };
+
+  // Initial configuration for optional fields
+  if (!required) {
+    validationSchema.optional = { options: { nullable: allowNull, checkFalsy: false } };
+  }
+
+  // Required field validation
+  if (required) {
+    validationSchema.exists = {
+      errorMessage: i18n.__mf('validations.required', { field: fieldName }),
+    };
+
+    if (!allowNull) {
+      validationSchema.notEmpty = {
+        errorMessage: i18n.__mf('validations.required', { field: fieldName }),
+      };
+    }
+  }
+
+  // String type validation
+  validationSchema.isString = {
+    errorMessage: i18n.__mf('validations.string', { field: fieldName }),
+  };
+
+  // Length validations
+  if (minLength !== undefined || maxLength !== undefined) {
+    validationSchema.isLength = {
+      options: {
+        ...(minLength !== undefined && { min: minLength }),
+        ...(maxLength !== undefined && { max: maxLength }),
+      },
+      errorMessage: i18n.__mf('validations.length', {
+        field: fieldName,
+        min: minLength,
+        max: maxLength,
+      }),
+    };
+  }
+
+  // HTML-specific security validation
+  validationSchema.custom = {
+    options: (value) => {
+      if (allowNull && value === null) return true;
+
+      // Check for potentially dangerous content
+      if (stripDangerousTags && securityHelper.detectXSS(value)) {
+        securityHelper.logSecurityEvent('HTML_XSS_ATTEMPT', { field: name }, THREAT_LEVELS.HIGH);
+        throw new Error(i18n.__mf('validations.htmlSecurity', { field: fieldName }));
+      }
+
+      return true;
+    },
+  };
+
+  // Secure HTML sanitization
+  validationSchema.customSanitizer = {
+    options: (value) => {
+      if (allowNull && value === null) return null;
+
+      let sanitized = value;
+
+      // Apply user formatting functions first
+      sanitized = formattingFunctions.reduce((acc, func) => {
+        return typeof func === 'function' ? func(acc) : acc;
+      }, sanitized);
+
+      // Apply security sanitization
+      sanitized = securityHelper.sanitizeHTML(sanitized, {
+        allowedTags,
+        allowedAttributes,
+        stripDangerousTags,
+      });
+
+      return sanitized;
+    },
+  };
+
+  return validationSchema;
+};
+
 module.exports = {
   numberSchema,
   stringSchema,
@@ -1715,4 +1839,5 @@ module.exports = {
   linkSchema,
   jwtSchema,
   uuidSchema,
+  htmlSchema,
 };
