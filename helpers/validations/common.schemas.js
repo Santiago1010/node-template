@@ -1,15 +1,24 @@
 // =============================================================================
 // COMMON SCHEMAS - Complete validation schemas for express-validator
 // =============================================================================
+// This module provides a comprehensive set of validation schemas for use with
+// express-validator. Each schema generator handles common validation scenarios
+// including required fields, type checking, formatting, and custom validation
+// rules with internationalized error messages.
 //
-// =============================================================================
-
-// =============================================================================
-// NODE DEPENDENCIES
-// =============================================================================
-
-// =============================================================================
-// THIRD-PARTY DEPENDENCIES
+// Key Features:
+// - i18n support for localized validation messages
+// - Consistent validation patterns across different data types
+// - Custom sanitization and formatting options
+// - Flexible configuration for various validation requirements
+//
+// Usage Example:
+// const { numberSchema, stringSchema } = require('./common.schemas');
+//
+// router.post('/example', [
+//   check('age', numberSchema('age', 'body', { minValue: 18, maxValue: 99 })),
+//   check('name', stringSchema('name', 'body', { maxLength: 50 })),
+// ], controller.handler);
 // =============================================================================
 
 // =============================================================================
