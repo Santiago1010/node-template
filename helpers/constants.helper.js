@@ -433,6 +433,23 @@ const PERFORMANCE_CONFIG = {
   CPU_WARNING_THRESHOLD: 0.8, // 80% CPU usage
 };
 
+/**
+ * Pagination configuration parameters for database queries
+ * @constant {Object}
+ * @property {number} DEFAULT_LIMIT - Default number of items per page
+ * @property {number} MAX_LIMIT - Maximum allowed items per page (prevent excessive data retrieval)
+ * @property {number} MIN_LIMIT - Minimum allowed items per page
+ * @property {number} DEFAULT_PAGE - Default starting page number
+ * @property {number} MIN_PAGE - Minimum allowed page number (always starts at 1)
+ */
+const PAGINATION_CONFIG = {
+  DEFAULT_LIMIT: 10,
+  MAX_LIMIT: 100,
+  MIN_LIMIT: 1,
+  DEFAULT_PAGE: 1,
+  MIN_PAGE: 1,
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -453,4 +470,5 @@ module.exports = {
   THREAT_LEVELS,
   CACHE_CONFIG,
   PERFORMANCE_CONFIG,
+  PAGINATION_CONFIG,
 };
