@@ -33,16 +33,12 @@ const moment = require('moment');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const debugHelper = require('./debug.helper');
-const { PATHS } = require('./constants.helper');
+const { PATHS, PERFORMANCE_CONFIG } = require('./constants.helper');
 
 // =============================================================================
 // CONSTANTS AND CONFIGURATION
 // =============================================================================
 const PERFORMANCE_LOG_PATH = path.join(PATHS.LOGS, 'performance.log');
-const DEFAULT_THROTTLE_DELAY = 100;
-const DEFAULT_DEBOUNCE_DELAY = 300;
-const MEMORY_WARNING_THRESHOLD = 0.85; // 85% of available memory
-const CPU_WARNING_THRESHOLD = 0.8; // 80% CPU usage
 
 // Performance metrics cache
 const metricsCache = new Map();
@@ -410,18 +406,18 @@ const getSystemMetrics = () => {
   };
 
   // Check for warnings
-  if (memPercent > MEMORY_WARNING_THRESHOLD) {
+  if (memPercent > PERFORMANCE_CONFIG.MEMORY_WARNING_THRESHOLD) {
     debugHelper.plog('High Memory Usage Warning', {
       currentUsage: `${Math.round(memPercent * 100)}%`,
-      threshold: `${Math.round(MEMORY_WARNING_THRESHOLD * 100)}%`,
+      threshold: `${Math.round(PERFORMANCE_CONFIG.MEMORY_WARNING_THRESHOLD * 100)}%`,
     });
   }
 
   const avgCpuLoad = loadAvg[0] / cpus.length;
-  if (avgCpuLoad > CPU_WARNING_THRESHOLD) {
+  if (avgCpuLoad > PERFORMANCE_CONFIG.CPU_WARNING_THRESHOLD) {
     debugHelper.plog('High CPU Load Warning', {
       currentLoad: `${Math.round(avgCpuLoad * 100)}%`,
-      threshold: `${Math.round(CPU_WARNING_THRESHOLD * 100)}%`,
+      threshold: `${Math.round(PERFORMANCE_CONFIG.CPU_WARNING_THRESHOLD * 100)}%`,
     });
   }
 
@@ -438,7 +434,7 @@ const getSystemMetrics = () => {
  * @param {number} [delay=100] - Delay in milliseconds
  * @returns {Function} Throttled function
  */
-const throttle = (fn, delay = DEFAULT_THROTTLE_DELAY) => {
+const throttle = (fn, delay = PERFORMANCE_CONFIG.DEFAULT_THROTTLE_DELAY) => {
   let lastCall = 0;
   let timeoutId = null;
 
@@ -467,7 +463,7 @@ const throttle = (fn, delay = DEFAULT_THROTTLE_DELAY) => {
  * @param {number} [delay=300] - Delay in milliseconds
  * @returns {Function} Debounced function
  */
-const debounce = (fn, delay = DEFAULT_DEBOUNCE_DELAY) => {
+const debounce = (fn, delay = PERFORMANCE_CONFIG.DEFAULT_DEBOUNCE_DELAY) => {
   let timeoutId = null;
 
   return function (...args) {

@@ -397,6 +397,17 @@ const THREAT_LEVELS = {
   CRITICAL: 'critical',
 };
 
+/**
+ * Configuration parameters for caching operations
+ * @constant {Object}
+ * @property {number} DEFAULT_TTL - Default time-to-live for cache entries in seconds
+ * @property {number} MAX_KEY_LENGTH - Maximum allowed length for cache keys
+ * @property {number} MAX_VALUE_SIZE - Maximum allowed size for cached values in bytes
+ * @property {string} TAG_PREFIX - Prefix used for cache tagging
+ * @property {string} METRICS_PREFIX - Prefix used for cache metrics
+ * @property {string} LOCK_PREFIX - Prefix used for cache locking mechanisms
+ * @property {number} DEFAULT_LOCK_TTL - Default time-to-live for cache locks in seconds
+ */
 const CACHE_CONFIG = {
   DEFAULT_TTL: 3600, // 1 hour in seconds
   MAX_KEY_LENGTH: 512,
@@ -407,7 +418,20 @@ const CACHE_CONFIG = {
   DEFAULT_LOCK_TTL: 30, // 30 seconds
 };
 
-const PERFORMANCE_CONFIG = {};
+/**
+ * Performance monitoring and optimization parameters
+ * @constant {Object}
+ * @property {number} DEFAULT_THROTTLE_DELAY - Default delay for throttle operations in milliseconds
+ * @property {number} DEFAULT_DEBOUNCE_DELAY - Default delay for debounce operations in milliseconds
+ * @property {number} MEMORY_WARNING_THRESHOLD - Memory usage threshold for warnings (percentage of available memory)
+ * @property {number} CPU_WARNING_THRESHOLD - CPU usage threshold for warnings (percentage of total CPU capacity)
+ */
+const PERFORMANCE_CONFIG = {
+  DEFAULT_THROTTLE_DELAY: 100,
+  DEFAULT_DEBOUNCE_DELAY: 300,
+  MEMORY_WARNING_THRESHOLD: 0.85, // 85% of available memory
+  CPU_WARNING_THRESHOLD: 0.8, // 80% CPU usage
+};
 
 // =============================================================================
 // MODULE EXPORTS
@@ -428,4 +452,5 @@ module.exports = {
   SECURITY_PATTERNS,
   THREAT_LEVELS,
   CACHE_CONFIG,
+  PERFORMANCE_CONFIG,
 };
