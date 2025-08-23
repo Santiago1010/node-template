@@ -1,5 +1,58 @@
 
 
+## [1.0.7] - 2025-08-23
+
+**Released:** 2025-08-23 23:12:41 UTC
+
+### [Add Database Utilities, Validation Schemas, and i18n Support](https://github.com/Santiago1010/node-template/pull/29)
+
+**Summary:** 📋 Summary
+This PR introduces comprehensive database utilities, validation schemas, and internationalization support. It includes pagination helpers, database utilities, validation factories, and i18n localization files for English and Spanish.
+
+🎯 Type of Change
+- [x] New feature (adds function...
+
+**Type of Change:** New Feature
+
+**Added:**
+- i18n locale files (en.json, es.json) with validation messages
+- Database utilities (pagination.helper.js, utilities.helper.js)
+- Validation schemas (commonSchemas.helper.js, databaseSchemas.helper.js, validations.factory.js)
+- Documentation generator (docs-generator.helper.js)
+- Parameter schemas (pagination.params.js, search.params.js, common.params.js)
+- Validation schemas (filters.schema.js, pagination.schema.js, search.schema.js)
+
+**Changed:**
+- Project structure (removed Husky hooks, added new helper files)
+- Enhanced number helper with conversion function
+- Enhanced security helper with HTML sanitization and XSS detection
+- Updated constants with database configuration
+
+**Removed:**
+- Husky pre-commit hooks and related files
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`3e6be49`](https://github.com/Santiago1010/node-template/commit/3e6be49599aa314b47e9a03acfcbb02903b1ea6e) refactor(validations): rename validation files and add code organization comments
+- [`e5977b6`](https://github.com/Santiago1010/node-template/commit/e5977b6d308adcb5c064e36e9fc9862a001bf490) feat(validations): add database ID validation schema and documentation helpers
+- [`701798e`](https://github.com/Santiago1010/node-template/commit/701798e149490cb230a5b9c6171acd3e103f3de1) feat(validations): add comprehensive database validation schemas
+- [`8b4558e`](https://github.com/Santiago1010/node-template/commit/8b4558e41d1ee1b65133238d1b86958d3881f9c8) feat(docs): add DocsGenerator helper for standardized API documentation
+- [`ff14e8e`](https://github.com/Santiago1010/node-template/commit/ff14e8e43ae935506d7b7d52efb0e30ee578329b) feat(database): add comprehensive pagination helper with navigation metadata
+- [`a29b161`](https://github.com/Santiago1010/node-template/commit/a29b1619e02f9ba98ff7037754b95bbfb728a91f) docs(database): add comprehensive documentation for pagination helper
+- [`1ad64d8`](https://github.com/Santiago1010/node-template/commit/1ad64d85c1fbae7729af22bf04ed80ec0bab9671) feat(database): add comprehensive utilities helper with search and soft delete functions
+- [`9595474`](https://github.com/Santiago1010/node-template/commit/9595474960fe763d163861caca3e2531ee5b382a) docs(constants): add comprehensive JSDoc documentation for DB_CONFIG
+- [`b34e76d`](https://github.com/Santiago1010/node-template/commit/b34e76d58a9c33d223450268c37d5facf145c0c0) feat(validations): add filter, pagination, and search validation schemas
+- [`0110a5d`](https://github.com/Santiago1010/node-template/commit/0110a5d02ef863a4ea8974316d54a732ab9d0851) refactor(docs): restructure documentation parameters into schemas/params directory
+
+---
+
+
+
 ## [1.0.6] - 2025-08-23
 
 **Released:** 2025-08-23 16:36:09 UTC
