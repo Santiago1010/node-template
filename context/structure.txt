@@ -43,9 +43,7 @@
 │   │   ├── pagination.helper.js
 │   │   └── utilities.helper.js
 │   ├── debug.helper.js
-│   ├── docs
-│   │   ├── commonParameters.helper.js
-│   │   └── docsGenerator.helper.js
+│   ├── docs-generator.helper.js
 │   ├── encrypt.helper.js
 │   ├── numbers.helper.js
 │   ├── performance.helper.js
@@ -69,9 +67,14 @@
 ├── README.md
 ├── schemas
 │   ├── params
+│   │   ├── common.params.js
+│   │   ├── pagination.params.js
+│   │   └── search.params.js
 │   ├── responses
 │   └── validations
-│       └── filters.schema.js
+│       ├── filters.schema.js
+│       ├── pagination.schema.js
+│       └── search.schema.js
 ├── scripts
 │   └── generate-rsa-keys.sh
 ├── seeders
@@ -94,4 +97,4 @@
     ├── extensions.json
     └── settings.json
 
-41 directories, 54 files
+40 directories, 58 files
