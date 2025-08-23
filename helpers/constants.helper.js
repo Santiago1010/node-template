@@ -196,6 +196,30 @@ const KEY_SIZES = {
   IV: 16, // Initialization vector size in bytes
 };
 
+const CONTEXT_KEYS = {
+  USER_ID: 'userId',
+  USER_DATA: 'userData',
+  SESSION_ID: 'sessionId',
+  REQUEST_ID: 'requestId',
+  IP_ADDRESS: 'ipAddress',
+  USER_AGENT: 'userAgent',
+  TIMESTAMP: 'timestamp',
+  PERMISSIONS: 'permissions',
+  ROLES: 'roles',
+  TENANT_ID: 'tenantId',
+  CORRELATION_ID: 'correlationId',
+  TRANSACTION_ID: 'transactionId',
+  LOCALE: 'locale',
+  TIMEZONE: 'timezone',
+  API_KEY: 'apiKey',
+  CLIENT_ID: 'clientId',
+  ORGANIZATION_ID: 'organizationId',
+  DEPARTMENT_ID: 'departmentId',
+  CUSTOM_DATA: 'customData',
+  SECURITY_CONTEXT: 'securityContext',
+  AUDIT_CONTEXT: 'auditContext',
+};
+
 module.exports = {
   ROOT,
   PATHS,
@@ -207,4 +231,5 @@ module.exports = {
   ESCAPE_SEQUENCES,
   ALGORITHMS,
   KEY_SIZES,
+  CONTEXT_KEYS,
 };

@@ -4,6 +4,7 @@
 // This module provides comprehensive encryption and decryption functions
 // using RSA (public/private key) and AES algorithms, along with utility
 // functions for key generation, hashing, and secure random generation.
+//
 // =============================================================================
 
 // =============================================================================
@@ -472,7 +473,6 @@ const constantTimeEquals = (a, b) => {
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-
 module.exports = {
   // RSA Functions
   generateRSAKeyPair,
