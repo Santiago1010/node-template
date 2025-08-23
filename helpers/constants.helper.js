@@ -183,7 +183,19 @@ const ESCAPE_SEQUENCES = {
   r: '␍⏎',
 };
 
-// Export all the constants to be used in other parts of the application
+const ALGORITHMS = {
+  AES: 'aes-256-gcm',
+  RSA: 'rsa',
+  HASH: 'sha256',
+  HMAC: 'sha256',
+};
+
+const KEY_SIZES = {
+  RSA: 2048, // RSA key size in bits
+  AES: 32, // AES key size in bytes (256 bits)
+  IV: 16, // Initialization vector size in bytes
+};
+
 module.exports = {
   ROOT,
   PATHS,
@@ -193,4 +205,6 @@ module.exports = {
   NUMBER_CONSTANTS,
   STRING_CONSTANTS,
   ESCAPE_SEQUENCES,
+  ALGORITHMS,
+  KEY_SIZES,
 };
