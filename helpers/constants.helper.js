@@ -131,6 +131,23 @@ const NUMBER_CONSTANTS = {
   DEFAULT_LOCALE: 'en-US',
 };
 
+/**
+ * Constants related to string operations and validation patterns
+ * @constant {Object}
+ * @property {number} DEFAULT_TRUNCATE_LENGTH - Default length for string truncation
+ * @property {string} DEFAULT_ELLIPSIS - Default ellipsis character for truncation
+ * @property {number} DEFAULT_WORD_WRAP_WIDTH - Default width for word wrapping
+ * @property {RegExp} ALPHANUMERIC - Regex for alphanumeric characters only
+ * @property {RegExp} ALPHA_ONLY - Regex for alphabetic characters only
+ * @property {RegExp} NUMERIC_ONLY - Regex for numeric characters only
+ * @property {RegExp} WHITESPACE - Regex for whitespace characters
+ * @property {RegExp} EMAIL_PATTERN - Regex pattern for email validation
+ * @property {RegExp} URL_PATTERN - Regex pattern for URL validation
+ * @property {RegExp} PHONE_PATTERN - Regex pattern for phone number validation
+ * @property {RegExp} SPECIAL_CHARS - Regex for special characters
+ * @property {RegExp} DIACRITICS - Regex for diacritic characters
+ * @property {Array<string>} TITLE_CASE_EXCEPTIONS - Words to exclude from title case conversion
+ */
 const STRING_CONSTANTS = {
   DEFAULT_TRUNCATE_LENGTH: 50,
   DEFAULT_ELLIPSIS: '...',
@@ -172,6 +189,18 @@ const STRING_CONSTANTS = {
   ],
 };
 
+/**
+ * Escape sequences mapping for special characters
+ * @constant {Object}
+ * @property {string} n - Newline escape sequence
+ * @property {string} t - Tab escape sequence
+ * @property {string} "'" - Single quote escape sequence
+ * @property {string} '"' - Double quote escape sequence
+ * @property {string} / - Forward slash escape sequence
+ * @property {string} b - Backspace escape sequence
+ * @property {string} f - Form feed escape sequence
+ * @property {string} r - Carriage return escape sequence
+ */
 const ESCAPE_SEQUENCES = {
   n: '⏎\n',
   t: '⇥',
@@ -183,6 +212,14 @@ const ESCAPE_SEQUENCES = {
   r: '␍⏎',
 };
 
+/**
+ * Cryptographic algorithms used throughout the application
+ * @constant {Object}
+ * @property {string} AES - AES encryption algorithm
+ * @property {string} RSA - RSA encryption algorithm
+ * @property {string} HASH - Hashing algorithm
+ * @property {string} HMAC - HMAC algorithm
+ */
 const ALGORITHMS = {
   AES: 'aes-256-gcm',
   RSA: 'rsa',
@@ -190,12 +227,44 @@ const ALGORITHMS = {
   HMAC: 'sha256',
 };
 
+/**
+ * Key sizes for cryptographic operations (in bits/bytes)
+ * @constant {Object}
+ * @property {number} RSA - RSA key size in bits
+ * @property {number} AES - AES key size in bytes
+ * @property {number} IV - Initialization vector size in bytes
+ */
 const KEY_SIZES = {
   RSA: 2048, // RSA key size in bits
   AES: 32, // AES key size in bytes (256 bits)
   IV: 16, // Initialization vector size in bytes
 };
 
+/**
+ * Context keys for request context and metadata storage
+ * @constant {Object}
+ * @property {string} USER_ID - Key for user identifier
+ * @property {string} USER_DATA - Key for user data
+ * @property {string} SESSION_ID - Key for session identifier
+ * @property {string} REQUEST_ID - Key for request identifier
+ * @property {string} IP_ADDRESS - Key for IP address
+ * @property {string} USER_AGENT - Key for user agent string
+ * @property {string} TIMESTAMP - Key for timestamp
+ * @property {string} PERMISSIONS - Key for permissions data
+ * @property {string} ROLES - Key for roles data
+ * @property {string} TENANT_ID - Key for tenant identifier
+ * @property {string} CORRELATION_ID - Key for correlation identifier
+ * @property {string} TRANSACTION_ID - Key for transaction identifier
+ * @property {string} LOCALE - Key for locale information
+ * @property {string} TIMEZONE - Key for timezone information
+ * @property {string} API_KEY - Key for API key
+ * @property {string} CLIENT_ID - Key for client identifier
+ * @property {string} ORGANIZATION_ID - Key for organization identifier
+ * @property {string} DEPARTMENT_ID - Key for department identifier
+ * @property {string} CUSTOM_DATA - Key for custom data
+ * @property {string} SECURITY_CONTEXT - Key for security context
+ * @property {string} AUDIT_CONTEXT - Key for audit context
+ */
 const CONTEXT_KEYS = {
   USER_ID: 'userId',
   USER_DATA: 'userData',
@@ -220,6 +289,117 @@ const CONTEXT_KEYS = {
   AUDIT_CONTEXT: 'auditContext',
 };
 
+/**
+ * Security configuration parameters and policies
+ * @constant {Object}
+ * @property {Object} RATE_LIMIT - Rate limiting configuration
+ * @property {number} RATE_LIMIT.DEFAULT_WINDOW - Default time window in milliseconds
+ * @property {number} RATE_LIMIT.DEFAULT_MAX_REQUESTS - Default maximum requests per window
+ * @property {number} RATE_LIMIT.STRICT_WINDOW - Strict time window in milliseconds
+ * @property {number} RATE_LIMIT.STRICT_MAX_REQUESTS - Strict maximum requests per window
+ * @property {Object} PASSWORD_POLICY - Password policy configuration
+ * @property {number} PASSWORD_POLICY.MIN_LENGTH - Minimum password length
+ * @property {number} PASSWORD_POLICY.MAX_LENGTH - Maximum password length
+ * @property {boolean} PASSWORD_POLICY.REQUIRE_UPPERCASE - Uppercase requirement flag
+ * @property {boolean} PASSWORD_POLICY.REQUIRE_LOWERCASE - Lowercase requirement flag
+ * @property {boolean} PASSWORD_POLICY.REQUIRE_NUMBERS - Numbers requirement flag
+ * @property {boolean} PASSWORD_POLICY.REQUIRE_SPECIAL - Special characters requirement flag
+ * @property {string} PASSWORD_POLICY.SPECIAL_CHARS - Allowed special characters
+ * @property {Object} SESSION - Session configuration
+ * @property {number} SESSION.MAX_AGE - Maximum session age in milliseconds
+ * @property {number} SESSION.IDLE_TIMEOUT - Idle timeout in milliseconds
+ * @property {number} SESSION.ABSOLUTE_TIMEOUT - Absolute timeout in milliseconds
+ * @property {Object} CSRF - CSRF protection configuration
+ * @property {number} CSRF.TOKEN_LENGTH - CSRF token length
+ * @property {number} CSRF.TOKEN_EXPIRY - CSRF token expiry time in milliseconds
+ * @property {Object} VALIDATION - Validation configuration
+ * @property {number} VALIDATION.MAX_STRING_LENGTH - Maximum string length
+ * @property {number} VALIDATION.MAX_ARRAY_LENGTH - Maximum array length
+ * @property {number} VALIDATION.MAX_OBJECT_DEPTH - Maximum object depth
+ */
+const SECURITY_CONFIG = {
+  RATE_LIMIT: {
+    DEFAULT_WINDOW: 15 * 60 * 1000, // 15 minutes in milliseconds
+    DEFAULT_MAX_REQUESTS: 100,
+    STRICT_WINDOW: 5 * 60 * 1000, // 5 minutes
+    STRICT_MAX_REQUESTS: 20,
+  },
+
+  PASSWORD_POLICY: {
+    MIN_LENGTH: 8,
+    MAX_LENGTH: 128,
+    REQUIRE_UPPERCASE: true,
+    REQUIRE_LOWERCASE: true,
+    REQUIRE_NUMBERS: true,
+    REQUIRE_SPECIAL: true,
+    SPECIAL_CHARS: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+  },
+
+  SESSION: {
+    MAX_AGE: 24 * 60 * 60 * 1000, // 24 hours
+    IDLE_TIMEOUT: 30 * 60 * 1000, // 30 minutes
+    ABSOLUTE_TIMEOUT: 8 * 60 * 60 * 1000, // 8 hours
+  },
+
+  CSRF: {
+    TOKEN_LENGTH: 32,
+    TOKEN_EXPIRY: 60 * 60 * 1000, // 1 hour
+  },
+
+  VALIDATION: {
+    MAX_STRING_LENGTH: 10000,
+    MAX_ARRAY_LENGTH: 1000,
+    MAX_OBJECT_DEPTH: 10,
+  },
+};
+
+/**
+ * Security patterns for input validation and threat detection
+ * @constant {Object}
+ * @property {RegExp} XSS - XSS attack pattern detection
+ * @property {RegExp} SQL_INJECTION - SQL injection pattern detection
+ * @property {RegExp} HTML_TAGS - HTML tags detection pattern
+ * @property {RegExp} SPECIAL_CHARS - Special characters detection pattern
+ * @property {RegExp} EMAIL - Email validation pattern
+ * @property {RegExp} PHONE - Phone number validation pattern
+ * @property {RegExp} IP_ADDRESS - IP address validation pattern
+ * @property {RegExp} URL - URL validation pattern
+ * @property {RegExp} UUID - UUID validation pattern
+ * @property {RegExp} ALPHANUMERIC - Alphanumeric validation pattern
+ * @property {RegExp} SLUG - URL slug validation pattern
+ */
+const SECURITY_PATTERNS = {
+  XSS: /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+  SQL_INJECTION: /((\%3D)|(=))[^\n]*((\%27)|(\')|(\-\-)|(\%3B)|(;))/i,
+  HTML_TAGS: /<[^>]*>/g,
+  SPECIAL_CHARS: /[<>\"'%;()&+]/g,
+  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  PHONE: /^\+?[\d\s\-\(\)]+$/,
+  IP_ADDRESS: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+  URL: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/,
+  UUID: /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+  ALPHANUMERIC: /^[a-zA-Z0-9]+$/,
+  SLUG: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+};
+
+/**
+ * Threat level classifications for security events
+ * @constant {Object}
+ * @property {string} LOW - Low threat level
+ * @property {string} MEDIUM - Medium threat level
+ * @property {string} HIGH - High threat level
+ * @property {string} CRITICAL - Critical threat level
+ */
+const THREAT_LEVELS = {
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  CRITICAL: 'critical',
+};
+
+// =============================================================================
+// MODULE EXPORTS
+// =============================================================================
 module.exports = {
   ROOT,
   PATHS,
@@ -232,4 +412,7 @@ module.exports = {
   ALGORITHMS,
   KEY_SIZES,
   CONTEXT_KEYS,
+  SECURITY_CONFIG,
+  SECURITY_PATTERNS,
+  THREAT_LEVELS,
 };
