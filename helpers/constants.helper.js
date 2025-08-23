@@ -433,6 +433,59 @@ const PERFORMANCE_CONFIG = {
   CPU_WARNING_THRESHOLD: 0.8, // 80% CPU usage
 };
 
+/**
+ * Database query configuration and parameters
+ * @constant {Object}
+ * @property {Object} SEARCH - Search operation configuration
+ * @property {number} SEARCH.MAX_RESULTS - Maximum allowed search results
+ * @property {number} SEARCH.DEFAULT_LIMIT - Default result limit when not specified
+ * @property {number} SEARCH.MIN_LIMIT - Minimum allowed result limit
+ * @property {Object} SEARCH.OPERATORS - Supported database query operators
+ * @property {string} SEARCH.OPERATORS.LIKE - Case-sensitive pattern matching
+ * @property {string} SEARCH.OPERATORS.ILIKE - Case-insensitive pattern matching
+ * @property {string} SEARCH.OPERATORS.EXACT - Exact value matching
+ * @property {string} SEARCH.OPERATORS.GT - Greater than comparison
+ * @property {string} SEARCH.OPERATORS.GTE - Greater than or equal comparison
+ * @property {string} SEARCH.OPERATORS.LT - Less than comparison
+ * @property {string} SEARCH.OPERATORS.LTE - Less than or equal comparison
+ * @property {string} SEARCH.OPERATORS.IN - Check if value exists in array
+ * @property {string} SEARCH.OPERATORS.NOT_IN - Check if value does not exist in array
+ * @property {string} SEARCH.OPERATORS.BETWEEN - Check if value is between two values
+ * @property {Object} PAGINATION_CONFIG - Pagination settings
+ * @property {number} PAGINATION_CONFIG.DEFAULT_LIMIT - Default items per page
+ * @property {number} PAGINATION_CONFIG.MAX_LIMIT - Maximum allowed items per page
+ * @property {number} PAGINATION_CONFIG.MIN_LIMIT - Minimum allowed items per page
+ * @property {number} PAGINATION_CONFIG.DEFAULT_PAGE - Default page number
+ * @property {number} PAGINATION_CONFIG.MIN_PAGE - Minimum allowed page number
+ */
+const DB_CONFIG = {
+  SEARCH: {
+    MAX_RESULTS: 1000,
+    DEFAULT_LIMIT: 50,
+    MIN_LIMIT: 1,
+    OPERATORS: {
+      LIKE: 'like',
+      ILIKE: 'iLike',
+      EXACT: 'exact',
+      GT: 'gt',
+      GTE: 'gte',
+      LT: 'lt',
+      LTE: 'lte',
+      IN: 'in',
+      NOT_IN: 'notIn',
+      BETWEEN: 'between',
+    },
+  },
+
+  PAGINATION_CONFIG: {
+    DEFAULT_LIMIT: 10,
+    MAX_LIMIT: 100,
+    MIN_LIMIT: 1,
+    DEFAULT_PAGE: 1,
+    MIN_PAGE: 1,
+  },
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -453,4 +506,5 @@ module.exports = {
   THREAT_LEVELS,
   CACHE_CONFIG,
   PERFORMANCE_CONFIG,
+  DB_CONFIG,
 };

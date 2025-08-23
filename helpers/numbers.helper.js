@@ -11,6 +11,13 @@ const { NUMBER_CONSTANTS } = require('./constants.helper');
 const { cerror } = require('./debug.helper');
 
 // =============================================================================
+// SANITIZATION FUNCTIONS
+// =============================================================================
+const convertToNumber = (input) => {
+  return Number(input);
+};
+
+// =============================================================================
 // VALIDATION FUNCTIONS
 // =============================================================================
 
@@ -563,6 +570,9 @@ const radiansToDegrees = (radians) => {
 // =============================================================================
 
 module.exports = {
+  // Sanitization
+  convertToNumber,
+
   // Validation
   isValidNumber,
   isInRange,

@@ -40,36 +40,20 @@
 │   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── database
+│   │   ├── pagination.helper.js
+│   │   └── utilities.helper.js
 │   ├── debug.helper.js
-│   ├── docs
+│   ├── docs-generator.helper.js
 │   ├── encrypt.helper.js
 │   ├── numbers.helper.js
 │   ├── performance.helper.js
 │   ├── security.helper.js
 │   ├── strings.helper.js
-│   ├── tools
 │   ├── utilities.helper.js
 │   └── validations
-├── .husky
-│   ├── _
-│   │   ├── applypatch-msg
-│   │   ├── commit-msg
-│   │   ├── .gitignore
-│   │   ├── h
-│   │   ├── husky.sh
-│   │   ├── post-applypatch
-│   │   ├── post-checkout
-│   │   ├── post-commit
-│   │   ├── post-merge
-│   │   ├── post-rewrite
-│   │   ├── pre-applypatch
-│   │   ├── pre-auto-gc
-│   │   ├── pre-commit
-│   │   ├── pre-merge-commit
-│   │   ├── prepare-commit-msg
-│   │   ├── pre-push
-│   │   └── pre-rebase
-│   └── pre-commit
+│       ├── commonSchemas.helper.js
+│       ├── databaseSchemas.helper.js
+│       └── validations.factory.js
 ├── index.js
 ├── kubernetes
 │   ├── deployment.yaml
@@ -81,6 +65,16 @@
 ├── package.json
 ├── package-lock.json
 ├── README.md
+├── schemas
+│   ├── params
+│   │   ├── common.params.js
+│   │   ├── pagination.params.js
+│   │   └── search.params.js
+│   ├── responses
+│   └── validations
+│       ├── filters.schema.js
+│       ├── pagination.schema.js
+│       └── search.schema.js
 ├── scripts
 │   └── generate-rsa-keys.sh
 ├── seeders
@@ -103,4 +97,4 @@
     ├── extensions.json
     └── settings.json
 
-40 directories, 64 files
+40 directories, 58 files

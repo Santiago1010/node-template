@@ -1,1 +1,14 @@
-{}
+{
+  "fields": {
+    "test": "La variable de prueba"
+  },
+  "validations": {
+    "required": "El campo {field} es requerido",
+    "integer": "{field} debe ser un número entero",
+    "float": "{field} debe ser un número decimal",
+    "length": "{field} debe tener entre {min} y {max} caracteres",
+    "minDecimal": "{field} debe tener al menos {minDecimal} decimales",
+    "maxDecimal": "{field} no puede tener más de {maxDecimal} decimales",
+    "invalid": "{field} contiene un valor inválido"
+  }
+}
