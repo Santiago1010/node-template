@@ -19,6 +19,7 @@
 //   check('age', numberSchema('age', 'body', { minValue: 18, maxValue: 99 })),
 //   check('name', stringSchema('name', 'body', { maxLength: 50 })),
 // ], controller.handler);
+//
 // =============================================================================
 
 // =============================================================================
@@ -32,6 +33,9 @@ const i18n = require('../../config/i18n');
 const { THREAT_LEVELS } = require('../constants.helper');
 const { cerror } = require('../debug.helper');
 
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
 const getFieldName = (name) => {
   return typeof i18n !== 'undefined' ? i18n.__mf('fields.' + name) : `fields.${name}`;
 };
@@ -43,6 +47,10 @@ const defaultStringSanitizer = (value) => {
     allowSpecialChars: true,
   }).sanitized;
 };
+
+// =============================================================================
+// SCHEMA GENERATORS
+// =============================================================================
 
 /**
  * Generates a schema for validating number fields.
@@ -1825,6 +1833,9 @@ const htmlSchema = (
   return validationSchema;
 };
 
+// =============================================================================
+// MODULE EXPORTS
+// =============================================================================
 module.exports = {
   numberSchema,
   stringSchema,
