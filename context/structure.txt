@@ -23,7 +23,7 @@
 │   │   ├── cookies.config.js
 │   │   ├── cors.config.js
 │   │   ├── helmet.config.js
-│   │   └── rate-limit.config.js
+│   │   └── rateLimit.config.js
 │   └── tools
 │       └── morgan.config.js
 ├── context
@@ -69,6 +69,7 @@
 ├── LICENSE
 ├── middlewares
 │   ├── common
+│   │   └── cors.middleware.js
 │   ├── desktop
 │   ├── errors
 │   │   ├── asyncError.middleware.js
@@ -78,6 +79,9 @@
 │   │   └── validationError.middleware.js
 │   ├── mobile
 │   └── web
+│       ├── analytics.middleware.js
+│       ├── cookieParser.middleware.js
+│       └── session.middleware.js
 ├── migrations
 ├── models
 │   └── index.js
@@ -116,4 +120,4 @@
     ├── extensions.json
     └── settings.json
 
-48 directories, 69 files
+48 directories, 73 files
