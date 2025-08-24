@@ -10,26 +10,25 @@ const path = require('path');
 const chalk = require('chalk');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
 const moment = require('moment-timezone');
 const morgan = require('morgan');
-const Boom = require('@hapi/boom');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const config = require('./config/env');
-const i18n = require('./config/i18n');
 const getHelmetConfiguration = require('./config/security/helmet.config');
-const errorHandler = require('./middlewares/errorHandler.middleware');
-const routerApi = require('./routes');
-const HostsService = require('./services/web/config/env/hosts');
 const { generalLimiter, rateLimitHeaders } = require('./config/security/limit.config');
-const { root } = require('./helpers/constants.helper');
+const { ROOT } = require('./helpers/constants.helper');
 const { checkDevelopmentMode } = require('./helpers/debug.helper');
 const { createSecureMiddleware } = require('./middlewares/customSanitizer.middleware');
+
+// =============================================================================
+// CORS CONFIGURATION (NEW IMPLEMENTATION)
+// =============================================================================
+const { corsMiddleware } = require('./config/security/cors.config');
 
 // =============================================================================
 // INITIAL SETUP
@@ -43,7 +42,7 @@ const app = express();
 // MIDDLEWARE SETUP
 // =============================================================================
 app.use(compression({ level: 1 }));
-app.set('views', path.join(root, 'views'));
+app.set('views', path.join(ROOT, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(helmet(getHelmetConfiguration()));
@@ -51,24 +50,8 @@ app.use(helmet(getHelmetConfiguration()));
 app.use(generalLimiter);
 app.use(rateLimitHeaders);
 
-const corsOptions = {
-  origin: async (origin, callback) => {
-    if (!origin) return callback(null, true);
+app.use(corsMiddleware);
 
-    const allowedOrigins = await HostsService.getWhiteList();
-
-    callback(
-      allowedOrigins.includes(origin) ? null : new Error('Not allowed by CORS'),
-      allowedOrigins.includes(origin)
-    );
-  },
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Path'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors());
 app.use(cookieParser(config.cookieSecret));
 
 app.use((_, res, next) => {
@@ -81,13 +64,17 @@ app.use((_, res, next) => {
   next();
 });
 
+// =============================================================================
+// BODY PARSING AND SANITIZATION
+// =============================================================================
 app.use(express.json({ limit: '150mb' }));
 app.use(express.urlencoded({ limit: '150mb', extended: true }));
 app.use(...createSecureMiddleware({ deepSanitization: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(root, 'public')));
+app.use(express.static(path.join(ROOT, 'public')));
 
-// --------------------------- MORGAN CONFIGURATION ------------------------- //
+// =============================================================================
+// MORGAN LOGGING CONFIGURATION
+// =============================================================================
 morgan.token('date', () => moment().format('DD/MM/YYYY, HH:mm:ss'));
 
 morgan.token('statusColor', (_, res) => {
@@ -148,9 +135,14 @@ if (!checkDevelopmentMode(true)) {
   app.use(morgan(coloredFormat));
 }
 
-// ---------------------------- ROUTE HANDLERS ------------------------------ //
+// =============================================================================
+// ROUTE HANDLERS
+// =============================================================================
 app.get('/health', (_, res) => res.status(200).render('main/health'));
 
+// =============================================================================
+// SECURITY HEADERS MIDDLEWARE
+// =============================================================================
 app.use((_, res, next) => {
   res.set({
     'X-Content-Type-Options': 'nosniff',
@@ -161,15 +153,5 @@ app.use((_, res, next) => {
   });
   next();
 });
-
-// Apply specialized rate limiters to specific routes in your routerApi
-// You'll need to modify your routerApi to use the appropriate limiters
-routerApi(app);
-
-// --------------------------- ERROR HANDLING ------------------------------ //
-app.use((_, __, next) => next(Boom.notFound(i18n.__('errors.path.404'))));
-app.use(errorHandler.logErrorWithContext);
-app.use(errorHandler.ormErrorHandler);
-app.use(errorHandler.boomErrorHandler);
 
 module.exports = app;

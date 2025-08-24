@@ -1,7 +1,6 @@
 // =============================================================================
 // RATE LIMIT CONFIGURATION
 // =============================================================================
-//
 // Comprehensive rate limiting configuration for the application with multiple
 // tiers of protection and environment-specific settings.
 //

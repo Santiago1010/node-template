@@ -12,12 +12,17 @@
 │   │   ├── connection.js
 │   │   └── index.js
 │   ├── env
-│   │   └── index.js
-│   └── i18n
-│       ├── index.js
-│       └── locales
-│           ├── en.json
-│           └── es.json
+│   │   ├── index.js
+│   │   └── schema.js
+│   ├── i18n
+│   │   ├── index.js
+│   │   └── locales
+│   │       ├── en.json
+│   │       └── es.json
+│   └── security
+│       ├── cors.config.js
+│       ├── helmet.config.js
+│       └── rate-limit.config.js
 ├── context
 │   └── structure.txt
 ├── .debug
@@ -59,6 +64,9 @@
 │   ├── deployment.yaml
 │   └── keys
 ├── LICENSE
+├── middlewares
+│   ├── common
+│   └── web
 ├── migrations
 ├── models
 │   └── index.js
@@ -97,4 +105,4 @@
     ├── extensions.json
     └── settings.json
 
-40 directories, 58 files
+44 directories, 62 files
