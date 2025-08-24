@@ -1,4 +1,4 @@
-// --------------------------- NODE DEPENDENCIES --------------------------- //
+// --------------------------- CORE NODE.JS DEPENDENCIES --------------------------- //
 // Built-in modules from Node.js
 const { EventEmitter } = require('events');
 
