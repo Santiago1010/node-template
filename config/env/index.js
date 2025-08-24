@@ -70,7 +70,7 @@ const { MODES } = require('../../helpers/constants.helper');
  * Native implementation replacing dotenv functionality
  * @param {string} envPath - Path to .env file
  */
-function loadEnvFile(envPath) {
+const loadEnvFile = (envPath) => {
   try {
     const envContent = fs.readFileSync(envPath, 'utf8');
     const lines = envContent.split('\n');
@@ -107,7 +107,7 @@ function loadEnvFile(envPath) {
       console.error('Error loading .env file:', error.message);
     }
   }
-}
+};
 
 // =============================================================================
 // NATIVE COLOR CONSOLE UTILITIES
@@ -215,20 +215,16 @@ const config = {
 
   // JWT Configuration
   jwt: {
-    session: {
-      secret: {
-        access: env.JWT_SESSION_SECRET,
-        refresh: env.JWT_REFRESH_SESSION_SECRET,
-      },
-      subject: {
-        access: process.env.JWT_SESSION_SUBJECT || 'access',
-        refresh: process.env.JWT_REFRESH_SUBJECT || 'refresh',
-      },
-      expiration: {
-        access: parseInt(process.env.JWT_SESSION_TOKEN_EXPIRATION_TIME, 10) || 900000,
-        refresh: parseInt(process.env.JWT_SESSION_REFRESH_TOKEN_EXPIRATION_TIME, 10) || 2592000000,
-      },
-      algorithm: process.env.JWT_ALGORITHM || 'HS256',
+    algorithm: process.env.JWT_ALGORITHM || 'HS256',
+    accessToken: {
+      secret: process.env.JWT_ACCESS_TOKEN_SECRET || 'fallback-access-token-secret',
+      expiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION || '15m', // Milliseconds
+      subject: process.env.JWT_ACCESS_TOKEN_SUBJECT || 'user',
+    },
+    refreshToken: {
+      secret: process.env.JWT_REFRESH_TOKEN_SECRET || 'fallback-refresh-token-secret',
+      expiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION || '7d', // Days
+      subject: process.env.JWT_REFRESH_TOKEN_SUBJECT || 'user',
     },
   },
 
