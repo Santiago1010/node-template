@@ -85,8 +85,8 @@ const environmentSchema = z.object({
   REDIS_PASSWORD: z.string().optional(),
 
   // JWT
-  JWT_SESSION_SECRET: z.string().min(1, 'JWT_SESSION_SECRET is required'),
-  JWT_REFRESH_SESSION_SECRET: z.string().min(1, 'JWT_REFRESH_SESSION_SECRET is required'),
+  JWT_ACCESS_TOKEN_SECRET: z.string().min(1, 'JWT_ACCESS_TOKEN_SECRET is required'),
+  JWT_REFRESH_TOKEN_SECRET: z.string().min(1, 'JWT_REFRESH_TOKEN_SECRET is required'),
 
   // CORS
   CORS_ORIGIN: z.string().default('http://localhost:3000'),
