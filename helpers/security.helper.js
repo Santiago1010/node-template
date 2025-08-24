@@ -1140,68 +1140,6 @@ const checkIPStatus = (ipAddress) => {
 };
 
 // =============================================================================
-// SECURITY HEADERS
-// =============================================================================
-
-/**
- * Generates secure HTTP headers
- * @param {Object} options - Header configuration options
- * @returns {Object} Security headers object
- */
-const generateSecurityHeaders = (options = {}) => {
-  const {
-    csp = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'",
-    hsts = true,
-    hstsMaxAge = 31536000,
-    frameOptions = 'DENY',
-    contentTypeOptions = true,
-    xssProtection = true,
-    referrerPolicy = 'strict-origin-when-cross-origin',
-  } = options;
-
-  const headers = {};
-
-  // Content Security Policy
-  if (csp) {
-    headers['Content-Security-Policy'] = csp;
-  }
-
-  // HTTP Strict Transport Security
-  if (hsts) {
-    headers['Strict-Transport-Security'] = `max-age=${hstsMaxAge}; includeSubDomains; preload`;
-  }
-
-  // X-Frame-Options
-  if (frameOptions) {
-    headers['X-Frame-Options'] = frameOptions;
-  }
-
-  // X-Content-Type-Options
-  if (contentTypeOptions) {
-    headers['X-Content-Type-Options'] = 'nosniff';
-  }
-
-  // X-XSS-Protection
-  if (xssProtection) {
-    headers['X-XSS-Protection'] = '1; mode=block';
-  }
-
-  // Referrer Policy
-  if (referrerPolicy) {
-    headers['Referrer-Policy'] = referrerPolicy;
-  }
-
-  // Additional security headers
-  headers['X-Permitted-Cross-Domain-Policies'] = 'none';
-  headers['X-Download-Options'] = 'noopen';
-  headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
-  headers['Pragma'] = 'no-cache';
-  headers['Expires'] = '0';
-
-  return headers;
-};
-
-// =============================================================================
 // AUDIT AND MONITORING
 // =============================================================================
 
@@ -1444,9 +1382,6 @@ module.exports = {
   // IP Security
   markSuspiciousIP,
   checkIPStatus,
-
-  // Security Headers
-  generateSecurityHeaders,
 
   // Security Logging and Events
   logSecurityEvent,

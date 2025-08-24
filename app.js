@@ -1,9 +1,13 @@
-// --------------------------- NODE DEPENDENCIES --------------------------- //
+// =============================================================================
+// NODE DEPENDENCIES
+// =============================================================================
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
+// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
 const chalk = require('chalk');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -15,7 +19,9 @@ const moment = require('moment-timezone');
 const morgan = require('morgan');
 const Boom = require('@hapi/boom');
 
-// ------------------------- INTERNAL DEPENDENCIES ------------------------- //
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
 const config = require('./config/env');
 const i18n = require('./config/i18n');
 const errorHandler = require('./middlewares/errorHandler.middleware');
@@ -25,7 +31,9 @@ const { root } = require('./helpers/constants.helper');
 const { checkDevelopmentMode } = require('./helpers/debug.helper');
 const { createSecureMiddleware } = require('./middlewares/customSanitizer.middleware');
 
-// ---------------------------- INITIAL SETUP ------------------------------ //
+// =============================================================================
+// INITIAL SETUP
+// =============================================================================
 moment.tz.setDefault(config.timeZone);
 moment.locale(config.lang);
 
