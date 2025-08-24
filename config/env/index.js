@@ -17,7 +17,8 @@ const validatedEnv = environmentSchema.safeParse(process.env);
 
 if (!validatedEnv.success) {
   console.error(chalk.red.bold('❌ Invalid environment variables:\n'));
-  validatedEnv.error.errors.forEach((err) => {
+
+  validatedEnv.error.issues.forEach((err) => {
     console.error(chalk.red(`  • ${err.path.join('.')}: ${err.message}`));
   });
   process.exit(1);

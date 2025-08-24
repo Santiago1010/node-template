@@ -23,7 +23,7 @@ const {
   setDeviceAwareSecurityHeaders,
 } = require('./config/security/cookies.config');
 const { corsMiddleware } = require('./config/security/cors.config');
-const { generalLimiter, rateLimitHeaders } = require('./config/security/limit.config');
+const { generalLimiter, rateLimitHeaders } = require('./config/security/rate-limit.config');
 const { morgan, coloredFormat, fileFormat, stream } = require('./config/tools/morgan.config');
 const { ROOT } = require('./helpers/constants.helper');
 

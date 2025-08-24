@@ -9,7 +9,7 @@ const moment = require('moment');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 const config = require('../config/env');
-const { modes, paths } = require('./constants.helper');
+const { MODES, PATHS } = require('./constants.helper');
 
 // ----------------- CONSTANTS AND CONFIGURATION ----------------- //
 const DEBUG_FILE_PATH = path.resolve(process.cwd(), '.debug');
@@ -90,8 +90,8 @@ const writeDebugFile = (enable, expirationTime = null) => {
  * @private
  */
 const ensureLogsDirectory = () => {
-  if (!fs.existsSync(paths.logs)) {
-    fs.mkdirSync(paths.logs, { recursive: true });
+  if (!fs.existsSync(PATHS.logs)) {
+    fs.mkdirSync(PATHS.logs, { recursive: true });
   }
 };
 
@@ -109,7 +109,7 @@ const isDebugMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
   // Check development mode if allowed
-  if (allowDevMode && modes[mode] === DEVELOPMENT_MODE_VALUE) {
+  if (allowDevMode && MODES[mode] === DEVELOPMENT_MODE_VALUE) {
     return true;
   }
 
@@ -144,7 +144,7 @@ const isDebugMode = (allowDevMode = false) => {
 const isDevelopmentMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
-  return allowDevMode && modes[mode] === DEVELOPMENT_MODE_VALUE;
+  return allowDevMode && MODES[mode] === DEVELOPMENT_MODE_VALUE;
 };
 
 /**
@@ -403,7 +403,7 @@ const registerError = (location, error, statusCode, additionalData = null) => {
 
   // Generate log file path with current date
   const currentDate = moment().format('dddd, DD [of] MMMM [of] YYYY');
-  const errorLogPath = path.join(paths.logs, `${currentDate}.error.log`);
+  const errorLogPath = path.join(PATHS.logs, `${currentDate}.error.log`);
 
   try {
     // Ensure logs directory exists

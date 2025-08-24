@@ -10,5 +10,11 @@
     "minDecimal": "{field} debe tener al menos {minDecimal} decimales",
     "maxDecimal": "{field} no puede tener más de {maxDecimal} decimales",
     "invalid": "{field} contiene un valor inválido"
+  },
+  "errors": {
+    "tooManyRequests": "errors.tooManyRequests",
+    "tooManyAttempts": "errors.tooManyAttempts",
+    "criticalOperationLimit": "errors.criticalOperationLimit",
+    "uploadLimitExceeded": "errors.uploadLimitExceeded"
   }
 }
