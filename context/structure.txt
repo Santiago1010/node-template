@@ -19,10 +19,13 @@
 │   │   └── locales
 │   │       ├── en.json
 │   │       └── es.json
-│   └── security
-│       ├── cors.config.js
-│       ├── helmet.config.js
-│       └── rate-limit.config.js
+│   ├── security
+│   │   ├── cookies.config.js
+│   │   ├── cors.config.js
+│   │   ├── helmet.config.js
+│   │   └── rate-limit.config.js
+│   └── tools
+│       └── morgan.config.js
 ├── context
 │   └── structure.txt
 ├── .debug
@@ -105,4 +108,4 @@
     ├── extensions.json
     └── settings.json
 
-44 directories, 62 files
+45 directories, 64 files
