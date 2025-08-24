@@ -26,6 +26,9 @@ const { corsMiddleware } = require('./config/security/cors.config');
 const { generalLimiter, rateLimitHeaders } = require('./config/security/rate-limit.config');
 const { morgan, coloredFormat, fileFormat, stream } = require('./config/tools/morgan.config');
 const { ROOT } = require('./helpers/constants.helper');
+const { requestLogger } = require('./middlewares/errors/requestLogger.middleware');
+const { notFoundHandler } = require('./middlewares/errors/notFound.helper');
+const errorHandler = require('./middlewares/errors/errorHandler.middleware');
 
 moment.tz.setDefault(config.timeZone);
 moment.locale(config.lang);
@@ -55,5 +58,12 @@ app.use(express.static(path.join(ROOT, 'public')));
 
 app.use(morgan(coloredFormat));
 app.use(morgan(fileFormat, { stream: stream, skip: (_, res) => res.statusCode >= 400 }));
+
+app.use(requestLogger());
+
+// API Routes
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 module.exports = app;
