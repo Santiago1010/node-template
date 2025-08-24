@@ -483,6 +483,94 @@ const perror = (title, ...args) => {
   console.log(createSeparator(lineLength));
 };
 
+// =============================================================================
+// DEVICE DETECTION UTILITIES
+// =============================================================================
+
+/**
+ * Detects the type of device making the request based on User-Agent headers
+ * and other request characteristics. This helps implement device-specific
+ * behavior for cookies, authentication, and UI rendering.
+ *
+ * @param {Object} req - Express request object
+ * @returns {string} Device type identifier (web_browser, mobile_app, etc.)
+ */
+const detectDeviceType = (req) => {
+  const userAgent = req.headers['user-agent'] || '';
+  const isApp = req.headers['x-requested-with'] === 'com.company.app';
+  const isApiClient = req.headers['x-api-client'] !== undefined;
+
+  // Convert to lowercase for easier matching
+  const ua = userAgent.toLowerCase();
+
+  // Mobile App Detection (via custom headers or user agent)
+  if (isApp || ua.includes('company-app') || ua.includes('reactnative')) {
+    return 'mobile_app';
+  }
+
+  // Smart TV Detection
+  if (
+    ua.includes('smart-tv') ||
+    ua.includes('tv') ||
+    ua.includes('roku') ||
+    ua.includes('appletv') ||
+    ua.includes('crkey') ||
+    ua.includes('aftex')
+  ) {
+    return 'smart_tv';
+  }
+
+  // IoT Device Detection
+  if (ua.includes('iot') || ua.includes('embedded') || ua.includes('m2m') || ua.includes('device')) {
+    return 'iot_device';
+  }
+
+  // Desktop Application Detection
+  if (isApiClient || ua.includes('electron') || ua.includes('postman') || ua.includes('insomnia')) {
+    return 'desktop_app';
+  }
+
+  // Game Console Detection
+  if (ua.includes('playstation') || ua.includes('xbox') || ua.includes('nintendo') || ua.includes('wii')) {
+    return 'game_console';
+  }
+
+  // Mobile Browser Detection
+  if (
+    ua.includes('mobile') ||
+    ua.includes('android') ||
+    ua.includes('iphone') ||
+    ua.includes('ipad') ||
+    ua.includes('ipod') ||
+    ua.includes('windows phone')
+  ) {
+    return 'mobile_browser';
+  }
+
+  // Default to web browser for all other cases
+  return 'web_browser';
+};
+
+/**
+ * Enhanced device detection with additional metadata
+ * @param {Object} req - Express request object
+ * @returns {Object} Device information with type and additional metadata
+ */
+const detectDeviceWithMetadata = (req) => {
+  const userAgent = req.headers['user-agent'] || '';
+  const deviceType = detectDeviceType(req);
+
+  return {
+    type: deviceType,
+    userAgent: userAgent,
+    isMobile: deviceType.includes('mobile'),
+    isNativeApp: deviceType.includes('app') && !deviceType.includes('browser'),
+    isWeb: deviceType.includes('browser'),
+    timestamp: new Date().toISOString(),
+    ip: req.ip || req.connection.remoteAddress,
+  };
+};
+
 // ----------------- MODULE EXPORTS ----------------- //
 module.exports = {
   // Core debug functions
@@ -509,4 +597,8 @@ module.exports = {
   // Utility functions
   createHeader,
   createSeparator,
+
+  // Device detection functions
+  detectDeviceType,
+  detectDeviceWithMetadata,
 };
