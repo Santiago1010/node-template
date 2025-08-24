@@ -1,5 +1,5 @@
 // =============================================================================
-// ERROR HANDLER MIDDLEWARE
+// ERROR HANDLER MIDDLEWARE - Centralized Express Error Handling
 // =============================================================================
 // Centralized error handling middleware for Express applications.
 // Handles various error types including:
@@ -16,6 +16,7 @@
 // - Internationalization support
 // - Development/production mode differentiation
 // - Structured error response formatting
+//
 // =============================================================================
 
 // =============================================================================
@@ -146,9 +147,7 @@ const handleZodError = (error, _) => {
     value: err.received,
   }));
 
-  return boom.badRequest(i18n.__('error.validation'), {
-    errors: zodErrors,
-  });
+  return boom.badRequest(i18n.__('error.validation'), { errors: zodErrors });
 };
 
 /**
@@ -165,9 +164,7 @@ const handleValidationError = (error, _) => {
     location: err.location,
   }));
 
-  return boom.badRequest(i18n.__('error.validation'), {
-    errors: validationErrors,
-  });
+  return boom.badRequest(i18n.__('error.validation'), { errors: validationErrors });
 };
 
 // =============================================================================
