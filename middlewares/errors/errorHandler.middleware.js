@@ -23,8 +23,8 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
-const winston = require('winston'); // Logging library
 const moment = require('moment'); // Date/time manipulation
+const winston = require('winston'); // Logging library
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
