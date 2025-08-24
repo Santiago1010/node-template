@@ -1,5 +1,6 @@
 .
 ├── app.js
+├── ARCHITECTURE.md
 ├── biome.json
 ├── CHANGELOG.md
 ├── .commitlintrc.js
@@ -79,8 +80,7 @@
 │   │   └── validationError.middleware.js
 │   ├── mobile
 │   └── web
-│       ├── analytics.middleware.js
-│       ├── cookieParser.middleware.js
+│       ├── pageUseEndpoint.middleware.js
 │       └── session.middleware.js
 ├── migrations
 ├── models
