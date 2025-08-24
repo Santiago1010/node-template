@@ -69,6 +69,14 @@
 ├── LICENSE
 ├── middlewares
 │   ├── common
+│   ├── desktop
+│   ├── errors
+│   │   ├── asyncError.middleware.js
+│   │   ├── errorHandler.middleware.js
+│   │   ├── notFound.helper.js
+│   │   ├── requestLogger.middleware.js
+│   │   └── validationError.middleware.js
+│   ├── mobile
 │   └── web
 ├── migrations
 ├── models
@@ -108,4 +116,4 @@
     ├── extensions.json
     └── settings.json
 
-45 directories, 64 files
+48 directories, 69 files
