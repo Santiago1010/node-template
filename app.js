@@ -1,7 +1,6 @@
 // =============================================================================
 // NODE DEPENDENCIES
 // =============================================================================
-const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,7 +12,6 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const express = require('express');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const moment = require('moment-timezone');
 const morgan = require('morgan');
@@ -24,9 +22,11 @@ const Boom = require('@hapi/boom');
 // =============================================================================
 const config = require('./config/env');
 const i18n = require('./config/i18n');
+const getHelmetConfiguration = require('./config/security/helmet.config');
 const errorHandler = require('./middlewares/errorHandler.middleware');
 const routerApi = require('./routes');
 const HostsService = require('./services/web/config/env/hosts');
+const { generalLimiter, rateLimitHeaders } = require('./config/security/limit.config');
 const { root } = require('./helpers/constants.helper');
 const { checkDevelopmentMode } = require('./helpers/debug.helper');
 const { createSecureMiddleware } = require('./middlewares/customSanitizer.middleware');
@@ -39,62 +39,17 @@ moment.locale(config.lang);
 
 const app = express();
 
-// --------------------------- MIDDLEWARE SETUP ---------------------------- //
+// =============================================================================
+// MIDDLEWARE SETUP
+// =============================================================================
 app.use(compression({ level: 1 }));
 app.set('views', path.join(root, 'views'));
 app.set('view engine', 'ejs');
 
-if (!checkDevelopmentMode(true)) {
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", (_, res) => "'nonce-" + res.locals.nonce + "'", "'strict-dynamic'"],
-          imgSrc: ["'self'", 'data:', 'https:'],
-          styleSrc: ["'self'", "'unsafe-inline'"],
-          fontSrc: ["'self'", 'https:', 'data:'],
-          connectSrc: ["'self'"],
-          objectSrc: ["'none'"],
-          mediaSrc: ["'self'"],
-          frameSrc: ["'none'"],
-          upgradeInsecureRequests: [],
-        },
-      },
-      crossOriginEmbedderPolicy: false,
-      hsts: {
-        maxAge: 63072000,
-        includeSubDomains: true,
-        preload: true,
-      },
-      expectCt: {
-        enforce: true,
-        maxAge: 86400,
-        reportUri: '/api/v1/security/ct-report',
-      },
-      referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
-      xssFilter: true,
-      noSniff: true,
-      frameguard: { action: 'deny' },
-      dnsPrefetchControl: { allow: false },
-      permittedCrossDomainPolicies: false,
-    })
-  );
+app.use(helmet(getHelmetConfiguration()));
 
-  app.use((_, res, next) => {
-    res.locals.nonce = crypto.randomBytes(16).toString('hex');
-    next();
-  });
-}
-
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: (_) => 200,
-  keyGenerator: (req) => req.ip + '_' + req.headers['user-agent']?.substring(0, 30),
-  handler: (_, res) => res.status(429).json({ error: i18n.__('errors.tooManyRequests') }),
-});
-
-app.use(apiLimiter);
+app.use(generalLimiter);
+app.use(rateLimitHeaders);
 
 const corsOptions = {
   origin: async (origin, callback) => {
@@ -207,6 +162,8 @@ app.use((_, res, next) => {
   next();
 });
 
+// Apply specialized rate limiters to specific routes in your routerApi
+// You'll need to modify your routerApi to use the appropriate limiters
 routerApi(app);
 
 // --------------------------- ERROR HANDLING ------------------------------ //
