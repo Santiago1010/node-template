@@ -486,6 +486,15 @@ const DB_CONFIG = {
   },
 };
 
+const DEVICE_TYPES = {
+  WEB_BROWSER: 'web_browser', // Traditional web browsers
+  MOBILE_APP: 'mobile_app', // Native mobile applications
+  SMART_TV: 'smart_tv', // Television applications
+  IOT_DEVICE: 'iot_device', // Internet of Things devices
+  DESKTOP_APP: 'desktop_app', // Native desktop applications
+  GAME_CONSOLE: 'game_console', // Gaming systems
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -507,4 +516,5 @@ module.exports = {
   CACHE_CONFIG,
   PERFORMANCE_CONFIG,
   DB_CONFIG,
+  DEVICE_TYPES,
 };

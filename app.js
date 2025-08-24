@@ -1,210 +1,123 @@
-// --------------------------- NODE DEPENDENCIES --------------------------- //
-const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
+// =============================================================================
+// Application Entry Point - Main Server Configuration
+// =============================================================================
+// This file initializes and configures the Express.js application with:
+// - Security middleware (Helmet, CORS, rate limiting)
+// - Compression and static file serving
+// - Request parsing and logging
+// - Error handling and routing setup
+//
+// =============================================================================
 
-// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
-const chalk = require('chalk');
-const compression = require('compression');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const express = require('express');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const moment = require('moment-timezone');
-const morgan = require('morgan');
-const Boom = require('@hapi/boom');
+// =============================================================================
+// CORE NODE.JS DEPENDENCIES
+// =============================================================================
+const path = require('path'); // Utilities for working with file and directory paths
 
-// ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const config = require('./config/env');
-const i18n = require('./config/i18n');
-const errorHandler = require('./middlewares/errorHandler.middleware');
-const routerApi = require('./routes');
-const HostsService = require('./services/web/config/env/hosts');
-const { root } = require('./helpers/constants.helper');
-const { checkDevelopmentMode } = require('./helpers/debug.helper');
-const { createSecureMiddleware } = require('./middlewares/customSanitizer.middleware');
+// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const compression = require('compression'); // Response compression middleware
+const cookieParser = require('cookie-parser'); // Parse Cookie header and populate req.cookies
+const express = require('express'); // Web framework for Node.js
+const helmet = require('helmet'); // Security middleware to set HTTP headers
+const moment = require('moment-timezone'); // Date library with timezone support
 
-// ---------------------------- INITIAL SETUP ------------------------------ //
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const config = require('./config/env'); // Application configuration (environment variables)
+const getHelmetConfiguration = require('./config/security/helmet.config'); // Custom Helmet config
+const {
+  deviceAwareCookieMiddleware, // Device-specific cookie handling
+  authStrategyMiddleware, // Authentication strategy initialization
+  setDeviceAwareSecurityHeaders, // Dynamic security headers based on device
+} = require('./config/security/cookies.config');
+const { corsMiddleware } = require('./config/security/cors.config'); // CORS configuration
+const {
+  generalLimiter, // Global rate limiting rules
+  rateLimitHeaders, // Rate limit headers middleware
+} = require('./config/security/rate-limit.config');
+const {
+  morgan, // Morgan logger instance
+  coloredFormat, // Colored log format for development
+  fileFormat, // File log format
+  stream, // Log file write stream
+} = require('./config/tools/morgan.config');
+const { ROOT } = require('./helpers/constants.helper'); // Root directory path constant
+const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
+const { notFoundHandler } = require('./middlewares/errors/notFound.helper'); // 404 error handler
+const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
+
+// Configure moment.js to use application's default timezone and language
 moment.tz.setDefault(config.timeZone);
 moment.locale(config.lang);
 
+// Initialize Express application
 const app = express();
 
-// --------------------------- MIDDLEWARE SETUP ---------------------------- //
+// Apply GZIP compression with level 1 (fastest compression)
 app.use(compression({ level: 1 }));
-app.set('views', path.join(root, 'views'));
-app.set('view engine', 'ejs');
 
-if (!checkDevelopmentMode(true)) {
-  app.use(
-    helmet({
-      contentSecurityPolicy: {
-        directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", (_, res) => "'nonce-" + res.locals.nonce + "'", "'strict-dynamic'"],
-          imgSrc: ["'self'", 'data:', 'https:'],
-          styleSrc: ["'self'", "'unsafe-inline'"],
-          fontSrc: ["'self'", 'https:', 'data:'],
-          connectSrc: ["'self'"],
-          objectSrc: ["'none'"],
-          mediaSrc: ["'self'"],
-          frameSrc: ["'none'"],
-          upgradeInsecureRequests: [],
-        },
-      },
-      crossOriginEmbedderPolicy: false,
-      hsts: {
-        maxAge: 63072000,
-        includeSubDomains: true,
-        preload: true,
-      },
-      expectCt: {
-        enforce: true,
-        maxAge: 86400,
-        reportUri: '/api/v1/security/ct-report',
-      },
-      referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
-      xssFilter: true,
-      noSniff: true,
-      frameguard: { action: 'deny' },
-      dnsPrefetchControl: { allow: false },
-      permittedCrossDomainPolicies: false,
-    })
-  );
+// Set views directory and template engine
+app.set('views', path.join(ROOT, 'views')); // EJS templates directory
+app.set('view engine', 'ejs'); // Use EJS as template engine
 
-  app.use((_, res, next) => {
-    res.locals.nonce = crypto.randomBytes(16).toString('hex');
-    next();
-  });
-}
+// Security middleware with custom configuration
+app.use(helmet(getHelmetConfiguration()));
 
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: (_) => 200,
-  keyGenerator: (req) => req.ip + '_' + req.headers['user-agent']?.substring(0, 30),
-  handler: (_, res) => res.status(429).json({ error: i18n.__('errors.tooManyRequests') }),
-});
+// Apply rate limiting to all requests
+app.use(generalLimiter);
+// Add rate limit headers to responses
+app.use(rateLimitHeaders);
 
-app.use(apiLimiter);
+// Enable CORS with custom configuration
+app.use(corsMiddleware);
 
-const corsOptions = {
-  origin: async (origin, callback) => {
-    if (!origin) return callback(null, true);
-
-    const allowedOrigins = await HostsService.getWhiteList();
-
-    callback(
-      allowedOrigins.includes(origin) ? null : new Error('Not allowed by CORS'),
-      allowedOrigins.includes(origin)
-    );
-  },
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Path'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors());
+// Parse cookies using application's secret key
 app.use(cookieParser(config.cookieSecret));
 
-app.use((_, res, next) => {
-  res.cookieDefaults = {
-    secure: !checkDevelopmentMode(),
-    httpOnly: true,
-    sameSite: 'strict',
-    maxAge: 3600000,
-  };
-  next();
-});
+// Custom cookie and security middleware
+app.use(deviceAwareCookieMiddleware); // Device-aware cookie parsing
+app.use(authStrategyMiddleware); // Initialize authentication strategy
+app.use(setDeviceAwareSecurityHeaders); // Set device-specific security headers
 
-app.use(express.json({ limit: '150mb' }));
-app.use(express.urlencoded({ limit: '150mb', extended: true }));
-app.use(...createSecureMiddleware({ deepSanitization: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(root, 'public')));
+// Parse request bodies
+app.use(express.json({ limit: '150mb' })); // JSON payloads
+app.use(
+  express.urlencoded({
+    // URL-encoded payloads
+    limit: '150mb',
+    extended: true, // Use qs library for parsing
+  })
+);
 
-// --------------------------- MORGAN CONFIGURATION ------------------------- //
-morgan.token('date', () => moment().format('DD/MM/YYYY, HH:mm:ss'));
+// Serve static files from public directory
+app.use(express.static(path.join(ROOT, 'public')));
 
-morgan.token('statusColor', (_, res) => {
-  const status = res.statusCode;
+// HTTP request logging
+app.use(morgan(coloredFormat)); // Console logging with colors
+app.use(
+  morgan(fileFormat, {
+    // File logging (skip successful responses)
+    stream: stream,
+    skip: (_, res) => res.statusCode >= 400,
+  })
+);
 
-  if (status >= 500) return chalk.red(status);
-  if (status >= 400) return chalk.yellow(status);
-  if (status >= 300) return chalk.cyan(status);
-  if (status >= 200) return chalk.green(status);
+// Custom request logging middleware
+app.use(requestLogger());
 
-  return status;
-});
+// Note: API routes would be mounted here
+// Example: app.use('/api', require('./routes/api'));
 
-morgan.token('coloredMethod', (req) => {
-  switch (req.method) {
-    case 'GET':
-      return chalk.hex('#3498db')(req.method);
-    case 'POST':
-      return chalk.hex('#2ecc71')(req.method);
-    case 'PUT':
-      return chalk.hex('#f1c40f')(req.method);
-    case 'DELETE':
-      return chalk.hex('#e74c3c')(req.method);
-    case 'PATCH':
-      return chalk.hex('#9b59b6')(req.method);
-    default:
-      return req.method;
-  }
-});
+// Handle 404 errors (must be after route declarations)
+app.use(notFoundHandler);
 
-morgan.token('coloredResponseTime', (req, res) => {
-  if (!req._startAt || !res._startAt) return '0';
+// Global error handling middleware (must be last)
+app.use(errorHandler);
 
-  const sec = res._startAt[0] - req._startAt[0];
-  const nano = res._startAt[1] - req._startAt[1];
-  const ms = sec * 1e3 + nano / 1e6;
-  const time = ms.toFixed(0);
-
-  if (ms <= 400) return chalk.green(time);
-  if (ms <= 800) return chalk.blue(time);
-  if (ms <= 1200) return chalk.hex('#f39c12')(time);
-
-  return chalk.red(time);
-});
-
-const coloredFormat = ':coloredMethod :url :statusColor :coloredResponseTime ms - :date';
-const fileFormat = ':method :url :status :response-time ms - :date';
-
-if (!checkDevelopmentMode(true)) {
-  app.use(morgan(coloredFormat));
-  app.use(
-    morgan(fileFormat, {
-      stream: fs.createWriteStream(path.join(__dirname, '/logs/access.log'), { flags: 'a' }),
-      skip: (_, res) => res.statusCode >= 400,
-    })
-  );
-} else {
-  app.use(morgan(coloredFormat));
-}
-
-// ---------------------------- ROUTE HANDLERS ------------------------------ //
-app.get('/health', (_, res) => res.status(200).render('main/health'));
-
-app.use((_, res, next) => {
-  res.set({
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-    'X-XSS-Protection': '1; mode=block',
-    'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'geolocation=(), camera=(), microphone=()',
-  });
-  next();
-});
-
-routerApi(app);
-
-// --------------------------- ERROR HANDLING ------------------------------ //
-app.use((_, __, next) => next(Boom.notFound(i18n.__('errors.path.404'))));
-app.use(errorHandler.logErrorWithContext);
-app.use(errorHandler.ormErrorHandler);
-app.use(errorHandler.boomErrorHandler);
-
+// =============================================================================
+// Export Configured Express Application
+// =============================================================================
 module.exports = app;
