@@ -18,7 +18,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-// No external dependencies required - uses native Node.js and Express patterns
+const { isDevelopmentMode } = require('../../helpers/debug.helper');
 
 /**
  * Wraps an asynchronous Express middleware/route handler to properly catch errors
@@ -59,7 +59,7 @@ const globalAsyncErrorHandler = () => {
     console.error('Unhandled Promise Rejection at:', promise, 'reason:', reason);
 
     // In production, exit process to avoid running in undefined state
-    if (process.env.NODE_ENV === 'production') {
+    if (!isDevelopmentMode(true)) {
       console.log('Shutting down server due to unhandled promise rejection');
       process.exit(1);
     }
