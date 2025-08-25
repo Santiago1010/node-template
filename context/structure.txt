@@ -26,9 +26,14 @@
 │   │   ├── helmet.config.js
 │   │   └── rateLimit.config.js
 │   └── tools
+│       ├── logger.config.js
 │       └── morgan.config.js
 ├── context
 │   └── structure.txt
+├── controllers
+│   ├── auth
+│   │   └── sessionWeb.controller.js
+│   └── config
 ├── .debug
 ├── docker-compose.yml
 ├── Dockerfile
@@ -62,6 +67,7 @@
 │   └── validations
 │       ├── commonSchemas.helper.js
 │       ├── databaseSchemas.helper.js
+│       ├── index.js
 │       └── validations.factory.js
 ├── index.js
 ├── kubernetes
@@ -75,7 +81,7 @@
 │   ├── errors
 │   │   ├── asyncError.middleware.js
 │   │   ├── errorHandler.middleware.js
-│   │   ├── notFound.helper.js
+│   │   ├── notFound.middleware.js
 │   │   ├── requestLogger.middleware.js
 │   │   └── validationError.middleware.js
 │   ├── mobile
@@ -88,6 +94,13 @@
 ├── package.json
 ├── package-lock.json
 ├── README.md
+├── routes
+│   ├── auth
+│   │   ├── index.js
+│   │   ├── session.route.js
+│   │   └── validations
+│   │       └── session.validations.js
+│   └── index.js
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
@@ -102,6 +115,10 @@
 │   └── generate-rsa-keys.sh
 ├── seeders
 ├── .sequelizerc
+├── services
+│   ├── auth
+│   │   └── sessionWeb.service.js
+│   └── config
 ├── tests
 │   ├── e2e
 │   └── unit
@@ -120,4 +137,4 @@
     ├── extensions.json
     └── settings.json
 
-48 directories, 73 files
+57 directories, 81 files

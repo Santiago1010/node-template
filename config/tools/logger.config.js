@@ -135,7 +135,7 @@ const consoleTransport = new winston.transports.Console({
  */
 const errorFileTransport = new DailyRotateFile({
   level: 'error',
-  filename: path.join(PATHS.logs, 'error-%DATE%.log'),
+  filename: path.join(PATHS.LOGS, 'error-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
@@ -147,7 +147,7 @@ const errorFileTransport = new DailyRotateFile({
  * Daily rotating file transport for combined logs
  */
 const combinedFileTransport = new DailyRotateFile({
-  filename: path.join(PATHS.logs, 'combined-%DATE%.log'),
+  filename: path.join(PATHS.LOGS, 'combined-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
@@ -160,7 +160,7 @@ const combinedFileTransport = new DailyRotateFile({
  */
 const auditFileTransport = new DailyRotateFile({
   level: 'alert',
-  filename: path.join(PATHS.logs, 'audit-%DATE%.log'),
+  filename: path.join(PATHS.LOGS, 'audit-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '10m',

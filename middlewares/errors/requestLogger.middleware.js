@@ -21,7 +21,11 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const moment = require('moment-timezone'); // Timezone-aware date manipulation
-const winston = require('winston'); // Logging library with multiple transports
+
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { logger } = require('../../config/tools/logger.config'); // Winston logger
 
 /**
  * Main request logging middleware with comprehensive configuration options
@@ -76,7 +80,7 @@ const requestLogger = (options = {}) => {
     };
 
     // Log incoming request details
-    winston.log(logLevel, 'Incoming request', requestInfo);
+    logger.log(logLevel, 'Incoming request', requestInfo);
 
     // Intercept response methods to log response details
     const originalSend = res.send;
@@ -144,7 +148,7 @@ const errorLogger = (error, req, _, next) => {
   // Determine appropriate log level based on error severity
   const logLevel = errorInfo.severity === 'critical' ? 'error' : errorInfo.severity === 'high' ? 'warn' : 'info';
 
-  winston.log(logLevel, 'Request error occurred', errorInfo);
+  logger.log(logLevel, 'Request error occurred', errorInfo);
 
   next(error);
 };
@@ -197,7 +201,7 @@ const performanceLogger = (options = {}) => {
 
       // Log slow requests with additional details
       if (duration > slowRequestThreshold) {
-        winston.warn('Slow request detected', {
+        logger.warn('Slow request detected', {
           ...performanceData,
           threshold: `${slowRequestThreshold}ms`,
           slowBy: `${(duration - slowRequestThreshold).toFixed(2)}ms`,
@@ -206,7 +210,7 @@ const performanceLogger = (options = {}) => {
 
       // Log general performance metrics if enabled
       if (enableMetrics) {
-        winston.info('Request performance', performanceData);
+        logger.info('Request performance', performanceData);
       }
     });
 
@@ -240,14 +244,14 @@ const logResponse = (req, res, data, startTime, options) => {
 
   // Different log levels based on status code and duration
   if (res.statusCode >= 400) {
-    winston.warn('Request completed with error status', responseInfo);
+    logger.warn('Request completed with error status', responseInfo);
   } else if (duration > slowRequestThreshold) {
-    winston.warn('Slow request completed', {
+    logger.warn('Slow request completed', {
       ...responseInfo,
       threshold: `${slowRequestThreshold}ms`,
     });
   } else {
-    winston.info('Request completed successfully', responseInfo);
+    logger.info('Request completed successfully', responseInfo);
   }
 };
 
@@ -284,7 +288,7 @@ const logError = (req, _, error, startTime, options) => {
     severity: determineSeverity(error),
   };
 
-  winston.error('Request error during processing', errorLog);
+  logger.error('Request error during processing', errorLog);
 };
 
 /**

@@ -35,7 +35,7 @@ const {
 } = require('./config/tools/morgan.config');
 const { ROOT } = require('./helpers/constants.helper'); // Root directory path constant
 const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
-const { notFoundHandler } = require('./middlewares/errors/notFound.helper'); // 404 error handler
+const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
 const corsMiddleware = require('./middlewares/common/cors.middleware');
 
