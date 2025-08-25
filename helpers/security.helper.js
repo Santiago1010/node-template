@@ -15,12 +15,15 @@ const url = require('url');
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const contextHelper = require('./context.helper');
+const config = require('../config/env');
+const i18n = require('../config/i18n');
 const { THREAT_LEVELS, SECURITY_CONFIG, SECURITY_PATTERNS } = require('./constants.helper');
 const { cerror } = require('./debug.helper');
 
@@ -1346,6 +1349,77 @@ const performSecurityCleanup = () => {
 };
 
 // =============================================================================
+// JWT FUNCTIONS
+// =============================================================================
+
+/**
+ * Creates a JWT token with the given payload and secret.
+ *
+ * @param {Object} payload - Payload to be signed.
+ * @param {string} secret - Secret used for signing.
+ * @param {Object} [options] - Additional options for the token.
+ * @param {string} [options.algorithm] - Algorithm to use (default: {@link module:config/env~config.jwt.algorithm}).
+ * @param {string|number} [options.expiresIn] - Expiration time (default: none).
+ * @param {string|number} [options.notBefore] - "Not before" time (default: 0 seconds).
+ * @param {string} [options.audience] - Audience for the token (default: none).
+ * @param {string} [options.issuer] - Issuer of the token (default: none).
+ * @param {string} [options.jwtid] - JWT ID (default: random value).
+ * @param {string} [options.subject] - Subject of the token (default: none).
+ * @param {string} [options.encoding] - Encoding of the payload (default: UTF-8).
+ *
+ * @returns {string} The signed JWT token.
+ *
+ * @throws {Error} If the token creation fails.
+ */
+const createJWT = (payload, secret, options = {}) => {
+  try {
+    const defaultOptions = {
+      algorithm: config.jwt.algorithm,
+      expiresIn: undefined,
+      notBefore: '0s',
+      audience: undefined,
+      issuer: undefined,
+      jwtid: Math.random().toString(36).substring(7),
+      subject: undefined,
+      encoding: 'utf8',
+    };
+
+    const finalOptions = { ...defaultOptions, ...options };
+
+    return jwt.sign(payload, secret, finalOptions);
+  } catch (error) {
+    throw new Error(`Failed to create JWT: ${error.message}`);
+  }
+};
+
+const verifyJWT = (token, secret, options = {}) => {
+  try {
+    const defaultOptions = {
+      algorithms: [config.jwt.algorithm],
+      clockTolerance: 60,
+    };
+
+    const finalOptions = { ...defaultOptions, ...options };
+
+    return jwt.verify(token, secret, finalOptions);
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      throw new Error(i18n.__('error.invalid_token'));
+    } else if (error.name === 'TokenExpiredError') {
+      const tokenError = new Error(i18n.__('error.expired_token'));
+      tokenError.name = 'TokenExpiredError';
+      throw tokenError;
+    } else if (error.name === 'NotBeforeError') {
+      const tokenError = new Error(i18n.__('error.token_not_active'));
+      tokenError.name = 'JsonWebTokenError';
+      throw tokenError;
+    } else {
+      throw new Error(`Failed to verify JWT: ${error.message}`);
+    }
+  }
+};
+
+// =============================================================================
 // MODULE EXPORTS
 // =============================================================================
 module.exports = {
@@ -1395,4 +1469,8 @@ module.exports = {
   // Utility Functions
   generateSecureToken,
   getCurrentTimestamp,
+
+  // JWT Functions
+  createJWT,
+  verifyJWT,
 };

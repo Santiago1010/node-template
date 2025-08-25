@@ -1,7 +1,6 @@
 // --------------------------- CORE NODE.JS DEPENDENCIES --------------------------- //
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 
 // ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
 const Boom = require('@hapi/boom');
@@ -352,50 +351,54 @@ const clir = (title, ...args) => {
 // ----------------- ERROR HANDLING ----------------- //
 
 /**
- * Registers an error in the error log file with detailed information.
- * Creates a comprehensive error log entry with timestamp, location, and additional data.
- *
- * @param {string} location - Where the error occurred (e.g., 'UserController.createUser')
- * @param {Error} error - The error object to log
- * @param {string|number} statusCode - HTTP status code or error code
- * @param {any} [additionalData=null] - Additional context data related to the error
- * @returns {Boom} Custom Boom error object for HTTP responses
- * @throws {Error} If unable to write to log file
+ * Registers an error in the system, writing it to a log file and returning a Boom error object.
+ * The error is written to a log file with the current date in the filename.
+ * The log entry includes the error message, HTTP status code, and a timestamp.
+ * Additional information can be provided as an object, which will be safely serialized
+ * and logged. If the additional information cannot be serialized, a fallback message is logged.
+ * @param {string} error - The error message to log
+ * @param {number} httpCode - The HTTP status code associated with the error
+ * @param {Object} [options] - Additional options
+ * @param {string} [options.location] - The location of the error
+ * @param {number} [options.code] - A code associated with the error
+ * @param {Object|string|number} [options.additionalInfo] - Additional information to log
+ * @returns {Boom} - A Boom error object for use in HTTP responses
  */
-const registerError = (location, error, statusCode, additionalData = null) => {
+const registerError = (error, httpCode, { location, code, additionalInfo } = {}) => {
   const lineLength = DEFAULT_LINE_LENGTH;
   let logOutput = '';
 
   // Build error title
-  const title = `[${location}] - Error ${statusCode}`;
+  const locationText = location ? `[${location}]` : '[Unknown Location]';
+  const codeText = code ? ` - Code ${code}` : '';
+  const title = `${locationText} - HTTP ${httpCode}${codeText}`;
   logOutput += `${createHeader(title, lineLength)}\n`;
 
   // Log error details
-  const errorDetails = util.inspect(error, { depth: null, colors: false });
-  logOutput += `${errorDetails}\n`;
+  logOutput += `Error: ${error}\n`;
 
   // Add timestamp
   const timestamp = moment().format('dddd, DD [of] MMMM [of] YYYY [at] HH:mm:ss.SSS');
   logOutput += createHeader(timestamp, lineLength);
 
-  // Handle additional data if provided
-  if (additionalData !== null && additionalData !== undefined) {
+  // Handle additional info if provided
+  if (additionalInfo !== null && additionalInfo !== undefined) {
     logOutput += createSeparator(lineLength);
     logOutput += '\n';
 
-    if (typeof additionalData === 'object') {
+    if (typeof additionalInfo === 'object') {
       try {
         // Safely serialize the data
-        const serializedData = JSON.stringify(additionalData, null, 2);
-        console.dir(additionalData, { depth: null });
+        const serializedData = JSON.stringify(additionalInfo, null, 2);
+        console.dir(additionalInfo, { depth: null });
         logOutput += `${serializedData}\n`;
       } catch (serializationError) {
-        const fallbackMessage = `Unable to serialize additional data: ${serializationError.message}`;
+        const fallbackMessage = `Unable to serialize additional info: ${serializationError.message}`;
         console.error(fallbackMessage);
         logOutput += `${fallbackMessage}\n`;
       }
     } else {
-      const dataString = String(additionalData);
+      const dataString = String(additionalInfo);
       console.log(dataString);
       logOutput += `${dataString}\n`;
     }
@@ -403,7 +406,7 @@ const registerError = (location, error, statusCode, additionalData = null) => {
 
   // Generate log file path with current date
   const currentDate = moment().format('dddd, DD [of] MMMM [of] YYYY');
-  const errorLogPath = path.join(PATHS.logs, `${currentDate}.error.log`);
+  const errorLogPath = path.join(PATHS.LOGS, `${currentDate}.error.log`);
 
   try {
     // Ensure logs directory exists
@@ -417,7 +420,7 @@ const registerError = (location, error, statusCode, additionalData = null) => {
   }
 
   // Return Boom error object for HTTP responses
-  return new Boom.Boom(error.message || error, { statusCode });
+  return new Boom.Boom(error, { statusCode: httpCode });
 };
 
 /**

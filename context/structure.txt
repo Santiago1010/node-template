@@ -1,5 +1,6 @@
 .
 ├── app.js
+├── ARCHITECTURE.md
 ├── biome.json
 ├── CHANGELOG.md
 ├── .commitlintrc.js
@@ -23,7 +24,7 @@
 │   │   ├── cookies.config.js
 │   │   ├── cors.config.js
 │   │   ├── helmet.config.js
-│   │   └── rate-limit.config.js
+│   │   └── rateLimit.config.js
 │   └── tools
 │       └── morgan.config.js
 ├── context
@@ -69,7 +70,18 @@
 ├── LICENSE
 ├── middlewares
 │   ├── common
+│   │   └── cors.middleware.js
+│   ├── desktop
+│   ├── errors
+│   │   ├── asyncError.middleware.js
+│   │   ├── errorHandler.middleware.js
+│   │   ├── notFound.helper.js
+│   │   ├── requestLogger.middleware.js
+│   │   └── validationError.middleware.js
+│   ├── mobile
 │   └── web
+│       ├── pageUseEndpoint.middleware.js
+│       └── session.middleware.js
 ├── migrations
 ├── models
 │   └── index.js
@@ -108,4 +120,4 @@
     ├── extensions.json
     └── settings.json
 
-45 directories, 64 files
+48 directories, 73 files

@@ -1,15 +1,4 @@
 // =============================================================================
-// Application Entry Point - Main Server Configuration
-// =============================================================================
-// This file initializes and configures the Express.js application with:
-// - Security middleware (Helmet, CORS, rate limiting)
-// - Compression and static file serving
-// - Request parsing and logging
-// - Error handling and routing setup
-//
-// =============================================================================
-
-// =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const path = require('path'); // Utilities for working with file and directory paths
@@ -33,11 +22,10 @@ const {
   authStrategyMiddleware, // Authentication strategy initialization
   setDeviceAwareSecurityHeaders, // Dynamic security headers based on device
 } = require('./config/security/cookies.config');
-const { corsMiddleware } = require('./config/security/cors.config'); // CORS configuration
 const {
   generalLimiter, // Global rate limiting rules
   rateLimitHeaders, // Rate limit headers middleware
-} = require('./config/security/rate-limit.config');
+} = require('./config/security/rateLimit.config');
 const {
   morgan, // Morgan logger instance
   coloredFormat, // Colored log format for development
@@ -48,6 +36,7 @@ const { ROOT } = require('./helpers/constants.helper'); // Root directory path c
 const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
 const { notFoundHandler } = require('./middlewares/errors/notFound.helper'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
+const corsMiddleware = require('./middlewares/common/cors.middleware');
 
 // Configure moment.js to use application's default timezone and language
 moment.tz.setDefault(config.timeZone);

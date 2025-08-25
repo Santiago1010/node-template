@@ -486,13 +486,23 @@ const DB_CONFIG = {
   },
 };
 
+/**
+ * Enumeration of device types used across the system
+ * @constant {Object}
+ * @property {string} WEB_BROWSER - Traditional web browsers (e.g., Chrome, Firefox, Safari)
+ * @property {string} MOBILE_APP - Native mobile applications (iOS/Android)
+ * @property {string} SMART_TV - Television applications (Smart TVs, streaming devices)
+ * @property {string} IOT_DEVICE - Internet of Things devices (sensors, smart home devices)
+ * @property {string} DESKTOP_APP - Native desktop applications (Windows/Mac/Linux)
+ * @property {string} GAME_CONSOLE - Gaming systems (PlayStation, Xbox, Nintendo)
+ */
 const DEVICE_TYPES = {
-  WEB_BROWSER: 'web_browser', // Traditional web browsers
-  MOBILE_APP: 'mobile_app', // Native mobile applications
-  SMART_TV: 'smart_tv', // Television applications
-  IOT_DEVICE: 'iot_device', // Internet of Things devices
-  DESKTOP_APP: 'desktop_app', // Native desktop applications
-  GAME_CONSOLE: 'game_console', // Gaming systems
+  WEB_BROWSER: 'web_browser',
+  MOBILE_APP: 'mobile_app',
+  SMART_TV: 'smart_tv',
+  IOT_DEVICE: 'iot_device',
+  DESKTOP_APP: 'desktop_app',
+  GAME_CONSOLE: 'game_console',
 };
 
 // =============================================================================
