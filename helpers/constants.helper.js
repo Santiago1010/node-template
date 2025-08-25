@@ -505,6 +505,71 @@ const DEVICE_TYPES = {
   GAME_CONSOLE: 'game_console',
 };
 
+/**
+ * Enumeration of log levels following the syslog standard (RFC 5424)
+ * @constant {Object}
+ * @property {number} emerg - Emergency: system is unusable
+ * @property {number} alert - Alert: action must be taken immediately
+ * @property {number} crit - Critical: critical conditions
+ * @property {number} error - Error: error conditions
+ * @property {number} warn - Warning: warning conditions
+ * @property {number} notice - Notice: normal but significant condition
+ * @property {number} info - Informational: informational messages
+ * @property {number} debug - Debug: debug-level messages
+ */
+const LOG_LEVELS = {
+  emerg: 0,
+  alert: 1,
+  crit: 2,
+  error: 3,
+  warn: 4,
+  notice: 5,
+  info: 6,
+  debug: 7,
+};
+
+/**
+ * Color mapping for different log levels in console output
+ * @constant {Object}
+ * @property {string} emerg - Red color (emergency)
+ * @property {string} alert - Red color (alert)
+ * @property {string} crit - Red color (critical)
+ * @property {string} error - Red color (error)
+ * @property {string} warn - Yellow color (warning)
+ * @property {string} notice - Cyan color (notice)
+ * @property {string} info - Green color (informational)
+ * @property {string} debug - Blue color (debug)
+ */
+const LOG_COLORS = {
+  emerg: 'red',
+  alert: 'red',
+  crit: 'red',
+  error: 'red',
+  warn: 'yellow',
+  notice: 'cyan',
+  info: 'green',
+  debug: 'blue',
+};
+
+/**
+ * Sensitive field names that should be automatically masked in logs and responses
+ * @constant {Array<string>}
+ * @description List of field names containing sensitive information that will be
+ *              automatically redacted from system logs and API responses
+ */
+const SENSITIVE_FIELDS = [
+  'password',
+  'token',
+  'authorization',
+  'cookie',
+  'session',
+  'creditcard',
+  'credit_card',
+  'cvv',
+  'ssn',
+  'secret',
+];
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -527,4 +592,7 @@ module.exports = {
   PERFORMANCE_CONFIG,
   DB_CONFIG,
   DEVICE_TYPES,
+  LOG_LEVELS,
+  LOG_COLORS,
+  SENSITIVE_FIELDS,
 };

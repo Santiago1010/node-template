@@ -58,7 +58,7 @@ const baseLimiterConfig = {
     });
   },
 
-  skip: isDevelopmentMode(), // Skip rate limiting in development
+  skip: (_, __) => isDevelopmentMode(), // Skip rate limiting in development
   headers: true, // Include rate limit headers in responses
   legacyHeaders: false, // Disable deprecated headers
 };
