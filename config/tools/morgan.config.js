@@ -214,20 +214,31 @@ morgan.token('coloredResponseTime', (req, res) => {
   return color.red(display);
 });
 
+morgan.token('timezone', () => {
+  const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const offset = new Date().getTimezoneOffset();
+  const offsetHours = Math.abs(Math.floor(offset / 60));
+  const offsetMinutes = Math.abs(offset % 60);
+  const offsetSign = offset <= 0 ? '+' : '-';
+
+  return `${timezoneName} (UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')})`;
+});
+
 // =============================================================================
 // LOGGING FORMAT CONFIGURATION
 // =============================================================================
+
 /**
  * Colored console output format for development environments
  * @type {string}
  */
-const coloredFormat = ':coloredMethod :url :statusColor :coloredResponseTime - :date';
+const coloredFormat = ':coloredMethod :url :statusColor :coloredResponseTime - :date [:timezone]';
 
 /**
  * Structured file output format for production environments
  * @type {string}
  */
-const fileFormat = ':method :url :status :response-time ms - :date';
+const fileFormat = ':method :url :status :response-time ms - :date [:timezone]';
 
 // =============================================================================
 // FILE LOGGING CONFIGURATION
