@@ -1,9 +1,8 @@
-// --------------------------- CORE NODE.JS DEPENDENCIES --------------------------- //
+// =============================================================================
+// CORE NODE.JS DEPENDENCIES
+// =============================================================================
 const fs = require('fs');
 const path = require('path');
-
-// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
-const moment = require('moment');
 
 /**
  * Auto-versioning script for GitHub Actions
@@ -29,6 +28,25 @@ class AutoVersioning {
     this.validateEnvironment();
   }
 
+  formatDate(format = 'YYYY-MM-DD') {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    switch (format) {
+      case 'YYYY-MM-DD':
+        return `${year}-${month}-${day}`;
+      case 'YYYY-MM-DD HH:mm:ss UTC':
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} UTC`;
+      default:
+        return `${year}-${month}-${day}`;
+    }
+  }
+
   validateEnvironment() {
     const required = ['GITHUB_TOKEN', 'GITHUB_REPOSITORY', 'PR_NUMBER', 'PR_TITLE'];
     const missing = required.filter((env) => !process.env[env]);
@@ -51,7 +69,7 @@ class AutoVersioning {
 
     const versionPatterns = {
       major: ['major', 'version:major', 'breaking', 'breaking-change'],
-      minor: ['minor', 'version:minor', 'feature', 'feat'],
+      minor: ['minor', 'version:minor', 'feature', 'feat', 'enhancement'], // ADDED: enhancement
       patch: ['patch', 'version:patch', 'fix', 'bugfix', 'hotfix'],
     };
 
@@ -132,13 +150,13 @@ class AutoVersioning {
     const sections = { added: [], changed: [], fixed: [], removed: [] };
     const bodyLower = this.prBody.toLowerCase();
 
-    // Buscar secciones específicas en el body del PR
+    // Search for specific sections in the PR body
     const addedMatch = this.prBody.match(/(?:### Added|## Added|Added:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
     const changedMatch = this.prBody.match(/(?:### Changed|## Changed|Changed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
     const fixedMatch = this.prBody.match(/(?:### Fixed|## Fixed|Fixed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
     const removedMatch = this.prBody.match(/(?:### Removed|## Removed|Removed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
 
-    // Procesar secciones encontradas
+    // Process found sections
     if (addedMatch) {
       sections.added = this.extractBulletPoints(addedMatch[1]);
     }
@@ -152,7 +170,7 @@ class AutoVersioning {
       sections.removed = this.extractBulletPoints(removedMatch[1]);
     }
 
-    // Si no hay secciones específicas, usar heurísticas basadas en el título y contenido
+    // If no specific sections found, use heuristics based on title and content
     if (Object.values(sections).every((arr) => arr.length === 0)) {
       if (bodyLower.includes('add') || bodyLower.includes('new') || bodyLower.includes('implement')) {
         sections.added.push(this.prTitle);
@@ -177,7 +195,7 @@ class AutoVersioning {
   }
 
   /**
-   * Extrae puntos de una sección de texto
+   * Extracts bullet points from a text section
    */
   extractBulletPoints(text) {
     if (!text) return [];
@@ -224,7 +242,7 @@ class AutoVersioning {
 
     return this.prCommits
       .filter((commit) => commit.commit && commit.sha)
-      .slice(-10)
+      .slice(-10) // Limit to last 10 commits
       .map((commit) => {
         const shortSha = commit.sha.substring(0, 7);
         const message = commit.commit.message.split('\n')[0];
@@ -237,12 +255,18 @@ class AutoVersioning {
    * Generates a clean and well-formatted changelog entry
    */
   generateChangelogEntry(version) {
-    const date = moment().format('YYYY-MM-DD');
-    const datetime = moment().utc().format('YYYY-MM-DD HH:mm:ss UTC');
+    console.log('📝 Generating changelog entry...');
+
+    // CHANGED: Use native function instead of moment.js
+    const date = this.formatDate('YYYY-MM-DD');
+    const datetime = this.formatDate('YYYY-MM-DD HH:mm:ss UTC');
     const repoUrl = `https://github.com/${this.repo}`;
     const prUrl = `${repoUrl}/pull/${this.prNumber}`;
 
-    // Limpiar el resumen del PR
+    console.log(`📅 Date: ${date}`);
+    console.log(`🕒 DateTime: ${datetime}`);
+
+    // Clean PR summary
     let summary = this.prBody.trim();
     if (summary) {
       summary = summary
@@ -258,25 +282,30 @@ class AutoVersioning {
       summary = this.prTitle;
     }
 
+    console.log('🏷️ Processing type mapping...');
     // Type of Change
     const typeMapping = this.mapLabelsToTypeOfChange();
     const checkedTypes = Object.entries(typeMapping)
       .filter(([_, checked]) => checked)
       .map(([type, _]) => type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
 
+    console.log('📝 Extracting what changed...');
     // What Changed
     const whatChanged = this.extractWhatChanged();
 
+    console.log('🔗 Extracting related issues...');
     // Related Issues
     const relatedIssues = this.extractRelatedIssues();
 
+    console.log('📦 Formatting commits...');
     // Commits
     const commits = this.formatCommitsForChangelog();
 
     // Metadata
     const labelsList = this.prLabels.map((l) => l.name).join(', ') || 'none';
 
-    // Construir la entrada del changelog
+    console.log('🔨 Building changelog entry...');
+    // Build changelog entry
     let changelogEntry = `## [${version}] - ${date}\n\n`;
     changelogEntry += `**Released:** ${datetime}\n\n`;
     changelogEntry += `### [${this.prTitle}](${prUrl})\n\n`;
@@ -289,7 +318,7 @@ class AutoVersioning {
       changelogEntry += `**Type of Change:** ${checkedTypes.join(', ')}\n\n`;
     }
 
-    // What Changed sections (solo mostrar secciones no vacías)
+    // What Changed sections (only show non-empty sections)
     let hasChanges = false;
     if (whatChanged.added.length > 0) {
       changelogEntry += `**Added:**\n${whatChanged.added.map((item) => `- ${item}`).join('\n')}\n\n`;
@@ -308,7 +337,7 @@ class AutoVersioning {
       hasChanges = true;
     }
 
-    // Si no hay cambios específicos, usar el título del PR
+    // If no specific changes, use PR title
     if (!hasChanges) {
       changelogEntry += `**Changes:**\n- ${this.prTitle}\n\n`;
     }
@@ -331,7 +360,7 @@ class AutoVersioning {
     }
     changelogEntry += `- Commits: ${commits.length}\n\n`;
 
-    // Commits (mostrar solo los más relevantes)
+    // Commits (show only the most relevant)
     if (commits.length > 0) {
       changelogEntry += `**Commits:**\n`;
       commits.forEach((commit) => {
@@ -342,6 +371,7 @@ class AutoVersioning {
 
     changelogEntry += `---\n\n`;
 
+    console.log('✅ Changelog entry generated successfully');
     return changelogEntry;
   }
 
@@ -349,9 +379,12 @@ class AutoVersioning {
    * Updates CHANGELOG.md with new version entry
    */
   updateChangelog(version) {
+    console.log('📝 Starting changelog update...');
+
     const changelogEntry = this.generateChangelogEntry(version);
 
-    // Leer o crear CHANGELOG.md
+    console.log('📂 Reading existing changelog...');
+    // Read or create CHANGELOG.md
     let existingContent = '';
     if (fs.existsSync(this.changelogPath)) {
       existingContent = fs.readFileSync(this.changelogPath, 'utf8');
@@ -359,15 +392,17 @@ class AutoVersioning {
       existingContent = `# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n---\n\n`;
     }
 
-    // Buscar si ya existe esta versión
+    console.log('🔍 Checking for existing version...');
+    // Check if this version already exists
     const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
 
     if (versionHeaderRegex.test(existingContent)) {
-      // La versión ya existe, reemplazar la sección completa
+      console.log(`🔄 Version ${version} already exists, replacing...`);
+      // Version already exists, replace the entire section
       const lines = existingContent.split('\n');
       const versionLineIndex = lines.findIndex((line) => versionHeaderRegex.test(line));
 
-      // Encontrar el final de esta sección (próxima versión o final del archivo)
+      // Find end of this section (next version or end of file)
       let endIndex = lines.length;
       for (let i = versionLineIndex + 1; i < lines.length; i++) {
         if (lines[i].match(/^## \[/)) {
@@ -376,32 +411,34 @@ class AutoVersioning {
         }
       }
 
-      // Reemplazar la sección
+      // Replace section
       const beforeVersion = lines.slice(0, versionLineIndex).join('\n');
       const afterVersion = lines.slice(endIndex).join('\n');
 
       let separator = beforeVersion.length > 0 ? '\n' : '';
       existingContent = beforeVersion + separator + changelogEntry + afterVersion;
     } else {
-      // Nueva versión, insertar al principio del contenido (después del header)
+      console.log(`➕ Adding new version ${version}...`);
+      // New version, insert at beginning of content (after header)
       const headerMatch = existingContent.match(/(^# Changelog[\s\S]*?---\n\n)/);
       if (headerMatch) {
         const header = headerMatch[1];
         const content = existingContent.substring(header.length);
         existingContent = header + changelogEntry + content;
       } else {
-        // Fallback: agregar después de la primera línea
+        // Fallback: add after first line
         const lines = existingContent.split('\n');
         lines.splice(1, 0, '', changelogEntry);
         existingContent = lines.join('\n');
       }
     }
 
-    // Escribir el changelog actualizado
+    console.log('💾 Writing changelog file...');
+    // Write updated changelog
     fs.writeFileSync(this.changelogPath, existingContent);
 
     console.log(`📝 Changelog entry created for version ${version}`);
-    console.log(`📅 Date: ${moment().format('YYYY-MM-DD')}`);
+    console.log(`📅 Date: ${this.formatDate('YYYY-MM-DD')}`);
     console.log(`👤 Author: ${this.prAuthor || 'Unknown'}`);
     console.log(`📎 Commits: ${this.prCommits.length}`);
   }
@@ -424,7 +461,7 @@ class AutoVersioning {
       this.updateChangelog(newVersion);
       console.log(`📋 Changelog updated with version ${newVersion}`);
 
-      // Output para GitHub Actions
+      // CORRECTED: Use correct syntax for GitHub Actions
       console.log(`::set-output name=version::${newVersion}`);
       console.log(`::set-output name=bump_type::${bumpType}`);
 
