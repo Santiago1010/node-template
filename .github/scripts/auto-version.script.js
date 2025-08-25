@@ -7,6 +7,10 @@ const path = require('path');
 /**
  * Auto-versioning script for GitHub Actions
  * Updates package.json version and CHANGELOG.md based on PR labels and content
+ *
+ * MODIFIED: This version does NOT format or parse the PR title/body in any way.
+ * It copies the PR title and PR body verbatim into the changelog (no trimming,
+ * no parsing, no markdown manipulation). Then it appends labels and commits.
  */
 class AutoVersioning {
   constructor() {
@@ -140,97 +144,6 @@ class AutoVersioning {
   }
 
   /**
-   * Extracts and categorizes changes from PR body with better parsing
-   */
-  extractWhatChanged() {
-    if (!this.prBody.trim()) {
-      return { added: [], changed: [], fixed: [], removed: [] };
-    }
-
-    const sections = { added: [], changed: [], fixed: [], removed: [] };
-    const bodyLower = this.prBody.toLowerCase();
-
-    // Search for specific sections in the PR body
-    const addedMatch = this.prBody.match(/(?:### Added|## Added|Added:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const changedMatch = this.prBody.match(/(?:### Changed|## Changed|Changed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const fixedMatch = this.prBody.match(/(?:### Fixed|## Fixed|Fixed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const removedMatch = this.prBody.match(/(?:### Removed|## Removed|Removed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-
-    // Process found sections
-    if (addedMatch) {
-      sections.added = this.extractBulletPoints(addedMatch[1]);
-    }
-    if (changedMatch) {
-      sections.changed = this.extractBulletPoints(changedMatch[1]);
-    }
-    if (fixedMatch) {
-      sections.fixed = this.extractBulletPoints(fixedMatch[1]);
-    }
-    if (removedMatch) {
-      sections.removed = this.extractBulletPoints(removedMatch[1]);
-    }
-
-    // If no specific sections found, use heuristics based on title and content
-    if (Object.values(sections).every((arr) => arr.length === 0)) {
-      if (bodyLower.includes('add') || bodyLower.includes('new') || bodyLower.includes('implement')) {
-        sections.added.push(this.prTitle);
-      }
-      if (
-        bodyLower.includes('updat') ||
-        bodyLower.includes('modif') ||
-        bodyLower.includes('chang') ||
-        bodyLower.includes('improv')
-      ) {
-        sections.changed.push(this.prTitle);
-      }
-      if (bodyLower.includes('fix') || bodyLower.includes('resolv') || bodyLower.includes('correct')) {
-        sections.fixed.push(this.prTitle);
-      }
-      if (bodyLower.includes('remov') || bodyLower.includes('delet')) {
-        sections.removed.push(this.prTitle);
-      }
-    }
-
-    return sections;
-  }
-
-  /**
-   * Extracts bullet points from a text section
-   */
-  extractBulletPoints(text) {
-    if (!text) return [];
-
-    return text
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.startsWith('- ') || line.startsWith('* ') || line.match(/^\d+\./))
-      .map((line) => line.replace(/^[-*]\s*/, '').replace(/^\d+\.\s*/, ''))
-      .filter((line) => line.length > 0);
-  }
-
-  /**
-   * Extracts related issues from PR body
-   */
-  extractRelatedIssues() {
-    if (!this.prBody.trim()) {
-      return [];
-    }
-
-    const issuePatterns = [/(?:closes?|fixes?|resolves?)\s+#(\d+)/gi, /(?:related\s+to|see)\s+#(\d+)/gi, /#(\d+)/g];
-
-    const issues = new Set();
-
-    issuePatterns.forEach((pattern) => {
-      let match = pattern.exec(this.prBody);
-      while (match !== null) {
-        issues.add(match[1]);
-      }
-    });
-
-    return Array.from(issues);
-  }
-
-  /**
    * Formats commits list for changelog
    */
   formatCommitsForChangelog() {
@@ -252,100 +165,46 @@ class AutoVersioning {
   }
 
   /**
-   * Generates a clean and well-formatted changelog entry
+   * Generates a changelog entry WITHOUT formatting or parsing PR content.
+   * It copies the PR title and PR body verbatim into the changelog.
    */
   generateChangelogEntry(version) {
-    console.log('📝 Generating changelog entry...');
+    console.log('📝 Generating changelog entry (raw PR content)...');
 
-    // CHANGED: Use native function instead of moment.js
     const date = this.formatDate('YYYY-MM-DD');
     const datetime = this.formatDate('YYYY-MM-DD HH:mm:ss UTC');
     const repoUrl = `https://github.com/${this.repo}`;
     const prUrl = `${repoUrl}/pull/${this.prNumber}`;
 
-    console.log(`📅 Date: ${date}`);
-    console.log(`🕒 DateTime: ${datetime}`);
+    // RAW: no trimming, no markdown removal, no parsing
+    const rawTitle = this.prTitle || '';
+    const rawBody = this.prBody === undefined || this.prBody === null ? '' : this.prBody;
 
-    // Clean PR summary
-    let summary = this.prBody.trim();
-    if (summary) {
-      summary = summary
-        .split('\n\n')[0]
-        .replace(/^#+\s*/gm, '')
-        .replace(/\*\*(.*?)\*\*/g, '$1')
-        .trim();
-
-      if (summary.length > 300) {
-        summary = summary.substring(0, 300) + '...';
-      }
-    } else {
-      summary = this.prTitle;
-    }
-
-    console.log('🏷️ Processing type mapping...');
-    // Type of Change
+    // Type mapping (kept for metadata, not used to modify content)
     const typeMapping = this.mapLabelsToTypeOfChange();
     const checkedTypes = Object.entries(typeMapping)
       .filter(([_, checked]) => checked)
       .map(([type, _]) => type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
 
-    console.log('📝 Extracting what changed...');
-    // What Changed
-    const whatChanged = this.extractWhatChanged();
-
-    console.log('🔗 Extracting related issues...');
-    // Related Issues
-    const relatedIssues = this.extractRelatedIssues();
-
-    console.log('📦 Formatting commits...');
-    // Commits
     const commits = this.formatCommitsForChangelog();
-
-    // Metadata
     const labelsList = this.prLabels.map((l) => l.name).join(', ') || 'none';
 
-    console.log('🔨 Building changelog entry...');
-    // Build changelog entry
+    // Build changelog entry - verbatim PR content
     let changelogEntry = `## [${version}] - ${date}\n\n`;
     changelogEntry += `**Released:** ${datetime}\n\n`;
-    changelogEntry += `### [${this.prTitle}](${prUrl})\n\n`;
+    changelogEntry += `### [${rawTitle || '(no title)'}](${prUrl})\n\n`;
 
-    if (summary !== this.prTitle) {
-      changelogEntry += `**Summary:** ${summary}\n\n`;
+    // Insert PR Body verbatim. If empty, mark as (no body).
+    changelogEntry += `**PR Content (verbatim):**\n`;
+    if (rawBody && rawBody.length > 0) {
+      changelogEntry += `${rawBody}\n\n`;
+    } else {
+      changelogEntry += `(no body)\n\n`;
     }
 
+    // Include labels and type of change metadata
     if (checkedTypes.length > 0) {
       changelogEntry += `**Type of Change:** ${checkedTypes.join(', ')}\n\n`;
-    }
-
-    // What Changed sections (only show non-empty sections)
-    let hasChanges = false;
-    if (whatChanged.added.length > 0) {
-      changelogEntry += `**Added:**\n${whatChanged.added.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.changed.length > 0) {
-      changelogEntry += `**Changed:**\n${whatChanged.changed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.fixed.length > 0) {
-      changelogEntry += `**Fixed:**\n${whatChanged.fixed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.removed.length > 0) {
-      changelogEntry += `**Removed:**\n${whatChanged.removed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-
-    // If no specific changes, use PR title
-    if (!hasChanges) {
-      changelogEntry += `**Changes:**\n- ${this.prTitle}\n\n`;
-    }
-
-    // Related Issues
-    if (relatedIssues.length > 0) {
-      const issueLinks = relatedIssues.map((issue) => `[#${issue}](${repoUrl}/issues/${issue})`).join(', ');
-      changelogEntry += `**Related Issues:** ${issueLinks}\n\n`;
     }
 
     // Metadata
@@ -371,7 +230,7 @@ class AutoVersioning {
 
     changelogEntry += `---\n\n`;
 
-    console.log('✅ Changelog entry generated successfully');
+    console.log('✅ Changelog entry generated (raw)');
     return changelogEntry;
   }
 
@@ -394,7 +253,7 @@ class AutoVersioning {
 
     console.log('🔍 Checking for existing version...');
     // Check if this version already exists
-    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
+    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\\./g, '\\\\.')}\\]`, 'm');
 
     if (versionHeaderRegex.test(existingContent)) {
       console.log(`🔄 Version ${version} already exists, replacing...`);
