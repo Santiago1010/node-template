@@ -91,7 +91,7 @@ app.use(
   morgan(fileFormat, {
     // File logging (skip successful responses)
     stream: stream,
-    skip: (_, res) => res.statusCode >= 400,
+    skip: (_, res) => res.statusCode >= 500,
   })
 );
 

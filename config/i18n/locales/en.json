@@ -13,7 +13,8 @@
     "maxDecimal": "{field} cannot have more than {maxDecimal} decimal places",
     "invalid": "{field} contains an invalid value",
     "string": "validations.string",
-    "passwordLength": "validations.passwordLength"
+    "passwordLength": "validations.passwordLength",
+    "passwordUppercase": "validations.passwordUppercase"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
