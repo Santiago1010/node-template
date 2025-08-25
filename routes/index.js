@@ -1,6 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const express = require('express');
 const userAgent = require('express-useragent');
 
 // =============================================================================
@@ -13,7 +14,9 @@ const userAgent = require('express-useragent');
 const routerApi = (app) => {
   app.use(userAgent.express());
 
-  const apiRouterV1 = require('auth', require('./auth'));
+  const apiRouterV1 = express.Router();
+
+  apiRouterV1.use('/auth', require('./auth'));
 
   app.use('/api/v1', apiRouterV1);
 };

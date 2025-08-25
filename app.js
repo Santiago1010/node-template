@@ -15,6 +15,7 @@ const moment = require('moment-timezone'); // Date library with timezone support
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const routerApi = require('./routes');
 const config = require('./config/env'); // Application configuration (environment variables)
 const getHelmetConfiguration = require('./config/security/helmet.config'); // Custom Helmet config
 const {
@@ -97,8 +98,7 @@ app.use(
 // Custom request logging middleware
 app.use(requestLogger());
 
-// Note: API routes would be mounted here
-// Example: app.use('/api', require('./routes/api'));
+routerApi(app);
 
 // Handle 404 errors (must be after route declarations)
 app.use(notFoundHandler);

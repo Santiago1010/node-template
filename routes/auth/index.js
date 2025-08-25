@@ -8,7 +8,7 @@ const express = require('express');
 // =============================================================================
 const router = express.Router();
 
-router.use('/');
+router.use('/', require('./session.route'));
 
 // =============================================================================
 // MODULE EXPORTS
