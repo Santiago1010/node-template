@@ -91,11 +91,27 @@ const developmentFormat = winston.format.combine(
   winston.format.colorize({ all: true }),
   winston.format.printf(({ timestamp, level, message, stack, ...meta }) => {
     const sanitizedMeta = redactSensitiveData(meta);
-    const metaString = Object.keys(sanitizedMeta).length ? `\n${JSON.stringify(sanitizedMeta, null, 2)}` : '';
 
-    const stackString = stack ? `\n${stack}` : '';
+    let logMessage = `${timestamp} [${level}]: ${message}`;
 
-    return `${timestamp} [${level}]: ${message}${metaString}${stackString}`;
+    if (Object.keys(sanitizedMeta).length > 0) {
+      const formattedMeta = Object.entries(sanitizedMeta).reduce((acc, [key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          acc[key] = JSON.stringify(value, null, 2);
+        } else {
+          acc[key] = value;
+        }
+        return acc;
+      }, {});
+
+      logMessage += `\n${JSON.stringify(formattedMeta, null, 2)}`;
+    }
+
+    if (stack) {
+      logMessage += `\n${stack}`;
+    }
+
+    return logMessage;
   })
 );
 
