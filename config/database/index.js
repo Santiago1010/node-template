@@ -122,6 +122,42 @@ const databaseConfig = {
     seederStorageTableName: 'sequelize_seeders',
   },
 
+  // Local development configuration
+  local: {
+    username: config.database.user,
+    password: config.database.password,
+    database: config.database.name,
+    host: config.database.host,
+    port: config.database.port,
+    dialect: config.database.dialect,
+    ssl: config.database.ssl,
+    logging: false,
+
+    // Connection Pool Configuration
+    pool: {
+      max: config.database.pool.max,
+      min: config.database.pool.min,
+      acquire: config.database.pool.acquire,
+      idle: config.database.pool.idle,
+    },
+
+    define: {
+      timestamps: true, // Enable createdAt/updatedAt fields
+      underscored: true, // Use snake_case column names
+      paranoid: true, // Enable soft deletes
+      freezeTableName: true, // Prevent pluralization
+    },
+
+    timezone: config.timeZone,
+    query: { raw: false },
+
+    // Migration and seeder configuration
+    migrationStorage: 'sequelize',
+    migrationStorageTableName: 'sequelize_migrations',
+    seederStorage: 'sequelize',
+    seederStorageTableName: 'sequelize_seeders',
+  },
+
   // Test environment configuration
   test: {
     username: config.database.user,
