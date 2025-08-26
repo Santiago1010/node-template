@@ -1,7 +1,7 @@
 const SessionService = require('../../services/auth/sessionWeb.service');
 
 class SessionController {
-  static async login(req, res, next) {
+  static async loginWeb(req, res, next) {
     const { credential, password } = req.body;
 
     try {

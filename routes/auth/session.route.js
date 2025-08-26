@@ -16,7 +16,7 @@ const { validationErrorHandler } = require('../../middlewares/errors/validationE
 // =============================================================================
 const router = express.Router();
 
-router.post('/login/web', checkSchema(loginSchema), validationErrorHandler, SessionController.login);
+router.post('/login/web', checkSchema(loginSchema), validationErrorHandler, SessionController.loginWeb);
 
 // =============================================================================
 // MODULE EXPORTS

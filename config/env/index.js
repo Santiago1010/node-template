@@ -168,7 +168,7 @@ const config = {
   port: env.PORT,
   url: env.BASE_URL.replace('${PORT}', env.PORT.toString()),
   apiVersion: env.API_VERSION,
-  isLocal: MODES[env.NODE_ENV] === 0,
+  isLocal: MODES[env.NODE_ENV.toUpperCase()] === 0,
 
   // Internationalization
   lang: process.env.DEFAULT_LANG || 'en',
