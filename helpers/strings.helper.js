@@ -604,6 +604,24 @@ const newlines = (count = 1) => {
 };
 
 /**
+ * Returns a string consisting of a specified number of tab characters.
+ *
+ * @param {number} [count=1] - The number of tab characters to return
+ * @returns {string} A string consisting of `count` tab characters
+ *
+ * @example
+ * tabs() // '\t'
+ * tabs(2) // '\t\t'
+ */
+const tabs = (count = 1) => {
+  if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
+    throw new Error('Invalid count: must be a non-negative integer');
+  }
+
+  return '\t'.repeat(count);
+};
+
+/**
  * Returns a string consisting of a specified number of spaces.
  *
  * @param {number} [count=1] - The number of spaces to return
@@ -944,6 +962,7 @@ module.exports = {
 
   // String Generation Utilities
   newlines,
+  tabs,
   spaces,
   repeatString,
 
