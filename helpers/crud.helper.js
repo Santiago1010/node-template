@@ -12,6 +12,7 @@
 // - Implements separation of concerns between schema inspection and code generation
 // - Follows the Template Method pattern for code generation
 // - Uses promisified filesystem operations for async/await compatibility
+// - Integrates with DatabaseConnection for resilient connection management
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
 // - ORM-based schema inspection: More portable but less precise control
@@ -34,6 +35,7 @@
 // USAGE EXAMPLES:
 // - Generate CRUD operations for a users table:
 //   const helper = new CrudHelper();
+//   await helper.initialize();
 //   const columns = await helper.readAllColumns('users');
 //   const template = await helper.getTemplate('crud', 'base');
 //
@@ -66,7 +68,7 @@ const { Sequelize } = require('sequelize'); // ORM and database client
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const sequelize = require('../configurations/database'); // Database connection instance
+const databaseConnection = require('../config/database'); // Database connection instance
 const { database } = require('../config/env'); // Database configuration
 const { PATHS } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
@@ -240,9 +242,63 @@ const SQL_QUERIES = {
  * Enables automatic CRUD operation generation and database metadata discovery
  * @example
  * const crudHelper = new CrudHelper();
+ * await crudHelper.initialize();
  * const userColumns = await crudHelper.readAllColumns('users');
  */
 class CrudHelper {
+  /**
+   * Creates an instance of CrudHelper
+   * @description Initializes the CrudHelper with database connection management
+   * @example
+   * const helper = new CrudHelper();
+   * await helper.initialize();
+   */
+  constructor() {
+    this.sequelize = null;
+    this.isInitialized = false;
+  }
+
+  /**
+   * Initialize the database connection for the CrudHelper
+   * @returns {Promise<void>}
+   * @throws {Error} Database connection initialization failure
+   * @example
+   * const helper = new CrudHelper();
+   * await helper.initialize();
+   */
+  async initialize() {
+    if (this.isInitialized && this.sequelize) {
+      return;
+    }
+
+    try {
+      this.sequelize = await databaseConnection.initialize();
+      this.isInitialized = true;
+      console.log('✅ CrudHelper initialized with database connection');
+    } catch (error) {
+      console.error('❌ Failed to initialize CrudHelper:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Ensure database connection is available before executing queries
+   * @private
+   * @returns {Promise<Sequelize>} Active Sequelize instance
+   * @throws {Error} Connection not initialized or unavailable
+   */
+  async #ensureConnection() {
+    if (!this.isInitialized || !this.sequelize) {
+      await this.initialize();
+    }
+
+    if (!databaseConnection.isConnected) {
+      throw new Error('Database connection is not available');
+    }
+
+    return this.sequelize;
+  }
+
   /**
    * Execute a database query with proper error handling and logging
    * @private
@@ -255,9 +311,11 @@ class CrudHelper {
    */
   async #executeQuery(query, logMessage, returnFirst = false) {
     try {
-      const result = await sequelize.query(query, {
-        type: Sequelize.QueryTypes.SELECT,
-        logging: wrapLogging(logMessage),
+      const result = await databaseConnection.executeWithRetry(async (seq) => {
+        return await seq.query(query, {
+          type: Sequelize.QueryTypes.SELECT,
+          logging: wrapLogging(logMessage),
+        });
       });
 
       return returnFirst ? result[0] : result;
@@ -284,7 +342,7 @@ class CrudHelper {
       'Query table comment',
       true
     );
-    return result?.TABLE_COMMENT || '';
+    return result?.table_comment || '';
   }
 
   // ========================= COLUMN QUERY METHODS ========================= //
@@ -609,6 +667,21 @@ class CrudHelper {
     template = template.replace(`await logsDeletion.${methodNames.create}`, 'await logsDeletion.create');
 
     return template;
+  }
+
+  /**
+   * Gracefully close the database connection
+   * @returns {Promise<void>}
+   * @example
+   * await crudHelper.close();
+   */
+  async close() {
+    if (this.isInitialized) {
+      await databaseConnection.close();
+      this.sequelize = null;
+      this.isInitialized = false;
+      console.log('✅ CrudHelper connection closed');
+    }
   }
 }
 

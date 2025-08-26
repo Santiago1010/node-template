@@ -147,9 +147,9 @@ const databaseConfig = {
     },
 
     timezone: config.timeZone,
-    ...(config.development.test.databaseUrl && {
-      use_env_variable: 'TEST_DATABASE_URL',
-    }),
+    // ...(config.development.test.databaseUrl && {
+    //   use_env_variable: 'TEST_DATABASE_URL',
+    // }),
   },
 
   // Additional environment configurations...
@@ -161,14 +161,14 @@ const databaseConfig = {
  * @property {Array} read - Read replica connections
  * @property {Object} write - Primary write connection
  */
-const readReplicaConfig = config.database.readReplica.host
+const readReplicaConfig = config.database?.readReplica?.host
   ? {
       read: [
         {
-          host: config.database.readReplica.host,
-          port: config.database.readReplica.port,
-          username: config.database.readReplica.user,
-          password: config.database.readReplica.password,
+          host: config.database?.readReplica?.host,
+          port: config.database?.readReplica?.port,
+          username: config.database?.readReplica?.user,
+          password: config.database?.readReplica?.password,
         },
       ],
       write: {

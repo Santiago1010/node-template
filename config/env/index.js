@@ -180,7 +180,7 @@ const config = {
     host: env.DB_HOST,
     port: env.DB_PORT,
     name: env.DB_NAME,
-    user: env.DB_USERNAME,
+    user: env.DB_USER,
     password: env.DB_PASSWORD,
     dialect: env.DB_DIALECT,
     ssl: process.env.DB_SSL === 'true',

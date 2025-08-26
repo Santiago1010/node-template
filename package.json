@@ -30,6 +30,10 @@
   },
   "type": "commonjs",
   "main": "index.js",
+  "bin": {
+    "create-models": "./scripts/createModels.script.js",
+    "generate-models": "./scripts/createModels.script.js"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -48,7 +52,9 @@
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
     "start": "node index.js",
-    "test": "test"
+    "test": "test",
+    "models:generate": "node ./scripts/createModels.script.js",
+    "models:create": "node ./scripts/createModels.script.js"
   },
   "overrides": {
     "glob": "^10.3.10",
