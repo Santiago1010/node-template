@@ -112,7 +112,43 @@ const databaseConfig = {
       freezeTableName: true, // Prevent pluralization
     },
 
-    timezone: config.timeZone,
+    timezone: config.timeZone.utc,
+    query: { raw: false },
+
+    // Migration and seeder configuration
+    migrationStorage: 'sequelize',
+    migrationStorageTableName: 'sequelize_migrations',
+    seederStorage: 'sequelize',
+    seederStorageTableName: 'sequelize_seeders',
+  },
+
+  // Local development configuration
+  local: {
+    username: config.database.user,
+    password: config.database.password,
+    database: config.database.name,
+    host: config.database.host,
+    port: config.database.port,
+    dialect: config.database.dialect,
+    ssl: config.database.ssl,
+    logging: false,
+
+    // Connection Pool Configuration
+    pool: {
+      max: config.database.pool.max,
+      min: config.database.pool.min,
+      acquire: config.database.pool.acquire,
+      idle: config.database.pool.idle,
+    },
+
+    define: {
+      timestamps: true, // Enable createdAt/updatedAt fields
+      underscored: true, // Use snake_case column names
+      paranoid: true, // Enable soft deletes
+      freezeTableName: true, // Prevent pluralization
+    },
+
+    timezone: config.timeZone.utc,
     query: { raw: false },
 
     // Migration and seeder configuration
@@ -146,10 +182,10 @@ const databaseConfig = {
       freezeTableName: true,
     },
 
-    timezone: config.timeZone,
-    ...(config.development.test.databaseUrl && {
-      use_env_variable: 'TEST_DATABASE_URL',
-    }),
+    timezone: config.timeZone.utc,
+    // ...(config.development.test.databaseUrl && {
+    //   use_env_variable: 'TEST_DATABASE_URL',
+    // }),
   },
 
   // Additional environment configurations...
@@ -161,14 +197,14 @@ const databaseConfig = {
  * @property {Array} read - Read replica connections
  * @property {Object} write - Primary write connection
  */
-const readReplicaConfig = config.database.readReplica.host
+const readReplicaConfig = config.database?.readReplica?.host
   ? {
       read: [
         {
-          host: config.database.readReplica.host,
-          port: config.database.readReplica.port,
-          username: config.database.readReplica.user,
-          password: config.database.readReplica.password,
+          host: config.database?.readReplica?.host,
+          port: config.database?.readReplica?.port,
+          username: config.database?.readReplica?.user,
+          password: config.database?.readReplica?.password,
         },
       ],
       write: {

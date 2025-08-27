@@ -55,7 +55,7 @@ const { z } = require('zod');
  * @property {string} DB_HOST - Database host
  * @property {number} DB_PORT - Database port
  * @property {string} DB_NAME - Database name
- * @property {string} DB_USERNAME - Database username
+ * @property {string} DB_USER - Database username
  * @property {string} [DB_PASSWORD] - Database password
  * @property {'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql'} DB_DIALECT - Database dialect
  * @property {string} REDIS_HOST - Redis host
@@ -75,7 +75,7 @@ const environmentSchema = z.object({
   DB_HOST: z.string().default('localhost'),
   DB_PORT: z.coerce.number().default(3306),
   DB_NAME: z.string().min(1, 'DB_NAME is required'),
-  DB_USERNAME: z.string().min(1, 'DB_USERNAME is required'),
+  DB_USER: z.string().min(1, 'DB_USER is required'),
   DB_PASSWORD: z.string().optional(),
   DB_DIALECT: z.enum(['mysql', 'postgres', 'sqlite', 'mariadb', 'mssql']).default('mysql'),
 

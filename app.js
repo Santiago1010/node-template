@@ -15,6 +15,7 @@ const moment = require('moment-timezone'); // Date library with timezone support
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const routerApi = require('./routes');
 const config = require('./config/env'); // Application configuration (environment variables)
 const getHelmetConfiguration = require('./config/security/helmet.config'); // Custom Helmet config
 const {
@@ -34,12 +35,12 @@ const {
 } = require('./config/tools/morgan.config');
 const { ROOT } = require('./helpers/constants.helper'); // Root directory path constant
 const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
-const { notFoundHandler } = require('./middlewares/errors/notFound.helper'); // 404 error handler
+const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
 const corsMiddleware = require('./middlewares/common/cors.middleware');
 
 // Configure moment.js to use application's default timezone and language
-moment.tz.setDefault(config.timeZone);
+moment.tz.setDefault(config.timeZone.name);
 moment.locale(config.lang);
 
 // Initialize Express application
@@ -90,15 +91,14 @@ app.use(
   morgan(fileFormat, {
     // File logging (skip successful responses)
     stream: stream,
-    skip: (_, res) => res.statusCode >= 400,
+    skip: (_, res) => res.statusCode >= 500,
   })
 );
 
 // Custom request logging middleware
 app.use(requestLogger());
 
-// Note: API routes would be mounted here
-// Example: app.use('/api', require('./routes/api'));
+routerApi(app);
 
 // Handle 404 errors (must be after route declarations)
 app.use(notFoundHandler);

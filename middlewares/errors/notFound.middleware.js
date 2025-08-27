@@ -19,7 +19,11 @@
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
 const moment = require('moment'); // Date/time manipulation
-const winston = require('winston'); // Logging library
+
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { logger } = require('../../config/tools/logger.config'); // Winston logger
 
 /**
  * Basic 404 handler middleware for Express applications
@@ -34,7 +38,7 @@ const winston = require('winston'); // Logging library
  */
 const notFoundHandler = (req, _, next) => {
   // Log missing route details for analysis
-  winston.warn('Route not found', {
+  logger.warn('Route not found', {
     method: req.method,
     url: req.originalUrl,
     ip: req.ip,
@@ -96,7 +100,7 @@ const smartNotFoundHandler = (options = {}) => {
   return (req, res, next) => {
     // Log event if enabled
     if (enableLogging) {
-      winston.warn('Smart 404 handler triggered', {
+      logger.warn('Smart 404 handler triggered', {
         method: req.method,
         url: req.originalUrl,
         ip: req.ip,

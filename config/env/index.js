@@ -168,11 +168,14 @@ const config = {
   port: env.PORT,
   url: env.BASE_URL.replace('${PORT}', env.PORT.toString()),
   apiVersion: env.API_VERSION,
-  isLocal: MODES[env.NODE_ENV] === 0,
+  isLocal: MODES[env.NODE_ENV.toUpperCase()] === 0,
 
   // Internationalization
   lang: process.env.DEFAULT_LANG || 'en',
-  timeZone: process.env.DEFAULT_TIME_ZONE || 'UTC',
+  timeZone: {
+    utc: process.env.DEFAULT_TIME_ZONE_UTC || 'UTC',
+    name: process.env.DEFAULT_TIME_ZONE_NAME || 'UTC',
+  },
   supportedLanguages: process.env.SUPPORTED_LANGUAGES?.split(',') || ['en'],
 
   // Database Configuration
@@ -180,7 +183,7 @@ const config = {
     host: env.DB_HOST,
     port: env.DB_PORT,
     name: env.DB_NAME,
-    user: env.DB_USERNAME,
+    user: env.DB_USER,
     password: env.DB_PASSWORD,
     dialect: env.DB_DIALECT,
     ssl: process.env.DB_SSL === 'true',

@@ -1,6 +1,8 @@
 {
   "fields": {
-    "test": "Test variable"
+    "test": "Test variable",
+    "credential": "fields.credential",
+    "password": "fields.password"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -9,12 +11,18 @@
     "length": "{field} must be between {min} and {max} characters",
     "minDecimal": "{field} must have at least {minDecimal} decimal places",
     "maxDecimal": "{field} cannot have more than {maxDecimal} decimal places",
-    "invalid": "{field} contains an invalid value"
+    "invalid": "{field} contains an invalid value",
+    "string": "validations.string",
+    "passwordLength": "validations.passwordLength",
+    "passwordUppercase": "validations.passwordUppercase"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
     "tooManyAttempts": "errors.tooManyAttempts",
     "criticalOperationLimit": "errors.criticalOperationLimit",
     "uploadLimitExceeded": "errors.uploadLimitExceeded"
+  },
+  "error": {
+    "internal_server": "error.internal_server"
   }
 }

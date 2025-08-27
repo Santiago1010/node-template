@@ -2,11 +2,13 @@
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const fs = require('fs');
+const https = require('https');
 const path = require('path');
 
 /**
  * Auto-versioning script for GitHub Actions
  * Updates package.json version and CHANGELOG.md based on PR labels and content
+ * OPTIMIZED: Fetches large data via GitHub API instead of environment variables
  */
 class AutoVersioning {
   constructor() {
@@ -16,16 +18,90 @@ class AutoVersioning {
     this.prTitle = process.env.PR_TITLE;
     this.prBody = process.env.PR_BODY || '';
     this.prLabels = JSON.parse(process.env.PR_LABELS || '[]');
-    this.prCommits = JSON.parse(process.env.PR_COMMITS || '[]');
     this.prAuthor = process.env.PR_AUTHOR || '';
     this.prApprover = process.env.PR_APPROVER || '';
-    this.prProjects = JSON.parse(process.env.PR_PROJECTS || '[]');
     this.prMilestone = process.env.PR_MILESTONE || '';
+
+    // These will be fetched via API
+    this.prCommits = [];
+    this.prProjects = [];
 
     this.packagePath = path.join(process.cwd(), 'package.json');
     this.changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
 
     this.validateEnvironment();
+  }
+
+  /**
+   * Makes GitHub API requests
+   */
+  async githubApiRequest(endpoint) {
+    const [owner, repo] = this.repo.split('/');
+    const url = `https://api.github.com/repos/${owner}/${repo}${endpoint}`;
+
+    return new Promise((resolve, reject) => {
+      const options = {
+        headers: {
+          Authorization: `token ${this.token}`,
+          'User-Agent': 'GitHub-Actions-Auto-Version',
+          Accept: 'application/vnd.github.v3+json',
+        },
+      };
+
+      const req = https.get(url, options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              resolve(JSON.parse(data));
+            } catch (e) {
+              reject(new Error(`Failed to parse JSON: ${e.message}`));
+            }
+          } else {
+            reject(new Error(`API request failed: ${res.statusCode} ${res.statusMessage}`));
+          }
+        });
+      });
+
+      req.on('error', reject);
+      req.setTimeout(10000, () => {
+        req.destroy();
+        reject(new Error('Request timeout'));
+      });
+    });
+  }
+
+  /**
+   * Fetches PR commits from GitHub API
+   */
+  async fetchPrCommits() {
+    try {
+      console.log('📡 Fetching PR commits from API...');
+      const commits = await this.githubApiRequest(`/pulls/${this.prNumber}/commits`);
+      this.prCommits = commits.slice(-10); // Limit to last 10 commits
+      console.log(`✅ Fetched ${this.prCommits.length} commits`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to fetch commits: ${error.message}`);
+      this.prCommits = [];
+    }
+  }
+
+  /**
+   * Fetches repository projects from GitHub API
+   */
+  async fetchRepoProjects() {
+    try {
+      console.log('📡 Fetching repository projects from API...');
+      const projects = await this.githubApiRequest('/projects');
+      this.prProjects = projects.map((p) => p.name);
+      console.log(`✅ Fetched ${this.prProjects.length} projects`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to fetch projects: ${error.message}`);
+      this.prProjects = [];
+    }
   }
 
   formatDate(format = 'YYYY-MM-DD') {
@@ -69,7 +145,7 @@ class AutoVersioning {
 
     const versionPatterns = {
       major: ['major', 'version:major', 'breaking', 'breaking-change'],
-      minor: ['minor', 'version:minor', 'feature', 'feat', 'enhancement'], // ADDED: enhancement
+      minor: ['minor', 'version:minor', 'feature', 'feat', 'enhancement'],
       patch: ['patch', 'version:patch', 'fix', 'bugfix', 'hotfix'],
     };
 
@@ -140,97 +216,6 @@ class AutoVersioning {
   }
 
   /**
-   * Extracts and categorizes changes from PR body with better parsing
-   */
-  extractWhatChanged() {
-    if (!this.prBody.trim()) {
-      return { added: [], changed: [], fixed: [], removed: [] };
-    }
-
-    const sections = { added: [], changed: [], fixed: [], removed: [] };
-    const bodyLower = this.prBody.toLowerCase();
-
-    // Search for specific sections in the PR body
-    const addedMatch = this.prBody.match(/(?:### Added|## Added|Added:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const changedMatch = this.prBody.match(/(?:### Changed|## Changed|Changed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const fixedMatch = this.prBody.match(/(?:### Fixed|## Fixed|Fixed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-    const removedMatch = this.prBody.match(/(?:### Removed|## Removed|Removed:)([\s\S]*?)(?=(?:###|##|\n\n)|$)/i);
-
-    // Process found sections
-    if (addedMatch) {
-      sections.added = this.extractBulletPoints(addedMatch[1]);
-    }
-    if (changedMatch) {
-      sections.changed = this.extractBulletPoints(changedMatch[1]);
-    }
-    if (fixedMatch) {
-      sections.fixed = this.extractBulletPoints(fixedMatch[1]);
-    }
-    if (removedMatch) {
-      sections.removed = this.extractBulletPoints(removedMatch[1]);
-    }
-
-    // If no specific sections found, use heuristics based on title and content
-    if (Object.values(sections).every((arr) => arr.length === 0)) {
-      if (bodyLower.includes('add') || bodyLower.includes('new') || bodyLower.includes('implement')) {
-        sections.added.push(this.prTitle);
-      }
-      if (
-        bodyLower.includes('updat') ||
-        bodyLower.includes('modif') ||
-        bodyLower.includes('chang') ||
-        bodyLower.includes('improv')
-      ) {
-        sections.changed.push(this.prTitle);
-      }
-      if (bodyLower.includes('fix') || bodyLower.includes('resolv') || bodyLower.includes('correct')) {
-        sections.fixed.push(this.prTitle);
-      }
-      if (bodyLower.includes('remov') || bodyLower.includes('delet')) {
-        sections.removed.push(this.prTitle);
-      }
-    }
-
-    return sections;
-  }
-
-  /**
-   * Extracts bullet points from a text section
-   */
-  extractBulletPoints(text) {
-    if (!text) return [];
-
-    return text
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.startsWith('- ') || line.startsWith('* ') || line.match(/^\d+\./))
-      .map((line) => line.replace(/^[-*]\s*/, '').replace(/^\d+\.\s*/, ''))
-      .filter((line) => line.length > 0);
-  }
-
-  /**
-   * Extracts related issues from PR body
-   */
-  extractRelatedIssues() {
-    if (!this.prBody.trim()) {
-      return [];
-    }
-
-    const issuePatterns = [/(?:closes?|fixes?|resolves?)\s+#(\d+)/gi, /(?:related\s+to|see)\s+#(\d+)/gi, /#(\d+)/g];
-
-    const issues = new Set();
-
-    issuePatterns.forEach((pattern) => {
-      let match = pattern.exec(this.prBody);
-      while (match !== null) {
-        issues.add(match[1]);
-      }
-    });
-
-    return Array.from(issues);
-  }
-
-  /**
    * Formats commits list for changelog
    */
   formatCommitsForChangelog() {
@@ -242,7 +227,6 @@ class AutoVersioning {
 
     return this.prCommits
       .filter((commit) => commit.commit && commit.sha)
-      .slice(-10) // Limit to last 10 commits
       .map((commit) => {
         const shortSha = commit.sha.substring(0, 7);
         const message = commit.commit.message.split('\n')[0];
@@ -252,100 +236,56 @@ class AutoVersioning {
   }
 
   /**
-   * Generates a clean and well-formatted changelog entry
+   * Truncate text to prevent excessive length
+   */
+  truncateText(text, maxLength = 1000) {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '\n\n... (content truncated)';
+  }
+
+  /**
+   * Generates a changelog entry WITHOUT formatting or parsing PR content.
+   * It copies the PR title and PR body verbatim into the changelog.
    */
   generateChangelogEntry(version) {
-    console.log('📝 Generating changelog entry...');
+    console.log('📝 Generating changelog entry (raw PR content)...');
 
-    // CHANGED: Use native function instead of moment.js
     const date = this.formatDate('YYYY-MM-DD');
     const datetime = this.formatDate('YYYY-MM-DD HH:mm:ss UTC');
     const repoUrl = `https://github.com/${this.repo}`;
     const prUrl = `${repoUrl}/pull/${this.prNumber}`;
 
-    console.log(`📅 Date: ${date}`);
-    console.log(`🕒 DateTime: ${datetime}`);
+    // RAW: no trimming, no markdown removal, no parsing - but truncate if too long
+    const rawTitle = this.prTitle || '';
+    const rawBody = this.truncateText(this.prBody === undefined || this.prBody === null ? '' : this.prBody);
 
-    // Clean PR summary
-    let summary = this.prBody.trim();
-    if (summary) {
-      summary = summary
-        .split('\n\n')[0]
-        .replace(/^#+\s*/gm, '')
-        .replace(/\*\*(.*?)\*\*/g, '$1')
-        .trim();
-
-      if (summary.length > 300) {
-        summary = summary.substring(0, 300) + '...';
-      }
-    } else {
-      summary = this.prTitle;
-    }
-
-    console.log('🏷️ Processing type mapping...');
-    // Type of Change
+    // Type mapping (kept for metadata, not used to modify content)
     const typeMapping = this.mapLabelsToTypeOfChange();
     const checkedTypes = Object.entries(typeMapping)
       .filter(([_, checked]) => checked)
       .map(([type, _]) => type.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
 
-    console.log('📝 Extracting what changed...');
-    // What Changed
-    const whatChanged = this.extractWhatChanged();
-
-    console.log('🔗 Extracting related issues...');
-    // Related Issues
-    const relatedIssues = this.extractRelatedIssues();
-
-    console.log('📦 Formatting commits...');
-    // Commits
     const commits = this.formatCommitsForChangelog();
-
-    // Metadata
     const labelsList = this.prLabels.map((l) => l.name).join(', ') || 'none';
 
-    console.log('🔨 Building changelog entry...');
-    // Build changelog entry
+    // Build changelog entry - verbatim PR content
     let changelogEntry = `## [${version}] - ${date}\n\n`;
     changelogEntry += `**Released:** ${datetime}\n\n`;
-    changelogEntry += `### [${this.prTitle}](${prUrl})\n\n`;
+    changelogEntry += `### [${rawTitle || '(no title)'}](${prUrl})\n\n`;
 
-    if (summary !== this.prTitle) {
-      changelogEntry += `**Summary:** ${summary}\n\n`;
+    // Insert PR Body verbatim. If empty, mark as (no body).
+    changelogEntry += `**PR Content (verbatim):**\n`;
+    if (rawBody && rawBody.length > 0) {
+      changelogEntry += `${rawBody}\n\n`;
+    } else {
+      changelogEntry += `(no body)\n\n`;
     }
 
+    // Include labels and type of change metadata
     if (checkedTypes.length > 0) {
       changelogEntry += `**Type of Change:** ${checkedTypes.join(', ')}\n\n`;
-    }
-
-    // What Changed sections (only show non-empty sections)
-    let hasChanges = false;
-    if (whatChanged.added.length > 0) {
-      changelogEntry += `**Added:**\n${whatChanged.added.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.changed.length > 0) {
-      changelogEntry += `**Changed:**\n${whatChanged.changed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.fixed.length > 0) {
-      changelogEntry += `**Fixed:**\n${whatChanged.fixed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-    if (whatChanged.removed.length > 0) {
-      changelogEntry += `**Removed:**\n${whatChanged.removed.map((item) => `- ${item}`).join('\n')}\n\n`;
-      hasChanges = true;
-    }
-
-    // If no specific changes, use PR title
-    if (!hasChanges) {
-      changelogEntry += `**Changes:**\n- ${this.prTitle}\n\n`;
-    }
-
-    // Related Issues
-    if (relatedIssues.length > 0) {
-      const issueLinks = relatedIssues.map((issue) => `[#${issue}](${repoUrl}/issues/${issue})`).join(', ');
-      changelogEntry += `**Related Issues:** ${issueLinks}\n\n`;
     }
 
     // Metadata
@@ -371,7 +311,7 @@ class AutoVersioning {
 
     changelogEntry += `---\n\n`;
 
-    console.log('✅ Changelog entry generated successfully');
+    console.log('✅ Changelog entry generated (raw)');
     return changelogEntry;
   }
 
@@ -394,7 +334,7 @@ class AutoVersioning {
 
     console.log('🔍 Checking for existing version...');
     // Check if this version already exists
-    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\./g, '\\.')}\\]`, 'm');
+    const versionHeaderRegex = new RegExp(`^## \\[${version.replace(/\\./g, '\\\\.')}\\]`, 'm');
 
     if (versionHeaderRegex.test(existingContent)) {
       console.log(`🔄 Version ${version} already exists, replacing...`);
@@ -452,6 +392,10 @@ class AutoVersioning {
       console.log(`📝 PR Title: ${this.prTitle}`);
       console.log(`🏷️  PR Labels: ${this.prLabels.map((l) => l.name).join(', ') || 'none'}`);
 
+      // Fetch additional data from API
+      await this.fetchPrCommits();
+      await this.fetchRepoProjects();
+
       const bumpType = this.determineVersionBump();
       console.log(`📈 Version bump type: ${bumpType}`);
 
@@ -461,7 +405,7 @@ class AutoVersioning {
       this.updateChangelog(newVersion);
       console.log(`📋 Changelog updated with version ${newVersion}`);
 
-      // CORRECTED: Use correct syntax for GitHub Actions
+      // Output for GitHub Actions
       console.log(`::set-output name=version::${newVersion}`);
       console.log(`::set-output name=bump_type::${bumpType}`);
 

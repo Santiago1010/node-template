@@ -31,7 +31,7 @@ const stringHelper = require('../strings.helper');
 const utilitiesHelper = require('../utilities.helper');
 const i18n = require('../../config/i18n');
 const { THREAT_LEVELS } = require('../constants.helper');
-const { cerror } = require('../debug.helper');
+const { cerror, isDevelopmentMode } = require('../debug.helper');
 
 // =============================================================================
 // HELPER FUNCTIONS
@@ -1083,6 +1083,18 @@ const passwordSchema = (
 ) => {
   const fieldName = getFieldName(name);
   const validationSchema = { in: location };
+
+  // In development mode, use relaxed password rules
+  if (isDevelopmentMode(true)) {
+    minLength = 1;
+    maxLength = 128;
+    requireUppercase = false;
+    requireLowercase = false;
+    requireNumbers = false;
+    requireSpecialChars = false;
+    noSpaces = false;
+    forbiddenPatterns = [];
+  }
 
   // Initial configuration for optional fields
   if (!required) {

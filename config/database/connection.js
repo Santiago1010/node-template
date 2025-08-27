@@ -62,6 +62,7 @@
 // - Sequelize 6+ for ORM functionality
 // - Internal config module for environment configuration
 // - Internal sequelize instance factory for connection creation
+//
 // =============================================================================
 
 // =============================================================================
@@ -132,8 +133,8 @@ class DatabaseConnection extends EventEmitter {
       console.log('🔄 Initializing database connection...');
 
       this.sequelize = createSequelizeInstance();
-      this.setupEventListeners();
 
+      // Test connection without using event listeners
       const isConnected = await testConnection(this.sequelize);
 
       if (isConnected) {
@@ -150,31 +151,28 @@ class DatabaseConnection extends EventEmitter {
   }
 
   /**
-   * Configures Sequelize connection event listeners
+   * Handles successful connection
    * @private
    */
-  setupEventListeners() {
-    if (!this.sequelize) return;
+  handleSuccessfulConnection() {
+    this.isConnected = true;
+    this.reconnectAttempts = 0;
+    this.emit('connected', this.sequelize);
 
-    this.sequelize.connectionManager.on('connect', (connection) => {
-      console.log('🔗 Database connection established');
-      this.isConnected = true;
-      this.reconnectAttempts = 0;
-      this.emit('connected', connection);
-    });
+    // Start health checks only in production
+    if (process.env.NODE_ENV === 'production') {
+      this.startHealthCheck();
+    }
+  }
 
-    this.sequelize.connectionManager.on('disconnect', (connection) => {
-      console.warn('⚠️  Database connection lost');
-      this.isConnected = false;
-      this.emit('disconnected', connection);
-      this.attemptReconnection();
-    });
-
-    this.sequelize.connectionManager.on('error', (error) => {
-      console.error('❌ Database connection error:', error.message);
-      this.isConnected = false;
-      this.emit('error', error);
-    });
+  /**
+   * Handles successful reconnection
+   * @private
+   */
+  handleSuccessfulReconnection() {
+    this.isConnected = true;
+    this.reconnectAttempts = 0;
+    this.emit('reconnected', this.sequelize);
   }
 
   /**
@@ -192,15 +190,20 @@ class DatabaseConnection extends EventEmitter {
     this.reconnectAttempts++;
     console.log(`🔄 Attempting to reconnect (${this.reconnectAttempts}/${this.maxReconnectAttempts})...`);
 
-    setTimeout(async () => {
-      try {
-        const isConnected = await testConnection(this.sequelize);
-        isConnected ? this.handleSuccessfulReconnection() : await this.attemptReconnection();
-      } catch (error) {
-        console.error('❌ Reconnection failed:', error.message);
+    // Use a promise-based delay instead of setTimeout with async/await
+    await new Promise((resolve) => setTimeout(resolve, this.reconnectDelay * this.reconnectAttempts));
+
+    try {
+      const isConnected = await testConnection(this.sequelize);
+      if (isConnected) {
+        this.handleSuccessfulReconnection();
+      } else {
         await this.attemptReconnection();
       }
-    }, this.reconnectDelay * this.reconnectAttempts); // Exponential backoff
+    } catch (error) {
+      console.error('❌ Reconnection failed:', error.message);
+      await this.attemptReconnection();
+    }
   }
 
   /**
@@ -213,14 +216,52 @@ class DatabaseConnection extends EventEmitter {
     this.healthCheckInterval = setInterval(async () => {
       try {
         await this.sequelize.authenticate();
-        if (!this.isConnected) this.handleHealthCheckRecovery();
+        if (!this.isConnected) {
+          this.handleHealthCheckRecovery();
+        }
       } catch (error) {
         console.warn('⚠️  Database health check failed:', error.message);
-        if (this.isConnected) this.handleHealthCheckFailure(error);
+        if (this.isConnected) {
+          this.handleHealthCheckFailure(error);
+        }
       }
     }, healthCheckInterval);
 
     console.log('🩺 Database health check started');
+  }
+
+  /**
+   * Handles health check recovery
+   * @private
+   */
+  handleHealthCheckRecovery() {
+    this.isConnected = true;
+    this.reconnectAttempts = 0;
+    this.emit('reconnected', this.sequelize);
+    console.log('✅ Database health check recovered connection');
+  }
+
+  /**
+   * Handles health check failure
+   * @private
+   * @param {Error} error - The error that occurred
+   */
+  handleHealthCheckFailure(error) {
+    this.isConnected = false;
+    this.emit('healthCheckFailed', error);
+    this.attemptReconnection();
+  }
+
+  /**
+   * Stops health checks
+   * @private
+   */
+  stopHealthCheck() {
+    if (this.healthCheckInterval) {
+      clearInterval(this.healthCheckInterval);
+      this.healthCheckInterval = null;
+      console.log('⏹️  Database health check stopped');
+    }
   }
 
   /**
@@ -274,10 +315,7 @@ class DatabaseConnection extends EventEmitter {
 
     this.isConnected = false;
     this.emit('closed');
-    console.log('✅ Database connection closed successfully');
   }
-
-  // Additional private methods and getters would be documented here...
 }
 
 // =============================================================================

@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "",
   "keywords": [
     "template",
@@ -30,6 +30,10 @@
   },
   "type": "commonjs",
   "main": "index.js",
+  "bin": {
+    "create-models": "./scripts/createModels.script.js",
+    "generate-models": "./scripts/createModels.script.js"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -48,7 +52,9 @@
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
     "start": "node index.js",
-    "test": "test"
+    "test": "test",
+    "models:generate": "node ./scripts/createModels.script.js",
+    "models:create": "node ./scripts/createModels.script.js"
   },
   "overrides": {
     "glob": "^10.3.10",
@@ -94,6 +100,7 @@
     "sequelize": "^6.37.5",
     "ua-parser-js": "^2.0.3",
     "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
     "zod": "^4.1.0"
   },
   "devDependencies": {

@@ -24,6 +24,23 @@
 const boom = require('@hapi/boom'); // HTTP error utilities
 const { validationResult } = require('express-validator'); // Express validator result extraction
 
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { SENSITIVE_FIELDS } = require('../../helpers/constants.helper');
+
+/**
+ * Determines if a field name contains sensitive information
+ * @param {string} fieldName - The field name to check
+ * @returns {boolean} True if the field is sensitive, false otherwise
+ */
+const isSensitiveField = (fieldName) => {
+  if (typeof fieldName !== 'string') return false;
+
+  const lowerField = fieldName.toLowerCase();
+  return SENSITIVE_FIELDS.some((sensitive) => lowerField.includes(sensitive));
+};
+
 /**
  * Middleware to handle express-validator validation errors
  * Extracts validation errors, formats them consistently, and passes to error handler
@@ -41,39 +58,42 @@ const { validationResult } = require('express-validator'); // Express validator 
  */
 const validationErrorHandler = (req, _, next) => {
   // Extract validation errors from request
-  const errors = validationResult(req);
+  const { errors } = validationResult(req);
 
   // If validation errors exist, format and pass to error handler
-  if (!errors.isEmpty()) {
+  if (errors.length > 0) {
     // Format individual errors with consistent structure
-    const formattedErrors = errors.array().map((error) => ({
-      field: error.param || error.path,
-      message: error.msg,
-      value: error.value,
-      location: error.location,
-      nestedErrors: error.nestedErrors || undefined, // Include nested errors if present
-    }));
+    const formattedErrors = errors.map((error) => {
+      const field = error.param || error.path || '';
+      const shouldMaskValue = isSensitiveField(field);
+
+      return {
+        field: field,
+        message: error.msg,
+        value: shouldMaskValue ? '[REDACTED]' : error.value, // Mask sensitive values
+        location: error.location,
+        nestedErrors: error.nestedErrors || undefined, // Include nested errors if present
+      };
+    });
 
     // Group errors by field for easier client-side processing
-    const groupedErrors = formattedErrors.reduce((acc, error) => {
-      const field = error.field;
-      if (!acc[field]) {
-        acc[field] = [];
-      }
-      acc[field].push({
-        message: error.message,
-        value: error.value,
-        location: error.location,
-      });
-      return acc;
-    }, {});
+    // const groupedErrors = formattedErrors.reduce((acc, error) => {
+    //   const field = error.field;
+    //   if (!acc[field]) {
+    //     acc[field] = [];
+    //   }
+    //   acc[field].push({
+    //     message: error.message,
+    //     value: error.value,
+    //     location: error.location,
+    //   });
+    //   return acc;
+    // }, {});
 
     // Create Boom error with detailed validation information
-    const boomError = boom.badRequest('Validation error in submitted data', {
-      errors: formattedErrors,
-      groupedErrors,
-      totalErrors: formattedErrors.length,
-    });
+    const boomError = boom.badRequest('Validation error in submitted data');
+
+    boomError.output.payload.errors = formattedErrors;
 
     return next(boomError);
   }

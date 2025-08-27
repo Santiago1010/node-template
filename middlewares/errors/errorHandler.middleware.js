@@ -24,13 +24,13 @@
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
 const moment = require('moment'); // Date/time manipulation
-const winston = require('winston'); // Logging library
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const i18n = require('../../config/i18n'); // Internationalization
-const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detection
+const i18n = require('../../config/i18n'); // Internationalizationn
+const { logger } = require('../../config/tools/logger.config'); // Winston logger
+const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detectio
 
 /**
  * Central error handling middleware for Express applications
@@ -41,7 +41,7 @@ const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environm
  */
 const errorHandler = (error, req, res, next) => {
   // Log error details with Winston
-  winston.error('Error caught by errorHandler middleware:', {
+  logger.error('Error caught by errorHandler middleware:', {
     message: error.message,
     stack: error.stack,
     url: req.url,
