@@ -344,7 +344,8 @@ class CrudHelper {
       'Query table comment',
       true
     );
-    return result?.table_comment || '';
+
+    return result?.TABLE_COMMENT || '';
   }
 
   // ========================= COLUMN QUERY METHODS ========================= //
