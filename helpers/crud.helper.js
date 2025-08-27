@@ -68,7 +68,7 @@ const { Sequelize } = require('sequelize'); // ORM and database client
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const databaseConnection = require('../config/database'); // Database connection instance
+const databaseConnection = require('../config/database/connection'); // Database connection instance
 const { database } = require('../config/env'); // Database configuration
 const { PATHS } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
@@ -212,19 +212,19 @@ const SQL_QUERIES = {
 
   COLUMN_DETAILS: (schema, table, column) =>
     `SELECT C.COLUMN_NAME, C.COLUMN_TYPE, C.COLUMN_DEFAULT, C.COLUMN_COMMENT,
-            IF(C.COLUMN_KEY = 'PRI', 1, 0) AS PRIMARY,
+            IF(C.COLUMN_KEY = 'PRI', 1, 0) AS \`PRIMARY\`,
             IF(EXISTS (
               SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS S
               WHERE S.TABLE_SCHEMA = '${schema}' AND S.TABLE_NAME = '${table}'
                 AND S.COLUMN_NAME = C.COLUMN_NAME AND S.NON_UNIQUE = 0
                 AND S.INDEX_NAME <> 'PRIMARY'
-            ), 1, 0) AS UNIQUE,
+            ), 1, 0) AS \`UNIQUE\`,
             IF(EXISTS (
               SELECT 1 FROM INFORMATION_SCHEMA.STATISTICS S
               WHERE S.TABLE_SCHEMA = '${schema}' AND S.TABLE_NAME = '${table}'
                 AND S.COLUMN_NAME = C.COLUMN_NAME AND S.NON_UNIQUE = 1
             ), 1, 0) AS \`INDEX\`,
-            IF(C.IS_NULLABLE = 'YES', 1, 0) AS NULLABLE
+            IF(C.IS_NULLABLE = 'YES', 1, 0) AS \`NULLABLE\`
      FROM INFORMATION_SCHEMA.COLUMNS C
      WHERE C.TABLE_SCHEMA = '${schema}' AND C.TABLE_NAME = '${table}'
        AND C.COLUMN_NAME = '${column}'`,
@@ -256,6 +256,8 @@ class CrudHelper {
   constructor() {
     this.sequelize = null;
     this.isInitialized = false;
+
+    this.databaseConnection = databaseConnection;
   }
 
   /**
@@ -272,7 +274,7 @@ class CrudHelper {
     }
 
     try {
-      this.sequelize = await databaseConnection.initialize();
+      this.sequelize = await this.databaseConnection.initialize();
       this.isInitialized = true;
       console.log('✅ CrudHelper initialized with database connection');
     } catch (error) {
@@ -311,7 +313,7 @@ class CrudHelper {
    */
   async #executeQuery(query, logMessage, returnFirst = false) {
     try {
-      const result = await databaseConnection.executeWithRetry(async (seq) => {
+      const result = await this.databaseConnection.executeWithRetry(async (seq) => {
         return await seq.query(query, {
           type: Sequelize.QueryTypes.SELECT,
           logging: wrapLogging(logMessage),
@@ -527,7 +529,7 @@ class CrudHelper {
    */
   async getTemplate(folder, name) {
     try {
-      const templatePath = path.join(PATHS.templates, folder, `${name}.template.js`);
+      const templatePath = path.join(PATHS.TEMPLATES, folder, `${name}.template.js`);
       return await readFile(templatePath, 'utf-8');
     } catch (error) {
       console.error(`Error reading template: ${folder}/${name}`, error);
