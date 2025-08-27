@@ -2,15 +2,13 @@
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const fs = require('fs');
+const https = require('https');
 const path = require('path');
 
 /**
  * Auto-versioning script for GitHub Actions
  * Updates package.json version and CHANGELOG.md based on PR labels and content
- *
- * MODIFIED: This version does NOT format or parse the PR title/body in any way.
- * It copies the PR title and PR body verbatim into the changelog (no trimming,
- * no parsing, no markdown manipulation). Then it appends labels and commits.
+ * OPTIMIZED: Fetches large data via GitHub API instead of environment variables
  */
 class AutoVersioning {
   constructor() {
@@ -20,16 +18,90 @@ class AutoVersioning {
     this.prTitle = process.env.PR_TITLE;
     this.prBody = process.env.PR_BODY || '';
     this.prLabels = JSON.parse(process.env.PR_LABELS || '[]');
-    this.prCommits = JSON.parse(process.env.PR_COMMITS || '[]');
     this.prAuthor = process.env.PR_AUTHOR || '';
     this.prApprover = process.env.PR_APPROVER || '';
-    this.prProjects = JSON.parse(process.env.PR_PROJECTS || '[]');
     this.prMilestone = process.env.PR_MILESTONE || '';
+
+    // These will be fetched via API
+    this.prCommits = [];
+    this.prProjects = [];
 
     this.packagePath = path.join(process.cwd(), 'package.json');
     this.changelogPath = path.join(process.cwd(), 'CHANGELOG.md');
 
     this.validateEnvironment();
+  }
+
+  /**
+   * Makes GitHub API requests
+   */
+  async githubApiRequest(endpoint) {
+    const [owner, repo] = this.repo.split('/');
+    const url = `https://api.github.com/repos/${owner}/${repo}${endpoint}`;
+
+    return new Promise((resolve, reject) => {
+      const options = {
+        headers: {
+          Authorization: `token ${this.token}`,
+          'User-Agent': 'GitHub-Actions-Auto-Version',
+          Accept: 'application/vnd.github.v3+json',
+        },
+      };
+
+      const req = https.get(url, options, (res) => {
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              resolve(JSON.parse(data));
+            } catch (e) {
+              reject(new Error(`Failed to parse JSON: ${e.message}`));
+            }
+          } else {
+            reject(new Error(`API request failed: ${res.statusCode} ${res.statusMessage}`));
+          }
+        });
+      });
+
+      req.on('error', reject);
+      req.setTimeout(10000, () => {
+        req.destroy();
+        reject(new Error('Request timeout'));
+      });
+    });
+  }
+
+  /**
+   * Fetches PR commits from GitHub API
+   */
+  async fetchPrCommits() {
+    try {
+      console.log('📡 Fetching PR commits from API...');
+      const commits = await this.githubApiRequest(`/pulls/${this.prNumber}/commits`);
+      this.prCommits = commits.slice(-10); // Limit to last 10 commits
+      console.log(`✅ Fetched ${this.prCommits.length} commits`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to fetch commits: ${error.message}`);
+      this.prCommits = [];
+    }
+  }
+
+  /**
+   * Fetches repository projects from GitHub API
+   */
+  async fetchRepoProjects() {
+    try {
+      console.log('📡 Fetching repository projects from API...');
+      const projects = await this.githubApiRequest('/projects');
+      this.prProjects = projects.map((p) => p.name);
+      console.log(`✅ Fetched ${this.prProjects.length} projects`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to fetch projects: ${error.message}`);
+      this.prProjects = [];
+    }
   }
 
   formatDate(format = 'YYYY-MM-DD') {
@@ -73,7 +145,7 @@ class AutoVersioning {
 
     const versionPatterns = {
       major: ['major', 'version:major', 'breaking', 'breaking-change'],
-      minor: ['minor', 'version:minor', 'feature', 'feat', 'enhancement'], // ADDED: enhancement
+      minor: ['minor', 'version:minor', 'feature', 'feat', 'enhancement'],
       patch: ['patch', 'version:patch', 'fix', 'bugfix', 'hotfix'],
     };
 
@@ -155,13 +227,22 @@ class AutoVersioning {
 
     return this.prCommits
       .filter((commit) => commit.commit && commit.sha)
-      .slice(-10) // Limit to last 10 commits
       .map((commit) => {
         const shortSha = commit.sha.substring(0, 7);
         const message = commit.commit.message.split('\n')[0];
         const commitUrl = `${repoUrl}/commit/${commit.sha}`;
         return { shortSha, message, url: commitUrl };
       });
+  }
+
+  /**
+   * Truncate text to prevent excessive length
+   */
+  truncateText(text, maxLength = 1000) {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    return text.substring(0, maxLength) + '\n\n... (content truncated)';
   }
 
   /**
@@ -176,9 +257,9 @@ class AutoVersioning {
     const repoUrl = `https://github.com/${this.repo}`;
     const prUrl = `${repoUrl}/pull/${this.prNumber}`;
 
-    // RAW: no trimming, no markdown removal, no parsing
+    // RAW: no trimming, no markdown removal, no parsing - but truncate if too long
     const rawTitle = this.prTitle || '';
-    const rawBody = this.prBody === undefined || this.prBody === null ? '' : this.prBody;
+    const rawBody = this.truncateText(this.prBody === undefined || this.prBody === null ? '' : this.prBody);
 
     // Type mapping (kept for metadata, not used to modify content)
     const typeMapping = this.mapLabelsToTypeOfChange();
@@ -311,6 +392,10 @@ class AutoVersioning {
       console.log(`📝 PR Title: ${this.prTitle}`);
       console.log(`🏷️  PR Labels: ${this.prLabels.map((l) => l.name).join(', ') || 'none'}`);
 
+      // Fetch additional data from API
+      await this.fetchPrCommits();
+      await this.fetchRepoProjects();
+
       const bumpType = this.determineVersionBump();
       console.log(`📈 Version bump type: ${bumpType}`);
 
@@ -320,7 +405,7 @@ class AutoVersioning {
       this.updateChangelog(newVersion);
       console.log(`📋 Changelog updated with version ${newVersion}`);
 
-      // CORRECTED: Use correct syntax for GitHub Actions
+      // Output for GitHub Actions
       console.log(`::set-output name=version::${newVersion}`);
       console.log(`::set-output name=bump_type::${bumpType}`);
 

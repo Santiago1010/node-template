@@ -168,8 +168,6 @@ jobs:
           PR_AUTHOR: ${{ steps.get_pr_info.outputs.pr_author }}
           PR_APPROVER: ${{ steps.get_pr_info.outputs.pr_approver }}
           PR_LABELS: ${{ steps.get_pr_info.outputs.pr_labels }}
-          PR_COMMITS: ${{ steps.get_pr_info.outputs.pr_commits }}
-          PR_PROJECTS: ${{ steps.get_pr_info.outputs.pr_projects }}
           PR_MILESTONE: ${{ steps.get_pr_info.outputs.pr_milestone }}
         run: node .github/scripts/auto-version.script.js
 
