@@ -1,6 +1,4 @@
-const databaseConnection = require('../../config/database/connection');
-
-const connection = await databaseConnection.initialize();
+const connection = require('../../config/database/connection');
 
 const { usrAccounts } = connection.models;
 

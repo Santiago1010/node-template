@@ -146,174 +146,172 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {
-    // Indexes
-    this.belongsTo(models.usrEmployees, {
-      foreignKey: 'employeeId',
-      targetKey: 'id',
-      as: 'employee',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.belongsTo(models.configRoles, {
-      foreignKey: 'rolId',
-      targetKey: 'id',
-      as: 'rol',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.belongsTo(models.usrUsers, {
-      foreignKey: 'userId',
-      targetKey: 'id',
-      as: 'user',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.belongsTo(models.geoDialCodes, {
-      foreignKey: 'dialCodeId',
-      targetKey: 'id',
-      as: 'dialCode',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-
-    // References
-    this.hasMany(models.configEndpointsHasPermissions, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'endpointsHasPermissions',
-      onUpdate: 'NO ACTION',
-      onDelete: 'NO ACTION',
-    });
-    this.hasMany(models.configPagesHasPermissions, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'pagesHasPermissions',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.docDocumentsAccess, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'access',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.docPermissions, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'permissions',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.docVersionsSocializations, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'socializations',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.finInvoices, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'invoices',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.finTransactions, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'transactions',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.prjProjectsHasAccounts, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'projectsHasAccounts',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.supTickets, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'tickets',
-      onUpdate: 'SET NULL',
-      onDelete: 'SET NULL',
-    });
-    this.hasMany(models.supTickets, {
-      foreignKey: 'idAsignee',
-      sourceKey: 'id',
-      as: 'tickets',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.usrAccesses, {
-      foreignKey: 'accountId',
-      sourceKey: 'id',
-      as: 'accesses',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.usrImages, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'images',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.usrPreferences, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'preferences',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.usrTokens, {
-      foreignKey: 'accountId',
-      sourceKey: 'id',
-      as: 'tokens',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-
-    // Bridges
-    this.belongsToMany(models.configEndpoints, {
-      through: { model: models.configEndpointsHasPermissions },
-      foreignKey: 'idAccount',
-      otherKey: 'idEndpoint',
-      as: 'endpoints',
-    });
-    this.belongsToMany(models.configRoles, {
-      through: { model: models.configEndpointsHasPermissions },
-      foreignKey: 'idAccount',
-      otherKey: 'idRole',
-      as: 'roles',
-    });
-    this.belongsToMany(models.configPages, {
-      through: { model: models.configPagesHasPermissions },
-      foreignKey: 'idAccount',
-      otherKey: 'idPage',
-      as: 'pages',
-    });
-    this.belongsToMany(models.configRoles, {
-      through: { model: models.configPagesHasPermissions },
-      foreignKey: 'idAccount',
-      otherKey: 'idRole',
-      as: 'roles',
-    });
-    this.belongsToMany(models.prjProjects, {
-      through: { model: models.prjProjectsHasAccounts },
-      foreignKey: 'idAccount',
-      otherKey: 'idProject',
-      as: 'projects',
-    });
-    this.belongsToMany(models.configRoles, {
-      through: { model: models.prjProjectsHasAccounts },
-      foreignKey: 'idAccount',
-      otherKey: 'idRole',
-      as: 'roles',
-    });
+  static associate(_) {
+    // // Indexes
+    // this.belongsTo(models.usrEmployees, {
+    //   foreignKey: 'employeeId',
+    //   targetKey: 'id',
+    //   as: 'employee',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.belongsTo(models.configRoles, {
+    //   foreignKey: 'rolId',
+    //   targetKey: 'id',
+    //   as: 'rol',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.belongsTo(models.usrUsers, {
+    //   foreignKey: 'userId',
+    //   targetKey: 'id',
+    //   as: 'user',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.belongsTo(models.geoDialCodes, {
+    //   foreignKey: 'dialCodeId',
+    //   targetKey: 'id',
+    //   as: 'dialCode',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // // References
+    // this.hasMany(models.configEndpointsHasPermissions, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'endpointsHasPermissions',
+    //   onUpdate: 'NO ACTION',
+    //   onDelete: 'NO ACTION',
+    // });
+    // this.hasMany(models.configPagesHasPermissions, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'pagesHasPermissions',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.docDocumentsAccess, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'access',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.docPermissions, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'permissions',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.docVersionsSocializations, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'socializations',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.finInvoices, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'invoices',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.finTransactions, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'transactions',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.prjProjectsHasAccounts, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'projectsHasAccounts',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.supTickets, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'tickets',
+    //   onUpdate: 'SET NULL',
+    //   onDelete: 'SET NULL',
+    // });
+    // this.hasMany(models.supTickets, {
+    //   foreignKey: 'idAsignee',
+    //   sourceKey: 'id',
+    //   as: 'tickets',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.usrAccesses, {
+    //   foreignKey: 'accountId',
+    //   sourceKey: 'id',
+    //   as: 'accesses',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.usrImages, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'images',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.usrPreferences, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'preferences',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.usrTokens, {
+    //   foreignKey: 'accountId',
+    //   sourceKey: 'id',
+    //   as: 'tokens',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // // Bridges
+    // this.belongsToMany(models.configEndpoints, {
+    //   through: { model: models.configEndpointsHasPermissions },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idEndpoint',
+    //   as: 'endpoints',
+    // });
+    // this.belongsToMany(models.configRoles, {
+    //   through: { model: models.configEndpointsHasPermissions },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idRole',
+    //   as: 'roles',
+    // });
+    // this.belongsToMany(models.configPages, {
+    //   through: { model: models.configPagesHasPermissions },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idPage',
+    //   as: 'pages',
+    // });
+    // this.belongsToMany(models.configRoles, {
+    //   through: { model: models.configPagesHasPermissions },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idRole',
+    //   as: 'roles',
+    // });
+    // this.belongsToMany(models.prjProjects, {
+    //   through: { model: models.prjProjectsHasAccounts },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idProject',
+    //   as: 'projects',
+    // });
+    // this.belongsToMany(models.configRoles, {
+    //   through: { model: models.prjProjectsHasAccounts },
+    //   foreignKey: 'idAccount',
+    //   otherKey: 'idRole',
+    //   as: 'roles',
+    // });
   }
 
   static config(sequelize) {
