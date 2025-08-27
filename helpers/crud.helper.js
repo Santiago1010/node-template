@@ -68,8 +68,7 @@ const { Sequelize } = require('sequelize'); // ORM and database client
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const databaseConnection = require('../config/database/connection'); // Database connection instance
-const { database } = require('../config/env'); // Database configuration
+const { sequelize } = require('../config/database/connection');
 const { PATHS } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
 const { toCamelCase } = require('./strings.helper'); // String transformation utility
@@ -254,51 +253,8 @@ class CrudHelper {
    * await helper.initialize();
    */
   constructor() {
-    this.sequelize = null;
-    this.isInitialized = false;
-
-    this.databaseConnection = databaseConnection;
-  }
-
-  /**
-   * Initialize the database connection for the CrudHelper
-   * @returns {Promise<void>}
-   * @throws {Error} Database connection initialization failure
-   * @example
-   * const helper = new CrudHelper();
-   * await helper.initialize();
-   */
-  async initialize() {
-    if (this.isInitialized && this.sequelize) {
-      return;
-    }
-
-    try {
-      this.sequelize = await this.databaseConnection.initialize();
-      this.isInitialized = true;
-      console.log('✅ CrudHelper initialized with database connection');
-    } catch (error) {
-      console.error('❌ Failed to initialize CrudHelper:', error.message);
-      throw error;
-    }
-  }
-
-  /**
-   * Ensure database connection is available before executing queries
-   * @private
-   * @returns {Promise<Sequelize>} Active Sequelize instance
-   * @throws {Error} Connection not initialized or unavailable
-   */
-  async #ensureConnection() {
-    if (!this.isInitialized || !this.sequelize) {
-      await this.initialize();
-    }
-
-    if (!databaseConnection.isConnected) {
-      throw new Error('Database connection is not available');
-    }
-
-    return this.sequelize;
+    this.sequelize = sequelize; // Usar la instancia de conexión existente
+    this.databaseName = this.sequelize.config.database; // Obtener el nombre de la BD desde la configuración
   }
 
   /**
@@ -313,11 +269,9 @@ class CrudHelper {
    */
   async #executeQuery(query, logMessage, returnFirst = false) {
     try {
-      const result = await this.databaseConnection.executeWithRetry(async (seq) => {
-        return await seq.query(query, {
-          type: Sequelize.QueryTypes.SELECT,
-          logging: wrapLogging(logMessage),
-        });
+      const result = await this.sequelize.query(query, {
+        type: Sequelize.QueryTypes.SELECT,
+        logging: wrapLogging(logMessage),
       });
 
       return returnFirst ? result[0] : result;
@@ -340,7 +294,7 @@ class CrudHelper {
    */
   async readTablesComment(table) {
     const result = await this.#executeQuery(
-      SQL_QUERIES.TABLE_COMMENT(database.name, table),
+      SQL_QUERIES.TABLE_COMMENT(this.databaseName, table),
       'Query table comment',
       true
     );
@@ -356,7 +310,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async readAllColumns(table) {
-    return await this.#searchColumns(SQL_QUERIES.ALL_COLUMNS(database.name, table), 'Query all columns of a table');
+    return await this.#searchColumns(SQL_QUERIES.ALL_COLUMNS(this.databaseName, table), 'Query all columns of a table');
   }
 
   /**
@@ -366,7 +320,7 @@ class CrudHelper {
    */
   async readUpdatableColumns(table) {
     return await this.#searchColumns(
-      SQL_QUERIES.UPDATABLE_COLUMNS(database.name, table),
+      SQL_QUERIES.UPDATABLE_COLUMNS(this.databaseName, table),
       'Query updatable columns of a table (excluding primary key and timestamps)'
     );
   }
@@ -378,7 +332,7 @@ class CrudHelper {
    */
   async readRequiredColumns(table) {
     return await this.#searchColumns(
-      SQL_QUERIES.REQUIRED_COLUMNS(database.name, table),
+      SQL_QUERIES.REQUIRED_COLUMNS(this.databaseName, table),
       'Query required columns of a table (excluding primary key)'
     );
   }
@@ -390,7 +344,7 @@ class CrudHelper {
    */
   async readNullableOrDefaultColumns(table) {
     return await this.#searchColumns(
-      SQL_QUERIES.NULLABLE_OR_DEFAULT_COLUMNS(database.name, table),
+      SQL_QUERIES.NULLABLE_OR_DEFAULT_COLUMNS(this.databaseName, table),
       'Query nullable or default columns of a table (excluding primary key and timestamps)'
     );
   }
@@ -401,7 +355,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async searchEnums(table) {
-    return await this.#searchColumns(SQL_QUERIES.ENUMS(database.name, table), 'Query enums of a table');
+    return await this.#searchColumns(SQL_QUERIES.ENUMS(this.databaseName, table), 'Query enums of a table');
   }
 
   // =========================== INDEX AND RELATIONSHIP METHODS =========================== //
@@ -412,7 +366,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async searchIndexes(table) {
-    return await this.#searchColumns(SQL_QUERIES.INDEXES(database.name, table), 'Query indexes of a table');
+    return await this.#searchColumns(SQL_QUERIES.INDEXES(this.databaseName, table), 'Query indexes of a table');
   }
 
   /**
@@ -421,7 +375,10 @@ class CrudHelper {
    * @returns {Promise<any[]>} Foreign key information
    */
   async searchForeignKeys(table) {
-    return await this.#executeQuery(SQL_QUERIES.FOREIGN_KEYS(database.name, table), 'Query foreign keys of a table');
+    return await this.#executeQuery(
+      SQL_QUERIES.FOREIGN_KEYS(this.databaseName, table),
+      'Query foreign keys of a table'
+    );
   }
 
   /**
@@ -430,7 +387,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Reference information
    */
   async searchReferences(table) {
-    return await this.#executeQuery(SQL_QUERIES.REFERENCES(database.name, table), 'Query references of a table');
+    return await this.#executeQuery(SQL_QUERIES.REFERENCES(this.databaseName, table), 'Query references of a table');
   }
 
   /**
@@ -439,7 +396,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Bridge table information
    */
   async searchBridges(table) {
-    return await this.#executeQuery(SQL_QUERIES.BRIDGES(database.name, table), 'Query "bridges" of a table');
+    return await this.#executeQuery(SQL_QUERIES.BRIDGES(this.databaseName, table), 'Query "bridges" of a table');
   }
 
   /**
@@ -450,7 +407,7 @@ class CrudHelper {
    */
   async detailsIndex(table, column) {
     return await this.#executeQuery(
-      SQL_QUERIES.INDEX_DETAILS(database.name, table, column),
+      SQL_QUERIES.INDEX_DETAILS(this.databaseName, table, column),
       'Query details of an index'
     );
   }
@@ -463,7 +420,7 @@ class CrudHelper {
    */
   async detailsColumn(table, column) {
     return await this.#executeQuery(
-      SQL_QUERIES.COLUMN_DETAILS(database.name, table, column),
+      SQL_QUERIES.COLUMN_DETAILS(this.databaseName, table, column),
       'Query details of a column',
       true
     );
@@ -477,7 +434,7 @@ class CrudHelper {
    */
   async uniqueDetails(table, column) {
     const result = await this.#executeQuery(
-      SQL_QUERIES.UNIQUE_DETAILS(database.name, table, column),
+      SQL_QUERIES.UNIQUE_DETAILS(this.databaseName, table, column),
       'Query unique details of a column',
       true
     );
@@ -670,21 +627,6 @@ class CrudHelper {
     template = template.replace(`await logsDeletion.${methodNames.create}`, 'await logsDeletion.create');
 
     return template;
-  }
-
-  /**
-   * Gracefully close the database connection
-   * @returns {Promise<void>}
-   * @example
-   * await crudHelper.close();
-   */
-  async close() {
-    if (this.isInitialized) {
-      await databaseConnection.close();
-      this.sequelize = null;
-      this.isInitialized = false;
-      console.log('✅ CrudHelper connection closed');
-    }
   }
 }
 
