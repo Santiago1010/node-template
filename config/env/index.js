@@ -172,7 +172,10 @@ const config = {
 
   // Internationalization
   lang: process.env.DEFAULT_LANG || 'en',
-  timeZone: process.env.DEFAULT_TIME_ZONE || 'UTC',
+  timeZone: {
+    utc: process.env.DEFAULT_TIME_ZONE_UTC || 'UTC',
+    name: process.env.DEFAULT_TIME_ZONE_NAME || 'UTC',
+  },
   supportedLanguages: process.env.SUPPORTED_LANGUAGES?.split(',') || ['en'],
 
   // Database Configuration

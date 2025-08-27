@@ -112,7 +112,7 @@ const databaseConfig = {
       freezeTableName: true, // Prevent pluralization
     },
 
-    timezone: config.timeZone,
+    timezone: config.timeZone.utc,
     query: { raw: false },
 
     // Migration and seeder configuration
@@ -148,7 +148,7 @@ const databaseConfig = {
       freezeTableName: true, // Prevent pluralization
     },
 
-    timezone: config.timeZone,
+    timezone: config.timeZone.utc,
     query: { raw: false },
 
     // Migration and seeder configuration
@@ -182,7 +182,7 @@ const databaseConfig = {
       freezeTableName: true,
     },
 
-    timezone: config.timeZone,
+    timezone: config.timeZone.utc,
     // ...(config.development.test.databaseUrl && {
     //   use_env_variable: 'TEST_DATABASE_URL',
     // }),

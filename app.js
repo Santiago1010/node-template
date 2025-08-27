@@ -40,7 +40,7 @@ const errorHandler = require('./middlewares/errors/errorHandler.middleware'); //
 const corsMiddleware = require('./middlewares/common/cors.middleware');
 
 // Configure moment.js to use application's default timezone and language
-moment.tz.setDefault(config.timeZone);
+moment.tz.setDefault(config.timeZone.name);
 moment.locale(config.lang);
 
 // Initialize Express application
