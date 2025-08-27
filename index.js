@@ -68,7 +68,6 @@ const debug = require('debug'); // Conditional debugging utility
 // =============================================================================
 const app = require('./app'); // Express application middleware setup
 const config = require('./config/env'); // Environment configuration
-const databaseConnection = require('./config/database/connection'); // Database connection manager
 
 // =============================================================================
 // DEBUG SETUP
@@ -270,7 +269,6 @@ const startServer = async () => {
 
     // Initialize database connection first
     console.log('🔄 Initializing database connection...');
-    await databaseConnection.initialize();
     console.log('✅ Database connected successfully');
 
     // Start HTTP server after successful database connection

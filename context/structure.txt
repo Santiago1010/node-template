@@ -53,6 +53,7 @@
 │   ├── cache.helper.js
 │   ├── constants.helper.js
 │   ├── context.helper.js
+│   ├── crud.helper.js
 │   ├── database
 │   │   ├── pagination.helper.js
 │   │   └── utilities.helper.js
@@ -90,7 +91,9 @@
 │       └── session.middleware.js
 ├── migrations
 ├── models
-│   └── index.js
+│   ├── index.js
+│   └── users
+│       └── usrAccounts.model.js
 ├── package.json
 ├── package-lock.json
 ├── README.md
@@ -112,6 +115,7 @@
 │       ├── pagination.schema.js
 │       └── search.schema.js
 ├── scripts
+│   ├── createModels.script.js
 │   └── generate-rsa-keys.sh
 ├── seeders
 ├── .sequelizerc
@@ -119,6 +123,11 @@
 │   ├── auth
 │   │   └── sessionWeb.service.js
 │   └── config
+├── templates
+│   ├── emails
+│   └── models
+│       ├── model.template.js
+│       └── setupModel.template.js
 ├── tests
 │   ├── e2e
 │   └── unit
@@ -137,4 +146,4 @@
     ├── extensions.json
     └── settings.json
 
-57 directories, 81 files
+61 directories, 86 files
