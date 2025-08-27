@@ -1,147 +1,141 @@
 // =============================================================================
-// DATABASE CONNECTION MANAGER - Enhanced Sequelize Configuration
+// DATABASE CONNECTION MANAGER - Enhanced Sequelize ORM Configuration
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Creates and configures a production-ready Sequelize ORM instance
-// - Manages database connections with connection pooling and retry mechanisms
-// - Handles graceful shutdowns and connection lifecycle events
-// - Provides comprehensive monitoring and logging capabilities
-// - Supports SSL/TLS encrypted connections and secure configurations
+// - Centralized database connection management using Sequelize ORM
+// - Handles connection pooling, SSL configuration, and timezone management
+// - Provides automated timestamp handling and graceful shutdown procedures
+// - Supports both single-instance and replication-based database configurations
 //
 // ARCHITECTURAL DECISIONS:
-// - Uses Sequelize ORM for database abstraction and model management
-// - Implements connection pooling to optimize database resource utilization
-// - Employs hooks and event listeners for connection monitoring
-// - Supports both single-instance and replication-based deployments
-// - Implements comprehensive error handling and graceful degradation
+// - Uses Sequelize ORM for standardized database interaction across SQL dialects
+// - Implements connection pooling to optimize database performance
+// - Incorporates automatic timestamp handling using Moment.js for consistency
+// - Follows paranoid deletion pattern with underscored naming conventions
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Raw database drivers: More control but less abstraction and built-in features
-// - Other ORMs (TypeORM, Prisma): Different query patterns and migration approaches
-// - Connection-less architectures: Not suitable for transactional operations
-// - Manual connection management: More error-prone and less maintainable
+// - Raw database drivers: Would provide more control but require manual query building
+// - Knex.js: More lightweight but lacks built-in ORM features
+// - TypeORM: TypeScript-focused but has steeper learning curve
+// - Chose Sequelize for its balance of features, stability, and community support
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Connection acquisition: O(1) from pool after initial setup
-// - Query execution: Depends on database and query complexity
-// - Memory usage: Linear with connection pool size and model complexity
-// - Supports up to 10 concurrent connections by default (configurable)
+// - Connection pooling: O(1) for connection acquisition from pool
+// - Query execution: Varies by query complexity and database engine
+// - Memory usage: Proportional to connection pool size and result sets
+// - Recommended pool sizes: Production (10-20), Development (5-10)
 //
 // SECURITY CONSIDERATIONS:
-// - Supports SSL/TLS encryption for database connections
-// - Implements connection timeouts to prevent resource exhaustion
-// - Validates connections before use to prevent stale connections
-// - Uses environment variables for sensitive configuration data
-// - Implements parameterized queries through Sequelize to prevent SQL injection
+// - SSL encryption for database connections in production environments
+// - Environment-specific certificate management
+// - Input sanitization handled at ORM level through parameterized queries
+// - No raw SQL execution in this module to prevent injection vulnerabilities
 //
 // USAGE EXAMPLES:
-// - Basic database connection:
-//   const db = require('./config/database');
-//   await db.authenticate();
-//
-// - Transaction management:
-//   await db.transaction(async (t) => {
-//     await User.create({...}, {transaction: t});
-//   });
+// - Basic connection:
+//   const { sequelize, models } = require('./config/database');
+//   await sequelize.authenticate();
 //
 // - Model usage:
-//   const User = db.model('User');
-//   await User.findAll();
+//   const users = await models.User.findAll();
+//
+// - Transaction handling:
+//   await sequelize.transaction(async (t) => { /* operations */ });
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Monitor connection pool metrics under heavy load
-// - Adjust pool settings based on database capacity
-// - Check SSL certificates expiration for encrypted connections
-// - Monitor query performance and add indexes as needed
+// - Monitor connection pool usage through Sequelize statistics
+// - Common errors: Connection timeout, authentication failures
+// - Debugging: Enable logging in development mode
+// - Ensure SSL certificates are regularly rotated in production
 //
 // DEPENDENCIES & COMPATIBILITY:
 // - Requires Node.js 14+ with ES6 support
 // - Compatible with MySQL, PostgreSQL, SQLite, and MariaDB
-// - Uses sequelize@6+ with promise-based API
-// - Environment-specific configuration through config files
+// - Third-party dependencies: Sequelize 6+, Moment.js 2.27+
+// - Environment variables required for SSL configuration
 //
 // =============================================================================
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment'); // Date and time library
-const { Sequelize } = require('sequelize'); // ORM for database abstraction
+const moment = require('moment'); // Date manipulation and formatting
+const { Sequelize } = require('sequelize'); // ORM for database interaction
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const setupModels = require('../../models/index'); // Model definitions and associations
-const { getCurrentConfig } = require('../database'); // Environment-specific configuration
-const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detection
+const setupModels = require('../../models/index'); // Model initialization function
+const { getCurrentConfig } = require('../database'); // Database configuration loader
+const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detection helper
 
 /**
  * Database Configuration Loader
- * @description Retrieves environment-specific database configuration
+ * @description Loads environment-specific database configuration
  * @returns {Object} Database configuration object with connection parameters
- * @throws {Error} If configuration is invalid or missing required properties
+ * @throws {Error} If required configuration values are missing
  */
 const config = getCurrentConfig();
 
 /**
  * Enhanced Sequelize Database Instance
- * @description Production-ready database connection with comprehensive configuration
+ * @description Central database connection instance with optimized configuration
  * @type {Sequelize}
  *
  * @example
  * // Basic usage
- * const db = require('./config/database');
- * await db.authenticate();
+ * const { sequelize } = require('./database');
+ * await sequelize.authenticate();
  *
  * @example
- * // Transaction usage
- * await db.transaction(async (transaction) => {
- *   await User.create({...}, {transaction});
+ * // Transaction handling
+ * const result = await sequelize.transaction(async (transaction) => {
+ *   // Database operations
  * });
  *
- * @complexity Time: O(1) for connection setup, varies for queries
+ * @complexity Time: O(1) for initialization, Space: O(n) where n = pool size
  * @since Version 1.0.0
- * @see {@link setupModels} for model initialization
+ * @see {@link https://sequelize.org/docs/v6/} for Sequelize documentation
  */
 const sequelize = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
   dialect: config.dialect,
   port: config.port,
 
-  // Enhanced dialect options for better performance and security
   dialectOptions: {
     ...config.dialectOptions,
-    decimalNumbers: true,
-    timezone: config.timezone,
-    connectTimeout: 60000,
+    decimalNumbers: true, // Ensure decimal numbers are returned as floats
+    timezone: config.timezone, // Synchronize database timezone with application
+    connectTimeout: 60000, // 60-second connection timeout
     ...(config.ssl && {
+      // SSL configuration for production environments
       ssl: {
         require: true,
-        rejectUnauthorized: !isDevelopmentMode(true),
-        ca: process.env.DB_SSL_CA,
-        cert: process.env.DB_SSL_CERT,
-        key: process.env.DB_SSL_KEY,
+        rejectUnauthorized: !isDevelopmentMode(true), // Allow self-signed certs in development
+        ca: process.env.DB_SSL_CA, // Certificate authority
+        cert: process.env.DB_SSL_CERT, // Client certificate
+        key: process.env.DB_SSL_KEY, // Client private key
       },
     }),
   },
 
-  timezone: config.timezone, // Global timezone configuration
+  timezone: config.timezone, // Application-level timezone configuration
 
-  // Enhanced connection pool configuration
   pool: {
-    max: config.pool?.max || 10,
-    min: config.pool?.min || 1,
-    acquire: config.pool?.acquire || 60000,
-    idle: config.pool?.idle || 30000,
+    max: config.pool?.max || 10, // Maximum concurrent connections
+    min: config.pool?.min || 1, // Minimum maintained connections
+    acquire: config.pool?.acquire || 60000, // Connection acquisition timeout (ms)
+    idle: config.pool?.idle || 30000, // Idle connection timeout (ms)
   },
 
-  logging: false, // Disable default logging (can be customized)
+  logging: false, // Disable default logging (can be overridden)
 
-  // Retry configuration for failed connections
   retry: {
+    // Connection retry configuration
     max: 3, // Maximum retry attempts
-    timeout: 30000, // Timeout between retries
+    timeout: 30000, // Retry timeout period
     match: [
+      // Error types that should trigger retry
       /ETIMEDOUT/,
       /EHOSTUNREACH/,
       /ECONNRESET/,
@@ -154,50 +148,56 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
     ],
   },
 
-  // Query configuration
   query: {
     ...config.query,
-    timeout: 30000, // 30 seconds query timeout
-    nest: false,
-    plain: false,
+    timeout: 30000, // Query execution timeout (ms)
+    nest: false, // Disable nested object creation
+    plain: false, // Always return full result sets
   },
 
-  // Enhanced model definitions with global settings
   define: {
     ...config.define,
-    charset: 'utf8mb4', // Support for full Unicode including emoji
-    collate: 'utf8mb4_unicode_ci',
-    timestamps: true, // Enable automatic timestamps
-    underscored: true, // Use snake_case for column names
-    paranoid: true, // Enable soft deletes
-    freezeTableName: true, // Prevent pluralization
+    charset: 'utf8mb4', // Support full Unicode including emojis
+    collate: 'utf8mb4_unicode_ci', // Case-insensitive Unicode collation
+    timestamps: true, // Enable automated timestamp fields
+    underscored: true, // Use snake_case rather than camelCase
+    paranoid: true, // Enable soft deletion (deleted_at field)
+    freezeTableName: true, // Prevent pluralization of table names
 
-    // Global hooks for auditing and timestamps
     hooks: {
+      /**
+       * BeforeCreate Hook
+       * @description Sets createdAt timestamp using consistent formatting
+       * @param {Model} instance - Sequelize model instance being created
+       */
       beforeCreate: (instance) => {
         if (!instance.createdAt) {
           instance.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
         }
       },
+
+      /**
+       * BeforeUpdate Hook
+       * @description Updates updatedAt timestamp using consistent formatting
+       * @param {Model} instance - Sequelize model instance being updated
+       */
       beforeUpdate: (instance) => {
         instance.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
       },
     },
   },
 
-  benchmark: !isDevelopmentMode(true), // Benchmark queries in development
+  benchmark: !isDevelopmentMode(true), // Enable performance benchmarking in production
 
-  // Migration and seeder configuration
   migrationStorage: config.migrationStorage || 'sequelize',
   migrationStorageTableName: config.migrationStorageTableName || 'sequelize_migrations',
   seederStorage: config.seederStorage || 'sequelize',
   seederStorageTableName: config.seederStorageTableName || 'sequelize_seeders',
 
-  // Replication support (if configured)
-  ...(config.replication && { replication: config.replication }),
+  ...(config.replication && { replication: config.replication }), // Read-replica support
 });
 
-// Connection event listeners for monitoring and logging
+// Connection event listeners
 sequelize.addHook('afterConnect', () => {
   console.log(`✅ Database connection established (${process.env.NODE_ENV || 'development'})`);
 });
@@ -206,15 +206,16 @@ sequelize.addHook('afterDisconnect', () => {
   console.log('🔌 Database connection closed');
 });
 
-// Initialize models with the sequelize instance
-setupModels(sequelize);
-
 /**
- * Database Connection Authenticator
- * @description Tests the database connection and validates credentials
- * @returns {Promise<void>} Resolves if authentication succeeds
- * @throws {SequelizeConnectionError} If authentication fails
+ * Model Initialization
+ * @description Sets up all Sequelize models and associations
+ * @param {Sequelize} sequelizeInstance - Configured Sequelize instance
+ * @returns {Object} Map of initialized models
+ * @throws {Error} If model initialization fails
  */
+const models = setupModels(sequelize);
+
+// Database authentication
 sequelize
   .authenticate()
   .then(() => {
@@ -223,7 +224,6 @@ sequelize
   .catch((error) => {
     console.error('❌ Database authentication failed:', error.message);
 
-    // Enhanced error logging for production debugging
     if (!isDevelopmentMode(true)) {
       console.error('Error details:', {
         name: error.name,
@@ -233,7 +233,7 @@ sequelize
     }
   });
 
-// Graceful shutdown handlers for process signals
+// Graceful shutdown handlers
 process.on('SIGTERM', () => {
   console.log('🛑 SIGTERM received, closing database connection...');
   sequelize.close().then(() => {
@@ -250,7 +250,6 @@ process.on('SIGINT', () => {
   });
 });
 
-// Uncaught exception and rejection handlers
 process.on('uncaughtException', (error) => {
   console.error('💥 Uncaught Exception:', error);
   sequelize.close().then(() => {
@@ -268,4 +267,4 @@ process.on('unhandledRejection', (reason) => {
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = sequelize;
+module.exports = { sequelize, models, ...models };

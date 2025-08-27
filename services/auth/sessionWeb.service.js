@@ -1,6 +1,6 @@
-const sequelize = require('../../config/database/connection');
+const connection = require('../../config/database/connection');
 
-const { usrAccounts } = sequelize.models;
+const { usrAccounts } = connection.models;
 
 class SessionService {
   static async login(credential, password) {
