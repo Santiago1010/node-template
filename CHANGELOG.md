@@ -1,5 +1,61 @@
 
 
+## [1.1.0] - 2025-08-27
+
+**Released:** 2025-08-27 13:24:28 UTC
+
+### [Infrastructure Overhaul: Database, Logging, and Authentication Systems](https://github.com/Santiago1010/node-template/pull/32)
+
+**PR Content (verbatim):**
+## 📋 Summary
+This PR implements a comprehensive infrastructure upgrade including a professional Winston logging system, automated Sequelize model generation, enhanced database connection management, and complete authentication system with web session handling.
+
+## 🎯 Type of Change
+- [x] New feature (adds functionality)
+- [x] Code refactoring (no functional changes)
+- [x] Performance improvement
+- [ ] Bug fix (non-breaking change)
+- [ ] Breaking change (breaks existing functionality)
+- [x] Documentation update
+- [ ] Test coverage improvement
+- [ ] Build system changes
+- [ ] CI/CD changes
+
+## 🔍 What Changed
+### Added
+- Winston logging configuration with daily rotation and sensitive data redaction
+- Automated Sequelize model generator script with CLI interface
+- Complete authentication system (controllers, services, routes, validations)
+- Database CRUD helper for schema inspection and code generation
+- Enhanced database connection management with retry logic
+- Mode
+
+... (content truncated)
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`58d2b0d`](https://github.com/Santiago1010/node-template/commit/58d2b0d580b6c825342a5dca3c71f7b0b6a5c019) Merge pull request #14 from Santiago1010/Santiago1010-patch-5
+- [`2c5c6a6`](https://github.com/Santiago1010/node-template/commit/2c5c6a6d7052a41b875a8c16540ac9cf75d4eafa) Update release.yml
+- [`dac6693`](https://github.com/Santiago1010/node-template/commit/dac6693e81920eeb3cca0378184178ceb87ef247) Merge pull request #15 from Santiago1010/Santiago1010-patch-1
+- [`0b6b612`](https://github.com/Santiago1010/node-template/commit/0b6b612902f3b5eb7906b8996dd60c68ec4e55c9) feat(ci): implement auto-versioning and changelog generation
+- [`1777f4b`](https://github.com/Santiago1010/node-template/commit/1777f4be4a21f3ba781a9b346d3eac2c32528d2e) refactor(ci): improve auto-versioning workflow and changelog generation
+- [`8a7caf4`](https://github.com/Santiago1010/node-template/commit/8a7caf4a40a87ebeb8c2b51af9945d2ac7ae3700) refactor(ci): enhance release workflow with improved safety checks
+- [`07cb45d`](https://github.com/Santiago1010/node-template/commit/07cb45d8f5a860e4f218de08faa8063a520d3779) Merge pull request #16 from Santiago1010/fix/release-bot
+- [`a8fce7a`](https://github.com/Santiago1010/node-template/commit/a8fce7af0e92058dbea6ca38a1133b3565170683) ci(release): simplify PR approval check in release workflow
+- [`3b60f29`](https://github.com/Santiago1010/node-template/commit/3b60f29a9cbb3ed7399b38a251d1f96e9ba8c68d) Merge pull request #19 from Santiago1010/fix/release-bot-4
+- [`57b3883`](https://github.com/Santiago1010/node-template/commit/57b38832edcbb796d088c1b2039944e141a916f3) ci(release): add PR info retrieval step to release workflow
+
+---
+
+
+
 ## [1.0.7] - 2025-08-23
 
 **Released:** 2025-08-23 23:12:41 UTC
