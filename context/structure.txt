@@ -73,6 +73,7 @@
 │       ├── index.js
 │       └── validations.factory.js
 ├── index.js
+├── jest.config.js
 ├── kubernetes
 │   ├── deployment.yaml
 │   └── keys
@@ -132,6 +133,8 @@
 │       └── setupModel.template.js
 ├── tests
 │   ├── e2e
+│   ├── env-setup.js
+│   ├── setup.js
 │   └── unit
 │       └── helpers
 │           ├── cache
@@ -149,4 +152,4 @@
     ├── extensions.json
     └── settings.json
 
-62 directories, 88 files
+62 directories, 91 files

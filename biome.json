@@ -91,5 +91,35 @@
   },
   "files": {
     "ignore": ["templates/**", "sync_models/**", "node_modules/**", "dist/**", "test/**"]
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/*.test.js", "**/*.spec.js", "tests/**/*.js"],
+      "javascript": {
+        "globals": [
+          "describe",
+          "test",
+          "it",
+          "expect",
+          "jest",
+          "beforeEach",
+          "afterEach",
+          "beforeAll",
+          "afterAll",
+          "fit",
+          "xit",
+          "xdescribe",
+          "fdescribe",
+          "xtest"
+        ]
+      },
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredVariables": "off"
+          }
+        }
+      }
+    }
+  ]
 }
