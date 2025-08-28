@@ -199,22 +199,7 @@ const config = {
    */
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
 
-  /**
-   * Reporters Configuration
-   * @description Test result output handlers
-   * @reporter default: Standard console output
-   * @reporter jest-junit: JUnit XML for CI systems (output in test-results/)
-   */
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: 'test-results',
-        outputName: 'junit.xml',
-      },
-    ],
-  ],
+  coverageProvider: 'v8',
 };
 
 // =============================================================================
