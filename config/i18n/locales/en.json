@@ -22,7 +22,8 @@
     "criticalOperationLimit": "errors.criticalOperationLimit",
     "uploadLimitExceeded": "errors.uploadLimitExceeded",
     "login": {
-      "accountNotFound": "errors.login.accountNotFound"
+      "accountNotFound": "errors.login.accountNotFound",
+      "invalidPassword": "errors.login.invalidPassword"
     }
   },
   "error": {

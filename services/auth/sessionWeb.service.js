@@ -1,6 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
 // =============================================================================
@@ -39,9 +40,30 @@ class SessionService {
       });
     }
 
-    console.log(account);
+    if (account.mobileNumber === credential && account.mobileNumberConfirmedAt === null) {
+      throw registerError(i18n.__('errors.login.accountNotConfirmed'), 400, {
+        location: 'SessionService.login',
+        code: 'NOT_CONFIRMED',
+      });
+    }
 
-    return { credential, password };
+    if (!account.password) {
+      throw registerError(i18n.__('errors.login.invalidPassword'), 500, {
+        location: 'SessionService.login',
+        code: 'INVALID_PASSWORD',
+      });
+    }
+
+    const validPassword = await bcrypt.compare(password, account.password);
+
+    if (!validPassword) {
+      throw registerError(i18n.__('errors.login.invalidPassword'), 401, {
+        location: 'SessionService.login',
+        code: 'INVALID_PASSWORD',
+      });
+    }
+
+    return { id: account.id, rolId: account.rolId, userId: account.userId, employeeId: account.employeeId };
   }
 }
 
