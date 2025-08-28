@@ -241,6 +241,15 @@ const config = {
       'X-Requested-With',
     ],
   },
+
+  aes: {
+    users: {
+      password: {
+        key: env.USER_PASSWORD_KEY,
+        iv: env.USER_PASSWORD_IV,
+      },
+    },
+  },
 };
 
 // =============================================================================

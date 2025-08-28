@@ -20,7 +20,11 @@
     "tooManyRequests": "errors.tooManyRequests",
     "tooManyAttempts": "errors.tooManyAttempts",
     "criticalOperationLimit": "errors.criticalOperationLimit",
-    "uploadLimitExceeded": "errors.uploadLimitExceeded"
+    "uploadLimitExceeded": "errors.uploadLimitExceeded",
+    "login": {
+      "accountNotFound": "errors.login.accountNotFound",
+      "invalidPassword": "errors.login.invalidPassword"
+    }
   },
   "error": {
     "internal_server": "error.internal_server"

@@ -90,7 +90,7 @@ const writeDebugFile = (enable, expirationTime = null) => {
  */
 const ensureLogsDirectory = () => {
   if (!fs.existsSync(PATHS.logs)) {
-    fs.mkdirSync(PATHS.logs, { recursive: true });
+    fs.mkdirSync(PATHS.LOGS, { recursive: true });
   }
 };
 
@@ -388,7 +388,6 @@ const registerError = (error, httpCode, { location, code, additionalInfo } = {})
 
     if (typeof additionalInfo === 'object') {
       try {
-        // Safely serialize the data
         const serializedData = JSON.stringify(additionalInfo, null, 2);
         console.dir(additionalInfo, { depth: null });
         logOutput += `${serializedData}\n`;
@@ -409,18 +408,42 @@ const registerError = (error, httpCode, { location, code, additionalInfo } = {})
   const errorLogPath = path.join(PATHS.LOGS, `${currentDate}.error.log`);
 
   try {
-    // Ensure logs directory exists
     ensureLogsDirectory();
-
-    // Append to log file
     fs.appendFileSync(errorLogPath, logOutput);
   } catch (fileError) {
     console.error(`Failed to write error log: ${fileError.message}`);
     throw fileError;
   }
 
-  // Return Boom error object for HTTP responses
-  return new Boom.Boom(error, { statusCode: httpCode });
+  let boomError;
+
+  switch (httpCode) {
+    case 400:
+      boomError = Boom.badRequest(error);
+      break;
+    case 401:
+      boomError = Boom.unauthorized(error);
+      break;
+    case 403:
+      boomError = Boom.forbidden(error);
+      break;
+    case 404:
+      boomError = Boom.notFound(error);
+      break;
+    case 409:
+      boomError = Boom.conflict(error);
+      break;
+    case 422:
+      boomError = Boom.badData(error);
+      break;
+    case 429:
+      boomError = Boom.tooManyRequests(error);
+      break;
+    default:
+      boomError = Boom.internal(error);
+  }
+
+  return boomError;
 };
 
 /**

@@ -49,6 +49,7 @@
 // - Node.js 14+ (Async/await support)
 // - PostgreSQL/MySQL/MariaDB/SQLite (Supported dialects)
 // - TLS 1.2+ for encrypted connections
+//
 // =============================================================================
 
 // =============================================================================

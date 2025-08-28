@@ -1,332 +1,270 @@
 // =============================================================================
-// DATABASE CONNECTION MANAGER - Connection Lifecycle & Resilience Handler
+// DATABASE CONNECTION MANAGER - Enhanced Sequelize ORM Configuration
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Manages database connection lifecycle (initialization, health monitoring, graceful shutdown)
-// - Implements automatic reconnection with exponential backoff strategy
-// - Provides query execution with built-in retry mechanisms
-// - Emits events for connection state changes (connected, disconnected, error)
-// - Handles production vs development environment differences appropriately
+// - Centralized database connection management using Sequelize ORM
+// - Handles connection pooling, SSL configuration, and timezone management
+// - Provides automated timestamp handling and graceful shutdown procedures
+// - Supports both single-instance and replication-based database configurations
 //
 // ARCHITECTURAL DECISIONS:
-// - EventEmitter pattern for state change notifications
-// - Singleton pattern for shared connection state across application
-// - Strategy pattern for different environment behaviors (production health checks)
-// - Factory pattern integration through createSequelizeInstance dependency
+// - Uses Sequelize ORM for standardized database interaction across SQL dialects
+// - Implements connection pooling to optimize database performance
+// - Incorporates automatic timestamp handling using Moment.js for consistency
+// - Follows paranoid deletion pattern with underscored naming conventions
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Connection pooling: Rejected due to Sequelize's built-in connection pooling
-// - External health checks: Rejected in favor of integrated checking for consistency
-// - Static class: Rejected in favor of instance-based EventEmitter implementation
-// - Proxy pattern: Considered but rejected due to added complexity without sufficient benefit
+// - Raw database drivers: Would provide more control but require manual query building
+// - Knex.js: More lightweight but lacks built-in ORM features
+// - TypeORM: TypeScript-focused but has steeper learning curve
+// - Chose Sequelize for its balance of features, stability, and community support
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity:
-//   • Connection: O(1) constant time
-//   • Health checks: O(1) per interval
-//   • Query retry: O(n) where n is maxRetries
-// - Space complexity: O(1) constant space overhead
-// - Health check interval: 60 seconds (production only)
-// - Max reconnection attempts: 5 with exponential backoff
+// - Connection pooling: O(1) for connection acquisition from pool
+// - Query execution: Varies by query complexity and database engine
+// - Memory usage: Proportional to connection pool size and result sets
+// - Recommended pool sizes: Production (10-20), Development (5-10)
 //
 // SECURITY CONSIDERATIONS:
-// - Validates connection before executing queries
-// - Limits reconnection attempts to prevent infinite loops
-// - Environment-aware synchronization (disabled in production)
-// - Input validation delegated to Sequelize ORM
+// - SSL encryption for database connections in production environments
+// - Environment-specific certificate management
+// - Input sanitization handled at ORM level through parameterized queries
+// - No raw SQL execution in this module to prevent injection vulnerabilities
 //
 // USAGE EXAMPLES:
-// - Basic initialization:
-//   const db = require('./database-connection');
-//   await db.initialize();
+// - Basic connection:
+//   const { sequelize, models } = require('./config/database');
+//   await sequelize.authenticate();
 //
-// - Event listening:
-//   db.on('connected', () => console.log('DB connected'));
-//   db.on('error', (err) => console.error('DB error', err));
+// - Model usage:
+//   const users = await models.User.findAll();
 //
-// - Query execution:
-//   const result = await db.executeWithRetry(async (sequelize) => {
-//     return await User.findAll();
-//   });
+// - Transaction handling:
+//   await sequelize.transaction(async (t) => { /* operations */ });
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Common errors:
-//   • ECONNREFUSED: Check database server availability
-//   • ER_ACCESS_DENIED_ERROR: Verify credentials in env configuration
-//   • ETIMEDOUT: Network connectivity issues
-// - Debugging: Enable debug logging in development mode
-// - Monitoring: Listen to 'healthCheckFailed' events for proactive monitoring
+// - Monitor connection pool usage through Sequelize statistics
+// - Common errors: Connection timeout, authentication failures
+// - Debugging: Enable logging in development mode
+// - Ensure SSL certificates are regularly rotated in production
 //
 // DEPENDENCIES & COMPATIBILITY:
-// - Requires Node.js 14+ (EventEmitter, async/await support)
-// - Sequelize 6+ for ORM functionality
-// - Internal config module for environment configuration
-// - Internal sequelize instance factory for connection creation
+// - Requires Node.js 14+ with ES6 support
+// - Compatible with MySQL, PostgreSQL, SQLite, and MariaDB
+// - Third-party dependencies: Sequelize 6+, Moment.js 2.27+
+// - Environment variables required for SSL configuration
 //
 // =============================================================================
-
-// =============================================================================
-// CORE NODE.JS DEPENDENCIES
-// =============================================================================
-const { EventEmitter } = require('events'); // Event-driven architecture base class
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const { DataTypes } = require('sequelize'); // ORM model data type definitions
+const moment = require('moment'); // Date manipulation and formatting
+const { Sequelize } = require('sequelize'); // ORM for database interaction
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const {
-  createSequelizeInstance, // Sequelize instance factory
-  testConnection, // Connection validation utility
-  closeConnection, // Graceful connection termination
-} = require('./index');
+const setupModels = require('../../models/index'); // Model initialization function
+const { getCurrentConfig } = require('../database'); // Database configuration loader
+const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detection helper
 
 /**
- * Database Connection Manager Class
- * @extends EventEmitter
- *
- * @description Orchestrates database connection lifecycle with automatic recovery
- * and health monitoring. Emits state change events for system integration.
+ * Database Configuration Loader
+ * @description Loads environment-specific database configuration
+ * @returns {Object} Database configuration object with connection parameters
+ * @throws {Error} If required configuration values are missing
+ */
+const config = getCurrentConfig();
+
+/**
+ * Enhanced Sequelize Database Instance
+ * @description Central database connection instance with optimized configuration
+ * @type {Sequelize}
  *
  * @example
  * // Basic usage
- * const db = new DatabaseConnection();
- * await db.initialize();
+ * const { sequelize } = require('./database');
+ * await sequelize.authenticate();
  *
  * @example
- * // Event handling
- * db.on('connected', () => startApplication());
- * db.on('error', (err) => shutdownApplication(err));
+ * // Transaction handling
+ * const result = await sequelize.transaction(async (transaction) => {
+ *   // Database operations
+ * });
  *
- * @complexity Time: O(1) for initialization, Space: O(1) constant overhead
+ * @complexity Time: O(1) for initialization, Space: O(n) where n = pool size
  * @since Version 1.0.0
- * @see {@link createSequelizeInstance} for connection creation logic
+ * @see {@link https://sequelize.org/docs/v6/} for Sequelize documentation
  */
-class DatabaseConnection extends EventEmitter {
-  constructor() {
-    super();
-    this.sequelize = null;
-    this.isConnected = false;
-    this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.reconnectDelay = 5000; // 5 seconds base delay
-    this.healthCheckInterval = null;
-  }
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+  host: config.host,
+  dialect: config.dialect,
+  port: config.port,
 
-  /**
-   * Initializes database connection with retry logic
-   * @returns {Promise<Sequelize>} Connected Sequelize instance
-   * @throws {Error} Connection failure after max retry attempts
-   *
-   * @example
-   * try {
-   *   const sequelize = await db.initialize();
-   * } catch (error) {
-   *   console.error('Failed to initialize database');
-   * }
-   */
-  async initialize() {
-    try {
-      console.log('🔄 Initializing database connection...');
+  dialectOptions: {
+    ...config.dialectOptions,
+    decimalNumbers: true, // Ensure decimal numbers are returned as floats
+    timezone: config.timezone, // Synchronize database timezone with application
+    connectTimeout: 60000, // 60-second connection timeout
+    ...(config.ssl && {
+      // SSL configuration for production environments
+      ssl: {
+        require: true,
+        rejectUnauthorized: !isDevelopmentMode(true), // Allow self-signed certs in development
+        ca: process.env.DB_SSL_CA, // Certificate authority
+        cert: process.env.DB_SSL_CERT, // Client certificate
+        key: process.env.DB_SSL_KEY, // Client private key
+      },
+    }),
+  },
 
-      this.sequelize = createSequelizeInstance();
+  timezone: config.timezone, // Application-level timezone configuration
 
-      // Test connection without using event listeners
-      const isConnected = await testConnection(this.sequelize);
+  pool: {
+    max: config.pool?.max || 10, // Maximum concurrent connections
+    min: config.pool?.min || 1, // Minimum maintained connections
+    acquire: config.pool?.acquire || 60000, // Connection acquisition timeout (ms)
+    idle: config.pool?.idle || 30000, // Idle connection timeout (ms)
+  },
 
-      if (isConnected) {
-        this.handleSuccessfulConnection();
-        return this.sequelize;
-      }
-      throw new Error('Failed to establish database connection');
-    } catch (error) {
-      console.error('❌ Database initialization failed:', error.message);
-      this.emit('error', error);
-      await this.attemptReconnection();
-      throw error;
-    }
-  }
+  logging: false, // Disable default logging (can be overridden)
 
-  /**
-   * Handles successful connection
-   * @private
-   */
-  handleSuccessfulConnection() {
-    this.isConnected = true;
-    this.reconnectAttempts = 0;
-    this.emit('connected', this.sequelize);
+  retry: {
+    // Connection retry configuration
+    max: 3, // Maximum retry attempts
+    timeout: 30000, // Retry timeout period
+    match: [
+      // Error types that should trigger retry
+      /ETIMEDOUT/,
+      /EHOSTUNREACH/,
+      /ECONNRESET/,
+      /ECONNREFUSED/,
+      /TIMEOUT/,
+      /PROTOCOL_CONNECTION_LOST/,
+      Sequelize.ConnectionError,
+      Sequelize.ConnectionTimedOutError,
+      Sequelize.TimeoutError,
+    ],
+  },
 
-    // Start health checks only in production
-    if (process.env.NODE_ENV === 'production') {
-      this.startHealthCheck();
-    }
-  }
+  query: {
+    ...config.query,
+    timeout: 30000, // Query execution timeout (ms)
+    nest: false, // Disable nested object creation
+    plain: false, // Always return full result sets
+  },
 
-  /**
-   * Handles successful reconnection
-   * @private
-   */
-  handleSuccessfulReconnection() {
-    this.isConnected = true;
-    this.reconnectAttempts = 0;
-    this.emit('reconnected', this.sequelize);
-  }
+  define: {
+    ...config.define,
+    charset: 'utf8mb4', // Support full Unicode including emojis
+    collate: 'utf8mb4_unicode_ci', // Case-insensitive Unicode collation
+    timestamps: true, // Enable automated timestamp fields
+    underscored: true, // Use snake_case rather than camelCase
+    paranoid: true, // Enable soft deletion (deleted_at field)
+    freezeTableName: true, // Prevent pluralization of table names
 
-  /**
-   * Handles reconnection logic with exponential backoff
-   * @private
-   * @returns {Promise<void>}
-   */
-  async attemptReconnection() {
-    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      console.error(`❌ Max reconnection attempts (${this.maxReconnectAttempts}) reached`);
-      this.emit('maxReconnectAttemptsReached');
-      return;
-    }
-
-    this.reconnectAttempts++;
-    console.log(`🔄 Attempting to reconnect (${this.reconnectAttempts}/${this.maxReconnectAttempts})...`);
-
-    // Use a promise-based delay instead of setTimeout with async/await
-    await new Promise((resolve) => setTimeout(resolve, this.reconnectDelay * this.reconnectAttempts));
-
-    try {
-      const isConnected = await testConnection(this.sequelize);
-      if (isConnected) {
-        this.handleSuccessfulReconnection();
-      } else {
-        await this.attemptReconnection();
-      }
-    } catch (error) {
-      console.error('❌ Reconnection failed:', error.message);
-      await this.attemptReconnection();
-    }
-  }
-
-  /**
-   * Starts periodic health checks (production only)
-   * @private
-   */
-  startHealthCheck() {
-    const healthCheckInterval = 60000; // 1 minute
-
-    this.healthCheckInterval = setInterval(async () => {
-      try {
-        await this.sequelize.authenticate();
-        if (!this.isConnected) {
-          this.handleHealthCheckRecovery();
+    hooks: {
+      /**
+       * BeforeCreate Hook
+       * @description Sets createdAt timestamp using consistent formatting
+       * @param {Model} instance - Sequelize model instance being created
+       */
+      beforeCreate: (instance) => {
+        if (!instance.createdAt) {
+          instance.createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
         }
-      } catch (error) {
-        console.warn('⚠️  Database health check failed:', error.message);
-        if (this.isConnected) {
-          this.handleHealthCheckFailure(error);
-        }
-      }
-    }, healthCheckInterval);
+      },
 
-    console.log('🩺 Database health check started');
-  }
+      /**
+       * BeforeUpdate Hook
+       * @description Updates updatedAt timestamp using consistent formatting
+       * @param {Model} instance - Sequelize model instance being updated
+       */
+      beforeUpdate: (instance) => {
+        instance.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
+  },
 
-  /**
-   * Handles health check recovery
-   * @private
-   */
-  handleHealthCheckRecovery() {
-    this.isConnected = true;
-    this.reconnectAttempts = 0;
-    this.emit('reconnected', this.sequelize);
-    console.log('✅ Database health check recovered connection');
-  }
+  benchmark: !isDevelopmentMode(true), // Enable performance benchmarking in production
 
-  /**
-   * Handles health check failure
-   * @private
-   * @param {Error} error - The error that occurred
-   */
-  handleHealthCheckFailure(error) {
-    this.isConnected = false;
-    this.emit('healthCheckFailed', error);
-    this.attemptReconnection();
-  }
+  migrationStorage: config.migrationStorage || 'sequelize',
+  migrationStorageTableName: config.migrationStorageTableName || 'sequelize_migrations',
+  seederStorage: config.seederStorage || 'sequelize',
+  seederStorageTableName: config.seederStorageTableName || 'sequelize_seeders',
 
-  /**
-   * Stops health checks
-   * @private
-   */
-  stopHealthCheck() {
-    if (this.healthCheckInterval) {
-      clearInterval(this.healthCheckInterval);
-      this.healthCheckInterval = null;
-      console.log('⏹️  Database health check stopped');
+  ...(config.replication && { replication: config.replication }), // Read-replica support
+});
+
+// Connection event listeners
+sequelize.addHook('afterConnect', () => {
+  console.log(`✅ Database connection established (${process.env.NODE_ENV || 'development'})`);
+});
+
+sequelize.addHook('afterDisconnect', () => {
+  console.log('🔌 Database connection closed');
+});
+
+/**
+ * Model Initialization
+ * @description Sets up all Sequelize models and associations
+ * @param {Sequelize} sequelizeInstance - Configured Sequelize instance
+ * @returns {Object} Map of initialized models
+ * @throws {Error} If model initialization fails
+ */
+const models = setupModels(sequelize);
+
+// Database authentication
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('🚀 Database authentication successful');
+  })
+  .catch((error) => {
+    console.error('❌ Database authentication failed:', error.message);
+
+    if (!isDevelopmentMode(true)) {
+      console.error('Error details:', {
+        name: error.name,
+        original: error.original?.message,
+        sql: error.sql,
+      });
     }
-  }
+  });
 
-  /**
-   * Executes queries with automatic retry logic
-   * @param {Function} queryFn - Query function to execute
-   * @param {number} maxRetries - Maximum retry attempts (default: 3)
-   * @returns {Promise<any>} Query execution result
-   * @throws {Error} Query failure after max retry attempts
-   *
-   * @example
-   * const users = await db.executeWithRetry(async (sequelize) => {
-   *   return await sequelize.models.User.findAll();
-   * }, 5);
-   */
-  async executeWithRetry(queryFn, maxRetries = 3) {
-    let attempts = 0;
+// Graceful shutdown handlers
+process.on('SIGTERM', () => {
+  console.log('🛑 SIGTERM received, closing database connection...');
+  sequelize.close().then(() => {
+    console.log('✅ Database connection closed gracefully');
+    process.exit(0);
+  });
+});
 
-    while (attempts < maxRetries) {
-      try {
-        return await queryFn(this.sequelize);
-      } catch (error) {
-        attempts++;
-        if (attempts >= maxRetries) {
-          console.error(`❌ Query failed after ${maxRetries} attempts:`, error.message);
-          throw error;
-        }
-        console.warn(`⚠️  Query attempt ${attempts} failed, retrying...`);
-        await new Promise((resolve) => setTimeout(resolve, 1000 * attempts));
-      }
-    }
-  }
+process.on('SIGINT', () => {
+  console.log('🛑 SIGINT received, closing database connection...');
+  sequelize.close().then(() => {
+    console.log('✅ Database connection closed gracefully');
+    process.exit(0);
+  });
+});
 
-  /**
-   * Gracefully closes database connection
-   * @returns {Promise<void>}
-   *
-   * @example
-   * process.on('SIGTERM', async () => {
-   *   await db.close();
-   *   process.exit(0);
-   * });
-   */
-  async close() {
-    console.log('🔄 Closing database connection...');
-    this.stopHealthCheck();
+process.on('uncaughtException', (error) => {
+  console.error('💥 Uncaught Exception:', error);
+  sequelize.close().then(() => {
+    process.exit(1);
+  });
+});
 
-    if (this.sequelize) {
-      await closeConnection(this.sequelize);
-      this.sequelize = null;
-    }
-
-    this.isConnected = false;
-    this.emit('closed');
-  }
-}
+process.on('unhandledRejection', (reason) => {
+  console.error('💥 Unhandled Rejection:', reason);
+  sequelize.close().then(() => {
+    process.exit(1);
+  });
+});
 
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-/**
- * Singleton DatabaseConnection instance
- * @type {DatabaseConnection}
- */
-const databaseConnection = new DatabaseConnection();
-
-module.exports = databaseConnection;
-module.exports.DatabaseConnection = DatabaseConnection; // Constructor export
-module.exports.DataTypes = DataTypes; // Sequelize data types re-export
+module.exports = { sequelize, models, ...models };

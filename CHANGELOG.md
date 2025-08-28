@@ -1,5 +1,70 @@
 
 
+## [1.2.0] - 2025-08-28
+
+**Released:** 2025-08-28 13:28:01 UTC
+
+### [Refactor Database Connection and Enhance Authentication](https://github.com/Santiago1010/node-template/pull/33)
+
+#### 📋 Summary
+This PR completely overhauls the database connection management system, replacing the custom event-driven connection manager with a streamlined Sequelize ORM configuration. It introduces password encryption, enhances the model loading system, and adds comprehensive authentication features with internationalization support.
+
+#### 🔍 What Changed
+### Added
+- AES encryption for user passwords with getter/setter methods
+- Internationalization support for authentication error messages
+- Recursive model discovery and initialization system
+- Graceful shutdown handlers for database connections
+- Enhanced SQL query templates for schema inspection
+
+### Changed
+- Replaced custom DatabaseConnection class with direct Sequelize configuration
+- Simplified CRUD helper to use shared Sequelize instance
+- Improved error handling with Boom HTTP error responses
+- Enhanced documentation across all modified files
+- Updated model loader to provide direct model references for IDE support
+
+### Fixed
+- Database connection management and pooling configuration
+- Path references in debug helper for logs directory
+- Error response formatting in authentication service
+
+### Removed
+- Custom event-driven database connection manager
+- Manual connection initialization from CRUD helper
+- Redundant database connection logic from main application
+
+#### 📝 Additional Notes
+- The new connection system uses Sequelize's built-in connection pooling and retry mechanisms
+- Password encryption utilizes AES with configurable keys and initialization vectors
+- Model loading now supports recursive directory traversal for better project organization
+- All database queries use parameterized queries to prevent SQL injection
+- Error handling now provides appropriate HTTP status codes with internationalized messages
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`0e80465`](https://github.com/Santiago1010/node-template/commit/0e80465d2b9ce391c23d0dc1246a3d0ccb8f040c) refactor(models): enhance model loader with comprehensive documentation and validation
+- [`bdc3df9`](https://github.com/Santiago1010/node-template/commit/bdc3df99dbf09ba7e31bed48603a832e6e732570) refactor: remove database connection dependency from service and main app
+- [`3e643a0`](https://github.com/Santiago1010/node-template/commit/3e643a0911bbb7b2b119cf062ce0cea4916613f6) refactor(database): simplify connection management and model loading
+- [`25a4bb6`](https://github.com/Santiago1010/node-template/commit/25a4bb61e079b4c47c15e311934646258428cd04) refactor(database): enhance connection manager with improved documentation and model exports
+- [`47a71ef`](https://github.com/Santiago1010/node-template/commit/47a71ef9fae358dcb660c8d395db50489dfdffa4) docs(models): enhance model loader with comprehensive documentation and comments
+- [`c3f7d0d`](https://github.com/Santiago1010/node-template/commit/c3f7d0dfe65305a924907eb2c5ec54b7bcb25e19) refactor(crud): simplify database connection handling and integrate with existing sequelize instance
+- [`3b54eb0`](https://github.com/Santiago1010/node-template/commit/3b54eb0955255aa40ecc36d1379fbc9c1c9490a5) docs(crud): enhance documentation and add comprehensive code comments
+- [`41d08c6`](https://github.com/Santiago1010/node-template/commit/41d08c66c8fd3b97d5cb1d1b6d0d723fb1dc9bae) feat(auth): enhance session service with improved error handling and account validation
+- [`9fe1eb9`](https://github.com/Santiago1010/node-template/commit/9fe1eb9e06bc28466c99cc50b36f11c3fc69eb67) feat(auth): implement password encryption and enhanced login validation
+- [`62c9854`](https://github.com/Santiago1010/node-template/commit/62c98540c8193a1932e52c4335b59615e8a9f789) refactor(ci): improve auto-versioning system with structured content extraction
+
+---
+
+
+
 ## [1.1.0] - 2025-08-27
 
 **Released:** 2025-08-27 13:24:28 UTC
