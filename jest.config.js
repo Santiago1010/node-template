@@ -91,6 +91,7 @@ const config = {
     '/seeders/',
     '/templates/',
     '/config/',
+    '/schemas/',
   ],
 
   /**
@@ -150,11 +151,11 @@ const config = {
   },
 
   /**
-   * Module Name Mapping
+   * Module Name Mapper
    * @description Import alias resolution for cleaner module paths
    * @mapping Maps @prefix paths to corresponding directories
    */
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@config/(.*)$': '<rootDir>/config/$1',
     '^@controllers/(.*)$': '<rootDir>/controllers/$1',
     '^@helpers/(.*)$': '<rootDir>/helpers/$1',
