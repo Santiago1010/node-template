@@ -207,7 +207,7 @@ jobs:
             RETRY_COUNT=0
 
             while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
-              if git push origin HEAD:${{ steps.get_pr_info.outputs.head_ref }}; then
+              if git push --no-verify origin HEAD:${{ steps.get_pr_info.outputs.head_ref }}; then
                 echo "✅ Version updated successfully"
                 echo "changes_detected=true" >> $GITHUB_OUTPUT
                 break
