@@ -187,4 +187,28 @@ describe('AES Key Generation Functions', () => {
       expect(decrypted).toBe(testPlaintext);
     });
   });
+
+  describe('encryptWithAES Error Cases', () => {
+    it('should throw error with invalid key', () => {
+      const invalidKey = 'short'; // Key too short for AES-256
+      expect(() => {
+        encryptWithAES(testPlaintext, invalidKey);
+      }).toThrow(/AES encryption failed/);
+    });
+
+    it('should throw error with non-string/Buffer data', () => {
+      const validKey = generateAESKey();
+      const invalidData = { some: 'object' }; // Invalid data type
+      expect(() => {
+        encryptWithAES(invalidData, validKey);
+      }).toThrow(/AES encryption failed/);
+    });
+
+    it('should throw error with null data', () => {
+      const validKey = generateAESKey();
+      expect(() => {
+        encryptWithAES(null, validKey);
+      }).toThrow(/AES encryption failed/);
+    });
+  });
 });

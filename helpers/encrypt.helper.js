@@ -154,10 +154,6 @@ const verifyRSASignature = (data, signature, publicKey) => {
 
     return verify.verify(publicKey, signatureBuffer);
   } catch (error) {
-    if (error.message.includes('DECODER routines') || error.message.includes('unsupported')) {
-      return false;
-    }
-
     console.error('Unexpected error in RSA verification:', error);
     return false;
   }
