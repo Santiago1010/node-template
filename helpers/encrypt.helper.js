@@ -141,12 +141,20 @@ const signWithRSA = (data, privateKey) => {
  */
 const verifyRSASignature = (data, signature, publicKey) => {
   try {
+    if (!publicKey.includes('-----BEGIN PUBLIC KEY-----')) return false;
+
     const verify = crypto.createVerify('RSA-SHA256');
     verify.update(data);
     const signatureBuffer = Buffer.from(signature, 'base64');
+
     return verify.verify(publicKey, signatureBuffer);
   } catch (error) {
-    throw new Error(`RSA signature verification failed: ${error.message}`);
+    if (error.message.includes('DECODER routines') || error.message.includes('unsupported')) {
+      return false;
+    }
+
+    console.error('Unexpected error in RSA verification:', error);
+    return false;
   }
 };
 
@@ -205,8 +213,8 @@ const generateIV = (size = KEY_SIZES.IV) => {
  * Encrypts data using AES-256-GCM
  * @param {string|Buffer} data - Data to encrypt
  * @param {Buffer|string} key - AES encryption key
- * @param {Buffer} iv - Initialization vector (optional, will generate if not provided)
- * @returns {Object} Object containing encrypted data, IV, and auth tag
+ * @param {string} [iv] - Initialization vector (optional)
+ * @returns {Object} Object containing base64 encoded encrypted data, IV, and authentication tag
  */
 const encryptWithAES = (data, key, iv = null) => {
   try {
@@ -214,7 +222,7 @@ const encryptWithAES = (data, key, iv = null) => {
     const ivBuffer = iv || generateIV();
     const dataBuffer = Buffer.isBuffer(data) ? data : Buffer.from(data, 'utf8');
 
-    const cipher = crypto.createCipher(ALGORITHMS.AES, keyBuffer);
+    const cipher = crypto.createCipheriv('aes-256-gcm', keyBuffer, ivBuffer);
     cipher.setAAD(Buffer.from('authenticated'));
 
     let encrypted = cipher.update(dataBuffer);
@@ -233,22 +241,23 @@ const encryptWithAES = (data, key, iv = null) => {
 };
 
 /**
- * Decrypts AES-256-GCM encrypted data
- * @param {string} encryptedData - Base64 encoded encrypted data
- * @param {Buffer|string} key - AES decryption key
- * @param {string} iv - Base64 encoded initialization vector
- * @param {string} authTag - Base64 encoded authentication tag
- * @returns {string} Decrypted data as string
+ * Decrypts data using AES-256-GCM
+ * @param {string|Buffer} encryptedData - Base64 encoded encrypted data
+ * @param {Buffer|string} key - AES encryption key
+ * @param {string} iv - Initialization vector (base64 encoded)
+ * @param {string} authTag - Authentication tag (base64 encoded)
+ * @returns {string} Decrypted data
  */
-const decryptWithAES = (encryptedData, key, authTag) => {
+const decryptWithAES = (encryptedData, key, iv, authTag) => {
   try {
     const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
-    const encryptedBuffer = Buffer.from(encryptedData, 'base64');
-    const authTagBuffer = Buffer.from(authTag, 'base64');
+    const ivBuffer = Buffer.isBuffer(iv) ? iv : Buffer.from(iv, 'base64');
+    const encryptedBuffer = Buffer.isBuffer(encryptedData) ? encryptedData : Buffer.from(encryptedData, 'base64');
+    const authTagBuffer = Buffer.isBuffer(authTag) ? authTag : Buffer.from(authTag, 'base64');
 
-    const decipher = crypto.createDecipher(ALGORITHMS.AES, keyBuffer);
-    decipher.setAAD(Buffer.from('authenticated'));
+    const decipher = crypto.createDecipheriv('aes-256-gcm', keyBuffer, ivBuffer);
     decipher.setAuthTag(authTagBuffer);
+    decipher.setAAD(Buffer.from('authenticated'));
 
     let decrypted = decipher.update(encryptedBuffer);
     decrypted = Buffer.concat([decrypted, decipher.final()]);

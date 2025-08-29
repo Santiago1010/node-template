@@ -48,11 +48,16 @@
 // =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const fs = require('fs'); // File system operations
-const path = require('path'); // Path manipulation utilities
+const fs = require('fs');
+const path = require('path');
 
 // =============================================================================
-// TEST DEPENDENCIES
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const { faker } = require('@faker-js/faker');
+
+// =============================================================================
+// INTERNAL DEPENDENCIES
 // =============================================================================
 const {
   generateRSAKeyPair,
@@ -62,7 +67,7 @@ const {
   decryptWithRSA,
   signWithRSA,
   verifyRSASignature,
-} = require('../../../../helpers/encrypt.helper'); // RSA cryptographic operations
+} = require('../../../../helpers/encrypt.helper');
 
 /**
  * RSA Helper Functions Test Suite
@@ -79,32 +84,23 @@ describe('RSA Helper Functions', () => {
   const testDir = path.join(__dirname, 'temp-rsa-keys');
   const publicKeyPath = path.join(testDir, 'public.pem');
   const privateKeyPath = path.join(testDir, 'private.pem');
-  const testData = 'Mensaje secreto para prueba RSA';
   let publicKey, privateKey;
 
   // Setup and teardown hooks
   beforeAll(() => {
-    // Create isolated directory for test files
     if (!fs.existsSync(testDir)) {
       fs.mkdirSync(testDir);
     }
   });
 
   afterAll(() => {
-    // Cleanup test artifacts to maintain test isolation
     if (fs.existsSync(testDir)) {
       fs.rmSync(testDir, { recursive: true, force: true });
     }
   });
 
-  /**
-   * RSA Key Generation Tests
-   *
-   * @description Validates key pair generation functionality including
-   * default and custom key sizes. Verifies proper PEM format and key structure.
-   */
   describe('generateRSAKeyPair', () => {
-    it('should generate valid RSA key pair', () => {
+    it('should generate valid RSA key pair with default size', () => {
       const keyPair = generateRSAKeyPair();
 
       expect(keyPair).toHaveProperty('publicKey');
@@ -114,21 +110,23 @@ describe('RSA Helper Functions', () => {
     });
 
     it('should generate keys with custom size', () => {
-      const keyPair = generateRSAKeyPair(1024);
+      const keySize = 1024;
+      const keyPair = generateRSAKeyPair(keySize);
 
-      // Note: 1024-bit keys are insecure for production but useful for testing
       expect(keyPair.publicKey).toBeDefined();
       expect(keyPair.privateKey).toBeDefined();
     });
+
+    it('should generate unique key pairs on multiple calls', () => {
+      const keyPair1 = generateRSAKeyPair();
+      const keyPair2 = generateRSAKeyPair();
+
+      expect(keyPair1.publicKey).not.toBe(keyPair2.publicKey);
+      expect(keyPair1.privateKey).not.toBe(keyPair2.privateKey);
+    });
   });
 
-  /**
-   * Key Persistence Tests
-   *
-   * @description Validates file system operations for storing and loading
-   * RSA keys. Verifies file creation, data integrity, and error handling.
-   */
-  describe('saveRSAKeysToFiles y loadRSAKeysFromFiles', () => {
+  describe('saveRSAKeysToFiles and loadRSAKeysFromFiles', () => {
     it('should save and load keys correctly', () => {
       const keyPair = generateRSAKeyPair();
 
@@ -145,31 +143,31 @@ describe('RSA Helper Functions', () => {
 
     it('should throw error when loading non-existent files', () => {
       expect(() => {
-        loadRSAKeysFromFiles('ruta/inexistente/public.pem', 'ruta/inexistente/private.pem');
+        loadRSAKeysFromFiles('nonexistent/public.pem', 'nonexistent/private.pem');
       }).toThrow(/Failed to load RSA keys from files/);
     });
   });
 
-  /**
-   * Encryption/Decryption Tests
-   *
-   * @description Validates RSA encryption and decryption round-trip functionality.
-   * Tests both string and binary data, and verifies proper error handling with invalid keys.
-   */
-  describe('encryptWithRSA y decryptWithRSA', () => {
+  describe('encryptWithRSA and decryptWithRSA', () => {
     beforeEach(() => {
-      // Fresh key pair for each test to ensure test isolation
       const keyPair = generateRSAKeyPair();
       publicKey = keyPair.publicKey;
       privateKey = keyPair.privateKey;
     });
 
     it('should encrypt and decrypt text correctly', () => {
-      const encrypted = encryptWithRSA(testData, publicKey);
+      const testMessage = faker.string.alphanumeric(50);
+      const encrypted = encryptWithRSA(testMessage, publicKey);
       const decrypted = decryptWithRSA(encrypted, privateKey);
 
-      expect(decrypted).toEqual(testData);
-      expect(encrypted).not.toEqual(testData);
+      expect(decrypted).toEqual(testMessage);
+      expect(encrypted).not.toEqual(testMessage);
+    });
+
+    it('should handle empty string', () => {
+      const encrypted = encryptWithRSA('', publicKey);
+      const decrypted = decryptWithRSA(encrypted, privateKey);
+      expect(decrypted).toEqual('');
     });
 
     it('should handle binary data', () => {
@@ -181,22 +179,25 @@ describe('RSA Helper Functions', () => {
     });
 
     it('should fail with incorrect key', () => {
-      const encrypted = encryptWithRSA(testData, publicKey);
+      const testMessage = faker.lorem.sentence();
+      const encrypted = encryptWithRSA(testMessage, publicKey);
       const wrongKeyPair = generateRSAKeyPair();
 
       expect(() => {
         decryptWithRSA(encrypted, wrongKeyPair.privateKey);
       }).toThrow(/RSA decryption failed/);
     });
+
+    it('should handle special characters', () => {
+      const testMessage = 'Mensaje con caractéres especiales: áéíóúñÑ!@#$%^&*()';
+      const encrypted = encryptWithRSA(testMessage, publicKey);
+      const decrypted = decryptWithRSA(encrypted, privateKey);
+
+      expect(decrypted).toEqual(testMessage);
+    });
   });
 
-  /**
-   * Digital Signature Tests
-   *
-   * @description Validates RSA digital signature generation and verification.
-   * Tests signature tampering detection and data modification scenarios.
-   */
-  describe('signWithRSA y verifyRSASignature', () => {
+  describe('signWithRSA and verifyRSASignature', () => {
     beforeEach(() => {
       const keyPair = generateRSAKeyPair();
       publicKey = keyPair.publicKey;
@@ -204,50 +205,119 @@ describe('RSA Helper Functions', () => {
     });
 
     it('should sign and verify correctly', () => {
-      const signature = signWithRSA(testData, privateKey);
-      const isValid = verifyRSASignature(testData, signature, publicKey);
+      const testMessage = faker.string.alphanumeric(100);
+      const signature = signWithRSA(testMessage, privateKey);
+      const isValid = verifyRSASignature(testMessage, signature, publicKey);
 
       expect(isValid).toBe(true);
     });
 
     it('should detect invalid signature', () => {
-      const signature = signWithRSA(testData, privateKey);
-      const tamperedData = testData + 'modificación';
+      const testMessage = faker.lorem.sentence();
+      const signature = signWithRSA(testMessage, privateKey);
+      const tamperedData = testMessage + 'tampered';
 
       const isValid = verifyRSASignature(tamperedData, signature, publicKey);
       expect(isValid).toBe(false);
     });
 
     it('should detect forged signature', () => {
-      const signature = signWithRSA(testData, privateKey);
+      const testMessage = faker.lorem.sentence();
+      const signature = signWithRSA(testMessage, privateKey);
       const fakeSignature = signature.slice(0, -10) + 'abcdefghij';
 
-      const isValid = verifyRSASignature(testData, fakeSignature, publicKey);
+      const isValid = verifyRSASignature(testMessage, fakeSignature, publicKey);
       expect(isValid).toBe(false);
+    });
+
+    it('should handle empty string', () => {
+      const signature = signWithRSA('', privateKey);
+      const isValid = verifyRSASignature('', signature, publicKey);
+      expect(isValid).toBe(true);
+    });
+
+    it('should handle binary data signatures', () => {
+      const binaryData = Buffer.from([0x01, 0x02, 0x03, 0x04]);
+      const signature = signWithRSA(binaryData, privateKey);
+      const isValid = verifyRSASignature(binaryData, signature, publicKey);
+
+      expect(isValid).toBe(true);
     });
   });
 
-  /**
-   * Integration Test
-   *
-   * @description Validates complete RSA workflow including key persistence,
-   * encryption, decryption, and digital signatures in a single test scenario.
-   */
-  describe('Integración completa', () => {
+  describe('Full Integration Test', () => {
     it('should complete full encryption/signature flow', () => {
+      const testMessage = faker.lorem.paragraph();
       const keyPair = generateRSAKeyPair();
-      saveRSAKeysToFiles(keyPair.publicKey, keyPair.privateKey, publicKeyPath, privateKeyPath);
 
+      saveRSAKeysToFiles(keyPair.publicKey, keyPair.privateKey, publicKeyPath, privateKeyPath);
       const loadedKeys = loadRSAKeysFromFiles(publicKeyPath, privateKeyPath);
 
-      const encrypted = encryptWithRSA(testData, loadedKeys.publicKey);
-      const signature = signWithRSA(testData, loadedKeys.privateKey);
+      const encrypted = encryptWithRSA(testMessage, loadedKeys.publicKey);
+      const signature = signWithRSA(testMessage, loadedKeys.privateKey);
 
-      const isSignatureValid = verifyRSASignature(testData, signature, loadedKeys.publicKey);
+      const isSignatureValid = verifyRSASignature(testMessage, signature, loadedKeys.publicKey);
       const decrypted = decryptWithRSA(encrypted, loadedKeys.privateKey);
 
       expect(isSignatureValid).toBe(true);
-      expect(decrypted).toEqual(testData);
+      expect(decrypted).toEqual(testMessage);
+    });
+
+    it('should handle multiple operations consistently', () => {
+      const testData = faker.string.alphanumeric(75);
+      const keyPair = generateRSAKeyPair();
+
+      // Multiple encryption/decryption cycles
+      let encrypted, decrypted;
+      for (let i = 0; i < 3; i++) {
+        encrypted = encryptWithRSA(testData, keyPair.publicKey);
+        decrypted = decryptWithRSA(encrypted, keyPair.privateKey);
+        expect(decrypted).toEqual(testData);
+      }
+
+      // Multiple signing/verification cycles
+      let signature, isValid;
+      for (let i = 0; i < 3; i++) {
+        signature = signWithRSA(testData, keyPair.privateKey);
+        isValid = verifyRSASignature(testData, signature, keyPair.publicKey);
+        expect(isValid).toBe(true);
+      }
+    });
+  });
+
+  describe('Error Handling and Edge Cases', () => {
+    it('should throw error when encrypting with invalid public key', () => {
+      expect(() => {
+        encryptWithRSA('test', 'invalid-public-key');
+      }).toThrow(/RSA encryption failed/);
+    });
+
+    it('should throw error when decrypting with invalid private key', () => {
+      const encrypted = encryptWithRSA('test', publicKey);
+      expect(() => {
+        decryptWithRSA(encrypted, 'invalid-private-key');
+      }).toThrow(/RSA decryption failed/);
+    });
+
+    it('should throw error when signing with invalid private key', () => {
+      expect(() => {
+        signWithRSA('test', 'invalid-private-key');
+      }).toThrow(/RSA signing failed/);
+    });
+
+    it('should return false when verifying with invalid public key', () => {
+      const signature = signWithRSA('test', privateKey);
+      const isValid = verifyRSASignature('test', signature, 'invalid-public-key');
+      expect(isValid).toBe(false);
+    });
+
+    it('should handle decryption of tampered data', () => {
+      const encrypted = encryptWithRSA('test', publicKey);
+      const tamperedEncrypted = encrypted.slice(0, -10) + 'abcdefghij';
+
+      expect(() => {
+        decryptWithRSA(tamperedEncrypted, privateKey);
+      }).toThrow(/RSA decryption failed/);
     });
   });
 });
