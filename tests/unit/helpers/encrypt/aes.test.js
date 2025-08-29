@@ -88,6 +88,8 @@ describe('AES Key Generation Functions', () => {
   let testPassword;
   let testSalt;
   let testPlaintext;
+  let testKey;
+  let encryptedData;
 
   /**
    * Test setup hook
@@ -275,6 +277,70 @@ describe('AES Key Generation Functions', () => {
       expect(() => {
         encryptWithAES(null, validKey);
       }).toThrow(/AES encryption failed/);
+    });
+  });
+
+  describe('Parameter Type Handling (Branch Coverage)', () => {
+    beforeEach(() => {
+      testKey = generateAESKey();
+      const iv = generateIV();
+      encryptedData = encryptWithAES(testPlaintext, testKey, iv);
+    });
+
+    it('should handle string key parameter', () => {
+      const keyAsString = testKey.toString('base64');
+
+      const result = decryptWithAES(encryptedData.encrypted, keyAsString, encryptedData.iv, encryptedData.authTag);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle Buffer key parameter', () => {
+      const result = decryptWithAES(encryptedData.encrypted, testKey, encryptedData.iv, encryptedData.authTag);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle string IV parameter', () => {
+      const ivAsString = encryptedData.iv;
+
+      const result = decryptWithAES(encryptedData.encrypted, testKey, ivAsString, encryptedData.authTag);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle Buffer IV parameter', () => {
+      const ivAsBuffer = Buffer.from(encryptedData.iv, 'base64');
+
+      const result = decryptWithAES(encryptedData.encrypted, testKey, ivAsBuffer, encryptedData.authTag);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle string authTag parameter', () => {
+      const authTagAsString = encryptedData.authTag;
+
+      const result = decryptWithAES(encryptedData.encrypted, testKey, encryptedData.iv, authTagAsString);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle Buffer authTag parameter', () => {
+      const authTagAsBuffer = Buffer.from(encryptedData.authTag, 'base64');
+
+      const result = decryptWithAES(encryptedData.encrypted, testKey, encryptedData.iv, authTagAsBuffer);
+
+      expect(result).toBe(testPlaintext);
+    });
+
+    it('should handle mixed parameter types', () => {
+      const keyAsString = testKey.toString('base64');
+      const ivAsBuffer = Buffer.from(encryptedData.iv, 'base64');
+      const authTagAsString = encryptedData.authTag;
+
+      const result = decryptWithAES(encryptedData.encrypted, keyAsString, ivAsBuffer, authTagAsString);
+
+      expect(result).toBe(testPlaintext);
     });
   });
 });

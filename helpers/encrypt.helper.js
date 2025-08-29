@@ -219,7 +219,7 @@ const generateIV = (size = KEY_SIZES.IV) => {
  */
 const encryptWithAES = (data, key, iv = null) => {
   try {
-    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
+    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'base64');
     const ivBuffer = iv || generateIV();
     const dataBuffer = Buffer.isBuffer(data) ? data : Buffer.from(data, 'utf8');
 
@@ -251,7 +251,7 @@ const encryptWithAES = (data, key, iv = null) => {
  */
 const decryptWithAES = (encryptedData, key, iv, authTag) => {
   try {
-    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
+    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'base64');
     const ivBuffer = Buffer.isBuffer(iv) ? iv : Buffer.from(iv, 'base64');
     const encryptedBuffer = Buffer.isBuffer(encryptedData) ? encryptedData : Buffer.from(encryptedData, 'base64');
     const authTagBuffer = Buffer.isBuffer(authTag) ? authTag : Buffer.from(authTag, 'base64');
