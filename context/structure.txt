@@ -151,6 +151,7 @@
 │           │   └── utilities.test.js
 │           ├── numbers
 │           │   ├── basic-math.test.js
+│           │   ├── error-handling.test.js
 │           │   ├── formatting-convertion.test.js
 │           │   ├── percentage.test.js
 │           │   ├── random.test.js
@@ -161,9 +162,15 @@
 │           ├── performance
 │           ├── security
 │           ├── strings
+│           │   ├── advanced-processing.test.js
+│           │   ├── basic-operations.test.js
+│           │   ├── case-conversion.test.js
+│           │   ├── formatting.test.js
+│           │   ├── utility.test.js
+│           │   └── validation.test.js
 │           └── utilities
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-63 directories, 104 files
+63 directories, 111 files

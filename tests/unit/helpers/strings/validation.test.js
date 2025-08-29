@@ -79,6 +79,63 @@ describe('String Validation Functions', () => {
       expect(stringsHelper.isEmail('user@custom.net', { customDomain: 'custom', customTLD: 'net' })).toBe(true);
       expect(stringsHelper.isEmail('user@example.com', { customTLD: 'com' })).toBe(true);
     });
+
+    test('should handle array of custom domains without TLD', () => {
+      expect(stringsHelper.isEmail('user@example', { customDomain: ['example', 'test'] })).toBe(true);
+      expect(stringsHelper.isEmail('user@test', { customDomain: ['example', 'test'] })).toBe(true);
+      expect(stringsHelper.isEmail('user@invalid', { customDomain: ['example', 'test'] })).toBe(false);
+    });
+
+    test('should handle array of custom TLDs without custom domain', () => {
+      expect(stringsHelper.isEmail('user@domain.com', { customTLD: ['com', 'net'] })).toBe(true);
+      expect(stringsHelper.isEmail('user@domain.net', { customTLD: ['com', 'net'] })).toBe(true);
+      expect(stringsHelper.isEmail('user@domain.org', { customTLD: ['com', 'net'] })).toBe(false);
+    });
+
+    test('should handle both custom domains and TLDs as arrays', () => {
+      expect(
+        stringsHelper.isEmail('user@mycompany.com', {
+          customDomain: ['mycompany', 'test'],
+          customTLD: ['com', 'net'],
+        })
+      ).toBe(true);
+      expect(
+        stringsHelper.isEmail('user@test.net', {
+          customDomain: ['mycompany', 'test'],
+          customTLD: ['com', 'net'],
+        })
+      ).toBe(true);
+      expect(
+        stringsHelper.isEmail('user@invalid.com', {
+          customDomain: ['mycompany', 'test'],
+          customTLD: ['com', 'net'],
+        })
+      ).toBe(false);
+    });
+
+    test('should handle mixed string/array options', () => {
+      expect(
+        stringsHelper.isEmail('user@mycompany.com', {
+          customDomain: 'mycompany',
+          customTLD: ['com', 'net'],
+        })
+      ).toBe(true);
+
+      expect(
+        stringsHelper.isEmail('user@test.com', {
+          customDomain: ['mycompany', 'test'],
+          customTLD: 'com',
+        })
+      ).toBe(true);
+    });
+
+    test('should reject emails with TLD when only custom domain is set', () => {
+      expect(stringsHelper.isEmail('user@example.com', { customDomain: 'example' })).toBe(false);
+    });
+
+    test('should reject emails without TLD when only custom TLD is set', () => {
+      expect(stringsHelper.isEmail('user@example', { customTLD: 'com' })).toBe(false);
+    });
   });
 
   describe('isURL', () => {
@@ -92,6 +149,16 @@ describe('String Validation Functions', () => {
       expect(stringsHelper.isURL('example')).toBe(false);
       expect(stringsHelper.isURL('ftp://example.com')).toBe(false);
     });
+
+    test('should return false for invalid strings', () => {
+      expect(stringsHelper.isURL('')).toBe(false);
+      expect(stringsHelper.isURL('   ')).toBe(false);
+      expect(stringsHelper.isURL(null)).toBe(false);
+      expect(stringsHelper.isURL(undefined)).toBe(false);
+      expect(stringsHelper.isURL(123)).toBe(false);
+      expect(stringsHelper.isURL({})).toBe(false);
+      expect(stringsHelper.isURL([])).toBe(false);
+    });
   });
 
   describe('isPhoneNumber', () => {
@@ -103,6 +170,16 @@ describe('String Validation Functions', () => {
     test('should return false for invalid phone numbers', () => {
       expect(stringsHelper.isPhoneNumber('12345')).toBe(false);
       expect(stringsHelper.isPhoneNumber('abcdefghij')).toBe(false);
+    });
+
+    test('should return false for invalid numbers', () => {
+      expect(stringsHelper.isPhoneNumber('')).toBe(false);
+      expect(stringsHelper.isPhoneNumber('   ')).toBe(false);
+      expect(stringsHelper.isPhoneNumber(null)).toBe(false);
+      expect(stringsHelper.isPhoneNumber(undefined)).toBe(false);
+      expect(stringsHelper.isPhoneNumber(123)).toBe(false);
+      expect(stringsHelper.isPhoneNumber({})).toBe(false);
+      expect(stringsHelper.isPhoneNumber([])).toBe(false);
     });
   });
 
@@ -120,6 +197,16 @@ describe('String Validation Functions', () => {
       expect(stringsHelper.isPalindrome('Madam')).toBe(true);
       expect(stringsHelper.isPalindrome('nurses run')).toBe(true);
       expect(stringsHelper.isPalindrome('nurses run', false)).toBe(false);
+    });
+
+    test('should return false for invalid strings', () => {
+      expect(stringsHelper.isPalindrome('')).toBe(false);
+      expect(stringsHelper.isPalindrome('   ')).toBe(false);
+      expect(stringsHelper.isPalindrome(null)).toBe(false);
+      expect(stringsHelper.isPalindrome(undefined)).toBe(false);
+      expect(stringsHelper.isPalindrome(123)).toBe(false);
+      expect(stringsHelper.isPalindrome({})).toBe(false);
+      expect(stringsHelper.isPalindrome([])).toBe(false);
     });
   });
 });

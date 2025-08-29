@@ -24,6 +24,10 @@ describe('Validation Functions', () => {
       expect(numbersHelper.isValidNumber({})).toBe(false);
       expect(numbersHelper.isValidNumber([])).toBe(false);
     });
+
+    test('should return false for non-numbers', () => {
+      expect(numbersHelper.isValidNumber('string')).toBe(false);
+    });
   });
 
   describe('isInRange', () => {

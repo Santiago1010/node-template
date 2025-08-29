@@ -37,6 +37,11 @@ describe('Advanced String Processing Functions', () => {
       expect(stringsHelper.stringSimilarity('a', '')).toBeNull();
       expect(cerror).toHaveBeenCalledWith('String Similarity', 'Invalid strings provided');
     });
+
+    test('should handle non-empty strings with length calculation', () => {
+      expect(stringsHelper.stringSimilarity('a', 'b')).toBe(0);
+      expect(stringsHelper.stringSimilarity('abc', 'axc')).toBe(66.67);
+    });
   });
 
   describe('longestCommonSubsequence', () => {
@@ -92,6 +97,10 @@ describe('Advanced String Processing Functions', () => {
 
       expect(stringsHelper.generateSlug('hello-world', { maxLength: 5 })).toBe('hello');
     });
+
+    test('should return null for invalid string', () => {
+      expect(stringsHelper.generateSlug('')).toBeNull();
+    });
   });
 
   describe('maskString', () => {
@@ -105,6 +114,10 @@ describe('Advanced String Processing Functions', () => {
     test('should return null for invalid input', () => {
       expect(stringsHelper.maskString('')).toBeNull();
       expect(cerror).toHaveBeenCalledWith('Mask String', 'Invalid string provided');
+    });
+
+    test('should test', () => {
+      expect(stringsHelper.maskString('a', { visibleStart: 2, visibleEnd: 4 })).toBe('*');
     });
   });
 
@@ -120,6 +133,22 @@ describe('Advanced String Processing Functions', () => {
     test('should return null for invalid input', () => {
       expect(stringsHelper.extractBetween('', '<', '>')).toBeNull();
       expect(cerror).toHaveBeenCalledWith('Extract Between', 'Invalid parameters provided');
+    });
+
+    test('should return empty array when no start delimiter is found', () => {
+      expect(stringsHelper.extractBetween('Hello World', '<', '>')).toEqual([]);
+    });
+
+    test('should handle multi-character delimiters', () => {
+      expect(stringsHelper.extractBetween('[[a]]foo[[b]]', '[[', ']]')).toEqual(['a', 'b']);
+    });
+
+    test('should handle multi-character delimiters with includeDelimiters', () => {
+      expect(stringsHelper.extractBetween('[[a]]foo[[b]]', '[[', ']]', true)).toEqual(['[[a]]', '[[b]]']);
+    });
+
+    test('should handle unclosed multi-character delimiters', () => {
+      expect(stringsHelper.extractBetween('[[a]]foo[[b', '[[', ']]')).toEqual(['a']);
     });
   });
 });

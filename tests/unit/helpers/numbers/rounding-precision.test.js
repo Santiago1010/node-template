@@ -37,6 +37,13 @@ describe('Rounding and Precision Functions', () => {
       expect(numbersHelper.roundToDecimal(0, 2)).toBe(0);
       expect(numbersHelper.roundToDecimal(-3.14159, 2)).toBe(-3.14);
     });
+
+    test('should return null for invalid decimal places', () => {
+      expect(numbersHelper.roundToDecimal('hi', -1)).toBeNull();
+      expect(numbersHelper.roundToDecimal(3.14159, 'bye')).toBeNull();
+      expect(numbersHelper.roundToDecimal()).toBeNull();
+      // expect(cerror).toHaveBeenCalledWith('Round decimal', 'Invalid decimal places provided');
+    });
   });
 
   describe('ceilNumber', () => {
