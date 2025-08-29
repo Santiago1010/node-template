@@ -1,8 +1,8 @@
 // =============================================================================
 // STRING FORMATTING - UNIT TESTS
 // =============================================================================
-
 const stringsHelper = require('../../../../helpers/strings.helper');
+const { ESCAPE_SEQUENCES } = require('../../../../helpers/constants.helper');
 const { cerror } = require('../../../../helpers/debug.helper');
 
 // Mock the debug helper
@@ -82,6 +82,15 @@ describe('String Formatting Functions', () => {
     test('should leave unknown escape sequences unchanged', () => {
       expect(stringsHelper.formatEscapeSequences('\\x')).toBe('\\x');
       expect(stringsHelper.formatEscapeSequences('hello\\nworld\\x')).toBe('hello\nworld\\x');
+    });
+
+    test('should handle edge case where character is not in ESCAPE_SEQUENCES', () => {
+      const originalValue = ESCAPE_SEQUENCES['n'];
+      delete ESCAPE_SEQUENCES['n'];
+
+      expect(stringsHelper.formatEscapeSequences('\\n')).toBe('\\n');
+
+      ESCAPE_SEQUENCES['n'] = originalValue;
     });
   });
 
