@@ -1,37 +1,103 @@
 // =============================================================================
+// AES KEY GENERATION & CRYPTOGRAPHIC OPERATIONS TEST SUITE
+// =============================================================================
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Comprehensive test suite for AES cryptographic key generation and operations
+// - Validates key generation, password-based key derivation, and encryption/decryption workflows
+// - Tests error handling and edge cases for cryptographic operations
+// - Ensures compatibility between internal and external cryptographic implementations
+//
+// ARCHITECTURAL DECISIONS:
+// - Uses Jest testing framework for behavior-driven development (BDD) style tests
+// - Leverages faker.js for realistic test data generation
+// - Separates test concerns into distinct describe blocks for each cryptographic function
+// - Uses beforeEach for test setup to ensure test isolation
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Considered using dedicated cryptographic test vectors but chose faker for broader coverage
+// - Evaluated synchronous vs asynchronous key generation; chose sync for test simplicity
+// - Could have used external test data files but opted for programmatic generation for maintainability
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for individual test cases, O(n) for overall test suite
+// - Space complexity: Minimal memory usage for key generation and encryption operations
+// - Cryptographic operations are CPU-intensive but optimized by Node.js crypto module
+//
+// SECURITY CONSIDERATIONS:
+// - Tests validate proper error handling for invalid cryptographic parameters
+// - Verifies deterministic key derivation from passwords with salt
+// - Ensures IV uniqueness and proper encryption mode usage
+// - Validates authentication tag verification in GCM mode
+//
+// USAGE EXAMPLES:
+// - Basic key generation and encryption/decryption workflow validation
+// - Password-based key derivation with custom parameters
+// - Cross-validation between internal and external cryptographic implementations
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Failed tests typically indicate breaking changes in cryptographic helpers
+// - Monitor for Node.js crypto module deprecations or changes
+// - Update test data generation if faker.js API changes
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires Node.js v16+ for crypto module features
+// - Compatible with Jest 28+ testing framework
+// - Uses @faker-js/faker v8+ for test data generation
+//
+// =============================================================================
+
+// =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const crypto = require('crypto'); // Node.js cryptographic functions
+const crypto = require('crypto'); // Node.js cryptographic functions for random byte generation
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const { faker } = require('@faker-js/faker'); // Test data generation
+const { faker } = require('@faker-js/faker'); // Test data generation for realistic password and text data
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { KEY_SIZES } = require('../../../../helpers/constants.helper'); // Cryptographic constants
+const { KEY_SIZES } = require('../../../../helpers/constants.helper'); // Cryptographic constants for key and IV sizes
 const {
   generateAESKey,
   deriveAESKeyFromPassword,
   generateIV,
   encryptWithAES,
   decryptWithAES,
-} = require('../../../../helpers/encrypt.helper'); // AES cryptographic operations
+} = require('../../../../helpers/encrypt.helper'); // AES cryptographic operations implementation
 
 /**
  * AES Key Generation Functions Test Suite
+ *
+ * @description Comprehensive validation suite for AES cryptographic operations including
+ * key generation, password-based key derivation, encryption/decryption workflows,
+ * and error condition handling. Tests ensure implementation correctness and security
+ * best practices.
+ *
+ * @test {generateAESKey} Validates AES key generation with default and custom sizes
+ * @test {deriveAESKeyFromPassword} Tests password-based key derivation functionality
+ * @test {generateIV} Verifies initialization vector generation
+ * @test {encryptWithAES} {decryptWithAES} Validates encryption/decryption round-trip
+ *
+ * @since 1.0.0
+ * @see {@link module:../../../../helpers/encrypt.helper} for implementation details
  */
 describe('AES Key Generation Functions', () => {
   let testPassword;
   let testSalt;
   let testPlaintext;
 
+  /**
+   * Test setup hook
+   * @description Generates fresh test data before each test execution
+   * @hook beforeEach
+   */
   beforeEach(() => {
-    testPassword = faker.internet.password({ length: 20 });
-    testSalt = faker.string.alphanumeric(16);
-    testPlaintext = faker.lorem.paragraph();
+    testPassword = faker.internet.password({ length: 20 }); // Generate secure test password
+    testSalt = faker.string.alphanumeric(16); // Create random salt
+    testPlaintext = faker.lorem.paragraph(); // Generate realistic test data
   });
 
   describe('generateAESKey', () => {
