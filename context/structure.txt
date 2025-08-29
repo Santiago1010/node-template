@@ -150,6 +150,14 @@
 │           │   ├── rsa.test.js
 │           │   └── utilities.test.js
 │           ├── numbers
+│           │   ├── basic-math.test.js
+│           │   ├── formatting-convertion.test.js
+│           │   ├── percentage.test.js
+│           │   ├── random.test.js
+│           │   ├── rounding-precision.test.js
+│           │   ├── sanitization.test.js
+│           │   ├── utilities.test.js
+│           │   └── validation.test.js
 │           ├── performance
 │           ├── security
 │           ├── strings
@@ -158,4 +166,4 @@
     ├── extensions.json
     └── settings.json
 
-63 directories, 96 files
+63 directories, 104 files
