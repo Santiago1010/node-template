@@ -96,21 +96,21 @@ const isEmail = (email, { customDomain, customTLD } = {}) => {
   if (!isValidString(email)) return false;
 
   let emailRegex = STRING_CONSTANTS.EMAIL_PATTERN;
-  let domainRegexPart = '';
-  let tldRegexPart = '';
 
   if (customDomain) {
     const domains = Array.isArray(customDomain) ? customDomain : [customDomain];
-    domainRegexPart = domains.map((domain) => domain.replace(/\./g, '\\.')).join('|');
-    emailRegex = new RegExp(`^[^\\s@]+@(${domainRegexPart})\\.[^\\s@]+$`);
-  }
-
-  if (customTLD) {
+    const domainRegexPart = domains.map((domain) => domain.replace(/\./g, '\\.')).join('|');
+    if (customTLD) {
+      const tlds = Array.isArray(customTLD) ? customTLD : [customTLD];
+      const tldRegexPart = tlds.map((tld) => tld.replace(/\./g, '\\.')).join('|');
+      emailRegex = new RegExp(`^[^\\s@]+@(${domainRegexPart})\\.(${tldRegexPart})$`);
+    } else {
+      emailRegex = new RegExp(`^[^\\s@]+@(${domainRegexPart})$`);
+    }
+  } else if (customTLD) {
     const tlds = Array.isArray(customTLD) ? customTLD : [customTLD];
-    tldRegexPart = tlds.map((tld) => tld.replace(/\./g, '\\.')).join('|');
-    emailRegex = domainRegexPart
-      ? new RegExp(`^[^\\s@]+@(${domainRegexPart})\\.(${tldRegexPart})$`)
-      : new RegExp(`^[^\\s@]+@[^\\s@]+\\.(${tldRegexPart})$`);
+    const tldRegexPart = tlds.map((tld) => tld.replace(/\./g, '\\.')).join('|');
+    emailRegex = new RegExp(`^[^\\s@]+@[^\\s@]+\\.(${tldRegexPart})$`);
   }
 
   return emailRegex.test(email);
@@ -132,7 +132,10 @@ const isEmail = (email, { customDomain, customTLD } = {}) => {
  * isURL('user:pass:8080@example.com') // false
  */
 const isURL = (url) => {
-  return isValidString(url) && STRING_CONSTANTS.URL_PATTERN.test(url);
+  if (!isValidString(url)) return false;
+  const urlPattern =
+    /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+  return urlPattern.test(url);
 };
 
 /**
@@ -149,7 +152,9 @@ const isURL = (url) => {
  * isPhoneNumber('1234567890abc') // false
  */
 const isPhoneNumber = (phone) => {
-  return isValidString(phone) && STRING_CONSTANTS.PHONE_PATTERN.test(phone);
+  if (!isValidString(phone)) return false;
+  const phonePattern = /^\+?(\d{1,3})?[-\.( ]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})$/;
+  return phonePattern.test(phone.replace(/\s/g, ''));
 };
 
 /**
@@ -403,14 +408,14 @@ const toTitleCase = (str, exceptions = STRING_CONSTANTS.TITLE_CASE_EXCEPTIONS) =
  * Replaces common escape sequences in a string with their respective literal characters.
  *
  * Replaces the following escape sequences:
- *   - `\\n` with a newline character
- *   - `\\t` with a tab character
- *   - `\\'` with a single quote character
- *   - `\\"` with a double quote character
- *   - `\\/` with a forward slash character
- *   - `\\b` with a backspace character
- *   - `\\f` with a form feed character
- *   - `\\r` with a carriage return character
+ *   - `\n` with a newline character
+ *   - `\t` with a tab character
+ *   - `\'` with a single quote character
+ *   - `\"` with a double quote character
+ *   - `\/` with a forward slash character
+ *   - `\b` with a backspace character
+ *   - `\f` with a form feed character
+ *   - `\r` with a carriage return character
  *
  * If an escape sequence is not recognized, it is left as is.
  *
@@ -418,14 +423,14 @@ const toTitleCase = (str, exceptions = STRING_CONSTANTS.TITLE_CASE_EXCEPTIONS) =
  * @returns {string|null} The processed string, or null if the input is invalid
  *
  * @example
- * formatEscapeSequences('This\\nis\\na\\ntest') // 'This\nis\na\ntest'
+ * formatEscapeSequences('This\nis\na\ntest') // 'This\nis\na\ntest'
  */
 const formatEscapeSequences = (inputText) => {
   if (!inputText) return null;
 
   if (typeof inputText !== 'string') throw new TypeError('inputText must be a string');
 
-  return inputText.replace(/\\(n|t|'|"|\/|b|f|r)/g, (match, character) => {
+  return inputText.replace(/\\([nt'"\\/bfr])/g, (match, character) => {
     return ESCAPE_SEQUENCES[character] || match;
   });
 };
