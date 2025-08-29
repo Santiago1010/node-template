@@ -101,13 +101,13 @@ const config = {
    */
   collectCoverageFrom: [
     '**/*.{js,jsx}',
+    '!<rootDir>/*.js',
     '!**/node_modules/**',
     '!**/vendor/**',
     '!**/tests/**',
     '!**/coverage/**',
     '!**/migrations/**',
     '!**/seeders/**',
-    '!**/templates/**',
     '!**/scripts/**',
     '!**/docker/**',
     '!**/kubernetes/**',
@@ -115,9 +115,10 @@ const config = {
     '!**/.github/**',
     '!**/.vscode/**',
     '!**/config/**',
-    '!jest.config.js',
-    '!index.js',
-    '!app.js',
+    '!**/docs/**',
+    '!**/templates/**',
+    '!**/sync_models/**',
+    '!**/models/**',
   ],
 
   /**
