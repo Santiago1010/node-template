@@ -50,6 +50,7 @@
 // =============================================================================
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
@@ -124,6 +125,17 @@ describe('RSA Helper Functions', () => {
       expect(keyPair1.publicKey).not.toBe(keyPair2.publicKey);
       expect(keyPair1.privateKey).not.toBe(keyPair2.privateKey);
     });
+
+    it('should throw error when RSA key generation fails', () => {
+      const originalGenerateKeyPairSync = crypto.generateKeyPairSync;
+      crypto.generateKeyPairSync = jest.fn(() => {
+        throw new Error('Key generation failed');
+      });
+
+      expect(() => generateRSAKeyPair()).toThrow('RSA key pair generation failed: Key generation failed');
+
+      crypto.generateKeyPairSync = originalGenerateKeyPairSync;
+    });
   });
 
   describe('saveRSAKeysToFiles and loadRSAKeysFromFiles', () => {
@@ -145,6 +157,19 @@ describe('RSA Helper Functions', () => {
       expect(() => {
         loadRSAKeysFromFiles('nonexistent/public.pem', 'nonexistent/private.pem');
       }).toThrow(/Failed to load RSA keys from files/);
+    });
+
+    it('should throw error when writing files fails', () => {
+      const originalWriteFileSync = fs.writeFileSync;
+      fs.writeFileSync = jest.fn(() => {
+        throw new Error('Write error');
+      });
+
+      expect(() => saveRSAKeysToFiles('publicKey', 'privateKey', 'public.pem', 'private.pem')).toThrow(
+        'Failed to save RSA keys to files: Write error'
+      );
+
+      fs.writeFileSync = originalWriteFileSync;
     });
   });
 
@@ -242,6 +267,36 @@ describe('RSA Helper Functions', () => {
       const isValid = verifyRSASignature(binaryData, signature, publicKey);
 
       expect(isValid).toBe(true);
+    });
+
+    it('should handle unexpected verification errors and return false', () => {
+      const originalCreateVerify = crypto.createVerify;
+      crypto.createVerify = jest.fn(() => {
+        return {
+          update: jest.fn(),
+          verify: jest.fn(() => {
+            throw new Error('Unexpected crypto error');
+          }),
+        };
+      });
+
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      const result = verifyRSASignature('data', 'signature', '-----BEGIN PUBLIC KEY-----');
+
+      expect(result).toBe(false);
+      expect(consoleSpy).toHaveBeenCalledWith('Unexpected error in RSA verification:', expect.any(Error));
+
+      crypto.createVerify = originalCreateVerify;
+      consoleSpy.mockRestore();
+    });
+
+    it('should return false for invalid public key format', () => {
+      const testMessage = faker.lorem.sentence();
+      const signature = signWithRSA(testMessage, privateKey);
+
+      const isValid = verifyRSASignature(testMessage, signature, 'invalid-public-key');
+      expect(isValid).toBe(false);
     });
   });
 
