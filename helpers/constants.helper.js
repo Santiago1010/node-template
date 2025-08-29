@@ -202,14 +202,15 @@ const STRING_CONSTANTS = {
  * @property {string} r - Carriage return escape sequence
  */
 const ESCAPE_SEQUENCES = {
-  n: '⏎\n',
-  t: '⇥',
-  "'": "\\'",
-  '"': '\\"',
-  '/': '\\/',
-  b: '⌫',
-  f: '↡',
-  r: '␍⏎',
+  n: '\n',
+  t: '\t',
+  "'": "'",
+  '"': '"',
+  '/': '/',
+  b: '\b',
+  f: '\f',
+  r: '\r',
+  '\\': '\\',
 };
 
 /**

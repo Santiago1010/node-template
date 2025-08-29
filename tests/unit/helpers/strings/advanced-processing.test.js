@@ -71,6 +71,27 @@ describe('Advanced String Processing Functions', () => {
       expect(stringsHelper.generateSlug('')).toBeNull();
       expect(cerror).toHaveBeenCalledWith('Generate Slug', 'Invalid string provided');
     });
+
+    test('should handle maxLength correctly', () => {
+      expect(stringsHelper.generateSlug('hello world', { maxLength: 5 })).toBe('hello');
+
+      expect(stringsHelper.generateSlug('a b c', { maxLength: 3 })).toBe('a-b');
+
+      expect(stringsHelper.generateSlug('short', { maxLength: 10 })).toBe('short');
+
+      expect(
+        stringsHelper.generateSlug('x y z', {
+          separator: '_',
+          maxLength: 3,
+        })
+      ).toBe('x_y');
+    });
+
+    test('should handle edge cases with maxLength', () => {
+      expect(stringsHelper.generateSlug('a---b---c', { maxLength: 3 })).toBe('a-b');
+
+      expect(stringsHelper.generateSlug('hello-world', { maxLength: 5 })).toBe('hello');
+    });
   });
 
   describe('maskString', () => {

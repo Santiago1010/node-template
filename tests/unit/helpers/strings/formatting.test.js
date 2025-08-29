@@ -60,6 +60,15 @@ describe('String Formatting Functions', () => {
     test('should replace escape sequences with literal characters', () => {
       expect(stringsHelper.formatEscapeSequences('hello\nworld')).toBe('hello\nworld');
       expect(stringsHelper.formatEscapeSequences('hello\tworld')).toBe('hello\tworld');
+      expect(stringsHelper.formatEscapeSequences('\\n')).toBe('\n');
+      expect(stringsHelper.formatEscapeSequences('\\t')).toBe('\t');
+      expect(stringsHelper.formatEscapeSequences("\\'")).toBe("'");
+      expect(stringsHelper.formatEscapeSequences('\\"')).toBe('"');
+      expect(stringsHelper.formatEscapeSequences('\\/')).toBe('/');
+      expect(stringsHelper.formatEscapeSequences('\\b')).toBe('\b');
+      expect(stringsHelper.formatEscapeSequences('\\f')).toBe('\f');
+      expect(stringsHelper.formatEscapeSequences('\\r')).toBe('\r');
+      expect(stringsHelper.formatEscapeSequences('\\\\')).toBe('\\');
     });
 
     test('should return null for null input', () => {
@@ -68,6 +77,11 @@ describe('String Formatting Functions', () => {
 
     test('should throw an error for non-string input', () => {
       expect(() => stringsHelper.formatEscapeSequences(123)).toThrow('inputText must be a string');
+    });
+
+    test('should leave unknown escape sequences unchanged', () => {
+      expect(stringsHelper.formatEscapeSequences('\\x')).toBe('\\x');
+      expect(stringsHelper.formatEscapeSequences('hello\\nworld\\x')).toBe('hello\nworld\\x');
     });
   });
 
