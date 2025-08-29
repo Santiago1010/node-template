@@ -14,6 +14,11 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 // =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const bcrypt = require('bcrypt');
+
+// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { KEY_SIZES, ALGORITHMS } = require('./constants.helper');
@@ -374,38 +379,30 @@ const verifyHMAC = (data, key, expectedHMAC) => {
 // =============================================================================
 
 /**
- * Hashes a password using bcrypt-like method with PBKDF2
+ * Hashes a password using bcrypt
  * @param {string} password - Password to hash
- * @param {number} saltRounds - Number of rounds (default: 12)
- * @returns {string} Hashed password with salt
+ * @param {number} saltRounds - Number of salt rounds (default: 12)
+ * @returns {Promise<string>} Hashed password
  */
-const hashPassword = (password, saltRounds = 12) => {
+const hashPassword = async (password, saltRounds = 12) => {
   try {
-    const salt = crypto.randomBytes(16);
-    const iterations = Math.pow(2, saltRounds);
-    const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, ALGORITHMS.HASH);
-
-    // Combine salt, iterations, and hash
-    return `${saltRounds}:${salt.toString('hex')}:${hash.toString('hex')}`;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
   } catch (error) {
     throw new Error(`Password hashing failed: ${error.message}`);
   }
 };
 
 /**
- * Verifies a password against its hash
+ * Verifies a password against its bcrypt hash
  * @param {string} password - Password to verify
  * @param {string} hashedPassword - Previously hashed password
- * @returns {boolean} True if password matches
+ * @returns {Promise<boolean>} True if password matches
  */
-const verifyPassword = (password, hashedPassword) => {
+const verifyPassword = async (password, hashedPassword) => {
   try {
-    const [saltRounds, saltHex, hashHex] = hashedPassword.split(':');
-    const salt = Buffer.from(saltHex, 'hex');
-    const iterations = Math.pow(2, parseInt(saltRounds));
-    const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, ALGORITHMS.HASH);
-
-    return crypto.timingSafeEqual(hash, Buffer.from(hashHex, 'hex'));
+    const isMatch = await bcrypt.compare(password, hashedPassword);
+    return isMatch;
   } catch (error) {
     throw new Error(`Password verification failed: ${error.message}`);
   }
