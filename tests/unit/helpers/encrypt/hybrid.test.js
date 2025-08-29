@@ -137,7 +137,6 @@ describe('Hybrid Encryption Functions', () => {
 
       // Verify encoded format of encrypted components
       expect(typeof result.encryptedKey).toBe('string'); // Base64 encoded
-      expect(Buffer.isBuffer(result.encryptedData)).toBe(true);
     });
 
     /**
@@ -258,26 +257,35 @@ describe('Hybrid Encryption Functions', () => {
      * @test Should handle both string and Buffer inputs appropriately
      */
     it('should work with different data types', () => {
-      // Test with Buffer input
       const testBuffer = Buffer.from(faker.lorem.paragraph(), 'utf8');
-      const testBufferString = testBuffer.toString('utf8');
-
-      // Encrypt and decrypt Buffer
       const encryptedBuffer = encryptHybrid(testBuffer, publicKey);
-      const decrypted = decryptHybrid(encryptedBuffer, privateKey);
+      const decryptedBuffer = decryptHybrid(encryptedBuffer, privateKey);
 
-      // Assert - decryptHybrid returns string representation
-      expect(typeof decrypted).toBe('string');
-      expect(decrypted).toBe(testBufferString);
+      expect(typeof decryptedBuffer).toBe('string');
+      expect(decryptedBuffer).toBe(testBuffer.toString('utf8'));
 
-      // Test with string input
       const testString = faker.lorem.paragraph();
       const encryptedString = encryptHybrid(testString, publicKey);
       const decryptedString = decryptHybrid(encryptedString, privateKey);
 
-      // Assert
       expect(typeof decryptedString).toBe('string');
       expect(decryptedString).toBe(testString);
+
+      expect(encryptedBuffer).toHaveProperty('encryptedData');
+      expect(encryptedBuffer).toHaveProperty('encryptedKey');
+      expect(encryptedBuffer).toHaveProperty('iv');
+      expect(encryptedBuffer).toHaveProperty('authTag');
+
+      expect(typeof encryptedBuffer.encryptedData).toBe('string');
+      expect(typeof encryptedBuffer.encryptedKey).toBe('string');
+      expect(typeof encryptedBuffer.iv).toBe('string');
+      expect(typeof encryptedBuffer.authTag).toBe('string');
+
+      const base64Regex = /^[A-Za-z0-9+/=]+$/;
+      expect(encryptedBuffer.encryptedData).toMatch(base64Regex);
+      expect(encryptedBuffer.encryptedKey).toMatch(base64Regex);
+      expect(encryptedBuffer.iv).toMatch(base64Regex);
+      expect(encryptedBuffer.authTag).toMatch(base64Regex);
     });
   });
 });
