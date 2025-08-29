@@ -1,5 +1,69 @@
 
 
+## [1.3.0] - 2025-08-29
+
+**Released:** 2025-08-29 19:50:22 UTC
+
+### [Test Infrastructure and Encryption Refactor](https://github.com/Santiago1010/node-template/pull/34)
+
+#### 📋 Summary
+This PR introduces comprehensive test infrastructure with Jest, refactors encryption utilities to use bcrypt for password hashing, adds AWS S3 configuration, and includes extensive unit tests for helper functions.
+
+#### 🔍 What Changed
+### Added
+- Jest test configuration with coverage reporting
+- Babel configuration for Jest compatibility
+- Husky pre-push hook for test coverage
+- AWS S3 helper and configuration
+- 25+ test files covering encryption, numbers, and string helpers
+- Test environment setup and global configuration
+
+### Changed
+- Replaced custom password hashing with bcrypt implementation
+- Updated AES encryption to use proper GCM mode and base64 encoding
+- Improved RSA signature verification error handling
+- Enhanced number and string helper validation logic
+- Updated escape sequences formatting in constants
+
+### Fixed
+- RSA signature verification returns false instead of throwing errors
+- AES encryption/decryption parameter handling
+- Hybrid encryption key encoding
+
+### Removed
+- Payment gateway environment variables from .env.example
+- Validations factory file
+
+#### 📝 Additional Notes
+- Password hashing now uses industry-standard bcrypt with async operations
+- Encryption helpers maintain backward compatibility with improved security
+- Test coverage includes edge cases and error scenarios
+- Biome configuration updated to support test globals
+
+**Type of Change:** New Feature, Bug Fix
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: bug, enhancement
+- Commits: 10
+
+**Commits:**
+- [`6db8b2a`](https://github.com/Santiago1010/node-template/commit/6db8b2a85c7a2f9d628871d6ca20c7472ac31eeb) test(encrypt): fix hybrid encryption test assertions and improve validation
+- [`1a3a15b`](https://github.com/Santiago1010/node-template/commit/1a3a15ba22758bad49b8dbce337985dbf8a4a32e) test(encrypt): enhance RSA test coverage with error scenarios
+- [`6314544`](https://github.com/Santiago1010/node-template/commit/63145443a33157e4d48eeb59aa7c8bbbdbda2f72) fix(encrypt): simplify RSA verification error handling and add AES error tests
+- [`946a131`](https://github.com/Santiago1010/node-template/commit/946a131f5d6cc85c4ac3a47cd39408236a41e2c2) test(encrypt): add comprehensive hashing functions test suite
+- [`11e019f`](https://github.com/Santiago1010/node-template/commit/11e019f3fff1d826c7c17023e71cf143eea4eb9b) fix(encrypt): correct AES key encoding and add comprehensive parameter tests
+- [`57946c5`](https://github.com/Santiago1010/node-template/commit/57946c5a306f2f5b7ad0d201b238e1798948bd2c) chore: remove validation factory and update jest coverage configuration
+- [`1ad66bb`](https://github.com/Santiago1010/node-template/commit/1ad66bbc9bd7accf2d8dfe3593e518c01e7d4d1a) test(numbers): add comprehensive unit test suite for number utilities
+- [`d815056`](https://github.com/Santiago1010/node-template/commit/d815056b7dfa215a110c6b2012ab7f07ae6a2f29) test(strings): add comprehensive unit test suite for string utilities
+- [`ebc8a15`](https://github.com/Santiago1010/node-template/commit/ebc8a150f2ebe8f8c46621fa4be50f936ecfffac) refactor(strings): improve escape sequence handling and documentation
+- [`7cc5da5`](https://github.com/Santiago1010/node-template/commit/7cc5da58c6ddc035dabe1479674e8f10965d202c) ci(github): skip pre-push hooks in CI environments
+
+---
+
+
+
 ## [1.2.0] - 2025-08-28
 
 **Released:** 2025-08-28 13:28:01 UTC

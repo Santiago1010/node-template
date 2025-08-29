@@ -1,6 +1,7 @@
 .
 ├── app.js
 ├── ARCHITECTURE.md
+├── babel.config.js
 ├── biome.json
 ├── CHANGELOG.md
 ├── .commitlintrc.js
@@ -38,6 +39,7 @@
 ├── docker-compose.yml
 ├── Dockerfile
 ├── .dockerignore
+├── docs
 ├── .editorconfig
 ├── .env
 ├── .env.example
@@ -50,6 +52,8 @@
 │       └── release.yml
 ├── .gitignore
 ├── helpers
+│   ├── aws
+│   │   └── s3.helper.js
 │   ├── cache.helper.js
 │   ├── constants.helper.js
 │   ├── context.helper.js
@@ -68,9 +72,9 @@
 │   └── validations
 │       ├── commonSchemas.helper.js
 │       ├── databaseSchemas.helper.js
-│       ├── index.js
-│       └── validations.factory.js
+│       └── index.js
 ├── index.js
+├── jest.config.js
 ├── kubernetes
 │   ├── deployment.yaml
 │   └── keys
@@ -130,6 +134,8 @@
 │       └── setupModel.template.js
 ├── tests
 │   ├── e2e
+│   ├── env-setup.js
+│   ├── setup.js
 │   └── unit
 │       └── helpers
 │           ├── cache
@@ -137,7 +143,21 @@
 │           ├── context
 │           ├── debug
 │           ├── encrypt
+│           │   ├── aes.test.js
+│           │   ├── hashing.test.js
+│           │   ├── hybrid.test.js
+│           │   ├── password.test.js
+│           │   ├── rsa.test.js
+│           │   └── utilities.test.js
 │           ├── numbers
+│           │   ├── basic-math.test.js
+│           │   ├── formatting-convertion.test.js
+│           │   ├── percentage.test.js
+│           │   ├── random.test.js
+│           │   ├── rounding-precision.test.js
+│           │   ├── sanitization.test.js
+│           │   ├── utilities.test.js
+│           │   └── validation.test.js
 │           ├── performance
 │           ├── security
 │           ├── strings
@@ -146,4 +166,4 @@
     ├── extensions.json
     └── settings.json
 
-61 directories, 86 files
+63 directories, 104 files

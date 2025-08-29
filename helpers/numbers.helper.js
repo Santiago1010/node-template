@@ -1,18 +1,64 @@
 // =============================================================================
-// NUMBER HELPER - Utilities for number handling and manipulation
+// NUMBER UTILITIES MODULE - Comprehensive Number Handling and Operations
 // =============================================================================
-// Module providing utility functions for mathematical operations,
-// validation, formatting, and number conversion.
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Provides robust number validation, conversion, and mathematical operations
+// - Handles edge cases, invalid inputs, and error conditions gracefully
+// - Supports financial calculations, statistical operations, and mathematical transformations
+// - Offers internationalization support for number formatting
+//
+// ARCHITECTURAL DECISIONS:
+// - Functional programming approach for composability and testability
+// - Defensive programming with comprehensive input validation
+// - Consistent error handling with contextual error messages
+// - Separation of concerns with categorized function groups
+// - Default parameter configuration through external constants
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Class-based approach rejected: Functions are stateless and don't benefit from encapsulation
+// - Exception-heavy approach rejected: Prefer null returns with error logging for utility functions
+// - Global state approach rejected: Pure functions ensure predictability and testability
+// - Third-party libraries rejected: Minimal dependencies for core numerical operations
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for most operations, O(n) for array operations (sum, average, etc.)
+// - Space complexity: O(1) for most operations, O(n) for operations processing arrays
+// - Memory usage: Minimal, with efficient number conversion and processing
+// - Optimization: Balance between readability and performance with selective optimizations
+//
+// SECURITY CONSIDERATIONS:
+// - Input validation prevents injection attacks and malformed data processing
+// - Type coercion is controlled and explicit to prevent unexpected behavior
+// - Financial calculations use built-in Intl API for secure formatting
+// - Error messages are logged but don't expose sensitive information
+//
+// USAGE EXAMPLES:
+// - Data validation and sanitization in form processing
+// - Financial calculations and currency formatting
+// - Statistical analysis and data aggregation
+// - Mathematical transformations in engineering applications
+// - Game development and random number generation
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - All functions maintain consistent error handling patterns
+// - Comprehensive logging helps debug numerical edge cases
+// - TypeScript definitions available for enhanced type safety
+// - Regular validation against numerical edge cases recommended
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires Node.js 14+ for Intl.NumberFormat and modern JS features
+// - Compatible with CommonJS and ES Module systems
+// - Browser compatible for client-side numerical operations
+// - No third-party dependencies for core functionality
 //
 // =============================================================================
 
-// ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const { NUMBER_CONSTANTS } = require('./constants.helper');
-const { cerror } = require('./debug.helper');
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { NUMBER_CONSTANTS } = require('./constants.helper'); // Configuration constants
+const { cerror } = require('./debug.helper'); // Error logging utility
 
-// =============================================================================
-// SANITIZATION FUNCTIONS
-// =============================================================================
 const convertToNumber = (input) => {
   return Number(input);
 };
@@ -34,6 +80,9 @@ const convertToNumber = (input) => {
  * isValidNumber(Infinity)  // false
  */
 const isValidNumber = (input) => {
+  if (input === null || (Array.isArray(input) && input.length !== 1)) {
+    return false;
+  }
   return !isNaN(input) && isFinite(Number(input));
 };
 
@@ -566,9 +615,8 @@ const radiansToDegrees = (radians) => {
 };
 
 // =============================================================================
-// MODULE EXPORT
+// MODULE EXPORTS
 // =============================================================================
-
 module.exports = {
   // Sanitization
   convertToNumber,

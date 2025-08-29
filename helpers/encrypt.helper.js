@@ -14,6 +14,11 @@ const crypto = require('crypto');
 const fs = require('fs');
 
 // =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const bcrypt = require('bcrypt');
+
+// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { KEY_SIZES, ALGORITHMS } = require('./constants.helper');
@@ -141,12 +146,16 @@ const signWithRSA = (data, privateKey) => {
  */
 const verifyRSASignature = (data, signature, publicKey) => {
   try {
+    if (!publicKey.includes('-----BEGIN PUBLIC KEY-----')) return false;
+
     const verify = crypto.createVerify('RSA-SHA256');
     verify.update(data);
     const signatureBuffer = Buffer.from(signature, 'base64');
+
     return verify.verify(publicKey, signatureBuffer);
   } catch (error) {
-    throw new Error(`RSA signature verification failed: ${error.message}`);
+    console.error('Unexpected error in RSA verification:', error);
+    return false;
   }
 };
 
@@ -205,16 +214,16 @@ const generateIV = (size = KEY_SIZES.IV) => {
  * Encrypts data using AES-256-GCM
  * @param {string|Buffer} data - Data to encrypt
  * @param {Buffer|string} key - AES encryption key
- * @param {Buffer} iv - Initialization vector (optional, will generate if not provided)
- * @returns {Object} Object containing encrypted data, IV, and auth tag
+ * @param {string} [iv] - Initialization vector (optional)
+ * @returns {Object} Object containing base64 encoded encrypted data, IV, and authentication tag
  */
 const encryptWithAES = (data, key, iv = null) => {
   try {
-    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
+    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'base64');
     const ivBuffer = iv || generateIV();
     const dataBuffer = Buffer.isBuffer(data) ? data : Buffer.from(data, 'utf8');
 
-    const cipher = crypto.createCipher(ALGORITHMS.AES, keyBuffer);
+    const cipher = crypto.createCipheriv('aes-256-gcm', keyBuffer, ivBuffer);
     cipher.setAAD(Buffer.from('authenticated'));
 
     let encrypted = cipher.update(dataBuffer);
@@ -233,22 +242,23 @@ const encryptWithAES = (data, key, iv = null) => {
 };
 
 /**
- * Decrypts AES-256-GCM encrypted data
- * @param {string} encryptedData - Base64 encoded encrypted data
- * @param {Buffer|string} key - AES decryption key
- * @param {string} iv - Base64 encoded initialization vector
- * @param {string} authTag - Base64 encoded authentication tag
- * @returns {string} Decrypted data as string
+ * Decrypts data using AES-256-GCM
+ * @param {string|Buffer} encryptedData - Base64 encoded encrypted data
+ * @param {Buffer|string} key - AES encryption key
+ * @param {string} iv - Initialization vector (base64 encoded)
+ * @param {string} authTag - Authentication tag (base64 encoded)
+ * @returns {string} Decrypted data
  */
-const decryptWithAES = (encryptedData, key, authTag) => {
+const decryptWithAES = (encryptedData, key, iv, authTag) => {
   try {
-    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'utf8');
-    const encryptedBuffer = Buffer.from(encryptedData, 'base64');
-    const authTagBuffer = Buffer.from(authTag, 'base64');
+    const keyBuffer = Buffer.isBuffer(key) ? key : Buffer.from(key, 'base64');
+    const ivBuffer = Buffer.isBuffer(iv) ? iv : Buffer.from(iv, 'base64');
+    const encryptedBuffer = Buffer.isBuffer(encryptedData) ? encryptedData : Buffer.from(encryptedData, 'base64');
+    const authTagBuffer = Buffer.isBuffer(authTag) ? authTag : Buffer.from(authTag, 'base64');
 
-    const decipher = crypto.createDecipher(ALGORITHMS.AES, keyBuffer);
-    decipher.setAAD(Buffer.from('authenticated'));
+    const decipher = crypto.createDecipheriv('aes-256-gcm', keyBuffer, ivBuffer);
     decipher.setAuthTag(authTagBuffer);
+    decipher.setAAD(Buffer.from('authenticated'));
 
     let decrypted = decipher.update(encryptedBuffer);
     decrypted = Buffer.concat([decrypted, decipher.final()]);
@@ -278,8 +288,8 @@ const encryptHybrid = (data, publicKey) => {
     // Encrypt data with AES
     const aesResult = encryptWithAES(data, aesKey, iv);
 
-    // Encrypt AES key with RSA
-    const encryptedAESKey = encryptWithRSA(aesKey, publicKey);
+    // Convert AES key to base64 string and encrypt with RSA
+    const encryptedAESKey = encryptWithRSA(aesKey.toString('base64'), publicKey);
 
     return {
       encryptedData: aesResult.encrypted,
@@ -302,8 +312,9 @@ const decryptHybrid = (encryptedPackage, privateKey) => {
   try {
     const { encryptedData, encryptedKey, iv, authTag } = encryptedPackage;
 
-    // Decrypt AES key with RSA
-    const aesKey = Buffer.from(decryptWithRSA(encryptedKey, privateKey), 'base64');
+    // Decrypt AES key with RSA and convert from base64 to Buffer
+    const aesKeyBase64 = decryptWithRSA(encryptedKey, privateKey);
+    const aesKey = Buffer.from(aesKeyBase64, 'base64');
 
     // Decrypt data with AES
     return decryptWithAES(encryptedData, aesKey, iv, authTag);
@@ -364,38 +375,30 @@ const verifyHMAC = (data, key, expectedHMAC) => {
 // =============================================================================
 
 /**
- * Hashes a password using bcrypt-like method with PBKDF2
+ * Hashes a password using bcrypt
  * @param {string} password - Password to hash
- * @param {number} saltRounds - Number of rounds (default: 12)
- * @returns {string} Hashed password with salt
+ * @param {number} saltRounds - Number of salt rounds (default: 12)
+ * @returns {Promise<string>} Hashed password
  */
-const hashPassword = (password, saltRounds = 12) => {
+const hashPassword = async (password, saltRounds = 12) => {
   try {
-    const salt = crypto.randomBytes(16);
-    const iterations = Math.pow(2, saltRounds);
-    const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, ALGORITHMS.HASH);
-
-    // Combine salt, iterations, and hash
-    return `${saltRounds}:${salt.toString('hex')}:${hash.toString('hex')}`;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
   } catch (error) {
     throw new Error(`Password hashing failed: ${error.message}`);
   }
 };
 
 /**
- * Verifies a password against its hash
+ * Verifies a password against its bcrypt hash
  * @param {string} password - Password to verify
  * @param {string} hashedPassword - Previously hashed password
- * @returns {boolean} True if password matches
+ * @returns {Promise<boolean>} True if password matches
  */
-const verifyPassword = (password, hashedPassword) => {
+const verifyPassword = async (password, hashedPassword) => {
   try {
-    const [saltRounds, saltHex, hashHex] = hashedPassword.split(':');
-    const salt = Buffer.from(saltHex, 'hex');
-    const iterations = Math.pow(2, parseInt(saltRounds));
-    const hash = crypto.pbkdf2Sync(password, salt, iterations, 64, ALGORITHMS.HASH);
-
-    return crypto.timingSafeEqual(hash, Buffer.from(hashHex, 'hex'));
+    const isMatch = await bcrypt.compare(password, hashedPassword);
+    return isMatch;
   } catch (error) {
     throw new Error(`Password verification failed: ${error.message}`);
   }

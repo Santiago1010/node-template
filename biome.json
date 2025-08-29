@@ -90,6 +90,36 @@
     "globals": ["describe", "test", "expect", "jest", "afterEach", "afterAll", "it", "beforeAll", "globalLang"]
   },
   "files": {
-    "ignore": ["templates/**", "sync_models/**", "node_modules/**", "dist/**", "test/**"]
-  }
+    "ignore": ["templates/**", "sync_models/**", "node_modules/**", "dist/**", "test/**", "coverage/**"]
+  },
+  "overrides": [
+    {
+      "include": ["**/*.test.js", "**/*.spec.js", "tests/**/*.js"],
+      "javascript": {
+        "globals": [
+          "describe",
+          "test",
+          "it",
+          "expect",
+          "jest",
+          "beforeEach",
+          "afterEach",
+          "beforeAll",
+          "afterAll",
+          "fit",
+          "xit",
+          "xdescribe",
+          "fdescribe",
+          "xtest"
+        ]
+      },
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredVariables": "off"
+          }
+        }
+      }
+    }
+  ]
 }

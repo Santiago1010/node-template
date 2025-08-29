@@ -1,0 +1,32 @@
+# Function to detect if we are in CI
+is_ci() {
+    [ -n "$CI" ] || [ -n "$GITHUB_ACTIONS" ] || [ -n "$JENKINS_URL" ] || [ -n "$TRAVIS" ]
+}
+
+# Function to detect automatic commits
+is_auto_commit() {
+    git log -1 --pretty=%B | grep -q "\[skip ci\]\|\[ci skip\]\|auto-update\|chore: auto"
+}
+
+# Exit if we are in CI
+if is_ci; then
+    echo "🤖 CI environment detected, skipping pre-push hook"
+    exit 0
+fi
+
+# Exit if it's an auto-commit
+if is_auto_commit; then
+    echo "🔄 Auto-generated commit detected, skipping pre-push hook"
+    exit 0
+fi
+
+echo "🧪 Running tests before push..."
+npm run test:coverage
+
+# Check if tests passed
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed! Push aborted."
+    exit 1
+fi
+
+echo "✅ All tests passed! Proceeding with push."
