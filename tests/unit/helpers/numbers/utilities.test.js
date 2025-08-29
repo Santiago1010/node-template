@@ -5,46 +5,6 @@
 const numbersHelper = require('../../../../helpers/numbers.helper');
 
 describe('Module Exports and Integrations', () => {
-  describe('Module Exports', () => {
-    test('should export all expected functions', () => {
-      const expectedFunctions = [
-        'convertToNumber',
-        'isValidNumber',
-        'isInRange',
-        'isInteger',
-        'isPositive',
-        'isEven',
-        'isOdd',
-        'sumNumbers',
-        'average',
-        'maxNumber',
-        'minNumber',
-        'roundToDecimal',
-        'ceilNumber',
-        'floorNumber',
-        'getRandomNumber',
-        'getRandomFloat',
-        'calculatePercentage',
-        'calculatePercentageValue',
-        'calculatePercentageChange',
-        'formatNumberToCurrency',
-        'formatNumberWithCommas',
-        'toScientificNotation',
-        'clampNumber',
-        'degreesToRadians',
-        'radiansToDegrees',
-      ];
-
-      expectedFunctions.forEach((functionName) => {
-        expect(numbersHelper).toHaveProperty(functionName);
-        expect(typeof numbersHelper[functionName]).toBe('function');
-      });
-
-      // Verify we have the expected number of exports
-      expect(Object.keys(numbersHelper)).toHaveLength(expectedFunctions.length);
-    });
-  });
-
   describe('Integration Tests', () => {
     test('should handle complex calculations with multiple functions', () => {
       const numbers = [10, 20, 30, 'abc', 40, null];

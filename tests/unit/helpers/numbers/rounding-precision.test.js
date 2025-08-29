@@ -42,7 +42,6 @@ describe('Rounding and Precision Functions', () => {
       expect(numbersHelper.roundToDecimal('hi', -1)).toBeNull();
       expect(numbersHelper.roundToDecimal(3.14159, 'bye')).toBeNull();
       expect(numbersHelper.roundToDecimal()).toBeNull();
-      // expect(cerror).toHaveBeenCalledWith('Round decimal', 'Invalid decimal places provided');
     });
   });
 

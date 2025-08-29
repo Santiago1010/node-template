@@ -1,265 +1,324 @@
 // =============================================================================
-// NUMBER UTILITIES MODULE - Comprehensive Number Handling and Operations
+// NUMBER UTILITIES - Comprehensive Number Manipulation and Validation
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides robust number validation, conversion, and mathematical operations
-// - Handles edge cases, invalid inputs, and error conditions gracefully
-// - Supports financial calculations, statistical operations, and mathematical transformations
-// - Offers internationalization support for number formatting
+// - Provides comprehensive number validation, conversion, and mathematical operations
+// - Handles various number formats and edge cases with robust error handling
+// - Offers financial formatting, statistical calculations, and unit conversions
 //
 // ARCHITECTURAL DECISIONS:
 // - Functional programming approach for composability and testability
-// - Defensive programming with comprehensive input validation
+// - Separation of validation and computation logic for maintainability
+// - Use of lodash for optimized array operations and mathematical functions
 // - Consistent error handling with contextual error messages
-// - Separation of concerns with categorized function groups
-// - Default parameter configuration through external constants
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Class-based approach rejected: Functions are stateless and don't benefit from encapsulation
-// - Exception-heavy approach rejected: Prefer null returns with error logging for utility functions
-// - Global state approach rejected: Pure functions ensure predictability and testability
-// - Third-party libraries rejected: Minimal dependencies for core numerical operations
+// - Could use class-based approach but chosen functional for simplicity
+// - Considered using Big.js for precision but opted for native operations for performance
+// - Evaluated third-party validation libraries but built custom for specific needs
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for most operations, O(n) for array operations (sum, average, etc.)
-// - Space complexity: O(1) for most operations, O(n) for operations processing arrays
-// - Memory usage: Minimal, with efficient number conversion and processing
-// - Optimization: Balance between readability and performance with selective optimizations
+// - Time complexity: O(n) for array operations, O(1) for single operations
+// - Space complexity: Generally O(1) except for array operations (O(n))
+// - Optimized for medium-sized datasets (up to 10,000 elements)
 //
 // SECURITY CONSIDERATIONS:
-// - Input validation prevents injection attacks and malformed data processing
-// - Type coercion is controlled and explicit to prevent unexpected behavior
-// - Financial calculations use built-in Intl API for secure formatting
-// - Error messages are logged but don't expose sensitive information
+// - Input validation prevents injection attacks
+// - Type coercion handled safely with explicit checks
+// - No sensitive data exposure in error messages
 //
 // USAGE EXAMPLES:
-// - Data validation and sanitization in form processing
 // - Financial calculations and currency formatting
-// - Statistical analysis and data aggregation
-// - Mathematical transformations in engineering applications
-// - Game development and random number generation
+// - Data validation and sanitization
+// - Statistical analysis and mathematical operations
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - All functions maintain consistent error handling patterns
-// - Comprehensive logging helps debug numerical edge cases
-// - TypeScript definitions available for enhanced type safety
-// - Regular validation against numerical edge cases recommended
+// - All functions validate inputs and provide meaningful error messages
+// - Use cerror helper for consistent error reporting
+// - Monitor precision limits in financial calculations
 //
 // DEPENDENCIES & COMPATIBILITY:
 // - Requires Node.js 14+ for Intl.NumberFormat and modern JS features
-// - Compatible with CommonJS and ES Module systems
-// - Browser compatible for client-side numerical operations
-// - No third-party dependencies for core functionality
+// - Lodash 4.17.21+ for utility functions
+// - Browser compatible with polyfills for Intl API
 //
 // =============================================================================
+
+// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const _ = require('lodash'); // Utility functions for array operations and mathematics
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { NUMBER_CONSTANTS } = require('./constants.helper'); // Configuration constants
+const { NUMBER_CONSTANTS } = require('./constants.helper'); // Number-related constants
 const { cerror } = require('./debug.helper'); // Error logging utility
 
-const convertToNumber = (input) => {
-  return Number(input);
-};
-
-// =============================================================================
-// VALIDATION FUNCTIONS
-// =============================================================================
-
 /**
- * Checks if a given value can be converted to a valid finite number.
+ * Converts input to number using unary plus operator
  *
- * @param {any} input - The value to check
- * @returns {boolean} true if input can be converted to valid number, false otherwise
+ * @description Safely converts various input types to numbers. Note: This may return NaN for invalid inputs.
+ * @param {*} input - Value to convert (string, number, boolean, etc.)
+ * @returns {number} Converted number or NaN if conversion fails
  *
  * @example
- * isValidNumber(42)        // true
- * isValidNumber("42")      // true
- * isValidNumber("abc")     // false
- * isValidNumber(Infinity)  // false
+ * // Basic conversion
+ * convertToNumber("123"); // Returns 123
+ * convertToNumber("abc"); // Returns NaN
+ *
+ * @complexity Time: O(1), Space: O(1)
+ */
+const convertToNumber = (input) => +input;
+
+/**
+ * Validates if input is a valid finite number
+ *
+ * @description Comprehensive validation supporting strings, numbers, and array inputs.
+ *              Uses regex pattern from constants for string validation.
+ * @param {*} input - Value to validate (number, string, array, null, undefined)
+ * @returns {boolean} True if input is a valid finite number
+ *
+ * @example
+ * isValidNumber(123); // true
+ * isValidNumber("123.45"); // true
+ * isValidNumber("abc"); // false
+ * isValidNumber(null); // false
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const isValidNumber = (input) => {
-  if (input === null || (Array.isArray(input) && input.length !== 1)) {
-    return false;
+  if (typeof input === 'number') return isFinite(input);
+
+  if (input == null || (Array.isArray(input) && input.length !== 1)) return false;
+
+  if (typeof input === 'string') {
+    if (!NUMBER_CONSTANTS.NUMBER_REGEX.test(input.trim())) return false;
   }
-  return !isNaN(input) && isFinite(Number(input));
+
+  const num = +input;
+  return !isNaN(num) && isFinite(num);
 };
 
 /**
- * Checks if a number is within a specific range.
+ * Filters and converts valid numbers from an array
  *
- * @param {number} num - The number to check
- * @param {number} min - Minimum range value (inclusive)
- * @param {number} max - Maximum range value (inclusive)
- * @returns {boolean} true if number is in range, false otherwise
+ * @description Internal utility function that extracts valid numbers from an array
+ *              and converts them to numeric type
+ * @param {Array} numbers - Array of values to filter and convert
+ * @returns {Array} Array of valid numbers
  *
  * @example
- * isInRange(5, 1, 10)     // true
- * isInRange(15, 1, 10)    // false
+ * getValidNumbers([1, "2", "abc", null]); // Returns [1, 2]
+ *
+ * @complexity Time: O(n), Space: O(n)
+ * @private
+ */
+const getValidNumbers = (numbers) => {
+  const result = [];
+  for (let i = 0, len = numbers.length; i < len; i++) {
+    if (isValidNumber(numbers[i])) {
+      result.push(+numbers[i]);
+    }
+  }
+  return result;
+};
+
+/**
+ * Checks if a number is within specified range
+ *
+ * @description Validates if a number falls within inclusive min/max bounds
+ * @param {number|string} num - Number to check
+ * @param {number} min - Minimum value (inclusive)
+ * @param {number} max - Maximum value (inclusive)
+ * @returns {boolean} True if number is valid and within range
+ *
+ * @example
+ * isInRange(5, 1, 10); // true
+ * isInRange(15, 1, 10); // false
+ * isInRange("5", 1, 10); // true
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const isInRange = (num, min, max) => {
-  if (!isValidNumber(num) || !isValidNumber(min) || !isValidNumber(max)) {
-    return false;
-  }
-  return Number(num) >= min && Number(num) <= max;
+  if (!isValidNumber(num)) return false;
+  const n = +num;
+  return n >= min && n <= max;
 };
 
 /**
- * Checks if a number is integer.
+ * Validates if input is an integer
  *
- * @param {any} input - The value to check
- * @returns {boolean} true if it's an integer number, false otherwise
+ * @description Checks if input is a valid number and has no fractional component
+ * @param {*} input - Value to check
+ * @returns {boolean} True if input is a valid integer
  *
  * @example
- * isInteger(42)      // true
- * isInteger(42.5)    // false
- * isInteger("42")    // true
+ * isInteger(5); // true
+ * isInteger(5.5); // false
+ * isInteger("5"); // true
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const isInteger = (input) => {
-  return isValidNumber(input) && Number.isInteger(Number(input));
+  if (!isValidNumber(input)) return false;
+  const num = +input;
+  return (num | 0) === num;
 };
 
 /**
- * Checks if a number is positive.
+ * Validates if input is a positive number
  *
- * @param {any} input - The value to check
- * @returns {boolean} true if it's a positive number, false otherwise
+ * @description Checks if input is a valid number and greater than zero
+ * @param {*} input - Value to check
+ * @returns {boolean} True if input is a valid positive number
  *
  * @example
- * isPositive(42)     // true
- * isPositive(-42)    // false
- * isPositive(0)      // false
+ * isPositive(5); // true
+ * isPositive(-5); // false
+ * isPositive("5.5"); // true
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
-const isPositive = (input) => {
-  return isValidNumber(input) && Number(input) > 0;
-};
+const isPositive = (input) => isValidNumber(input) && +input > 0;
 
 /**
- * Checks if a number is even.
+ * Validates if input is an even integer
  *
- * @param {any} input - The value to check
- * @returns {boolean} true if it's an even number, false otherwise
+ * @description Checks if input is a valid integer and divisible by 2
+ * @param {*} input - Value to check
+ * @returns {boolean} True if input is a valid even integer
  *
  * @example
- * isEven(4)    // true
- * isEven(5)    // false
+ * isEven(4); // true
+ * isEven(5); // false
+ * isEven("4"); // true
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
-const isEven = (input) => {
-  return isInteger(input) && Number(input) % 2 === 0;
-};
+const isEven = (input) => isInteger(input) && (+input & 1) === 0;
 
 /**
- * Checks if a number is odd.
+ * Validates if input is an odd integer
  *
- * @param {any} input - The value to check
- * @returns {boolean} true if it's an odd number, false otherwise
+ * @description Checks if input is a valid integer and not divisible by 2
+ * @param {*} input - Value to check
+ * @returns {boolean} True if input is a valid odd integer
  *
  * @example
- * isOdd(5)    // true
- * isOdd(4)    // false
+ * isOdd(5); // true
+ * isOdd(4); // false
+ * isOdd("5"); // true
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
-const isOdd = (input) => {
-  return isInteger(input) && Number(input) % 2 !== 0;
-};
-
-// =============================================================================
-// BASIC MATH OPERATIONS
-// =============================================================================
+const isOdd = (input) => isInteger(input) && (+input & 1) === 1;
 
 /**
- * Sums an array of numbers with robust validation.
+ * Calculates sum of valid numbers
  *
- * @param {...number} numbers - Numbers to sum
- * @returns {number} Total sum of valid numbers
+ * @description Sums all valid numbers from provided arguments, ignoring invalid values
+ * @param {...*} numbers - Numbers to sum (variable arguments)
+ * @returns {number} Sum of valid numbers or 0 if no valid numbers
  *
  * @example
- * sumNumbers(1, 2, 3, 4)           // 10
- * sumNumbers(1, "2", 3)            // 6
- * sumNumbers(1, "abc", 3)          // 4 (ignores invalid values)
+ * sumNumbers(1, 2, 3); // 6
+ * sumNumbers(1, "2", "abc"); // 3
+ * sumNumbers("abc", null); // 0
+ *
+ * @complexity Time: O(n), Space: O(n)
  */
 const sumNumbers = (...numbers) => {
-  return numbers.filter(isValidNumber).reduce((total, number) => total + Number(number), 0);
+  const validNums = getValidNumbers(numbers);
+  return validNums.length === 0 ? 0 : _.sum(validNums);
 };
 
 /**
- * Calculates the average of an array of numbers.
+ * Calculates average of valid numbers
  *
- * @param {...number} numbers - Numbers to calculate average
- * @returns {number} Average of valid numbers
+ * @description Computes arithmetic mean of valid numbers, returns 0 if no valid numbers
+ * @param {...*} numbers - Numbers to average (variable arguments)
+ * @returns {number} Average of valid numbers or 0 if no valid numbers
  *
  * @example
- * average(1, 2, 3, 4, 5)    // 3
- * average(10, 20, 30)       // 20
+ * average(1, 2, 3); // 2
+ * average(1, "2", "abc"); // 1.5
+ * average("abc", null); // 0
+ *
+ * @complexity Time: O(n), Space: O(n)
  */
 const average = (...numbers) => {
-  const validNumbers = numbers.filter(isValidNumber);
-
-  if (validNumbers.length === 0) {
+  const validNums = getValidNumbers(numbers);
+  if (validNums.length === 0) {
     cerror('Calculate average', 'No valid numbers provided');
     return 0;
   }
 
-  return sumNumbers(...validNumbers) / validNumbers.length;
+  return _.mean(validNums);
 };
 
 /**
- * Finds maximum value in an array of numbers.
+ * Finds maximum value among valid numbers
  *
- * @param {...number} numbers - Numbers to compare
+ * @description Returns the largest valid number from provided arguments
+ * @param {...*} numbers - Numbers to evaluate (variable arguments)
  * @returns {number|null} Maximum value or null if no valid numbers
  *
  * @example
- * maxNumber(1, 5, 3, 9, 2)    // 9
- * maxNumber(-1, -5, -3)       // -1
+ * maxNumber(1, 5, 3); // 5
+ * maxNumber(1, "5", "abc"); // 5
+ * maxNumber("abc", null); // null
+ *
+ * @complexity Time: O(n), Space: O(n)
  */
 const maxNumber = (...numbers) => {
-  const validNumbers = numbers.filter(isValidNumber).map(Number);
-
-  if (validNumbers.length === 0) {
+  const validNums = getValidNumbers(numbers);
+  if (validNums.length === 0) {
     cerror('Find maximum', 'No valid numbers provided');
     return null;
   }
 
-  return Math.max(...validNumbers);
+  return _.max(validNums);
 };
 
 /**
- * Finds minimum value in an array of numbers.
+ * Finds minimum value among valid numbers
  *
- * @param {...number} numbers - Numbers to compare
+ * @description Returns the smallest valid number from provided arguments
+ * @param {...*} numbers - Numbers to evaluate (variable arguments)
  * @returns {number|null} Minimum value or null if no valid numbers
  *
  * @example
- * minNumber(1, 5, 3, 9, 2)    // 1
- * minNumber(-1, -5, -3)       // -5
+ * minNumber(1, 5, 3); // 1
+ * minNumber(1, "5", "abc"); // 1
+ * minNumber("abc", null); // null
+ *
+ * @complexity Time: O(n), Space: O(n)
  */
 const minNumber = (...numbers) => {
-  const validNumbers = numbers.filter(isValidNumber).map(Number);
-
-  if (validNumbers.length === 0) {
+  const validNums = getValidNumbers(numbers);
+  if (validNums.length === 0) {
     cerror('Find minimum', 'No valid numbers provided');
     return null;
   }
 
-  return Math.min(...validNumbers);
+  return _.min(validNums);
 };
 
-// =============================================================================
-// ROUNDING AND PRECISION FUNCTIONS
-// =============================================================================
-
 /**
- * Rounds a number to specific decimal places.
+ * Rounds number to specified decimal places
  *
- * @param {number} num - Number to round
- * @param {number} [decimals=2] - Number of decimal places (default 2)
- * @returns {number|null} Rounded number or null if invalid input
+ * @description Performs proper decimal rounding using mathematical rounding
+ * @param {number|string} num - Number to round
+ * @param {number} [decimals=NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES] - Decimal places
+ * @returns {number|null} Rounded number or null for invalid parameters
  *
  * @example
- * roundToDecimal(3.14159, 2)    // 3.14
- * roundToDecimal(3.14159, 4)    // 3.1416
- * roundToDecimal(3.14159)       // 3.14
+ * roundToDecimal(1.2345, 2); // 1.23
+ * roundToDecimal("1.2345", 2); // 1.23
+ * roundToDecimal("abc", 2); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const roundToDecimal = (num, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
   if (!isValidNumber(num) || !isValidNumber(decimals)) {
@@ -268,19 +327,22 @@ const roundToDecimal = (num, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES)
   }
 
   const factor = Math.pow(10, decimals);
-  return Math.round(Number(num) * factor) / factor;
+  return Math.round(+num * factor) / factor;
 };
 
 /**
- * Rounds a number up.
+ * Rounds number up to nearest integer
  *
- * @param {number} num - Number to round up
- * @returns {number|null} Number rounded up or null if invalid
+ * @description Performs ceiling operation (rounds up to next integer)
+ * @param {number|string} num - Number to round up
+ * @returns {number|null} Rounded number or null for invalid input
  *
  * @example
- * ceilNumber(3.1)     // 4
- * ceilNumber(3.9)     // 4
- * ceilNumber(-3.1)    // -3
+ * ceilNumber(1.2); // 2
+ * ceilNumber("1.2"); // 2
+ * ceilNumber("abc"); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const ceilNumber = (num) => {
   if (!isValidNumber(num)) {
@@ -288,19 +350,22 @@ const ceilNumber = (num) => {
     return null;
   }
 
-  return Math.ceil(Number(num));
+  return Math.ceil(+num);
 };
 
 /**
- * Rounds a number down.
+ * Rounds number down to nearest integer
  *
- * @param {number} num - Number to round down
- * @returns {number|null} Number rounded down or null if invalid
+ * @description Performs floor operation (rounds down to previous integer)
+ * @param {number|string} num - Number to round down
+ * @returns {number|null} Rounded number or null for invalid input
  *
  * @example
- * floorNumber(3.1)     // 3
- * floorNumber(3.9)     // 3
- * floorNumber(-3.1)    // -4
+ * floorNumber(1.8); // 1
+ * floorNumber("1.8"); // 1
+ * floorNumber("abc"); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const floorNumber = (num) => {
   if (!isValidNumber(num)) {
@@ -308,23 +373,23 @@ const floorNumber = (num) => {
     return null;
   }
 
-  return Math.floor(Number(num));
+  return Math.floor(+num);
 };
 
-// =============================================================================
-// RANDOM NUMBER GENERATION
-// =============================================================================
-
 /**
- * Generates random integer between min and max values (inclusive).
+ * Generates random integer between min and max (inclusive)
  *
- * @param {number} min - Minimum range value
- * @param {number} max - Maximum range value
- * @returns {number|null} Randomly generated number or null if invalid parameters
+ * @description Creates cryptographically insecure but evenly distributed random integers
+ * @param {number} min - Minimum value (inclusive)
+ * @param {number} max - Maximum value (inclusive)
+ * @returns {number|null} Random integer or null for invalid parameters
  *
  * @example
- * getRandomNumber(1, 10)      // Example: 7
- * getRandomNumber(0, 100)     // Example: 42
+ * getRandomNumber(1, 10); // Random integer between 1-10
+ * getRandomNumber(5, 5); // 5
+ * getRandomNumber(10, 1); // null (min > max)
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const getRandomNumber = (min, max) => {
   if (!isValidNumber(min) || !isValidNumber(max)) {
@@ -332,28 +397,33 @@ const getRandomNumber = (min, max) => {
     return null;
   }
 
-  const minNum = Number(min);
-  const maxNum = Number(max);
+  const minNum = +min;
+  const maxNum = +max;
 
   if (minNum > maxNum) {
     cerror('Generate random number', 'Minimum value must be less than or equal to maximum');
     return null;
   }
 
+  // Optimized random generation
   return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
 };
 
 /**
- * Generates random decimal number between min and max values.
+ * Generates random float between min and max with specified decimals
  *
- * @param {number} min - Minimum range value
- * @param {number} max - Maximum range value
- * @param {number} [decimals=2] - Number of decimal places in result
- * @returns {number|null} Random decimal number or null if invalid parameters
+ * @description Creates cryptographically insecure random floats with precision control
+ * @param {number} min - Minimum value (inclusive)
+ * @param {number} max - Maximum value (exclusive for float, but rounded to decimals)
+ * @param {number} [decimals=NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES] - Decimal precision
+ * @returns {number|null} Random float or null for invalid parameters
  *
  * @example
- * getRandomFloat(1.0, 2.0, 2)    // Example: 1.47
- * getRandomFloat(0, 1)           // Example: 0.73
+ * getRandomFloat(1, 10, 2); // Random float between 1-10 with 2 decimals
+ * getRandomFloat(1.5, 2.5); // Random float between 1.5-2.5
+ * getRandomFloat(10, 1, 2); // null (min > max)
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const getRandomFloat = (min, max, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
   if (!isValidNumber(min) || !isValidNumber(max) || !isValidNumber(decimals)) {
@@ -361,8 +431,8 @@ const getRandomFloat = (min, max, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PL
     return null;
   }
 
-  const minNum = Number(min);
-  const maxNum = Number(max);
+  const minNum = +min;
+  const maxNum = +max;
 
   if (minNum > maxNum) {
     cerror('Generate random decimal', 'Minimum value must be less than or equal to maximum');
@@ -373,21 +443,20 @@ const getRandomFloat = (min, max, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PL
   return roundToDecimal(random, decimals);
 };
 
-// =============================================================================
-// PERCENTAGE CALCULATIONS
-// =============================================================================
-
 /**
- * Calculates what percentage a number represents of another.
+ * Calculates percentage value (part/total * 100)
  *
- * @param {number} part - Number representing the part
- * @param {number} total - Total number
- * @returns {number|null} Calculated percentage or null on error
+ * @description Computes what percentage one number is of another
+ * @param {number|string} part - The part value
+ * @param {number|string} total - The total value
+ * @returns {number|null} Percentage value or null for invalid parameters/division by zero
  *
  * @example
- * calculatePercentage(25, 100)    // 25.00
- * calculatePercentage(15, 75)     // 20.00
- * calculatePercentage(1, 3)       // 33.33
+ * calculatePercentage(25, 100); // 25
+ * calculatePercentage(3, 9); // 33.33 (with default 2 decimals)
+ * calculatePercentage(5, 0); // null (division by zero)
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentage = (part, total) => {
   if (!isValidNumber(part) || !isValidNumber(total)) {
@@ -395,28 +464,29 @@ const calculatePercentage = (part, total) => {
     return null;
   }
 
-  const totalNum = Number(total);
-
+  const totalNum = +total;
   if (totalNum === 0) {
     cerror('Calculate percentage', 'Division by zero: total cannot be 0');
     return null;
   }
 
-  const percentage = (Number(part) / totalNum) * 100;
-  return roundToDecimal(percentage);
+  return roundToDecimal((+part / totalNum) * 100);
 };
 
 /**
- * Calculates the value representing a specific percentage of a number.
+ * Calculates value from percentage
  *
- * @param {number} percentage - Percentage to calculate
- * @param {number} total - Total number
- * @returns {number|null} Calculated value or null on error
+ * @description Computes the actual value represented by a percentage of a total
+ * @param {number|string} percentage - The percentage value
+ * @param {number|string} total - The total value
+ * @returns {number|null} Calculated value or null for invalid parameters
  *
  * @example
- * calculatePercentageValue(25, 100)    // 25
- * calculatePercentageValue(15, 200)    // 30
- * calculatePercentageValue(50, 80)     // 40
+ * calculatePercentageValue(25, 100); // 25
+ * calculatePercentageValue(10, 50); // 5
+ * calculatePercentageValue("abc", 50); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentageValue = (percentage, total) => {
   if (!isValidNumber(percentage) || !isValidNumber(total)) {
@@ -424,20 +494,23 @@ const calculatePercentageValue = (percentage, total) => {
     return null;
   }
 
-  const result = (Number(percentage) / 100) * Number(total);
-  return roundToDecimal(result);
+  return roundToDecimal((+percentage * +total) / 100);
 };
 
 /**
- * Calculates percentage change between two values.
+ * Calculates percentage change between two values
  *
- * @param {number} oldValue - Original value
- * @param {number} newValue - New value
- * @returns {number|null} Percentage change or null on error
+ * @description Computes relative change from old value to new value as percentage
+ * @param {number|string} oldValue - Original value
+ * @param {number|string} newValue - New value
+ * @returns {number|null} Percentage change or null for invalid parameters/division by zero
  *
  * @example
- * calculatePercentageChange(100, 150)    // 50.00 (50% increase)
- * calculatePercentageChange(200, 150)    // -25.00 (25% decrease)
+ * calculatePercentageChange(100, 125); // 25 (25% increase)
+ * calculatePercentageChange(100, 75); // -25 (25% decrease)
+ * calculatePercentageChange(0, 100); // null (division by zero)
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentageChange = (oldValue, newValue) => {
   if (!isValidNumber(oldValue) || !isValidNumber(newValue)) {
@@ -445,33 +518,30 @@ const calculatePercentageChange = (oldValue, newValue) => {
     return null;
   }
 
-  const oldNum = Number(oldValue);
-
+  const oldNum = +oldValue;
   if (oldNum === 0) {
     cerror('Calculate percentage change', 'Original value cannot be 0');
     return null;
   }
 
-  const change = ((Number(newValue) - oldNum) / oldNum) * 100;
-  return roundToDecimal(change);
+  return roundToDecimal(((+newValue - oldNum) / oldNum) * 100);
 };
 
-// =============================================================================
-// FORMATTING AND CONVERSION
-// =============================================================================
-
 /**
- * Formats number as currency using specific locale configuration.
+ * Formats number as currency string
  *
- * @param {number} number - Number to format
- * @param {string} [currency='USD'] - Currency code (ISO 4217)
- * @param {string} [locale='en-US'] - Locale setting
- * @returns {string|null} Formatted currency string or null on error
+ * @description Uses Intl.NumberFormat for locale-aware currency formatting
+ * @param {number|string} number - Value to format
+ * @param {string} [currency=NUMBER_CONSTANTS.DEFAULT_CURRENCY] - ISO currency code
+ * @param {string} [locale=NUMBER_CONSTANTS.DEFAULT_LOCALE] - BCP 47 language tag
+ * @returns {string|null} Formatted currency string or null for invalid parameters/formatting errors
  *
  * @example
- * formatNumberToCurrency(1234.56, 'USD', 'en-US')    // "$1,234.56"
- * formatNumberToCurrency(1234.56, 'EUR', 'de-DE')    // "1.234,56 €"
- * formatNumberToCurrency(1234.56, 'COP', 'es-CO')    // "$1.235" (rounded)
+ * formatNumberToCurrency(1234.5, 'USD', 'en-US'); // "$1,234.50"
+ * formatNumberToCurrency(1234.5, 'EUR', 'de-DE'); // "1.234,50 €"
+ * formatNumberToCurrency("abc", 'USD', 'en-US'); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const formatNumberToCurrency = (
   number,
@@ -484,12 +554,10 @@ const formatNumberToCurrency = (
   }
 
   try {
-    const formatter = new Intl.NumberFormat(locale, {
+    return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: currency,
-    });
-
-    return formatter.format(Number(number));
+    }).format(+number);
   } catch (error) {
     cerror('Format currency', `Formatting error: ${error.message}`);
     return null;
@@ -497,15 +565,19 @@ const formatNumberToCurrency = (
 };
 
 /**
- * Formats number with thousands separators.
+ * Formats number with locale-specific thousands separators
  *
- * @param {number} number - Number to format
- * @param {string} [locale='en-US'] - Locale setting
- * @returns {string|null} Formatted number or null on error
+ * @description Uses Intl.NumberFormat for locale-aware number formatting
+ * @param {number|string} number - Value to format
+ * @param {string} [locale=NUMBER_CONSTANTS.DEFAULT_LOCALE] - BCP 47 language tag
+ * @returns {string|null} Formatted number string or null for invalid parameters/formatting errors
  *
  * @example
- * formatNumberWithCommas(1234567)              // "1,234,567"
- * formatNumberWithCommas(1234567.89, 'de-DE') // "1.234.567,89"
+ * formatNumberWithCommas(1234567.89, 'en-US'); // "1,234,567.89"
+ * formatNumberWithCommas(1234567.89, 'de-DE'); // "1.234.567,89"
+ * formatNumberWithCommas("abc", 'en-US'); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE) => {
   if (!isValidNumber(number)) {
@@ -514,7 +586,7 @@ const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE
   }
 
   try {
-    return new Intl.NumberFormat(locale).format(Number(number));
+    return new Intl.NumberFormat(locale).format(+number);
   } catch (error) {
     cerror('Format with commas', `Formatting error: ${error.message}`);
     return null;
@@ -522,15 +594,19 @@ const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE
 };
 
 /**
- * Converts number to scientific notation.
+ * Converts number to scientific notation
  *
- * @param {number} number - Number to convert
- * @param {number} [precision=2] - Number of precision digits
- * @returns {string|null} Scientific notation or null on error
+ * @description Formats number using exponential notation with specified precision
+ * @param {number|string} number - Value to convert
+ * @param {number} [precision=NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES] - Decimal precision
+ * @returns {string|null} Number in scientific notation or null for invalid parameters
  *
  * @example
- * toScientificNotation(1234567)      // "1.23e+6"
- * toScientificNotation(0.00012, 3)   // "1.200e-4"
+ * toScientificNotation(123456, 2); // "1.23e+5"
+ * toScientificNotation(0.000123, 3); // "1.230e-4"
+ * toScientificNotation("abc", 2); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const toScientificNotation = (number, precision = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
   if (!isValidNumber(number) || !isValidNumber(precision)) {
@@ -538,25 +614,25 @@ const toScientificNotation = (number, precision = NUMBER_CONSTANTS.DEFAULT_DECIM
     return null;
   }
 
-  return Number(number).toExponential(precision);
+  return (+number).toExponential(precision);
 };
 
-// =============================================================================
-// ADDITIONAL UTILITIES
-// =============================================================================
-
 /**
- * Restricts number within specific range.
+ * Constrains number within min/max bounds
  *
- * @param {number} num - Number to restrict
- * @param {number} min - Minimum value
- * @param {number} max - Maximum value
- * @returns {number|null} Restricted number or null on error
+ * @description Ensures number stays within specified range (clamping)
+ * @param {number|string} num - Number to clamp
+ * @param {number|string} min - Minimum allowed value
+ * @param {number|string} max - Maximum allowed value
+ * @returns {number|null} Clamped value or null for invalid parameters
  *
  * @example
- * clampNumber(15, 0, 10)    // 10
- * clampNumber(-5, 0, 10)    // 0
- * clampNumber(5, 0, 10)     // 5
+ * clampNumber(15, 1, 10); // 10
+ * clampNumber(-5, 1, 10); // 1
+ * clampNumber(5, 1, 10); // 5
+ * clampNumber(5, 10, 1); // null (min > max)
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const clampNumber = (num, min, max) => {
   if (!isValidNumber(num) || !isValidNumber(min) || !isValidNumber(max)) {
@@ -564,27 +640,30 @@ const clampNumber = (num, min, max) => {
     return null;
   }
 
-  const numValue = Number(num);
-  const minValue = Number(min);
-  const maxValue = Number(max);
+  const minVal = +min;
+  const maxVal = +max;
 
-  if (minValue > maxValue) {
+  if (minVal > maxVal) {
     cerror('Clamp number', 'Minimum value must be less than or equal to maximum');
     return null;
   }
 
-  return Math.max(minValue, Math.min(maxValue, numValue));
+  return Math.max(minVal, Math.min(maxVal, +num));
 };
 
 /**
- * Converts degrees to radians.
+ * Converts degrees to radians
  *
- * @param {number} degrees - Degrees to convert
- * @returns {number|null} Radians or null on error
+ * @description Performs unit conversion from degrees to radians
+ * @param {number|string} degrees - Angle in degrees
+ * @returns {number|null} Angle in radians or null for invalid input
  *
  * @example
- * degreesToRadians(180)    // 3.14159...
- * degreesToRadians(90)     // 1.5708...
+ * degreesToRadians(180); // 3.141592653589793 (≈π)
+ * degreesToRadians(90); // 1.5707963267948966 (≈π/2)
+ * degreesToRadians("abc"); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const degreesToRadians = (degrees) => {
   if (!isValidNumber(degrees)) {
@@ -592,18 +671,22 @@ const degreesToRadians = (degrees) => {
     return null;
   }
 
-  return (Number(degrees) * Math.PI) / 180;
+  return +degrees * 0.017453292519943295;
 };
 
 /**
- * Converts radians to degrees.
+ * Converts radians to degrees
  *
- * @param {number} radians - Radians to convert
- * @returns {number|null} Degrees or null on error
+ * @description Performs unit conversion from radians to degrees
+ * @param {number|string} radians - Angle in radians
+ * @returns {number|null} Angle in degrees or null for invalid input
  *
  * @example
- * radiansToDegrees(Math.PI)      // 180
- * radiansToDegrees(Math.PI / 2)  // 90
+ * radiansToDegrees(Math.PI); // 180
+ * radiansToDegrees(Math.PI / 2); // 90
+ * radiansToDegrees("abc"); // null
+ *
+ * @complexity Time: O(1), Space: O(1)
  */
 const radiansToDegrees = (radians) => {
   if (!isValidNumber(radians)) {
@@ -611,14 +694,69 @@ const radiansToDegrees = (radians) => {
     return null;
   }
 
-  return (Number(radians) * 180) / Math.PI;
+  return +radians * 57.29577951308232;
+};
+
+/**
+ * Calculates median of valid numbers
+ *
+ * @description Finds the middle value or average of two middle values in sorted array
+ * @param {...*} numbers - Numbers to evaluate (variable arguments)
+ * @returns {number|null} Median value or null if no valid numbers
+ *
+ * @example
+ * median(1, 2, 3, 4, 5); // 3
+ * median(1, 2, 3, 4); // 2.5 (average of 2 and 3)
+ * median("abc", null); // null
+ *
+ * @complexity Time: O(n log n), Space: O(n)
+ */
+const median = (...numbers) => {
+  const validNums = getValidNumbers(numbers);
+  if (validNums.length === 0) {
+    cerror('Calculate median', 'No valid numbers provided');
+    return null;
+  }
+
+  const sorted = _.sortBy(validNums);
+  const mid = Math.floor(sorted.length / 2);
+
+  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+};
+
+/**
+ * Calculates population standard deviation of valid numbers
+ *
+ * @description Measures amount of variation or dispersion from the mean
+ * @param {...*} numbers - Numbers to evaluate (variable arguments)
+ * @returns {number|null} Standard deviation or null if no valid numbers
+ *
+ * @example
+ * standardDeviation(1, 2, 3, 4, 5); // ≈1.414
+ * standardDeviation(10, 10, 10, 10); // 0
+ * standardDeviation("abc", null); // null
+ *
+ * @complexity Time: O(n), Space: O(n)
+ */
+const standardDeviation = (...numbers) => {
+  const validNums = getValidNumbers(numbers);
+  if (validNums.length === 0) {
+    cerror('Calculate standard deviation', 'No valid numbers provided');
+    return null;
+  }
+
+  const mean = _.mean(validNums);
+  const squaredDifferences = validNums.map((x) => Math.pow(x - mean, 2));
+  const variance = _.mean(squaredDifferences);
+
+  return Math.sqrt(variance);
 };
 
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
 module.exports = {
-  // Sanitization
+  // Conversion
   convertToNumber,
 
   // Validation
@@ -629,13 +767,15 @@ module.exports = {
   isEven,
   isOdd,
 
-  // Basic math operations
+  // Mathematical operations
   sumNumbers,
   average,
   maxNumber,
   minNumber,
+  median,
+  standardDeviation,
 
-  // Rounding and precision
+  // Rounding
   roundToDecimal,
   ceilNumber,
   floorNumber,
@@ -649,12 +789,12 @@ module.exports = {
   calculatePercentageValue,
   calculatePercentageChange,
 
-  // Formatting and conversion
+  // Formatting
   formatNumberToCurrency,
   formatNumberWithCommas,
   toScientificNotation,
 
-  // Additional utilities
+  // Utilities
   clampNumber,
   degreesToRadians,
   radiansToDegrees,

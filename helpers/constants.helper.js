@@ -129,6 +129,7 @@ const NUMBER_CONSTANTS = {
   MIN_SAFE_INTEGER: Number.MIN_SAFE_INTEGER,
   DEFAULT_CURRENCY: 'USD',
   DEFAULT_LOCALE: 'en-US',
+  NUMBER_REGEX: /^-?\d*\.?\d+$/,
 };
 
 /**

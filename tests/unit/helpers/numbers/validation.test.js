@@ -50,6 +50,23 @@ describe('Validation Functions', () => {
       expect(numbersHelper.isInRange(5, 1, 'abc')).toBe(false);
       expect(numbersHelper.isInRange(null, 1, 10)).toBe(false);
     });
+
+    test('should return false for non-numbers', () => {
+      expect(numbersHelper.isInRange('string', null, 'false')).toBe(false);
+      expect(numbersHelper.isInRange('string', null, null)).toBe(false);
+      expect(numbersHelper.isInRange(null, null, null)).toBe(false);
+      expect(numbersHelper.isInRange(1, null, null)).toBe(false);
+      expect(numbersHelper.isInRange(1, null, 'false')).toBe(false);
+      expect(numbersHelper.isInRange('false', null, null)).toBe(false);
+      expect(numbersHelper.isInRange(null, 1, null)).toBe(false);
+      expect(numbersHelper.isInRange(null, 1, 'false')).toBe(false);
+      expect(numbersHelper.isInRange('false', 1, null)).toBe(false);
+    });
+
+    test('should return false when first parameter is invalid', () => {
+      expect(numbersHelper.isInRange(undefined, 1, 10)).toBe(false);
+      expect(numbersHelper.isInRange(NaN, 1, 10)).toBe(false);
+    });
   });
 
   describe('isInteger', () => {
