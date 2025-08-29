@@ -777,6 +777,8 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
+!tests/unit/helpers/debug
+
 ### Project Specific Additions ###
 .secrets
 

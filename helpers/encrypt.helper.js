@@ -287,8 +287,8 @@ const encryptHybrid = (data, publicKey) => {
     // Encrypt data with AES
     const aesResult = encryptWithAES(data, aesKey, iv);
 
-    // Encrypt AES key with RSA
-    const encryptedAESKey = encryptWithRSA(aesKey, publicKey);
+    // Convert AES key to base64 string and encrypt with RSA
+    const encryptedAESKey = encryptWithRSA(aesKey.toString('base64'), publicKey);
 
     return {
       encryptedData: aesResult.encrypted,
@@ -311,8 +311,9 @@ const decryptHybrid = (encryptedPackage, privateKey) => {
   try {
     const { encryptedData, encryptedKey, iv, authTag } = encryptedPackage;
 
-    // Decrypt AES key with RSA
-    const aesKey = Buffer.from(decryptWithRSA(encryptedKey, privateKey), 'base64');
+    // Decrypt AES key with RSA and convert from base64 to Buffer
+    const aesKeyBase64 = decryptWithRSA(encryptedKey, privateKey);
+    const aesKey = Buffer.from(aesKeyBase64, 'base64');
 
     // Decrypt data with AES
     return decryptWithAES(encryptedData, aesKey, iv, authTag);
