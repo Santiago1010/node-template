@@ -3,12 +3,6 @@
 // =============================================================================
 
 const numbersHelper = require('../../../../helpers/numbers.helper');
-const { cerror } = require('../../../../helpers/debug.helper');
-
-// Mock the debug helper
-jest.mock('../../../../helpers/debug.helper', () => ({
-  cerror: jest.fn(),
-}));
 
 describe('Random Functions', () => {
   beforeEach(() => {
@@ -39,15 +33,10 @@ describe('Random Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.getRandomNumber('abc', 10)).toBeNull();
       expect(numbersHelper.getRandomNumber(1, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Generate random number', 'Invalid min/max parameters');
     });
 
     test('should return null when min > max', () => {
       expect(numbersHelper.getRandomNumber(10, 1)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith(
-        'Generate random number',
-        'Minimum value must be less than or equal to maximum'
-      );
     });
 
     test('should handle equal min and max', () => {
@@ -78,15 +67,10 @@ describe('Random Functions', () => {
       expect(numbersHelper.getRandomFloat('abc', 2.0, 2)).toBeNull();
       expect(numbersHelper.getRandomFloat(1.0, 'abc', 2)).toBeNull();
       expect(numbersHelper.getRandomFloat(1.0, 2.0, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Generate random decimal', 'Invalid parameters');
     });
 
     test('should return null when min > max', () => {
       expect(numbersHelper.getRandomFloat(2.0, 1.0, 2)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith(
-        'Generate random decimal',
-        'Minimum value must be less than or equal to maximum'
-      );
     });
   });
 });

@@ -3,12 +3,6 @@
 // =============================================================================
 
 const numbersHelper = require('../../../../helpers/numbers.helper');
-const { cerror } = require('../../../../helpers/debug.helper');
-
-// Mock the debug helper
-jest.mock('../../../../helpers/debug.helper', () => ({
-  cerror: jest.fn(),
-}));
 
 describe('Basic Math Functions', () => {
   beforeEach(() => {
@@ -51,7 +45,6 @@ describe('Basic Math Functions', () => {
 
     test('should return 0 and log error for no valid numbers', () => {
       expect(numbersHelper.average('abc', null, undefined)).toBe(0);
-      expect(cerror).toHaveBeenCalledWith('Calculate average', 'No valid numbers provided');
     });
 
     test('should ignore invalid values', () => {
@@ -68,7 +61,6 @@ describe('Basic Math Functions', () => {
 
     test('should return null and log error for no valid numbers', () => {
       expect(numbersHelper.maxNumber('abc', null, undefined)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Find maximum', 'No valid numbers provided');
     });
 
     test('should ignore invalid values', () => {
@@ -89,7 +81,6 @@ describe('Basic Math Functions', () => {
 
     test('should return null and log error for no valid numbers', () => {
       expect(numbersHelper.minNumber('abc', null, undefined)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Find minimum', 'No valid numbers provided');
     });
 
     test('should ignore invalid values', () => {
@@ -127,7 +118,6 @@ describe('Basic Math Functions', () => {
 
     test('should return null and log error for no valid numbers', () => {
       expect(numbersHelper.median('abc', null, undefined)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate median', 'No valid numbers provided');
     });
 
     test('should handle negative numbers', () => {
@@ -171,7 +161,6 @@ describe('Basic Math Functions', () => {
 
     test('should return null and log error for no valid numbers', () => {
       expect(numbersHelper.standardDeviation('abc', null, undefined)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate standard deviation', 'No valid numbers provided');
     });
 
     test('should handle negative numbers', () => {

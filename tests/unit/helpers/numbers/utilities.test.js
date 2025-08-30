@@ -124,6 +124,49 @@ describe('Module Exports and Integrations', () => {
     });
   });
 
+  describe('clampNumber - unit tests', () => {
+    test('clamps numeric values (inside, below, above) and respects types', () => {
+      expect(numbersHelper.clampNumber(5, 1, 10)).toBe(5);
+      expect(numbersHelper.clampNumber(15, 1, 10)).toBe(10);
+      expect(numbersHelper.clampNumber(-5, 1, 10)).toBe(1);
+    });
+
+    test('accepts numeric strings and preserves decimals when in range', () => {
+      expect(numbersHelper.clampNumber('7', '1', '10')).toBe(7);
+      expect(numbersHelper.clampNumber('15', '1', '10')).toBe(10);
+      expect(numbersHelper.clampNumber(5.4, 1, 6)).toBe(5.4);
+      expect(numbersHelper.clampNumber(5.6, 1, 5)).toBe(5);
+    });
+
+    test('handles boolean inputs (true -> 1, false -> 0)', () => {
+      expect(numbersHelper.clampNumber(true, 0, 2)).toBe(1);
+      expect(numbersHelper.clampNumber(false, 0, 2)).toBe(0);
+    });
+
+    test('handles array inputs: [1] is valid, [] is invalid', () => {
+      expect(numbersHelper.clampNumber([1], 0, 10)).toBe(1);
+      expect(numbersHelper.clampNumber([], 0, 10)).toBeNull();
+    });
+
+    test('returns null when any parameter is invalid', () => {
+      expect(numbersHelper.clampNumber('abc', 1, 10)).toBeNull();
+      expect(numbersHelper.clampNumber(5, 'x', 10)).toBeNull();
+      expect(numbersHelper.clampNumber(5, 1, 'y')).toBeNull();
+      expect(numbersHelper.clampNumber({}, 0, 5)).toBeNull();
+    });
+
+    test('returns null when min > max', () => {
+      expect(numbersHelper.clampNumber(5, 10, 1)).toBeNull();
+    });
+
+    test('behaves correctly when min === max (clamps to that single value)', () => {
+      expect(numbersHelper.clampNumber(5, 5, 5)).toBe(5);
+      expect(numbersHelper.clampNumber(10, 5, 5)).toBe(5);
+      expect(numbersHelper.clampNumber(0, 5, 5)).toBe(5);
+    });
+  });
+  // ------------------------------------------------------------------------------
+
   describe('Performance and Boundary Tests', () => {
     test('should handle multiple rapid calculations', () => {
       const iterations = 1000;

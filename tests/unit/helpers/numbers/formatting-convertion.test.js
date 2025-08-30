@@ -3,12 +3,6 @@
 // =============================================================================
 
 const numbersHelper = require('../../../../helpers/numbers.helper');
-const { cerror } = require('../../../../helpers/debug.helper');
-
-// Mock the debug helper
-jest.mock('../../../../helpers/debug.helper', () => ({
-  cerror: jest.fn(),
-}));
 
 describe('Formatting and Conversion Functions', () => {
   beforeEach(() => {
@@ -54,7 +48,6 @@ describe('Formatting and Conversion Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.formatNumberToCurrency('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Format currency', 'Invalid number provided');
     });
 
     test('should handle formatting errors gracefully', () => {
@@ -65,7 +58,6 @@ describe('Formatting and Conversion Functions', () => {
       });
 
       expect(numbersHelper.formatNumberToCurrency(1234.56)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Format currency', 'Formatting error: Formatting error');
 
       // Restore original
       Intl.NumberFormat = originalNumberFormat;
@@ -84,12 +76,10 @@ describe('Formatting and Conversion Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.formatNumberWithCommas('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Format with commas', 'Invalid number provided');
     });
 
     test('should return null for invalid locale', () => {
       expect(numbersHelper.formatNumberWithCommas(1, null)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Format with commas', expect.stringContaining('Formatting error:'));
     });
   });
 
@@ -111,7 +101,6 @@ describe('Formatting and Conversion Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.toScientificNotation('abc')).toBeNull();
       expect(numbersHelper.toScientificNotation(1234567, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Scientific notation', 'Invalid parameters provided');
     });
   });
 
@@ -128,7 +117,6 @@ describe('Formatting and Conversion Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.degreesToRadians('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Convert to radians', 'Invalid degrees provided');
     });
 
     test('should handle negative degrees', () => {
@@ -149,7 +137,6 @@ describe('Formatting and Conversion Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.radiansToDegrees('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Convert to degrees', 'Invalid radians provided');
     });
 
     test('should handle negative radians', () => {

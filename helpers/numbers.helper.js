@@ -249,10 +249,7 @@ const sumNumbers = (...numbers) => {
  */
 const average = (...numbers) => {
   const validNums = getValidNumbers(numbers);
-  if (validNums.length === 0) {
-    cerror('Calculate average', 'No valid numbers provided');
-    return 0;
-  }
+  if (validNums.length === 0) return 0;
 
   return _.mean(validNums);
 };
@@ -273,10 +270,7 @@ const average = (...numbers) => {
  */
 const maxNumber = (...numbers) => {
   const validNums = getValidNumbers(numbers);
-  if (validNums.length === 0) {
-    cerror('Find maximum', 'No valid numbers provided');
-    return null;
-  }
+  if (validNums.length === 0) return null;
 
   return _.max(validNums);
 };
@@ -297,10 +291,7 @@ const maxNumber = (...numbers) => {
  */
 const minNumber = (...numbers) => {
   const validNums = getValidNumbers(numbers);
-  if (validNums.length === 0) {
-    cerror('Find minimum', 'No valid numbers provided');
-    return null;
-  }
+  if (validNums.length === 0) return null;
 
   return _.min(validNums);
 };
@@ -321,10 +312,7 @@ const minNumber = (...numbers) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const roundToDecimal = (num, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
-  if (!isValidNumber(num) || !isValidNumber(decimals)) {
-    cerror('Round decimal', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(num) || !isValidNumber(decimals)) return null;
 
   const factor = Math.pow(10, decimals);
   return Math.round(+num * factor) / factor;
@@ -345,10 +333,7 @@ const roundToDecimal = (num, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES)
  * @complexity Time: O(1), Space: O(1)
  */
 const ceilNumber = (num) => {
-  if (!isValidNumber(num)) {
-    cerror('Round up', 'Invalid number provided');
-    return null;
-  }
+  if (!isValidNumber(num)) return null;
 
   return Math.ceil(+num);
 };
@@ -368,10 +353,7 @@ const ceilNumber = (num) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const floorNumber = (num) => {
-  if (!isValidNumber(num)) {
-    cerror('Round down', 'Invalid number provided');
-    return null;
-  }
+  if (!isValidNumber(num)) return null;
 
   return Math.floor(+num);
 };
@@ -392,18 +374,12 @@ const floorNumber = (num) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const getRandomNumber = (min, max) => {
-  if (!isValidNumber(min) || !isValidNumber(max)) {
-    cerror('Generate random number', 'Invalid min/max parameters');
-    return null;
-  }
+  if (!isValidNumber(min) || !isValidNumber(max)) return null;
 
   const minNum = +min;
   const maxNum = +max;
 
-  if (minNum > maxNum) {
-    cerror('Generate random number', 'Minimum value must be less than or equal to maximum');
-    return null;
-  }
+  if (minNum > maxNum) return null;
 
   // Optimized random generation
   return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
@@ -426,18 +402,12 @@ const getRandomNumber = (min, max) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const getRandomFloat = (min, max, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
-  if (!isValidNumber(min) || !isValidNumber(max) || !isValidNumber(decimals)) {
-    cerror('Generate random decimal', 'Invalid parameters');
-    return null;
-  }
+  if (!isValidNumber(min) || !isValidNumber(max) || !isValidNumber(decimals)) return null;
 
   const minNum = +min;
   const maxNum = +max;
 
-  if (minNum > maxNum) {
-    cerror('Generate random decimal', 'Minimum value must be less than or equal to maximum');
-    return null;
-  }
+  if (minNum > maxNum) return null;
 
   const random = Math.random() * (maxNum - minNum) + minNum;
   return roundToDecimal(random, decimals);
@@ -459,16 +429,10 @@ const getRandomFloat = (min, max, decimals = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PL
  * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentage = (part, total) => {
-  if (!isValidNumber(part) || !isValidNumber(total)) {
-    cerror('Calculate percentage', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(part) || !isValidNumber(total)) return null;
 
   const totalNum = +total;
-  if (totalNum === 0) {
-    cerror('Calculate percentage', 'Division by zero: total cannot be 0');
-    return null;
-  }
+  if (totalNum === 0) return null;
 
   return roundToDecimal((+part / totalNum) * 100);
 };
@@ -489,10 +453,7 @@ const calculatePercentage = (part, total) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentageValue = (percentage, total) => {
-  if (!isValidNumber(percentage) || !isValidNumber(total)) {
-    cerror('Calculate percentage value', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(percentage) || !isValidNumber(total)) return null;
 
   return roundToDecimal((+percentage * +total) / 100);
 };
@@ -513,16 +474,10 @@ const calculatePercentageValue = (percentage, total) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const calculatePercentageChange = (oldValue, newValue) => {
-  if (!isValidNumber(oldValue) || !isValidNumber(newValue)) {
-    cerror('Calculate percentage change', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(oldValue) || !isValidNumber(newValue)) return null;
 
   const oldNum = +oldValue;
-  if (oldNum === 0) {
-    cerror('Calculate percentage change', 'Original value cannot be 0');
-    return null;
-  }
+  if (oldNum === 0) return null;
 
   return roundToDecimal(((+newValue - oldNum) / oldNum) * 100);
 };
@@ -548,10 +503,7 @@ const formatNumberToCurrency = (
   currency = NUMBER_CONSTANTS.DEFAULT_CURRENCY,
   locale = NUMBER_CONSTANTS.DEFAULT_LOCALE
 ) => {
-  if (!isValidNumber(number)) {
-    cerror('Format currency', 'Invalid number provided');
-    return null;
-  }
+  if (!isValidNumber(number)) return null;
 
   try {
     return new Intl.NumberFormat(locale, {
@@ -580,10 +532,7 @@ const formatNumberToCurrency = (
  * @complexity Time: O(1), Space: O(1)
  */
 const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE) => {
-  if (!isValidNumber(number)) {
-    cerror('Format with commas', 'Invalid number provided');
-    return null;
-  }
+  if (!isValidNumber(number)) return null;
 
   try {
     return new Intl.NumberFormat(locale).format(+number);
@@ -609,10 +558,7 @@ const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE
  * @complexity Time: O(1), Space: O(1)
  */
 const toScientificNotation = (number, precision = NUMBER_CONSTANTS.DEFAULT_DECIMAL_PLACES) => {
-  if (!isValidNumber(number) || !isValidNumber(precision)) {
-    cerror('Scientific notation', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(number) || !isValidNumber(precision)) return null;
 
   return (+number).toExponential(precision);
 };
@@ -635,18 +581,12 @@ const toScientificNotation = (number, precision = NUMBER_CONSTANTS.DEFAULT_DECIM
  * @complexity Time: O(1), Space: O(1)
  */
 const clampNumber = (num, min, max) => {
-  if (!isValidNumber(num) || !isValidNumber(min) || !isValidNumber(max)) {
-    cerror('Clamp number', 'Invalid parameters provided');
-    return null;
-  }
+  if (!isValidNumber(num) || !isValidNumber(min) || !isValidNumber(max)) return null;
 
   const minVal = +min;
   const maxVal = +max;
 
-  if (minVal > maxVal) {
-    cerror('Clamp number', 'Minimum value must be less than or equal to maximum');
-    return null;
-  }
+  if (minVal > maxVal) return null;
 
   return Math.max(minVal, Math.min(maxVal, +num));
 };
@@ -666,10 +606,7 @@ const clampNumber = (num, min, max) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const degreesToRadians = (degrees) => {
-  if (!isValidNumber(degrees)) {
-    cerror('Convert to radians', 'Invalid degrees provided');
-    return null;
-  }
+  if (!isValidNumber(degrees)) return null;
 
   return +degrees * 0.017453292519943295;
 };
@@ -689,10 +626,7 @@ const degreesToRadians = (degrees) => {
  * @complexity Time: O(1), Space: O(1)
  */
 const radiansToDegrees = (radians) => {
-  if (!isValidNumber(radians)) {
-    cerror('Convert to degrees', 'Invalid radians provided');
-    return null;
-  }
+  if (!isValidNumber(radians)) return null;
 
   return +radians * 57.29577951308232;
 };
@@ -713,10 +647,7 @@ const radiansToDegrees = (radians) => {
  */
 const median = (...numbers) => {
   const validNums = getValidNumbers(numbers);
-  if (validNums.length === 0) {
-    cerror('Calculate median', 'No valid numbers provided');
-    return null;
-  }
+  if (validNums.length === 0) return null;
 
   const sorted = _.sortBy(validNums);
   const mid = Math.floor(sorted.length / 2);
@@ -740,10 +671,7 @@ const median = (...numbers) => {
  */
 const standardDeviation = (...numbers) => {
   const validNums = getValidNumbers(numbers);
-  if (validNums.length === 0) {
-    cerror('Calculate standard deviation', 'No valid numbers provided');
-    return null;
-  }
+  if (validNums.length === 0) return null;
 
   const mean = _.mean(validNums);
   const squaredDifferences = validNums.map((x) => Math.pow(x - mean, 2));

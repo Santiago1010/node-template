@@ -3,12 +3,6 @@
 // =============================================================================
 
 const numbersHelper = require('../../../../helpers/numbers.helper');
-const { cerror } = require('../../../../helpers/debug.helper');
-
-// Mock the debug helper
-jest.mock('../../../../helpers/debug.helper', () => ({
-  cerror: jest.fn(),
-}));
 
 describe('Rounding and Precision Functions', () => {
   beforeEach(() => {
@@ -19,7 +13,7 @@ describe('Rounding and Precision Functions', () => {
     test('should round to specified decimal places', () => {
       expect(numbersHelper.roundToDecimal(3.14159, 2)).toBe(3.14);
       expect(numbersHelper.roundToDecimal(3.14159, 4)).toBe(3.1416);
-      expect(numbersHelper.roundToDecimal(3.14159)).toBe(3.14); // default 2 places
+      expect(numbersHelper.roundToDecimal(3.14159)).toBe(3.14);
     });
 
     test('should handle string numbers', () => {
@@ -30,7 +24,6 @@ describe('Rounding and Precision Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.roundToDecimal('abc', 2)).toBeNull();
       expect(numbersHelper.roundToDecimal(3.14159, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Round decimal', 'Invalid parameters provided');
     });
 
     test('should handle edge cases', () => {
@@ -41,8 +34,8 @@ describe('Rounding and Precision Functions', () => {
     test('should return null for invalid decimal places', () => {
       expect(numbersHelper.roundToDecimal('hi', -1)).toBeNull();
       expect(numbersHelper.roundToDecimal(3.14159, 'bye')).toBeNull();
+      expect(numbersHelper.roundToDecimal('hello', 'bye')).toBeNull();
       expect(numbersHelper.roundToDecimal()).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Round decimal', 'Invalid parameters provided');
     });
   });
 
@@ -61,7 +54,6 @@ describe('Rounding and Precision Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.ceilNumber('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Round up', 'Invalid number provided');
     });
   });
 
@@ -80,7 +72,6 @@ describe('Rounding and Precision Functions', () => {
 
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.floorNumber('abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Round down', 'Invalid number provided');
     });
   });
 });
