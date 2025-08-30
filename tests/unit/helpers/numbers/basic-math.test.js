@@ -185,7 +185,7 @@ describe('Basic Math Functions', () => {
     });
 
     test('should handle large numbers', () => {
-      expect(numbersHelper.standardDeviation(100, 200, 300)).toBeCloseTo(81.649, 3);
+      expect(numbersHelper.standardDeviation(100, 200, 300)).toBeCloseTo(81.65, 3);
       expect(numbersHelper.standardDeviation(1000, 1000)).toBe(0);
     });
 
