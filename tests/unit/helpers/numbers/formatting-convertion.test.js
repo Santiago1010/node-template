@@ -50,8 +50,7 @@ describe('Formatting and Conversion Functions', () => {
       expect(numbersHelper.formatNumberToCurrency('abc')).toBeNull();
     });
 
-    test('should handle formatting errors gracefully', () => {
-      // Mock Intl.NumberFormat to throw an error
+    test('should handle formatting errors gracefully for currency', () => {
       const originalNumberFormat = Intl.NumberFormat;
       Intl.NumberFormat = jest.fn().mockImplementation(() => {
         throw new Error('Formatting error');
@@ -59,7 +58,6 @@ describe('Formatting and Conversion Functions', () => {
 
       expect(numbersHelper.formatNumberToCurrency(1234.56)).toBeNull();
 
-      // Restore original
       Intl.NumberFormat = originalNumberFormat;
     });
   });

@@ -33,7 +33,9 @@ describe('Rounding and Precision Functions', () => {
 
     test('should return null for invalid decimal places', () => {
       expect(numbersHelper.roundToDecimal('hi', -1)).toBeNull();
+      expect(numbersHelper.roundToDecimal(-1, 'bye')).toBeNull();
       expect(numbersHelper.roundToDecimal(3.14159, 'bye')).toBeNull();
+      expect(numbersHelper.roundToDecimal('hello', 3.14159)).toBeNull();
       expect(numbersHelper.roundToDecimal('hello', 'bye')).toBeNull();
       expect(numbersHelper.roundToDecimal()).toBeNull();
     });

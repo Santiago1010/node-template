@@ -33,6 +33,8 @@ describe('Random Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.getRandomNumber('abc', 10)).toBeNull();
       expect(numbersHelper.getRandomNumber(1, 'abc')).toBeNull();
+      expect(numbersHelper.getRandomNumber('abc', 'abc')).toBeNull();
+      expect(numbersHelper.getRandomNumber()).toBeNull();
     });
 
     test('should return null when min > max', () => {

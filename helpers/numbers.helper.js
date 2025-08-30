@@ -53,7 +53,6 @@ const _ = require('lodash'); // Utility functions for array operations and mathe
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { NUMBER_CONSTANTS } = require('./constants.helper'); // Number-related constants
-const { cerror } = require('./debug.helper'); // Error logging utility
 
 /**
  * Converts input to number using unary plus operator
@@ -511,7 +510,7 @@ const formatNumberToCurrency = (
       currency: currency,
     }).format(+number);
   } catch (error) {
-    cerror('Format currency', `Formatting error: ${error.message}`);
+    console.error(`Formatting error: ${error.message}`);
     return null;
   }
 };
@@ -537,7 +536,7 @@ const formatNumberWithCommas = (number, locale = NUMBER_CONSTANTS.DEFAULT_LOCALE
   try {
     return new Intl.NumberFormat(locale).format(+number);
   } catch (error) {
-    cerror('Format with commas', `Formatting error: ${error.message}`);
+    console.error(`Formatting error: ${error.message}`);
     return null;
   }
 };
