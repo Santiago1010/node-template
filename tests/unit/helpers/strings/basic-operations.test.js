@@ -32,6 +32,11 @@ describe('Basic String Operation Functions', () => {
     test('should throw an error for non-string inputs', () => {
       expect(() => stringsHelper.countOccurrences(123, 'a')).toThrow('Both "str" and "subStr" must be strings');
     });
+
+    test('should return 0 for invalid inputs', () => {
+      expect(stringsHelper.countOccurrences('', 'a')).toBe(0);
+      expect(stringsHelper.countOccurrences('a', '')).toBe(0);
+    });
   });
 
   describe('reverseString', () => {

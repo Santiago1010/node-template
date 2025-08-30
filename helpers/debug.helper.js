@@ -1,22 +1,75 @@
-// --------------------------- CORE NODE.JS DEPENDENCIES --------------------------- //
-const fs = require('fs');
-const path = require('path');
+// =============================================================================
+// DEBUG & LOGGING UTILITIES - Enhanced Development Tools
+// =============================================================================
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Provides configurable debug mode with automatic expiration
+// - Offers formatted console logging with header/section support
+// - Handles error registration with file logging capabilities
+// - Includes device detection utilities for request classification
+// - Supports both conditional (debug-mode only) and permanent logging
+//
+// ARCHITECTURAL DECISIONS:
+// - File-based debug configuration for persistence across restarts
+// - Moment.js for robust timestamp handling and time calculations
+// - Boom for standardized HTTP error response formatting
+// - Separation of concerns between debug utilities and error handling
+// - Configurable timeouts and line lengths for flexibility
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Environment variables: Considered but rejected for requiring restart on changes
+// - Database storage: Overkill for temporary debug state management
+// - Memory-only storage: Would lose state on server restarts
+// - Third-party logging services: Added complexity for simple debug needs
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for most operations, O(n) for file I/O operations
+// - Space complexity: O(1) for memory usage, O(n) for log file growth
+// - File I/O operations are synchronous but minimal and infrequent
+// - Debug checks have minimal performance impact in production
+//
+// SECURITY CONSIDERATIONS:
+// - Debug mode exposes internal data - should never be enabled in production
+// - File operations validated with try/catch to prevent crashes
+// - Error logs may contain sensitive data - ensure proper file permissions
+// - Input validation performed on timestamp parsing
+//
+// USAGE EXAMPLES:
+// - Basic debug logging: clog('Section Title', data);
+// - Error handling: const error = registerError('Not found', 404);
+// - Device detection: const device = detectDeviceType(req);
+// - Temporary debug enablement: setDebugMode(true, 15);
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Debug file location: .debug in project root
+// - Error logs location: /logs directory with date-based filenames
+// - Common issues: File permission errors, disk space exhaustion
+// - Monitor log file growth in long-running processes
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires Node.js 12+ for filesystem operations and modern JS features
+// - Compatible with Express.js and other web frameworks
+// - Third-party dependencies: @hapi/boom, moment
+// - Browser compatibility: None (server-side only)
+//
+// =============================================================================
 
-// ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
-const Boom = require('@hapi/boom');
-const moment = require('moment');
+// =============================================================================
+// CORE NODE.JS DEPENDENCIES
+// =============================================================================
+const fs = require('fs'); // File system operations
+const path = require('path'); // Path manipulation utilities
 
-// ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const config = require('../config/env');
-const { MODES, PATHS } = require('./constants.helper');
+// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const Boom = require('@hapi/boom'); // HTTP error handling utilities
+const moment = require('moment'); // Date/time manipulation and formatting
 
-// ----------------- CONSTANTS AND CONFIGURATION ----------------- //
-const DEBUG_FILE_PATH = path.resolve(process.cwd(), '.debug');
-const DEBUG_TIMEOUT_MINUTES = 10;
-const DEFAULT_LINE_LENGTH = 150;
-const DEVELOPMENT_MODE_VALUE = 2;
-
-const { isLocal, mode } = config;
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { MODES, PATHS, DEBUG_SETTINGS } = require('./constants.helper'); // Constants and paths
+const { isLocal, mode } = require('../config/env'); // Application configuration
 
 /**
  * Reads and parses the debug file content
@@ -25,7 +78,7 @@ const { isLocal, mode } = config;
  */
 const parseDebugFile = () => {
   try {
-    const fileContent = fs.readFileSync(DEBUG_FILE_PATH, 'utf-8').split('\n');
+    const fileContent = fs.readFileSync(PATHS.DEBUG, 'utf-8').split('\n');
     const debugContent = fileContent[0]?.trim();
     const timestampLine = fileContent[1]?.trim();
 
@@ -76,7 +129,7 @@ const writeDebugFile = (enable, expirationTime = null) => {
     const timestamp = expirationTime ? expirationTime.format('YYYY-MM-DD HH:mm:ss') : '';
     const content = `${debugContent}\n${timestamp}`;
 
-    fs.writeFileSync(DEBUG_FILE_PATH, content, 'utf-8');
+    fs.writeFileSync(PATHS.DEBUG, content, 'utf-8');
     console.log(`Debug mode set to: ${debugContent}`);
   } catch (error) {
     console.error(`Error writing to debug file: ${error.message}`);
@@ -108,7 +161,7 @@ const isDebugMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
   // Check development mode if allowed
-  if (allowDevMode && MODES[mode] === DEVELOPMENT_MODE_VALUE) {
+  if (allowDevMode && MODES[mode] === DEBUG_SETTINGS.DEVELOPMENT_MODE_VALUE) {
     return true;
   }
 
@@ -143,7 +196,7 @@ const isDebugMode = (allowDevMode = false) => {
 const isDevelopmentMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
-  return allowDevMode && MODES[mode] === DEVELOPMENT_MODE_VALUE;
+  return allowDevMode && MODES[mode.toUpperCase()] === DEBUG_SETTINGS.DEVELOPMENT_MODE_VALUE;
 };
 
 /**
@@ -154,7 +207,7 @@ const isDevelopmentMode = (allowDevMode = false) => {
  * @param {number} [timeoutMinutes=10] - Minutes until debug mode expires (only when enabling)
  * @returns {string} A message indicating the debug mode status
  */
-const setDebugMode = (enable = true, timeoutMinutes = DEBUG_TIMEOUT_MINUTES) => {
+const setDebugMode = (enable = true, timeoutMinutes = DEBUG_SETTINGS.DEBUG_TIMEOUT_MINUTES) => {
   const now = moment();
   let expirationTime = null;
   let response = 'Debug mode ';
@@ -183,7 +236,7 @@ const setDebugMode = (enable = true, timeoutMinutes = DEBUG_TIMEOUT_MINUTES) => 
  * @param {number} [lineLength=150] - Total length of the line
  * @returns {string} Formatted header string
  */
-const createHeader = (title, lineLength = DEFAULT_LINE_LENGTH) => {
+const createHeader = (title, lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH) => {
   const titleLength = title.length;
   const paddingLength = Math.max(0, lineLength - titleLength - 2);
   const padding = '-'.repeat(Math.floor(paddingLength / 2));
@@ -196,7 +249,7 @@ const createHeader = (title, lineLength = DEFAULT_LINE_LENGTH) => {
  * @param {number} [lineLength=150] - Length of the line
  * @returns {string} Line of dashes
  */
-const createSeparator = (lineLength = DEFAULT_LINE_LENGTH) => {
+const createSeparator = (lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH) => {
   return `\n${'-'.repeat(lineLength)}\n`;
 };
 
@@ -213,7 +266,7 @@ const createSeparator = (lineLength = DEFAULT_LINE_LENGTH) => {
 const wrapLogging = (header, additionalData) => {
   if (!isDebugMode()) return false;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
 
   console.log(createHeader(header, lineLength));
 
@@ -241,7 +294,7 @@ const wrapLogging = (header, additionalData) => {
 const clog = (title, ...args) => {
   if (!isDebugMode()) return;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Log each argument individually
@@ -264,7 +317,7 @@ const clog = (title, ...args) => {
 const cerror = (title, ...args) => {
   if (!isDebugMode()) return;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Log each error argument individually
@@ -287,7 +340,7 @@ const cerror = (title, ...args) => {
 const cdir = (title, ...args) => {
   if (!isDebugMode()) return;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Inspect each argument individually with full depth
@@ -310,7 +363,7 @@ const cdir = (title, ...args) => {
 const clear = (title, ...args) => {
   if (!isDebugMode()) return;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.clear();
   console.log(createHeader(title, lineLength));
 
@@ -334,7 +387,7 @@ const clear = (title, ...args) => {
 const clir = (title, ...args) => {
   if (!isDebugMode()) return;
 
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.clear();
   console.log(createHeader(title, lineLength));
 
@@ -365,7 +418,7 @@ const clir = (title, ...args) => {
  * @returns {Boom} - A Boom error object for use in HTTP responses
  */
 const registerError = (error, httpCode, { location, code, additionalInfo } = {}) => {
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   let logOutput = '';
 
   // Build error title
@@ -454,7 +507,7 @@ const registerError = (error, httpCode, { location, code, additionalInfo } = {})
  * @param {...any} args - Arguments to log
  */
 const plog = (title, ...args) => {
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Log each argument individually
@@ -475,7 +528,7 @@ const plog = (title, ...args) => {
  * @param {...any} args - Arguments to inspect with full depth
  */
 const pdir = (title, ...args) => {
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Inspect each argument individually with full depth
@@ -496,7 +549,7 @@ const pdir = (title, ...args) => {
  * @param {...any} args - Arguments to log as errors
  */
 const perror = (title, ...args) => {
-  const lineLength = DEFAULT_LINE_LENGTH;
+  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
   // Log each error argument individually
@@ -597,14 +650,16 @@ const detectDeviceWithMetadata = (req) => {
   };
 };
 
-// ----------------- MODULE EXPORTS ----------------- //
+// =============================================================================
+// MODULE EXPORTS
+// =============================================================================
 module.exports = {
   // Core debug functions
   isDebugMode,
   isDevelopmentMode,
   setDebugMode,
 
-  // Debug logging functions (conditional)
+  // Conditional logging (debug mode only)
   wrapLogging,
   clog,
   cdir,
@@ -612,7 +667,7 @@ module.exports = {
   clear,
   clir,
 
-  // Permanent logging functions (always active)
+  // Permanent logging (always active)
   plog,
   pdir,
   perror,
@@ -620,11 +675,11 @@ module.exports = {
   // Error handling
   registerError,
 
-  // Utility functions
+  // Formatting utilities
   createHeader,
   createSeparator,
 
-  // Device detection functions
+  // Device detection
   detectDeviceType,
   detectDeviceWithMetadata,
 };

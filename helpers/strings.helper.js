@@ -556,8 +556,6 @@ const toCamelCase = (str) => {
 
   const words = cleanStr.split(' ').filter((word) => word.length > 0);
 
-  if (words.length === 0) return '';
-
   return words
     .map((word, i) => (i === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()))
     .join('');
@@ -791,7 +789,7 @@ const stringSimilarity = (str1, str2) => {
   const distance = levenshteinDistance(str1, str2);
   const maxLength = Math.max(str1.length, str2.length);
 
-  return maxLength === 0 ? 100 : Math.round(((maxLength - distance) / maxLength) * 10000) / 100;
+  return Math.round(((maxLength - distance) / maxLength) * 10000) / 100;
 };
 
 /**
@@ -868,8 +866,6 @@ const generateSlug = (str, { separator = '-', lowercase = true, maxLength } = {}
   }
 
   let slug = removeDiacritics(str);
-
-  if (!slug) return null;
 
   slug = slug
     .replace(/[^\w\s-]/g, '')

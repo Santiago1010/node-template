@@ -1,5 +1,62 @@
 
 
+## [1.4.0] - 2025-08-30
+
+**Released:** 2025-08-30 21:13:21 UTC
+
+### [Enhance Helper Utilities and Add Comprehensive Tests](https://github.com/Santiago1010/node-template/pull/35)
+
+#### 📋 Summary
+This PR introduces major enhancements to helper utilities including debug, context, numbers, strings, and security modules. It adds comprehensive test coverage with 122 new unit tests, improves error handling, and fixes existing bugs.
+
+#### 🔍 What Changed
+### Added
+- 122 new unit tests across cache, context, debug, numbers, strings, and utilities modules
+- Password hashing/verification functions to security helper
+- Median and standard deviation functions to numbers helper
+- DEBUG_SETTINGS constants with configurable timeouts and line lengths
+- New test utilities for array, object, and functional programming operations
+
+### Changed
+- Refactored debug helper with comprehensive documentation and improved error handling
+- Enhanced numbers helper with optimized validation and mathematical operations
+- Improved context helper with proper sanitization and bug fixes
+- Updated docs generator to function-based implementation with validation
+- Optimized string helper functions with better edge case handling
+
+### Fixed
+- Context helper prototype method usage and array sanitization
+- String helper empty input handling in generateSlug and stringSimilarity
+- Environment configuration NODE_ENV fallback handling
+- Debug mode detection and development mode checks
+
+### Removed
+- Redundant error logging in numbers helper validation functions
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`df7e322`](https://github.com/Santiago1010/node-template/commit/df7e3229f63d3738a7a78b0ae15ef1603580e930) refactor(numbers): remove debug logging and simplify error handling
+- [`4f63f31`](https://github.com/Santiago1010/node-template/commit/4f63f31cb08d7ed2db60469e64e1f9cf22ab0ac5) refactor(numbers): replace cerror with console.error for formatting functions
+- [`fc64790`](https://github.com/Santiago1010/node-template/commit/fc64790ffa3614dd6c41005c9f31ad5a354a6730) test: add comprehensive unit tests for cache and context helpers
+- [`62492e8`](https://github.com/Santiago1010/node-template/commit/62492e8e3b068ff03276212c7d6a08c8f74e6648) test(utils): add comprehensive unit tests for utility helper functions
+- [`49c4b8d`](https://github.com/Santiago1010/node-template/commit/49c4b8d78a28f79de2ab92cac9ace19747b908b4) feat(security): add password hashing utilities with bcrypt
+- [`449ba43`](https://github.com/Santiago1010/node-template/commit/449ba43574a4e5bf1ee3ae76738ebc4d264341b7) refactor(docs): convert DocsGenerator class to functional module and add comprehensive tests
+- [`febbebd`](https://github.com/Santiago1010/node-template/commit/febbebd933135d239d40889447c0795fbb317bc5) refactor(debug): enhance debug helper with comprehensive documentation and centralized constants
+- [`88260ca`](https://github.com/Santiago1010/node-template/commit/88260ca07218f690a2c2146db70f2362da413035) fix(debug): handle case-insensitive mode comparison in development mode check
+- [`46b10ca`](https://github.com/Santiago1010/node-template/commit/46b10ca33f4da8e35fc2b51e1a2862bc55ccd9e6) test(debug): add comprehensive unit tests for conditional logging functions
+- [`7dfa359`](https://github.com/Santiago1010/node-template/commit/7dfa3596c5c35bd2ea383115bb5b473840cdf50c) test(debug): add unit tests for permanent logging functions
+
+---
+
+
+
 ## [1.3.0] - 2025-08-29
 
 **Released:** 2025-08-29 19:50:22 UTC

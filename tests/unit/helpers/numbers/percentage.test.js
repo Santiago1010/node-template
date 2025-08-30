@@ -3,12 +3,6 @@
 // =============================================================================
 
 const numbersHelper = require('../../../../helpers/numbers.helper');
-const { cerror } = require('../../../../helpers/debug.helper');
-
-// Mock the debug helper
-jest.mock('../../../../helpers/debug.helper', () => ({
-  cerror: jest.fn(),
-}));
 
 describe('Percentage Functions', () => {
   beforeEach(() => {
@@ -29,17 +23,21 @@ describe('Percentage Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.calculatePercentage('abc', 100)).toBeNull();
       expect(numbersHelper.calculatePercentage(25, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate percentage', 'Invalid parameters provided');
     });
 
     test('should return null for division by zero', () => {
       expect(numbersHelper.calculatePercentage(25, 0)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate percentage', 'Division by zero: total cannot be 0');
     });
 
     test('should handle negative numbers', () => {
       expect(numbersHelper.calculatePercentage(-25, 100)).toBe(-25.0);
       expect(numbersHelper.calculatePercentage(25, -100)).toBe(-25.0);
+    });
+
+    test('should return null for invalid parameters', () => {
+      expect(numbersHelper.calculatePercentage('abc', 'def')).toBeNull();
+
+      expect(numbersHelper.calculatePercentage(25, 0)).toBeNull();
     });
   });
 
@@ -57,7 +55,6 @@ describe('Percentage Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.calculatePercentageValue('abc', 100)).toBeNull();
       expect(numbersHelper.calculatePercentageValue(25, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate percentage value', 'Invalid parameters provided');
     });
 
     test('should handle zero values', () => {
@@ -80,12 +77,14 @@ describe('Percentage Functions', () => {
     test('should return null for invalid inputs', () => {
       expect(numbersHelper.calculatePercentageChange('abc', 150)).toBeNull();
       expect(numbersHelper.calculatePercentageChange(100, 'abc')).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate percentage change', 'Invalid parameters provided');
     });
 
     test('should return null for division by zero', () => {
       expect(numbersHelper.calculatePercentageChange(0, 150)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Calculate percentage change', 'Original value cannot be 0');
+    });
+
+    test('should return null for invalid parameters', () => {
+      expect(numbersHelper.calculatePercentageChange(0, 0)).toBeNull();
     });
   });
 });

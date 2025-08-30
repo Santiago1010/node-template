@@ -5,46 +5,6 @@
 const numbersHelper = require('../../../../helpers/numbers.helper');
 
 describe('Module Exports and Integrations', () => {
-  describe('Module Exports', () => {
-    test('should export all expected functions', () => {
-      const expectedFunctions = [
-        'convertToNumber',
-        'isValidNumber',
-        'isInRange',
-        'isInteger',
-        'isPositive',
-        'isEven',
-        'isOdd',
-        'sumNumbers',
-        'average',
-        'maxNumber',
-        'minNumber',
-        'roundToDecimal',
-        'ceilNumber',
-        'floorNumber',
-        'getRandomNumber',
-        'getRandomFloat',
-        'calculatePercentage',
-        'calculatePercentageValue',
-        'calculatePercentageChange',
-        'formatNumberToCurrency',
-        'formatNumberWithCommas',
-        'toScientificNotation',
-        'clampNumber',
-        'degreesToRadians',
-        'radiansToDegrees',
-      ];
-
-      expectedFunctions.forEach((functionName) => {
-        expect(numbersHelper).toHaveProperty(functionName);
-        expect(typeof numbersHelper[functionName]).toBe('function');
-      });
-
-      // Verify we have the expected number of exports
-      expect(Object.keys(numbersHelper)).toHaveLength(expectedFunctions.length);
-    });
-  });
-
   describe('Integration Tests', () => {
     test('should handle complex calculations with multiple functions', () => {
       const numbers = [10, 20, 30, 'abc', 40, null];
@@ -163,6 +123,49 @@ describe('Module Exports and Integrations', () => {
       expect(numbersHelper.isValidNumber({ valueOf: () => 42 })).toBe(true);
     });
   });
+
+  describe('clampNumber - unit tests', () => {
+    test('clamps numeric values (inside, below, above) and respects types', () => {
+      expect(numbersHelper.clampNumber(5, 1, 10)).toBe(5);
+      expect(numbersHelper.clampNumber(15, 1, 10)).toBe(10);
+      expect(numbersHelper.clampNumber(-5, 1, 10)).toBe(1);
+    });
+
+    test('accepts numeric strings and preserves decimals when in range', () => {
+      expect(numbersHelper.clampNumber('7', '1', '10')).toBe(7);
+      expect(numbersHelper.clampNumber('15', '1', '10')).toBe(10);
+      expect(numbersHelper.clampNumber(5.4, 1, 6)).toBe(5.4);
+      expect(numbersHelper.clampNumber(5.6, 1, 5)).toBe(5);
+    });
+
+    test('handles boolean inputs (true -> 1, false -> 0)', () => {
+      expect(numbersHelper.clampNumber(true, 0, 2)).toBe(1);
+      expect(numbersHelper.clampNumber(false, 0, 2)).toBe(0);
+    });
+
+    test('handles array inputs: [1] is valid, [] is invalid', () => {
+      expect(numbersHelper.clampNumber([1], 0, 10)).toBe(1);
+      expect(numbersHelper.clampNumber([], 0, 10)).toBeNull();
+    });
+
+    test('returns null when any parameter is invalid', () => {
+      expect(numbersHelper.clampNumber('abc', 1, 10)).toBeNull();
+      expect(numbersHelper.clampNumber(5, 'x', 10)).toBeNull();
+      expect(numbersHelper.clampNumber(5, 1, 'y')).toBeNull();
+      expect(numbersHelper.clampNumber({}, 0, 5)).toBeNull();
+    });
+
+    test('returns null when min > max', () => {
+      expect(numbersHelper.clampNumber(5, 10, 1)).toBeNull();
+    });
+
+    test('behaves correctly when min === max (clamps to that single value)', () => {
+      expect(numbersHelper.clampNumber(5, 5, 5)).toBe(5);
+      expect(numbersHelper.clampNumber(10, 5, 5)).toBe(5);
+      expect(numbersHelper.clampNumber(0, 5, 5)).toBe(5);
+    });
+  });
+  // ------------------------------------------------------------------------------
 
   describe('Performance and Boundary Tests', () => {
     test('should handle multiple rapid calculations', () => {
