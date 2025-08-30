@@ -87,18 +87,9 @@ describe('Formatting and Conversion Functions', () => {
       expect(cerror).toHaveBeenCalledWith('Format with commas', 'Invalid number provided');
     });
 
-    test('should handle formatting errors gracefully', () => {
-      // Mock Intl.NumberFormat to throw an error
-      const originalNumberFormat = Intl.NumberFormat;
-      Intl.NumberFormat = jest.fn().mockImplementation(() => {
-        throw new Error('Formatting error');
-      });
-
-      expect(numbersHelper.formatNumberWithCommas(1234567)).toBeNull();
-      expect(cerror).toHaveBeenCalledWith('Format with commas', 'Formatting error: Formatting error');
-
-      // Restore original
-      Intl.NumberFormat = originalNumberFormat;
+    test('should return null for invalid locale', () => {
+      expect(numbersHelper.formatNumberWithCommas(1, null)).toBeNull();
+      expect(cerror).toHaveBeenCalledWith('Format with commas', expect.stringContaining('Formatting error:'));
     });
   });
 

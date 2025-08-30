@@ -41,6 +41,14 @@ describe('Percentage Functions', () => {
       expect(numbersHelper.calculatePercentage(-25, 100)).toBe(-25.0);
       expect(numbersHelper.calculatePercentage(25, -100)).toBe(-25.0);
     });
+
+    test('should return null for invalid parameters', () => {
+      expect(numbersHelper.calculatePercentage('abc', 'def')).toBeNull();
+      expect(cerror).toHaveBeenCalledWith('Calculate percentage', 'Invalid parameters provided');
+
+      expect(numbersHelper.calculatePercentage(25, 0)).toBeNull();
+      expect(cerror).toHaveBeenCalledWith('Calculate percentage', 'Division by zero: total cannot be 0');
+    });
   });
 
   describe('calculatePercentageValue', () => {
