@@ -335,6 +335,7 @@ const SECURITY_CONFIG = {
     REQUIRE_NUMBERS: true,
     REQUIRE_SPECIAL: true,
     SPECIAL_CHARS: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+    SALT: 10,
   },
 
   SESSION: {

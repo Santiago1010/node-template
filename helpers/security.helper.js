@@ -15,6 +15,7 @@ const url = require('url');
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
@@ -594,6 +595,41 @@ const isCommonPassword = (password) => {
   ];
 
   return commonPasswords.includes(password.toLowerCase());
+};
+
+/**
+ * Hashes a password using bcrypt
+ * @param {string} password - Password to hash
+ * @param {number} [salt=SECURITY_CONFIG.PASSWORD_POLICY.SALT] - Salt rounds
+ * @throws {Error} If password is not a non-empty string
+ * @throws {Error} If salt is not a non-empty number
+ * @returns {Promise<string>} Hashed password
+ */
+const hashPassword = (password, salt = SECURITY_CONFIG.PASSWORD_POLICY.SALT) => {
+  if (!password || typeof password !== 'string') {
+    throw new Error('Password must be a non-empty string');
+  }
+
+  if (!salt || typeof salt !== 'number') {
+    throw new Error('Salt must be a non-empty number');
+  }
+
+  return bcrypt.hash(password, salt);
+};
+
+/**
+ * Verifies a password against its bcrypt hash
+ * @param {string} password - Password to verify
+ * @param {string} hashedPassword - Previously hashed password
+ * @throws {Error} If password or hashed password is not a non-empty string
+ * @returns {Promise<boolean>} True if password matches
+ */
+const verifyPassword = (password, hashedPassword) => {
+  if (!password || !hashedPassword) {
+    throw new Error('Password and hashed password must be non-empty strings');
+  }
+
+  return bcrypt.compare(password, hashedPassword);
 };
 
 // =============================================================================
@@ -1436,6 +1472,8 @@ module.exports = {
   // Password Security
   validatePasswordStrength,
   isCommonPassword,
+  hashPassword,
+  verifyPassword,
 
   // Rate Limiting
   checkRateLimit,

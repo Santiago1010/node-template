@@ -139,8 +139,15 @@
 │   └── unit
 │       └── helpers
 │           ├── cache
+│           │   └── cache.test.js
 │           ├── constants
 │           ├── context
+│           │   ├── core.test.js
+│           │   ├── custom-data.test.js
+│           │   ├── debugging-validation.test.js
+│           │   ├── getters.test.js
+│           │   ├── permissions-roles.test.js
+│           │   └── setters.test.js
 │           ├── debug
 │           ├── encrypt
 │           │   ├── aes.test.js
@@ -151,7 +158,6 @@
 │           │   └── utilities.test.js
 │           ├── numbers
 │           │   ├── basic-math.test.js
-│           │   ├── error-handling.test.js
 │           │   ├── formatting-convertion.test.js
 │           │   ├── percentage.test.js
 │           │   ├── random.test.js
@@ -169,8 +175,13 @@
 │           │   ├── utility.test.js
 │           │   └── validation.test.js
 │           └── utilities
+│               ├── array.test.js
+│               ├── functional.test.js
+│               ├── general.test.js
+│               ├── object.test.js
+│               └── validation.test.js
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-63 directories, 111 files
+63 directories, 122 files
