@@ -57,6 +57,9 @@ const isValidContextKey = (key) => {
  * @returns {any} Sanitized data
  */
 const sanitizeContextData = (data) => {
+  if (Array.isArray(data)) {
+    return data.map((item) => sanitizeContextData(item));
+  }
   if (typeof data === 'string') {
     // Basic XSS prevention
     return data.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
@@ -149,7 +152,10 @@ const clearContext = () => {
 const getContextValue = (key, defaultValue = null) => {
   try {
     const store = asyncLocalStorage.getStore();
-    return store && store.prototype.hasOwnProperty.call(key) ? store[key] : defaultValue;
+    if (!store || !Object.prototype.hasOwnProperty.call(store, key)) {
+      return defaultValue;
+    }
+    return store[key];
   } catch (error) {
     throw new Error(`Failed to get context value for key '${key}': ${error.message}`);
   }
@@ -168,7 +174,7 @@ const getContextValues = (keys) => {
     if (!store) return result;
 
     keys.forEach((key) => {
-      if (store.prototype.hasOwnProperty.call(key)) {
+      if (Object.prototype.hasOwnProperty.call(store, key)) {
         result[key] = store[key];
       }
     });
@@ -405,7 +411,10 @@ const setCurrentTenantId = (tenantId) => {
 const getCustomData = (key, defaultValue = null) => {
   try {
     const customData = getContextValue(CONTEXT_KEYS.CUSTOM_DATA, {});
-    return customData.prototype.hasOwnProperty.call(key) ? customData[key] : defaultValue;
+    if (!customData) {
+      return defaultValue;
+    }
+    return Object.prototype.hasOwnProperty.call(customData, key) ? customData[key] : defaultValue;
   } catch (error) {
     throw new Error(`Failed to get custom data for key '${key}': ${error.message}`);
   }

@@ -12,6 +12,7 @@ describe('Validation Functions', () => {
       expect(numbersHelper.isValidNumber(3.14)).toBe(true);
       expect(numbersHelper.isValidNumber('-10')).toBe(true);
       expect(numbersHelper.isValidNumber(0)).toBe(true);
+      expect(numbersHelper.isValidNumber('0')).toBe(true);
     });
 
     test('should return false for invalid numbers', () => {
