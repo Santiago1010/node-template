@@ -58,6 +58,7 @@ const PATHS = {
   LOGS: ROOT + '/logs',
   VIEWS: ROOT + '/views',
   KEYS: ROOT + '/kubernetes/keys',
+  DEBUG: ROOT + '/.debug',
 };
 
 /**
@@ -573,6 +574,12 @@ const SENSITIVE_FIELDS = [
   'secret',
 ];
 
+const DEBUG_SETTINGS = {
+  DEBUG_TIMEOUT_MINUTES: 1,
+  DEFAULT_LINE_LENGTH: 10,
+  DEVELOPMENT_MODE_VALUE: 2,
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -598,4 +605,5 @@ module.exports = {
   LOG_LEVELS,
   LOG_COLORS,
   SENSITIVE_FIELDS,
+  DEBUG_SETTINGS,
 };
