@@ -1,7 +1,56 @@
 // =============================================================================
 // AWS S3 MANAGER - Complete S3 Operations Handler
 // =============================================================================
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Comprehensive AWS S3 operations management with enterprise-grade features
+// - Unified interface for upload, download, delete, copy, and move operations
+// - Support for large files with automatic multipart uploads and streaming
+// - Pre-signed URL generation for secure temporary access
+// - Batch operations and efficient file listing with pagination
+// - Robust error handling with retry mechanisms and exponential backoff
 //
+// ARCHITECTURAL DECISIONS:
+// - Client-based design for dependency injection and testability
+// - Separation of concerns with dedicated methods for each S3 operation type
+// - Private helper methods for validation, retry logic, and stream handling
+// - Configurable through external constants for flexibility
+// - Support for both default bucket and per-operation bucket specification
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Direct AWS SDK usage: Rejected due to lack of abstraction and error handling
+// - Third-party S3 libraries: Rejected to maintain control and reduce dependencies
+// - Functional programming style: Rejected in favor of class-based for state management
+// - Singleton pattern: Rejected to support multiple S3 configurations and instances
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(n) for most operations, optimized with concurrent uploads
+// - Space complexity: O(1) for most operations, O(n) only during large file buffering
+// - Multipart threshold: 5MB (configurable) for optimal upload performance
+// - Memory-efficient streaming for large file downloads
+//
+// SECURITY CONSIDERATIONS:
+// - Input validation and sanitization for bucket names and object keys
+// - Pre-signed URLs with configurable expiration for secure temporary access
+// - No sensitive data exposure in error messages or logs
+// - ACL support for fine-grained access control
+//
+// USAGE EXAMPLES:
+// - File upload with automatic multipart handling for large files
+// - Secure file sharing via pre-signed URLs with expiration
+// - Batch operations for mass file management
+// - Efficient directory listing with pagination support
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Comprehensive error logging with context information
+// - Retry mechanisms for transient AWS failures
+// - Configurable retry limits and backoff strategies
+// - Clear error messages with actionable information
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires @aws-sdk/client-s3 v3.x or later
+// - Requires @aws-sdk/lib-storage for multipart uploads
+// - Requires @aws-sdk/s3-request-presigner for pre-signed URLs
+// - Compatible with Node.js 14.x or later
 //
 // =============================================================================
 
@@ -17,19 +66,23 @@ const {
   HeadObjectCommand,
   CopyObjectCommand,
   S3Client,
-} = require('@aws-sdk/client-s3');
-const { Upload } = require('@aws-sdk/lib-storage');
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+} = require('@aws-sdk/client-s3'); // AWS SDK v3 S3 client and commands
+const { Upload } = require('@aws-sdk/lib-storage'); // Multipart upload support
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner'); // Pre-signed URL generation
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { S3_CONFIG } = require('../constants.helper');
-const { aws } = require('../../config/env');
+const { S3_CONFIG } = require('../constants.helper'); // S3 configuration constants
+const { aws } = require('../../config/env'); // AWS environment configuration
 
 // =============================================================================
 // S3 CLIENT INITIALIZATION
 // =============================================================================
+/**
+ * AWS S3 client instance configured with environment settings
+ * @type {S3Client}
+ */
 const s3Client = new S3Client({
   endpoint: aws.s3.endpoint,
   region: aws.s3.region,
@@ -40,6 +93,7 @@ const s3Client = new S3Client({
 // =============================================================================
 // CONSTANTS & CONFIGURATIONS
 // =============================================================================
+// All constants are imported from S3_CONFIG external configuration
 
 /**
  * AWS S3 Operations Manager
@@ -58,9 +112,28 @@ const s3Client = new S3Client({
  * @author Development Team
  */
 class S3Manager {
+  /**
+   * Creates an instance of S3Manager
+   * @param {S3Client} [client=s3Client] - Pre-configured S3 client instance
+   * @param {string|null} [defaultBucket=null] - Default bucket name for operations
+   */
   constructor(client = s3Client, defaultBucket = null) {
+    /**
+     * @private
+     * @type {S3Client}
+     */
     this.s3Client = client;
+
+    /**
+     * @private
+     * @type {string|null}
+     */
     this.defaultBucket = defaultBucket;
+
+    /**
+     * @private
+     * @type {number}
+     */
     this.retryCount = S3_CONFIG.MAX_RETRIES;
   }
 
@@ -71,6 +144,9 @@ class S3Manager {
   /**
    * Resolves bucket name from parameters or uses default
    * @private
+   * @param {string} [bucket] - Bucket name to resolve
+   * @returns {string} Resolved bucket name
+   * @throws {Error} If no bucket name is provided and no default is set
    */
   _resolveBucket = (bucket) => {
     const resolvedBucket = bucket || this.defaultBucket;
@@ -83,6 +159,9 @@ class S3Manager {
   /**
    * Validates S3 bucket name according to AWS naming conventions
    * @private
+   * @param {string} bucket - Bucket name to validate
+   * @returns {string} Validated bucket name
+   * @throws {Error} If bucket name is invalid
    */
   _validateBucketName = (bucket) => {
     if (!bucket || typeof bucket !== 'string') {
@@ -100,6 +179,9 @@ class S3Manager {
   /**
    * Validates and sanitizes S3 object key
    * @private
+   * @param {string} key - Object key to validate
+   * @returns {string} Sanitized object key
+   * @throws {Error} If object key is invalid
    */
   _validateObjectKey = (key) => {
     if (!key || typeof key !== 'string') {
@@ -118,6 +200,10 @@ class S3Manager {
   /**
    * Retry mechanism for S3 operations with exponential backoff
    * @private
+   * @param {Function} operation - Async function to retry
+   * @param {number} [maxRetries=this.retryCount] - Maximum retry attempts
+   * @returns {Promise<any>} Operation result
+   * @throws {Error} After all retry attempts are exhausted
    */
   _retryOperation = async (operation, maxRetries = this.retryCount) => {
     let lastError;
@@ -151,6 +237,8 @@ class S3Manager {
   /**
    * Converts stream to buffer efficiently
    * @private
+   * @param {ReadableStream} stream - Stream to convert
+   * @returns {Promise<Buffer>} Converted buffer
    */
   _streamToBuffer = async (stream) => {
     const chunks = [];
@@ -167,6 +255,8 @@ class S3Manager {
   /**
    * Set default bucket for operations
    * @param {string} bucket - Default bucket name
+   * @returns {void}
+   * @throws {Error} If bucket name is invalid
    */
   setDefaultBucket = (bucket) => {
     this.defaultBucket = this._validateBucketName(bucket);
@@ -194,6 +284,27 @@ class S3Manager {
    * @param {string} [params.contentType] - MIME type
    * @param {string} [params.acl] - Access control list
    * @returns {Promise<Object>} Upload result with location and metadata
+   * @throws {Error} If upload fails
+   *
+   * @example
+   * // Basic upload
+   * const result = await s3Manager.uploadFile({
+   *   key: 'path/to/file.txt',
+   *   body: fileBuffer,
+   *   contentType: 'text/plain'
+   * });
+   *
+   * @example
+   * // Upload with custom metadata and ACL
+   * const result = await s3Manager.uploadFile({
+   *   bucket: 'my-bucket',
+   *   key: 'path/to/file.txt',
+   *   body: fileStream,
+   *   metadata: { owner: 'user123' },
+   *   acl: 'public-read'
+   * });
+   *
+   * @complexity Time: O(n), Space: O(1) (streaming) / O(n) (buffered)
    */
   uploadFile = async ({ bucket, key, body, metadata = {}, contentType, acl }) => {
     try {
@@ -238,6 +349,8 @@ class S3Manager {
   /**
    * Multipart upload for large files with progress tracking
    * @private
+   * @param {Object} params - Upload parameters
+   * @returns {Promise<Object>} Upload result
    */
   _multipartUpload = async (params) => {
     const upload = new Upload({
@@ -277,6 +390,24 @@ class S3Manager {
    * @param {boolean} [params.asBuffer=false] - Return as Buffer instead of stream
    * @param {string} [params.range] - Byte range (e.g., "bytes=0-1023")
    * @returns {Promise<Object>} Download result with stream/buffer and metadata
+   * @throws {Error} If download fails or file not found
+   *
+   * @example
+   * // Download as stream
+   * const result = await s3Manager.downloadFile({
+   *   key: 'path/to/file.txt'
+   * });
+   *
+   * @example
+   * // Download specific range as buffer
+   * const result = await s3Manager.downloadFile({
+   *   bucket: 'my-bucket',
+   *   key: 'path/to/large-file.zip',
+   *   asBuffer: true,
+   *   range: 'bytes=0-102399' // First 100KB
+   * });
+   *
+   * @complexity Time: O(n), Space: O(1) (streaming) / O(n) (buffered)
    */
   downloadFile = async ({ bucket, key, asBuffer = false, range }) => {
     try {
@@ -320,6 +451,14 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {string} params.key - Object key/path
    * @returns {Promise<Object>} File metadata
+   * @throws {Error} If metadata retrieval fails
+   *
+   * @example
+   * const metadata = await s3Manager.getFileMetadata({
+   *   key: 'path/to/file.txt'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   getFileMetadata = async ({ bucket, key }) => {
     try {
@@ -359,6 +498,14 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {string} params.key - Object key/path
    * @returns {Promise<Object>} Deletion result
+   * @throws {Error} If deletion fails
+   *
+   * @example
+   * await s3Manager.deleteFile({
+   *   key: 'path/to/file.txt'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   deleteFile = async ({ bucket, key }) => {
     try {
@@ -388,6 +535,14 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {Array<string>} params.keys - Array of object keys
    * @returns {Promise<Object>} Batch deletion result
+   * @throws {Error} If batch deletion fails
+   *
+   * @example
+   * const result = await s3Manager.deleteFiles({
+   *   keys: ['file1.txt', 'file2.txt', 'file3.txt']
+   * });
+   *
+   * @complexity Time: O(n), Space: O(1)
    */
   deleteFiles = async ({ bucket, keys }) => {
     try {
@@ -439,6 +594,29 @@ class S3Manager {
    * @param {number} [params.maxKeys] - Maximum number of keys to return
    * @param {string} [params.continuationToken] - Token for pagination
    * @returns {Promise<Object>} List result with objects and pagination info
+   * @throws {Error} If listing fails
+   *
+   * @example
+   * // List first 100 files in a directory
+   * const result = await s3Manager.listFiles({
+   *   prefix: 'path/to/directory/',
+   *   delimiter: '/'
+   * });
+   *
+   * @example
+   * // Paginate through results
+   * let continuationToken = null;
+   * do {
+   *   const result = await s3Manager.listFiles({
+   *     prefix: 'large-directory/',
+   *     maxKeys: 1000,
+   *     continuationToken
+   *   });
+   *   continuationToken = result.nextContinuationToken;
+   *   // Process result.objects
+   * } while (continuationToken);
+   *
+   * @complexity Time: O(n), Space: O(n)
    */
   listFiles = async ({
     bucket,
@@ -490,6 +668,14 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {string} [params.prefix] - Object key prefix filter
    * @returns {Promise<Array>} All objects in bucket/prefix
+   * @throws {Error} If listing fails
+   *
+   * @example
+   * const allFiles = await s3Manager.listAllFiles({
+   *   prefix: 'path/to/directory/'
+   * });
+   *
+   * @complexity Time: O(n), Space: O(n)
    */
   listAllFiles = async ({ bucket, prefix = '' }) => {
     const allObjects = [];
@@ -522,6 +708,26 @@ class S3Manager {
    * @param {string} params.destinationKey - Destination object key
    * @param {Object} [params.metadata] - New metadata (optional)
    * @returns {Promise<Object>} Copy result
+   * @throws {Error} If copy operation fails
+   *
+   * @example
+   * // Copy within same bucket
+   * await s3Manager.copyFile({
+   *   sourceKey: 'original.txt',
+   *   destinationKey: 'copy.txt'
+   * });
+   *
+   * @example
+   * // Copy between buckets with new metadata
+   * await s3Manager.copyFile({
+   *   sourceBucket: 'source-bucket',
+   *   sourceKey: 'file.txt',
+   *   destinationBucket: 'destination-bucket',
+   *   destinationKey: 'new-file.txt',
+   *   metadata: { copied: 'true' }
+   * });
+   *
+   * @complexity Time: O(n), Space: O(1)
    */
   copyFile = async ({ sourceBucket, sourceKey, destinationBucket, destinationKey, metadata }) => {
     try {
@@ -562,6 +768,15 @@ class S3Manager {
    * Move file (copy + delete source)
    * @param {Object} params - Move parameters (same as copy)
    * @returns {Promise<Object>} Move result
+   * @throws {Error} If move operation fails
+   *
+   * @example
+   * await s3Manager.moveFile({
+   *   sourceKey: 'old-location/file.txt',
+   *   destinationKey: 'new-location/file.txt'
+   * });
+   *
+   * @complexity Time: O(n), Space: O(1)
    */
   moveFile = async (params) => {
     try {
@@ -597,6 +812,16 @@ class S3Manager {
    * @param {number} [params.expiresIn] - URL expiration in seconds
    * @param {string} [params.contentType] - Expected content type
    * @returns {Promise<Object>} Pre-signed URL and metadata
+   * @throws {Error} If URL generation fails
+   *
+   * @example
+   * const urlInfo = await s3Manager.getUploadUrl({
+   *   key: 'user-uploads/file.txt',
+   *   expiresIn: 3600, // 1 hour
+   *   contentType: 'text/plain'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   getUploadUrl = async ({ bucket, key, expiresIn = S3_CONFIG.DEFAULT_EXPIRATION, contentType }) => {
     try {
@@ -633,6 +858,16 @@ class S3Manager {
    * @param {number} [params.expiresIn] - URL expiration in seconds
    * @param {string} [params.responseContentDisposition] - Content disposition header
    * @returns {Promise<Object>} Pre-signed URL and metadata
+   * @throws {Error} If URL generation fails
+   *
+   * @example
+   * const urlInfo = await s3Manager.getDownloadUrl({
+   *   key: 'reports/q3-report.pdf',
+   *   expiresIn: 1800, // 30 minutes
+   *   responseContentDisposition: 'attachment; filename="report.pdf"'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   getDownloadUrl = async ({ bucket, key, expiresIn = S3_CONFIG.DEFAULT_EXPIRATION, responseContentDisposition }) => {
     try {
@@ -671,6 +906,13 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {string} params.key - Object key/path
    * @returns {Promise<boolean>} True if file exists
+   *
+   * @example
+   * const exists = await s3Manager.fileExists({
+   *   key: 'path/to/file.txt'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   fileExists = async ({ bucket, key }) => {
     try {
@@ -688,6 +930,14 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {string} params.key - Object key/path
    * @returns {Promise<number>} File size in bytes
+   * @throws {Error} If file not found
+   *
+   * @example
+   * const size = await s3Manager.getFileSize({
+   *   key: 'large-file.zip'
+   * });
+   *
+   * @complexity Time: O(1), Space: O(1)
    */
   getFileSize = async ({ bucket, key }) => {
     const metadata = await this.getFileMetadata({ bucket, key });
@@ -703,6 +953,9 @@ class S3Manager {
    * @param {string} [params.bucket] - S3 bucket name (uses default if not provided)
    * @param {number} [params.olderThanDays=7] - Delete uploads older than X days
    * @returns {Promise<Object>} Cleanup result
+   *
+   * @complexity Time: O(n), Space: O(1)
+   * @todo Implement multipart upload cleanup functionality
    */
   cleanupMultipartUploads = async () => {
     // Implementation would require ListMultipartUploads and AbortMultipartUpload
