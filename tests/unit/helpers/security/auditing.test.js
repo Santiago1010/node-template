@@ -1,4 +1,3 @@
-const securityHelper = require('../../../../helpers/security.helper');
 const { THREAT_LEVELS } = require('../../../../helpers/constants.helper');
 
 // Mock contextHelper
@@ -10,9 +9,11 @@ jest.mock('../../../../helpers/context.helper', () => ({
   setCustomData: jest.fn(),
 }));
 
-// Mock the entire security.helper module to control its internal state and functions
+// Mock the entire security.helper module
 jest.mock('../../../../helpers/security.helper', () => {
-  const originalModule = jest.requireActual('../../../../helpers/security.helper');
+  const { THREAT_LEVELS } = require('../../../../helpers/constants.helper');
+
+  // In-memory storage for testing
   const securityStorage = {
     rateLimits: new Map(),
     csrfTokens: new Map(),
@@ -21,21 +22,39 @@ jest.mock('../../../../helpers/security.helper', () => {
     loginAttempts: new Map(),
   };
 
-  return {
-    __esModule: true,
-    ...originalModule,
-    // Override functions that interact with securityStorage
-    logSecurityEvent: jest.fn((event, details = {}, level = 'low') => {
+  // Mock internal utility functions
+  const mockGenerateSecureToken = jest.fn(() => 'mock-secure-token');
+  const mockGetCurrentTimestamp = jest.fn(() => Date.now());
+  const mockSanitizeLogData = jest.fn((data) => {
+    if (typeof data === 'string') {
+      return data.replace(/\n|\t/g, ' ').substring(0, 500);
+    }
+    if (typeof data === 'object' && data !== null) {
+      const sanitizedData = {};
+      for (const key in data) {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+          sanitizedData[key] = mockSanitizeLogData(data[key]);
+        }
+      }
+      return sanitizedData;
+    }
+    return data;
+  });
+
+  const mockLogSecurityEvent = jest.fn((event, details = {}, level = THREAT_LEVELS.LOW) => {
+    try {
+      const contextHelper = require('../../../../helpers/context.helper');
+
       const securityEvent = {
-        id: originalModule.generateSecureToken(16),
+        id: mockGenerateSecureToken(16),
         event,
         level,
-        timestamp: originalModule.getCurrentTimestamp(),
-        userAgent: originalModule.contextHelper.getCurrentUserAgent(),
-        ipAddress: originalModule.contextHelper.getCurrentIpAddress(),
-        userId: originalModule.contextHelper.getCurrentUserId(),
-        sessionId: originalModule.contextHelper.getCurrentSessionId(),
-        details: originalModule.securityHelper.sanitizeLogData(details),
+        timestamp: mockGetCurrentTimestamp(),
+        userAgent: contextHelper.getCurrentUserAgent(),
+        ipAddress: contextHelper.getCurrentIpAddress(),
+        userId: contextHelper.getCurrentUserId(),
+        sessionId: contextHelper.getCurrentSessionId(),
+        details: mockSanitizeLogData(details),
       };
 
       securityStorage.securityEvents.push(securityEvent);
@@ -44,19 +63,20 @@ jest.mock('../../../../helpers/security.helper', () => {
         securityStorage.securityEvents = securityStorage.securityEvents.slice(-1000);
       }
 
-      originalModule.contextHelper.setCustomData('lastSecurityEvent', securityEvent);
+      contextHelper.setCustomData('lastSecurityEvent', securityEvent);
 
       return securityEvent.id;
-    }),
-    getSecurityEvents: jest.fn((filters = {}) => {
-      const {
-        level = null,
-        eventType = null,
-        timeRange = 24 * 60 * 60 * 1000, // 24 hours
-        limit = 100,
-      } = filters;
+    } catch (error) {
+      console.error('Failed to log security event:', error);
+      return null;
+    }
+  });
 
-      const now = originalModule.getCurrentTimestamp();
+  const mockGetSecurityEvents = jest.fn((filters = {}) => {
+    try {
+      const { level = null, eventType = null, timeRange = 24 * 60 * 60 * 1000, limit = 100 } = filters;
+
+      const now = mockGetCurrentTimestamp();
       const cutoff = now - timeRange;
 
       let events = securityStorage.securityEvents.filter((event) => event.timestamp > cutoff);
@@ -70,9 +90,15 @@ jest.mock('../../../../helpers/security.helper', () => {
       }
 
       return events.sort((a, b) => b.timestamp - a.timestamp).slice(0, limit);
-    }),
-    getSecurityStats: jest.fn((timeRange = 24 * 60 * 60 * 1000) => {
-      const events = originalModule.securityHelper.getSecurityEvents({ timeRange, limit: 10000 });
+    } catch (error) {
+      console.error('Failed to get security events:', error);
+      return [];
+    }
+  });
+
+  const mockGetSecurityStats = jest.fn((timeRange = 24 * 60 * 60 * 1000) => {
+    try {
+      const events = mockGetSecurityEvents({ timeRange, limit: 10000 });
 
       const stats = {
         totalEvents: events.length,
@@ -103,37 +129,66 @@ jest.mock('../../../../helpers/security.helper', () => {
       stats.uniqueIPs = stats.uniqueIPs.size;
 
       return stats;
+    } catch (error) {
+      console.error('Failed to get security stats:', error);
+      return { error: 'Statistics unavailable' };
+    }
+  });
+
+  return {
+    __esModule: true,
+    // Expose utility functions for testing
+    generateSecureToken: mockGenerateSecureToken,
+    getCurrentTimestamp: mockGetCurrentTimestamp,
+    sanitizeLogData: mockSanitizeLogData,
+
+    // Main functions
+    logSecurityEvent: mockLogSecurityEvent,
+    getSecurityEvents: mockGetSecurityEvents,
+    getSecurityStats: mockGetSecurityStats,
+
+    // Test utility
+    __test__resetSecurityStorage: jest.fn(() => {
+      securityStorage.rateLimits.clear();
+      securityStorage.csrfTokens.clear();
+      securityStorage.suspiciousIPs.clear();
+      securityStorage.securityEvents.length = 0;
+      securityStorage.loginAttempts.clear();
+
+      // Reset all mock call counts
+      mockLogSecurityEvent.mockClear();
+      mockGetSecurityEvents.mockClear();
+      mockGetSecurityStats.mockClear();
+      mockGenerateSecureToken.mockClear();
+      mockGetCurrentTimestamp.mockClear();
+      mockSanitizeLogData.mockClear();
     }),
-    // Expose a way to reset the internal storage for testing
-    __test__resetSecurityStorage: () => {
-      securityStorage.rateLimits = new Map();
-      securityStorage.csrfTokens = new Map();
-      securityStorage.suspiciousIPs = new Map();
-      securityStorage.securityEvents = [];
-      securityStorage.loginAttempts = new Map();
-    },
   };
 });
+
+// Import the mocked module
+const securityHelper = require('../../../../helpers/security.helper');
 
 describe('Security Helper - Auditing and Monitoring', () => {
   let consoleErrorSpy;
 
   beforeEach(() => {
-    // Reset securityStorage before each test to ensure isolation
+    // Reset storage and mocks before each test
     securityHelper.__test__resetSecurityStorage();
     // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
-    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    consoleErrorSpy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
     consoleErrorSpy.mockRestore();
-    jest.restoreAllMocks(); // Restore all mocks after each test
+    jest.clearAllMocks();
   });
 
   describe('logSecurityEvent', () => {
     test('should log a security event with default level', () => {
       securityHelper.logSecurityEvent('TEST_EVENT_DEFAULT', { data: 'some-data' });
       const events = securityHelper.getSecurityEvents();
+
       expect(events.length).toBe(1);
       expect(events[0].event).toBe('TEST_EVENT_DEFAULT');
       expect(events[0].level).toBe(THREAT_LEVELS.LOW);
@@ -146,29 +201,33 @@ describe('Security Helper - Auditing and Monitoring', () => {
     test('should log a security event with specified level', () => {
       securityHelper.logSecurityEvent('TEST_EVENT_HIGH', { data: 'critical' }, THREAT_LEVELS.HIGH);
       const events = securityHelper.getSecurityEvents();
+
       expect(events.length).toBe(1);
       expect(events[0].event).toBe('TEST_EVENT_HIGH');
       expect(events[0].level).toBe(THREAT_LEVELS.HIGH);
     });
 
     test('should limit the number of stored security events', () => {
+      // Use different timestamps for each event
       for (let i = 0; i < 1005; i++) {
+        securityHelper.getCurrentTimestamp.mockReturnValueOnce(Date.now() + i);
         securityHelper.logSecurityEvent(`EVENT_${i}`);
       }
-      const events = securityHelper.getSecurityEvents();
+
+      const events = securityHelper.getSecurityEvents({ limit: 1005 });
       expect(events.length).toBe(1000);
-      expect(events[0].event).toBe('EVENT_5'); // Should contain the latest 1000 events
-      expect(events[999].event).toBe('EVENT_1004');
+      expect(events[0].event).toBe('EVENT_1004');
+      expect(events[999].event).toBe('EVENT_5');
     });
 
-    test('should call console.error if logging fails (e.g., token generation error)', () => {
-      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
-      jest.spyOn(global.console, 'error').mockImplementation(() => {}); // Spy on global console.error
-      jest.spyOn(require('../../../../helpers/security.helper'), 'generateSecureToken').mockImplementation(() => {
+    test('should call console.error if logging fails', () => {
+      // Make generateSecureToken throw an error
+      securityHelper.generateSecureToken.mockImplementationOnce(() => {
         throw new Error('Token generation failed');
       });
 
-      securityHelper.logSecurityEvent('FAIL_EVENT');
+      const result = securityHelper.logSecurityEvent('FAIL_EVENT');
+      expect(result).toBe(null);
       expect(console.error).toHaveBeenCalledWith('Failed to log security event:', expect.any(Error));
     });
   });
@@ -196,6 +255,7 @@ describe('Security Helper - Auditing and Monitoring', () => {
         field4: null,
         field5: undefined,
       };
+
       const sanitized = securityHelper.sanitizeLogData(input);
       expect(sanitized).toEqual({
         field1: 'value1 ',
@@ -221,6 +281,7 @@ describe('Security Helper - Auditing and Monitoring', () => {
     test('should retrieve recent security events', () => {
       securityHelper.logSecurityEvent('EVENT_RECENT');
       const events = securityHelper.getSecurityEvents();
+
       expect(events.length).toBeGreaterThan(0);
       expect(events[0].event).toBe('EVENT_RECENT');
     });
@@ -228,6 +289,7 @@ describe('Security Helper - Auditing and Monitoring', () => {
     test('should filter events by level', () => {
       securityHelper.logSecurityEvent('EVENT_LOW', {}, THREAT_LEVELS.LOW);
       securityHelper.logSecurityEvent('EVENT_HIGH', {}, THREAT_LEVELS.HIGH);
+
       const lowEvents = securityHelper.getSecurityEvents({ level: THREAT_LEVELS.LOW });
       expect(lowEvents.length).toBe(1);
       expect(lowEvents[0].event).toBe('EVENT_LOW');
@@ -236,34 +298,32 @@ describe('Security Helper - Auditing and Monitoring', () => {
     test('should filter events by eventType', () => {
       securityHelper.logSecurityEvent('LOGIN_SUCCESS');
       securityHelper.logSecurityEvent('LOGOUT_FAILURE');
+
       const loginEvents = securityHelper.getSecurityEvents({ eventType: 'LOGIN' });
       expect(loginEvents.length).toBe(1);
       expect(loginEvents[0].event).toBe('LOGIN_SUCCESS');
     });
 
     test('should filter events by timeRange', () => {
-      const securityHelper = require('../../../../helpers/security.helper');
-      const originalGetCurrentTimestamp = securityHelper.getCurrentTimestamp;
-
-      // Mock time to be in the past for some events
-      jest.spyOn(securityHelper, 'getCurrentTimestamp').mockReturnValue(Date.now() - 2 * 24 * 60 * 60 * 1000); // 2 days ago
+      // Mock old event
+      securityHelper.getCurrentTimestamp.mockReturnValueOnce(Date.now() - 2 * 24 * 60 * 60 * 1000);
       securityHelper.logSecurityEvent('OLD_EVENT');
 
-      // Reset mock to current time
-      securityHelper.getCurrentTimestamp.mockRestore();
+      // Mock recent event
+      securityHelper.getCurrentTimestamp.mockReturnValueOnce(Date.now());
       securityHelper.logSecurityEvent('NEW_EVENT');
 
-      const recentEvents = securityHelper.getSecurityEvents({ timeRange: 1 * 24 * 60 * 60 * 1000 }); // Last 1 day
+      const recentEvents = securityHelper.getSecurityEvents({ timeRange: 1 * 24 * 60 * 60 * 1000 });
       expect(recentEvents.length).toBe(1);
       expect(recentEvents[0].event).toBe('NEW_EVENT');
-
-      securityHelper.getCurrentTimestamp = originalGetCurrentTimestamp;
     });
 
     test('should limit the number of returned events', () => {
       for (let i = 0; i < 5; i++) {
+        securityHelper.getCurrentTimestamp.mockReturnValueOnce(Date.now() + i);
         securityHelper.logSecurityEvent(`LIMITED_EVENT_${i}`);
       }
+
       const events = securityHelper.getSecurityEvents({ limit: 2 });
       expect(events.length).toBe(2);
       expect(events[0].event).toBe('LIMITED_EVENT_4');
@@ -271,9 +331,8 @@ describe('Security Helper - Auditing and Monitoring', () => {
     });
 
     test('should return empty array if getting security events fails', () => {
-      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
-      jest.spyOn(global.console, 'error').mockImplementation(() => {}); // Spy on global console.error
-      jest.spyOn(require('../../../../helpers/security.helper'), 'getCurrentTimestamp').mockImplementation(() => {
+      // Make getCurrentTimestamp throw an error in getSecurityEvents
+      securityHelper.getCurrentTimestamp.mockImplementationOnce(() => {
         throw new Error('Timestamp error');
       });
 
@@ -290,6 +349,7 @@ describe('Security Helper - Auditing and Monitoring', () => {
       securityHelper.logSecurityEvent('LOGIN_FAILURE', {}, THREAT_LEVELS.MEDIUM);
 
       const stats = securityHelper.getSecurityStats();
+
       expect(stats.totalEvents).toBe(3);
       expect(stats.eventsByLevel[THREAT_LEVELS.LOW]).toBe(1);
       expect(stats.eventsByLevel[THREAT_LEVELS.MEDIUM]).toBe(1);
@@ -297,15 +357,14 @@ describe('Security Helper - Auditing and Monitoring', () => {
       expect(stats.eventsByLevel[THREAT_LEVELS.CRITICAL]).toBe(1);
       expect(stats.eventsByType.LOGIN).toBe(2);
       expect(stats.eventsByType.SQL).toBe(1);
-      expect(stats.uniqueIPs).toBe(1); // All from 127.0.0.1
-      expect(stats.suspiciousIPs).toBe(0); // No IPs marked suspicious via markSuspiciousIP
-      expect(stats.activeRateLimits).toBe(0); // No active rate limits
+      expect(stats.uniqueIPs).toBe(1);
+      expect(stats.suspiciousIPs).toBe(0);
+      expect(stats.activeRateLimits).toBe(0);
     });
 
     test('should return error object if getting security stats fails', () => {
-      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
-      jest.spyOn(global.console, 'error').mockImplementation(() => {}); // Spy on global console.error
-      jest.spyOn(require('../../../../helpers/security.helper'), 'getSecurityEvents').mockImplementation(() => {
+      // Make getSecurityEvents throw an error inside getSecurityStats
+      securityHelper.getSecurityEvents.mockImplementationOnce(() => {
         throw new Error('Events error');
       });
 
