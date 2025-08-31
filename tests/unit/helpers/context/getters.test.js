@@ -73,6 +73,16 @@ describe('Context Data Getters', () => {
       asyncLocalStorage.getStore.mockReturnValue(undefined);
       expect(contextHelper.getContextValue(CONTEXT_KEYS.USER_ID, 'default')).toBe('default');
     });
+
+    it('should throw an error if getStore fails', () => {
+      const error = new Error('Store error');
+      asyncLocalStorage.getStore.mockImplementation(() => {
+        throw error;
+      });
+      expect(() => contextHelper.getContextValue(CONTEXT_KEYS.USER_ID)).toThrow(
+        "Failed to get context value for key 'userId': Store error"
+      );
+    });
   });
 
   describe('getContextValues', () => {
@@ -92,6 +102,16 @@ describe('Context Data Getters', () => {
     it('should return an empty object if the context does not exist', () => {
       asyncLocalStorage.getStore.mockReturnValue(undefined);
       expect(contextHelper.getContextValues([CONTEXT_KEYS.USER_ID])).toEqual({});
+    });
+
+    it('should throw an error if getStore fails', () => {
+      const error = new Error('Store error');
+      asyncLocalStorage.getStore.mockImplementation(() => {
+        throw error;
+      });
+      expect(() => contextHelper.getContextValues([CONTEXT_KEYS.USER_ID])).toThrow(
+        'Failed to get context values: Store error'
+      );
     });
   });
 

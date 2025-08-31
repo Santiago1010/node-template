@@ -4,6 +4,8 @@
 ├── babel.config.js
 ├── biome.json
 ├── CHANGELOG.md
+├── .claude
+│   └── system_prompt.md
 ├── .commitlintrc.js
 ├── config
 │   ├── cache
@@ -43,6 +45,7 @@
 ├── .editorconfig
 ├── .env
 ├── .env.example
+├── GEMINI.md
 ├── .gitattributes
 ├── .gitconfig
 ├── .github
@@ -133,55 +136,81 @@
 │       ├── model.template.js
 │       └── setupModel.template.js
 ├── tests
-│   ├── e2e
 │   ├── env-setup.js
+│   ├── integration
 │   ├── setup.js
 │   └── unit
-│       └── helpers
-│           ├── cache
-│           │   └── cache.test.js
-│           ├── constants
-│           ├── context
-│           │   ├── core.test.js
-│           │   ├── custom-data.test.js
-│           │   ├── debugging-validation.test.js
-│           │   ├── getters.test.js
-│           │   ├── permissions-roles.test.js
-│           │   └── setters.test.js
-│           ├── debug
-│           ├── encrypt
-│           │   ├── aes.test.js
-│           │   ├── hashing.test.js
-│           │   ├── hybrid.test.js
-│           │   ├── password.test.js
-│           │   ├── rsa.test.js
-│           │   └── utilities.test.js
-│           ├── numbers
-│           │   ├── basic-math.test.js
-│           │   ├── formatting-convertion.test.js
-│           │   ├── percentage.test.js
-│           │   ├── random.test.js
-│           │   ├── rounding-precision.test.js
-│           │   ├── sanitization.test.js
-│           │   ├── utilities.test.js
-│           │   └── validation.test.js
-│           ├── performance
-│           ├── security
-│           ├── strings
-│           │   ├── advanced-processing.test.js
-│           │   ├── basic-operations.test.js
-│           │   ├── case-conversion.test.js
-│           │   ├── formatting.test.js
-│           │   ├── utility.test.js
-│           │   └── validation.test.js
-│           └── utilities
-│               ├── array.test.js
-│               ├── functional.test.js
-│               ├── general.test.js
-│               ├── object.test.js
-│               └── validation.test.js
+│       ├── helpers
+│       │   ├── cache
+│       │   │   └── cache.test.js
+│       │   ├── constants
+│       │   ├── context
+│       │   │   ├── core.test.js
+│       │   │   ├── custom-data.test.js
+│       │   │   ├── debugging-validation.test.js
+│       │   │   ├── getters.test.js
+│       │   │   ├── permissions-roles.test.js
+│       │   │   └── setters.test.js
+│       │   ├── crud
+│       │   │   ├── database.test.js
+│       │   │   ├── filesystem.test.js
+│       │   │   └── templating.test.js
+│       │   ├── debug
+│       │   │   ├── conditional-logging.test.js
+│       │   │   ├── core.test.js
+│       │   │   └── permanent-logging.test.js
+│       │   ├── docs
+│       │   │   └── docs.test.js
+│       │   ├── encrypt
+│       │   │   ├── aes.test.js
+│       │   │   ├── hashing.test.js
+│       │   │   ├── hybrid.test.js
+│       │   │   ├── password.test.js
+│       │   │   ├── rsa.test.js
+│       │   │   └── utilities.test.js
+│       │   ├── numbers
+│       │   │   ├── basic-math.test.js
+│       │   │   ├── formatting-convertion.test.js
+│       │   │   ├── percentage.test.js
+│       │   │   ├── random.test.js
+│       │   │   ├── rounding-precision.test.js
+│       │   │   ├── sanitization.test.js
+│       │   │   ├── utilities.test.js
+│       │   │   └── validation.test.js
+│       │   ├── performance
+│       │   │   ├── logging.test.js
+│       │   │   ├── monitoring.test.js
+│       │   │   ├── optimization.test.js
+│       │   │   ├── timing.test.js
+│       │   │   └── tracking.test.js
+│       │   ├── security
+│       │   │   ├── auditing.test.js
+│       │   │   ├── csrf.test.js
+│       │   │   ├── input-validation.test.js
+│       │   │   ├── ip-security.test.js
+│       │   │   ├── jwt.test.js
+│       │   │   ├── login-security.test.js
+│       │   │   ├── maintenance.test.js
+│       │   │   ├── password.test.js
+│       │   │   ├── rate-limiting.test.js
+│       │   │   ├── session.test.js
+│       │   │   └── utilities.test.js
+│       │   ├── strings
+│       │   │   ├── advanced-processing.test.js
+│       │   │   ├── basic-operations.test.js
+│       │   │   ├── case-conversion.test.js
+│       │   │   ├── formatting.test.js
+│       │   │   ├── utility.test.js
+│       │   │   └── validation.test.js
+│       │   └── utilities
+│       │       ├── array.test.js
+│       │       ├── functional.test.js
+│       │       ├── general.test.js
+│       │       ├── object.test.js
+│       │       └── validation.test.js
+│       └── middlewares
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-63 directories, 122 files
+67 directories, 147 files
