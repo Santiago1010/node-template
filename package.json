@@ -52,7 +52,7 @@
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
     "start": "node index.js",
-    "test": "jest --passWithNoTests",
+    "test": "NODE_ENV=test jest --passWithNoTests",
     "test:unit": "jest tests/unit --passWithNoTests",
     "test:e2e": "jest tests/e2e --passWithNoTests",
     "test:watch": "jest --watch",

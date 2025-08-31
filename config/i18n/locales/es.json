@@ -27,6 +27,7 @@
     }
   },
   "error": {
-    "internal_server": "error.internal_server"
+    "internal_server": "error.internal_server",
+    "invalid_token": "error.invalid_token"
   }
 }

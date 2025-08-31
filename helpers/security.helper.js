@@ -16,6 +16,7 @@ const url = require('url');
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const bcrypt = require('bcrypt');
+const Boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
@@ -1420,7 +1421,7 @@ const createJWT = (payload, secret, options = {}) => {
       encoding: 'utf8',
     };
 
-    const finalOptions = { ...defaultOptions, ...options };
+    const finalOptions = { ...JSON.parse(JSON.stringify(defaultOptions)), ...JSON.parse(JSON.stringify(options)) };
 
     return jwt.sign(payload, secret, finalOptions);
   } catch (error) {
@@ -1428,7 +1429,19 @@ const createJWT = (payload, secret, options = {}) => {
   }
 };
 
-const verifyJWT = (token, secret, options = {}) => {
+/**
+ * Verifies the given JWT token against the given secret and options.
+ *
+ * @param {string} token - JWT token to verify.
+ * @param {string} secret - Secret used for signing.
+ * @param {Object} [options] - Additional options for the verification.
+ * @param {number} [customHttpError=401] - Custom HTTP status code for errors.
+ *
+ * @returns {Object} The decoded payload of the JWT token.
+ *
+ * @throws {Boom} If the token verification fails with a specific error.
+ */
+const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
   try {
     const defaultOptions = {
       algorithms: [config.jwt.algorithm],
@@ -1439,18 +1452,42 @@ const verifyJWT = (token, secret, options = {}) => {
 
     return jwt.verify(token, secret, finalOptions);
   } catch (error) {
-    if (error.name === 'JsonWebTokenError') {
-      throw new Error(i18n.__('error.invalid_token'));
-    } else if (error.name === 'TokenExpiredError') {
-      const tokenError = new Error(i18n.__('error.expired_token'));
-      tokenError.name = 'TokenExpiredError';
-      throw tokenError;
-    } else if (error.name === 'NotBeforeError') {
-      const tokenError = new Error(i18n.__('error.token_not_active'));
-      tokenError.name = 'JsonWebTokenError';
-      throw tokenError;
-    } else {
-      throw new Error(`Failed to verify JWT: ${error.message}`);
+    switch (error.name) {
+      case 'JsonWebTokenError': {
+        const invalidTokenError = Boom.create(customHttpError, i18n.__('error.invalid_token'), {
+          scheme: 'Bearer',
+          errorType: 'invalid_token',
+        });
+        invalidTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
+        throw invalidTokenError;
+      }
+
+      case 'TokenExpiredError': {
+        const expiredTokenError = Boom.create(customHttpError, i18n.__('error.expired_token'), {
+          scheme: 'Bearer',
+          errorType: 'expired_token',
+          expiredAt: error.expiredAt,
+        });
+        expiredTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
+        throw expiredTokenError;
+      }
+
+      case 'NotBeforeError': {
+        const notActiveTokenError = Boom.create(customHttpError, i18n.__('error.token_not_active'), {
+          scheme: 'Bearer',
+          errorType: 'token_not_active',
+          date: error.date,
+        });
+        notActiveTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
+        throw notActiveTokenError;
+      }
+
+      default: {
+        throw Boom.internal(i18n.__('error.token_verification_failed'), {
+          originalError: error.message,
+          errorType: 'verification_failed',
+        });
+      }
     }
   }
 };
