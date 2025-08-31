@@ -321,9 +321,7 @@ const cerror = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each error argument individually
-  if (args.length === 1) {
-    console.error(args[0]);
-  } else if (args.length > 1) {
+  if (args.length > 1) {
     args.forEach((arg) => console.error(arg));
   }
 
@@ -553,9 +551,7 @@ const perror = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each error argument individually
-  if (args.length === 1) {
-    console.error(args[0]);
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.error(arg));
   }
 

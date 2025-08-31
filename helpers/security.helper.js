@@ -1544,8 +1544,18 @@ module.exports = {
   // Utility Functions
   generateSecureToken,
   getCurrentTimestamp,
+  sanitizeLogData,
 
   // JWT Functions
   createJWT,
   verifyJWT,
+
+  // For testing purposes only
+  __test__resetSecurityStorage: () => {
+    securityStorage.rateLimits = new Map();
+    securityStorage.csrfTokens = new Map();
+    securityStorage.suspiciousIPs = new Map();
+    securityStorage.securityEvents = [];
+    securityStorage.loginAttempts = new Map();
+  },
 };
