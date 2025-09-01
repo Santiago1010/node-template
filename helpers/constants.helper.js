@@ -574,10 +574,38 @@ const SENSITIVE_FIELDS = [
   'secret',
 ];
 
+/**
+ * Debug configuration for system behavior in development environments
+ * @constant {Object}
+ * @description Configuration parameters for debug operations, including
+ *              timeouts, data limits, and development modes
+ * @property {number} DEBUG_TIMEOUT_MINUTES - Maximum time in minutes for debug operations before timeout
+ * @property {number} DEFAULT_LINE_LENGTH - Default length in characters for line truncation in logs
+ * @property {number} DEVELOPMENT_MODE_VALUE - Verbosity level for development mode (0=silent, 1=normal, 2=verbose)
+ */
 const DEBUG_SETTINGS = {
   DEBUG_TIMEOUT_MINUTES: 1,
-  DEFAULT_LINE_LENGTH: 10,
+  DEFAULT_LINE_LENGTH: 150,
   DEVELOPMENT_MODE_VALUE: 2,
+};
+
+/**
+ * Configuration for Amazon S3 connection and operations
+ * @constant {Object}
+ * @description Configuration parameters for Amazon S3 storage operations,
+ *              including expiration, retries, and limits for multipart operations
+ * @property {number} DEFAULT_EXPIRATION - Default time in seconds for signed URL expiration
+ * @property {number} MAX_RETRIES - Maximum number of retry attempts for failed operations
+ * @property {number} MULTIPART_THRESHOLD - File size threshold in bytes for triggering multipart uploads (100 MB)
+ * @property {number} PART_SIZE - Part size in bytes for multipart uploads (10 MB)
+ * @property {number} MAX_KEYS_PER_REQUEST - Maximum number of object keys returned in a list operation
+ */
+const S3_CONFIG = {
+  DEFAULT_EXPIRATION: 3600,
+  MAX_RETRIES: 3,
+  MULTIPART_THRESHOLD: 100 * 1024 * 1024,
+  PART_SIZE: 10 * 1024 * 1024,
+  MAX_KEYS_PER_REQUEST: 1000,
 };
 
 // =============================================================================
@@ -606,4 +634,5 @@ module.exports = {
   LOG_COLORS,
   SENSITIVE_FIELDS,
   DEBUG_SETTINGS,
+  S3_CONFIG,
 };

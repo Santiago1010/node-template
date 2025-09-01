@@ -403,7 +403,7 @@ class CacheHelper {
         return await fetchFunction();
       } catch (fetchError) {
         console.error(`Fetch function error for key "${key}":`, fetchError);
-        throw fetchError;
+        return null;
       }
     }
   }

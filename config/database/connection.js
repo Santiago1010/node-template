@@ -235,7 +235,7 @@ sequelize
 
 // Graceful shutdown handlers
 process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM received, closing database connection...');
+  if (!isDevelopmentMode(true)) console.log('🛑 SIGTERM received, closing database connection...');
   sequelize.close().then(() => {
     console.log('✅ Database connection closed gracefully');
     process.exit(0);

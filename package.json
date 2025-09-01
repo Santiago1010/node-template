@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "",
   "keywords": [
     "template",
@@ -52,11 +52,10 @@
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
     "start": "node index.js",
-    "test": "jest --passWithNoTests",
+    "test": "NODE_ENV=test jest --passWithNoTests",
     "test:unit": "jest tests/unit --passWithNoTests",
-    "test:e2e": "jest tests/e2e --passWithNoTests",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "NODE_ENV=test jest --coverage",
     "test:verbose": "jest --verbose",
     "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
     "models:generate": "node ./scripts/createModels.script.js",

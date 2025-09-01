@@ -1,5 +1,67 @@
 
 
+## [1.5.0] - 2025-09-01
+
+**Released:** 2025-09-01 23:30:26 UTC
+
+### [AWS S3 Helper Enhancement and Test Coverage Expansion](https://github.com/Santiago1010/node-template/pull/36)
+
+#### 📋 Summary
+This PR introduces a comprehensive AWS S3 operations manager with enterprise-grade features, significantly expands test coverage across multiple helper modules, and improves error handling and documentation throughout the codebase.
+
+#### 🔍 What Changed
+### Added
+- AWS S3 Manager class with comprehensive file operations (upload, download, delete, copy, move)
+- AI assistant documentation (Claude and Gemini system prompts)
+- Parameter schemas documentation
+- Extensive test suites for security, performance, CRUD, and cache helpers
+- New error translation keys for invalid tokens
+- S3 configuration constants
+
+### Changed
+- Enhanced S3 helper with multipart uploads, presigned URLs, and batch operations
+- Improved error handling in JWT verification with Boom errors
+- Modified i18n configuration to disable auto-reload in test environment
+- Updated cache helper to return null instead of throwing on fetch errors
+- Refactored debug helper output formatting
+- Enhanced parameter schemas with better documentation and validation
+
+### Fixed
+- SIGTERM logging in production environments
+- Error handling in cache operations
+- Security vulnerability in JWT error responses
+- Number formatting error reporting
+
+### Removed
+- Redundant console.error calls in favor of structured logging
+
+#### 📝 Additional Notes
+The S3 helper now supports enterprise-grade features including multipart uploads, presigned URLs, batch operations, and comprehensive error handling. Test coverage has been significantly expanded across security, performance, and utility modules.
+
+**Type of Change:** New Feature, Documentation, Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@leiderp](https://github.com/leiderp)
+- Labels: documentation, enhancement, testing
+- Commits: 10
+
+**Commits:**
+- [`78c92d7`](https://github.com/Santiago1010/node-template/commit/78c92d7b17d85fe79466410ca749f0bd9fac6007) test(security): add comprehensive unit tests for security helper modules
+- [`69cb767`](https://github.com/Santiago1010/node-template/commit/69cb767ad73c3dc15ce99bc3755f5a9354f4e2e0) test(performance): add comprehensive unit tests for performance helper modules
+- [`4d165ae`](https://github.com/Santiago1010/node-template/commit/4d165ae68e93d745c3f07ec9003eeee7b4f71997) test(crud): add comprehensive unit tests for CRUD helper operations
+- [`29e7277`](https://github.com/Santiago1010/node-template/commit/29e727747617df567f41dee508e7ec3a5c4d9de1) docs(api): enhance OpenAPI parameter documentation with comprehensive specifications
+- [`d6de8ba`](https://github.com/Santiago1010/node-template/commit/d6de8ba98d6f8e0c06aa91a88e95f9f916f5e1ba) feat(aws): implement comprehensive S3 manager with enterprise-grade features
+- [`3f92890`](https://github.com/Santiago1010/node-template/commit/3f92890de705ad58dc80098106d7417e162210c5) docs(aws): add comprehensive documentation to S3 helper module
+- [`761fb67`](https://github.com/Santiago1010/node-template/commit/761fb679ef6433e5d0eadfeee809790e1b6df52a) test(security): add comprehensive unit tests for security auditing and utilities
+- [`3cb7df0`](https://github.com/Santiago1010/node-template/commit/3cb7df071e41aea0cdf2ef7059f4758b9547c99d) refactor(test): improve security auditing test mocking implementation
+- [`97a5e28`](https://github.com/Santiago1010/node-template/commit/97a5e28e44586166dd18aea1af0cf7c9d0fcb4a0) fix(cache): handle redis errors gracefully and improve test coverage
+- [`b01395f`](https://github.com/Santiago1010/node-template/commit/b01395f71f100c54a8df76bd082b0be33c1d9886) docs(api): update OpenAPI parameter documentation and structure
+
+---
+
+
+
 ## [1.4.0] - 2025-08-30
 
 **Released:** 2025-08-30 21:13:21 UTC
