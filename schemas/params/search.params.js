@@ -1,83 +1,91 @@
 // =============================================================================
-// API SEARCH PARAMETERS - OpenAPI/Swagger Query Parameter Configuration
+// SWAGGER SEARCH PARAMETERS - OpenAPI Search Parameter Specification
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Defines standardized search parameter configuration for OpenAPI/Swagger documentation
-// - Provides declarative specification for API endpoint query parameters
-// - Enables automatic API documentation generation and client SDK generation
+// - Defines standardized OpenAPI 3.0 parameter for search operations in API endpoints
+// - Provides reusable parameter definition for endpoints supporting text-based search
+// - Ensures consistent search parameter validation and documentation across the API
+// - Expected input: HTTP query parameter 'search' with string value
+// - Expected output: Structured OpenAPI parameter for automatic documentation generation
 //
 // ARCHITECTURAL DECISIONS:
-// - Uses OpenAPI 3.0 parameter specification format for tooling compatibility
-// - Follows RESTful API best practices for search/filter implementation
-// - Decouples parameter definition from implementation logic
+// - Single-purpose module focused exclusively on search parameter definition
+// - Follows OpenAPI Specification 3.0 standard for parameter definition
+// - Uses schema validation to enforce maximum search term length (256 characters)
+// - Designed for integration with Swagger UI and OpenAPI code generation tools
+// - Maintains separation of concerns from pagination and other parameter types
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Alternative: Hardcode parameters in each endpoint documentation
-//   → Rejected due to duplication and maintenance overhead
-// - Alternative: Implement custom parameter validation system
-//   → Rejected to maintain OpenAPI spec compliance and tooling benefits
+// - Alternative 1: Combined parameter module (rejected - reduces modularity)
+// - Alternative 2: Dynamic parameter generation (rejected - over-engineering)
+// - Alternative 3: Inline parameter definitions (rejected - reduces reusability)
+// - Chosen approach provides optimal modularity and reusability for search functionality
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for parameter definition lookup
-// - Space complexity: Minimal constant space for configuration storage
+// - Time complexity: O(1) for parameter definition loading
+// - Space complexity: Minimal static configuration memory usage
+// - No runtime performance impact (compile-time documentation only)
 //
 // SECURITY CONSIDERATIONS:
-// - Parameter implements optional validation through utilities.helper.js
-// - Search input should be sanitized against NoSQL/JS injection attacks
-// - Consider rate limiting search endpoints to prevent exhaustive searches
+// - Input validation enforced through OpenAPI schema constraints (maxLength: 256)
+// - Prevents excessively long search terms that could impact database performance
+// - Search implementation must properly sanitize inputs to prevent injection attacks
+// - No authentication/authorization concerns at parameter definition level
 //
 // USAGE EXAMPLES:
-// - Integrated with OpenAPI documentation generators like swagger-jsdoc
-// - Used by automated testing frameworks for parameter validation
-// - Consumed by API clients for automatic SDK generation
+// - Basic usage in Express route definition:
+//   router.get('/products', async (req, res) => {
+//     const { search } = req.query;
+//     // Implementation using search parameter
+//   });
+//
+// - Swagger/OpenAPI integration:
+//   parameters:
+//     - $ref: '#/components/parameters/searchParameters'
+//
+// - Multiple parameter combination:
+//   parameters:
+//     - $ref: '#/components/parameters/searchParameters'
+//     - $ref: '#/components/parameters/paginationParameters'
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Update description field when search functionality changes
-// - Maintain synchronization with actual validation logic in utilities.helper.js
-// - Verify required status matches actual API requirements
+// - Maximum length constraint must match backend validation rules
+// - Search functionality implementation must align with parameter description
+// - Changes to search helper utility should be reflected in parameter documentation
 //
 // DEPENDENCIES & COMPATIBILITY:
-// - Compatible with OpenAPI 3.0+ specification
-// - Requires accompanying validation logic in @helpers/database/utilities.helper.js
-//
+// - Compatible with OpenAPI Specification 3.0+
+// - References external search utility: @helpers/database/utilities.helper.js
+// - Node.js 12+ required for module syntax
 // =============================================================================
 
 /**
- * OpenAPI Search Parameter Configuration
+ * OpenAPI Search Parameter Specification
+ * @description Standardized parameter definition for text-based search functionality
+ * in API endpoints. Defines a reusable search parameter that can be integrated
+ * into multiple endpoint definitions for consistent search behavior documentation.
  *
- * @description Standardized search parameter definition for API endpoints.
- * Configures a universal search parameter that filters records by matching
- * the specified string across all available fields. The actual search
- * implementation is handled by the search utility in utilities.helper.js.
+ * @type {Array<Object>} OpenAPI parameter object conforming to OpenAPI 3.0 specification
  *
- * @type {Array<Object>} OpenAPI-compliant parameter specification objects
- *
- * @property {string} name - Parameter identifier: 'search'
- * @property {string} in - Parameter location: 'query'
- * @property {string} description - Comprehensive usage documentation
- * @property {Object} schema - Expected data type: {type: 'string'}
- * @property {boolean} required - Parameter requirement status: false
+ * @property {Object} search - Search parameter definition
+ * @property {string} search.name - Parameter name: 'search'
+ * @property {string} search.in - Parameter location: 'query'
+ * @property {string} search.description - Comprehensive usage documentation
+ * @property {Object} search.schema - Parameter validation schema
+ * @property {boolean} search.required - Parameter requirement flag
  *
  * @example
- * // Integration with OpenAPI documentation
- * const express = require('express');
- * const router = express.Router();
+ * // Swagger route configuration using search parameter
+ * app.get('/api/v1/products', {
+ *   parameters: searchParams,
+ *   handler: (req, res) => {
+ *     const { search } = req.query;
+ *     // Implement search functionality
+ *   }
+ * });
  *
- * /**
- *  * @openapi
- *  * /api/endpoint:
- *  *   get:
- *  *     parameters:
- *  *       - $ref: '#/components/parameters/searchParam'
- *  *
- *  *
- *  *
- * @example
- * // Client-side usage
- * fetch('/api/records?search=term');
- *
- * @see {@link module:@helpers/database/utilities.helper.js} for implementation details
  * @since Version 1.0.0
+ * @see {@link module:@helpers/database/utilities.helper.js} for search implementation
  */
 const searchParams = [
   {

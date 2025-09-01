@@ -1,96 +1,85 @@
 // =============================================================================
-// PAGINATION PARAMETERS - OpenAPI/Swagger Specification
+// SWAGGER PAGINATION & SEARCH PARAMETERS - OpenAPI Specification Definitions
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
 // - Defines standardized OpenAPI 3.0 parameters for pagination and search operations
-// - Provides reusable parameter definitions for API endpoints supporting pagination
-// - Ensures consistent pagination behavior across multiple API endpoints
-// - Expected input: HTTP query parameters
-// - Expected output: Structured OpenAPI parameters specification
+// - Provides reusable parameter definitions for API endpoints supporting paginated search
+// - Ensures consistent parameter validation and documentation across API endpoints
+// - Expected input: HTTP query parameters for pagination and search criteria
+// - Expected output: Structured OpenAPI parameters for automatic documentation generation
 //
 // ARCHITECTURAL DECISIONS:
-// - Follows OpenAPI Specification 3.0 for parameter definition
-// - Uses modular design to separate pagination from search parameters
-// - Implements parameter reusability through module composition
-// - Adheres to REST API best practices for pagination (limit/offset pattern)
+// - Modular design allows separation of pagination and search parameters for reusability
+// - Follows OpenAPI Specification 3.0 standard for parameter definition
+// - Uses schema validation to enforce parameter constraints at specification level
+// - Designed for integration with Swagger UI and OpenAPI code generation tools
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Cursor-based pagination: Considered but rejected due to simpler implementation
-//   requirements and compatibility with existing frontend components
-// - Page-number only: Rejected due to lack of flexibility in page sizing
-// - Offset-based without limit: Rejected as it doesn't support page size control
-// - Integrated search/pagination parameters: Rejected in favor of modular separation
+// - Alternative 1: Inline parameter definitions (rejected - reduces reusability)
+// - Alternative 2: Separate files per parameter type (rejected - increases complexity)
+// - Alternative 3: Centralized parameter registry (rejected - over-engineering for current needs)
+// - Chosen approach provides optimal balance between reusability and simplicity
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) - Constant time parameter definition
-// - Space complexity: O(n) - Linear to number of combined parameters
-// - Scalability: Suitable for high-volume APIs with proper indexing
-// - Benchmark: Parameters add negligible overhead to request processing
+// - Time complexity: O(1) for parameter definition loading
+// - Space complexity: Minimal static configuration memory usage
+// - No runtime performance impact (compile-time documentation only)
 //
 // SECURITY CONSIDERATIONS:
-// - Input validation: Must validate integer parameters server-side
-// - SQL injection: Parameters require proper parameterization in queries
-// - Maximum limits: Should enforce reasonable upper bounds for limit parameter
-// - Data exposure: Ensure pagination doesn't expose unauthorized records
+// - Input validation enforced through OpenAPI schema constraints
+// - Maximum page size limit (100) prevents denial-of-service through large queries
+// - No sensitive data exposure through parameters
+// - SQL injection prevention must be implemented at handler level
 //
 // USAGE EXAMPLES:
-// - Basic usage in Express route:
-//   router.get('/users', (req, res) => {
-//     const { limit = 10, page = 1 } = req.query;
-//     // Implement pagination logic
+// - Basic usage in Express route definition:
+//   router.get('/users', async (req, res) => {
+//     const { page = 1, limit = 10, search } = req.query;
+//     // Implementation using parameters
 //   });
 //
-// - OpenAPI integration:
-//   paths:
-//     /users:
-//       get:
-//         parameters:
-//           - $ref: '#/components/parameters/paginationParameters'
+// - Swagger/OpenAPI integration:
+//   parameters:
+//     - $ref: '#/components/parameters/paginationParameters'
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Common errors: Missing companion parameters (page without limit or vice versa)
-// - Validation: Always validate parameters before database query
-// - Versioning: Changes may affect multiple endpoints simultaneously
-// - Monitoring: Track pagination usage patterns for optimization
+// - Common errors: Missing search.params module, schema validation failures
+// - Parameters must be updated in sync with actual handler validation logic
+// - Maximum limit value should match backend validation rules
 //
 // DEPENDENCIES & COMPATIBILITY:
-// - Compatible with OpenAPI 3.0+ specifications
-// - Requires Express.js or similar web framework
-// - Dependent on search.params module interface
-// - Node.js 12+ due to object spread syntax
+// - Compatible with OpenAPI Specification 3.0+
+// - Requires consistent search.params module interface
+// - Node.js 12+ required for object spread syntax
 //
 // =============================================================================
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const searchParams = require('./search.params'); // Search-related parameter definitions
+const searchParams = require('./search.params'); // Search/filter parameter definitions
 
 /**
  * OpenAPI Pagination Parameters Specification
- * @description Comprehensive parameter definitions for standardized API pagination.
- * Combines pagination parameters (limit/page) with search parameters from external module.
+ * @description Comprehensive parameter definitions for paginated API endpoints
+ * combining both pagination controls and search parameters. Designed for
+ * integration with Swagger documentation and OpenAPI code generation tools.
  *
- * @type {Array<Object>} OpenAPI parameter objects
- * @property {Object} limit - Pagination limit parameter configuration
- * @property {Object} page - Pagination page number parameter configuration
- * @property {Array} ...searchParams - Expanded search parameters from external module
+ * @type {Array<Object>} OpenAPI parameter objects conforming to OpenAPI 3.0 specification
  *
- * @example
- * // Import into OpenAPI specification
- * components:
- *   parameters:
- *     paginationParams:
- *       $ref: './path/to/this/module'
+ * @property {Object} limit - Pagination limit parameter
+ * @property {Object} page - Pagination page number parameter
+ * @property {...Object} searchParams - Expanded search parameters from external module
  *
  * @example
- * // Direct usage in route definition
- * app.get('/api/records', validateParams(paginationParameters), (req, res) => {
- *   // Handle paginated request
+ * // Swagger route configuration using these parameters
+ * app.get('/api/v1/resources', {
+ *   parameters: paginationParameters,
+ *   handler: (req, res) => { /* implementation *\/ }
  * });
  *
- * @since 1.0.0
- * @see {@link ./search.params} for search parameter definitions
+ * @since Version 1.0.0
+ * @see {@link module:search.params} for search parameter definitions
  */
 const paginationParameters = [
   {
@@ -105,11 +94,12 @@ const paginationParameters = [
     name: 'page',
     in: 'query',
     description:
-      '**[Optional]** Indicates the page number of results to retrieve. Defaults to the first page if not provided. Must be used in conjunction with `limit`.  Minimum value: 1',
+      '**[Optional]** Indicates the page number of results to retrieve. Defaults to the first page if not provided. Must be used in conjunction with `limit`. Minimum value: 1',
     schema: { type: 'integer', minimum: 1, example: 1 },
     required: false,
   },
   // Expand search parameters from external module
+  // Maintains separation of concerns while combining related parameter sets
   ...searchParams,
 ];
 

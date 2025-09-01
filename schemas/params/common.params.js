@@ -1,65 +1,63 @@
 // =============================================================================
-// OpenAPI Parameter Configuration - Common API Parameter Definitions
+// API PARAMETER DEFINITIONS - Swagger/OpenAPI Specification Components
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides standardized OpenAPI 3.0 parameter definitions for RESTful APIs
-// - Ensures consistent filtering, pagination, and field selection across endpoints
-// - Serves as reusable parameter specifications for Swagger/OpenAPI documentation
-// - Expected input: Parameter configurations for HTTP query/path parameters
-// - Expected output: Structured OpenAPI parameter objects for API documentation
+// - Provides standardized parameter definitions for Swagger/OpenAPI documentation
+// - Enforces consistent filtering, pagination, and field selection across API endpoints
+// - Serves as reusable components for API specification documentation
 //
 // ARCHITECTURAL DECISIONS:
-// - Modular design allows selective parameter combination for different endpoints
-// - Separation of concerns between parameter types (filtering, pagination, fields)
-// - Compliance with OpenAPI 3.0 specification for automated documentation generation
-// - Integration with Swagger UI for interactive API exploration and testing
+// - Modular design allows independent use of parameter groups
+// - Follows OpenAPI Specification 3.0 standard for parameter definition
+// - Supports RESTful best practices for filtering and pagination
+// - Enables automatic API documentation generation through Swagger UI
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
-// - Alternative: Inline parameter definitions in each route handler
-//   - Trade-off: Leads to code duplication and inconsistent parameter definitions
-//   - Rationale: Rejected in favor of centralized, reusable parameter configuration
-//
-// - Alternative: Automatic parameter generation from JSON Schema
-//   - Trade-off: Increased complexity and reduced explicit control over documentation
-//   - Rationale: Rejected due to need for precise, human-readable descriptions
+// - Alternative: Inline parameter definitions in each endpoint
+//   → Rejected due to code duplication and maintenance overhead
+// - Alternative: Centralized JSON Schema definitions
+//   → Rejected due to reduced readability and Node.js integration needs
+// - Alternative: Code-generated parameters
+//   → Rejected due to complexity overhead for simple parameter definitions
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for parameter access and combination
-// - Space complexity: Minimal memory footprint for parameter definitions
-// - Scalability: Linear scaling with number of parameter definitions
+// - Zero runtime impact (documentation-only components)
+// - Minimal memory footprint (static array definitions)
+// - Instant initialization time (O(1) complexity)
 //
 // SECURITY CONSIDERATIONS:
-// - Input validation: Parameters should be validated against injection attacks
-// - Field exposure: Careful consideration needed for field selection to prevent data leakage
-// - ID filtering: Should validate user permissions for requested resources
+// - Input validation must be implemented separately in route handlers
+// - IDs parameter requires sanitization to prevent injection attacks
+// - Fields parameter should validate against actual schema fields
+// - Boolean parameters require strict validation to prevent type confusion
 //
 // USAGE EXAMPLES:
-// - Basic list endpoint with pagination and filtering:
-//   router.get('/users', validate(commonListParams), userController.list);
+// - Basic collection endpoint:
+//   @swagger.path = {
+//     get: {
+//       parameters: [...commonListParams]
+//     }
+//   }
 //
-// - Detail endpoint with history option:
-//   router.get('/users/:identifier', validate(detailsParams), userController.detail);
+// - Detail endpoint with history:
+//   @swagger.path = {
+//     get: {
+//       parameters: [...detailsParams]
+//     }
+//   }
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Parameter modifications should maintain backward compatibility
-// - New parameters should follow existing naming conventions
-// - Changes should be reflected in all consuming endpoints
+// - Add new parameters by extending relevant arrays
+// - Maintain consistent description format across all parameters
+// - Update documentation when adding new field options
+// - Verify parameter combinations in endpoint tests
 //
 // DEPENDENCIES & COMPATIBILITY:
-// - Requires OpenAPI 3.0 compliant documentation tools
-// - Compatible with Express.js and other Node.js web frameworks
-// - Works with swagger-ui-express and similar documentation renderers
+// - Compatible with OpenAPI Specification 3.0+
+// - Requires Swagger UI or compatible documentation renderer
+// - Works with any Node.js web framework (Express, Koa, etc.)
+//
 // =============================================================================
-
-// =============================================================================
-// CORE NODE.JS DEPENDENCIES
-// =============================================================================
-// None - Pure configuration module
-
-// =============================================================================
-// THIRD-PARTY DEPENDENCIES
-// =============================================================================
-// None - Self-contained parameter definitions
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -67,11 +65,18 @@
 const paginationParameters = require('./pagination.params'); // Standard pagination parameters (limit, offset, page)
 
 /**
- * ID-based filter parameters for collection endpoints
+ * ID Filter Parameters
+ * @description Provides comma-separated ID filtering for bulk operations
  * @type {Array<Object>}
- * @description Provides filtering capability by primary IDs in comma-separated format
+ * @constant
+ *
  * @example
- * // Usage in URL: GET /resources?ids=1,2,3,4
+ * // Usage in Swagger documentation
+ * parameters: [...idsFilter]
+ *
+ * @example
+ * // API request example
+ * GET /resources?ids=1,2,3,4
  */
 const idsFilter = [
   {
@@ -85,11 +90,18 @@ const idsFilter = [
 ];
 
 /**
- * Field selection parameters for response shaping
+ * Field Selection Parameters
+ * @description Controls response shape through field inclusion/exclusion
  * @type {Array<Object>}
- * @description Controls field inclusion/exclusion in API responses using comma-separated field names
+ * @constant
+ *
  * @example
- * // Usage in URL: GET /resources?fields=id,name,created_at
+ * // Usage in Swagger documentation
+ * parameters: [...fieldsFilter]
+ *
+ * @example
+ * // API request example
+ * GET /resources?fields=id,name,created_at
  */
 const fieldsFilter = [
   {
@@ -103,11 +115,18 @@ const fieldsFilter = [
 ];
 
 /**
- * Detail endpoint parameters for single resource retrieval
+ * Detail Endpoint Parameters
+ * @description Parameters for single resource retrieval endpoints
  * @type {Array<Object>}
- * @description Combines path parameter, field selection, and history inclusion options
+ * @constant
+ *
  * @example
- * // Usage in URL: GET /resources/123?includeHistory=true&fields=id,name,history
+ * // Usage in Swagger documentation
+ * parameters: [...detailsParams]
+ *
+ * @example
+ * // API request example
+ * GET /resources/123?fields=id,name&includeHistory=true
  */
 const detailsParams = [
   {
@@ -129,11 +148,18 @@ const detailsParams = [
 ];
 
 /**
- * Active status filter parameter for soft-delete implementations
+ * Active Status Filter Parameter
+ * @description Filters resources based on active/inactive status
  * @type {Array<Object>}
- * @description Filters resources based on their active/inactive status in systems with soft deletion
+ * @constant
+ *
  * @example
- * // Usage in URL: GET /resources?active=false
+ * // Usage in Swagger documentation
+ * parameters: [...activeParams]
+ *
+ * @example
+ * // API request example
+ * GET /resources?active=true
  */
 const activeParams = [
   {
@@ -147,11 +173,18 @@ const activeParams = [
 ];
 
 /**
- * Standard parameter set for collection endpoints
+ * Complete Collection Endpoint Parameters
+ * @description Standard parameter set for list/search endpoints
  * @type {Array<Object>}
- * @description Comprehensive parameter combination for list endpoints including pagination, ID filtering, and field selection
+ * @constant
+ *
  * @example
- * // Usage in URL: GET /resources?limit=10&offset=20&ids=1,2,3&fields=id,name
+ * // Usage in Swagger documentation
+ * parameters: [...commonListParams]
+ *
+ * @example
+ * // API request example
+ * GET /resources?limit=10&offset=20&ids=1,2,3&fields=id,name
  */
 const commonListParams = [...paginationParameters, ...idsFilter, ...fieldsFilter];
 

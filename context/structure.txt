@@ -115,6 +115,7 @@
 │   ├── params
 │   │   ├── common.params.js
 │   │   ├── pagination.params.js
+│   │   ├── README.md
 │   │   └── search.params.js
 │   ├── responses
 │   └── validations
@@ -213,4 +214,4 @@
     ├── extensions.json
     └── settings.json
 
-67 directories, 147 files
+67 directories, 148 files
