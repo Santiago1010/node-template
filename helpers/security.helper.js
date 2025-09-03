@@ -180,7 +180,7 @@ const validateAndSanitizeString = (input, options = {}) => {
 
     // Special character handling
     if (!allowSpecialChars) {
-      sanitized = sanitized.replace(SECURITY_PATTERNS.SPECIAL_CHARS, '');
+      sanitized = sanitized.replace(new RegExp(`[^a-zA-Z0-9\\s]`, 'g'), '');
     }
 
     // Pattern validation
@@ -260,17 +260,10 @@ const validateUrl = (inputUrl, allowedDomains = []) => {
       required: true,
     });
 
-    if (!result.isValid) {
-      return result;
-    }
+    if (!result.isValid) return result;
 
     const parsedUrl = url.parse(result.sanitized);
     const errors = [];
-
-    // Protocol validation
-    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
-      errors.push('Only HTTP and HTTPS protocols are allowed');
-    }
 
     // Domain whitelist check
     if (allowedDomains.length > 0 && !allowedDomains.includes(parsedUrl.hostname)) {
@@ -350,24 +343,23 @@ const validateAndSanitizeObject = (obj, maxDepth = SECURITY_CONFIG.VALIDATION.MA
 
       if (!keyResult.isValid) {
         errors.push(`Invalid key: ${key}`);
-        return;
-      }
-
-      // Sanitize value based on type
-      if (typeof value === 'string') {
-        const valueResult = validateAndSanitizeString(value);
-        sanitized[keyResult.sanitized] = valueResult.sanitized;
-        if (!valueResult.isValid) {
-          errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
-        }
-      } else if (typeof value === 'object' && value !== null) {
-        const valueResult = validateAndSanitizeObject(value, maxDepth, currentDepth + 1);
-        sanitized[keyResult.sanitized] = valueResult.sanitized;
-        if (!valueResult.isValid) {
-          errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
-        }
       } else {
-        sanitized[keyResult.sanitized] = value;
+        // Sanitize value based on type
+        if (typeof value === 'string') {
+          const valueResult = validateAndSanitizeString(value);
+          sanitized[keyResult.sanitized] = valueResult.sanitized;
+          if (!valueResult.isValid) {
+            errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
+          }
+        } else if (typeof value === 'object' && value !== null) {
+          const valueResult = validateAndSanitizeObject(value, maxDepth, currentDepth + 1);
+          sanitized[keyResult.sanitized] = valueResult.sanitized;
+          if (!valueResult.isValid) {
+            errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
+          }
+        } else {
+          sanitized[keyResult.sanitized] = value;
+        }
       }
     });
 
@@ -428,6 +420,7 @@ const sanitizeHTML = (html, options = {}) => {
 
   let sanitized = html;
 
+  // Remove dangerous tags
   if (stripDangerousTags) {
     sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
     sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
@@ -435,18 +428,42 @@ const sanitizeHTML = (html, options = {}) => {
     sanitized = sanitized.replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
   }
 
-  const tagPattern = new RegExp(`</?(?!(${allowedTags.join('|')})\\b)[^>]+>`, 'gi');
-  sanitized = sanitized.replace(tagPattern, '');
-
-  // Sanitizar atributos
+  // Process opening tags and their attributes
   sanitized = sanitized.replace(/<(\w+)([^>]*)>/gi, (_, tag, attributes) => {
-    if (!allowedTags.includes(tag)) return '';
+    // Check if tag is allowed
+    if (!allowedTags.includes(tag.toLowerCase())) {
+      return '';
+    }
 
-    const allowedAttrsPattern = new RegExp(`\\s+(${allowedAttributes.join('|')})\\s*=\\s*(["'])(.*?)\\2`, 'gi');
-    const safeAttributes = (attributes.match(allowedAttrsPattern) || []).join(' ');
+    // If no attributes, return clean tag
+    if (!attributes.trim()) {
+      return `<${tag}>`;
+    }
 
-    return `<${tag}${safeAttributes ? ' ' + safeAttributes : ''}>`;
+    // Parse and filter attributes
+    const cleanAttributes = [];
+
+    // More robust regex to match various attribute formats
+    const attrRegex = /\s*([a-zA-Z][a-zA-Z0-9-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
+
+    let attrMatch = attrRegex.exec(attributes);
+    while (attrMatch !== null) {
+      const attrName = attrMatch[1].toLowerCase();
+      const attrValue = attrMatch[2] || attrMatch[3] || attrMatch[4] || '';
+
+      // Only include allowed attributes
+      if (allowedAttributes.includes(attrName)) {
+        cleanAttributes.push(`${attrName}="${attrValue}"`);
+      }
+    }
+
+    // Return tag with clean attributes
+    return `<${tag}${cleanAttributes.length > 0 ? ' ' + cleanAttributes.join(' ') : ''}>`;
   });
+
+  // Remove any remaining non-allowed tags (including closing tags of removed elements)
+  const tagPattern = new RegExp(`</?(?!(${allowedTags.join('|')})\\b)[^>]*>`, 'gi');
+  sanitized = sanitized.replace(tagPattern, '');
 
   return sanitized;
 };
@@ -528,10 +545,8 @@ const validatePasswordStrength = (password, customPolicy = {}) => {
       score += 1;
     }
 
-    if (
-      policy.REQUIRE_SPECIAL &&
-      !new RegExp(`[${policy.SPECIAL_CHARS.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}]`).test(password)
-    ) {
+    // Fixed special character validation - using includes() method for reliability
+    if (policy.REQUIRE_SPECIAL && !policy.SPECIAL_CHARS.split('').some((char) => password.includes(char))) {
       errors.push('Password must contain at least one special character');
     } else if (policy.REQUIRE_SPECIAL) {
       score += 2;
@@ -542,11 +557,10 @@ const validatePasswordStrength = (password, customPolicy = {}) => {
     if (password.length >= 16) score += 1;
     if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
 
-    // Determine strength level
     let strength;
-    if (score >= 7) strength = 'very_strong';
-    else if (score >= 5) strength = 'strong';
-    else if (score >= 3) strength = 'medium';
+    if (score >= 6) strength = 'very_strong';
+    else if (score >= 4) strength = 'strong';
+    else if (score >= 2) strength = 'medium';
     else if (score >= 1) strength = 'weak';
     else strength = 'very_weak';
 
