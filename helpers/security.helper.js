@@ -1,45 +1,108 @@
 // =============================================================================
-// SECURITY HELPER - Comprehensive security utilities and validations
+// SECURITY UTILITIES - Authentication, Rate Limiting & Threat Monitoring
 // =============================================================================
-// This module provides multiple layers of security including input validation,
-// sanitization, rate limiting, CSRF protection, XSS prevention, SQL injection
-// protection, session management, and security headers configuration.
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Comprehensive security utility module providing authentication, authorization,
+//   rate limiting, and threat monitoring capabilities
+// - Handles password hashing/verification using bcrypt
+// - JWT token generation and verification with secure defaults
+// - Redis-based rate limiting for general API endpoints and login attempts
+// - Security event logging and monitoring system
+// - IP reputation management and automatic blocking
+// - Input sanitization for logs and HTML content
+//
+// ARCHITECTURAL DECISIONS:
+// - Redis-based rate limiting for distributed consistency across multiple instances
+// - Fail-open design for rate limiting to maintain availability during Redis outages
+// - Modular design allowing independent use of security components
+// - Comprehensive error handling with Boom HTTP error objects for API consistency
+// - Configurable security parameters through centralized configuration
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - In-memory rate limiting: Rejected due to lack of cross-instance consistency
+// - Database-based logging: Rejected due to performance impact under high load
+// - JWT blacklisting: Considered but implemented via short token expiration instead
+// - IP blocking at network layer: Rejected in favor of application-layer blocking
+//   for flexibility and easier management
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for most operations (Redis lookups, cryptographic operations)
+// - Space complexity: O(n) for security event storage, limited to 1000 most recent events
+// - Redis latency is primary bottleneck - recommends low-latency Redis connection
+// - bcrypt hashing: Intentionally CPU-intensive (10-12 rounds recommended)
+//
+// SECURITY CONSIDERATIONS:
+// - Uses cryptographically secure random number generation for tokens
+// - Implements automatic IP blocking based on threat severity and frequency
+// - Sanitizes all log outputs to prevent log injection attacks
+// - Validates JWT algorithms to prevent algorithm confusion attacks
+// - Rate limiting protects against brute-force and DDoS attacks
+//
+// USAGE EXAMPLES:
+// - Password hashing/verification for user authentication
+// - JWT-based session management for API authentication
+// - Rate limiting on API endpoints and login attempts
+// - Security monitoring and threat detection
+// - IP reputation management
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Monitor Redis connection for rate limiting and security event storage
+// - Regularly review security event logs for threat patterns
+// - Adjust rate limiting thresholds based on actual traffic patterns
+// - Rotate JWT secrets according to security policy
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires Node.js 14+ (uses ES6+ features)
+// - Redis 5+ for rate limiting and security event storage
+// - Compatible with Express.js, Hapi, and other Node.js frameworks
+//
 // =============================================================================
 
 // =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const crypto = require('crypto');
-const url = require('url');
+const crypto = require('crypto'); // Cryptographically secure random number generation
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const bcrypt = require('bcrypt');
-const Boom = require('@hapi/boom');
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
+const bcrypt = require('bcrypt'); // Password hashing and verification
+const Boom = require('@hapi/boom'); // HTTP-friendly error objects
+const jwt = require('jsonwebtoken'); // JWT token generation and verification
+const moment = require('moment'); // Date manipulation and formatting
+const sanitize = require('sanitize-html'); // HTML input sanitization
+const { RateLimiterRedis } = require('rate-limiter-flexible'); // Redis-based rate limiting
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const contextHelper = require('./context.helper');
-const config = require('../config/env');
-const i18n = require('../config/i18n');
-const { THREAT_LEVELS, SECURITY_CONFIG, SECURITY_PATTERNS } = require('./constants.helper');
-const { cerror } = require('./debug.helper');
+const cacheHelper = require('./cache.helper'); // Redis client wrapper
+const config = require('../config/env'); // Application configuration
+const i18n = require('../config/i18n'); // Internationalization support
+const { THREAT_LEVELS, SECURITY_CONFIG } = require('./constants.helper'); // Security constants
 
 // =============================================================================
-// CONSTANTS AND CONFIGURATION
+// RATE LIMITER INSTANCES (Redis-based)
 // =============================================================================
-
-// In-memory storage for rate limiting and security tracking
-const securityStorage = {
-  rateLimits: new Map(),
-  csrfTokens: new Map(),
-  suspiciousIPs: new Map(),
-  securityEvents: [],
-  loginAttempts: new Map(),
+const rateLimiters = {
+  general: new RateLimiterRedis({
+    storeClient: cacheHelper.client,
+    keyPrefix: 'rate_limit',
+    points: SECURITY_CONFIG.RATE_LIMIT.DEFAULT_MAX_REQUESTS,
+    duration: SECURITY_CONFIG.RATE_LIMIT.DEFAULT_WINDOW / 1000,
+  }),
+  strict: new RateLimiterRedis({
+    storeClient: cacheHelper.client,
+    keyPrefix: 'strict_rate_limit',
+    points: SECURITY_CONFIG.RATE_LIMIT.STRICT_MAX_REQUESTS,
+    duration: SECURITY_CONFIG.RATE_LIMIT.STRICT_WINDOW / 1000,
+  }),
+  login: new RateLimiterRedis({
+    storeClient: cacheHelper.client,
+    keyPrefix: 'login_rate_limit',
+    points: 5, // Maximum of 5 login attempts
+    duration: 15 * 60, // 15-minute window
+  }),
 };
 
 // =============================================================================
@@ -47,447 +110,68 @@ const securityStorage = {
 // =============================================================================
 
 /**
- * Generates a secure random string
- * @param {number} length - Length of the random string
- * @returns {string} Secure random string
+ * Generates a cryptographically secure random token
+ * @param {number} length - Token length in bytes (default: 32)
+ * @returns {string} Hexadecimal string representation of random bytes
+ * @throws {Error} If random bytes generation fails
+ * @complexity Time: O(1), Space: O(1)
+ * @example
+ * const token = generateSecureToken(32);
+ * // Returns: 'a1b2c3d4e5f6...'
  */
 const generateSecureToken = (length = 32) => {
-  try {
-    return crypto.randomBytes(length).toString('hex');
-  } catch (error) {
-    throw new Error(`Failed to generate secure token: ${error.message}`);
-  }
+  return crypto.randomBytes(length).toString('hex');
 };
 
 /**
- * Gets current timestamp using moment.js
- * @returns {number} Current timestamp in milliseconds
+ * Gets current timestamp in milliseconds since Unix epoch
+ * @returns {number} Current timestamp
+ * @complexity Time: O(1), Space: O(1)
  */
-const getCurrentTimestamp = () => {
-  return moment().valueOf();
-};
+const getCurrentTimestamp = () => moment().valueOf();
 
 /**
- * Logs security events for audit purposes
- * @param {string} event - Event type
- * @param {Object} details - Event details
- * @param {string} level - Threat level
- */
-const logSecurityEvent = (event, details = {}, level = THREAT_LEVELS.LOW) => {
-  try {
-    const securityEvent = {
-      id: generateSecureToken(16),
-      event,
-      level,
-      timestamp: getCurrentTimestamp(),
-      userAgent: contextHelper.getCurrentUserAgent(),
-      ipAddress: contextHelper.getCurrentIpAddress(),
-      userId: contextHelper.getCurrentUserId(),
-      sessionId: contextHelper.getCurrentSessionId(),
-      details: sanitizeLogData(details),
-    };
-
-    securityStorage.securityEvents.push(securityEvent);
-
-    // Keep only last 1000 events
-    if (securityStorage.securityEvents.length > 1000) {
-      securityStorage.securityEvents = securityStorage.securityEvents.slice(-1000);
-    }
-
-    // Set security context for current request
-    contextHelper.setCustomData('lastSecurityEvent', securityEvent);
-
-    return securityEvent.id;
-  } catch (error) {
-    console.error('Failed to log security event:', error);
-  }
-};
-
-/**
- * Sanitizes data for logging to prevent log injection
- * @param {any} data - Data to sanitize
- * @returns {any} Sanitized data
+ * Sanitizes log data by removing control characters and truncating strings
+ * @param {string|object} data - Data to sanitize
+ * @returns {string|object} Sanitized data
+ * @description Prevents log injection attacks and ensures log consistency
  */
 const sanitizeLogData = (data) => {
   if (typeof data === 'string') {
     return data.replace(/[\r\n\t]/g, ' ').substring(0, 500);
   }
+
   if (typeof data === 'object' && data !== null) {
     const sanitized = {};
+
     Object.entries(data).forEach(([key, value]) => {
       sanitized[key] = sanitizeLogData(value);
     });
+
     return sanitized;
   }
+
   return data;
 };
 
-// =============================================================================
-// INPUT VALIDATION AND SANITIZATION
-// =============================================================================
-
 /**
- * Validates and sanitizes string input
- * @param {string} input - Input string to validate
- * @param {Object} options - Validation options
- * @returns {Object} Validation result with sanitized value
- */
-const validateAndSanitizeString = (input, options = {}) => {
-  try {
-    const {
-      minLength = 0,
-      maxLength = SECURITY_CONFIG.VALIDATION.MAX_STRING_LENGTH,
-      allowHTML = false,
-      allowSpecialChars = true,
-      pattern = null,
-      required = false,
-    } = options;
-
-    const errors = [];
-
-    // Check if required
-    if (required && (!input || input.trim() === '')) {
-      errors.push('Field is required');
-      return { isValid: false, errors, sanitized: '' };
-    }
-
-    // If not required and empty, return early
-    if (!required && (!input || input.trim() === '')) {
-      return { isValid: true, errors: [], sanitized: '' };
-    }
-
-    let sanitized = input.toString().trim();
-
-    // Length validation
-    if (sanitized.length < minLength) {
-      errors.push(`Minimum length is ${minLength} characters`);
-    }
-    if (sanitized.length > maxLength) {
-      errors.push(`Maximum length is ${maxLength} characters`);
-      sanitized = sanitized.substring(0, maxLength);
-    }
-
-    // XSS prevention
-    if (SECURITY_PATTERNS.XSS.test(sanitized)) {
-      errors.push('Potentially malicious script detected');
-      logSecurityEvent('XSS_ATTEMPT', { input: sanitized }, THREAT_LEVELS.HIGH);
-    }
-
-    // HTML sanitization
-    if (!allowHTML) {
-      sanitized = sanitized.replace(SECURITY_PATTERNS.HTML_TAGS, '');
-    }
-
-    // Special character handling
-    if (!allowSpecialChars) {
-      sanitized = sanitized.replace(new RegExp(`[^a-zA-Z0-9\\s]`, 'g'), '');
-    }
-
-    // Pattern validation
-    if (pattern && !pattern.test(sanitized)) {
-      errors.push('Input does not match required format');
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      sanitized,
-    };
-  } catch (error) {
-    logSecurityEvent('VALIDATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    return {
-      isValid: false,
-      errors: ['Validation failed'],
-      sanitized: '',
-    };
-  }
-};
-
-/**
- * Validates email address format
- * @param {string} email - Email to validate
- * @returns {Object} Validation result
- */
-const validateEmail = (email) => {
-  const result = validateAndSanitizeString(email, {
-    pattern: SECURITY_PATTERNS.EMAIL,
-    maxLength: 254,
-    allowHTML: false,
-    allowSpecialChars: true,
-    required: true,
-  });
-
-  if (!result.isValid) {
-    result.errors = ['Invalid email format'];
-  }
-
-  return result;
-};
-
-/**
- * Validates phone number format
- * @param {string} phone - Phone number to validate
- * @returns {Object} Validation result
- */
-const validatePhone = (phone) => {
-  const result = validateAndSanitizeString(phone, {
-    pattern: SECURITY_PATTERNS.PHONE,
-    minLength: 10,
-    maxLength: 20,
-    allowHTML: false,
-    required: true,
-  });
-
-  if (!result.isValid) {
-    result.errors = ['Invalid phone number format'];
-  }
-
-  return result;
-};
-
-/**
- * Validates URL format and checks for malicious content
- * @param {string} inputUrl - URL to validate
- * @param {Array} allowedDomains - Allowed domains (optional)
- * @returns {Object} Validation result
- */
-const validateUrl = (inputUrl, allowedDomains = []) => {
-  try {
-    const result = validateAndSanitizeString(inputUrl, {
-      pattern: SECURITY_PATTERNS.URL,
-      maxLength: 2048,
-      allowHTML: false,
-      required: true,
-    });
-
-    if (!result.isValid) return result;
-
-    const parsedUrl = url.parse(result.sanitized);
-    const errors = [];
-
-    // Domain whitelist check
-    if (allowedDomains.length > 0 && !allowedDomains.includes(parsedUrl.hostname)) {
-      errors.push('Domain not allowed');
-      logSecurityEvent(
-        'UNAUTHORIZED_DOMAIN_ACCESS',
-        {
-          url: result.sanitized,
-          domain: parsedUrl.hostname,
-        },
-        THREAT_LEVELS.MEDIUM
-      );
-    }
-
-    // Check for suspicious patterns
-    const suspiciousPatterns = ['javascript:', 'data:', 'vbscript:', 'file:', 'ftp:'];
-    const lowerUrl = result.sanitized.toLowerCase();
-
-    if (suspiciousPatterns.some((pattern) => lowerUrl.includes(pattern))) {
-      errors.push('Potentially malicious URL detected');
-      logSecurityEvent('MALICIOUS_URL_ATTEMPT', { url: result.sanitized }, THREAT_LEVELS.HIGH);
-    }
-
-    return {
-      isValid: errors.length === 0,
-      errors: [...result.errors, ...errors],
-      sanitized: result.sanitized,
-      parsed: parsedUrl,
-    };
-  } catch (error) {
-    cerror('URL_VALIDATION_ERROR', error.message);
-
-    return {
-      isValid: false,
-      errors: ['Invalid URL format'],
-      sanitized: '',
-      parsed: null,
-    };
-  }
-};
-
-/**
- * Validates and sanitizes object input with depth protection
- * @param {Object} obj - Object to validate
- * @param {number} maxDepth - Maximum allowed depth
- * @param {number} currentDepth - Current depth (internal)
- * @returns {Object} Validation result
- */
-const validateAndSanitizeObject = (obj, maxDepth = SECURITY_CONFIG.VALIDATION.MAX_OBJECT_DEPTH, currentDepth = 0) => {
-  try {
-    if (currentDepth > maxDepth) {
-      return {
-        isValid: false,
-        errors: ['Object depth exceeds maximum allowed'],
-        sanitized: {},
-      };
-    }
-
-    if (typeof obj !== 'object' || obj === null) {
-      return {
-        isValid: false,
-        errors: ['Input is not a valid object'],
-        sanitized: {},
-      };
-    }
-
-    const sanitized = {};
-    const errors = [];
-
-    Object.entries(obj).forEach(([key, value]) => {
-      // Sanitize key
-      const keyResult = validateAndSanitizeString(key, {
-        maxLength: 100,
-        allowHTML: false,
-        allowSpecialChars: false,
-      });
-
-      if (!keyResult.isValid) {
-        errors.push(`Invalid key: ${key}`);
-      } else {
-        // Sanitize value based on type
-        if (typeof value === 'string') {
-          const valueResult = validateAndSanitizeString(value);
-          sanitized[keyResult.sanitized] = valueResult.sanitized;
-          if (!valueResult.isValid) {
-            errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
-          }
-        } else if (typeof value === 'object' && value !== null) {
-          const valueResult = validateAndSanitizeObject(value, maxDepth, currentDepth + 1);
-          sanitized[keyResult.sanitized] = valueResult.sanitized;
-          if (!valueResult.isValid) {
-            errors.push(...valueResult.errors.map((err) => `${key}: ${err}`));
-          }
-        } else {
-          sanitized[keyResult.sanitized] = value;
-        }
-      }
-    });
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      sanitized,
-    };
-  } catch (error) {
-    logSecurityEvent('OBJECT_VALIDATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    return {
-      isValid: false,
-      errors: ['Object validation failed'],
-      sanitized: {},
-    };
-  }
-};
-
-/**
- * Checks for SQL injection patterns in input
- * @param {string} input - Input to check
- * @returns {Object} Detection result
- */
-const detectSQLInjection = (input) => {
-  try {
-    const isSuspicious = SECURITY_PATTERNS.SQL_INJECTION.test(input);
-
-    if (isSuspicious) {
-      logSecurityEvent('SQL_INJECTION_ATTEMPT', { input }, THREAT_LEVELS.CRITICAL);
-    }
-
-    return {
-      isSuspicious,
-      input: isSuspicious ? '' : input, // Clear suspicious input
-    };
-  } catch (error) {
-    cerror('SQL_INJECTION_DETECTION_ERROR', error.message);
-
-    return {
-      isSuspicious: true,
-      input: '',
-    };
-  }
-};
-
-/**
- * Sanitizes HTML content with configurable options
- * @param {string} html - HTML content to sanitize
- * @param {Object} options - Sanitization options
+ * Sanitizes HTML input to prevent XSS attacks
+ * @param {string} html - HTML input to sanitize
+ * @param {object} options - Custom sanitization options
  * @returns {string} Sanitized HTML
+ * @see {@link https://www.npmjs.com/package/sanitize-html} for options documentation
  */
 const sanitizeHTML = (html, options = {}) => {
-  const {
-    allowedTags = ['p', 'br', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-    allowedAttributes = ['class', 'style'],
-    stripDangerousTags = true,
-  } = options;
+  const defaultOptions = {
+    allowedTags: ['p', 'br', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    allowedAttributes: {
+      '*': ['class', 'style'],
+    },
+    allowedIframeHostnames: [],
+    disallowedTagsMode: 'discard',
+  };
 
-  let sanitized = html;
-
-  // Remove dangerous tags
-  if (stripDangerousTags) {
-    sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-    sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-    sanitized = sanitized.replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '');
-    sanitized = sanitized.replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '');
-  }
-
-  // Process opening tags and their attributes
-  sanitized = sanitized.replace(/<(\w+)([^>]*)>/gi, (_, tag, attributes) => {
-    // Check if tag is allowed
-    if (!allowedTags.includes(tag.toLowerCase())) {
-      return '';
-    }
-
-    // If no attributes, return clean tag
-    if (!attributes.trim()) {
-      return `<${tag}>`;
-    }
-
-    // Parse and filter attributes
-    const cleanAttributes = [];
-
-    // More robust regex to match various attribute formats
-    const attrRegex = /\s*([a-zA-Z][a-zA-Z0-9-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
-
-    let attrMatch = attrRegex.exec(attributes);
-    while (attrMatch !== null) {
-      const attrName = attrMatch[1].toLowerCase();
-      const attrValue = attrMatch[2] || attrMatch[3] || attrMatch[4] || '';
-
-      // Only include allowed attributes
-      if (allowedAttributes.includes(attrName)) {
-        cleanAttributes.push(`${attrName}="${attrValue}"`);
-      }
-    }
-
-    // Return tag with clean attributes
-    return `<${tag}${cleanAttributes.length > 0 ? ' ' + cleanAttributes.join(' ') : ''}>`;
-  });
-
-  // Remove any remaining non-allowed tags (including closing tags of removed elements)
-  const tagPattern = new RegExp(`</?(?!(${allowedTags.join('|')})\\b)[^>]*>`, 'gi');
-  sanitized = sanitized.replace(tagPattern, '');
-
-  return sanitized;
-};
-
-/**
- * Detects potential XSS attacks in HTML content
- * @param {string} content - Content to check
- * @returns {boolean} True if XSS patterns detected
- */
-const detectXSS = (content) => {
-  const xssPatterns = [
-    /<script\b/i,
-    /javascript:/i,
-    /onerror\s*=/i,
-    /onload\s*=/i,
-    /onclick\s*=/i,
-    /onmouseover\s*=/i,
-    /alert\(/i,
-    /eval\(/i,
-    /document\.cookie/i,
-    /window\.location/i,
-  ];
-
-  return xssPatterns.some((pattern) => pattern.test(content));
+  return sanitize(html, { ...defaultOptions, ...options });
 };
 
 // =============================================================================
@@ -495,155 +179,25 @@ const detectXSS = (content) => {
 // =============================================================================
 
 /**
- * Validates password strength according to security policy
- * @param {string} password - Password to validate
- * @param {Object} customPolicy - Custom password policy (optional)
- * @returns {Object} Validation result with strength score
+ * Hashes password using bcrypt with configurable salt rounds
+ * @param {string} password - Plain text password to hash
+ * @param {number} saltRounds - Number of bcrypt salt rounds (default: from config)
+ * @returns {Promise<string>} Resolves with hashed password
+ * @throws {Error} If hashing fails
+ * @complexity Time: O(2^saltRounds), Space: O(1)
  */
-const validatePasswordStrength = (password, customPolicy = {}) => {
-  try {
-    const policy = { ...SECURITY_CONFIG.PASSWORD_POLICY, ...customPolicy };
-    const errors = [];
-    let score = 0;
-
-    if (!password || typeof password !== 'string') {
-      return {
-        isValid: false,
-        errors: ['Password is required'],
-        strength: 'invalid',
-        score: 0,
-      };
-    }
-
-    // Length validation
-    if (password.length < policy.MIN_LENGTH) {
-      errors.push(`Password must be at least ${policy.MIN_LENGTH} characters long`);
-    } else {
-      score += 2;
-    }
-
-    if (password.length > policy.MAX_LENGTH) {
-      errors.push(`Password must not exceed ${policy.MAX_LENGTH} characters`);
-    }
-
-    // Character requirements
-    if (policy.REQUIRE_UPPERCASE && !/[A-Z]/.test(password)) {
-      errors.push('Password must contain at least one uppercase letter');
-    } else if (policy.REQUIRE_UPPERCASE) {
-      score += 1;
-    }
-
-    if (policy.REQUIRE_LOWERCASE && !/[a-z]/.test(password)) {
-      errors.push('Password must contain at least one lowercase letter');
-    } else if (policy.REQUIRE_LOWERCASE) {
-      score += 1;
-    }
-
-    if (policy.REQUIRE_NUMBERS && !/\d/.test(password)) {
-      errors.push('Password must contain at least one number');
-    } else if (policy.REQUIRE_NUMBERS) {
-      score += 1;
-    }
-
-    // Fixed special character validation - using includes() method for reliability
-    if (policy.REQUIRE_SPECIAL && !policy.SPECIAL_CHARS.split('').some((char) => password.includes(char))) {
-      errors.push('Password must contain at least one special character');
-    } else if (policy.REQUIRE_SPECIAL) {
-      score += 2;
-    }
-
-    // Additional strength checks
-    if (password.length >= 12) score += 1;
-    if (password.length >= 16) score += 1;
-    if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
-
-    let strength;
-    if (score >= 6) strength = 'very_strong';
-    else if (score >= 4) strength = 'strong';
-    else if (score >= 2) strength = 'medium';
-    else if (score >= 1) strength = 'weak';
-    else strength = 'very_weak';
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      strength,
-      score: Math.max(0, score),
-    };
-  } catch (error) {
-    cerror('Password Validation', `Error validating password: ${error.message}`);
-
-    return {
-      isValid: false,
-      errors: ['Password validation failed'],
-      strength: 'invalid',
-      score: 0,
-    };
-  }
+const hashPassword = async (password, saltRounds = SECURITY_CONFIG.PASSWORD_POLICY.SALT) => {
+  return bcrypt.hash(password, saltRounds);
 };
 
 /**
- * Checks if password is commonly used (basic blacklist)
- * @param {string} password - Password to check
- * @returns {boolean} True if password is common
+ * Verifies password against bcrypt hash
+ * @param {string} password - Plain text password to verify
+ * @param {string} hashedPassword - bcrypt hash to compare against
+ * @returns {Promise<boolean>} Resolves with password match result
+ * @complexity Time: O(1), Space: O(1)
  */
-const isCommonPassword = (password) => {
-  const commonPasswords = [
-    'password',
-    '123456',
-    '123456789',
-    'qwerty',
-    'abc123',
-    'password123',
-    'admin',
-    'letmein',
-    'welcome',
-    'monkey',
-    '1234567890',
-    'password1',
-    'qwerty123',
-    '123123',
-    '111111',
-    '000000',
-    'iloveyou',
-    'dragon',
-  ];
-
-  return commonPasswords.includes(password.toLowerCase());
-};
-
-/**
- * Hashes a password using bcrypt
- * @param {string} password - Password to hash
- * @param {number} [salt=SECURITY_CONFIG.PASSWORD_POLICY.SALT] - Salt rounds
- * @throws {Error} If password is not a non-empty string
- * @throws {Error} If salt is not a non-empty number
- * @returns {Promise<string>} Hashed password
- */
-const hashPassword = (password, salt = SECURITY_CONFIG.PASSWORD_POLICY.SALT) => {
-  if (!password || typeof password !== 'string') {
-    throw new Error('Password must be a non-empty string');
-  }
-
-  if (!salt || typeof salt !== 'number') {
-    throw new Error('Salt must be a non-empty number');
-  }
-
-  return bcrypt.hash(password, salt);
-};
-
-/**
- * Verifies a password against its bcrypt hash
- * @param {string} password - Password to verify
- * @param {string} hashedPassword - Previously hashed password
- * @throws {Error} If password or hashed password is not a non-empty string
- * @returns {Promise<boolean>} True if password matches
- */
-const verifyPassword = (password, hashedPassword) => {
-  if (!password || !hashedPassword) {
-    throw new Error('Password and hashed password must be non-empty strings');
-  }
-
+const verifyPassword = async (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword);
 };
 
@@ -652,68 +206,36 @@ const verifyPassword = (password, hashedPassword) => {
 // =============================================================================
 
 /**
- * Implements rate limiting for requests
- * @param {string} identifier - Unique identifier (IP, user ID, etc.)
- * @param {Object} options - Rate limiting options
- * @returns {Object} Rate limit result
+ * Checks rate limit for a given identifier
+ * @param {string} identifier - Rate limit key (typically IP address or user ID)
+ * @param {object} options - Configuration options
+ * @param {boolean} options.strict - Use strict rate limits
+ * @param {string} options.keyPrefix - Custom key prefix
+ * @returns {Promise<object>} Rate limit status with remaining points and reset time
+ * @description Fails open - allows requests if rate limiting service is unavailable
  */
-const checkRateLimit = (identifier, options = {}) => {
+const checkRateLimit = async (identifier, options = {}) => {
   try {
-    const {
-      windowMs = SECURITY_CONFIG.RATE_LIMIT.DEFAULT_WINDOW,
-      maxRequests = SECURITY_CONFIG.RATE_LIMIT.DEFAULT_MAX_REQUESTS,
-      keyPrefix = 'rate_limit',
-    } = options;
+    const limiter = options.strict ? rateLimiters.strict : rateLimiters.general;
+    const key = options.keyPrefix ? `${options.keyPrefix}:${identifier}` : identifier;
 
-    const key = `${keyPrefix}:${identifier}`;
-    const now = getCurrentTimestamp();
-
-    if (!securityStorage.rateLimits.has(key)) {
-      securityStorage.rateLimits.set(key, {
-        requests: [],
-        windowStart: now,
-      });
-    }
-
-    const rateLimitData = securityStorage.rateLimits.get(key);
-
-    // Clean old requests outside the window
-    const windowStart = now - windowMs;
-    rateLimitData.requests = rateLimitData.requests.filter((timestamp) => timestamp > windowStart);
-
-    // Check if rate limit exceeded
-    if (rateLimitData.requests.length >= maxRequests) {
-      const resetTime = rateLimitData.requests[0] + windowMs;
-
-      logSecurityEvent(
-        'RATE_LIMIT_EXCEEDED',
-        {
-          identifier,
-          requestCount: rateLimitData.requests.length,
-          maxRequests,
-        },
-        THREAT_LEVELS.MEDIUM
-      );
-
+    try {
+      const res = await limiter.consume(key);
+      return {
+        allowed: true,
+        remaining: res.remainingPoints,
+        resetTime: moment().add(res.msBeforeNext, 'ms').toISOString(),
+        retryAfter: 0,
+      };
+    } catch (res) {
       return {
         allowed: false,
         remaining: 0,
-        resetTime: moment(resetTime).toISOString(),
-        retryAfter: Math.ceil((resetTime - now) / 1000),
+        resetTime: moment().add(res.msBeforeNext, 'ms').toISOString(),
+        retryAfter: Math.ceil(res.msBeforeNext / 1000),
       };
     }
-
-    // Add current request
-    rateLimitData.requests.push(now);
-
-    return {
-      allowed: true,
-      remaining: maxRequests - rateLimitData.requests.length,
-      resetTime: moment(now + windowMs).toISOString(),
-      retryAfter: 0,
-    };
-  } catch (error) {
-    logSecurityEvent('RATE_LIMIT_ERROR', { error: error.message }, THREAT_LEVELS.LOW);
+  } catch (_) {
     // Fail open - allow request if rate limiting fails
     return {
       allowed: true,
@@ -725,341 +247,43 @@ const checkRateLimit = (identifier, options = {}) => {
 };
 
 /**
- * Implements strict rate limiting for sensitive operations
- * @param {string} identifier - Unique identifier
- * @returns {Object} Strict rate limit result
+ * Tracks login attempts and implements account lockout
+ * @param {string} identifier - Login identifier (typically username or email)
+ * @param {boolean} success - Whether login attempt was successful
+ * @returns {Promise<object>} Login attempt status with lockout information
  */
-const checkStrictRateLimit = (identifier) => {
-  return checkRateLimit(identifier, {
-    windowMs: SECURITY_CONFIG.RATE_LIMIT.STRICT_WINDOW,
-    maxRequests: SECURITY_CONFIG.RATE_LIMIT.STRICT_MAX_REQUESTS,
-    keyPrefix: 'strict_rate_limit',
-  });
-};
-
-// =============================================================================
-// CSRF PROTECTION
-// =============================================================================
-
-/**
- * Generates a CSRF token for the current session
- * @returns {string} CSRF token
- */
-const generateCSRFToken = () => {
+const trackLoginAttempt = async (identifier, success = false) => {
   try {
-    const sessionId = contextHelper.getCurrentSessionId();
-    if (!sessionId) {
-      throw new Error('No active session found');
-    }
-
-    const token = generateSecureToken(SECURITY_CONFIG.CSRF.TOKEN_LENGTH);
-    const expiry = getCurrentTimestamp() + SECURITY_CONFIG.CSRF.TOKEN_EXPIRY;
-
-    securityStorage.csrfTokens.set(token, {
-      sessionId,
-      expiry,
-      used: false,
-    });
-
-    // Clean expired tokens
-    cleanupExpiredCSRFTokens();
-
-    logSecurityEvent('CSRF_TOKEN_GENERATED', { sessionId }, THREAT_LEVELS.LOW);
-
-    return token;
-  } catch (error) {
-    logSecurityEvent('CSRF_TOKEN_GENERATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    throw new Error(`CSRF token generation failed: ${error.message}`);
-  }
-};
-
-/**
- * Validates a CSRF token
- * @param {string} token - CSRF token to validate
- * @param {boolean} oneTimeUse - Whether token should be invalidated after use
- * @returns {boolean} True if token is valid
- */
-const validateCSRFToken = (token, oneTimeUse = true) => {
-  try {
-    if (!token) {
-      logSecurityEvent('CSRF_TOKEN_MISSING', {}, THREAT_LEVELS.HIGH);
-      return false;
-    }
-
-    const tokenData = securityStorage.csrfTokens.get(token);
-    if (!tokenData) {
-      logSecurityEvent('CSRF_TOKEN_INVALID', { token: token.substring(0, 8) + '...' }, THREAT_LEVELS.HIGH);
-      return false;
-    }
-
-    // Check expiry
-    if (getCurrentTimestamp() > tokenData.expiry) {
-      securityStorage.csrfTokens.delete(token);
-      logSecurityEvent('CSRF_TOKEN_EXPIRED', {}, THREAT_LEVELS.MEDIUM);
-      return false;
-    }
-
-    // Check if already used (for one-time tokens)
-    if (oneTimeUse && tokenData.used) {
-      logSecurityEvent('CSRF_TOKEN_REUSE_ATTEMPT', {}, THREAT_LEVELS.HIGH);
-      return false;
-    }
-
-    // Validate session
-    const currentSessionId = contextHelper.getCurrentSessionId();
-    if (tokenData.sessionId !== currentSessionId) {
-      logSecurityEvent('CSRF_TOKEN_SESSION_MISMATCH', {}, THREAT_LEVELS.HIGH);
-      return false;
-    }
-
-    // Mark as used if one-time use
-    if (oneTimeUse) {
-      tokenData.used = true;
-    }
-
-    logSecurityEvent('CSRF_TOKEN_VALIDATED', {}, THREAT_LEVELS.LOW);
-    return true;
-  } catch (error) {
-    logSecurityEvent('CSRF_VALIDATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    return false;
-  }
-};
-
-/**
- * Cleans up expired CSRF tokens
- */
-const cleanupExpiredCSRFTokens = () => {
-  try {
-    const now = getCurrentTimestamp();
-    const expiredTokens = [];
-
-    securityStorage.csrfTokens.forEach((tokenData, token) => {
-      if (now > tokenData.expiry) {
-        expiredTokens.push(token);
-      }
-    });
-
-    expiredTokens.forEach((token) => {
-      securityStorage.csrfTokens.delete(token);
-    });
-  } catch (error) {
-    console.error('CSRF token cleanup failed:', error);
-  }
-};
-
-// =============================================================================
-// SESSION SECURITY
-// =============================================================================
-
-/**
- * Validates session security and freshness
- * @param {Object} sessionData - Session data to validate
- * @returns {Object} Session validation result
- */
-const validateSessionSecurity = (sessionData) => {
-  try {
-    const errors = [];
-    const now = getCurrentTimestamp();
-
-    if (!sessionData || typeof sessionData !== 'object') {
-      errors.push('Invalid session data');
-      return { isValid: false, errors, shouldRenew: false };
-    }
-
-    // Check session age
-    const sessionAge = now - (sessionData.createdAt || 0);
-    if (sessionAge > SECURITY_CONFIG.SESSION.MAX_AGE) {
-      errors.push('Session expired due to age');
-      logSecurityEvent('SESSION_AGE_EXPIRED', { sessionAge }, THREAT_LEVELS.LOW);
-    }
-
-    // Check idle timeout
-    const idleTime = now - (sessionData.lastActivity || sessionData.createdAt || 0);
-    if (idleTime > SECURITY_CONFIG.SESSION.IDLE_TIMEOUT) {
-      errors.push('Session expired due to inactivity');
-      logSecurityEvent('SESSION_IDLE_EXPIRED', { idleTime }, THREAT_LEVELS.LOW);
-    }
-
-    // Check absolute timeout
-    const absoluteAge = now - (sessionData.createdAt || 0);
-    if (absoluteAge > SECURITY_CONFIG.SESSION.ABSOLUTE_TIMEOUT) {
-      errors.push('Session expired due to absolute timeout');
-      logSecurityEvent('SESSION_ABSOLUTE_EXPIRED', { absoluteAge }, THREAT_LEVELS.LOW);
-    }
-
-    // Check IP consistency (if enabled)
-    const currentIp = contextHelper.getCurrentIpAddress();
-    if (sessionData.ipAddress && currentIp && sessionData.ipAddress !== currentIp) {
-      errors.push('IP address mismatch detected');
-      logSecurityEvent(
-        'SESSION_IP_MISMATCH',
-        {
-          originalIp: sessionData.ipAddress,
-          currentIp,
-        },
-        THREAT_LEVELS.HIGH
-      );
-    }
-
-    // Check user agent consistency (basic check)
-    const currentUserAgent = contextHelper.getCurrentUserAgent();
-    if (sessionData.userAgent && currentUserAgent) {
-      const agentChanged = !currentUserAgent.includes(sessionData.userAgent.split(' ')[0]);
-      if (agentChanged) {
-        logSecurityEvent('SESSION_USER_AGENT_CHANGE', {}, THREAT_LEVELS.MEDIUM);
-      }
-    }
-
-    const shouldRenew = sessionAge > SECURITY_CONFIG.SESSION.MAX_AGE * 0.75; // Renew when 75% of max age
-
-    return {
-      isValid: errors.length === 0,
-      errors,
-      shouldRenew,
-    };
-  } catch (error) {
-    logSecurityEvent('SESSION_VALIDATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    return {
-      isValid: false,
-      errors: ['Session validation failed'],
-      shouldRenew: false,
-    };
-  }
-};
-
-/**
- * Creates secure session data
- * @param {string} userId - User ID
- * @param {Object} additionalData - Additional session data
- * @returns {Object} Secure session data
- */
-const createSecureSession = (userId, additionalData = {}) => {
-  try {
-    const now = getCurrentTimestamp();
-    const sessionId = generateSecureToken(32);
-
-    const sessionData = {
-      sessionId,
-      userId,
-      createdAt: now,
-      lastActivity: now,
-      ipAddress: contextHelper.getCurrentIpAddress(),
-      userAgent: contextHelper.getCurrentUserAgent(),
-      csrfToken: generateCSRFToken(),
-      ...sanitizeLogData(additionalData),
-    };
-
-    logSecurityEvent('SESSION_CREATED', { userId, sessionId }, THREAT_LEVELS.LOW);
-
-    return sessionData;
-  } catch (error) {
-    logSecurityEvent('SESSION_CREATION_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    throw new Error(`Session creation failed: ${error.message}`);
-  }
-};
-
-// =============================================================================
-// LOGIN ATTEMPT TRACKING
-// =============================================================================
-
-/**
- * Tracks and validates login attempts to prevent brute force attacks
- * @param {string} identifier - Login identifier (email, username, IP)
- * @param {boolean} success - Whether login was successful
- * @returns {Object} Login attempt validation result
- */
-const trackLoginAttempt = (identifier, success = false) => {
-  try {
-    const now = getCurrentTimestamp();
     const key = `login:${identifier}`;
 
-    if (!securityStorage.loginAttempts.has(key)) {
-      securityStorage.loginAttempts.set(key, {
-        attempts: [],
-        lockoutUntil: null,
-        successfulLogins: [],
-      });
-    }
-
-    const loginData = securityStorage.loginAttempts.get(key);
-
-    // Clean old attempts (older than 1 hour)
-    const hourAgo = now - 60 * 60 * 1000;
-    loginData.attempts = loginData.attempts.filter((attempt) => attempt.timestamp > hourAgo);
-    loginData.successfulLogins = loginData.successfulLogins.filter((login) => login > hourAgo);
-
     if (success) {
-      // Reset failed attempts on successful login
-      loginData.attempts = [];
-      loginData.lockoutUntil = null;
-      loginData.successfulLogins.push(now);
-
-      logSecurityEvent('LOGIN_SUCCESS', { identifier }, THREAT_LEVELS.LOW);
-
+      // Reset on successful login
+      await rateLimiters.login.delete(key);
       return {
         allowed: true,
         attemptsRemaining: 5,
         lockoutUntil: null,
         message: 'Login successful',
       };
-    } else {
-      // Track failed attempt
-      loginData.attempts.push({
-        timestamp: now,
-        ipAddress: contextHelper.getCurrentIpAddress(),
-        userAgent: contextHelper.getCurrentUserAgent(),
-      });
+    }
 
-      const recentAttempts = loginData.attempts.length;
-
-      // Progressive lockout
-      let lockoutDuration = 0;
-      let maxAttempts = 5;
-
-      if (recentAttempts >= 10) {
-        lockoutDuration = 60 * 60 * 1000; // 1 hour
-        maxAttempts = 10;
-      } else if (recentAttempts >= 5) {
-        lockoutDuration = 15 * 60 * 1000; // 15 minutes
-        maxAttempts = 5;
-      } else if (recentAttempts >= 3) {
-        lockoutDuration = 5 * 60 * 1000; // 5 minutes
-        maxAttempts = 3;
-      }
-
-      if (lockoutDuration > 0) {
-        loginData.lockoutUntil = now + lockoutDuration;
-
-        logSecurityEvent(
-          'LOGIN_LOCKOUT',
-          {
-            identifier,
-            attempts: recentAttempts,
-            lockoutDuration: lockoutDuration / 1000,
-          },
-          THREAT_LEVELS.HIGH
-        );
-      } else {
-        logSecurityEvent(
-          'LOGIN_FAILURE',
-          {
-            identifier,
-            attempts: recentAttempts,
-          },
-          THREAT_LEVELS.MEDIUM
-        );
-      }
-
+    try {
+      const res = await rateLimiters.login.consume(key);
       return {
-        allowed: recentAttempts < maxAttempts,
-        attemptsRemaining: Math.max(0, maxAttempts - recentAttempts),
-        lockoutUntil: loginData.lockoutUntil ? moment(loginData.lockoutUntil).toISOString() : null,
-        message: recentAttempts >= maxAttempts ? 'Account temporarily locked' : 'Invalid credentials',
+        allowed: true,
+        attemptsRemaining: res.remainingPoints,
+        lockoutUntil: null,
+        message: 'Invalid credentials',
+      };
+    } catch (res) {
+      return {
+        allowed: false,
+        attemptsRemaining: 0,
+        lockoutUntil: moment().add(res.msBeforeNext, 'ms').toISOString(),
+        message: 'Account temporarily locked',
       };
     }
-  } catch (error) {
-    logSecurityEvent('LOGIN_TRACKING_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    // Fail safe - allow login if tracking fails
+  } catch (_) {
     return {
       allowed: true,
       attemptsRemaining: 5,
@@ -1069,57 +293,171 @@ const trackLoginAttempt = (identifier, success = false) => {
   }
 };
 
+// =============================================================================
+// JWT FUNCTIONS
+// =============================================================================
+
 /**
- * Checks if identifier is currently locked out
- * @param {string} identifier - Login identifier to check
- * @returns {boolean} True if locked out
+ * Creates signed JWT token with secure defaults
+ * @param {object} payload - Token payload data
+ * @param {string} secret - JWT signing secret
+ * @param {object} options - JWT signing options
+ * @returns {string} Signed JWT token
+ * @throws {Error} If token signing fails
  */
-const isLockedOut = (identifier) => {
+const createJWT = (payload, secret, options = {}) => {
+  const defaultOptions = {
+    algorithm: config.jwt.algorithm,
+    expiresIn: config.jwt.expiresIn,
+    notBefore: '0s',
+    issuer: config.jwt.issuer,
+    audience: config.jwt.audience,
+    jwtid: crypto.randomBytes(16).toString('hex'), // Secure random JWT ID
+  };
+
+  return jwt.sign(payload, secret, { ...defaultOptions, ...options });
+};
+
+/**
+ * Verifies JWT token and returns decoded payload
+ * @param {string} token - JWT token to verify
+ * @param {string} secret - JWT verification secret
+ * @param {object} options - Verification options
+ * @param {number} customHttpError - Custom HTTP error code
+ * @returns {object} Decoded token payload
+ * @throws {Boom} HTTP error with appropriate status code and message
+ */
+const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
+  const defaultOptions = {
+    algorithms: [config.jwt.algorithm],
+    clockTolerance: 60,
+    issuer: config.jwt.issuer,
+    audience: config.jwt.audience,
+  };
+
   try {
-    const key = `login:${identifier}`;
-    const loginData = securityStorage.loginAttempts.get(key);
-
-    if (!loginData || !loginData.lockoutUntil) {
-      return false;
-    }
-
-    const now = getCurrentTimestamp();
-    if (now > loginData.lockoutUntil) {
-      // Lockout expired
-      loginData.lockoutUntil = null;
-      return false;
-    }
-
-    return true;
+    return jwt.verify(token, secret, { ...defaultOptions, ...options });
   } catch (error) {
-    cerror('IS_LOCKED_OUT_ERROR', error.message);
-
-    return false; // Fail safe
+    switch (error.name) {
+      case 'JsonWebTokenError':
+        throw Boom.create(customHttpError, i18n.__('error.invalid_token'), {
+          scheme: 'Bearer',
+          errorType: 'invalid_token',
+        });
+      case 'TokenExpiredError':
+        throw Boom.create(customHttpError, i18n.__('error.expired_token'), {
+          scheme: 'Bearer',
+          errorType: 'expired_token',
+          expiredAt: error.expiredAt,
+        });
+      case 'NotBeforeError':
+        throw Boom.create(customHttpError, i18n.__('error.token_not_active'), {
+          scheme: 'Bearer',
+          errorType: 'token_not_active',
+          date: error.date,
+        });
+      default:
+        throw Boom.internal(i18n.__('error.token_verification_failed'), {
+          originalError: error.message,
+          errorType: 'verification_failed',
+        });
+    }
   }
 };
 
 // =============================================================================
-// IP ADDRESS SECURITY
+// SECURITY MONITORING (Redis-based)
 // =============================================================================
 
 /**
- * Tracks suspicious IP addresses
- * @param {string} ipAddress - IP address to track
- * @param {string} reason - Reason for suspicion
- * @param {string} severity - Severity level
+ * Logs security event to Redis for monitoring and analysis
+ * @param {string} event - Event type identifier
+ * @param {object} details - Event details and metadata
+ * @param {string} level - Threat level from THREAT_LEVELS constants
+ * @returns {Promise<string|null>} Event ID if successful, null otherwise
  */
-const markSuspiciousIP = (ipAddress, reason, severity = THREAT_LEVELS.MEDIUM) => {
+const logSecurityEvent = async (event, details = {}, level = THREAT_LEVELS.LOW) => {
   try {
-    if (!securityStorage.suspiciousIPs.has(ipAddress)) {
-      securityStorage.suspiciousIPs.set(ipAddress, {
-        incidents: [],
-        blockedUntil: null,
-        totalIncidents: 0,
-      });
+    const eventId = generateSecureToken(16);
+    const securityEvent = {
+      id: eventId,
+      event,
+      level,
+      timestamp: getCurrentTimestamp(),
+      ipAddress: details.ipAddress || 'unknown',
+      userId: details.userId || 'unknown',
+      sessionId: details.sessionId || 'unknown',
+      userAgent: details.userAgent || 'unknown',
+      details: sanitizeLogData(details),
+    };
+
+    // Store event in Redis with 24h TTL
+    await cacheHelper.set(`security_event:${eventId}`, securityEvent, 24 * 60 * 60);
+
+    // Add to event list for monitoring (keep last 1000 events)
+    await cacheHelper.lPush('security_events', eventId);
+    await cacheHelper.lTrim('security_events', 0, 999);
+
+    return eventId;
+  } catch (error) {
+    console.error('Failed to log security event:', error);
+    return null;
+  }
+};
+
+/**
+ * Retrieves security events with optional filtering
+ * @param {object} filters - Filter criteria
+ * @param {number} filters.limit - Maximum number of events to return
+ * @param {string} filters.level - Filter by threat level
+ * @param {string} filters.eventType - Filter by event type
+ * @returns {Promise<array>} Array of security events sorted by timestamp (newest first)
+ */
+const getSecurityEvents = async (filters = {}) => {
+  try {
+    const { limit = 100, level = null, eventType = null } = filters;
+
+    const eventIds = await cacheHelper.lRange('security_events', 0, limit - 1);
+    const events = [];
+
+    for (const eventId of eventIds) {
+      const event = await cacheHelper.get(`security_event:${eventId}`);
+      if (event) {
+        // Apply filters
+        if ((!level || event.level === level) && (!eventType || event.event.includes(eventType.toUpperCase()))) {
+          events.push(event);
+        }
+      }
     }
 
-    const ipData = securityStorage.suspiciousIPs.get(ipAddress);
+    return events.sort((a, b) => b.timestamp - a.timestamp);
+  } catch (error) {
+    console.error('Failed to get security events:', error);
+    return [];
+  }
+};
+
+// =============================================================================
+// IP SECURITY
+// =============================================================================
+
+/**
+ * Marks IP address as suspicious and implements automatic blocking
+ * @param {string} ipAddress - IP address to mark
+ * @param {string} reason - Reason for marking
+ * @param {string} severity - Threat severity level
+ * @returns {Promise<boolean>} Success status
+ */
+const markSuspiciousIP = async (ipAddress, reason, severity = THREAT_LEVELS.MEDIUM) => {
+  try {
+    const key = `suspicious_ip:${ipAddress}`;
     const now = getCurrentTimestamp();
+
+    let ipData = (await cacheHelper.get(key)) || {
+      incidents: [],
+      blockedUntil: null,
+      totalIncidents: 0,
+    };
 
     ipData.incidents.push({
       timestamp: now,
@@ -1135,29 +473,26 @@ const markSuspiciousIP = (ipAddress, reason, severity = THREAT_LEVELS.MEDIUM) =>
       ipData.blockedUntil = now + 60 * 60 * 1000; // 1 hour
     }
 
-    logSecurityEvent(
-      'SUSPICIOUS_IP_MARKED',
-      {
-        ipAddress,
-        reason,
-        severity,
-        totalIncidents: ipData.totalIncidents,
-      },
-      severity
-    );
+    // Store with appropriate TTL
+    const ttl = ipData.blockedUntil ? Math.ceil((ipData.blockedUntil - now) / 1000) : 7 * 24 * 60 * 60; // 7 days if not blocked
+
+    await cacheHelper.set(key, ipData, ttl);
+
+    return true;
   } catch (error) {
     console.error('Failed to mark suspicious IP:', error);
+    return false;
   }
 };
 
 /**
- * Checks if IP address is blocked
+ * Checks current status of IP address
  * @param {string} ipAddress - IP address to check
- * @returns {Object} IP status result
+ * @returns {Promise<object>} IP status information
  */
-const checkIPStatus = (ipAddress) => {
+const checkIPStatus = async (ipAddress) => {
   try {
-    const ipData = securityStorage.suspiciousIPs.get(ipAddress);
+    const ipData = await cacheHelper.get(`suspicious_ip:${ipAddress}`);
 
     if (!ipData) {
       return {
@@ -1169,21 +504,16 @@ const checkIPStatus = (ipAddress) => {
     }
 
     const now = getCurrentTimestamp();
-
-    // Check if block expired
-    if (ipData.blockedUntil && now > ipData.blockedUntil) {
-      ipData.blockedUntil = null;
-    }
+    const isBlocked = ipData.blockedUntil && now < ipData.blockedUntil;
 
     return {
-      isBlocked: ipData.blockedUntil !== null,
+      isBlocked,
       isSuspicious: ipData.incidents.length > 0,
-      blockedUntil: ipData.blockedUntil ? moment(ipData.blockedUntil).toISOString() : null,
+      blockedUntil: ipData.blockedUntil,
       incidentCount: ipData.totalIncidents,
     };
   } catch (error) {
-    cerror('IP_STATUS_CHECK_ERROR', error.message);
-
+    console.error('Failed to check IP status:', error);
     return {
       isBlocked: false,
       isSuspicious: false,
@@ -1194,382 +524,32 @@ const checkIPStatus = (ipAddress) => {
 };
 
 // =============================================================================
-// AUDIT AND MONITORING
-// =============================================================================
-
-/**
- * Gets recent security events for monitoring
- * @param {Object} filters - Event filters
- * @returns {Array} Filtered security events
- */
-const getSecurityEvents = (filters = {}) => {
-  try {
-    const {
-      level = null,
-      eventType = null,
-      timeRange = 24 * 60 * 60 * 1000, // 24 hours
-      limit = 100,
-    } = filters;
-
-    const now = getCurrentTimestamp();
-    const cutoff = now - timeRange;
-
-    let events = securityStorage.securityEvents.filter((event) => event.timestamp > cutoff);
-
-    if (level) {
-      events = events.filter((event) => event.level === level);
-    }
-
-    if (eventType) {
-      events = events.filter((event) => event.event.includes(eventType.toUpperCase()));
-    }
-
-    // Sort by timestamp (newest first) and limit
-    return events.sort((a, b) => b.timestamp - a.timestamp).slice(0, limit);
-  } catch (error) {
-    console.error('Failed to get security events:', error);
-    return [];
-  }
-};
-
-/**
- * Gets security statistics summary
- * @param {number} timeRange - Time range in milliseconds
- * @returns {Object} Security statistics
- */
-const getSecurityStats = (timeRange = 24 * 60 * 60 * 1000) => {
-  try {
-    const events = getSecurityEvents({ timeRange, limit: 10000 });
-
-    const stats = {
-      totalEvents: events.length,
-      eventsByLevel: {
-        [THREAT_LEVELS.LOW]: 0,
-        [THREAT_LEVELS.MEDIUM]: 0,
-        [THREAT_LEVELS.HIGH]: 0,
-        [THREAT_LEVELS.CRITICAL]: 0,
-      },
-      eventsByType: {},
-      uniqueIPs: new Set(),
-      suspiciousIPs: securityStorage.suspiciousIPs.size,
-      activeRateLimits: securityStorage.rateLimits.size,
-      activeSessions: 0, // This would need to be tracked separately
-    };
-
-    events.forEach((event) => {
-      stats.eventsByLevel[event.level]++;
-
-      const eventType = event.event.split('_')[0];
-      stats.eventsByType[eventType] = (stats.eventsByType[eventType] || 0) + 1;
-
-      if (event.ipAddress) {
-        stats.uniqueIPs.add(event.ipAddress);
-      }
-    });
-
-    stats.uniqueIPs = stats.uniqueIPs.size;
-
-    return stats;
-  } catch (error) {
-    console.error('Failed to get security stats:', error);
-    return {
-      totalEvents: 0,
-      eventsByLevel: {},
-      eventsByType: {},
-      uniqueIPs: 0,
-      suspiciousIPs: 0,
-      activeRateLimits: 0,
-      activeSessions: 0,
-      error: 'Statistics unavailable',
-    };
-  }
-};
-
-/**
- * Performs security health check
- * @returns {Object} Security health status
- */
-const performSecurityHealthCheck = () => {
-  try {
-    const checks = {
-      contextAvailable: contextHelper.hasContext(),
-      rateLimitingActive: securityStorage.rateLimits.size < 10000, // Prevent memory overflow
-      csrfTokensManaged: securityStorage.csrfTokens.size < 1000,
-      eventLoggingActive: securityStorage.securityEvents.length > 0,
-      suspiciousIPTracking: true,
-      loginAttemptTracking: true,
-    };
-
-    const failedChecks = Object.entries(checks).filter(([, status]) => !status);
-    const isHealthy = failedChecks.length === 0;
-
-    return {
-      isHealthy,
-      checks,
-      failedChecks: failedChecks.map(([check]) => check),
-      timestamp: moment().toISOString(),
-    };
-  } catch (error) {
-    return {
-      isHealthy: false,
-      checks: {},
-      failedChecks: ['health_check_failed'],
-      error: error.message,
-      timestamp: moment().toISOString(),
-    };
-  }
-};
-
-// =============================================================================
-// CLEANUP AND MAINTENANCE
-// =============================================================================
-
-/**
- * Performs cleanup of expired security data
- * @returns {Object} Cleanup result
- */
-const performSecurityCleanup = () => {
-  try {
-    const now = getCurrentTimestamp();
-    let cleaned = 0;
-
-    // Cleanup expired CSRF tokens
-    cleanupExpiredCSRFTokens();
-
-    // Cleanup old rate limit entries
-    securityStorage.rateLimits.forEach((data, key) => {
-      const windowStart = now - 15 * 60 * 1000; // 15 minutes
-      data.requests = data.requests.filter((timestamp) => timestamp > windowStart);
-
-      if (data.requests.length === 0) {
-        securityStorage.rateLimits.delete(key);
-        cleaned++;
-      }
-    });
-
-    // Cleanup old login attempts
-    securityStorage.loginAttempts.forEach((data, key) => {
-      const hourAgo = now - 60 * 60 * 1000;
-      data.attempts = data.attempts.filter((attempt) => attempt.timestamp > hourAgo);
-
-      if (data.attempts.length === 0 && !data.lockoutUntil) {
-        securityStorage.loginAttempts.delete(key);
-        cleaned++;
-      }
-    });
-
-    // Cleanup old security events (keep only last 1000)
-    if (securityStorage.securityEvents.length > 1000) {
-      const removed = securityStorage.securityEvents.length - 1000;
-      securityStorage.securityEvents = securityStorage.securityEvents.slice(-1000);
-      cleaned += removed;
-    }
-
-    // Cleanup expired IP blocks
-    securityStorage.suspiciousIPs.forEach((data, ip) => {
-      if (data.blockedUntil && now > data.blockedUntil) {
-        data.blockedUntil = null;
-      }
-
-      // Clean old incidents (older than 24 hours)
-      const dayAgo = now - 24 * 60 * 60 * 1000;
-      data.incidents = data.incidents.filter((incident) => incident.timestamp > dayAgo);
-
-      if (data.incidents.length === 0 && !data.blockedUntil) {
-        securityStorage.suspiciousIPs.delete(ip);
-        cleaned++;
-      }
-    });
-
-    logSecurityEvent('SECURITY_CLEANUP', { itemsCleaned: cleaned }, THREAT_LEVELS.LOW);
-
-    return {
-      success: true,
-      itemsCleaned: cleaned,
-      timestamp: moment().toISOString(),
-    };
-  } catch (error) {
-    logSecurityEvent('SECURITY_CLEANUP_ERROR', { error: error.message }, THREAT_LEVELS.MEDIUM);
-    return {
-      success: false,
-      error: error.message,
-      itemsCleaned: 0,
-      timestamp: moment().toISOString(),
-    };
-  }
-};
-
-// =============================================================================
-// JWT FUNCTIONS
-// =============================================================================
-
-/**
- * Creates a JWT token with the given payload and secret.
- *
- * @param {Object} payload - Payload to be signed.
- * @param {string} secret - Secret used for signing.
- * @param {Object} [options] - Additional options for the token.
- * @param {string} [options.algorithm] - Algorithm to use (default: {@link module:config/env~config.jwt.algorithm}).
- * @param {string|number} [options.expiresIn] - Expiration time (default: none).
- * @param {string|number} [options.notBefore] - "Not before" time (default: 0 seconds).
- * @param {string} [options.audience] - Audience for the token (default: none).
- * @param {string} [options.issuer] - Issuer of the token (default: none).
- * @param {string} [options.jwtid] - JWT ID (default: random value).
- * @param {string} [options.subject] - Subject of the token (default: none).
- * @param {string} [options.encoding] - Encoding of the payload (default: UTF-8).
- *
- * @returns {string} The signed JWT token.
- *
- * @throws {Error} If the token creation fails.
- */
-const createJWT = (payload, secret, options = {}) => {
-  try {
-    const defaultOptions = {
-      algorithm: config.jwt.algorithm,
-      expiresIn: undefined,
-      notBefore: '0s',
-      audience: undefined,
-      issuer: undefined,
-      jwtid: Math.random().toString(36).substring(7),
-      subject: undefined,
-      encoding: 'utf8',
-    };
-
-    const finalOptions = { ...JSON.parse(JSON.stringify(defaultOptions)), ...JSON.parse(JSON.stringify(options)) };
-
-    return jwt.sign(payload, secret, finalOptions);
-  } catch (error) {
-    throw new Error(`Failed to create JWT: ${error.message}`);
-  }
-};
-
-/**
- * Verifies the given JWT token against the given secret and options.
- *
- * @param {string} token - JWT token to verify.
- * @param {string} secret - Secret used for signing.
- * @param {Object} [options] - Additional options for the verification.
- * @param {number} [customHttpError=401] - Custom HTTP status code for errors.
- *
- * @returns {Object} The decoded payload of the JWT token.
- *
- * @throws {Boom} If the token verification fails with a specific error.
- */
-const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
-  try {
-    const defaultOptions = {
-      algorithms: [config.jwt.algorithm],
-      clockTolerance: 60,
-    };
-
-    const finalOptions = { ...defaultOptions, ...options };
-
-    return jwt.verify(token, secret, finalOptions);
-  } catch (error) {
-    switch (error.name) {
-      case 'JsonWebTokenError': {
-        const invalidTokenError = Boom.create(customHttpError, i18n.__('error.invalid_token'), {
-          scheme: 'Bearer',
-          errorType: 'invalid_token',
-        });
-        invalidTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
-        throw invalidTokenError;
-      }
-
-      case 'TokenExpiredError': {
-        const expiredTokenError = Boom.create(customHttpError, i18n.__('error.expired_token'), {
-          scheme: 'Bearer',
-          errorType: 'expired_token',
-          expiredAt: error.expiredAt,
-        });
-        expiredTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
-        throw expiredTokenError;
-      }
-
-      case 'NotBeforeError': {
-        const notActiveTokenError = Boom.create(customHttpError, i18n.__('error.token_not_active'), {
-          scheme: 'Bearer',
-          errorType: 'token_not_active',
-          date: error.date,
-        });
-        notActiveTokenError.output.headers['WWW-Authenticate'] = 'Bearer realm="API"';
-        throw notActiveTokenError;
-      }
-
-      default: {
-        throw Boom.internal(i18n.__('error.token_verification_failed'), {
-          originalError: error.message,
-          errorType: 'verification_failed',
-        });
-      }
-    }
-  }
-};
-
-// =============================================================================
 // MODULE EXPORTS
 // =============================================================================
 module.exports = {
-  // Input Validation and Sanitization
-  validateAndSanitizeString,
-  validateEmail,
-  validatePhone,
-  validateUrl,
-  validateAndSanitizeObject,
-  detectSQLInjection,
-  sanitizeHTML,
-  detectXSS,
-
-  // Password Security
-  validatePasswordStrength,
-  isCommonPassword,
-  hashPassword,
-  verifyPassword,
-
-  // Rate Limiting
-  checkRateLimit,
-  checkStrictRateLimit,
-
-  // CSRF Protection
-  generateCSRFToken,
-  validateCSRFToken,
-
-  // Session Security
-  validateSessionSecurity,
-  createSecureSession,
-
-  // Login Security
-  trackLoginAttempt,
-  isLockedOut,
-
-  // IP Security
-  markSuspiciousIP,
-  checkIPStatus,
-
-  // Security Logging and Events
-  logSecurityEvent,
-  getSecurityEvents,
-  getSecurityStats,
-
-  // Monitoring and Maintenance
-  performSecurityHealthCheck,
-  performSecurityCleanup,
-
-  // Utility Functions
+  // Utility functions
   generateSecureToken,
   getCurrentTimestamp,
   sanitizeLogData,
+  sanitizeHTML,
 
-  // JWT Functions
+  // Password security
+  hashPassword,
+  verifyPassword,
+
+  // Rate limiting
+  checkRateLimit,
+  trackLoginAttempt,
+
+  // JWT functions
   createJWT,
   verifyJWT,
 
-  // For testing purposes only
-  __test__resetSecurityStorage: () => {
-    securityStorage.rateLimits = new Map();
-    securityStorage.csrfTokens = new Map();
-    securityStorage.suspiciousIPs = new Map();
-    securityStorage.securityEvents = [];
-    securityStorage.loginAttempts = new Map();
-  },
+  // Security monitoring
+  logSecurityEvent,
+  getSecurityEvents,
+
+  // IP security
+  markSuspiciousIP,
+  checkIPStatus,
 };
