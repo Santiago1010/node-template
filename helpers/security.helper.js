@@ -71,10 +71,9 @@ const sanitize = require('sanitize-html'); // HTML input sanitization (v2.x)
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const cacheHelper = require('./cache.helper'); // Redis client wrapper
 const config = require('../config/env'); // Application configuration
 const i18n = require('../config/i18n'); // Internationalization support
-const { THREAT_LEVELS, SECURITY_CONFIG } = require('./constants.helper'); // Security constants
+const { SECURITY_CONFIG } = require('./constants.helper'); // Security constants
 
 // =============================================================================
 // UTILITY FUNCTIONS
@@ -122,51 +121,6 @@ const generateSecureToken = (length = 32) => {
  * @since Version 1.0.0
  */
 const getCurrentTimestamp = () => moment().valueOf();
-
-/**
- * Sanitizes log data to prevent injection attacks and ensure consistency
- *
- * @description Removes control characters, truncates strings, and handles circular references.
- * Critical for security monitoring to prevent log forging attacks.
- *
- * @param {string|object} data - Data to sanitize (strings or objects)
- * @param {WeakSet} [seen=new WeakSet()] - Internal parameter for circular reference detection
- * @returns {string|object} Sanitized data safe for logging
- *
- * @example
- * // Sanitize user input
- * const cleanLog = sanitizeLogData(userInput);
- *
- * @example
- * // Sanitize complex object
- * const cleanObj = sanitizeLogData({ user: userData, meta: metadata });
- *
- * @since Version 1.2.0
- */
-const sanitizeLogData = (data, seen = new WeakSet()) => {
-  if (typeof data === 'string') {
-    // Remove control characters and normalize whitespace
-    return data
-      .replace(/[\r\n\t]/g, ' ')
-      .replace(/\s{2,}/g, ' ')
-      .substring(0, 500); // Truncate to prevent log flooding
-  }
-
-  if (typeof data === 'object' && data !== null) {
-    if (seen.has(data)) return '[Circular Reference]';
-
-    seen.add(data);
-    const sanitized = {};
-
-    Object.entries(data).forEach(([key, value]) => {
-      sanitized[key] = sanitizeLogData(value, seen);
-    });
-
-    return sanitized;
-  }
-
-  return data;
-};
 
 /**
  * Sanitizes HTML input to prevent XSS attacks
@@ -232,7 +186,19 @@ const sanitizeHTML = (html, options = {}) => {
  * @see {@link https://www.npmjs.com/package/bcrypt} for implementation details
  */
 const hashPassword = async (password, saltRounds = SECURITY_CONFIG.PASSWORD_POLICY.SALT) => {
-  return bcrypt.hash(password, saltRounds);
+  if (!password || typeof password !== 'string') {
+    throw new Error('Hashing requires a non-empty string password');
+  }
+
+  if (!saltRounds || typeof saltRounds !== 'number' || saltRounds < 1) {
+    throw new Error('Invalid salt rounds parameter');
+  }
+
+  try {
+    return await bcrypt.hash(password, saltRounds);
+  } catch (error) {
+    throw new Error(`Hashing failed due to: ${error.message}`);
+  }
 };
 
 /**
@@ -245,17 +211,30 @@ const hashPassword = async (password, saltRounds = SECURITY_CONFIG.PASSWORD_POLI
  * @param {string} password - Plain text password to verify
  * @param {string} hashedPassword - bcrypt hash to compare against
  * @returns {Promise<boolean>} Resolves with password match result
+ * @throws {Error} If verification fails due to invalid input or system error
  *
  * @example
  * // Verify login attempt
- * const isValid = await verifyPassword('inputPassword', storedHash);
- * if (isValid) { /* grant access *\/ }
+ * try {
+ *   const isValid = await verifyPassword('inputPassword', storedHash);
+ *   if (isValid) { /* grant access *\/ }
+ * } catch (error) {
+ *   console.error('Password verification failed:', error.message);
+ * }
  *
  * @complexity Time: O(1), Space: O(1)
  * @since Version 1.0.0
  */
 const verifyPassword = async (password, hashedPassword) => {
-  return bcrypt.compare(password, hashedPassword);
+  if (!password || !hashedPassword || typeof password !== 'string' || typeof hashedPassword !== 'string') {
+    throw new Error('Verification requires a non-empty string password and hash');
+  }
+
+  try {
+    return await bcrypt.compare(password, hashedPassword);
+  } catch (error) {
+    throw new Error(`Verification failed due to: ${error.message}`);
+  }
 };
 
 // =============================================================================
@@ -376,175 +355,12 @@ const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
 };
 
 // =============================================================================
-// SECURITY MONITORING (Redis-based)
-// =============================================================================
-
-/**
- * Logs security event to Redis for monitoring and analysis
- *
- * @description Stores security events with automatic TTL and list management.
- * Events are sanitized and stored with unique identifiers for correlation.
- *
- * @param {string} event - Event type identifier (e.g., 'LOGIN_FAILURE')
- * @param {object} [details={}] - Event details and metadata
- * @param {string} [level=THREAT_LEVELS.LOW] - Threat level from THREAT_LEVELS constants
- * @returns {Promise<string|null>} Event ID if successful, null on failure
- *
- * @example
- * // Log failed login attempt
- * await logSecurityEvent(
- *   'LOGIN_FAILURE',
- *   { username: 'testuser', ipAddress: '192.168.1.1' },
- *   THREAT_LEVELS.MEDIUM
- * );
- *
- * @since Version 1.2.0
- */
-const logSecurityEvent = async (event, details = {}, level = THREAT_LEVELS.LOW) => {
-  try {
-    const eventId = generateSecureToken(16);
-    const securityEvent = {
-      id: eventId,
-      event,
-      level,
-      timestamp: getCurrentTimestamp(),
-      ipAddress: details.ipAddress || 'unknown',
-      userId: details.userId || 'unknown',
-      sessionId: details.sessionId || 'unknown',
-      userAgent: details.userAgent || 'unknown',
-      details: sanitizeLogData(details),
-    };
-
-    // Store event in Redis with 24h TTL
-    await cacheHelper.set(`security_event:${eventId}`, securityEvent, 24 * 60 * 60);
-
-    // Add to event list for monitoring (keep last 1000 events)
-    await cacheHelper.lPush('security_events', eventId);
-    await cacheHelper.lTrim('security_events', 0, 999);
-
-    return eventId;
-  } catch (error) {
-    console.error('Failed to log security event:', error);
-    return null;
-  }
-};
-
-/**
- * Retrieves security events with optional filtering and sorting
- *
- * @description Fetches security events from Redis storage with filtering
- * capabilities. Returns events sorted by timestamp (newest first).
- *
- * @param {object} [filters={}] - Filter criteria
- * @param {number} [filters.limit=100] - Maximum number of events to return
- * @param {string} [filters.level=null] - Filter by threat level
- * @param {string} [filters.eventType=null] - Filter by event type
- * @returns {Promise<array>} Array of security events
- *
- * @example
- * // Get recent high threat events
- * const events = await getSecurityEvents({
- *   limit: 50,
- *   level: THREAT_LEVELS.HIGH
- * });
- *
- * @since Version 1.2.0
- */
-const getSecurityEvents = async (filters = {}) => {
-  try {
-    const { limit = 100, level = null, eventType = null } = filters;
-
-    const eventIds = await cacheHelper.lRange('security_events', 0, limit - 1);
-    const events = [];
-
-    for (const eventId of eventIds) {
-      const event = await cacheHelper.get(`security_event:${eventId}`);
-      if (event) {
-        // Apply filters
-        if ((!level || event.level === level) && (!eventType || event.event.includes(eventType.toUpperCase()))) {
-          events.push(event);
-        }
-      }
-    }
-
-    return events.sort((a, b) => b.timestamp - a.timestamp);
-  } catch (error) {
-    console.error('Failed to get security events:', error);
-    return [];
-  }
-};
-
-// =============================================================================
-// IP SECURITY
-// =============================================================================
-
-/**
- * Marks IP address as suspicious and implements automatic blocking
- *
- * @description Implements IP reputation system with automatic blocking
- * based on severity and frequency of incidents. Supports tiered blocking
- * durations with configurable thresholds.
- *
- * @param {string} ipAddress - IP address to mark (IPv4 or IPv6)
- * @param {string} reason - Reason for marking (e.g., 'BRUTE_FORCE_ATTEMPT')
- * @param {string} [severity=THREAT_LEVELS.MEDIUM] - Threat severity level
- * @returns {Promise<boolean>} Success status
- *
- * @example
- * // Mark IP for brute force attempt
- * await markSuspiciousIP(
- *   '192.168.1.1',
- *   'BRUTE_FORCE_ATTEMPT',
- *   THREAT_LEVELS.HIGH
- * );
- *
- * @since Version 1.3.0
- */
-const markSuspiciousIP = async (ipAddress, reason, severity = THREAT_LEVELS.MEDIUM) => {
-  try {
-    const key = `suspicious_ip:${ipAddress}`;
-    const now = getCurrentTimestamp();
-
-    let ipData = (await cacheHelper.get(key)) || {
-      incidents: [],
-      blockedUntil: null,
-      totalIncidents: 0,
-    };
-
-    ipData.incidents.push({
-      timestamp: now,
-      reason,
-      severity,
-    });
-    ipData.totalIncidents++;
-
-    // Auto-block based on severity and frequency
-    if (severity === THREAT_LEVELS.CRITICAL || ipData.totalIncidents >= 10) {
-      ipData.blockedUntil = now + 24 * 60 * 60 * 1000; // 24 hours
-    } else if (severity === THREAT_LEVELS.HIGH || ipData.totalIncidents >= 5) {
-      ipData.blockedUntil = now + 60 * 60 * 1000; // 1 hour
-    }
-
-    // Store with appropriate TTL
-    const ttl = ipData.blockedUntil ? Math.ceil((ipData.blockedUntil - now) / 1000) : 7 * 24 * 60 * 60; // 7 days if not blocked
-
-    await cacheHelper.set(key, ipData, ttl);
-
-    return true;
-  } catch (error) {
-    console.error('Failed to mark suspicious IP:', error);
-    return false;
-  }
-};
-
-// =============================================================================
 // MODULE EXPORTS
 // =============================================================================
 module.exports = {
   // Utility functions
   generateSecureToken,
   getCurrentTimestamp,
-  sanitizeLogData,
   sanitizeHTML,
 
   // Password security
@@ -554,11 +370,4 @@ module.exports = {
   // JWT functions
   createJWT,
   verifyJWT,
-
-  // Security monitoring
-  logSecurityEvent,
-  getSecurityEvents,
-
-  // IP security
-  markSuspiciousIP,
 };
