@@ -42,7 +42,7 @@ const { createClient } = require('redis');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { redis } = require('../env');
+const { redis } = require('../env').cache;
 
 /**
  * Enhanced Redis client with connection management and monitoring
@@ -329,12 +329,35 @@ const redisClient = new RedisClient();
         console.error('All Redis connection attempts failed');
         process.exit(1);
       }
-      await setTimeout(1000 * attempt); // Exponential backoff
+      await new Promise((resolve) => setTimeout(resolve, 1000 * attempt)); // Fixed setTimeout usage
     }
   }
 })();
 
+/**
+ * Creates a legacy Redis client (v3 compatible) for packages that require it
+ * @param {Object} [customConfig] - Optional custom configuration
+ * @returns {RedisClient} Legacy Redis client instance
+ */
+const createLegacyClient = (customConfig = {}) => {
+  const config = {
+    url: `redis://${redis.host}:${redis.port}`,
+    password: redis.password,
+    socket: {
+      reconnectStrategy: (retries) => Math.min(retries * 100, 3000),
+      keepAlive: 30000,
+      connectTimeout: 10000,
+      lazyConnect: false,
+    },
+    legacyMode: true, // Enable legacy mode for v3 compatibility
+    ...customConfig,
+  };
+
+  return createClient(config);
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = new RedisClient();
+module.exports = redisClient;
+module.exports.createLegacyClient = createLegacyClient;

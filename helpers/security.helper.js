@@ -80,25 +80,49 @@ const cacheHelper = require('./cache.helper'); // Redis client wrapper
 const config = require('../config/env'); // Application configuration
 const i18n = require('../config/i18n'); // Internationalization support
 const { THREAT_LEVELS, SECURITY_CONFIG } = require('./constants.helper'); // Security constants
+const { createLegacyClient } = require('../config/cache/redisClient'); // Importar la función para crear cliente legacy
 
 // =============================================================================
 // RATE LIMITER INSTANCES (Redis-based)
 // =============================================================================
+// Create legacy Redis client specifically for rate-limiting using the exported function
+const rateLimiterStoreClient = createLegacyClient();
+
+// Handle legacy client connection events
+rateLimiterStoreClient.on('error', (err) => {
+  console.error('Legacy Redis client error', { error: err.message });
+});
+
+rateLimiterStoreClient.on('connect', () => {
+  console.info('Legacy Redis client connecting');
+});
+
+rateLimiterStoreClient.on('ready', () => {
+  console.info('Legacy Redis client ready for rate limiting');
+});
+
+// Connect legacy client
+rateLimiterStoreClient
+  .connect()
+  .then(() => console.info('Legacy Redis client connected for rate limiting'))
+  .catch((err) => console.error('Legacy Redis connection failed:', err));
+
+// Rate limiter instances using legacy client
 const rateLimiters = {
   general: new RateLimiterRedis({
-    storeClient: cacheHelper.client,
+    storeClient: rateLimiterStoreClient, // ✅ Using legacy-compatible client
     keyPrefix: 'rate_limit',
     points: SECURITY_CONFIG.RATE_LIMIT.DEFAULT_MAX_REQUESTS,
     duration: SECURITY_CONFIG.RATE_LIMIT.DEFAULT_WINDOW / 1000,
   }),
   strict: new RateLimiterRedis({
-    storeClient: cacheHelper.client,
+    storeClient: rateLimiterStoreClient, // ✅ Using legacy-compatible client
     keyPrefix: 'strict_rate_limit',
     points: SECURITY_CONFIG.RATE_LIMIT.STRICT_MAX_REQUESTS,
     duration: SECURITY_CONFIG.RATE_LIMIT.STRICT_WINDOW / 1000,
   }),
   login: new RateLimiterRedis({
-    storeClient: cacheHelper.client,
+    storeClient: rateLimiterStoreClient, // ✅ Using legacy-compatible client
     keyPrefix: 'login_rate_limit',
     points: 5, // Maximum of 5 login attempts
     duration: 15 * 60, // 15-minute window
