@@ -161,7 +161,7 @@ const isDebugMode = (allowDevMode = false) => {
   if (isLocal) return true;
 
   // Check development mode if allowed
-  if (allowDevMode && MODES[mode] === DEBUG_SETTINGS.DEVELOPMENT_MODE_VALUE) {
+  if (allowDevMode && MODES[mode.toUpperCase()] === DEBUG_SETTINGS.DEVELOPMENT_MODE_VALUE) {
     return true;
   }
 

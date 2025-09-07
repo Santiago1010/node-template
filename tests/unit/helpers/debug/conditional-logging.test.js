@@ -108,6 +108,14 @@ describe('Conditional Logging Functions', () => {
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // Header and separator
     });
 
+    it('should not log additional data if it is undefined', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      const header = faker.lorem.sentence();
+      wrapLogging(header, undefined);
+      expect(consoleDirSpy).not.toHaveBeenCalled();
+    });
+
     it('should log message when the returned function is called', () => {
       setDebugMode(true);
       const logFn = wrapLogging(faker.lorem.sentence());
@@ -171,6 +179,15 @@ describe('Conditional Logging Functions', () => {
       // Check for separator with pattern matching instead of exact length
       expect(consoleLogSpy).toHaveBeenCalledTimes(3); // Header, arg, separator
     });
+
+    it('should handle no arguments', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      const title = faker.lorem.sentence();
+      clog(title);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('cdir', () => {
@@ -197,6 +214,16 @@ describe('Conditional Logging Functions', () => {
       // Check for separator with pattern matching instead of exact length
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // Header, separator
       expect(consoleDirSpy).toHaveBeenCalledTimes(2); // obj1, obj2
+    });
+
+    it('should handle no arguments', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      const title = faker.lorem.sentence();
+      cdir(title);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleDirSpy).not.toHaveBeenCalled();
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -225,6 +252,16 @@ describe('Conditional Logging Functions', () => {
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // Header, separator
       expect(consoleErrorSpy).toHaveBeenCalledTimes(2); // err1, err2
     });
+
+    it('should handle no arguments', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      const title = faker.lorem.sentence();
+      cerror(title);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe('clear', () => {
@@ -249,6 +286,17 @@ describe('Conditional Logging Functions', () => {
       expect(consoleLogSpy).toHaveBeenCalledWith(arg1);
       // Check for separator with pattern matching instead of exact length
       expect(consoleLogSpy).toHaveBeenCalledTimes(3); // Header, arg1, separator
+    });
+
+    it('should handle no arguments', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      consoleClearSpy.mockClear();
+      const title = faker.lorem.sentence();
+      clear(title);
+      expect(consoleClearSpy).toHaveBeenCalledTimes(1);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -277,6 +325,19 @@ describe('Conditional Logging Functions', () => {
       // Check for separator with pattern matching instead of exact length
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // Header, separator
       expect(consoleDirSpy).toHaveBeenCalledTimes(1); // obj1
+    });
+
+    it('should handle no arguments', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      consoleClearSpy.mockClear();
+      consoleDirSpy.mockClear();
+      const title = faker.lorem.sentence();
+      clir(title);
+      expect(consoleClearSpy).toHaveBeenCalledTimes(1);
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleDirSpy).not.toHaveBeenCalled();
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
     });
   });
 });

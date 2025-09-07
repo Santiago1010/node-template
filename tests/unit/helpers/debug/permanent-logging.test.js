@@ -129,5 +129,15 @@ describe('Permanent Logging Functions (plog, pdir, perror)', () => {
       expect(consoleErrorSpy).toHaveBeenCalledWith(error2);
       expect(consoleLogSpy).toHaveBeenCalledWith(generateSeparator());
     });
+
+    it('should handle no arguments', () => {
+      const title = 'Test Perror No Args';
+      perror(title);
+
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
+      expect(consoleLogSpy).toHaveBeenCalledWith(generateHeader(title));
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+      expect(consoleLogSpy).toHaveBeenCalledWith(generateSeparator());
+    });
   });
 });
