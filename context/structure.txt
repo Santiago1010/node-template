@@ -122,6 +122,7 @@
 │       ├── pagination.schema.js
 │       └── search.schema.js
 ├── scripts
+│   ├── config.js
 │   ├── createModels.script.js
 │   └── generate-rsa-keys.sh
 ├── seeders
@@ -132,9 +133,11 @@
 │   └── config
 ├── templates
 │   ├── emails
-│   └── models
-│       ├── model.template.js
-│       └── setupModel.template.js
+│   ├── models
+│   │   ├── model.template.js
+│   │   └── setupModel.template.js
+│   └── prompts
+│       └── endpoints_docs.md
 ├── tests
 │   ├── env-setup.js
 │   ├── integration
@@ -204,4 +207,4 @@
     ├── extensions.json
     └── settings.json
 
-67 directories, 138 files
+68 directories, 140 files
