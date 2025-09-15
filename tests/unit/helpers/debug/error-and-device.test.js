@@ -2,6 +2,21 @@
 // DEBUG HELPER - ERROR AND DEVICE DETECTION - UNIT TESTS
 // =============================================================================
 
+// Mock del sistema de configuración para evitar carga de variables de entorno
+jest.mock('../../../../config/env/index.js', () => ({
+  loadEnvFile: jest.fn(),
+  validatedEnv: {
+    success: true,
+    data: {
+      DB_NAME: 'test_db',
+      DB_USER: 'test_user',
+      JWT_ACCESS_TOKEN_SECRET: 'test_jwt_access_secret',
+      JWT_REFRESH_TOKEN_SECRET: 'test_jwt_refresh_secret',
+      // Agrega otras variables necesarias para evitar errores de validación
+    },
+  },
+}));
+
 const fs = require('fs');
 const path = require('path');
 const Boom = require('@hapi/boom');
@@ -13,20 +28,49 @@ const {
   detectDeviceWithMetadata,
 } = require('../../../../helpers/debug.helper');
 
-jest.mock('fs');
-jest.mock('path');
+// Mock completo de fs con todas las funciones necesarias
+jest.mock('fs', () => {
+  const actualFs = jest.requireActual('fs');
+  return {
+    ...actualFs,
+    existsSync: jest.fn(),
+    mkdirSync: jest.fn(),
+    appendFileSync: jest.fn(),
+    readFileSync: actualFs.readFileSync, // Mantener la función real para otros usos
+  };
+});
+
+// Mock parcial de path - mantiene funciones reales excepto join
+jest.mock('path', () => {
+  const actualPath = jest.requireActual('path');
+  return {
+    ...actualPath,
+    join: jest.fn(),
+  };
+});
+
 jest.mock('@hapi/boom', () => ({
-  badRequest: jest.fn(),
-  unauthorized: jest.fn(),
-  forbidden: jest.fn(),
-  notFound: jest.fn(),
-  conflict: jest.fn(),
-  badData: jest.fn(),
-  tooManyRequests: jest.fn(),
-  internal: jest.fn(),
+  badRequest: jest.fn(() => ({ isBoom: true, output: { statusCode: 400 } })),
+  unauthorized: jest.fn(() => ({ isBoom: true, output: { statusCode: 401 } })),
+  forbidden: jest.fn(() => ({ isBoom: true, output: { statusCode: 403 } })),
+  notFound: jest.fn(() => ({ isBoom: true, output: { statusCode: 404 } })),
+  conflict: jest.fn(() => ({ isBoom: true, output: { statusCode: 409 } })),
+  badData: jest.fn(() => ({ isBoom: true, output: { statusCode: 422 } })),
+  tooManyRequests: jest.fn(() => ({ isBoom: true, output: { statusCode: 429 } })),
+  internal: jest.fn(() => ({ isBoom: true, output: { statusCode: 500 } })),
 }));
 
 describe('Debug Helper - Error and Device Detection', () => {
+  beforeEach(() => {
+    // Configurar mocks por defecto
+    fs.existsSync.mockReturnValue(true);
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+    fs.mkdirSync.mockImplementation(() => {});
+    // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+    fs.appendFileSync.mockImplementation(() => {});
+    path.join.mockReturnValue('test/path/to/error.log');
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -121,10 +165,6 @@ describe('Debug Helper - Error and Device Detection', () => {
   });
 
   describe('registerError', () => {
-    beforeEach(() => {
-      fs.existsSync.mockReturnValue(true);
-    });
-
     it('should register an error and return a Boom error object', () => {
       const error = 'Test error';
       const httpCode = 404;
@@ -132,12 +172,11 @@ describe('Debug Helper - Error and Device Detection', () => {
       const code = 123;
       const additionalInfo = { foo: 'bar' };
 
-      path.join.mockReturnValue('test/path/to/error.log');
-
-      registerError(error, httpCode, { location, code, additionalInfo });
+      const result = registerError(error, httpCode, { location, code, additionalInfo });
 
       expect(fs.appendFileSync).toHaveBeenCalled();
       expect(Boom.notFound).toHaveBeenCalledWith(error);
+      expect(result.isBoom).toBe(true);
     });
 
     it('should handle different http codes', () => {
