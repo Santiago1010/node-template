@@ -1,5 +1,65 @@
 
 
+## [1.6.0] - 2025-09-15
+
+**Released:** 2025-09-15 23:22:48 UTC
+
+### [Refactor environment configuration and simplify security helper](https://github.com/Santiago1010/node-template/pull/37)
+
+#### 📋 Summary
+This PR restructures the environment configuration system for better organization and maintainability, simplifies the security helper to focus on core cryptographic functions, and includes associated documentation and test updates.
+
+#### 🔍 What Changed
+### Added
+- scripts/config.js for configuration debugging
+- templates/prompts/endpoints_docs.md for API documentation generation
+- activeBody schema in common.params.js for standardized active status handling
+
+### Changed
+- .env.example with improved documentation and Docker-ready defaults
+- config/cache/redisClient.js with legacy client support and setTimeout fix
+- config/env/index.js with comprehensive configuration restructuring
+- helpers/debug.helper.js with mode comparison fix
+- helpers/security.helper.js simplified to core cryptographic functions
+- package.json test command updated with open handle detection
+- schemas/params/README.md with changelog and enhanced documentation
+- Multiple test files consolidated and updated
+
+### Fixed
+- Mode comparison in debug.helper.js
+- setTimeout usage in redisClient.js
+
+### Removed
+- .debug file
+- Redundant security helper functions (rate limiting, CSRF, session management)
+- Obsolete test files consolidated into single security test
+
+#### 📝 Additional Notes
+The security helper has been simplified to focus on core cryptographic operations (password hashing, JWT, sanitization). Removed functions may be reimplemented as separate middleware modules in future iterations. Configuration now supports Docker environments out of the box.
+
+**Type of Change:** New Feature, Documentation, Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement, testing
+- Commits: 9
+
+**Commits:**
+- [`9b2584b`](https://github.com/Santiago1010/node-template/commit/9b2584beb0f940e99b7dc0991fea74488768b13a) fix(security): improve HTML sanitization and password validation
+- [`2b2d63b`](https://github.com/Santiago1010/node-template/commit/2b2d63b241c54debb595e1eaa126c2bd77b99253) refactor(security): migrate to redis-based rate limiting and security monitoring
+- [`cdf7629`](https://github.com/Santiago1010/node-template/commit/cdf762974bfb5d33eff9d0151f8a44da66a31cd5) refactor(config): restructure environment configuration and improve redis client
+- [`c5cf803`](https://github.com/Santiago1010/node-template/commit/c5cf803068d7700f8d836ae77bf07e0937ee9e14) refactor(security): improve documentation and remove rate limiting functionality
+- [`f6bc5f4`](https://github.com/Santiago1010/node-template/commit/f6bc5f40c93d820c896dbe5f4c9f442dc60ba843) refactor(security): remove redis dependencies and simplify security helper
+- [`be6ebd8`](https://github.com/Santiago1010/node-template/commit/be6ebd8c271a524170de0ce18d95aa20e1cfef75) test(debug): improve test coverage and fix debug mode detection
+- [`28413f0`](https://github.com/Santiago1010/node-template/commit/28413f0d51d83479b7766f97dfff6a100ac88a3b) chore(tests): consolidate security test files and update test configuration
+- [`e38bbeb`](https://github.com/Santiago1010/node-template/commit/e38bbeb397a5a353edb8ce90c698419514c230ec) chore(config): clean up environment variable comments
+- [`52142d1`](https://github.com/Santiago1010/node-template/commit/52142d15ec26d63b97d4275a9ee941e5e0707778) test(debug): improve error and device detection unit tests
+
+---
+
+
+
 ## [1.5.0] - 2025-09-01
 
 **Released:** 2025-09-01 23:30:26 UTC

@@ -14,6 +14,7 @@ This file provides a set of common and grouped parameters used across multiple e
 - **`fieldsFilter`**: Specifies which fields of a resource should be returned in the response.
 - **`detailsParams`**: A set of parameters for endpoints retrieving a single resource, including the path identifier and the option to include history.
 - **`activeParams`**: Filters records based on their status (active or inactive).
+- **`activeBody`**: A schema definition for the `active` field in request bodies, used to mark a record as active or inactive.
 - **`commonListParams`**: Groups pagination parameters along with `ids` and `fields` filters for listing endpoints.
 
 ### `pagination.params.js`
