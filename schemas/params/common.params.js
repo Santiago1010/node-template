@@ -57,7 +57,16 @@
 // - Requires Swagger UI or compatible documentation renderer
 // - Works with any Node.js web framework (Express, Koa, etc.)
 //
+// CHANGE LOG:
+// - [2024-01-15] Added activeBody schema definition for request bodies
+// - [2024-01-10] Initial version with common parameter sets
+//
 // =============================================================================
+
+// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const { faker } = require('@faker-js/faker');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -173,6 +182,40 @@ const activeParams = [
 ];
 
 /**
+ * Active Status Body Schema
+ * @description Schema definition for active status field in request bodies
+ * @type {Object}
+ * @constant
+ *
+ * @property {boolean} active - Activation status of the resource
+ *
+ * @example
+ * // Usage in Swagger request body definition
+ * requestBody: {
+ *   content: {
+ *     'application/json': {
+ *       schema: {
+ *         type: 'object',
+ *         properties: {
+ *           active: activeBody.active
+ *         }
+ *       }
+ *     }
+ *   }
+ * }
+ */
+const activeBody = {
+  active: {
+    type: 'boolean',
+    description:
+      '**[Optional]** If set to `true`, the record will be marked as active; if set to `false`, the record will be marked as inactive using soft deletion. If not provided, the record will not be modified.',
+    enum: [true, false],
+    example: faker.datatype.boolean(),
+    required: false,
+  },
+};
+
+/**
  * Complete Collection Endpoint Parameters
  * @description Standard parameter set for list/search endpoints
  * @type {Array<Object>}
@@ -221,4 +264,10 @@ module.exports = {
    * @type {Array<Object>}
    */
   commonListParams,
+
+  /**
+   * Active status body schema definition
+   * @type {Object}
+   */
+  activeBody,
 };

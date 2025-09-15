@@ -52,7 +52,7 @@
     "lint:fix": "biome lint --fix",
     "prepare": "husky",
     "start": "node index.js",
-    "test": "NODE_ENV=test jest --passWithNoTests",
+    "test": "NODE_ENV=test jest --detectOpenHandles --passWithNoTests",
     "test:unit": "jest tests/unit --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "NODE_ENV=test jest --coverage",
