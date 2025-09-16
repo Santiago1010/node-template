@@ -49,6 +49,18 @@ describe('Performance Helper - Logging and Reporting', () => {
       // Restore original function
       fs.appendFileSync = originalAppend;
     });
+
+    it('should create the logs directory if it does not exist', async () => {
+      // Delete the logs directory to test creation
+      if (fs.existsSync(PATHS.LOGS)) {
+        fs.rmdirSync(PATHS.LOGS, { recursive: true });
+      }
+
+      await logPerformance({ a: 1 });
+
+      expect(fs.existsSync(PATHS.LOGS)).toBe(true);
+      expect(fs.existsSync(PERFORMANCE_LOG_PATH)).toBe(true);
+    });
   });
 
   describe('generatePerformanceReport', () => {
@@ -62,6 +74,20 @@ describe('Performance Helper - Logging and Reporting', () => {
       expect(report).toHaveProperty('cache');
 
       expect(typeof report.system.cpu.count).toBe('number');
+    });
+
+    it('should log the report in debug mode', () => {
+      const debugHelper = require('../../../../helpers/debug.helper');
+      const originalIsDebugMode = debugHelper.isDebugMode;
+      debugHelper.isDebugMode = () => true;
+      const cdirSpy = jest.spyOn(debugHelper, 'cdir');
+
+      generatePerformanceReport();
+
+      expect(cdirSpy).toHaveBeenCalled();
+
+      debugHelper.isDebugMode = originalIsDebugMode;
+      cdirSpy.mockRestore();
     });
   });
 });

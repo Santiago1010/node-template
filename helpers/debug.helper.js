@@ -332,6 +332,8 @@ const clir = (title, ...args) => {
  * @param {...any} args - Arguments to log
  */
 const plog = (title, ...args) => {
+  if (MODES[process.env.NODE_ENV.toUpperCase()] === 1) return;
+
   const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
@@ -351,6 +353,8 @@ const plog = (title, ...args) => {
  * @param {...any} args - Arguments to inspect with full depth
  */
 const pdir = (title, ...args) => {
+  if (MODES[process.env.NODE_ENV.toUpperCase()] === 1) return;
+
   const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
@@ -370,6 +374,8 @@ const pdir = (title, ...args) => {
  * @param {...any} args - Arguments to log as errors
  */
 const perror = (title, ...args) => {
+  if (MODES[process.env.NODE_ENV.toUpperCase()] === 1) return;
+
   const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
   console.log(createHeader(title, lineLength));
 
@@ -389,6 +395,7 @@ module.exports = {
   isDebugMode,
   isDevelopmentMode,
   setDebugMode,
+  isTimestampValid,
 
   // Conditional logging (debug mode only)
   wrapLogging,

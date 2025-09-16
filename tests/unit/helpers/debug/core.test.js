@@ -124,4 +124,28 @@ describe('Debug Helper', () => {
       expect(isDevelopmentMode(true)).toBe(true);
     });
   });
+
+  describe('isTimestampValid', () => {
+    const { isTimestampValid } = require('../../../../helpers/debug.helper');
+
+    test('should return false for invalid timestamp', () => {
+      const invalidTimestamp = '2022-01-01 12:00:00abc';
+      expect(isTimestampValid(invalidTimestamp)).toBe(false);
+    });
+
+    test('should return false for expired timestamp', () => {
+      const expiredTimestamp = '2021-01-01 12:00:00';
+      expect(isTimestampValid(expiredTimestamp)).toBe(false);
+    });
+
+    test('should return false for empty timestamp', () => {
+      const emptyTimestamp = '';
+      expect(isTimestampValid(emptyTimestamp)).toBe(false);
+    });
+
+    test('should return false for null timestamp', () => {
+      const nullTimestamp = null;
+      expect(isTimestampValid(nullTimestamp)).toBe(false);
+    });
+  });
 });
