@@ -231,9 +231,7 @@ const clog = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each argument individually
-  if (args.length === 1) {
-    console.log(args[0]);
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.log(arg));
   }
 
@@ -254,7 +252,7 @@ const cerror = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each error argument individually
-  if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.error(arg));
   }
 
@@ -275,9 +273,7 @@ const cdir = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Inspect each argument individually with full depth
-  if (args.length === 1) {
-    console.dir(args[0], { depth: null });
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.dir(arg, { depth: null }));
   }
 
@@ -299,9 +295,7 @@ const clear = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each argument individually
-  if (args.length === 1) {
-    console.log(args[0]);
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.log(arg));
   }
 
@@ -323,9 +317,7 @@ const clir = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Inspect each argument individually with full depth
-  if (args.length === 1) {
-    console.dir(args[0], { depth: null });
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.dir(arg, { depth: null }));
   }
 
@@ -344,9 +336,7 @@ const plog = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Log each argument individually
-  if (args.length === 1) {
-    console.log(args[0]);
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.log(arg));
   }
 
@@ -365,9 +355,7 @@ const pdir = (title, ...args) => {
   console.log(createHeader(title, lineLength));
 
   // Inspect each argument individually with full depth
-  if (args.length === 1) {
-    console.dir(args[0], { depth: null });
-  } else if (args.length > 1) {
+  if (args.length > 0) {
     args.forEach((arg) => console.dir(arg, { depth: null }));
   }
 

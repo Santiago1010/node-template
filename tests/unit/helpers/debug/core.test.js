@@ -30,6 +30,21 @@ describe('Debug Helper', () => {
       setDebugMode(false);
       expect(isDebugMode()).toBe(false);
     });
+
+    it('should return a failure message if writing to the debug file fails', () => {
+      const debugHelper = require('../../../../helpers/debug.helper');
+      const fs = require('fs');
+
+      jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {
+        throw new Error('Test error');
+      });
+
+      const result = debugHelper.setDebugMode(true);
+      expect(result).toContain('Failed to set debug mode: Test error');
+
+      // Restore the original implementation
+      fs.writeFileSync.mockRestore();
+    });
   });
 
   describe('isDebugMode', () => {
@@ -38,10 +53,24 @@ describe('Debug Helper', () => {
       expect(isDebugMode()).toBe(false);
     });
 
+    it('should return false if reading the debug file fails', () => {
+      const fs = require('fs');
+      jest.spyOn(fs, 'readFileSync').mockImplementation(() => {
+        throw new Error('Read error');
+      });
+      const { isDebugMode } = require('../../../../helpers/debug.helper');
+      expect(isDebugMode()).toBe(false);
+      fs.readFileSync.mockRestore();
+    });
+
     it('should return false if timestamp is missing', () => {
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
       const { isDebugMode } = require('../../../../helpers/debug.helper');
       fs.writeFileSync(debugFilePath, 'true');
       expect(isDebugMode()).toBe(false);
+      expect(consoleWarnSpy).toHaveBeenCalledWith('Debug file missing timestamp on second line.');
+      consoleWarnSpy.mockRestore();
     });
 
     it('should return false if timestamp is invalid', () => {

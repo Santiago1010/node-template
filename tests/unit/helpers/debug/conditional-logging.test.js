@@ -253,6 +253,22 @@ describe('Conditional Logging Functions', () => {
       expect(consoleErrorSpy).toHaveBeenCalledTimes(2); // err1, err2
     });
 
+    it('should handle a single error argument', () => {
+      setDebugMode(true);
+      consoleLogSpy.mockClear();
+      consoleErrorSpy.mockClear();
+
+      const title = faker.lorem.sentence();
+      const err1 = new Error(faker.lorem.sentence());
+
+      cerror(title, err1);
+
+      expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
+      expect(consoleErrorSpy).toHaveBeenCalledWith(err1);
+      expect(consoleLogSpy).toHaveBeenCalledTimes(2);
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    });
+
     it('should handle no arguments', () => {
       setDebugMode(true);
       consoleLogSpy.mockClear();
@@ -278,14 +294,16 @@ describe('Conditional Logging Functions', () => {
 
       const title = faker.lorem.sentence();
       const arg1 = faker.lorem.word();
+      const arg2 = faker.lorem.word();
 
-      clear(title, arg1);
+      clear(title, arg1, arg2);
 
       expect(consoleClearSpy).toHaveBeenCalledTimes(1);
       expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
       expect(consoleLogSpy).toHaveBeenCalledWith(arg1);
+      expect(consoleLogSpy).toHaveBeenCalledWith(arg2);
       // Check for separator with pattern matching instead of exact length
-      expect(consoleLogSpy).toHaveBeenCalledTimes(3); // Header, arg1, separator
+      expect(consoleLogSpy).toHaveBeenCalledTimes(4); // Header, arg1, arg2, separator
     });
 
     it('should handle no arguments', () => {
@@ -316,15 +334,17 @@ describe('Conditional Logging Functions', () => {
 
       const title = faker.lorem.sentence();
       const obj1 = { a: faker.lorem.word() };
+      const obj2 = { b: faker.lorem.word() };
 
-      clir(title, obj1);
+      clir(title, obj1, obj2);
 
       expect(consoleClearSpy).toHaveBeenCalledTimes(1);
       expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining(title.toUpperCase()));
       expect(consoleDirSpy).toHaveBeenCalledWith(obj1, { depth: null });
+      expect(consoleDirSpy).toHaveBeenCalledWith(obj2, { depth: null });
       // Check for separator with pattern matching instead of exact length
       expect(consoleLogSpy).toHaveBeenCalledTimes(2); // Header, separator
-      expect(consoleDirSpy).toHaveBeenCalledTimes(1); // obj1
+      expect(consoleDirSpy).toHaveBeenCalledTimes(2); // obj1, obj2
     });
 
     it('should handle no arguments', () => {
