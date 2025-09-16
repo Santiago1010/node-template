@@ -1,68 +1,11 @@
 // =============================================================================
-// DEBUG & LOGGING UTILITIES - Enhanced Development Tools
-// =============================================================================
-// PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides configurable debug mode with automatic expiration
-// - Offers formatted console logging with header/section support
-// - Handles error registration with file logging capabilities
-// - Includes device detection utilities for request classification
-// - Supports both conditional (debug-mode only) and permanent logging
-//
-// ARCHITECTURAL DECISIONS:
-// - File-based debug configuration for persistence across restarts
-// - Moment.js for robust timestamp handling and time calculations
-// - Boom for standardized HTTP error response formatting
-// - Separation of concerns between debug utilities and error handling
-// - Configurable timeouts and line lengths for flexibility
-//
-// ALTERNATIVE APPROACHES ANALYSIS:
-// - Environment variables: Considered but rejected for requiring restart on changes
-// - Database storage: Overkill for temporary debug state management
-// - Memory-only storage: Would lose state on server restarts
-// - Third-party logging services: Added complexity for simple debug needs
-//
-// PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for most operations, O(n) for file I/O operations
-// - Space complexity: O(1) for memory usage, O(n) for log file growth
-// - File I/O operations are synchronous but minimal and infrequent
-// - Debug checks have minimal performance impact in production
-//
-// SECURITY CONSIDERATIONS:
-// - Debug mode exposes internal data - should never be enabled in production
-// - File operations validated with try/catch to prevent crashes
-// - Error logs may contain sensitive data - ensure proper file permissions
-// - Input validation performed on timestamp parsing
-//
-// USAGE EXAMPLES:
-// - Basic debug logging: clog('Section Title', data);
-// - Error handling: const error = registerError('Not found', 404);
-// - Device detection: const device = detectDeviceType(req);
-// - Temporary debug enablement: setDebugMode(true, 15);
-//
-// MAINTENANCE & TROUBLESHOOTING:
-// - Debug file location: .debug in project root
-// - Error logs location: /logs directory with date-based filenames
-// - Common issues: File permission errors, disk space exhaustion
-// - Monitor log file growth in long-running processes
-//
-// DEPENDENCIES & COMPATIBILITY:
-// - Requires Node.js 12+ for filesystem operations and modern JS features
-// - Compatible with Express.js and other web frameworks
-// - Third-party dependencies: @hapi/boom, moment
-// - Browser compatibility: None (server-side only)
-//
-// =============================================================================
-
-// =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const fs = require('fs'); // File system operations
-const path = require('path'); // Path manipulation utilities
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const Boom = require('@hapi/boom'); // HTTP error handling utilities
 const moment = require('moment'); // Date/time manipulation and formatting
 
 // =============================================================================
@@ -134,16 +77,6 @@ const writeDebugFile = (enable, expirationTime = null) => {
   } catch (error) {
     console.error(`Error writing to debug file: ${error.message}`);
     throw error;
-  }
-};
-
-/**
- * Ensures the logs directory exists
- * @private
- */
-const ensureLogsDirectory = () => {
-  if (!fs.existsSync(PATHS.logs)) {
-    fs.mkdirSync(PATHS.LOGS, { recursive: true });
   }
 };
 
@@ -399,104 +332,6 @@ const clir = (title, ...args) => {
   console.log(createSeparator(lineLength));
 };
 
-// ----------------- ERROR HANDLING ----------------- //
-
-/**
- * Registers an error in the system, writing it to a log file and returning a Boom error object.
- * The error is written to a log file with the current date in the filename.
- * The log entry includes the error message, HTTP status code, and a timestamp.
- * Additional information can be provided as an object, which will be safely serialized
- * and logged. If the additional information cannot be serialized, a fallback message is logged.
- * @param {string} error - The error message to log
- * @param {number} httpCode - The HTTP status code associated with the error
- * @param {Object} [options] - Additional options
- * @param {string} [options.location] - The location of the error
- * @param {number} [options.code] - A code associated with the error
- * @param {Object|string|number} [options.additionalInfo] - Additional information to log
- * @returns {Boom} - A Boom error object for use in HTTP responses
- */
-const registerError = (error, httpCode, { location, code, additionalInfo } = {}) => {
-  const lineLength = DEBUG_SETTINGS.DEFAULT_LINE_LENGTH;
-  let logOutput = '';
-
-  // Build error title
-  const locationText = location ? `[${location}]` : '[Unknown Location]';
-  const codeText = code ? ` - Code ${code}` : '';
-  const title = `${locationText} - HTTP ${httpCode}${codeText}`;
-  logOutput += `${createHeader(title, lineLength)}\n`;
-
-  // Log error details
-  logOutput += `Error: ${error}\n`;
-
-  // Add timestamp
-  const timestamp = moment().format('dddd, DD [of] MMMM [of] YYYY [at] HH:mm:ss.SSS');
-  logOutput += createHeader(timestamp, lineLength);
-
-  // Handle additional info if provided
-  if (additionalInfo !== null && additionalInfo !== undefined) {
-    logOutput += createSeparator(lineLength);
-    logOutput += '\n';
-
-    if (typeof additionalInfo === 'object') {
-      try {
-        const serializedData = JSON.stringify(additionalInfo, null, 2);
-        console.dir(additionalInfo, { depth: null });
-        logOutput += `${serializedData}\n`;
-      } catch (serializationError) {
-        const fallbackMessage = `Unable to serialize additional info: ${serializationError.message}`;
-        console.error(fallbackMessage);
-        logOutput += `${fallbackMessage}\n`;
-      }
-    } else {
-      const dataString = String(additionalInfo);
-      console.log(dataString);
-      logOutput += `${dataString}\n`;
-    }
-  }
-
-  // Generate log file path with current date
-  const currentDate = moment().format('dddd, DD [of] MMMM [of] YYYY');
-  const errorLogPath = path.join(PATHS.LOGS, `${currentDate}.error.log`);
-
-  try {
-    ensureLogsDirectory();
-    fs.appendFileSync(errorLogPath, logOutput);
-  } catch (fileError) {
-    console.error(`Failed to write error log: ${fileError.message}`);
-    throw fileError;
-  }
-
-  let boomError;
-
-  switch (httpCode) {
-    case 400:
-      boomError = Boom.badRequest(error);
-      break;
-    case 401:
-      boomError = Boom.unauthorized(error);
-      break;
-    case 403:
-      boomError = Boom.forbidden(error);
-      break;
-    case 404:
-      boomError = Boom.notFound(error);
-      break;
-    case 409:
-      boomError = Boom.conflict(error);
-      break;
-    case 422:
-      boomError = Boom.badData(error);
-      break;
-    case 429:
-      boomError = Boom.tooManyRequests(error);
-      break;
-    default:
-      boomError = Boom.internal(error);
-  }
-
-  return boomError;
-};
-
 /**
  * Custom logging function that ALWAYS outputs messages with a formatted title.
  * Works independently of debug mode status.
@@ -559,94 +394,6 @@ const perror = (title, ...args) => {
 };
 
 // =============================================================================
-// DEVICE DETECTION UTILITIES
-// =============================================================================
-
-/**
- * Detects the type of device making the request based on User-Agent headers
- * and other request characteristics. This helps implement device-specific
- * behavior for cookies, authentication, and UI rendering.
- *
- * @param {Object} req - Express request object
- * @returns {string} Device type identifier (web_browser, mobile_app, etc.)
- */
-const detectDeviceType = (req) => {
-  const userAgent = req.headers['user-agent'] || '';
-  const isApp = req.headers['x-requested-with'] === 'com.company.app';
-  const isApiClient = req.headers['x-api-client'] !== undefined;
-
-  // Convert to lowercase for easier matching
-  const ua = userAgent.toLowerCase();
-
-  // Mobile App Detection (via custom headers or user agent)
-  if (isApp || ua.includes('company-app') || ua.includes('reactnative')) {
-    return 'mobile_app';
-  }
-
-  // Smart TV Detection
-  if (
-    ua.includes('smart-tv') ||
-    ua.includes('tv') ||
-    ua.includes('roku') ||
-    ua.includes('appletv') ||
-    ua.includes('crkey') ||
-    ua.includes('aftex')
-  ) {
-    return 'smart_tv';
-  }
-
-  // IoT Device Detection
-  if (ua.includes('iot') || ua.includes('embedded') || ua.includes('m2m') || ua.includes('device')) {
-    return 'iot_device';
-  }
-
-  // Desktop Application Detection
-  if (isApiClient || ua.includes('electron') || ua.includes('postman') || ua.includes('insomnia')) {
-    return 'desktop_app';
-  }
-
-  // Game Console Detection
-  if (ua.includes('playstation') || ua.includes('xbox') || ua.includes('nintendo') || ua.includes('wii')) {
-    return 'game_console';
-  }
-
-  // Mobile Browser Detection
-  if (
-    ua.includes('mobile') ||
-    ua.includes('android') ||
-    ua.includes('iphone') ||
-    ua.includes('ipad') ||
-    ua.includes('ipod') ||
-    ua.includes('windows phone')
-  ) {
-    return 'mobile_browser';
-  }
-
-  // Default to web browser for all other cases
-  return 'web_browser';
-};
-
-/**
- * Enhanced device detection with additional metadata
- * @param {Object} req - Express request object
- * @returns {Object} Device information with type and additional metadata
- */
-const detectDeviceWithMetadata = (req) => {
-  const userAgent = req.headers['user-agent'] || '';
-  const deviceType = detectDeviceType(req);
-
-  return {
-    type: deviceType,
-    userAgent: userAgent,
-    isMobile: deviceType.includes('mobile'),
-    isNativeApp: deviceType.includes('app') && !deviceType.includes('browser'),
-    isWeb: deviceType.includes('browser'),
-    timestamp: new Date().toISOString(),
-    ip: req.ip || req.connection.remoteAddress,
-  };
-};
-
-// =============================================================================
 // MODULE EXPORTS
 // =============================================================================
 module.exports = {
@@ -668,14 +415,7 @@ module.exports = {
   pdir,
   perror,
 
-  // Error handling
-  registerError,
-
   // Formatting utilities
   createHeader,
   createSeparator,
-
-  // Device detection
-  detectDeviceType,
-  detectDeviceWithMetadata,
 };
