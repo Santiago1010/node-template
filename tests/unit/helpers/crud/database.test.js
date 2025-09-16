@@ -26,6 +26,18 @@ describe('Crud Helper - Database Operations', () => {
       expect(comment).toBe('Test Table Comment');
       expect(sequelize.query).toHaveBeenCalledWith(expect.stringContaining('test_table'), expect.any(Object));
     });
+
+    it('should throw an error if the query fails', async () => {
+      const errorMessage = 'database error';
+      sequelize.query.mockRejectedValue(new Error(errorMessage));
+      await expect(crudHelper.readTablesComment('test_table')).rejects.toThrow(errorMessage);
+    });
+
+    it('should return an empty string if there is no comment', async () => {
+      sequelize.query.mockResolvedValueOnce([]);
+      const comment = await crudHelper.readTablesComment('test_table');
+      expect(comment).toBe('');
+    });
   });
 
   describe('readAllColumns', () => {
@@ -127,6 +139,12 @@ describe('Crud Helper - Database Operations', () => {
       sequelize.query.mockResolvedValueOnce([{ INDEX_NAME: 'name_unique' }]);
       const details = await crudHelper.uniqueDetails('test_table', 'name');
       expect(details).toBe('name_unique');
+    });
+
+    it('should return an empty string if there are no unique details', async () => {
+      sequelize.query.mockResolvedValueOnce([]);
+      const details = await crudHelper.uniqueDetails('test_table', 'name');
+      expect(details).toBe('');
     });
   });
 });
