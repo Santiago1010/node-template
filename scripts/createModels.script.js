@@ -445,7 +445,7 @@ class ModelGenerator extends CrudHelper {
     let definition = `${tabs()}${formattedName}: {\n`;
 
     // Data type
-    definition += `${tabs(2)}type: DataTypes.${this.#mapDataType(COLUMN_TYPE)},\n`;
+    definition += `${tabs(2)}type: DataTypes.${this.#mapDataType(COLUMN_TYPE, columnName)},\n`;
 
     // Nullable
     definition += `${tabs(2)}allowNull: ${isNullable},\n`;
@@ -495,9 +495,10 @@ class ModelGenerator extends CrudHelper {
    * Map database column type to Sequelize DataType
    * @private
    * @param {string} columnType - Database column type
+   * @param {string} columnName - Column name for boolean pattern checking
    * @returns {string} Sequelize DataType
    */
-  #mapDataType(columnType) {
+  #mapDataType(columnType, columnName) {
     const [baseType, sizeInfo] = columnType.split('(');
     const cleanSize = sizeInfo ? sizeInfo.replace(')', '') : null;
 
@@ -507,9 +508,13 @@ class ModelGenerator extends CrudHelper {
 
     let sequelizeType = typeMap[baseType] || 'STRING';
 
-    // Special case: TINYINT(1) = BOOLEAN in MySQL
+    // Special case: TINYINT(1) = BOOLEAN in MySQL if column name matches boolean pattern
     if (baseType === 'tinyint' && cleanSize === '1') {
-      sequelizeType = 'BOOLEAN';
+      const normalizedName = columnName.toLowerCase();
+      // Check for boolean patterns: starts with 'is_', ends with '_is', or contains '_is_'
+      if (normalizedName.startsWith('is_') || normalizedName.endsWith('_is') || normalizedName.includes('_is_')) {
+        sequelizeType = 'BOOLEAN';
+      }
     } else if (cleanSize && !sequelizeType.includes('(')) {
       sequelizeType += `(${cleanSize})`;
     }

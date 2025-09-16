@@ -89,9 +89,9 @@ const config = {
     '/kubernetes/',
     '/migrations/',
     '/seeders/',
+    '/schemas/',
     '/templates/',
     '/config/',
-    '/schemas/',
   ],
 
   /**
@@ -117,6 +117,7 @@ const config = {
     '!**/config/**',
     '!**/docs/**',
     '!**/templates/**',
+    '!**/schemas/**',
     '!**/sync_models/**',
     '!**/models/**',
   ],

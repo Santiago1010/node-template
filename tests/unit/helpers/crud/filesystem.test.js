@@ -35,6 +35,12 @@ describe('Crud Helper - Filesystem Operations', () => {
         expect.any(Function)
       );
     });
+
+    it('should throw an error if reading fails', async () => {
+      const errorMessage = 'read error';
+      fs.readFile.mockImplementation((_, __, callback) => callback(new Error(errorMessage)));
+      await expect(crudHelper.getTemplate('folder', 'name')).rejects.toThrow(errorMessage);
+    });
   });
 
   describe('createFolder', () => {
@@ -49,6 +55,15 @@ describe('Crud Helper - Filesystem Operations', () => {
       fs.existsSync.mockReturnValue(true);
       await crudHelper.createFolder('CONTROLLERS', 'group', 'name');
       expect(fs.mkdirSync).not.toHaveBeenCalled();
+    });
+
+    it('should throw an error if mkdirSync fails', async () => {
+      fs.existsSync.mockReturnValue(false);
+      const errorMessage = 'mkdir error';
+      fs.mkdirSync.mockImplementationOnce(() => {
+        throw new Error(errorMessage);
+      });
+      await expect(crudHelper.createFolder('CONTROLLERS', 'group', 'name')).rejects.toThrow(errorMessage);
     });
   });
 
@@ -74,6 +89,13 @@ describe('Crud Helper - Filesystem Operations', () => {
       fs.existsSync.mockReturnValue(true);
       await crudHelper.createFile('folderPath', 'name', 'content');
       expect(fs.writeFile).not.toHaveBeenCalled();
+    });
+
+    it('should throw an error if writeFile fails', async () => {
+      fs.existsSync.mockReturnValue(false);
+      const errorMessage = 'write error';
+      fs.writeFile.mockImplementation((_, __, ___, callback) => callback(new Error(errorMessage)));
+      await expect(crudHelper.createFile('folderPath', 'name', 'content')).rejects.toThrow(errorMessage);
     });
   });
 

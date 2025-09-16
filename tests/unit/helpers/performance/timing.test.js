@@ -47,6 +47,39 @@ describe('Performance Helper - Timing and Measurement', () => {
       };
       await expect(measureExecution(errorFunction)).rejects.toThrow('test-error');
     });
+
+    it('should throw an error for invalid input', async () => {
+      await expect(measureExecution('not-a-function')).rejects.toThrow('Invalid function or promise provided');
+    });
+
+    it('should measure the execution of a promise', async () => {
+      const promise = new Promise((resolve) => setTimeout(() => resolve('done'), 50));
+      const result = await measureExecution(promise, 'test-promise');
+      expect(result.result).toBe('done');
+      expect(result.timing.durationMs).toBeGreaterThanOrEqual(45);
+    });
+
+    it('should log to debug console in debug mode', async () => {
+      const debugHelper = require('../../../../helpers/debug.helper');
+      const originalIsDebugMode = debugHelper.isDebugMode;
+      debugHelper.isDebugMode = () => true;
+      const clogSpy = jest.spyOn(debugHelper, 'clog');
+      const cerrorSpy = jest.spyOn(debugHelper, 'cerror');
+
+      await measureExecution(() => 'test');
+      expect(clogSpy).toHaveBeenCalled();
+
+      await expect(
+        measureExecution(() => {
+          throw new Error('test');
+        })
+      ).rejects.toThrow('test');
+      expect(cerrorSpy).toHaveBeenCalled();
+
+      debugHelper.isDebugMode = originalIsDebugMode;
+      clogSpy.mockRestore();
+      cerrorSpy.mockRestore();
+    });
   });
 
   describe('benchmark', () => {

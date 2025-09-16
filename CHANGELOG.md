@@ -1,5 +1,62 @@
 
 
+## [1.6.1] - 2025-09-16
+
+**Released:** 2025-09-16 19:55:32 UTC
+
+### [Refactor Helpers and Improve Test Coverage](https://github.com/Santiago1010/node-template/pull/38)
+
+#### 📋 Summary
+This PR removes the Redis-based cache helper, refactors the context and debug helpers to use class-based patterns, and significantly improves test coverage across all helper modules. The changes focus on code quality, error handling, and maintainability.
+
+#### 🔍 What Changed
+### Added
+- New comprehensive test suite for context helper with 100% coverage
+- Enhanced error handling tests for debug and performance helpers
+- New timestamp validation utility in debug helper
+- Test environment detection for permanent logging functions
+
+### Changed
+- Refactored context helper to class-based implementation with static methods
+- Simplified debug helper by removing error handling and device detection features
+- Improved boolean detection logic in model generator script
+- Updated Jest configuration to exclude schemas directory from coverage
+
+### Fixed
+- Error handling in CRUD database and filesystem operations
+- Permanent logging suppression in test environment
+- Memory leak prevention in performance tracking
+
+### Removed
+- Redis cache helper and all associated tests
+- Legacy context helper implementation and tests
+- Device detection and error registration from debug helper
+- Obsolete scripts/config.js file
+
+#### 📝 Additional Notes
+The cache helper removal indicates a shift away from Redis-based caching. The context helper refactor provides better async context management with improved error handling. Test improvements ensure 100% coverage for critical helper functions.
+
+**Type of Change:** Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: testing
+- Commits: 7
+
+**Commits:**
+- [`1668b24`](https://github.com/Santiago1010/node-template/commit/1668b245906e1ce4f698edef86e289e182ce8bff) chore(cache): remove Redis cache helper and related test files
+- [`7df8fdb`](https://github.com/Santiago1010/node-template/commit/7df8fdb582d4f2faebcc19fb9a96d290f1f55305) refactor(context): rewrite context helper as class-based implementation
+- [`97073cd`](https://github.com/Santiago1010/node-template/commit/97073cd88ee4eff08c1aa343b037e43a921a3c73) fix(model): improve boolean detection for TINYINT(1) columns
+- [`9f208e4`](https://github.com/Santiago1010/node-template/commit/9f208e4104969c907430f81a8b6b2f13a0fb6ccb) refactor(debug): remove error handling and device detection utilities
+- [`0eaf419`](https://github.com/Santiago1010/node-template/commit/0eaf419ea4e527fbbea265ec5a046caeb8fcdbe8) refactor(debug): remove error handling and device detection utilities
+- [`fb1bedc`](https://github.com/Santiago1010/node-template/commit/fb1bedc33aa0391b573185a6b64650db41fa21e9) refactor(debug): simplify logging functions and improve error handling
+- [`f74d64c`](https://github.com/Santiago1010/node-template/commit/f74d64c94b81fc0dacece4cb5e1f8763ad625667) test(performance): enhance test coverage and add edge case handling
+
+---
+
+
+
 ## [1.6.0] - 2025-09-15
 
 **Released:** 2025-09-15 23:22:48 UTC

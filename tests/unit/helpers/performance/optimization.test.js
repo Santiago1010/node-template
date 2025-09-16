@@ -34,6 +34,24 @@ describe('Performance Helper - Optimization', () => {
       throttled();
       expect(func).toHaveBeenCalledTimes(2);
     });
+
+    it('should schedule a trailing call if called again within the delay', () => {
+      const func = jest.fn();
+      const throttled = throttle(func, 100);
+      throttled(); // immediate call
+      expect(func).toHaveBeenCalledTimes(1);
+
+      throttled(); // should schedule a trailing call
+      expect(func).toHaveBeenCalledTimes(1);
+
+      jest.advanceTimersByTime(100);
+      expect(func).toHaveBeenCalledTimes(2);
+
+      // Advance time again to allow the next immediate call
+      jest.advanceTimersByTime(100);
+      throttled(); // immediate call again
+      expect(func).toHaveBeenCalledTimes(3);
+    });
   });
 
   describe('debounce', () => {
@@ -99,6 +117,31 @@ describe('Performance Helper - Optimization', () => {
       expect(cache.get('key')).toBe('value');
       jest.advanceTimersByTime(100);
       expect(cache.get('key')).toBeUndefined();
+    });
+
+    it('should overwrite an existing TTL timer', () => {
+      cache.set('key', 'value1', 200);
+      cache.set('key', 'value2', 100);
+
+      jest.advanceTimersByTime(100);
+      expect(cache.get('key')).toBeUndefined();
+    });
+
+    it('should clear the TTL timer when a key is deleted', () => {
+      cache.set('key', 'value', 100);
+      cache.delete('key');
+      jest.advanceTimersByTime(100);
+      // If timer was not cleared, it would try to delete again, which is fine
+      // but this ensures the timer is gone from the timers map.
+      expect(cache.timers.has('key')).toBe(false);
+    });
+
+    it('should call clearTimeout when deleting a key with a TTL', () => {
+      const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
+      cache.set('key', 'value', 100);
+      cache.delete('key');
+      expect(clearTimeoutSpy).toHaveBeenCalled();
+      clearTimeoutSpy.mockRestore();
     });
   });
 });

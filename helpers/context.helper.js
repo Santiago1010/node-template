@@ -1,705 +1,549 @@
 // =============================================================================
-// CONTEXT HELPER - AsyncLocalStorage context management utilities
+// CONTEXT MANAGEMENT HELPER - AsyncLocalStorage-Based Request Context Handling
 // =============================================================================
-// This module provides comprehensive functions for managing data stored within
-// AsyncLocalStorage context. It handles user sessions, request data, security
-// context, and other contextual information throughout the application lifecycle.
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Provides thread-local storage for Node.js async operations using AsyncLocalStorage
+// - Maintains request-scoped context throughout async call chains
+// - Enables consistent access to contextual data (user, request, organization info)
+// - Supports CRUD operations on context data with error handling
+// - Facilitates correlation ID tracking across distributed systems
+// - Enables request-specific logging and debugging
+//
+// ARCHITECTURAL DECISIONS:
+// - Uses AsyncLocalStorage over async_hooks directly for better stability and abstraction
+// - Implements defensive programming with comprehensive error handling
+// - Provides both generic and domain-specific context accessors
+// - Uses moment.js for standardized timestamp handling
+// - Follows a static class pattern for global accessibility
+// - Implements snapshot/restore functionality for context persistence
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - AsyncWrap/async_hooks: More complex implementation, potential performance impact
+// - Continuation-local-storage: Community package with similar functionality but additional dependency
+// - Request context passing: Manual context passing through function parameters (cumbersome and error-prone)
+// - Global variables: Not async-safe and would leak between requests
+// - Why chosen: AsyncLocalStorage is native, stable, and provides the right abstraction level
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for most operations (key access, updates)
+// - Space complexity: O(n) where n is number of context keys
+// - Minimal overhead compared to manual context passing
+// - AsyncLocalStorage has minimal performance impact in Node.js 16+
+// - Snapshot operations have O(n) complexity due to JSON serialization
+//
+// SECURITY CONSIDERATIONS:
+// - No sensitive data should be stored in context without encryption
+// - Context isolation prevents cross-request data leakage
+// - Input validation performed for snapshot operations
+// - No authentication/authorization logic - purely data storage
+// - Consider data sanitization for user-provided context values
+//
+// USAGE EXAMPLES:
+// - Basic context initialization:
+//   ContextHelper.run({ userId: '123' }, () => {
+//     ContextHelper.set('requestId', 'abc');
+//     const value = ContextHelper.get('userId');
+//   });
+//
+// - Request processing in web frameworks:
+//   app.use((req, res, next) => {
+//     ContextHelper.run(getInitialContext(req), next);
+//   });
+//
+// - Domain-specific context access:
+//   const userContext = ContextHelper.getUserContext();
+//   const requestContext = ContextHelper.getRequestContext();
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Common error: Forgetting to call .run() before other operations
+// - Debug: Use snapshot() to inspect context state
+// - Ensure proper context cleanup in error scenarios
+// - Monitor memory usage for very large contexts
+// - Use try-catch blocks when working with context in critical paths
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Requires Node.js 16+ (AsyncLocalStorage support)
+// - Uses moment.js for timestamp handling
+// - Compatible with Express, Koa, and other web frameworks
+// - Works with any async/await or callback-based code
 //
 // =============================================================================
 
 // =============================================================================
+// CORE NODE.JS DEPENDENCIES
+// =============================================================================
+// Built-in AsyncLocalStorage accessed via internal dependency
+
+// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment');
+const moment = require('moment'); // Date handling and ISO string formatting
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const asyncLocalStorage = require('../config/context');
-const { CONTEXT_KEYS } = require('./constants.helper');
-const { cerror } = require('./debug.helper');
+const asyncLocalStorage = require('../config/context'); // AsyncLocalStorage instance
+const { CONTEXT_KEYS } = require('./constants.helper'); // Context key constants
+const { cerror } = require('./debug.helper'); // Error logging utility
 
 // =============================================================================
-// CONSTANTS AND CONFIGURATION
-// =============================================================================
-const DEFAULT_CONTEXT = {
-  [CONTEXT_KEYS.TIMESTAMP]: () => moment().toISOString(),
-  [CONTEXT_KEYS.REQUEST_ID]: () => generateUniqueId(),
-  [CONTEXT_KEYS.CUSTOM_DATA]: () => ({}),
-  [CONTEXT_KEYS.PERMISSIONS]: () => [],
-  [CONTEXT_KEYS.ROLES]: () => [],
-};
-
-// =============================================================================
-// UTILITY FUNCTIONS
+// CONTEXT HELPER
 // =============================================================================
 
 /**
- * Generates a unique identifier for requests/sessions
- * @returns {string} Unique identifier
+ * Context Helper - AsyncLocalStorage-based context management for request-scoped data
+ * @class
+ * @description Provides methods for managing async context throughout request lifecycle.
+ * Maintains isolation between concurrent requests while providing easy access to contextual data.
+ * Essential for maintaining request-specific state across asynchronous operations.
  */
-const generateUniqueId = () => {
-  return `${moment().valueOf()}-${Math.random().toString(36).substring(2, 15)}`;
-};
+class ContextHelper {
+  /**
+   * Initializes and runs callback within context
+   * @param {Object} [initialData={}] - Initial context data
+   * @param {Function} callback - Function to execute within context
+   * @returns {*} Returns callback result
+   * @throws {Error} If context initialization fails
+   * @example
+   * // Basic usage
+   * ContextHelper.run({ userId: '123' }, () => {
+   *   // Context is available here
+   * });
+   *
+   * @example
+   * // With async/await
+   * await ContextHelper.run({ requestId: 'abc' }, async () => {
+   *   await someAsyncOperation();
+   * });
+   */
+  static run(initialData = {}, callback) {
+    try {
+      // Add timestamp if not provided - ensures all contexts have consistent timing
+      const contextData = {
+        [CONTEXT_KEYS.TIMESTAMP]: moment().toISOString(), // ISO 8601 format for consistency
+        ...initialData, // User-provided data takes precedence
+      };
 
-/**
- * Validates if a context key is allowed
- * @param {string} key - Context key to validate
- * @returns {boolean} True if key is valid
- */
-const isValidContextKey = (key) => {
-  return Object.values(CONTEXT_KEYS).includes(key) || key.startsWith('custom_');
-};
-
-/**
- * Sanitizes context data to prevent injection attacks
- * @param {any} data - Data to sanitize
- * @returns {any} Sanitized data
- */
-const sanitizeContextData = (data) => {
-  if (Array.isArray(data)) {
-    return data.map((item) => sanitizeContextData(item));
-  }
-  if (typeof data === 'string') {
-    // Basic XSS prevention
-    return data.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-  }
-  if (typeof data === 'object' && data !== null) {
-    const sanitized = {};
-    for (const [key, value] of Object.entries(data)) {
-      sanitized[key] = sanitizeContextData(value);
+      return asyncLocalStorage.run(contextData, callback);
+    } catch (error) {
+      cerror('Error running context:', error);
+      throw error;
     }
-    return sanitized;
   }
-  return data;
-};
 
-// =============================================================================
-// CORE CONTEXT MANAGEMENT FUNCTIONS
-// =============================================================================
+  /**
+   * Retrieves context data or specific value
+   * @param {string} [key=null] - Optional key for specific value
+   * @returns {*|null} Context data, specific value, or null if not found
+   * @example
+   * // Get entire context
+   * const entireContext = ContextHelper.get();
+   *
+   * @example
+   * // Get specific value
+   * const userId = ContextHelper.get('userId');
+   */
+  static get(key = null) {
+    try {
+      const context = asyncLocalStorage.getStore();
 
-/**
- * Initializes a new context with default values
- * @param {Object} initialData - Initial context data
- * @param {Function} callback - Function to execute within the context
- * @returns {Promise<any>} Result of the callback function
- */
-const runWithContext = async (initialData = {}, callback) => {
-  try {
-    const contextData = {
-      ...Object.keys(DEFAULT_CONTEXT).reduce((acc, key) => {
-        acc[key] = DEFAULT_CONTEXT[key]();
-        return acc;
-      }, {}),
-      ...sanitizeContextData(initialData),
-    };
-
-    return await asyncLocalStorage.run(contextData, callback);
-  } catch (error) {
-    throw new Error(`Failed to run with context: ${error.message}`);
-  }
-};
-
-/**
- * Gets the entire current context
- * @returns {Object|undefined} Current context data
- */
-const getContext = () => {
-  try {
-    return asyncLocalStorage.getStore();
-  } catch (error) {
-    throw new Error(`Failed to get context: ${error.message}`);
-  }
-};
-
-/**
- * Checks if context is currently available
- * @returns {boolean} True if context exists
- */
-const hasContext = () => {
-  try {
-    return asyncLocalStorage.getStore() !== undefined;
-  } catch (error) {
-    cerror('Has context', `Error checking context: ${error.message}`);
-    return false;
-  }
-};
-
-/**
- * Clears the current context (use with caution)
- * @returns {boolean} True if context was cleared
- */
-const clearContext = () => {
-  try {
-    // Note: AsyncLocalStorage doesn't have a direct clear method
-    // This would typically be handled by ending the async context
-    return true;
-  } catch (error) {
-    throw new Error(`Failed to clear context: ${error.message}`);
-  }
-};
-
-// =============================================================================
-// CONTEXT DATA GETTERS
-// =============================================================================
-
-/**
- * Gets a specific value from the context
- * @param {string} key - Context key to retrieve
- * @param {any} defaultValue - Default value if key doesn't exist
- * @returns {any} Context value or default
- */
-const getContextValue = (key, defaultValue = null) => {
-  try {
-    const store = asyncLocalStorage.getStore();
-    if (!store || !Object.prototype.hasOwnProperty.call(store, key)) {
-      return defaultValue;
-    }
-    return store[key];
-  } catch (error) {
-    throw new Error(`Failed to get context value for key '${key}': ${error.message}`);
-  }
-};
-
-/**
- * Gets multiple values from the context
- * @param {string[]} keys - Array of context keys to retrieve
- * @returns {Object} Object containing requested key-value pairs
- */
-const getContextValues = (keys) => {
-  try {
-    const store = asyncLocalStorage.getStore();
-    const result = {};
-
-    if (!store) return result;
-
-    keys.forEach((key) => {
-      if (Object.prototype.hasOwnProperty.call(store, key)) {
-        result[key] = store[key];
+      if (!context) {
+        return null;
       }
-    });
 
-    return result;
-  } catch (error) {
-    throw new Error(`Failed to get context values: ${error.message}`);
-  }
-};
-
-/**
- * Gets the current user ID from context
- * @returns {string|null} User ID or null
- */
-const getCurrentUserId = () => {
-  return getContextValue(CONTEXT_KEYS.USER_ID);
-};
-
-/**
- * Gets the current user data from context
- * @returns {Object|null} User data object or null
- */
-const getCurrentUserData = () => {
-  return getContextValue(CONTEXT_KEYS.USER_DATA);
-};
-
-/**
- * Gets the current session ID from context
- * @returns {string|null} Session ID or null
- */
-const getCurrentSessionId = () => {
-  return getContextValue(CONTEXT_KEYS.SESSION_ID);
-};
-
-/**
- * Gets the current request ID from context
- * @returns {string|null} Request ID or null
- */
-const getCurrentRequestId = () => {
-  return getContextValue(CONTEXT_KEYS.REQUEST_ID);
-};
-
-/**
- * Gets the current IP address from context
- * @returns {string|null} IP address or null
- */
-const getCurrentIpAddress = () => {
-  return getContextValue(CONTEXT_KEYS.IP_ADDRESS);
-};
-
-/**
- * Gets the current user agent from context
- * @returns {string|null} User agent string or null
- */
-const getCurrentUserAgent = () => {
-  return getContextValue(CONTEXT_KEYS.USER_AGENT);
-};
-
-/**
- * Gets the current timestamp from context
- * @returns {string|null} ISO timestamp or null
- */
-const getCurrentTimestamp = () => {
-  return getContextValue(CONTEXT_KEYS.TIMESTAMP);
-};
-
-/**
- * Gets the current user permissions from context
- * @returns {Array} Array of permissions
- */
-const getCurrentPermissions = () => {
-  return getContextValue(CONTEXT_KEYS.PERMISSIONS, []);
-};
-
-/**
- * Gets the current user roles from context
- * @returns {Array} Array of roles
- */
-const getCurrentRoles = () => {
-  return getContextValue(CONTEXT_KEYS.ROLES, []);
-};
-
-/**
- * Gets the current tenant ID from context
- * @returns {string|null} Tenant ID or null
- */
-const getCurrentTenantId = () => {
-  return getContextValue(CONTEXT_KEYS.TENANT_ID);
-};
-
-/**
- * Gets the current correlation ID from context
- * @returns {string|null} Correlation ID or null
- */
-const getCurrentCorrelationId = () => {
-  return getContextValue(CONTEXT_KEYS.CORRELATION_ID);
-};
-
-// =============================================================================
-// CONTEXT DATA SETTERS
-// =============================================================================
-
-/**
- * Sets a value in the current context
- * @param {string} key - Context key
- * @param {any} value - Value to set
- * @returns {boolean} True if value was set successfully
- */
-const setContextValue = (key, value) => {
-  try {
-    if (!isValidContextKey(key)) {
-      throw new Error(`Invalid context key: ${key}`);
-    }
-
-    const store = asyncLocalStorage.getStore();
-    if (!store) {
-      throw new Error('No active context found');
-    }
-
-    store[key] = sanitizeContextData(value);
-    return true;
-  } catch (error) {
-    throw new Error(`Failed to set context value for key '${key}': ${error.message}`);
-  }
-};
-
-/**
- * Sets multiple values in the current context
- * @param {Object} keyValuePairs - Object containing key-value pairs to set
- * @returns {boolean} True if all values were set successfully
- */
-const setContextValues = (keyValuePairs) => {
-  try {
-    const store = asyncLocalStorage.getStore();
-    if (!store) {
-      throw new Error('No active context found');
-    }
-
-    Object.entries(keyValuePairs).forEach(([key, value]) => {
-      if (!isValidContextKey(key)) {
-        throw new Error(`Invalid context key: ${key}`);
+      if (key) {
+        return context[key] || null; // Return null instead of undefined for missing keys
       }
-      store[key] = sanitizeContextData(value);
-    });
 
-    return true;
-  } catch (error) {
-    throw new Error(`Failed to set context values: ${error.message}`);
-  }
-};
-
-/**
- * Sets the current user ID in context
- * @param {string} userId - User ID to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentUserId = (userId) => {
-  return setContextValue(CONTEXT_KEYS.USER_ID, userId);
-};
-
-/**
- * Sets the current user data in context
- * @param {Object} userData - User data object to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentUserData = (userData) => {
-  return setContextValue(CONTEXT_KEYS.USER_DATA, userData);
-};
-
-/**
- * Sets the current session ID in context
- * @param {string} sessionId - Session ID to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentSessionId = (sessionId) => {
-  return setContextValue(CONTEXT_KEYS.SESSION_ID, sessionId);
-};
-
-/**
- * Sets the current IP address in context
- * @param {string} ipAddress - IP address to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentIpAddress = (ipAddress) => {
-  return setContextValue(CONTEXT_KEYS.IP_ADDRESS, ipAddress);
-};
-
-/**
- * Sets the current user agent in context
- * @param {string} userAgent - User agent string to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentUserAgent = (userAgent) => {
-  return setContextValue(CONTEXT_KEYS.USER_AGENT, userAgent);
-};
-
-/**
- * Sets the current user permissions in context
- * @param {Array} permissions - Array of permissions to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentPermissions = (permissions) => {
-  return setContextValue(CONTEXT_KEYS.PERMISSIONS, Array.isArray(permissions) ? permissions : []);
-};
-
-/**
- * Sets the current user roles in context
- * @param {Array} roles - Array of roles to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentRoles = (roles) => {
-  return setContextValue(CONTEXT_KEYS.ROLES, Array.isArray(roles) ? roles : []);
-};
-
-/**
- * Sets the current tenant ID in context
- * @param {string} tenantId - Tenant ID to set
- * @returns {boolean} True if set successfully
- */
-const setCurrentTenantId = (tenantId) => {
-  return setContextValue(CONTEXT_KEYS.TENANT_ID, tenantId);
-};
-
-// =============================================================================
-// CUSTOM DATA MANAGEMENT
-// =============================================================================
-
-/**
- * Gets custom data from context
- * @param {string} key - Custom data key
- * @param {any} defaultValue - Default value if key doesn't exist
- * @returns {any} Custom data value or default
- */
-const getCustomData = (key, defaultValue = null) => {
-  try {
-    const customData = getContextValue(CONTEXT_KEYS.CUSTOM_DATA, {});
-    if (!customData) {
-      return defaultValue;
+      return context;
+    } catch (error) {
+      cerror('Error getting context:', error);
+      return null;
     }
-    return Object.prototype.hasOwnProperty.call(customData, key) ? customData[key] : defaultValue;
-  } catch (error) {
-    throw new Error(`Failed to get custom data for key '${key}': ${error.message}`);
   }
-};
 
-/**
- * Sets custom data in context
- * @param {string} key - Custom data key
- * @param {any} value - Value to set
- * @returns {boolean} True if set successfully
- */
-const setCustomData = (key, value) => {
-  try {
-    const customData = getContextValue(CONTEXT_KEYS.CUSTOM_DATA, {});
-    customData[key] = sanitizeContextData(value);
-    return setContextValue(CONTEXT_KEYS.CUSTOM_DATA, customData);
-  } catch (error) {
-    throw new Error(`Failed to set custom data for key '${key}': ${error.message}`);
-  }
-};
+  /**
+   * Sets a value or multiple values in the context
+   * @param {string|Object} keyOrObject - Key string or object to merge
+   * @param {*} [value=undefined] - Value to set (only used if first param is string)
+   * @returns {boolean} Success status
+   * @example
+   * // Set single value
+   * ContextHelper.set('userId', '123');
+   *
+   * @example
+   * // Set multiple values
+   * ContextHelper.set({ userId: '123', requestId: 'abc' });
+   */
+  static set(keyOrObject, value = undefined) {
+    try {
+      const context = asyncLocalStorage.getStore();
 
-/**
- * Removes custom data from context
- * @param {string} key - Custom data key to remove
- * @returns {boolean} True if removed successfully
- */
-const removeCustomData = (key) => {
-  try {
-    const customData = getContextValue(CONTEXT_KEYS.CUSTOM_DATA, {});
-    delete customData[key];
-    return setContextValue(CONTEXT_KEYS.CUSTOM_DATA, customData);
-  } catch (error) {
-    throw new Error(`Failed to remove custom data for key '${key}': ${error.message}`);
-  }
-};
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
 
-/**
- * Gets all custom data from context
- * @returns {Object} All custom data
- */
-const getAllCustomData = () => {
-  return getContextValue(CONTEXT_KEYS.CUSTOM_DATA, {});
-};
+      if (typeof keyOrObject === 'string') {
+        // Single key-value pair
+        context[keyOrObject] = value;
+      } else if (typeof keyOrObject === 'object' && keyOrObject !== null) {
+        // Merge object into context - overwrites existing keys
+        Object.assign(context, keyOrObject);
+      } else {
+        cerror('Invalid parameter type. Expected string or object.');
+        return false;
+      }
 
-// =============================================================================
-// PERMISSION AND ROLE MANAGEMENT
-// =============================================================================
-
-/**
- * Checks if the current user has a specific permission
- * @param {string} permission - Permission to check
- * @returns {boolean} True if user has permission
- */
-const hasPermission = (permission) => {
-  try {
-    const permissions = getCurrentPermissions();
-    return permissions.includes(permission);
-  } catch (error) {
-    throw new Error(`Failed to check permission '${permission}': ${error.message}`);
-  }
-};
-
-/**
- * Checks if the current user has any of the specified permissions
- * @param {Array} permissionList - Array of permissions to check
- * @returns {boolean} True if user has any of the permissions
- */
-const hasAnyPermission = (permissionList) => {
-  try {
-    const permissions = getCurrentPermissions();
-    return permissionList.some((permission) => permissions.includes(permission));
-  } catch (error) {
-    throw new Error(`Failed to check permissions: ${error.message}`);
-  }
-};
-
-/**
- * Checks if the current user has all specified permissions
- * @param {Array} permissionList - Array of permissions to check
- * @returns {boolean} True if user has all permissions
- */
-const hasAllPermissions = (permissionList) => {
-  try {
-    const permissions = getCurrentPermissions();
-    return permissionList.every((permission) => permissions.includes(permission));
-  } catch (error) {
-    throw new Error(`Failed to check permissions: ${error.message}`);
-  }
-};
-
-/**
- * Checks if the current user has a specific role
- * @param {string} role - Role to check
- * @returns {boolean} True if user has role
- */
-const hasRole = (role) => {
-  try {
-    const roles = getCurrentRoles();
-    return roles.includes(role);
-  } catch (error) {
-    throw new Error(`Failed to check role '${role}': ${error.message}`);
-  }
-};
-
-/**
- * Checks if the current user has any of the specified roles
- * @param {Array} roleList - Array of roles to check
- * @returns {boolean} True if user has any of the roles
- */
-const hasAnyRole = (roleList) => {
-  try {
-    const roles = getCurrentRoles();
-    return roleList.some((role) => roles.includes(role));
-  } catch (error) {
-    throw new Error(`Failed to check roles: ${error.message}`);
-  }
-};
-
-/**
- * Adds a permission to the current user's context
- * @param {string} permission - Permission to add
- * @returns {boolean} True if added successfully
- */
-const addPermission = (permission) => {
-  try {
-    const permissions = getCurrentPermissions();
-    if (!permissions.includes(permission)) {
-      permissions.push(permission);
-      return setCurrentPermissions(permissions);
+      return true;
+    } catch (error) {
+      cerror('Error setting context:', error);
+      return false;
     }
-    return true;
-  } catch (error) {
-    throw new Error(`Failed to add permission '${permission}': ${error.message}`);
   }
-};
 
-/**
- * Removes a permission from the current user's context
- * @param {string} permission - Permission to remove
- * @returns {boolean} True if removed successfully
- */
-const removePermission = (permission) => {
-  try {
-    const permissions = getCurrentPermissions();
-    const filteredPermissions = permissions.filter((p) => p !== permission);
-    return setCurrentPermissions(filteredPermissions);
-  } catch (error) {
-    throw new Error(`Failed to remove permission '${permission}': ${error.message}`);
+  /**
+   * Updates existing context values (only modifies existing keys)
+   * @param {string|Object} keyOrObject - Key string or object with updates
+   * @param {*} [value=undefined] - New value (only used if first param is string)
+   * @returns {boolean} Success status
+   * @example
+   * // Update single value
+   * ContextHelper.update('userId', '456');
+   *
+   * @example
+   * // Update multiple values
+   * ContextHelper.update({ userId: '456', status: 'active' });
+   */
+  static update(keyOrObject, value = undefined) {
+    try {
+      const context = asyncLocalStorage.getStore();
+
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
+
+      if (typeof keyOrObject === 'string') {
+        // Update single key if it exists
+        if (Object.prototype.hasOwnProperty.call(context, keyOrObject)) {
+          context[keyOrObject] = value;
+          return true;
+        } else {
+          cerror(`Key '${keyOrObject}' does not exist in context.`);
+          return false;
+        }
+      } else if (typeof keyOrObject === 'object' && keyOrObject !== null) {
+        // Update only existing keys from object - protects against adding new keys
+        let updated = false;
+        for (const [key, val] of Object.entries(keyOrObject)) {
+          if (Object.hasOwn(context, key)) {
+            context[key] = val;
+            updated = true;
+          }
+        }
+        return updated;
+      } else {
+        cerror('Invalid parameter type. Expected string or object.');
+        return false;
+      }
+    } catch (error) {
+      cerror('Error updating context:', error);
+      return false;
+    }
   }
-};
 
-// =============================================================================
-// CONTEXT DEBUGGING AND LOGGING
-// =============================================================================
+  /**
+   * Removes a key or multiple keys from the context
+   * @param {string|Array<string>} keyOrKeys - Key or array of keys to remove
+   * @returns {boolean} Success status
+   * @example
+   * // Remove single key
+   * ContextHelper.remove('tempData');
+   *
+   * @example
+   * // Remove multiple keys
+   * ContextHelper.remove(['tempData', 'cacheKey']);
+   */
+  static remove(keyOrKeys) {
+    try {
+      const context = asyncLocalStorage.getStore();
 
-/**
- * Gets a summary of the current context for debugging
- * @param {boolean} includeCustomData - Whether to include custom data
- * @returns {Object} Context summary
- */
-const getContextSummary = (includeCustomData = false) => {
-  try {
-    const context = getContext();
-    if (!context) {
-      return { error: 'No active context' };
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
+
+      if (typeof keyOrKeys === 'string') {
+        delete context[keyOrKeys];
+        return true;
+      } else if (Array.isArray(keyOrKeys)) {
+        keyOrKeys.forEach((key) => delete context[key]);
+        return true;
+      } else {
+        cerror('Invalid parameter type. Expected string or array.');
+        return false;
+      }
+    } catch (error) {
+      cerror('Error removing from context:', error);
+      return false;
     }
-
-    const summary = {
-      userId: context[CONTEXT_KEYS.USER_ID] || 'Not set',
-      sessionId: context[CONTEXT_KEYS.SESSION_ID] || 'Not set',
-      requestId: context[CONTEXT_KEYS.REQUEST_ID] || 'Not set',
-      timestamp: context[CONTEXT_KEYS.TIMESTAMP] || 'Not set',
-      permissions: (context[CONTEXT_KEYS.PERMISSIONS] || []).length,
-      roles: (context[CONTEXT_KEYS.ROLES] || []).length,
-      tenantId: context[CONTEXT_KEYS.TENANT_ID] || 'Not set',
-    };
-
-    if (includeCustomData) {
-      summary.customData = context[CONTEXT_KEYS.CUSTOM_DATA] || {};
-    }
-
-    return summary;
-  } catch (error) {
-    return { error: `Failed to get context summary: ${error.message}` };
   }
-};
 
-/**
- * Validates the current context structure
- * @returns {Object} Validation result with any issues found
- */
-const validateContext = () => {
-  try {
-    const context = getContext();
-    const issues = [];
-
-    if (!context) {
-      return { isValid: false, issues: ['No active context found'] };
+  /**
+   * Checks if context exists and is active
+   * @returns {boolean} True if context is active
+   * @example
+   * if (ContextHelper.isActive()) {
+   *   // Safe to use context operations
+   * }
+   */
+  static isActive() {
+    try {
+      return asyncLocalStorage.getStore() !== undefined;
+    } catch (error) {
+      cerror('Error checking context status:', error);
+      return false;
     }
-
-    if (!context[CONTEXT_KEYS.TIMESTAMP]) {
-      issues.push('Missing timestamp');
-    }
-
-    if (!context[CONTEXT_KEYS.REQUEST_ID]) {
-      issues.push('Missing request ID');
-    }
-
-    if (context[CONTEXT_KEYS.PERMISSIONS] && !Array.isArray(context[CONTEXT_KEYS.PERMISSIONS])) {
-      issues.push('Permissions should be an array');
-    }
-
-    if (context[CONTEXT_KEYS.ROLES] && !Array.isArray(context[CONTEXT_KEYS.ROLES])) {
-      issues.push('Roles should be an array');
-    }
-
-    return {
-      isValid: issues.length === 0,
-      issues: issues,
-    };
-  } catch (error) {
-    return {
-      isValid: false,
-      issues: [`Validation failed: ${error.message}`],
-    };
   }
-};
+
+  /**
+   * Checks if a key exists in the context
+   * @param {string} key - Key to check
+   * @returns {boolean} True if key exists
+   * @example
+   * if (ContextHelper.has('userId')) {
+   *   // Key exists
+   * }
+   */
+  static has(key) {
+    try {
+      const context = asyncLocalStorage.getStore();
+      return context ? Object.hasOwn(context, key) : false;
+    } catch (error) {
+      cerror('Error checking key existence:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Gets all keys in the current context
+   * @returns {Array<string>} Array of context keys
+   * @example
+   * const keys = ContextHelper.keys();
+   * console.log('Context contains:', keys);
+   */
+  static keys() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      return context ? Object.keys(context) : [];
+    } catch (error) {
+      cerror('Error getting context keys:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Gets the number of keys in the context
+   * @returns {number} Number of keys in context
+   * @example
+   * if (ContextHelper.size() > 10) {
+   *   // Context is getting large
+   * }
+   */
+  static size() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      return context ? Object.keys(context).length : 0;
+    } catch (error) {
+      cerror('Error getting context size:', error);
+      return 0;
+    }
+  }
+
+  /**
+   * Clears all context data while keeping the context active
+   * @returns {boolean} Success status
+   * @example
+   * // Reset context while maintaining async context
+   * ContextHelper.clear();
+   */
+  static clear() {
+    try {
+      const context = asyncLocalStorage.getStore();
+
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
+
+      // Remove all keys but keep context object reference
+      Object.keys(context).forEach((key) => delete context[key]);
+      return true;
+    } catch (error) {
+      cerror('Error clearing context:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Creates a deep copy of the current context state
+   * @returns {Object|null} Context snapshot or null on error
+   * @complexity Time: O(n), Space: O(n) where n is context size
+   * @example
+   * const snapshot = ContextHelper.snapshot();
+   * // Store for later restoration or debugging
+   */
+  static snapshot() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      return context ? JSON.parse(JSON.stringify(context)) : null;
+    } catch (error) {
+      cerror('Error creating context snapshot:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Restores context from a previously created snapshot
+   * @param {Object} snapshot - Context snapshot to restore
+   * @returns {boolean} Success status
+   * @example
+   * const snapshot = ContextHelper.snapshot();
+   * // Later...
+   * ContextHelper.restore(snapshot);
+   */
+  static restore(snapshot) {
+    try {
+      if (!snapshot || typeof snapshot !== 'object') {
+        cerror('Invalid snapshot provided.');
+        return false;
+      }
+
+      const context = asyncLocalStorage.getStore();
+
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
+
+      // Clear current context and restore from snapshot
+      Object.keys(context).forEach((key) => delete context[key]);
+      Object.assign(context, snapshot);
+
+      return true;
+    } catch (error) {
+      cerror('Error restoring context:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Gets user-specific context data in a structured format
+   * @returns {Object} User context data
+   * @example
+   * const userContext = ContextHelper.getUserContext();
+   * console.log('User ID:', userContext.userId);
+   */
+  static getUserContext() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      if (!context) return {};
+
+      return {
+        userId: context[CONTEXT_KEYS.USER_ID],
+        userData: context[CONTEXT_KEYS.USER_DATA],
+        sessionId: context[CONTEXT_KEYS.SESSION_ID],
+        permissions: context[CONTEXT_KEYS.PERMISSIONS],
+        roles: context[CONTEXT_KEYS.ROLES],
+      };
+    } catch (error) {
+      cerror('Error getting user context:', error);
+      return {};
+    }
+  }
+
+  /**
+   * Gets request-specific context data in a structured format
+   * @returns {Object} Request context data
+   * @example
+   * const requestContext = ContextHelper.getRequestContext();
+   * console.log('Request ID:', requestContext.requestId);
+   */
+  static getRequestContext() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      if (!context) return {};
+
+      return {
+        requestId: context[CONTEXT_KEYS.REQUEST_ID],
+        correlationId: context[CONTEXT_KEYS.CORRELATION_ID],
+        transactionId: context[CONTEXT_KEYS.TRANSACTION_ID],
+        ipAddress: context[CONTEXT_KEYS.IP_ADDRESS],
+        userAgent: context[CONTEXT_KEYS.USER_AGENT],
+        timestamp: context[CONTEXT_KEYS.TIMESTAMP],
+      };
+    } catch (error) {
+      cerror('Error getting request context:', error);
+      return {};
+    }
+  }
+
+  /**
+   * Gets organization-specific context data in a structured format
+   * @returns {Object} Organization context data
+   * @example
+   * const orgContext = ContextHelper.getOrganizationContext();
+   * console.log('Tenant ID:', orgContext.tenantId);
+   */
+  static getOrganizationContext() {
+    try {
+      const context = asyncLocalStorage.getStore();
+      if (!context) return {};
+
+      return {
+        tenantId: context[CONTEXT_KEYS.TENANT_ID],
+        organizationId: context[CONTEXT_KEYS.ORGANIZATION_ID],
+        departmentId: context[CONTEXT_KEYS.DEPARTMENT_ID],
+        clientId: context[CONTEXT_KEYS.CLIENT_ID],
+      };
+    } catch (error) {
+      cerror('Error getting organization context:', error);
+      return {};
+    }
+  }
+
+  /**
+   * Merges multiple context objects into the current context
+   * @param {...Object} contexts - Context objects to merge
+   * @returns {boolean} Success status
+   * @example
+   * ContextHelper.merge({ key1: 'value1' }, { key2: 'value2' });
+   */
+  static merge(...contexts) {
+    try {
+      const context = asyncLocalStorage.getStore();
+
+      if (!context) {
+        cerror('No active context found. Make sure to call ContextHelper.run() first.');
+        return false;
+      }
+
+      contexts.forEach((ctx) => {
+        if (ctx && typeof ctx === 'object') {
+          Object.assign(context, ctx);
+        }
+      });
+
+      return true;
+    } catch (error) {
+      cerror('Error merging contexts:', error);
+      return false;
+    }
+  }
+}
 
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = {
-  // Core Context Management
-  runWithContext,
-  getContext,
-  hasContext,
-  clearContext,
-
-  // Generic Getters
-  getContextValue,
-  getContextValues,
-
-  // Specific Getters
-  getCurrentUserId,
-  getCurrentUserData,
-  getCurrentSessionId,
-  getCurrentRequestId,
-  getCurrentIpAddress,
-  getCurrentUserAgent,
-  getCurrentTimestamp,
-  getCurrentPermissions,
-  getCurrentRoles,
-  getCurrentTenantId,
-  getCurrentCorrelationId,
-
-  // Generic Setters
-  setContextValue,
-  setContextValues,
-
-  // Specific Setters
-  setCurrentUserId,
-  setCurrentUserData,
-  setCurrentSessionId,
-  setCurrentIpAddress,
-  setCurrentUserAgent,
-  setCurrentPermissions,
-  setCurrentRoles,
-  setCurrentTenantId,
-
-  // Custom Data Management
-  getCustomData,
-  setCustomData,
-  removeCustomData,
-  getAllCustomData,
-
-  // Permission and Role Management
-  hasPermission,
-  hasAnyPermission,
-  hasAllPermissions,
-  hasRole,
-  hasAnyRole,
-  addPermission,
-  removePermission,
-
-  // Debugging and Validation
-  getContextSummary,
-  validateContext,
-};
+module.exports = ContextHelper;
