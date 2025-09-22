@@ -31,7 +31,6 @@
   "type": "commonjs",
   "main": "index.js",
   "bin": {
-    "create-models": "./scripts/createModels.script.js",
     "generate-models": "./scripts/createModels.script.js"
   },
   "config": {

@@ -40,7 +40,8 @@ const { performance } = require('perf_hooks');
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
-// =============================================================================
+// =============================================================================const moment = require('moment');
+const moment = require('moment');
 const { faker } = require('@faker-js/faker');
 
 // =============================================================================
@@ -56,7 +57,7 @@ const {
   identifierParam,
 } = require('../schemas/params/common.params');
 const { toCamelCase } = require('../helpers/strings.helper');
-const { sequelize } = require('../config/database/connection');
+const sequelize = require('../config/database/connection');
 const { Sequelize } = require('sequelize');
 
 // =============================================================================
@@ -116,17 +117,17 @@ const TYPE_MAPPINGS = Object.freeze({
   DATE: {
     type: 'string',
     format: 'date-time',
-    generator: () => faker.date.recent().toISOString(),
+    generator: () => moment().format(),
   },
   DATEONLY: {
     type: 'string',
     format: 'date',
-    generator: () => faker.date.recent().toISOString().split('T')[0],
+    generator: () => moment().format('YYYY-MM-DD'),
   },
   TIME: {
     type: 'string',
     format: 'time',
-    generator: () => faker.date.recent().toTimeString().split(' ')[0],
+    generator: () => moment().format('HH:mm:ss'),
   },
 
   // Binary types
@@ -172,31 +173,28 @@ const EXCLUDED_FIELDS = Object.freeze(
  */
 const CLI_CONFIG = Object.freeze({
   flags: {
-    model: '-m',
-    prefix: '-p',
-    pattern: '-pattern',
+    table: '-t',
+    group: '-g',
     output: '-o',
     help: '-h',
     verbose: '-v',
   },
   help: `
-CRUD Documentation Generator - Automatically generate OpenAPI docs from Sequelize models
+CRUD Documentation Generator - Automatically generate OpenAPI docs from database table
 
 Usage: node generateCrudDocs.js [options]
 
 Options:
-  -m <model>     Generate docs for specific model
-  -p <prefix>    Generate docs for models with prefix
-  -pattern <p>   Generate docs for models matching pattern
+  -t <table>     Table name (required)
+  -g <group>     Group name for documentation organization (required)
   -o <path>      Output directory (default: ./docs/endpoints)
   -v             Verbose logging
   -h             Show this help message
 
 Examples:
-  node generateCrudDocs.js                        # Generate all models
-  node generateCrudDocs.js -m UserModel           # Generate docs for UserModel
-  node generateCrudDocs.js -p auth                # Generate docs for auth-prefixed models
-  node generateCrudDocs.js -pattern settings      # Generate docs for models containing 'settings'
+  node generateCrudDocs.js -t auth_users -g auth         # Generate docs for auth_users table
+  node generateCrudDocs.js -t content_posts -g content   # Generate docs for content_posts table
+  node generateCrudDocs.js -t config_settings -g config  # Generate docs for config_settings table
 `,
 });
 
@@ -261,6 +259,7 @@ class ModelIntrospector extends CrudHelper {
       modelName: this.modelName,
       entityName: this.entityName,
       singularForm: this.singularForm,
+      groupName: this.groupName,
       tableComment,
       fields: fieldDetails,
       requiredFields: new Set(requiredColumns.formatedColumns),
@@ -879,9 +878,8 @@ class CrudDocsGeneratorApp {
    */
   #parseArguments(args) {
     const parsed = {
-      model: null,
-      prefix: null,
-      pattern: null,
+      table: null,
+      group: null,
       output: null,
       verbose: false,
       help: false,
@@ -892,21 +890,15 @@ class CrudDocsGeneratorApp {
       const nextArg = args[i + 1];
 
       switch (arg) {
-        case CLI_CONFIG.flags.model:
+        case CLI_CONFIG.flags.table:
           if (nextArg) {
-            parsed.model = nextArg;
+            parsed.table = nextArg;
             i++;
           }
           break;
-        case CLI_CONFIG.flags.prefix:
+        case CLI_CONFIG.flags.group:
           if (nextArg) {
-            parsed.prefix = nextArg;
-            i++;
-          }
-          break;
-        case CLI_CONFIG.flags.pattern:
-          if (nextArg) {
-            parsed.pattern = nextArg;
+            parsed.group = nextArg;
             i++;
           }
           break;

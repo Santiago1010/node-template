@@ -1,13 +1,11 @@
+const sequelize = require('../../../../config/database/connection');
 const CrudHelper = require('../../../../helpers/crud.helper');
-const { sequelize } = require('../../../../config/database/connection');
 
 // Mock sequelize query method
 jest.mock('../../../../config/database/connection', () => ({
   sequelize: {
+    ...sequelize,
     query: jest.fn(),
-    config: {
-      database: 'test_db',
-    },
   },
 }));
 

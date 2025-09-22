@@ -72,7 +72,6 @@ const { Sequelize } = require('sequelize'); // ORM for database connection manag
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { sequelize } = require('../config/database/connection'); // Pre-configured database connection
 const { PATHS } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
 const { toCamelCase } = require('./strings.helper'); // String transformation utility
@@ -282,8 +281,14 @@ class CrudHelper {
    * await helper.readAllColumns('users');
    */
   constructor() {
-    this.sequelize = sequelize; // Usar la instancia de conexión existente
-    this.databaseName = this.sequelize.config.database; // Obtener el nombre de la BD desde la configuración
+    const sequelize = require('../config/database/connection');
+
+    if (!sequelize) {
+      throw new Error('Database connection is not properly configured');
+    }
+
+    this.sequelize = sequelize;
+    this.databaseName = this.sequelize.config.database;
   }
 
   /**
