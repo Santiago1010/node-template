@@ -14,6 +14,7 @@ const { performance } = require('perf_hooks'); // High-resolution timing for per
 const CrudHelper = require('../helpers/crud.helper'); // Base class for CRUD operations and template management
 const { PREFIXES } = require('../helpers/constants.helper'); // Table prefix to group name mappings
 const { cerror } = require('../helpers/debug.helper'); // Enhanced logging and error handling utilities
+const { toCamelCase } = require('../helpers/strings.helper'); // String transformation utility
 
 // =============================================================================
 // SCRIPT CONFIGURATION
@@ -342,7 +343,7 @@ class CrudDocsGenerator {
       const property = this.analyzeColumnForProperty(column);
       const requiredText = isRequired ? '**[Required]** ' : '**[Optional]** ';
 
-      lines.push(`              ${fieldName}: {`);
+      lines.push(`              ${toCamelCase(fieldName)}: {`);
       lines.push(`                type: '${property.type}',`);
       lines.push(`                description: '${requiredText}${column.COLUMN_COMMENT || ''}',`);
 
@@ -550,8 +551,10 @@ class CrudDocsGenerator {
         fs.mkdirSync(docsDir, { recursive: true });
       }
 
-      // Generate filename
-      const fileName = `${tableName}.docs.js`;
+      const parts = tableName.split('_');
+
+      // Generate filename ignorando el primer elemento
+      const fileName = `${toCamelCase(parts.slice(1).join('_'))}.docs.js`;
       const filePath = path.join(docsDir, fileName);
 
       // Write file
