@@ -57,7 +57,7 @@ const { Sequelize } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const CrudHelper = require('../helpers/crud.helper');
-const { sequelize, models } = require('../config/database/connection');
+const databaseConnection = require('../config/database/connection');
 const { PREFIXES } = require('../helpers/constants.helper');
 const { wrapLogging, cerror } = require('../helpers/debug.helper');
 const { toCamelCase, tabs } = require('../helpers/strings.helper');
@@ -211,78 +211,6 @@ Examples:
 });
 
 // =============================================================================
-// DATABASE CONNECTION MANAGER - ADAPTADO
-// =============================================================================
-
-/**
- * Database Connection Manager
- * @description Manages database connection lifecycle using your existing connection
- */
-class DatabaseConnectionManager {
-  constructor() {
-    this.sequelize = sequelize; // Use your existing sequelize instance
-    this.models = models; // Use your existing models
-    this.isInitialized = false;
-  }
-
-  /**
-   * Initialize database connection
-   * @returns {Promise<void>}
-   */
-  async initialize() {
-    if (this.isInitialized) {
-      return;
-    }
-
-    try {
-      // Test the connection using your existing sequelize instance
-      await this.sequelize.authenticate();
-      console.log('🔌 Database connection verified');
-      this.isInitialized = true;
-    } catch (error) {
-      console.error('❌ Database connection failed:', error.message);
-      throw error;
-    }
-  }
-
-  /**
-   * Close database connection
-   * @returns {Promise<void>}
-   */
-  async close() {
-    if (this.sequelize && !this.sequelize.connectionManager.pool._closed) {
-      try {
-        await this.sequelize.close();
-        console.log('🔌 Database connection closed');
-        this.isInitialized = false;
-      } catch (error) {
-        console.error('❌ Error closing database connection:', error.message);
-        throw error;
-      }
-    }
-  }
-
-  /**
-   * Get current database configuration
-   * @returns {Object}
-   */
-  getConfig() {
-    return this.sequelize.config;
-  }
-
-  /**
-   * Get database dialect
-   * @returns {string}
-   */
-  getDialect() {
-    return this.sequelize.options.dialect || 'mysql';
-  }
-}
-
-// Create singleton instance using your connection
-const databaseConnection = new DatabaseConnectionManager();
-
-// =============================================================================
 // MAIN MODEL GENERATOR CLASS
 // =============================================================================
 
@@ -329,7 +257,7 @@ class ModelGenerator extends CrudHelper {
     };
 
     // Use the shared sequelize instance
-    this.sequelize = databaseConnection.sequelize;
+    this.sequelize = databaseConnection;
   }
 
   // =========================== MAIN GENERATION METHODS =========================== //
@@ -915,9 +843,6 @@ class ModelGeneratorApp {
 
       console.log('🚀 Starting Model Generator...');
 
-      // Initialize database connection using your existing connection
-      await databaseConnection.initialize();
-
       // Get tables to process
       const tables = await this.#getTablesToProcess(parsedArgs);
 
@@ -948,8 +873,8 @@ class ModelGeneratorApp {
    * @returns {Promise<string[]>} List of table names
    */
   async #getTablesToProcess(args) {
-    const sequelize = databaseConnection.sequelize;
-    const config = databaseConnection.getConfig();
+    const sequelize = databaseConnection;
+    const { config } = sequelize;
 
     let query = `
       SELECT table_name
@@ -1091,39 +1016,6 @@ function logError(context, error, metadata = {}) {
 }
 
 /**
- * Validate environment and dependencies
- * @returns {boolean} Validation result
- */
-function validateEnvironment() {
-  try {
-    // Verify that sequelize instance exists and is connected
-    if (!databaseConnection.sequelize) {
-      console.error('❌ Database connection not available');
-      return false;
-    }
-
-    // Check if required helpers are available
-    const requiredHelpers = [
-      { name: 'CrudHelper', module: CrudHelper },
-      { name: 'toCamelCase', module: toCamelCase },
-      { name: 'tabs', module: tabs },
-    ];
-
-    for (const helper of requiredHelpers) {
-      if (!helper.module) {
-        console.error(`❌ Required helper not available: ${helper.name}`);
-        return false;
-      }
-    }
-
-    return true;
-  } catch (error) {
-    console.error('❌ Environment validation error:', error.message);
-    return false;
-  }
-}
-
-/**
  * Display startup banner
  */
 function showStartupBanner() {
@@ -1199,12 +1091,6 @@ if (require.main === module) {
   // Setup graceful shutdown
   setupGracefulShutdown();
 
-  // Validate environment
-  if (!validateEnvironment()) {
-    console.error('❌ Environment validation failed');
-    process.exit(1);
-  }
-
   // Parse command line arguments (skip node and script name)
   const args = process.argv.slice(2);
 
@@ -1226,7 +1112,6 @@ module.exports = {
   ModelGenerator,
   CLIParser,
   ModelGeneratorApp,
-  validateEnvironment,
   validateTableExists,
   checkDatabaseConnectivity,
   logError,
