@@ -233,7 +233,6 @@ class ModelGenerator extends CrudHelper {
   async #generateSchema() {
     const { columns, formatedColumns } = await this.readAllColumns(this.tableName);
 
-    // Fix: detect soft delete robustly using both raw and formatted column lists
     this.features.softDelete = columns.includes('deleted_at') || formatedColumns.includes('deletedAt');
 
     const schemaDefinitions = [];
@@ -285,7 +284,16 @@ class ModelGenerator extends CrudHelper {
       definition += `${tabs(2)}defaultValue: null,\n`;
     }
 
+    // Special handling for timestamp on update
+    if (columnName === 'updated_at') {
+      definition += `${tabs(2)}onUpdate: DataTypes.NOW,\n`;
+    }
+
     if (isPrimary) {
+      console.clear();
+      console.log(columnDetails);
+      console.log(isAutoIncrement);
+
       definition += `${tabs(2)}primaryKey: true,\n`;
       if (isAutoIncrement) {
         definition += `${tabs(2)}autoIncrement: true,\n`;
@@ -309,11 +317,6 @@ class ModelGenerator extends CrudHelper {
 
     if (COLUMN_COMMENT) {
       definition += this.#generateColumnComment(COLUMN_COMMENT);
-    }
-
-    // Special handling for timestamp on update
-    if (columnName === 'updated_at') {
-      definition += `${tabs(2)}onUpdate: DataTypes.NOW,\n`;
     }
 
     if (requiresFieldMapping) {
@@ -358,8 +361,14 @@ class ModelGenerator extends CrudHelper {
     } else if (baseType === 'longtext') {
       sequelizeType = "TEXT('long')";
     } else if (baseType === 'enum') {
-      // Keep original enum definition uppercased to match generated examples
-      sequelizeType = String(columnType).toUpperCase();
+      // Preserve the original casing of the enum values (cleanSize includes the quoted values)
+      if (cleanSize) {
+        sequelizeType = `ENUM(${cleanSize})`;
+      } else {
+        // fallback: try to extract values from the original columnType, otherwise return it as-is
+        const match = String(columnType).match(/\((.*)\)/);
+        sequelizeType = match && match[1] ? `ENUM(${match[1]})` : String(columnType);
+      }
     } else if (
       cleanSize &&
       !sequelizeType.includes('(') &&
@@ -537,7 +546,6 @@ class ModelGenerator extends CrudHelper {
     return [`${tabs()}timestamps: true,`, `${tabs()}paranoid: true,`].join('\n') + '\n';
   }
 
-  // Fix: use the actual config path in your project (was '../../configurations/i18n' before)
   #generateI18nImport() {
     return `\n\nconst i18n = require('../../config/i18n');`;
   }

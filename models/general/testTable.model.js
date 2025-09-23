@@ -85,7 +85,7 @@ const Schema = {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
-    comment: 'Date and time when the record was created in the table.',
+    comment: 'Date and time when the record was created.',
     field: 'created_at',
   },
   updatedAt: {
