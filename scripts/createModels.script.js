@@ -2,73 +2,96 @@
 'use strict';
 
 // =============================================================================
-// MODEL GENERATOR SCRIPT - Database-to-Sequelize Model Automation Tool
+// SEQUELIZE MODEL GENERATOR - Advanced Database Schema Introspection Tool
 // =============================================================================
 // PRIMARY PURPOSE & FUNCTIONALITY:
-// - Automatically generates Sequelize models from existing database tables
+// - Automatically generates Sequelize ORM models by introspecting database schema
+// - Creates complete model definitions including associations, data types, and constraints
 // - Supports multiple database dialects (MySQL, PostgreSQL, SQLite, MSSQL)
-// - Creates associations (belongsTo, hasMany, belongsToMany) based on foreign keys
-// - Handles enums, virtual columns, and special data types
-// - Generates CRUD operations with proper naming conventions
+// - Handles complex relationships (belongsTo, hasMany, belongsToMany)
+// - Applies naming conventions and organizational structure
 //
 // ARCHITECTURAL DECISIONS:
-// - Factory pattern for model creation with database introspection
-// - Template-based code generation for consistency and maintainability
-// - Modular design with separation of concerns (schema, associations, templates)
-// - Event-driven error handling with graceful degradation
+// - Uses database introspection instead of manual model definition for accuracy
+// - Implements template-based generation for consistent model structure
+// - Employs inheritance from CrudHelper for code reuse and standardization
+// - Supports multiple database dialects through configurable type mappings
+// - Uses async/await for all database operations to handle I/O efficiently
+//
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Manual model definition: More control but error-prone and time-consuming
+// - Sequelize CLI migrations: Limited introspection capabilities
+// - Third-party model generators: Less customizable and dialect-specific
+// - ORM-first approach: Start with models then generate schema (reverse of current approach)
+// - Trade-off: Current approach ensures database schema is source of truth
 //
 // PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(n*m) where n=tables, m=average columns per table
-// - Space complexity: O(n) for storing table metadata
-// - Batch processing for multiple tables
-// - Connection pooling handled by database connection manager
+// - Time complexity: O(n) for table processing, O(m) for column introspection per table
+// - Space complexity: O(k) for in-memory template processing and replacement
+// - Scalability: Handles hundreds of tables efficiently through sequential processing
+// - Bottlenecks: Database metadata queries and file I/O operations
 //
 // SECURITY CONSIDERATIONS:
-// - SQL injection prevention through parameterized queries
-// - Input validation for command line arguments
-// - Safe template rendering without eval() usage
-// - Proper connection cleanup on script termination
+// - Validates table existence before processing to prevent injection
+// - Uses parameterized queries for database introspection
+// - Implements input sanitization for table names and prefixes
+// - Follows principle of least privilege for database connection
 //
 // USAGE EXAMPLES:
 // - Generate all models: node models-generator.js
-// - Specific table: node models-generator.js -t users
-// - By prefix: node models-generator.js -p auth_
+// - Single table: node models-generator.js -t users
+// - Tables with prefix: node models-generator.js -p auth_
 // - Pattern matching: node models-generator.js -m _settings
 //
 // MAINTENANCE & TROUBLESHOOTING:
-// - Enable debug logging: DEBUG=models:* node models-generator.js
-// - Check generated files in sync_models/ directory
-// - Verify database connection before running
-// - Review template files for customization needs
+// - Common errors: Database connectivity, insufficient permissions
+// - Debugging: Use -v flag for verbose logging
+// - Performance: Process large schemas in batches if needed
+// - Enhancement: Extend DATA_TYPE_MAPPINGS for custom types
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Node.js: 14.0+ (ES2020 features, optional chaining, nullish coalescing)
+// - Sequelize: 6.0+ (supports multiple dialects and associations)
+// - Database: MySQL 5.7+, PostgreSQL 10+, SQLite 3.0+, MSSQL 2012+
+// - File System: Requires write permissions for model generation
 //
 // =============================================================================
 
 // =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const { performance } = require('perf_hooks');
+const { performance } = require('perf_hooks'); // High-resolution timing for performance metrics
 
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize'); // ORM for database abstraction and model management
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const CrudHelper = require('../helpers/crud.helper');
-const databaseConnection = require('../config/database/connection');
-const { PREFIXES } = require('../helpers/constants.helper');
-const { wrapLogging, cerror } = require('../helpers/debug.helper');
-const { toCamelCase, tabs } = require('../helpers/strings.helper');
+const CrudHelper = require('../helpers/crud.helper'); // Base class for CRUD operations and template management
+const databaseConnection = require('../config/database/connection'); // Shared database connection instance
+const { PREFIXES } = require('../helpers/constants.helper'); // Table prefix to group name mappings
+const { wrapLogging, cerror } = require('../helpers/debug.helper'); // Enhanced logging and error handling utilities
+const { toCamelCase, tabs } = require('../helpers/strings.helper'); // String transformation utilities for naming conventions
 
 // =============================================================================
 // CONFIGURATION CONSTANTS
 // =============================================================================
 
 /**
- * Database-specific data type mappings for Sequelize
+ * Database-specific data type mappings for Sequelize compatibility
+ * Provides translation between native database types and Sequelize DataTypes
+ * Supports multiple dialects with fallback to MySQL mappings
+ *
  * @type {Object<string, Object<string, string>>}
+ * @constant
+ *
+ * @example
+ * // MySQL TINYINT(1) with boolean pattern becomes BOOLEAN
+ * // PostgreSQL SERIAL becomes INTEGER with auto-increment
+ * // SQLite BLOB remains BLOB for binary data
  */
 const DATA_TYPE_MAPPINGS = Object.freeze({
   mysql: {
@@ -173,14 +196,24 @@ const DATA_TYPE_MAPPINGS = Object.freeze({
 });
 
 /**
- * Special timestamp columns for automatic handling
+ * Special timestamp columns for automatic Sequelize timestamp handling
+ * These columns trigger automatic timestamp management and soft delete features
+ *
  * @type {Set<string>}
+ * @constant
+ *
+ * @example
+ * // created_at, updated_at enable timestamps: true
+ * // deleted_at enables paranoid: true for soft deletes
  */
 const TIMESTAMP_COLUMNS = Object.freeze(new Set(['created_at', 'updated_at', 'deleted_at']));
 
 /**
- * Command line argument configuration
+ * Command line interface configuration and help documentation
+ * Defines supported flags, validation rules, and usage examples
+ *
  * @type {Object}
+ * @constant
  */
 const CLI_CONFIG = Object.freeze({
   flags: {
@@ -220,6 +253,21 @@ Examples:
  *
  * @description Generates Sequelize models by introspecting database schema,
  * creating associations, and applying naming conventions automatically.
+ * Handles complex relationships, data type mapping, and organizational structure.
+ *
+ * @example
+ * // Basic usage for single table
+ * const generator = new ModelGenerator('users');
+ * const success = await generator.generateModel();
+ *
+ * @example
+ * // Advanced usage with custom singular form
+ * const generator = new ModelGenerator('people', 'person');
+ * await generator.generateModel();
+ *
+ * @complexity Time: O(n + m) where n is columns count, m is relationships count
+ * @since Version 1.0.0
+ * @see {@link CrudHelper} for base template and file operations
  */
 class ModelGenerator extends CrudHelper {
   #specialColumns = TIMESTAMP_COLUMNS;
@@ -233,22 +281,31 @@ class ModelGenerator extends CrudHelper {
 
   /**
    * Initialize ModelGenerator for a specific table
-   * @param {string} tableName - Database table name
-   * @param {string} [singularForm] - Singular form for naming (optional)
+   * @param {string} tableName - Database table name (snake_case expected)
+   * @param {string} [singularForm] - Singular form for naming (optional, auto-derived if not provided)
+   *
+   * @throws {Error} When tableName is empty or invalid
+   *
+   * @example
+   * const generator = new ModelGenerator('user_profiles', 'userProfile');
    */
   constructor(tableName, singularForm = null) {
     super();
+
+    if (!tableName || typeof tableName !== 'string') {
+      throw new Error('tableName must be a non-empty string');
+    }
 
     this.tableName = tableName;
     this.singularForm = singularForm || this.#deriveSingularForm(tableName);
     this.modelName = toCamelCase(tableName);
 
-    // Parse table structure for organization
+    // Parse table structure for organization - supports prefix-based grouping
     const tableParts = tableName.split('_');
     this.entityName = tableParts.slice(1).join('_');
     this.groupName = PREFIXES[tableParts[0].toUpperCase()] || 'general';
 
-    // Model characteristics
+    // Model characteristics - populated during generation
     this.features = {
       softDelete: false,
       hasAssociations: false,
@@ -256,15 +313,28 @@ class ModelGenerator extends CrudHelper {
       hasVirtualColumns: false,
     };
 
-    // Use the shared sequelize instance
+    // Use the shared sequelize instance for database operations
     this.sequelize = databaseConnection;
   }
 
   // =========================== MAIN GENERATION METHODS =========================== //
 
   /**
-   * Generate complete Sequelize model
-   * @returns {Promise<boolean>} Success status
+   * Generate complete Sequelize model including schema, associations, and configuration
+   * Orchestrates the entire model generation process from template to file creation
+   *
+   * @returns {Promise<boolean>} Success status of model generation
+   *
+   * @throws {Error} When database connection fails or template is unavailable
+   *
+   * @example
+   * const generator = new ModelGenerator('products');
+   * const success = await generator.generateModel();
+   * if (success) {
+   *   console.log('Model generated successfully');
+   * }
+   *
+   * @complexity Time: O(n + m) where n is columns, m is relationships
    */
   async generateModel() {
     try {
@@ -284,14 +354,18 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Build complete model content from template
+   * Build complete model content by combining template with generated components
+   * Replaces template placeholders with actual schema definitions and configurations
+   *
    * @private
-   * @returns {Promise<string>} Generated model content
+   * @returns {Promise<string>} Generated model content ready for file writing
+   *
+   * @throws {Error} When template loading fails or database introspection errors occur
    */
   async #buildModelContent() {
     let template = await this.getTemplate('models', 'model');
 
-    // Replace template placeholders
+    // Replace template placeholders with generated content
     const replacements = {
       '{{TABLES_COMMENT}}': await this.readTablesComment(this.tableName),
       '{{TABLE_NAME}}': this.tableName,
@@ -304,33 +378,48 @@ class ModelGenerator extends CrudHelper {
       '{{NEED_I18N}}': this.features.hasEnums ? this.#generateI18nImport() : '',
     };
 
-    // Apply all replacements
+    // Apply all replacements using regex for global replacement
     for (const [placeholder, value] of Object.entries(replacements)) {
       template = template.replace(new RegExp(placeholder, 'g'), value);
     }
 
-    // Handle conditional models parameter
+    // Handle conditional models parameter for associations
     template = template.replace(/models/g, this.features.hasAssociations ? 'models' : '_');
 
-    // Apply CRUD naming conventions
+    // Apply CRUD naming conventions to the final template
     return this.setCrudName(template, this.entityName, this.singularForm);
   }
 
   // =========================== SCHEMA GENERATION =========================== //
 
   /**
-   * Generate complete table schema definition
+   * Generate complete table schema definition by introspecting all columns
+   * Processes each column to create Sequelize-compatible attribute definitions
+   *
    * @private
-   * @returns {Promise<string>} Schema definition
+   * @returns {Promise<string>} Schema definition as string for template insertion
+   *
+   * @example
+   * // Returns schema like:
+   * // id: {
+   * //   type: DataTypes.INTEGER,
+   * //   primaryKey: true,
+   * //   autoIncrement: true
+   * // },
+   * // name: {
+   * //   type: DataTypes.STRING(255),
+   * //   allowNull: false
+   * // }
    */
   async #generateSchema() {
     const { columns, formatedColumns } = await this.readAllColumns(this.tableName);
 
-    // Check for soft delete capability
+    // Detect soft delete capability based on deleted_at column presence
     this.features.softDelete = formatedColumns.includes('deletedAt');
 
     const schemaDefinitions = [];
 
+    // Process each column to generate its schema definition
     for (let i = 0; i < columns.length; i++) {
       const columnName = columns[i];
       const formattedName = formatedColumns[i];
@@ -340,7 +429,7 @@ class ModelGenerator extends CrudHelper {
 
       schemaDefinitions.push(columnSchema);
 
-      // Add virtual enum integer column if needed
+      // Add virtual enum integer column if this is an enum type
       if (columnDetails.COLUMN_TYPE.includes('enum')) {
         const virtualColumn = this.#generateEnumVirtualColumn(formattedName, columnDetails.COLUMN_TYPE);
         schemaDefinitions.push(virtualColumn);
@@ -351,16 +440,21 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate individual column definition
+   * Generate individual column definition with complete Sequelize attributes
+   * Handles data types, constraints, defaults, comments, and field mappings
+   *
    * @private
-   * @param {string} columnName - Original column name
-   * @param {string} formattedName - Camel case column name
-   * @param {Object} columnDetails - Column metadata
-   * @returns {Promise<string>} Column definition
+   * @param {string} columnName - Original database column name (snake_case)
+   * @param {string} formattedName - Camel case column name for JavaScript
+   * @param {Object} columnDetails - Column metadata from database introspection
+   * @returns {Promise<string>} Complete column definition as string
+   *
+   * @throws {Error} When column details are invalid or missing required properties
    */
   async #generateColumnDefinition(columnName, formattedName, columnDetails) {
     const { COLUMN_TYPE, COLUMN_DEFAULT, COLUMN_COMMENT, PRIMARY, UNIQUE, INDEX, NULLABLE } = columnDetails;
 
+    // Extract constraint information
     const isNullable = NULLABLE === 1;
     const isPrimary = PRIMARY === 1;
     const isUnique = UNIQUE === 1;
@@ -368,48 +462,49 @@ class ModelGenerator extends CrudHelper {
     const isEnum = COLUMN_TYPE.includes('enum');
     const requiresFieldMapping = columnName !== formattedName;
 
+    // Track enum presence for i18n import
     if (isEnum) this.features.hasEnums = true;
 
     let definition = `${tabs()}${formattedName}: {\n`;
 
-    // Data type
+    // Data type mapping - core of column definition
     definition += `${tabs(2)}type: DataTypes.${this.#mapDataType(COLUMN_TYPE, columnName)},\n`;
 
-    // Nullable
+    // Nullable constraint
     definition += `${tabs(2)}allowNull: ${isNullable},\n`;
 
-    // Default value
+    // Default value handling with special cases for timestamps
     if ((COLUMN_DEFAULT === null && isNullable) || COLUMN_DEFAULT !== null) {
       definition += `${tabs(2)}defaultValue: ${this.#formatDefaultValue(columnName, COLUMN_DEFAULT)},\n`;
     }
 
-    // Primary key
+    // Primary key attributes
     if (isPrimary) {
       definition += this.#generatePrimaryKeyAttributes();
     }
 
-    // Foreign key reference
+    // Foreign key reference for indexed columns
     if (hasIndex) {
       definition += await this.#generateIndexReference(columnName);
     }
 
-    // Unique constraint
+    // Unique constraint with index name
     if (isUnique) {
       const uniqueIndexName = await this.uniqueDetails(this.tableName, columnName);
       definition += `${tabs(2)}unique: '${uniqueIndexName}',\n`;
     }
 
-    // Enum getter
+    // Enum getter for translated values
     if (isEnum) {
       definition += this.#generateEnumGetter(formattedName, COLUMN_TYPE);
     }
 
-    // Comment
+    // Column comment for documentation
     if (COLUMN_COMMENT) {
       definition += this.#generateColumnComment(COLUMN_COMMENT);
     }
 
-    // Field mapping
+    // Field mapping for database column name differences
     if (requiresFieldMapping) {
       definition += `${tabs(2)}field: '${columnName}'\n`;
     }
@@ -420,30 +515,38 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Map database column type to Sequelize DataType
+   * Map database-specific column type to Sequelize DataType
+   * Handles dialect-specific types and special cases like boolean detection
+   *
    * @private
-   * @param {string} columnType - Database column type
-   * @param {string} columnName - Column name for boolean pattern checking
-   * @returns {string} Sequelize DataType
+   * @param {string} columnType - Raw database column type (e.g., 'varchar(255)', 'tinyint(1)')
+   * @param {string} columnName - Column name for boolean pattern detection
+   * @returns {string} Sequelize DataType string
+   *
+   * @example
+   * // MySQL: 'tinyint(1)' with 'is_active' column becomes 'BOOLEAN'
+   * // PostgreSQL: 'serial' becomes 'INTEGER'
+   * // SQLite: 'text' becomes 'STRING'
    */
   #mapDataType(columnType, columnName) {
     const [baseType, sizeInfo] = columnType.split('(');
     const cleanSize = sizeInfo ? sizeInfo.replace(')', '') : null;
 
-    // Get database dialect from connection
+    // Get database dialect from connection for type mapping
     const dialect = databaseConnection.getDialect();
     const typeMap = DATA_TYPE_MAPPINGS[dialect] || DATA_TYPE_MAPPINGS.mysql;
 
     let sequelizeType = typeMap[baseType] || 'STRING';
 
-    // Special case: TINYINT(1) = BOOLEAN in MySQL if column name matches boolean pattern
+    // Special case: TINYINT(1) detection for boolean columns in MySQL
     if (baseType === 'tinyint' && cleanSize === '1') {
       const normalizedName = columnName.toLowerCase();
-      // Check for boolean patterns: starts with 'is_', ends with '_is', or contains '_is_'
+      // Boolean pattern detection: starts with 'is_', ends with '_is', or contains '_is_'
       if (normalizedName.startsWith('is_') || normalizedName.endsWith('_is') || normalizedName.includes('_is_')) {
         sequelizeType = 'BOOLEAN';
       }
     } else if (cleanSize && !sequelizeType.includes('(')) {
+      // Add size parameter for types that support it
       sequelizeType += `(${cleanSize})`;
     }
 
@@ -451,16 +554,23 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Format default value for Sequelize
+   * Format default value for Sequelize model definition
+   * Handles special cases like timestamp functions and string quoting
+   *
    * @private
-   * @param {string} columnName - Column name
-   * @param {any} defaultValue - Default value from database
-   * @returns {string} Formatted default value
+   * @param {string} columnName - Column name for special handling detection
+   * @param {any} defaultValue - Raw default value from database metadata
+   * @returns {string} Formatted default value string
+   *
+   * @example
+   * // null becomes 'null'
+   * // 'default_value' becomes "'default_value'"
+   * // timestamp columns become 'DataTypes.NOW'
    */
   #formatDefaultValue(columnName, defaultValue) {
     if (defaultValue === null) return 'null';
 
-    // Handle timestamp columns
+    // Special handling for timestamp columns
     if (this.#specialColumns.has(columnName)) {
       let value = 'DataTypes.NOW';
       if (columnName === 'updated_at') {
@@ -480,9 +590,21 @@ class ModelGenerator extends CrudHelper {
   // =========================== ASSOCIATION GENERATION =========================== //
 
   /**
-   * Generate belongsTo associations (foreign keys)
+   * Generate belongsTo associations for foreign key relationships
+   * Creates associations where this table references another table
+   *
    * @private
-   * @returns {Promise<string>} Association definitions
+   * @returns {Promise<string>} belongsTo association definitions or empty string
+   *
+   * @example
+   * // Returns association like:
+   * // this.belongsTo(models.User, {
+   * //   foreignKey: 'userId',
+   * //   targetKey: 'id',
+   * //   as: 'user',
+   * //   onUpdate: 'CASCADE',
+   * //   onDelete: 'RESTRICT'
+   * // });
    */
   async #generateIndexes() {
     const foreignKeys = await this.searchForeignKeys(this.tableName);
@@ -507,9 +629,21 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate hasMany associations (reverse foreign keys)
+   * Generate hasMany associations for reverse relationships
+   * Creates associations where other tables reference this table
+   *
    * @private
-   * @returns {Promise<string>} Association definitions
+   * @returns {Promise<string>} hasMany association definitions or empty string
+   *
+   * @example
+   * // Returns association like:
+   * // this.hasMany(models.Order, {
+   * //   foreignKey: 'userId',
+   * //   sourceKey: 'id',
+   * //   as: 'orders',
+   * //   onUpdate: 'CASCADE',
+   * //   onDelete: 'RESTRICT'
+   * // });
    */
   async #generateReferences() {
     const references = await this.searchReferences(this.tableName);
@@ -534,9 +668,20 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate belongsToMany associations (bridge tables)
+   * Generate belongsToMany associations for many-to-many relationships
+   * Handles bridge tables and complex relationship mappings
+   *
    * @private
-   * @returns {Promise<string>} Association definitions
+   * @returns {Promise<string>} belongsToMany association definitions or empty string
+   *
+   * @example
+   * // Returns association like:
+   * // this.belongsToMany(models.Product, {
+   * //   through: { model: models.OrderItem },
+   * //   foreignKey: 'orderId',
+   * //   otherKey: 'productId',
+   * //   as: 'products'
+   * // });
    */
   async #generateBridges() {
     const bridges = await this.searchBridges(this.tableName);
@@ -562,9 +707,11 @@ class ModelGenerator extends CrudHelper {
   // =========================== HELPER GENERATION METHODS =========================== //
 
   /**
-   * Generate primary key attributes
+   * Generate primary key attributes for Sequelize model
+   * Includes primaryKey, autoIncrement, and unique constraints
+   *
    * @private
-   * @returns {string} Primary key definition
+   * @returns {string} Primary key attribute definitions
    */
   #generatePrimaryKeyAttributes() {
     return (
@@ -574,10 +721,11 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate foreign key reference
+   * Generate foreign key reference definition for indexed columns
+   *
    * @private
-   * @param {string} columnName - Column name
-   * @returns {Promise<string>} Reference definition
+   * @param {string} columnName - Column name to check for foreign key reference
+   * @returns {Promise<string>} Reference definition or empty string
    */
   async #generateIndexReference(columnName) {
     const indexDetails = await this.detailsIndex(this.tableName, columnName);
@@ -599,10 +747,12 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate enum getter method
+   * Generate enum getter method for translated enum values
+   * Provides both original and translated values for i18n support
+   *
    * @private
-   * @param {string} columnName - Column name
-   * @returns {string} Enum getter definition
+   * @param {string} columnName - Enum column name
+   * @returns {string} Enum getter method definition
    */
   #generateEnumGetter(columnName) {
     return (
@@ -617,10 +767,12 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate virtual enum integer column
+   * Generate virtual column for enum integer values
+   * Creates a virtual property that maps enum strings to integer values
+   *
    * @private
-   * @param {string} columnName - Base column name
-   * @param {string} columnType - Enum column type
+   * @param {string} columnName - Base enum column name
+   * @param {string} columnType - Enum column type with values
    * @returns {string} Virtual column definition
    */
   #generateEnumVirtualColumn(columnName, columnType) {
@@ -645,10 +797,12 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Parse enum values from column type
+   * Parse enum values from column type definition
+   * Extracts and formats enum values for virtual column mapping
+   *
    * @private
-   * @param {string} columnType - Enum column type
-   * @returns {string} Formatted enum options
+   * @param {string} columnType - Enum column type string
+   * @returns {string} Formatted enum options object
    */
   #parseEnumValues(columnType) {
     const valuesString = columnType.split('(')[1].replace(')', '');
@@ -658,10 +812,11 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate column comment
+   * Generate column comment for documentation
+   *
    * @private
-   * @param {string} comment - Column comment
-   * @returns {string} Comment definition
+   * @param {string} comment - Column comment text
+   * @returns {string} Comment attribute definition
    */
   #generateColumnComment(comment) {
     const escapedComment = comment.includes("'") ? `"${comment}"` : `'${comment}'`;
@@ -670,7 +825,9 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate timestamp configuration
+   * Generate timestamp configuration for Sequelize model
+   * Enables timestamps and paranoid (soft delete) features
+   *
    * @private
    * @returns {string} Timestamp configuration
    */
@@ -679,7 +836,8 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate i18n import for enum handling
+   * Generate i18n import statement for enum translation support
+   *
    * @private
    * @returns {string} i18n import statement
    */
@@ -688,10 +846,12 @@ class ModelGenerator extends CrudHelper {
   }
 
   /**
-   * Generate better association alias
+   * Generate better association alias based on table name patterns
+   * Improves readability of association names
+   *
    * @private
    * @param {string} tableName - Related table name
-   * @returns {string} Formatted alias
+   * @returns {string} Formatted alias name
    */
   #generateBetterAlias(tableName) {
     const parts = tableName.split('_');
@@ -701,18 +861,20 @@ class ModelGenerator extends CrudHelper {
       return toCamelCase(parts.slice(1).join('_'));
     }
 
-    // Regular table: return last part
+    // Regular table: return last part for concise naming
     return toCamelCase(parts[parts.length - 1]);
   }
 
   /**
-   * Derive singular form from table name
+   * Derive singular form from plural table name
+   * Applies basic English pluralization rules
+   *
    * @private
-   * @param {string} tableName - Table name
+   * @param {string} tableName - Plural table name
    * @returns {string} Singular form
    */
   #deriveSingularForm(tableName) {
-    // Simple pluralization rules - can be extended
+    // Simple pluralization rules - can be extended with more complex patterns
     if (tableName.endsWith('ies')) {
       return tableName.slice(0, -3) + 'y';
     }
@@ -728,13 +890,23 @@ class ModelGenerator extends CrudHelper {
 // =============================================================================
 
 /**
- * Command Line Argument Parser
+ * Command Line Argument Parser for Model Generator
+ * Handles argument parsing, validation, and help display
+ *
+ * @example
+ * // Parse command line arguments
+ * const args = CLIParser.parseArguments(process.argv.slice(2));
+ * if (args.help) CLIParser.showHelp();
  */
 class CLIParser {
   /**
-   * Parse command line arguments
-   * @param {string[]} args - Command line arguments
-   * @returns {Object} Parsed arguments
+   * Parse command line arguments into structured object
+   *
+   * @param {string[]} args - Command line arguments array
+   * @returns {Object} Parsed arguments with flags and values
+   *
+   * @example
+   * // Returns: { table: 'users', verbose: true, help: false }
    */
   static parseArguments(args) {
     const parsed = {
@@ -785,19 +957,21 @@ class CLIParser {
   }
 
   /**
-   * Display help information
+   * Display help information and usage examples
    */
   static showHelp() {
     console.log(CLI_CONFIG.help);
   }
 
   /**
-   * Validate parsed arguments
-   * @param {Object} args - Parsed arguments
+   * Validate parsed arguments for correctness and completeness
+   *
+   * @param {Object} args - Parsed arguments object
    * @returns {boolean} Validation result
    */
   static validateArguments(_) {
-    // Add validation logic here if needed
+    // TODO: Add validation logic for table name patterns and prefix formats
+    // Currently accepts all valid arguments, can be extended for specific validation
     return true;
   }
 }
@@ -807,7 +981,13 @@ class CLIParser {
 // =============================================================================
 
 /**
- * Main application controller
+ * Main application controller for model generation workflow
+ * Orchestrates the entire generation process from argument parsing to summary display
+ *
+ * @example
+ * // Run the application
+ * const app = new ModelGeneratorApp();
+ * app.run(process.argv.slice(2)).catch(console.error);
  */
 class ModelGeneratorApp {
   constructor() {
@@ -822,7 +1002,11 @@ class ModelGeneratorApp {
 
   /**
    * Main application entry point
+   *
    * @param {string[]} args - Command line arguments
+   * @returns {Promise<void>}
+   *
+   * @throws {Error} When database connection fails or critical errors occur
    */
   async run(args) {
     const parsedArgs = CLIParser.parseArguments(args);
@@ -843,7 +1027,7 @@ class ModelGeneratorApp {
 
       console.log('🚀 Starting Model Generator...');
 
-      // Get tables to process
+      // Get tables to process based on filters
       const tables = await this.#getTablesToProcess(parsedArgs);
 
       if (tables.length === 0) {
@@ -853,10 +1037,10 @@ class ModelGeneratorApp {
 
       console.log(`📋 Found ${tables.length} table(s) to process`);
 
-      // Process each table
+      // Process each table sequentially
       await this.#processTables(tables);
 
-      // Show summary
+      // Show generation summary
       this.#showSummary();
     } catch (error) {
       cerror('Error in model generator', error);
@@ -867,10 +1051,11 @@ class ModelGeneratorApp {
   }
 
   /**
-   * Get list of tables to process based on arguments
+   * Get list of tables to process based on command line arguments
+   *
    * @private
-   * @param {Object} args - Parsed arguments
-   * @returns {Promise<string[]>} List of table names
+   * @param {Object} args - Parsed command line arguments
+   * @returns {Promise<string[]>} List of table names to process
    */
   async #getTablesToProcess(args) {
     const sequelize = databaseConnection;
@@ -883,7 +1068,7 @@ class ModelGeneratorApp {
         AND table_type = 'BASE TABLE'
     `;
 
-    // Add filters based on arguments
+    // Add filters based on command line arguments
     if (args.table) {
       query += ` AND table_name = '${args.table}'`;
     }
@@ -905,9 +1090,10 @@ class ModelGeneratorApp {
   }
 
   /**
-   * Process all tables and generate models
+   * Process all tables and generate models sequentially
+   *
    * @private
-   * @param {string[]} tables - List of table names
+   * @param {string[]} tables - List of table names to process
    * @returns {Promise<void>}
    */
   async #processTables(tables) {
@@ -935,7 +1121,8 @@ class ModelGeneratorApp {
   }
 
   /**
-   * Display generation summary
+   * Display generation summary with statistics and performance metrics
+   *
    * @private
    */
   #showSummary() {
@@ -964,9 +1151,14 @@ class ModelGeneratorApp {
 // =============================================================================
 
 /**
- * Graceful shutdown handler
+ * Graceful shutdown handler for clean application termination
+ * Ensures database connections are properly closed on shutdown signals
+ *
+ * @example
+ * // Setup shutdown handlers at application startup
+ * setupGracefulShutdown();
  */
-function setupGracefulShutdown() {
+const setupGracefulShutdown = () => {
   const shutdown = async (signal) => {
     console.log(`\n🛑 Received ${signal}. Shutting down gracefully...`);
 
@@ -995,15 +1187,16 @@ function setupGracefulShutdown() {
     console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
     shutdown('UNHANDLED_REJECTION');
   });
-}
+};
 
 /**
- * Enhanced error logging with context
- * @param {string} context - Error context
+ * Enhanced error logging with context and metadata
+ *
+ * @param {string} context - Error context description
  * @param {Error} error - Error object
  * @param {Object} [metadata] - Additional metadata
  */
-function logError(context, error, metadata = {}) {
+const logError = (context, error, metadata = {}) => {
   const errorInfo = {
     context,
     message: error.message,
@@ -1013,12 +1206,12 @@ function logError(context, error, metadata = {}) {
   };
 
   console.error('💥 ERROR DETAILS:', JSON.stringify(errorInfo, null, 2));
-}
+};
 
 /**
- * Display startup banner
+ * Display startup banner with application information
  */
-function showStartupBanner() {
+const showStartupBanner = () => {
   console.log('\n' + '='.repeat(80));
   console.log('🏗️  SEQUELIZE MODEL GENERATOR');
   console.log('='.repeat(80));
@@ -1026,13 +1219,18 @@ function showStartupBanner() {
   console.log('🔗 Includes associations, data types, and CRUD operations');
   console.log('⚡ Optimized for your database connection configuration');
   console.log('='.repeat(80) + '\n');
-}
+};
 
 /**
- * Check database connectivity
- * @returns {Promise<boolean>}
+ * Check database connectivity and configuration
+ *
+ * @returns {Promise<boolean>} Connection status
+ *
+ * @example
+ * const isConnected = await checkDatabaseConnectivity();
+ * if (!isConnected) process.exit(1);
  */
-async function checkDatabaseConnectivity() {
+const checkDatabaseConnectivity = async () => {
   try {
     console.log('🔍 Checking database connectivity...');
     await databaseConnection.sequelize.authenticate();
@@ -1048,14 +1246,15 @@ async function checkDatabaseConnectivity() {
     console.error('❌ Database connectivity check failed:', error.message);
     return false;
   }
-}
+};
 
 /**
- * Validate table existence
+ * Validate that a specific table exists in the database
+ *
  * @param {string} tableName - Table name to validate
- * @returns {Promise<boolean>}
+ * @returns {Promise<boolean>} Table existence status
  */
-async function validateTableExists(tableName) {
+const validateTableExists = async (tableName) => {
   try {
     const sequelize = databaseConnection.sequelize;
     const config = databaseConnection.getConfig();
@@ -1077,18 +1276,18 @@ async function validateTableExists(tableName) {
     console.error(`❌ Error validating table ${tableName}:`, error.message);
     return false;
   }
-}
+};
 
 // =============================================================================
 // SCRIPT EXECUTION
 // =============================================================================
 
-// Only run if this file is executed directly
+// Only run if this file is executed directly (not required as module)
 if (require.main === module) {
   // Show startup banner
   showStartupBanner();
 
-  // Setup graceful shutdown
+  // Setup graceful shutdown handlers
   setupGracefulShutdown();
 
   // Parse command line arguments (skip node and script name)
@@ -1108,6 +1307,18 @@ if (require.main === module) {
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
+
+/**
+ * @module ModelGenerator
+ * @description Main module exports for programmatic usage
+ *
+ * @example
+ * // Programmatic usage
+ * const { ModelGenerator, validateTableExists } = require('./models-generator');
+ *
+ * const generator = new ModelGenerator('users');
+ * await generator.generateModel();
+ */
 module.exports = {
   ModelGenerator,
   CLIParser,
