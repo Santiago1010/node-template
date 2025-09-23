@@ -4,17 +4,17 @@
 // =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const fs = require('fs'); // File system operations
-const path = require('path'); // Path manipulation utilities
-const { performance } = require('perf_hooks'); // High-resolution timing for performance metrics
+const fs = require('fs');
+const path = require('path');
+const { performance } = require('perf_hooks');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const CrudHelper = require('../helpers/crud.helper'); // Base class for CRUD operations and template management
-const { PREFIXES } = require('../helpers/constants.helper'); // Table prefix to group name mappings
-const { cerror } = require('../helpers/debug.helper'); // Enhanced logging and error handling utilities
-const { toCamelCase } = require('../helpers/strings.helper'); // String transformation utility
+const CrudHelper = require('../helpers/crud.helper');
+const { PREFIXES } = require('../helpers/constants.helper');
+const { cerror } = require('../helpers/debug.helper');
+const { toCamelCase } = require('../helpers/strings.helper');
 
 // =============================================================================
 // SCRIPT CONFIGURATION
@@ -26,27 +26,25 @@ const REQUIRED_ARGS = 2;
 const FAKER_MAPPINGS = {
   // String types with length consideration
   varchar: (length) => {
-    if (length <= 10) return 'faker.string.alphanumeric(10).toUpperCase()';
-    if (length <= 50) return 'faker.company.name()';
-    if (length <= 100) return 'faker.lorem.words(3)';
-    return 'faker.lorem.sentence()';
+    const l = Math.min(length || 255, 255);
+    return `faker.string.alphanumeric(${l})`;
   },
-  char: (length) => `faker.string.alphanumeric(${Math.min(length || 10, 10)}).toUpperCase()`,
-  text: () => 'faker.lorem.paragraph()',
+  char: (length) => `faker.string.alphanumeric(${Math.min(length || 10, 10)})`,
+  text: () => 'faker.lorem.sentences(10)',
   longtext: () => 'faker.lorem.paragraphs(2)',
-  mediumtext: () => 'faker.lorem.paragraph()',
+  mediumtext: () => 'faker.lorem.sentences(5)',
 
   // Numeric types
-  int: () => 'faker.number.int({ min: 1, max: 100 })',
-  integer: () => 'faker.number.int({ min: 1, max: 100 })',
-  bigint: () => 'faker.number.int({ min: 1, max: 1000 })',
+  int: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
+  integer: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
+  bigint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
   float: () => 'faker.number.float({ min: 0.1, max: 100.0, precision: 0.01 })',
   decimal: () => 'faker.number.float({ min: 0.1, max: 1000.0, precision: 0.01 })',
   double: () => 'faker.number.float({ min: 0.1, max: 1000.0, precision: 0.01 })',
   real: () => 'faker.number.float({ min: 0.1, max: 100.0, precision: 0.01 })',
 
   // Tiny integer (often used for small ranges)
-  tinyint: () => 'faker.number.int({ min: 1, max: 127 })',
+  tinyint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
 
   // Boolean
   boolean: () => 'faker.datatype.boolean()',
@@ -71,38 +69,22 @@ const FAKER_MAPPINGS = {
   default: () => 'faker.lorem.word()',
 };
 
-/**
- * Main script execution class
- */
 class CrudDocsGenerator {
   constructor() {
     this.crudHelper = new CrudHelper();
     this.startTime = performance.now();
   }
 
-  /**
-   * Main execution method
-   */
   async run() {
     try {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
-      // Validate command line arguments
       const { tableName, singularName } = this.validateArguments();
-
-      // Extract prefix and determine group/tag names
       const { groupName, tagName } = this.extractPrefixInfo(tableName);
-
-      // Analyze the table using CrudHelper
       const tableData = await this.analyzeTable(tableName);
-
-      // Generate documentation
       const documentation = await this.generateDocumentation(tableData, singularName, tagName);
+      await this.saveDocumentation(documentation, tableName, groupName, singularName);
 
-      // Save documentation file
-      await this.saveDocumentation(documentation, tableName, groupName);
-
-      // Performance metrics
       const endTime = performance.now();
       const executionTime = ((endTime - this.startTime) / 1000).toFixed(2);
 
@@ -114,9 +96,6 @@ class CrudDocsGenerator {
     }
   }
 
-  /**
-   * Validate command line arguments
-   */
   validateArguments() {
     const args = process.argv.slice(2);
 
@@ -140,18 +119,10 @@ class CrudDocsGenerator {
     return { tableName, singularName };
   }
 
-  /**
-   * Extract prefix information and determine group/tag names
-   */
   extractPrefixInfo(tableName) {
-    // Extract prefix from table name (e.g., 'usr_users' -> 'usr')
     const parts = tableName.split('_');
     const prefix = parts[0].toUpperCase();
-
-    // Get group name from PREFIXES constant
     const groupName = PREFIXES[prefix] || 'general';
-
-    // Generate tag name (capitalize group name)
     const tagName = this.capitalize(groupName);
 
     console.log(`📂 Prefix: ${prefix}`);
@@ -161,31 +132,21 @@ class CrudDocsGenerator {
     return { prefix, groupName, tagName };
   }
 
-  /**
-   * Analyze table using CrudHelper database queries
-   */
   async analyzeTable(tableName) {
     try {
       console.log(`🔍 Analyzing table: ${tableName}`);
 
-      // Get table comment
       const tableComment = await this.crudHelper.readTablesComment(tableName);
-
-      // Get all columns for analysis
       const allColumns = await this.crudHelper.readAllColumns(tableName);
       const requiredColumns = await this.crudHelper.readRequiredColumns(tableName);
       const nullableColumns = await this.crudHelper.readNullableOrDefaultColumns(tableName);
       const enumColumns = await this.crudHelper.searchEnums(tableName);
 
-      // Analyze each column for detailed information
       const columnDetails = {};
       for (const columnName of allColumns.columns) {
         if (this.shouldSkipField(columnName)) continue;
-
         const details = await this.crudHelper.detailsColumn(tableName, columnName);
-        if (details) {
-          columnDetails[columnName] = details;
-        }
+        if (details) columnDetails[columnName] = details;
       }
 
       console.log(`📋 Analyzed ${Object.keys(columnDetails).length} columns`);
@@ -204,46 +165,25 @@ class CrudDocsGenerator {
     }
   }
 
-  /**
-   * Check if field should be skipped (timestamps, id, etc.)
-   */
   shouldSkipField(fieldName) {
     const skipFields = ['id', 'created_at', 'updated_at', 'deleted_at', 'createdAt', 'updatedAt', 'deletedAt'];
     return skipFields.includes(fieldName);
   }
 
-  /**
-   * Generate complete Swagger documentation
-   */
   async generateDocumentation(tableData, singularName, tagName) {
     try {
-      // Load template
       const template = await this.crudHelper.getTemplate('docs', 'crud');
-
-      // Generate method names
       const methodNames = this.generateMethodNames(singularName);
-
-      // Replace template placeholders
       let documentation = template;
-
-      // Replace method names and tags
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
-
-      // Generate and insert property schemas
       documentation = this.insertPropertySchemas(documentation, tableData, singularName);
-
-      // Add moment import for date handling
       documentation = this.addMomentImport(documentation);
-
       return documentation;
     } catch (error) {
       throw new Error(`Failed to generate documentation: ${error.message}`);
     }
   }
 
-  /**
-   * Generate method names based on table and singular names
-   */
   generateMethodNames(singularName) {
     const capitalizedSingular = this.capitalize(singularName);
     const capitalizedPlural = this.capitalize(this.pluralize(singularName));
@@ -258,44 +198,52 @@ class CrudDocsGenerator {
     };
   }
 
-  /**
-   * Replace template placeholders
-   */
   replaceTemplatePlaceholders(template, methodNames, tagName) {
-    // Replace method names
+    // Support both 'CRATE_NAME' typo and 'CREATE_NAME' placeholder
     template = template.replace(/\{\{CRATE_NAME\}\}/g, methodNames.create);
+    template = template.replace(/\{\{CREATE_NAME\}\}/g, methodNames.create);
     template = template.replace(/\{\{STATUS_NAME\}\}/g, methodNames.status);
     template = template.replace(/\{\{LIST_NAME\}\}/g, methodNames.list);
     template = template.replace(/\{\{DETAILS_NAME\}\}/g, methodNames.details);
     template = template.replace(/\{\{DELETE_NAME\}\}/g, methodNames.delete);
 
-    // Replace tag names
     template = template.replace(/\{\{TAG\}\}/g, `'${tagName}'`);
-
-    // Replace updateTest with proper method name
     template = template.replace(/updateTest/g, methodNames.update);
 
     return template;
   }
 
-  /**
-   * Insert property schemas into the documentation
-   */
   insertPropertySchemas(documentation, tableData, singularName) {
-    const { columnDetails, requiredColumns, nullableColumns } = tableData;
+    const { columnDetails } = tableData;
 
-    // Generate properties for CREATE operation (required fields)
-    const createProperties = this.generatePropertiesObject(columnDetails, requiredColumns, true);
-    const createRequired = JSON.stringify(requiredColumns.filter((col) => !this.shouldSkipField(col)));
+    // Compute createRequired based on columns metadata
+    const createRequiredCols = Object.keys(columnDetails).filter((colName) => {
+      const col = columnDetails[colName];
+      if (!col) return false;
+      if (this.shouldSkipField(colName)) return false;
+      if (col.EXTRA && col.EXTRA.toLowerCase().includes('auto_increment')) return false;
+      if (col.COLUMN_KEY && col.COLUMN_KEY.toUpperCase() === 'PRI') return false;
+      const notNullable = col.IS_NULLABLE === 'NO';
+      const hasDefault = col.COLUMN_DEFAULT !== null && col.COLUMN_DEFAULT !== undefined;
+      return notNullable && !hasDefault;
+    });
 
-    // Generate properties for UPDATE operation (all fields optional)
-    const updateFields = [...requiredColumns, ...nullableColumns].filter((col) => !this.shouldSkipField(col));
-    const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, false);
+    const createRequired = JSON.stringify(createRequiredCols.map((c) => toCamelCase(c)));
 
-    // Generate properties for LIST operation parameters (selected filterable fields)
+    // CREATE: properties must contain ALL columns; required only computed ones
+    const createFields = Object.keys(columnDetails).filter((c) => !this.shouldSkipField(c));
+    const createProperties = this.generatePropertiesObject(columnDetails, createFields, (field) =>
+      createRequiredCols.includes(field)
+    );
+
+    // UPDATE (PUT): include ALL fields but all optional
+    const updateFields = createFields.slice();
+    const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, () => false);
+
+    // LIST parameters
     const listParameters = this.generateListParameters(columnDetails);
 
-    // Replace CREATE properties and required fields
+    // Replace CREATE block (first occurrence)
     const createPattern = /required: \[\],\s*properties: \{\}/;
     if (createPattern.test(documentation)) {
       documentation = documentation.replace(
@@ -304,9 +252,9 @@ class CrudDocsGenerator {
       );
     }
 
-    // Replace UPDATE properties (find the second occurrence)
-    const updatePattern = /properties: \{\}/;
-    const matches = [...documentation.matchAll(new RegExp(updatePattern.source, 'g'))];
+    // Replace UPDATE properties (second occurrence of properties: {})
+    const updatePattern = /properties: \{\}/g;
+    const matches = [...documentation.matchAll(updatePattern)];
     if (matches.length >= 2) {
       const secondMatch = matches[1];
       const beforeMatch = documentation.substring(0, secondMatch.index);
@@ -314,7 +262,7 @@ class CrudDocsGenerator {
       documentation = beforeMatch + `properties: {\n${updateProperties}\n            }` + afterMatch;
     }
 
-    // Insert list parameters
+    // Insert list parameters only if we have parameters
     if (listParameters) {
       documentation = documentation.replace(
         /parameters: \[\.\.\.commonListParams, \.\.\.activeParams\]/,
@@ -322,18 +270,20 @@ class CrudDocsGenerator {
       );
     }
 
-    // Fix array property for status update
+    // Fix PATCH (status update) replacement
     const pluralName = this.pluralize(singularName);
+    const idsName = `${toCamelCase(singularName)}Ids`; // Corregido: usar singular + Ids
+
+    documentation = documentation.replace(/testsIds/g, idsName);
+
+    // Replace array property placeholder
     const arrayProperty = `id${this.capitalize(pluralName)}`;
     documentation = documentation.replace(/idTests/g, arrayProperty);
 
     return documentation;
   }
 
-  /**
-   * Generate properties object string from column details
-   */
-  generatePropertiesObject(columnDetails, fields, isRequired) {
+  generatePropertiesObject(columnDetails, fields, isRequiredPredicate) {
     const lines = [];
 
     for (const fieldName of fields) {
@@ -341,24 +291,27 @@ class CrudDocsGenerator {
 
       const column = columnDetails[fieldName];
       const property = this.analyzeColumnForProperty(column);
-      const requiredText = isRequired ? '**[Required]** ' : '**[Optional]** ';
+      const requiredFlag =
+        typeof isRequiredPredicate === 'function' ? isRequiredPredicate(fieldName) : !!isRequiredPredicate;
+      const requiredText = requiredFlag ? '**[Required]** ' : '**[Optional]** ';
 
       lines.push(`              ${toCamelCase(fieldName)}: {`);
       lines.push(`                type: '${property.type}',`);
-      lines.push(`                description: '${requiredText}${column.COLUMN_COMMENT || ''}',`);
+      lines.push(
+        `                description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`
+      );
 
-      // Add constraints
       if (property.maxLength) {
         lines.push(`                maxLength: ${property.maxLength},`);
       }
       if (property.minimum !== undefined) {
-        lines.push(`                minimum: ${property.minimum},`);
+        lines.push(`                min: ${property.minimum},`); // Corregido: min en lugar de minimum
       }
       if (property.maximum !== undefined) {
-        lines.push(`                maximum: ${property.maximum},`);
+        lines.push(`                max: ${property.maximum},`); // Corregido: max en lugar de maximum
       }
       if (property.enum) {
-        lines.push(`                enum: [${property.enum.map((v) => `'${v}'`).join(', ')}],`);
+        lines.push(`                enum: [${property.enum.map((v) => v).join(', ')}],`); // Corregido: sin quotes para boolean
       }
       if (property.format) {
         lines.push(`                format: '${property.format}',`);
@@ -371,72 +324,102 @@ class CrudDocsGenerator {
     return lines.join('\n');
   }
 
-  /**
-   * Analyze column details and convert to OpenAPI property
-   */
   analyzeColumnForProperty(column) {
-    const columnType = column.COLUMN_TYPE.toLowerCase();
+    const columnType = (column.COLUMN_TYPE || '').toLowerCase();
     const property = {};
 
-    // Determine OpenAPI type
+    // Helper to extract length between parentheses
+    const lengthMatch = columnType.match(/\((\d+)\)/);
+    const length = lengthMatch ? parseInt(lengthMatch[1], 10) : undefined;
+
+    // Strings
     if (columnType.includes('varchar') || columnType.includes('char') || columnType.includes('text')) {
       property.type = 'string';
 
-      // Extract length for varchar/char
-      const lengthMatch = columnType.match(/\((\d+)\)/);
-      if (lengthMatch) {
-        property.maxLength = parseInt(lengthMatch[1]);
-      }
+      if (length) property.maxLength = length;
 
-      // Generate example based on type
       if (columnType.includes('varchar')) {
-        const length = property.maxLength || 255;
-        property.example = FAKER_MAPPINGS.varchar(length);
+        const l = property.maxLength || 255;
+        property.example = FAKER_MAPPINGS.varchar(l);
       } else if (columnType.includes('char')) {
-        const length = property.maxLength || 10;
-        property.example = FAKER_MAPPINGS.char(length);
+        const l = property.maxLength || 10;
+        property.example = FAKER_MAPPINGS.char(l);
       } else {
         property.example = FAKER_MAPPINGS.text();
       }
-    } else if (columnType.includes('int')) {
-      property.type = 'integer';
 
-      if (columnType.includes('tinyint')) {
-        property.minimum = 1;
-        property.maximum = 127;
-        property.example = FAKER_MAPPINGS.tinyint();
-      } else if (columnType.includes('bigint')) {
-        property.example = FAKER_MAPPINGS.bigint();
+      // Integers and tinyint
+    } else if (
+      columnType.includes('int') ||
+      columnType.includes('tinyint') ||
+      columnType.includes('bigint') ||
+      columnType.includes('smallint') ||
+      columnType.includes('mediumint')
+    ) {
+      // tinyint(1) often represents boolean
+      if (columnType.includes('tinyint') && length === 1) {
+        property.type = 'boolean';
+        property.enum = [true, false];
+        property.example = FAKER_MAPPINGS.boolean();
       } else {
-        property.example = FAKER_MAPPINGS.int();
+        property.type = columnType.includes('tinyint') ? 'int' : 'integer'; // Corregido para tinyint
+
+        // Determine length to compute max
+        let max, min;
+
+        if (columnType.includes('tinyint')) {
+          // Para tinyint, usar rangos más pequeños
+          max = length && length <= 2 ? Math.pow(10, length) - 1 : 99;
+          min = /unsigned/.test(columnType) ? 0 : -max;
+        } else {
+          const len = length || 11;
+          const exponent = Math.min(len, 15);
+          max = Math.pow(10, exponent) - 1;
+          if (max > Number.MAX_SAFE_INTEGER) max = Number.MAX_SAFE_INTEGER;
+          min = /unsigned/.test(columnType) ? 0 : -max;
+        }
+
+        property.minimum = min;
+        property.maximum = max;
+        property.example = FAKER_MAPPINGS.tinyint(min, max);
       }
+
+      // Numbers with decimals
     } else if (columnType.includes('decimal') || columnType.includes('float') || columnType.includes('double')) {
       property.type = 'number';
       property.example = FAKER_MAPPINGS.decimal();
+
+      // Boolean
     } else if (columnType.includes('boolean') || columnType.includes('bool')) {
       property.type = 'boolean';
+      property.enum = [true, false]; // Corregido: boolean values sin quotes
       property.example = FAKER_MAPPINGS.boolean();
-    } else if (columnType.includes('date') && !columnType.includes('datetime')) {
+
+      // Date (date only)
+    } else if (columnType.includes('date') && !columnType.includes('datetime') && !columnType.includes('timestamp')) {
       property.type = 'string';
       property.format = 'date';
       property.example = FAKER_MAPPINGS.date();
+
+      // Datetime/timestamp
     } else if (columnType.includes('datetime') || columnType.includes('timestamp')) {
       property.type = 'string';
       property.format = 'date-time';
       property.example = FAKER_MAPPINGS.datetime();
+
+      // Enum
     } else if (columnType.includes('enum')) {
       property.type = 'string';
-      // Extract enum values
       const enumMatch = columnType.match(/enum\((.+)\)/);
       if (enumMatch) {
         const enumValues = enumMatch[1].split(',').map((v) => v.trim().replace(/['"]/g, ''));
-        property.enum = enumValues;
+        property.enum = enumValues.map((v) => `'${v}'`); // Mantener quotes para strings
         property.example = `faker.helpers.arrayElement([${enumValues.map((v) => `'${v}'`).join(', ')}])`;
       } else {
         property.example = FAKER_MAPPINGS.default();
       }
     } else {
-      // Default fallback
+      // fallback
       property.type = 'string';
       property.example = FAKER_MAPPINGS.default();
     }
@@ -444,93 +427,52 @@ class CrudDocsGenerator {
     return property;
   }
 
-  /**
-   * Generate list parameters for filtering
-   */
   generateListParameters(columnDetails) {
     const parameters = [];
 
-    // Select common filterable fields
     const filterableFields = Object.keys(columnDetails).filter((fieldName) => {
       if (this.shouldSkipField(fieldName)) return false;
 
       const column = columnDetails[fieldName];
-      const columnType = column.COLUMN_TYPE.toLowerCase();
+      const columnType = (column.COLUMN_TYPE || '').toLowerCase();
 
-      // Include string fields (for search), enums, booleans, and date fields
-      return (
-        columnType.includes('varchar') ||
-        columnType.includes('char') ||
-        columnType.includes('enum') ||
-        columnType.includes('boolean') ||
-        columnType.includes('date')
-      );
+      const isEnum = columnType.includes('enum');
+      const isForeignKey =
+        (column.COLUMN_KEY && column.COLUMN_KEY.toUpperCase() === 'MUL') || fieldName.endsWith('_id');
+
+      return isEnum || isForeignKey;
     });
 
     for (const fieldName of filterableFields) {
       const column = columnDetails[fieldName];
       const property = this.analyzeColumnForProperty(column);
+      const camelField = toCamelCase(fieldName);
 
       if (property.format === 'date') {
-        // Add date range parameters
-        parameters.push(`
-    {
-      name: '${fieldName}From',
-      in: 'query',
-      description: '**[Optional]** ',
-      required: false,
-      schema: {
-        type: 'string',
-        format: 'date',
-        example: moment(faker.date.past()).format('YYYY-MM-DD'),
-      },
-    },
-    {
-      name: '${fieldName}To',
-      in: 'query',
-      description: '**[Optional]** ',
-      required: false,
-      schema: {
-        type: 'string',
-        format: 'date',
-        example: moment(faker.date.future()).format('YYYY-MM-DD'),
-      },
-    }`);
+        parameters.push(
+          `\n    {\n      name: '${camelField}From',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    },\n    {\n      name: '${camelField}To',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    }`
+        );
       } else {
-        // Regular parameter
         const parameterSchema = {
           type: property.type,
-          example: property.example,
         };
 
-        if (property.maxLength) {
-          parameterSchema.maxLength = property.maxLength;
-        }
+        if (property.maxLength) parameterSchema.maxLength = property.maxLength;
         if (property.enum) {
-          parameterSchema.enum = property.enum;
+          parameterSchema.enum = property.enum.map((v) => v.replace(/'/g, '')); // Remover quotes para el schema
         }
 
-        parameters.push(`
-    {
-      name: '${fieldName}',
-      in: 'query',
-      description: '**[Optional]** ',
-      required: false,
-      schema: ${JSON.stringify(parameterSchema, null, 8).replace(/"/g, "'")},
-    }`);
+        parameters.push(
+          `\n    {\n      name: '${camelField}',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: ${JSON.stringify(parameterSchema).replace(/"/g, "'")}\n    }`
+        );
       }
     }
 
     return parameters.length > 0 ? parameters.join(',') : '';
   }
 
-  /**
-   * Add moment import to documentation
-   */
   addMomentImport(documentation) {
-    // Check if moment is already imported
     if (!documentation.includes("const moment = require('moment')")) {
-      // Add moment import after faker import
       documentation = documentation.replace(
         "const { faker } = require('@faker-js/faker');",
         "const moment = require('moment');\nconst { faker } = require('@faker-js/faker');"
@@ -540,24 +482,15 @@ class CrudDocsGenerator {
     return documentation;
   }
 
-  /**
-   * Save documentation to file
-   */
-  async saveDocumentation(documentation, tableName, groupName) {
+  async saveDocumentation(documentation, _, groupName, singularName) {
     try {
-      // Create docs directory structure based on group
       const docsDir = path.resolve(__dirname, '../docs/paths', groupName);
-      if (!fs.existsSync(docsDir)) {
-        fs.mkdirSync(docsDir, { recursive: true });
-      }
+      if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
 
-      const parts = tableName.split('_');
-
-      // Generate filename ignorando el primer elemento
-      const fileName = `${toCamelCase(parts.slice(1).join('_'))}.docs.js`;
+      // Use the singularName provided to name the file
+      const fileName = `${toCamelCase(singularName)}.docs.js`;
       const filePath = path.join(docsDir, fileName);
 
-      // Write file
       fs.writeFileSync(filePath, documentation, 'utf-8');
 
       console.log(`📄 Documentation saved to: ${filePath}`);
@@ -566,15 +499,11 @@ class CrudDocsGenerator {
     }
   }
 
-  /**
-   * Helper methods
-   */
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   pluralize(word) {
-    // Simple pluralization rules
     if (word.endsWith('s') || word.endsWith('x') || word.endsWith('z') || word.endsWith('ch') || word.endsWith('sh')) {
       return word + 'es';
     }
@@ -585,15 +514,9 @@ class CrudDocsGenerator {
   }
 }
 
-// =============================================================================
-// SCRIPT EXECUTION
-// =============================================================================
 if (require.main === module) {
   const generator = new CrudDocsGenerator();
   generator.run().catch(console.error);
 }
 
-// =============================================================================
-// MODULE EXPORTS
-// =============================================================================
 module.exports = CrudDocsGenerator;
