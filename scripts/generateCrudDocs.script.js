@@ -101,7 +101,7 @@ class CrudDocsGenerator {
       const { groupName, tagName, pluralName } = this.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
       const documentation = await this.generateDocumentation(tableData, singularName, pluralName, tagName);
-      await this.saveDocumentation(documentation, tableName, groupName, singularName);
+      await this.saveDocumentation(documentation, tableName, groupName);
 
       const endTime = performance.now();
       const executionTime = ((endTime - this.startTime) / 1000).toFixed(2);
@@ -625,13 +625,16 @@ class CrudDocsGenerator {
     return documentation;
   }
 
-  async saveDocumentation(documentation, _, groupName, singularName) {
+  async saveDocumentation(documentation, tableName, groupName) {
     try {
       const docsDir = path.resolve(__dirname, '../docs/paths', groupName);
       if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
 
+      const namesParts = tableName.split('_');
+      const pluralName = namesParts.slice(1).join('_');
+
       // Use the singularName provided to name the file
-      const fileName = `${toCamelCase(singularName)}.docs.js`;
+      const fileName = `${toCamelCase(pluralName)}.docs.js`;
       const filePath = path.join(docsDir, fileName);
 
       fs.writeFileSync(filePath, documentation, 'utf-8');
