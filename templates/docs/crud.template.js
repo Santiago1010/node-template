@@ -96,6 +96,7 @@ const updateTest = standardRequest('put', {
           type: 'object',
           properties: {
             {{UPDATE_PROPERTIES}}
+            ...activeBody,
           },
         },
       },

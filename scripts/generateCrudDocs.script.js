@@ -33,167 +33,59 @@ const FAKER_MAPPINGS = {
   text: () => 'faker.lorem.sentences(10)',
   longtext: () => 'faker.lorem.paragraphs(2)',
   mediumtext: () => 'faker.lorem.sentences(5)',
+  tinytext: () => 'faker.lorem.sentence()',
 
-  // Numeric types
+  // Numeric types - integers
+  tinyint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
+  smallint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
+  mediumint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
   int: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
   integer: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
   bigint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
-  float: () => 'faker.number.float({ min: 0.1, max: 100.0, precision: 0.01 })',
-  decimal: () => 'faker.number.float({ min: 0.1, max: 1000.0, precision: 0.01 })',
-  double: () => 'faker.number.float({ min: 0.1, max: 1000.0, precision: 0.01 })',
-  real: () => 'faker.number.float({ min: 0.1, max: 100.0, precision: 0.01 })',
 
-  // Tiny integer (often used for small ranges)
-  tinyint: (min, max) => `faker.number.int({ min: ${min}, max: ${max} })`,
+  // Numeric types - decimals
+  float: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
+  decimal: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
+  double: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
+  real: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
+  numeric: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
 
   // Boolean
   boolean: () => 'faker.datatype.boolean()',
   bool: () => 'faker.datatype.boolean()',
 
-  // Date types
+  // Date and time types
   datetime: () => "moment(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
   timestamp: () => "moment(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
   date: () => "moment(faker.date.future()).format('YYYY-MM-DD')",
   time: () => "moment(faker.date.recent()).format('HH:mm:ss')",
   year: () => 'faker.date.recent().getFullYear()',
 
-  // JSON
+  // JSON and binary
   json: () => 'faker.helpers.objectValue({ key1: "value1", key2: "value2" })',
-
-  // Binary
   blob: () => '"base64encodeddata"',
-  longblob: () => '"base64encodeddata"',
+  tinyblob: () => '"base64encodeddata"',
   mediumblob: () => '"base64encodeddata"',
+  longblob: () => '"base64encodeddata"',
+  binary: () => '"binarydata"',
+  varbinary: () => '"binarydata"',
+
+  // Geometry types
+  geometry: () => '"POINT(0 0)"',
+  point: () => '"POINT(0 0)"',
+  linestring: () => '"LINESTRING(0 0,1 1,2 2)"',
+  polygon: () => '"POLYGON((0 0,10 0,10 10,0 10,0 0))"',
+  multipoint: () => '"MULTIPOINT(0 0,1 1,2 2)"',
+  multilinestring: () => '"MULTILINESTRING((0 0,1 1,2 2),(3 3,4 4,5 5))"',
+  multipolygon: () => '"MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0)),((20 20,30 20,30 30,20 30,20 20)))"',
+  geometrycollection: () => '"GEOMETRYCOLLECTION(POINT(0 0),LINESTRING(0 0,1 1,2 2))"',
+
+  // Set type
+  set: (values) => `faker.helpers.arrayElements([${values.join(', ')}])`,
 
   // Default fallback
   default: () => 'faker.lorem.word()',
 };
-
-// Nueva plantilla
-const NEW_TEMPLATE = `// =============================================================================
-// THIRD-PARTY DEPENDENCIES
-// =============================================================================
-const { faker } = require('@faker-js/faker');
-
-// =============================================================================
-// INTERNAL DEPENDENCIES
-// =============================================================================
-const { standardRequest } = require('../../../helpers/docs-generator.helper');
-const {
-  commonListParams,
-  activeParams,
-  activeBody,
-  detailsParams,
-  identifierParam,
-} = require('../../../schemas/params/common.params');
-
-// =============================== BASE PATH =============================== //
-const {{CRATE_NAME}} = standardRequest('post', {
-  tags: [{{TAG}}],
-  operationId: '{{CRATE_NAME}}',
-  description: '',
-  requestBody: {
-    required: true,
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          required: [],
-          properties: {
-            {{CRATE_PROPERTIES}}
-          },
-        },
-      },
-    },
-  },
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-const {{STATUS_NAME}} = standardRequest('patch', {
-  tags: [{{TAG}}],
-  operationId: '{{STATUS_NAME}}',
-  description: '',
-  requestBody: {
-    required: true,
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          required: [],
-          properties: {
-            ids: {
-              type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
-              items: { type: 'integer' },
-              example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-            },
-            ...activeBody,
-          },
-        },
-      },
-    },
-  },
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-const {{LIST_NAME}} = standardRequest('get', {
-  tags: [{{TAG}}],
-  operationId: '{{LIST_NAME}}',
-  description: '',
-  parameters: [...commonListParams, ...activeParams],
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-// ============================== PATH WITH ID ============================== //
-const {{DETAILS_NAME}} = standardRequest('get', {
-  tags: [{{TAG}}],
-  operationId: '{{DETAILS_NAME}}',
-  description: '',
-  parameters: [...detailsParams],
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-const updateTest = standardRequest('put', {
-  tags: [{{TAG}}],
-  operationId: 'updateTest',
-  description: '',
-  requestBody: {
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          properties: {
-            {{UPDATE_PROPERTIES}}
-          },
-        },
-      },
-    },
-  },
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-const {{DELETE_NAME}} = standardRequest('delete', {
-  tags: [{{TAG}}],
-  operationId: '{{DELETE_NAME}}',
-  description: '',
-  parameters: [...identifierParam],
-  responses: {},
-  security: [{ bearerAuth: [] }],
-});
-
-// ================================ EXPORTS ================================ //
-const basePath = { ...{{CRATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
-const pathWithId = { ...{{DETAILS_NAME}}, ...updateTest, ...{{DELETE_NAME}} };
-
-// =============================================================================
-// MODULE EXPORTS
-// =============================================================================
-module.exports = { basePath, pathWithId };`;
 
 class CrudDocsGenerator {
   constructor() {
@@ -206,9 +98,9 @@ class CrudDocsGenerator {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
       const { tableName, singularName } = this.validateArguments();
-      const { groupName, tagName } = this.extractPrefixInfo(tableName);
+      const { groupName, tagName, pluralName } = this.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
-      const documentation = await this.generateDocumentation(tableData, singularName, tagName);
+      const documentation = await this.generateDocumentation(tableData, singularName, pluralName, tagName);
       await this.saveDocumentation(documentation, tableName, groupName, singularName);
 
       const endTime = performance.now();
@@ -251,11 +143,16 @@ class CrudDocsGenerator {
     const groupName = PREFIXES[prefix] || 'general';
     const tagName = this.capitalize(groupName);
 
+    // Extract plural name from table name (excluding prefix)
+    const tableNameParts = parts.slice(1);
+    const pluralName = toCamelCase(tableNameParts.join('_'));
+
     console.log(`📂 Prefix: ${prefix}`);
     console.log(`📁 Group: ${groupName}`);
     console.log(`🏷️  Tag: ${tagName}`);
+    console.log(`📚 Plural: ${pluralName}`);
 
-    return { prefix, groupName, tagName };
+    return { prefix, groupName, tagName, pluralName };
   }
 
   async analyzeTable(tableName) {
@@ -296,14 +193,20 @@ class CrudDocsGenerator {
     return skipFields.includes(fieldName);
   }
 
-  async generateDocumentation(tableData, singularName, tagName) {
+  async generateDocumentation(tableData, singularName, pluralName, tagName) {
     try {
-      // Usar la nueva plantilla directamente en lugar de leerla de archivo
-      let documentation = NEW_TEMPLATE;
-      const methodNames = this.generateMethodNames(singularName);
+      // Read template from file instead of using hardcoded template
+      const templatePath = path.resolve(__dirname, '../templates/docs/crud.template.js');
+
+      if (!fs.existsSync(templatePath)) {
+        throw new Error(`Template file not found: ${templatePath}`);
+      }
+
+      let documentation = fs.readFileSync(templatePath, 'utf-8');
+      const methodNames = this.generateMethodNames(singularName, pluralName);
 
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
-      documentation = this.insertPropertySchemas(documentation, tableData, singularName);
+      documentation = this.insertPropertySchemas(documentation, tableData);
       documentation = this.addMomentImport(documentation);
 
       return documentation;
@@ -312,9 +215,9 @@ class CrudDocsGenerator {
     }
   }
 
-  generateMethodNames(singularName) {
+  generateMethodNames(singularName, pluralName) {
     const capitalizedSingular = this.capitalize(singularName);
-    const capitalizedPlural = this.capitalize(this.pluralize(singularName));
+    const capitalizedPlural = this.capitalize(pluralName);
 
     return {
       create: `create${capitalizedSingular}`,
@@ -439,97 +342,154 @@ class CrudDocsGenerator {
     const lengthMatch = columnType.match(/\((\d+)\)/);
     const length = lengthMatch ? parseInt(lengthMatch[1], 10) : undefined;
 
-    // Strings
-    if (columnType.includes('varchar') || columnType.includes('char') || columnType.includes('text')) {
-      property.type = 'string';
+    // Helper to extract precision for decimal types
+    const precisionMatch = columnType.match(/\((\d+),(\d+)\)/);
+    const precision = precisionMatch
+      ? parseFloat('0.' + '0'.repeat(parseInt(precisionMatch[2], 10) - 1) + '1')
+      : undefined;
 
-      if (length && (columnType.includes('varchar') || columnType.includes('char'))) {
-        property.maxLength = length;
-      }
+    // Determine if unsigned
+    const isUnsigned = /unsigned/.test(columnType);
+
+    // String types
+    if (columnType.includes('varchar') || columnType.includes('char')) {
+      property.type = 'string';
+      if (length) property.maxLength = length;
 
       if (columnType.includes('varchar')) {
-        const l = property.maxLength || 255;
-        property.example = FAKER_MAPPINGS.varchar(l);
-      } else if (columnType.includes('char')) {
-        const l = property.maxLength || 10;
-        property.example = FAKER_MAPPINGS.char(l);
+        property.example = FAKER_MAPPINGS.varchar(length || 255);
+      } else {
+        property.example = FAKER_MAPPINGS.char(length || 10);
+      }
+    } else if (columnType.includes('text')) {
+      property.type = 'string';
+
+      if (columnType.includes('tinytext')) {
+        property.example = FAKER_MAPPINGS.tinytext();
+      } else if (columnType.includes('mediumtext')) {
+        property.example = FAKER_MAPPINGS.mediumtext();
+      } else if (columnType.includes('longtext')) {
+        property.example = FAKER_MAPPINGS.longtext();
       } else {
         property.example = FAKER_MAPPINGS.text();
       }
 
-      // Integers and tinyint
+      // Integer types
     } else if (
-      columnType.includes('int') ||
       columnType.includes('tinyint') ||
-      columnType.includes('bigint') ||
       columnType.includes('smallint') ||
-      columnType.includes('mediumint')
+      columnType.includes('mediumint') ||
+      columnType.includes('int') ||
+      columnType.includes('bigint')
     ) {
-      // Detectar boolean basado en el patrón 'is_%' o '%_is'
-      const isBooleanField = fieldName.startsWith('is_') || fieldName.endsWith('_is');
+      // Check if it's a boolean based on field name pattern
+      const isBooleanField = fieldName.endsWith('_is') || fieldName.startsWith('is_');
 
       if (isBooleanField && columnType.includes('tinyint') && length === 1) {
         property.type = 'boolean';
         property.enum = [true, false];
         property.example = FAKER_MAPPINGS.boolean();
       } else {
-        property.type = 'integer'; // Usar 'integer' consistentemente
+        property.type = 'integer';
 
-        let max, min;
+        let min, max;
 
-        // Rangos específicos según el contexto del campo
-        if (fieldName.includes('limit')) {
-          // Para campos limit: rango 0-99
+        if (columnType.includes('tinyint')) {
+          // For tinyint, calculate range based on length
+          if (length) {
+            max = Math.pow(10, length) - 1;
+          } else {
+            max = isUnsigned ? 255 : 127;
+          }
           min = 0;
-          max = 99;
-        } else if (fieldName.includes('quota') || fieldName.includes('quotas')) {
-          // Para campos quotas: tipo integer con rango 0-9
-          property.type = 'integer';
+        } else if (columnType.includes('smallint')) {
+          max = isUnsigned ? 65535 : 32767;
           min = 0;
-          max = 9;
-        } else if (columnType.includes('tinyint')) {
-          max = length && length <= 2 ? Math.pow(10, length) - 1 : 99;
-          min = /unsigned/.test(columnType) ? 0 : -max;
+        } else if (columnType.includes('mediumint')) {
+          max = isUnsigned ? 16777215 : 8388607;
+          min = 0;
+        } else if (columnType.includes('bigint')) {
+          max = isUnsigned ? Number.MAX_SAFE_INTEGER : Math.floor(Number.MAX_SAFE_INTEGER / 2);
+          min = 0;
         } else {
-          const len = length || 11;
-          const exponent = Math.min(len, 15);
-          max = Math.pow(10, exponent) - 1;
-          if (max > Number.MAX_SAFE_INTEGER) max = Number.MAX_SAFE_INTEGER;
-          min = /unsigned/.test(columnType) ? 0 : -max;
+          // int/integer
+          max = isUnsigned ? 4294967295 : 2147483647;
+          min = 0;
         }
 
         property.minimum = min;
         property.maximum = max;
-        property.example = FAKER_MAPPINGS.integer(min, max);
+
+        // Get appropriate faker mapping
+        const mappingKey = columnType.includes('tinyint')
+          ? 'tinyint'
+          : columnType.includes('smallint')
+            ? 'smallint'
+            : columnType.includes('mediumint')
+              ? 'mediumint'
+              : columnType.includes('bigint')
+                ? 'bigint'
+                : 'int';
+        property.example = FAKER_MAPPINGS[mappingKey](min, max);
       }
 
-      // Numbers with decimals
-    } else if (columnType.includes('decimal') || columnType.includes('float') || columnType.includes('double')) {
+      // Decimal/Float types
+    } else if (
+      columnType.includes('decimal') ||
+      columnType.includes('numeric') ||
+      columnType.includes('float') ||
+      columnType.includes('double') ||
+      columnType.includes('real')
+    ) {
       property.type = 'number';
-      property.example = FAKER_MAPPINGS.decimal();
 
-      // Boolean
+      const mappingKey =
+        columnType.includes('decimal') || columnType.includes('numeric')
+          ? 'decimal'
+          : columnType.includes('float')
+            ? 'float'
+            : columnType.includes('double')
+              ? 'double'
+              : 'real';
+      property.example = FAKER_MAPPINGS[mappingKey](precision);
+
+      // Boolean types
     } else if (columnType.includes('boolean') || columnType.includes('bool')) {
       property.type = 'boolean';
       property.enum = [true, false];
       property.example = FAKER_MAPPINGS.boolean();
 
-      // Date (date only)
+      // Date types
     } else if (columnType.includes('date') && !columnType.includes('datetime') && !columnType.includes('timestamp')) {
       property.type = 'string';
-      // Solo añadir format para algunos casos específicos, no para start_date
-      if (!fieldName.includes('start_date')) {
-        property.format = 'date';
-      }
+      property.format = 'date';
       property.example = FAKER_MAPPINGS.date();
 
-      // Datetime/timestamp
+      // DateTime/Timestamp types
     } else if (columnType.includes('datetime') || columnType.includes('timestamp')) {
       property.type = 'string';
       property.format = 'date-time';
       property.example = FAKER_MAPPINGS.datetime();
 
-      // Enum
+      // Time type
+    } else if (columnType.includes('time')) {
+      property.type = 'string';
+      property.format = 'time';
+      property.example = FAKER_MAPPINGS.time();
+
+      // Year type
+    } else if (columnType.includes('year')) {
+      property.type = 'integer';
+      property.minimum = 1901;
+      property.maximum = 2155;
+      property.example = FAKER_MAPPINGS.year();
+
+      // JSON type
+    } else if (columnType.includes('json')) {
+      property.type = 'object';
+      property.example = FAKER_MAPPINGS.json();
+
+      // Enum type
     } else if (columnType.includes('enum')) {
       property.type = 'string';
       const enumMatch = columnType.match(/enum\((.+)\)/);
@@ -540,8 +500,66 @@ class CrudDocsGenerator {
       } else {
         property.example = FAKER_MAPPINGS.default();
       }
+
+      // Set type
+    } else if (columnType.includes('set')) {
+      property.type = 'array';
+      property.items = { type: 'string' };
+      const setMatch = columnType.match(/set\((.+)\)/);
+      if (setMatch) {
+        const setValues = setMatch[1].split(',').map((v) => v.trim().replace(/['"]/g, ''));
+        property.example = FAKER_MAPPINGS.set(setValues.map((v) => `'${v}'`));
+      } else {
+        property.example = '[]';
+      }
+
+      // Binary types
+    } else if (columnType.includes('blob') || columnType.includes('binary')) {
+      property.type = 'string';
+      property.format = 'binary';
+
+      const mappingKey = columnType.includes('tinyblob')
+        ? 'tinyblob'
+        : columnType.includes('mediumblob')
+          ? 'mediumblob'
+          : columnType.includes('longblob')
+            ? 'longblob'
+            : columnType.includes('varbinary')
+              ? 'varbinary'
+              : 'blob';
+      property.example = FAKER_MAPPINGS[mappingKey] ? FAKER_MAPPINGS[mappingKey]() : FAKER_MAPPINGS.blob();
+
+      // Geometry types
+    } else if (
+      columnType.includes('geometry') ||
+      columnType.includes('point') ||
+      columnType.includes('linestring') ||
+      columnType.includes('polygon') ||
+      columnType.includes('multipoint') ||
+      columnType.includes('multilinestring') ||
+      columnType.includes('multipolygon') ||
+      columnType.includes('geometrycollection')
+    ) {
+      property.type = 'string';
+
+      const geoType = columnType.includes('point')
+        ? 'point'
+        : columnType.includes('linestring')
+          ? 'linestring'
+          : columnType.includes('polygon')
+            ? 'polygon'
+            : columnType.includes('multipoint')
+              ? 'multipoint'
+              : columnType.includes('multilinestring')
+                ? 'multilinestring'
+                : columnType.includes('multipolygon')
+                  ? 'multipolygon'
+                  : columnType.includes('geometrycollection')
+                    ? 'geometrycollection'
+                    : 'geometry';
+      property.example = FAKER_MAPPINGS[geoType]();
     } else {
-      // fallback
+      // Fallback for unknown types
       property.type = 'string';
       property.example = FAKER_MAPPINGS.default();
     }
@@ -626,16 +644,6 @@ class CrudDocsGenerator {
 
   capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  pluralize(word) {
-    if (word.endsWith('s') || word.endsWith('x') || word.endsWith('z') || word.endsWith('ch') || word.endsWith('sh')) {
-      return word + 'es';
-    }
-    if (word.endsWith('y') && !'aeiou'.includes(word[word.length - 2])) {
-      return word.slice(0, -1) + 'ies';
-    }
-    return word + 's';
   }
 }
 
