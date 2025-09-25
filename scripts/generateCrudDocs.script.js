@@ -69,6 +69,132 @@ const FAKER_MAPPINGS = {
   default: () => 'faker.lorem.word()',
 };
 
+// Nueva plantilla
+const NEW_TEMPLATE = `// =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const { faker } = require('@faker-js/faker');
+
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
+const { standardRequest } = require('../../../helpers/docs-generator.helper');
+const {
+  commonListParams,
+  activeParams,
+  activeBody,
+  detailsParams,
+  identifierParam,
+} = require('../../../schemas/params/common.params');
+
+// =============================== BASE PATH =============================== //
+const {{CRATE_NAME}} = standardRequest('post', {
+  tags: [{{TAG}}],
+  operationId: '{{CRATE_NAME}}',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          required: [],
+          properties: {
+            {{CRATE_PROPERTIES}}
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+const {{STATUS_NAME}} = standardRequest('patch', {
+  tags: [{{TAG}}],
+  operationId: '{{STATUS_NAME}}',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          required: [],
+          properties: {
+            ids: {
+              type: 'array',
+              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              items: { type: 'integer' },
+              example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+            },
+            ...activeBody,
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+const {{LIST_NAME}} = standardRequest('get', {
+  tags: [{{TAG}}],
+  operationId: '{{LIST_NAME}}',
+  description: '',
+  parameters: [...commonListParams, ...activeParams],
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+// ============================== PATH WITH ID ============================== //
+const {{DETAILS_NAME}} = standardRequest('get', {
+  tags: [{{TAG}}],
+  operationId: '{{DETAILS_NAME}}',
+  description: '',
+  parameters: [...detailsParams],
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+const updateTest = standardRequest('put', {
+  tags: [{{TAG}}],
+  operationId: 'updateTest',
+  description: '',
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            {{UPDATE_PROPERTIES}}
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+const {{DELETE_NAME}} = standardRequest('delete', {
+  tags: [{{TAG}}],
+  operationId: '{{DELETE_NAME}}',
+  description: '',
+  parameters: [...identifierParam],
+  responses: {},
+  security: [{ bearerAuth: [] }],
+});
+
+// ================================ EXPORTS ================================ //
+const basePath = { ...{{CRATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
+const pathWithId = { ...{{DETAILS_NAME}}, ...updateTest, ...{{DELETE_NAME}} };
+
+// =============================================================================
+// MODULE EXPORTS
+// =============================================================================
+module.exports = { basePath, pathWithId };`;
+
 class CrudDocsGenerator {
   constructor() {
     this.crudHelper = new CrudHelper();
@@ -172,12 +298,14 @@ class CrudDocsGenerator {
 
   async generateDocumentation(tableData, singularName, tagName) {
     try {
-      const template = await this.crudHelper.getTemplate('docs', 'crud');
+      // Usar la nueva plantilla directamente en lugar de leerla de archivo
+      let documentation = NEW_TEMPLATE;
       const methodNames = this.generateMethodNames(singularName);
-      let documentation = template;
+
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
       documentation = this.insertPropertySchemas(documentation, tableData, singularName);
       documentation = this.addMomentImport(documentation);
+
       return documentation;
     } catch (error) {
       throw new Error(`Failed to generate documentation: ${error.message}`);
@@ -213,7 +341,7 @@ class CrudDocsGenerator {
     return template;
   }
 
-  insertPropertySchemas(documentation, tableData, singularName) {
+  insertPropertySchemas(documentation, tableData) {
     const { columnDetails } = tableData;
 
     // Compute createRequired based on columns metadata
@@ -223,7 +351,7 @@ class CrudDocsGenerator {
       if (this.shouldSkipField(colName)) return false;
       if (col.EXTRA && col.EXTRA.toLowerCase().includes('auto_increment')) return false;
       if (col.COLUMN_KEY && col.COLUMN_KEY.toUpperCase() === 'PRI') return false;
-      const notNullable = col.IS_NULLABLE === 'NO';
+      const notNullable = col.NULLABLE === '0';
       const hasDefault = col.COLUMN_DEFAULT !== null && col.COLUMN_DEFAULT !== undefined;
       return notNullable && !hasDefault;
     });
@@ -231,41 +359,27 @@ class CrudDocsGenerator {
     const createRequired = JSON.stringify(createRequiredCols.map((c) => toCamelCase(c)));
 
     // CREATE: properties must contain ALL columns; required only computed ones
-    // In previous versions 'type' was excluded from CREATE generation; include it now so
-    // generated docs reflect NOT NULL enum columns like 'type' from the DB.
     const createFields = Object.keys(columnDetails).filter((c) => {
       if (this.shouldSkipField(c)) return false;
       return true;
     });
-    const createProperties = this.generatePropertiesObject(columnDetails, createFields, (field) =>
-      createRequiredCols.includes(field)
-    );
+    const createProperties = this.generatePropertiesObject(columnDetails, createFields);
 
     // UPDATE (PUT): include ALL fields and mark them as optional
     const updateFields = createFields.slice();
-    const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, () => false);
+    const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, true);
 
     // LIST parameters
     const listParameters = this.generateListParameters(columnDetails);
 
-    // Replace CREATE block (first occurrence)
-    const createPattern = /required: \[\],\s*properties: \{\}/;
-    if (createPattern.test(documentation)) {
-      documentation = documentation.replace(
-        createPattern,
-        `required: ${createRequired},\n            properties: {\n${createProperties}\n            }`
-      );
-    }
+    // Replace CREATE properties placeholder
+    documentation = documentation.replace(/\{\{CRATE_PROPERTIES\}\}/g, createProperties);
 
-    // Replace UPDATE properties (second occurrence of properties: {})
-    const updatePattern = /properties: \{\}/g;
-    const matches = [...documentation.matchAll(updatePattern)];
-    if (matches.length >= 2) {
-      const secondMatch = matches[1];
-      const beforeMatch = documentation.substring(0, secondMatch.index);
-      const afterMatch = documentation.substring(secondMatch.index + secondMatch[0].length);
-      documentation = beforeMatch + `properties: {\n${updateProperties}\n            }` + afterMatch;
-    }
+    // Replace CREATE required array
+    documentation = documentation.replace(/required: \[\]/, `required: ${createRequired}`);
+
+    // Replace UPDATE properties placeholder
+    documentation = documentation.replace(/\{\{UPDATE_PROPERTIES\}\}/g, updateProperties);
 
     // Insert list parameters only if we have parameters
     if (listParameters) {
@@ -275,47 +389,10 @@ class CrudDocsGenerator {
       );
     }
 
-    // Fix PATCH (status update) replacement
-    const idsName = `${toCamelCase(singularName)}Ids`;
-
-    // Reemplazar en el schema del PATCH
-    documentation = this.fixPatchStatusUpdate(documentation, idsName);
-
     return documentation;
   }
 
-  /**
-   * Método para arreglar el PATCH status update
-   */
-  fixPatchStatusUpdate(documentation, idsName) {
-    // Buscar el patrón del updateTestsStatus y añadir la propiedad testIds
-    const patchPattern =
-      /(const update\w+Status = standardRequest\('patch',[\s\S]*?properties: \{[\s\S]*?)(\s*\.\.\.activeBody,?[\s\S]*?\}\s*,)/;
-
-    if (patchPattern.test(documentation)) {
-      documentation = documentation.replace(patchPattern, (_, beforeActiveBody, afterActiveBody) => {
-        const idsProperty = `            ${idsName}: {\n              type: 'array',\n              description: '**[Required]** ',\n              items: { type: 'integer' },\n              example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),\n            },`;
-
-        // Añadir required array si no existe
-        let result = beforeActiveBody;
-        if (!result.includes('required:')) {
-          result = result.replace(
-            /properties: \{/,
-            `required: ['${idsName}'],\n          properties: {\n${idsProperty}`
-          );
-        } else {
-          result = result.replace(/required: \[.*?\]/, `required: ['${idsName}']`);
-          result = result.replace(/properties: \{/, `properties: {\n${idsProperty}`);
-        }
-
-        return result + afterActiveBody;
-      });
-    }
-
-    return documentation;
-  }
-
-  generatePropertiesObject(columnDetails, fields, isRequiredPredicate) {
+  generatePropertiesObject(columnDetails, fields, update = false) {
     const lines = [];
 
     for (const fieldName of fields) {
@@ -323,34 +400,31 @@ class CrudDocsGenerator {
 
       const column = columnDetails[fieldName];
       const property = this.analyzeColumnForProperty(column);
-      const requiredFlag =
-        typeof isRequiredPredicate === 'function' ? isRequiredPredicate(fieldName) : !!isRequiredPredicate;
+      const requiredFlag = column.NULLABLE === '1' || column.COLUMN_DEFAULT !== null || update ? false : true;
       const requiredText = requiredFlag ? '**[Required]** ' : '**[Optional]** ';
 
-      lines.push(`              ${toCamelCase(fieldName)}: {`);
-      lines.push(`                type: '${property.type}',`);
-      lines.push(
-        `                description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`
-      );
+      lines.push(`            ${toCamelCase(fieldName)}: {`);
+      lines.push(`              type: '${property.type}',`);
+      lines.push(`              description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`);
 
       if (property.maxLength) {
-        lines.push(`                maxLength: ${property.maxLength},`);
+        lines.push(`              maxLength: ${property.maxLength},`);
       }
       if (property.minimum !== undefined) {
-        lines.push(`                min: ${property.minimum},`);
+        lines.push(`              min: ${property.minimum},`);
       }
       if (property.maximum !== undefined) {
-        lines.push(`                max: ${property.maximum},`);
+        lines.push(`              max: ${property.maximum},`);
       }
       if (property.enum) {
-        lines.push(`                enum: [${property.enum.map((v) => v).join(', ')}],`);
+        lines.push(`              enum: [${property.enum.map((v) => v).join(', ')}],`);
       }
       if (property.format) {
-        lines.push(`                format: '${property.format}',`);
+        lines.push(`              format: '${property.format}',`);
       }
 
-      lines.push(`                example: ${property.example},`);
-      lines.push(`              },`);
+      lines.push(`              example: ${property.example},`);
+      lines.push(`            },`);
     }
 
     return lines.join('\n');
@@ -520,7 +594,10 @@ class CrudDocsGenerator {
   }
 
   addMomentImport(documentation) {
-    if (!documentation.includes("const moment = require('moment')")) {
+    if (
+      !documentation.includes("const moment = require('moment')") &&
+      (documentation.includes('moment(') || documentation.includes('.format('))
+    ) {
       documentation = documentation.replace(
         "const { faker } = require('@faker-js/faker');",
         "const moment = require('moment');\nconst { faker } = require('@faker-js/faker');"

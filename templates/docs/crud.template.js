@@ -27,7 +27,9 @@ const {{CRATE_NAME}} = standardRequest('post', {
         schema: {
           type: 'object',
           required: [],
-          properties: {},
+          properties: {
+            {{CRATE_PROPERTIES}}
+          },
         },
       },
     },
@@ -48,6 +50,12 @@ const {{STATUS_NAME}} = standardRequest('patch', {
           type: 'object',
           required: [],
           properties: {
+            ids: {
+              type: 'array',
+              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              items: { type: 'integer' },
+              example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+            },
             ...activeBody,
           },
         },
@@ -86,7 +94,9 @@ const updateTest = standardRequest('put', {
       'application/json': {
         schema: {
           type: 'object',
-          properties: {},
+          properties: {
+            {{UPDATE_PROPERTIES}}
+          },
         },
       },
     },
