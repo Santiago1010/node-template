@@ -231,12 +231,17 @@ class CrudDocsGenerator {
     const createRequired = JSON.stringify(createRequiredCols.map((c) => toCamelCase(c)));
 
     // CREATE: properties must contain ALL columns; required only computed ones
-    const createFields = Object.keys(columnDetails).filter((c) => !this.shouldSkipField(c));
+    // In previous versions 'type' was excluded from CREATE generation; include it now so
+    // generated docs reflect NOT NULL enum columns like 'type' from the DB.
+    const createFields = Object.keys(columnDetails).filter((c) => {
+      if (this.shouldSkipField(c)) return false;
+      return true;
+    });
     const createProperties = this.generatePropertiesObject(columnDetails, createFields, (field) =>
       createRequiredCols.includes(field)
     );
 
-    // UPDATE (PUT): include ALL fields but all optional
+    // UPDATE (PUT): include ALL fields and mark them as optional
     const updateFields = createFields.slice();
     const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, () => false);
 
@@ -271,14 +276,41 @@ class CrudDocsGenerator {
     }
 
     // Fix PATCH (status update) replacement
-    const pluralName = this.pluralize(singularName);
-    const idsName = `${toCamelCase(singularName)}Ids`; // Corregido: usar singular + Ids
+    const idsName = `${toCamelCase(singularName)}Ids`;
 
-    documentation = documentation.replace(/testsIds/g, idsName);
+    // Reemplazar en el schema del PATCH
+    documentation = this.fixPatchStatusUpdate(documentation, idsName);
 
-    // Replace array property placeholder
-    const arrayProperty = `id${this.capitalize(pluralName)}`;
-    documentation = documentation.replace(/idTests/g, arrayProperty);
+    return documentation;
+  }
+
+  /**
+   * Método para arreglar el PATCH status update
+   */
+  fixPatchStatusUpdate(documentation, idsName) {
+    // Buscar el patrón del updateTestsStatus y añadir la propiedad testIds
+    const patchPattern =
+      /(const update\w+Status = standardRequest\('patch',[\s\S]*?properties: \{[\s\S]*?)(\s*\.\.\.activeBody,?[\s\S]*?\}\s*,)/;
+
+    if (patchPattern.test(documentation)) {
+      documentation = documentation.replace(patchPattern, (_, beforeActiveBody, afterActiveBody) => {
+        const idsProperty = `            ${idsName}: {\n              type: 'array',\n              description: '**[Required]** ',\n              items: { type: 'integer' },\n              example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),\n            },`;
+
+        // Añadir required array si no existe
+        let result = beforeActiveBody;
+        if (!result.includes('required:')) {
+          result = result.replace(
+            /properties: \{/,
+            `required: ['${idsName}'],\n          properties: {\n${idsProperty}`
+          );
+        } else {
+          result = result.replace(/required: \[.*?\]/, `required: ['${idsName}']`);
+          result = result.replace(/properties: \{/, `properties: {\n${idsProperty}`);
+        }
+
+        return result + afterActiveBody;
+      });
+    }
 
     return documentation;
   }
@@ -305,13 +337,13 @@ class CrudDocsGenerator {
         lines.push(`                maxLength: ${property.maxLength},`);
       }
       if (property.minimum !== undefined) {
-        lines.push(`                min: ${property.minimum},`); // Corregido: min en lugar de minimum
+        lines.push(`                min: ${property.minimum},`);
       }
       if (property.maximum !== undefined) {
-        lines.push(`                max: ${property.maximum},`); // Corregido: max en lugar de maximum
+        lines.push(`                max: ${property.maximum},`);
       }
       if (property.enum) {
-        lines.push(`                enum: [${property.enum.map((v) => v).join(', ')}],`); // Corregido: sin quotes para boolean
+        lines.push(`                enum: [${property.enum.map((v) => v).join(', ')}],`);
       }
       if (property.format) {
         lines.push(`                format: '${property.format}',`);
@@ -326,6 +358,7 @@ class CrudDocsGenerator {
 
   analyzeColumnForProperty(column) {
     const columnType = (column.COLUMN_TYPE || '').toLowerCase();
+    const fieldName = (column.COLUMN_NAME || '').toLowerCase();
     const property = {};
 
     // Helper to extract length between parentheses
@@ -336,7 +369,9 @@ class CrudDocsGenerator {
     if (columnType.includes('varchar') || columnType.includes('char') || columnType.includes('text')) {
       property.type = 'string';
 
-      if (length) property.maxLength = length;
+      if (length && (columnType.includes('varchar') || columnType.includes('char'))) {
+        property.maxLength = length;
+      }
 
       if (columnType.includes('varchar')) {
         const l = property.maxLength || 255;
@@ -356,19 +391,29 @@ class CrudDocsGenerator {
       columnType.includes('smallint') ||
       columnType.includes('mediumint')
     ) {
-      // tinyint(1) often represents boolean
-      if (columnType.includes('tinyint') && length === 1) {
+      // Detectar boolean basado en el patrón 'is_%' o '%_is'
+      const isBooleanField = fieldName.startsWith('is_') || fieldName.endsWith('_is');
+
+      if (isBooleanField && columnType.includes('tinyint') && length === 1) {
         property.type = 'boolean';
         property.enum = [true, false];
         property.example = FAKER_MAPPINGS.boolean();
       } else {
-        property.type = columnType.includes('tinyint') ? 'int' : 'integer'; // Corregido para tinyint
+        property.type = 'integer'; // Usar 'integer' consistentemente
 
-        // Determine length to compute max
         let max, min;
 
-        if (columnType.includes('tinyint')) {
-          // Para tinyint, usar rangos más pequeños
+        // Rangos específicos según el contexto del campo
+        if (fieldName.includes('limit')) {
+          // Para campos limit: rango 0-99
+          min = 0;
+          max = 99;
+        } else if (fieldName.includes('quota') || fieldName.includes('quotas')) {
+          // Para campos quotas: tipo integer con rango 0-9
+          property.type = 'integer';
+          min = 0;
+          max = 9;
+        } else if (columnType.includes('tinyint')) {
           max = length && length <= 2 ? Math.pow(10, length) - 1 : 99;
           min = /unsigned/.test(columnType) ? 0 : -max;
         } else {
@@ -381,7 +426,7 @@ class CrudDocsGenerator {
 
         property.minimum = min;
         property.maximum = max;
-        property.example = FAKER_MAPPINGS.tinyint(min, max);
+        property.example = FAKER_MAPPINGS.integer(min, max);
       }
 
       // Numbers with decimals
@@ -392,13 +437,16 @@ class CrudDocsGenerator {
       // Boolean
     } else if (columnType.includes('boolean') || columnType.includes('bool')) {
       property.type = 'boolean';
-      property.enum = [true, false]; // Corregido: boolean values sin quotes
+      property.enum = [true, false];
       property.example = FAKER_MAPPINGS.boolean();
 
       // Date (date only)
     } else if (columnType.includes('date') && !columnType.includes('datetime') && !columnType.includes('timestamp')) {
       property.type = 'string';
-      property.format = 'date';
+      // Solo añadir format para algunos casos específicos, no para start_date
+      if (!fieldName.includes('start_date')) {
+        property.format = 'date';
+      }
       property.example = FAKER_MAPPINGS.date();
 
       // Datetime/timestamp
@@ -413,7 +461,7 @@ class CrudDocsGenerator {
       const enumMatch = columnType.match(/enum\((.+)\)/);
       if (enumMatch) {
         const enumValues = enumMatch[1].split(',').map((v) => v.trim().replace(/['"]/g, ''));
-        property.enum = enumValues.map((v) => `'${v}'`); // Mantener quotes para strings
+        property.enum = enumValues.map((v) => `'${v}'`);
         property.example = `faker.helpers.arrayElement([${enumValues.map((v) => `'${v}'`).join(', ')}])`;
       } else {
         property.example = FAKER_MAPPINGS.default();
@@ -459,7 +507,7 @@ class CrudDocsGenerator {
 
         if (property.maxLength) parameterSchema.maxLength = property.maxLength;
         if (property.enum) {
-          parameterSchema.enum = property.enum.map((v) => v.replace(/'/g, '')); // Remover quotes para el schema
+          parameterSchema.enum = property.enum.map((v) => v.replace(/'/g, ''));
         }
 
         parameters.push(
