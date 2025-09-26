@@ -9,9 +9,11 @@
 ├── .commitlintrc.js
 ├── config
 │   ├── cache
+│   │   ├── README.md
 │   │   └── redis.config.js
 │   ├── context
-│   │   └── index.js
+│   │   ├── index.js
+│   │   └── README.md
 │   ├── database
 │   │   ├── connection.js
 │   │   ├── README.md
@@ -34,7 +36,8 @@
 │   │   └── README.md
 │   └── tools
 │       ├── logger.config.js
-│       └── morgan.config.js
+│       ├── morgan.config.js
+│       └── README.md
 ├── context
 │   └── structure.txt
 ├── controllers
@@ -103,6 +106,7 @@
 ├── migrations
 ├── models
 │   ├── index.js
+│   ├── README.md
 │   └── users
 │       └── usrAccounts.model.js
 ├── package.json
@@ -207,4 +211,4 @@
     ├── extensions.json
     └── settings.json
 
-69 directories, 139 files
+69 directories, 143 files
