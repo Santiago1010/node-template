@@ -14,7 +14,7 @@ const { performance } = require('perf_hooks');
 const CrudHelper = require('../helpers/crud.helper');
 const { PREFIXES } = require('../helpers/constants.helper');
 const { cerror } = require('../helpers/debug.helper');
-const { toCamelCase } = require('../helpers/strings.helper');
+const { toCamelCase, toPascalCase } = require('../helpers/strings.helper');
 
 // =============================================================================
 // SCRIPT CONFIGURATION
@@ -279,9 +279,13 @@ class CrudValidationsGenerator {
       validationsContent = this.insertUpdateStatusSchema(validationsContent, schemas.updateStatusSchema);
       validationsContent = this.insertListSchema(validationsContent, schemas.listSchema);
       validationsContent = this.insertDetailsSchema(validationsContent, schemas.detailsSchema);
-      validationsContent = this.insertUpdateSchema(validationsContent, schemas.updateSchema);
+      validationsContent = this.insertUpdateSchema(validationsContent, mainModelName, schemas.updateSchema);
 
-      validationsContent = this.replaceSchemaNames(validationsContent, pluralName, singularName);
+      validationsContent = this.replaceSchemaNames(
+        validationsContent,
+        toPascalCase(pluralName),
+        toPascalCase(singularName)
+      );
 
       return validationsContent;
     } catch (error) {
@@ -562,10 +566,13 @@ class CrudValidationsGenerator {
     return content;
   }
 
-  insertUpdateSchema(content, updateFields) {
+  insertUpdateSchema(content, mainModelName, updateFields) {
     const placeholder =
-      "const updateSchema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: {{MAIN_MODEL}}, required: true, paranoid: false }),\n  // Add any additional path parameters here\n};";
-    const replacement = `const updateSchema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: {{MAIN_MODEL}}, required: true, paranoid: false }),\n${updateFields}\n  // Add any additional path parameters here\n};`;
+      "const updateSchema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: " +
+      mainModelName +
+      ', required: true, paranoid: false }),\n  // Add any additional body parameters here\n};';
+    const replacement = `const updateSchema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: ${mainModelName}, required: true, paranoid: false }),\n${updateFields}\n  // Add any additional body parameters here\n};`;
+
     return content.replace(placeholder, replacement);
   }
 

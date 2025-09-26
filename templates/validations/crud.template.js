@@ -32,7 +32,7 @@ const detailsSchema = {
 
 const updateSchema = {
   id: databaseSchemas.idSchema('id', 'params', { model: {{MAIN_MODEL}}, required: true, paranoid: false }),
-  // Add any additional path parameters here
+  // Add any additional body parameters here
 };
 
 const deleteSchema = {
