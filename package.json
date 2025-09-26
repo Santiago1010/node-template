@@ -32,7 +32,8 @@
   "main": "index.js",
   "bin": {
     "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
-    "generate-models": "./scripts/createModels.script.js"
+    "generate-models": "./scripts/createModels.script.js",
+    "generate-crud-validations": "./scripts/generateCrudValidations.script.js"
   },
   "config": {
     "commitizen": {
