@@ -326,6 +326,197 @@ const validateModelAttributes = (name, location = 'body', { model, required = tr
   return validationSchema;
 };
 
+/**
+ * Validates a value against the primary key or unique fields (non-composite) of a model.
+ *
+ * Automatically detects:
+ *  - primary key name
+ *  - single-field unique constraints (both attribute-level unique: true and indexes with unique and fields.length === 1)
+ *
+ * Options:
+ *  - model (required) : Sequelize model
+ *  - required (default true)
+ *  - formattingFunctions (array of functions to sanitize the value)
+ *  - shouldExist (default true) : if true validates that the value exists; if false validates that it does NOT exist
+ *  - excludeValue (PK value to exclude, useful for updates)
+ *  - allowPrimaryKey (default true)
+ *  - allowUniqueFields (default true)
+ *
+ * Usage example:
+ *  validateValueAgainstModel('identifier', 'body', { model: MyModel })
+ */
+const validateValueAgainstModel = (
+  name,
+  location = 'body',
+  {
+    model,
+    required = true,
+    formattingFunctions = [],
+    shouldExist = true,
+    excludeValue = null,
+    allowPrimaryKey = true,
+    allowUniqueFields = true,
+  } = {}
+) => {
+  const fieldName = getFieldName(name);
+
+  if (!model) {
+    throw new Error('validateValueAgainstModel requires a Sequelize model in options.model');
+  }
+
+  // Determine primary key
+  let primaryKeyAttr = null;
+  if (typeof model.primaryKeyAttribute === 'string' && model.primaryKeyAttribute.length > 0) {
+    primaryKeyAttr = model.primaryKeyAttribute;
+  } else if (Array.isArray(model.primaryKeyAttributes) && model.primaryKeyAttributes.length > 0) {
+    primaryKeyAttr = model.primaryKeyAttributes[0];
+  } else {
+    // Fallback: search in rawAttributes
+    for (const attr of Object.keys(model.rawAttributes || {})) {
+      if (model.rawAttributes[attr].primaryKey) {
+        primaryKeyAttr = attr;
+        break;
+      }
+    }
+  }
+
+  // Determine single-field unique constraints
+  const uniqueAttrsSet = new Set();
+
+  // 1) Attribute-level unique: true
+  const rawAttrs = model.rawAttributes || {};
+  for (const attrName of Object.keys(rawAttrs)) {
+    const attr = rawAttrs[attrName];
+    if (attr && attr.unique === true) {
+      uniqueAttrsSet.add(attrName);
+    }
+  }
+
+  // 2) Indexes defined in model.options.indexes with unique: true and single field
+  const indexes = (model.options && model.options.indexes) || [];
+  for (const idx of indexes) {
+    if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
+      // idx.fields may contain objects { name: 'col' } or strings
+      const f = idx.fields[0];
+      const fname =
+        typeof f === 'string' ? f : f && (f.attribute || f.name || f.field) ? f.attribute || f.name || f.field : null;
+      if (fname) uniqueAttrsSet.add(fname);
+    }
+  }
+
+  // Normalize final list of unique fields (exclude PK if present)
+  const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
+
+  // If PK is integer type, add convertToNumber by default if not in formattingFunctions
+  try {
+    const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
+    const pkTypeKey =
+      pkAttrDef && pkAttrDef.type && pkAttrDef.type.key ? String(pkAttrDef.type.key).toUpperCase() : null;
+    if (pkTypeKey && (pkTypeKey.includes('INT') || pkTypeKey === 'BIGINT')) {
+      if (!formattingFunctions.includes(convertToNumber)) {
+        formattingFunctions.push(convertToNumber);
+      }
+    }
+  } catch (e) {
+    throw new Error('Error validating value against model: ' + e.message);
+  }
+
+  const validationSchema = {
+    in: location,
+    customSanitizer: formattingFunctions.length
+      ? {
+          options: (value) => {
+            return formattingFunctions.reduce((acc, fn) => {
+              return typeof fn === 'function' ? fn(acc) : acc;
+            }, value);
+          },
+        }
+      : undefined,
+    custom: {
+      options: async (value) => {
+        // empty value handled by existence/required in main schema
+        // First validate against PK (if allowed)
+        const Op =
+          model.sequelize && model.sequelize.Sequelize ? model.sequelize.Sequelize.Op : require('sequelize').Op;
+
+        if ((value === null || typeof value === 'undefined' || value === '') && required) {
+          throw new Error(i18n.__mf('validations.required', { field: fieldName }));
+        }
+
+        // If PK is allowed, check findByPk
+        if (allowPrimaryKey && primaryKeyAttr) {
+          const byPk = await model.findByPk(value, { attributes: [primaryKeyAttr] });
+          const existsPk = byPk !== null;
+
+          if (existsPk) {
+            if (!shouldExist) {
+              // When we expect it NOT to exist but found one
+              throw new Error(i18n.__mf('validations.already_exists', { field: fieldName }));
+            }
+            return true; // found in PK -> valid
+          }
+        }
+
+        // Check unique fields (one by one) if allowed
+        if (allowUniqueFields && uniqueAttrs.length > 0) {
+          for (const attr of uniqueAttrs) {
+            const where = { [attr]: value };
+
+            // Exclude a value by PK if specified
+            if (excludeValue !== null && primaryKeyAttr) {
+              where[primaryKeyAttr] = {
+                [Op.ne]: excludeValue,
+              };
+            }
+
+            const found = await model.findOne({
+              where,
+              attributes: [primaryKeyAttr || attr],
+            });
+
+            if (found) {
+              if (!shouldExist) {
+                // Found but expected NOT to exist
+                throw new Error(i18n.__mf('validations.already_exists', { field: fieldName }));
+              }
+              return true; // found in a unique field -> valid
+            }
+          }
+
+          // Not found in unique fields
+          if (shouldExist) {
+            // we were checking for existence but it doesn't exist in PK or unique fields
+            throw new Error(i18n.__mf('validations.not_exists', { field: fieldName }));
+          } else {
+            // we were checking for NON-existence and it doesn't exist -> valid
+            return true;
+          }
+        }
+
+        // If no unique fields or PK to check and existence is required -> error
+        if (shouldExist) {
+          throw new Error(i18n.__mf('validations.not_exists', { field: fieldName }));
+        }
+
+        return true;
+      },
+    },
+  };
+
+  // Required field validation
+  if (required) {
+    validationSchema.exists = {
+      errorMessage: i18n.__mf('validations.required', { field: fieldName }),
+    };
+
+    validationSchema.notEmpty = {
+      errorMessage: i18n.__mf('validations.required', { field: fieldName }),
+    };
+  }
+
+  return validationSchema;
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -334,4 +525,5 @@ module.exports = {
   validateUniqueField,
   validateMultipleIds,
   validateModelAttributes,
+  validateValueAgainstModel,
 };
