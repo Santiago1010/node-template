@@ -91,6 +91,7 @@ class CrudDocsGenerator {
   constructor() {
     this.crudHelper = new CrudHelper();
     this.startTime = performance.now();
+    this.foreignKeyReferences = new Map(); // Cache for foreign key info
   }
 
   async run() {
@@ -100,6 +101,10 @@ class CrudDocsGenerator {
       const { tableName, singularName } = this.validateArguments();
       const { groupName, tagName, pluralName } = this.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
+
+      // Detect foreign keys before generating documentation
+      await this.analyzeForeignKeys(tableData);
+
       const documentation = await this.generateDocumentation(tableData, singularName, pluralName, tagName);
       await this.saveDocumentation(documentation, tableName, groupName);
 
@@ -193,6 +198,163 @@ class CrudDocsGenerator {
     return skipFields.includes(fieldName);
   }
 
+  /**
+   * Detect foreign keys and analyze their referenced tables
+   */
+  async analyzeForeignKeys(tableData) {
+    console.log(`🔗 Analyzing foreign keys for table: ${tableData.tableName}`);
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      if (this.isForeignKey(columnName, columnDetails)) {
+        try {
+          const referencedTable = await this.getReferencedTable(tableData.tableName, columnName);
+          if (referencedTable) {
+            const { tagName, operationId } = this.calculateReferenceInfo(referencedTable);
+            this.foreignKeyReferences.set(columnName, {
+              referencedTable,
+              tagName,
+              operationId,
+            });
+            console.log(
+              `🔗 Foreign key detected: ${columnName} -> ${referencedTable} (Tag: ${tagName}, Op: ${operationId})`
+            );
+          }
+        } catch (error) {
+          console.warn(`⚠️  Could not analyze foreign key ${columnName}: ${error.message}`);
+        }
+      }
+    }
+  }
+
+  /**
+   * Check if a column is a foreign key
+   */
+  isForeignKey(columnName, columnDetails) {
+    // Check if it's a foreign key by column name pattern (ends with _id)
+    const isForeignKeyByName = columnName.endsWith('_id');
+
+    // Check if it's a foreign key by MySQL metadata (MUL key)
+    const isForeignKeyByConstraint = columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'MUL';
+
+    return isForeignKeyByName || isForeignKeyByConstraint;
+  }
+
+  /**
+   * Get the referenced table for a foreign key column
+   */
+  async getReferencedTable(tableName, columnName) {
+    try {
+      // Query to get foreign key constraints
+      const query = `
+        SELECT
+          REFERENCED_TABLE_NAME
+        FROM
+          INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+        WHERE
+          TABLE_SCHEMA = '${this.crudHelper.databaseName}'
+          AND TABLE_NAME = '${tableName}'
+          AND COLUMN_NAME = '${columnName}'
+          AND REFERENCED_TABLE_NAME IS NOT NULL
+      `;
+
+      const result = await this.executeQuery(query, `Get referenced table for ${columnName}`);
+
+      if (result && result.length > 0) {
+        return result[0].REFERENCED_TABLE_NAME;
+      }
+
+      // Fallback: try to guess the table name from the column name
+      if (columnName.endsWith('_id')) {
+        const baseName = columnName.replace('_id', '');
+        // Try to find a table that matches the pattern
+        const possibleTableName = await this.findTableByPattern(baseName);
+        return possibleTableName;
+      }
+
+      return null;
+    } catch (error) {
+      console.warn(`Could not determine referenced table for ${columnName}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Find a table that matches a naming pattern
+   */
+  async findTableByPattern(baseName) {
+    try {
+      const query = `
+        SELECT TABLE_NAME
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = '${this.crudHelper.databaseName}'
+        AND TABLE_NAME LIKE '%_${baseName}%'
+      `;
+
+      const result = await this.executeQuery(query, `Find table pattern for ${baseName}`);
+
+      if (result && result.length > 0) {
+        // Try different patterns in order of preference
+        const patterns = [
+          `${baseName}s`, // names (exact plural)
+          `${baseName}`, // name (exact singular)
+        ];
+
+        // Find the best match
+        for (const pattern of patterns) {
+          const match = result.find((row) => row.TABLE_NAME.endsWith(`_${pattern}`));
+          if (match) {
+            return match.TABLE_NAME;
+          }
+        }
+
+        // Return first match if no exact pattern found
+        return result[0].TABLE_NAME;
+      }
+
+      return null;
+    } catch (error) {
+      cerror(`Could not find table pattern for ${baseName}`, error.message);
+      return null;
+    }
+  }
+
+  /**
+   * Execute a database query using the CrudHelper's Sequelize connection
+   */
+  async executeQuery(query, logMessage) {
+    try {
+      const { Sequelize } = require('sequelize');
+      const result = await this.crudHelper.sequelize.query(query, {
+        type: Sequelize.QueryTypes.SELECT,
+        logging: false, // Disable logging to avoid clutter
+      });
+
+      return result;
+    } catch (error) {
+      console.warn(`Database query failed: ${logMessage}`, error.message);
+      return null;
+    }
+  }
+
+  /**
+   * Calculate tag and operationId for a referenced table
+   */
+  calculateReferenceInfo(tableName) {
+    const parts = tableName.split('_');
+    const prefix = parts[0].toUpperCase();
+    const groupName = PREFIXES[prefix] || 'general';
+    const tagName = this.capitalize(groupName);
+
+    // Extract plural name from table name (excluding prefix)
+    const tableNameParts = parts.slice(1);
+    const pluralName = toCamelCase(tableNameParts.join('_'));
+    const capitalizedPlural = this.capitalize(pluralName);
+
+    const operationId = `getList${capitalizedPlural}`;
+
+    return { tagName, operationId };
+  }
+
   async generateDocumentation(tableData, singularName, pluralName, tagName) {
     try {
       // Read template from file instead of using hardcoded template
@@ -208,6 +370,11 @@ class CrudDocsGenerator {
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
       documentation = this.insertPropertySchemas(documentation, tableData);
       documentation = this.addMomentImport(documentation);
+
+      // Add setReference import only if we have foreign keys
+      if (this.foreignKeyReferences.size > 0) {
+        documentation = this.addSetReferenceImport(documentation);
+      }
 
       return documentation;
     } catch (error) {
@@ -304,21 +471,39 @@ class CrudDocsGenerator {
       const column = columnDetails[fieldName];
       const property = this.analyzeColumnForProperty(column);
       const requiredFlag = column.NULLABLE === '1' || column.COLUMN_DEFAULT !== null || update ? false : true;
-      const requiredText = requiredFlag ? '**[Required]** ' : '**[Optional]** ';
+
+      // Check if this is a foreign key
+      const foreignKeyInfo = this.foreignKeyReferences.get(fieldName);
 
       lines.push(`            ${toCamelCase(fieldName)}: {`);
       lines.push(`              type: '${property.type}',`);
-      lines.push(`              description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`);
 
-      if (property.maxLength) {
-        lines.push(`              maxLength: ${property.maxLength},`);
+      // Use setReference for foreign keys, regular description for others
+      if (foreignKeyInfo) {
+        const description = column.COLUMN_COMMENT || 'Reference to related resource';
+        lines.push(
+          `              description: setReference(${requiredFlag}, '${description.replace(/'/g, "\\'")}', '${foreignKeyInfo.tagName}', '${foreignKeyInfo.operationId}'),`
+        );
+      } else {
+        const requiredText = requiredFlag ? '**[Required]** ' : '**[Optional]** ';
+        lines.push(
+          `              description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`
+        );
       }
-      if (property.minimum !== undefined) {
-        lines.push(`              min: ${property.minimum},`);
+
+      // For foreign keys, skip min/max validations as requested
+      if (!foreignKeyInfo) {
+        if (property.maxLength) {
+          lines.push(`              maxLength: ${property.maxLength},`);
+        }
+        if (property.minimum !== undefined) {
+          lines.push(`              min: ${property.minimum},`);
+        }
+        if (property.maximum !== undefined) {
+          lines.push(`              max: ${property.maximum},`);
+        }
       }
-      if (property.maximum !== undefined) {
-        lines.push(`              max: ${property.maximum},`);
-      }
+
       if (property.enum) {
         lines.push(`              enum: [${property.enum.map((v) => v).join(', ')}],`);
       }
@@ -609,6 +794,44 @@ class CrudDocsGenerator {
     }
 
     return parameters.length > 0 ? parameters.join(',') : '';
+  }
+
+  /**
+   * Add setReference import only if foreign keys are detected
+   */
+  addSetReferenceImport(documentation) {
+    if (!documentation.includes("const { setReference } = require('../schemas/params/dynamic.params');")) {
+      // Find the last require statement and add the setReference import after it
+      const requireRegex = /const .+ = require\(.+\);/g;
+      const matches = [...documentation.matchAll(requireRegex)];
+
+      if (matches.length > 0) {
+        const lastRequire = matches[matches.length - 1];
+        const insertPosition = lastRequire.index + lastRequire[0].length;
+
+        documentation =
+          documentation.slice(0, insertPosition) +
+          "\nconst { setReference } = require('../schemas/params/dynamic.params');" +
+          documentation.slice(insertPosition);
+      } else {
+        // If no requires found, add at the beginning after any comments
+        const lines = documentation.split('\n');
+        let insertIndex = 0;
+
+        // Skip comment lines at the beginning
+        while (
+          insertIndex < lines.length &&
+          (lines[insertIndex].trim().startsWith('//') || lines[insertIndex].trim() === '')
+        ) {
+          insertIndex++;
+        }
+
+        lines.splice(insertIndex, 0, "const { setReference } = require('../schemas/params/dynamic.params');");
+        documentation = lines.join('\n');
+      }
+    }
+
+    return documentation;
   }
 
   addMomentImport(documentation) {
