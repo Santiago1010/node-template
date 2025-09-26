@@ -34,15 +34,15 @@ class CrudValidationsGenerator {
     try {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
-      const { tableName } = this.validateArguments();
-      const { groupName } = this.extractPrefixInfo(tableName);
+      const { tableName, singularName } = this.validateArguments();
+      const { groupName, pluralName } = this.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
 
       // Analyze relationships and enums
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
 
-      const validationsContent = await this.generateValidations(tableData);
+      const validationsContent = await this.generateValidations(tableData, singularName, pluralName);
       await this.saveValidations(validationsContent, tableName, groupName);
 
       const endTime = performance.now();
@@ -257,7 +257,7 @@ class CrudValidationsGenerator {
     return this.capitalize(toCamelCase(modelParts.join('_')));
   }
 
-  async generateValidations(tableData) {
+  async generateValidations(tableData, singularName, pluralName) {
     try {
       const templatePath = path.resolve(__dirname, '../templates/validations/crud.template.js');
 
@@ -280,6 +280,8 @@ class CrudValidationsGenerator {
       validationsContent = this.insertListSchema(validationsContent, schemas.listSchema);
       validationsContent = this.insertDetailsSchema(validationsContent, schemas.detailsSchema);
       validationsContent = this.insertUpdateSchema(validationsContent, schemas.updateSchema);
+
+      validationsContent = this.replaceSchemaNames(validationsContent, pluralName, singularName);
 
       return validationsContent;
     } catch (error) {
@@ -583,6 +585,18 @@ class CrudValidationsGenerator {
     } catch (error) {
       throw new Error(`Failed to save validations: ${error.message}`);
     }
+  }
+
+  replaceSchemaNames(validationsContent, pluralName, singularName) {
+    validationsContent = validationsContent
+      .replace(/createSchema/g, `create${singularName}Schema`)
+      .replace(/updateStatusSchema/g, `update${singularName}StatusSchema`)
+      .replace(/listSchema/g, `list${pluralName}Schema`)
+      .replace(/detailsSchema/g, `details${singularName}Schema`)
+      .replace(/updateSchema/g, `update${singularName}Schema`)
+      .replace(/deleteSchema/g, `delete${singularName}Schema`);
+
+    return validationsContent;
   }
 
   capitalize(str) {
