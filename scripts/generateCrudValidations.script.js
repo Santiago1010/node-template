@@ -578,12 +578,12 @@ class CrudValidationsGenerator {
 
   async saveValidations(validationsContent, tableName, groupName) {
     try {
-      const validationsDir = path.resolve(__dirname, '../routes/' + groupName + '/validations', groupName);
+      const validationsDir = path.resolve(__dirname, '../routes/' + groupName + '/validations');
       if (!fs.existsSync(validationsDir)) fs.mkdirSync(validationsDir, { recursive: true });
 
       const namesParts = tableName.split('_');
       const pluralName = namesParts.slice(1).join('_');
-      const fileName = `${toCamelCase(pluralName)}.schemas.js`;
+      const fileName = `${toCamelCase(pluralName)}.validations.js`;
       const filePath = path.join(validationsDir, fileName);
 
       fs.writeFileSync(filePath, validationsContent, 'utf-8');
