@@ -28,6 +28,7 @@
 │   │   │   ├── en.json
 │   │   │   └── es.json
 │   │   └── README.md
+│   ├── README.md
 │   ├── security
 │   │   ├── cookies.config.js
 │   │   ├── cors.config.js
@@ -211,4 +212,4 @@
     ├── extensions.json
     └── settings.json
 
-69 directories, 143 files
+69 directories, 144 files
