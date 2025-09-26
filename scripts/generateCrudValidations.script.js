@@ -578,7 +578,7 @@ class CrudValidationsGenerator {
 
   async saveValidations(validationsContent, tableName, groupName) {
     try {
-      const validationsDir = path.resolve(__dirname, '../schemas/validations', groupName);
+      const validationsDir = path.resolve(__dirname, '../routes/' + groupName + '/validations', groupName);
       if (!fs.existsSync(validationsDir)) fs.mkdirSync(validationsDir, { recursive: true });
 
       const namesParts = tableName.split('_');
