@@ -34,15 +34,15 @@ class CrudValidationsGenerator {
     try {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
-      const { tableName, singularName } = this.validateArguments();
-      const { groupName, pluralName } = this.extractPrefixInfo(tableName);
+      const { tableName } = this.validateArguments();
+      const { groupName } = this.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
 
       // Analyze relationships and enums
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
 
-      const validationsContent = await this.generateValidations(tableData, singularName, pluralName);
+      const validationsContent = await this.generateValidations(tableData);
       await this.saveValidations(validationsContent, tableName, groupName);
 
       const endTime = performance.now();
@@ -139,7 +139,7 @@ class CrudValidationsGenerator {
         try {
           const referencedTable = await this.getReferencedTable(tableData.tableName, columnName);
           if (referencedTable) {
-            const modelName = this.getModelNameFromTable(referencedTable);
+            const modelName = toCamelCase(referencedTable);
             this.foreignKeyReferences.set(columnName, {
               referencedTable,
               modelName,
@@ -257,7 +257,7 @@ class CrudValidationsGenerator {
     return this.capitalize(toCamelCase(modelParts.join('_')));
   }
 
-  async generateValidations(tableData, singularName) {
+  async generateValidations(tableData) {
     try {
       const templatePath = path.resolve(__dirname, '../templates/validations/crud.template.js');
 
@@ -266,7 +266,7 @@ class CrudValidationsGenerator {
       }
 
       let validationsContent = fs.readFileSync(templatePath, 'utf-8');
-      const mainModelName = this.capitalize(singularName);
+      const mainModelName = toCamelCase(tableData.tableName);
       const imports = this.generateImports(tableData);
       const schemas = this.generateSchemas(tableData, mainModelName);
 
@@ -298,14 +298,13 @@ class CrudValidationsGenerator {
     }
 
     const moreModels = Array.from(referencedModels).join(', ');
-    return { moreModels: moreModels ? `, ${moreModels}` : '' };
+    return { moreModels: moreModels ? `${moreModels}` : '' };
   }
 
   generateSchemas(tableData, mainModelName) {
     const createFields = [];
     const updateFields = [];
     const listFilters = [];
-    const detailsFields = [];
 
     for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
       const camelFieldName = toCamelCase(columnName);
@@ -317,20 +316,15 @@ class CrudValidationsGenerator {
         createFields.push(`  ${camelFieldName}: ${validationSchema.create},`);
       }
 
-      // UPDATE schema fields (all optional)
+      // UPDATE schema fields (todos los campos de creación, pero opcionales)
       if (!this.shouldSkipField(columnName)) {
         const updateValidation = validationSchema.create.replace('required: true', 'required: false');
         updateFields.push(`  ${camelFieldName}: ${updateValidation},`);
       }
 
-      // LIST schema filters (only for specific types)
+      // LIST schema filters (solo foreign keys y enums)
       if (this.shouldIncludeInListFilters(columnName, columnDetails)) {
         listFilters.push(`  ${camelFieldName}: ${validationSchema.list},`);
-      }
-
-      // DETAILS schema fields (if needed)
-      if (columnName.endsWith('_id') || this.enumColumns.has(columnName)) {
-        detailsFields.push(`  ${camelFieldName}: ${validationSchema.details},`);
       }
     }
 
@@ -338,7 +332,7 @@ class CrudValidationsGenerator {
       createSchema: createFields.join('\n'),
       updateStatusSchema: this.generateUpdateStatusFields(mainModelName),
       listSchema: listFilters.join('\n'),
-      detailsSchema: detailsFields.join('\n'),
+      detailsSchema: '', // Solo dejar comentario
       updateSchema: updateFields.join('\n'),
     };
   }
@@ -352,8 +346,8 @@ class CrudValidationsGenerator {
       const foreignKeyInfo = this.foreignKeyReferences.get(columnName);
       return {
         create: `databaseSchemas.idSchema('${camelFieldName}', 'body', { model: ${foreignKeyInfo.modelName}, required: ${isRequired} })`,
-        list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false })`,
-        details: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false })`,
+        list: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: ${foreignKeyInfo.modelName}, required: false })`,
+        details: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: ${foreignKeyInfo.modelName}, required: false })`,
       };
     }
 
@@ -514,18 +508,9 @@ class CrudValidationsGenerator {
   shouldIncludeInListFilters(columnName, columnDetails) {
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
 
-    // Include enums
+    // Solo incluir enums y foreign keys
     if (columnType.includes('enum')) return true;
-
-    // Include foreign keys
     if (this.foreignKeyReferences.has(columnName)) return true;
-
-    // Include boolean-like fields
-    const fieldName = (columnDetails.COLUMN_NAME || '').toLowerCase();
-    if (fieldName.endsWith('_is') || fieldName.startsWith('is_')) return true;
-
-    // Include date fields
-    if (columnType.includes('date') || columnType.includes('timestamp')) return true;
 
     return false;
   }
@@ -570,12 +555,8 @@ class CrudValidationsGenerator {
     return content;
   }
 
-  insertDetailsSchema(content, detailsFields) {
-    if (detailsFields) {
-      const placeholder = '  // Add any additional path parameters here';
-      const replacement = `${detailsFields}\n  // Add any additional path parameters here`;
-      return content.replace(placeholder, replacement);
-    }
+  insertDetailsSchema(content) {
+    // No insertar campos adicionales, solo dejar el comentario
     return content;
   }
 
@@ -593,7 +574,7 @@ class CrudValidationsGenerator {
 
       const namesParts = tableName.split('_');
       const pluralName = namesParts.slice(1).join('_');
-      const fileName = `${toCamelCase(pluralName)}.validations.js`;
+      const fileName = `${toCamelCase(pluralName)}.schemas.js`;
       const filePath = path.join(validationsDir, fileName);
 
       fs.writeFileSync(filePath, validationsContent, 'utf-8');
