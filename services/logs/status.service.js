@@ -23,7 +23,7 @@ class StatusServices {
         responsible: user,
         tableModel: model,
         rowId,
-        type,
+        type: type ? 'reactivation' : 'deactivation',
       },
       { transaction }
     );

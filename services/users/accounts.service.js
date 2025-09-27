@@ -1,9 +1,16 @@
 // =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const { Op } = require('sequelize');
+
+// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const CreationServices = require('../logs/creation.service');
 const sequelize = require('../../config/database/connection');
 const { wrapLogging } = require('../../helpers/debug.helper');
+const { bulkToggleSoftDelete } = require('../../helpers/database.helper');
+const StatusServices = require('../logs/status.service');
 
 // =============================================================================
 // MODELS
@@ -27,8 +34,18 @@ class AccountServices {
     });
   }
 
-  static async updateStatus(_ids, _active) {
-    // TODO: Implement status update
+  static async updateStatus(user, ids, active) {
+    return await sequelize.transaction(async (transaction) => {
+      const result = await bulkToggleSoftDelete(usrAccounts, { id: { [Op.in]: ids } }, active, { transaction });
+
+      const logsPromises = ids.map(async (id) => {
+        return await StatusServices.createLog(user, usrAccounts, id, active, { transaction });
+      });
+
+      await Promise.all(logsPromises);
+
+      return result;
+    });
   }
 }
 
