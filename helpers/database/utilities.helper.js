@@ -201,7 +201,7 @@ const search = async (Model, searchParams = {}, queryOptions = {}) => {
  * @param {Object} optionsQuery - Query options including includes, where, etc.
  * @returns {Promise<Object>} Search results with enhanced metadata
  */
-const setSearch = async (Model, searchString, optionsQuery = {}) => {
+const setSearchQuery = async (Model, searchString, optionsQuery = {}) => {
   try {
     if (!isValidModel(Model)) {
       throw new Error('Invalid Sequelize model provided');
@@ -539,7 +539,7 @@ const bulkToggleSoftDelete = async (Model, where, active, options = {}) => {
 module.exports = {
   // Search utilities
   search,
-  setSearch,
+  setSearchQuery,
   mapSearchOperator,
   buildNestedSearchConditions,
 
