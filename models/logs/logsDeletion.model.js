@@ -45,6 +45,12 @@ const Schema = {
     comment: 'Name of the affected table with the name of its respective model.',
     field: 'table_model',
   },
+  justification: {
+    type: DataTypes.TEXT('long'),
+    allowNull: true,
+    defaultValue: null,
+    comment: 'Detailed justification for why the record was permanently deleted.',
+  },
   deletedAt: {
     type: DataTypes.DATE,
     allowNull: false,
