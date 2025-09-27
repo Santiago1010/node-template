@@ -7,10 +7,10 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const CreationServices = require('../logs/creation.service');
+const StatusServices = require('../logs/status.service');
 const sequelize = require('../../config/database/connection');
 const { wrapLogging } = require('../../helpers/debug.helper');
 const { bulkToggleSoftDelete } = require('../../helpers/database.helper');
-const StatusServices = require('../logs/status.service');
 
 // =============================================================================
 // MODELS
