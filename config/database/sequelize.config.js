@@ -8,6 +8,8 @@ const dbConfig = {
   dialect: database.dialect,
   port: database.port,
   dialectOptions: { decimalNumbers: true, timezone: '-05:00' },
+  charset: 'utf8mb4',
+  collate: 'utf8mb4_general_ci',
   timezone: '-05:00',
   pool: { max: 5, min: 0, idle: 40 * 10000 },
   logging: false,

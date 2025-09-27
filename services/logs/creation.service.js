@@ -2,8 +2,7 @@
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const sequelize = require('../../config/database/connection');
-const { paginateModel } = require('../../helpers/database/pagination.helper');
-const { setSearchQuery } = require('../../helpers/database/utilities.helper');
+const { paginateModel, setSearchQuery } = require('../../helpers/database.helper');
 
 const { logsCreation } = sequelize.models;
 
