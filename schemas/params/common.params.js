@@ -123,6 +123,16 @@ const fieldsFilter = [
   },
 ];
 
+const identifierParam = [
+  {
+    name: 'identifier',
+    in: 'path',
+    description: '**[Required]** Unique identifier of the record.',
+    schema: { type: 'integer' },
+    required: true,
+  },
+];
+
 /**
  * Detail Endpoint Parameters
  * @description Parameters for single resource retrieval endpoints
@@ -138,13 +148,7 @@ const fieldsFilter = [
  * GET /resources/123?fields=id,name&includeHistory=true
  */
 const detailsParams = [
-  {
-    name: 'identifier',
-    in: 'path',
-    description: '**[Required]** Unique identifier of the record.',
-    schema: { type: 'integer' },
-    required: true,
-  },
+  ...identifierParam,
   ...fieldsFilter,
   {
     name: 'includeHistory',
@@ -246,6 +250,8 @@ module.exports = {
    * @type {Array<Object>}
    */
   fieldsFilter,
+
+  identifierParam,
 
   /**
    * Single resource retrieval parameters

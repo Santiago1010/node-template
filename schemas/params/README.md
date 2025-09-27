@@ -1,46 +1,79 @@
-# Parameter Schemas (`/schemas/params`)
+# API Request Parameters
 
-This directory is dedicated to defining standardized parameter schemas for Swagger/OpenAPI specifications. Its primary goal is to ensure consistency and reusability in documenting and validating query parameters across different API endpoints.
+This document explains the reusable parameters used for building API requests. These parameters help standardize how you can filter, paginate (view data in pages), and select the data you want to receive from the API.
 
-## Structure and Files
+---
 
-The files in this directory define reusable parameters for common functionalities such as pagination, filtering, and searching.
+## `common.params.js`
 
-### `common.params.js`
+This file defines a set of common parameters that can be reused across different API endpoints. This ensures consistency and saves time.
 
-This file provides a set of common and grouped parameters used across multiple endpoints.
+### `idsFilter`
+-   **Purpose:** Filters a list of items to get only the ones matching specific IDs.
+-   **How to use:** Provide a comma-separated list of IDs.
+-   **Example:** `GET /api/users?ids=1,5,10` - This will return users with IDs 1, 5, and 10.
 
-- **`idsFilter`**: Allows filtering records by a comma-separated list of IDs.
-- **`fieldsFilter`**: Specifies which fields of a resource should be returned in the response.
-- **`detailsParams`**: A set of parameters for endpoints retrieving a single resource, including the path identifier and the option to include history.
-- **`activeParams`**: Filters records based on their status (active or inactive).
-- **`activeBody`**: A schema definition for the `active` field in request bodies, used to mark a record as active or inactive.
-- **`commonListParams`**: Groups pagination parameters along with `ids` and `fields` filters for listing endpoints.
+### `fieldsFilter`
+-   **Purpose:** Specifies which fields (or properties) of an object you want to receive in the response. This is useful for reducing the amount of data transferred.
+-   **How to use:** Provide a comma-separated list of field names.
+-   **Example:** `GET /api/users/1?fields=name,email` - This will return only the `name` and `email` of the user with ID 1.
 
-### `pagination.params.js`
+### `identifierParam`
+-   **Purpose:** A required parameter used in the URL path to uniquely identify a single resource.
+-   **How to use:** It's part of the URL itself.
+-   **Example:** `GET /api/users/123` - Here, `123` is the identifier.
 
-Defines standard parameters for paginating results in listing endpoints.
+### `detailsParams`
+-   **Purpose:** A group of parameters for fetching a single item. It combines `identifierParam`, `fieldsFilter`, and an option to include historical data.
+-   **`includeHistory`**: If set to `true`, the response will include a history of changes for the requested item.
+-   **Example:** `GET /api/products/42?fields=name,price&includeHistory=true`
 
-- **`limit`**: Sets the maximum number of records to return per page.
-- **`page`**: Specifies the page number to retrieve.
+### `activeParams`
+-   **Purpose:** Filters items based on their active or inactive status.
+-   **How to use:** Set the `active` parameter to `true` or `false`.
+-   **Example:** `GET /api/users?active=true` - This will return only active users.
 
-Additionally, this file imports and expands search parameters from `search.params.js`.
+### `activeBody`
+-   **Purpose:** Used when creating or updating an item to set its active status.
+-   **How to use:** Include the `active` field in the JSON body of your `POST` or `PUT` request.
+-   **Example:** `POST /api/users` with body `{"name": "New User", "active": true}`
 
-### `search.params.js`
+### `commonListParams`
+-   **Purpose:** A convenient bundle of parameters for endpoints that return a list of items. It includes pagination (`limit`, `page`), `idsFilter`, and `fieldsFilter`.
 
-Contains the definition of the free-text search parameter.
+---
 
-- **`search`**: Allows users to perform a text search across a resource’s fields. The search implementation leverages the `search` function from the `@helpers/database/utilities.helper.js` helper.
+## `dynamic.params.js`
 
-## Usage
+This file contains a special function to help generate standardized documentation for API parameters. It's mostly for internal use to keep the API documentation consistent.
 
-These parameters are designed to be imported and used in the `parameters` section of the Swagger/OpenAPI documentation for each endpoint, promoting code reuse and API standardization.
+### `setReference(required, description, tag, operationId)`
+-   **Purpose:** Creates a formatted reference string for API documentation, including whether a parameter is required and a link to more details.
+-   **Example (internal use):** `setReference(true, "User ID", "Users", "getUserById")`
 
-```javascript
-// Example usage in endpoint documentation
-const { commonListParams } = require('@schemas/params/common.params');
+---
 
-// ...
-  parameters: [...commonListParams],
-// ...
-```
+## `pagination.params.js`
+
+This file defines parameters used for pagination, which is the process of splitting a large set of results into smaller, manageable pages.
+
+### `limit`
+-   **Purpose:** Specifies the maximum number of items to return in a single page.
+-   **How to use:** A number, typically between 1 and 100.
+-   **Example:** `GET /api/articles?limit=10` - This will return up to 10 articles.
+
+### `page`
+-   **Purpose:** Specifies which page of results you want to retrieve.
+-   **How to use:** A number, starting from 1. Must be used with `limit`.
+-   **Example:** `GET /api/articles?limit=10&page=2` - This will return the second page of articles (items 11-20).
+
+---
+
+## `search.params.js`
+
+This file defines a parameter for performing a text-based search across all fields of the items.
+
+### `search`
+-   **Purpose:** Filters the list of items to only those that contain the provided search term in any of their fields. The search is case-insensitive.
+-   **How to use:** Provide any string of text.
+-   **Example:** `GET /api/products?search=laptop` - This will return all products that have the word "laptop" in their name, description, or any other text field.

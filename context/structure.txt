@@ -9,38 +9,48 @@
 ├── .commitlintrc.js
 ├── config
 │   ├── cache
-│   │   └── redisClient.js
+│   │   ├── README.md
+│   │   └── redis.config.js
 │   ├── context
-│   │   └── index.js
+│   │   ├── index.js
+│   │   └── README.md
 │   ├── database
 │   │   ├── connection.js
-│   │   └── index.js
+│   │   ├── README.md
+│   │   └── sequelize.config.js
 │   ├── env
 │   │   ├── index.js
+│   │   ├── README.md
 │   │   └── schema.js
 │   ├── i18n
 │   │   ├── index.js
-│   │   └── locales
-│   │       ├── en.json
-│   │       └── es.json
+│   │   ├── locales
+│   │   │   ├── en.json
+│   │   │   └── es.json
+│   │   └── README.md
+│   ├── README.md
 │   ├── security
 │   │   ├── cookies.config.js
 │   │   ├── cors.config.js
 │   │   ├── helmet.config.js
-│   │   └── rateLimit.config.js
+│   │   ├── rateLimit.config.js
+│   │   └── README.md
 │   └── tools
 │       ├── logger.config.js
-│       └── morgan.config.js
+│       ├── morgan.config.js
+│       └── README.md
 ├── context
 │   └── structure.txt
 ├── controllers
 │   ├── auth
 │   │   └── sessionWeb.controller.js
 │   └── config
+├── .debug
 ├── docker-compose.yml
 ├── Dockerfile
 ├── .dockerignore
 ├── docs
+│   └── paths
 ├── .editorconfig
 ├── .env
 ├── .env.example
@@ -56,7 +66,6 @@
 ├── helpers
 │   ├── aws
 │   │   └── s3.helper.js
-│   ├── cache.helper.js
 │   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── crud.helper.js
@@ -98,6 +107,7 @@
 ├── migrations
 ├── models
 │   ├── index.js
+│   ├── README.md
 │   └── users
 │       └── usrAccounts.model.js
 ├── package.json
@@ -113,6 +123,7 @@
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
+│   │   ├── dynamic.params.js
 │   │   ├── pagination.params.js
 │   │   ├── README.md
 │   │   └── search.params.js
@@ -122,8 +133,8 @@
 │       ├── pagination.schema.js
 │       └── search.schema.js
 ├── scripts
-│   ├── config.js
 │   ├── createModels.script.js
+│   ├── generateCrudDocs.script.js
 │   └── generate-rsa-keys.sh
 ├── seeders
 ├── .sequelizerc
@@ -132,6 +143,8 @@
 │   │   └── sessionWeb.service.js
 │   └── config
 ├── templates
+│   ├── docs
+│   │   └── crud.template.js
 │   ├── emails
 │   ├── models
 │   │   ├── model.template.js
@@ -144,16 +157,9 @@
 │   ├── setup.js
 │   └── unit
 │       ├── helpers
-│       │   ├── cache
-│       │   │   └── cache.test.js
 │       │   ├── constants
 │       │   ├── context
-│       │   │   ├── core.test.js
-│       │   │   ├── custom-data.test.js
-│       │   │   ├── debugging-validation.test.js
-│       │   │   ├── getters.test.js
-│       │   │   ├── permissions-roles.test.js
-│       │   │   └── setters.test.js
+│       │   │   └── context.test.js
 │       │   ├── crud
 │       │   │   ├── database.test.js
 │       │   │   ├── filesystem.test.js
@@ -161,7 +167,6 @@
 │       │   ├── debug
 │       │   │   ├── conditional-logging.test.js
 │       │   │   ├── core.test.js
-│       │   │   ├── error-and-device.test.js
 │       │   │   └── permanent-logging.test.js
 │       │   ├── docs
 │       │   │   └── docs.test.js
@@ -207,4 +212,4 @@
     ├── extensions.json
     └── settings.json
 
-68 directories, 140 files
+69 directories, 144 files

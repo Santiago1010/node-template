@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "",
   "keywords": [
     "template",
@@ -31,8 +31,9 @@
   "type": "commonjs",
   "main": "index.js",
   "bin": {
-    "create-models": "./scripts/createModels.script.js",
-    "generate-models": "./scripts/createModels.script.js"
+    "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
+    "generate-models": "./scripts/createModels.script.js",
+    "generate-crud-validations": "./scripts/generateCrudValidations.script.js"
   },
   "config": {
     "commitizen": {

@@ -1,5 +1,63 @@
 
 
+## [1.7.0] - 2025-09-27
+
+**Released:** 2025-09-27 13:14:37 UTC
+
+### [Configuration Documentation and Database Refactor](https://github.com/Santiago1010/node-template/pull/39)
+
+#### 📋 Summary
+This PR adds comprehensive documentation for the configuration modules, refactors the database connection setup for simplicity, introduces logging models and services, enhances CRUD helpers with advanced search capabilities, and adds code generation scripts for automated documentation and validation creation.
+
+#### 🔍 What Changed
+### Added
+- README.md files for all configuration modules (cache, context, database, env, i18n, security, tools)
+- New logging models (logsCreation, logsDeletion, logsStatuses, logsUpdate)
+- Logging services for creation, deletion, status tracking, and updates
+- Advanced search functionality with Elasticsearch-like filtering
+- Code generation scripts for CRUD documentation and validations
+- Dynamic parameter reference generator for API documentation
+
+### Changed
+- Refactored database connection configuration for simplicity and clarity
+- Updated CRUD helper to fix database connection initialization
+- Enhanced validation helpers with model-based value validation
+- Improved parameter schemas with better documentation
+
+### Fixed
+- Database connection initialization in CRUD helper
+- Test configuration for database unit tests
+
+### Removed
+- Complex database configuration index file in favor of simpler setup
+
+#### 📝 Additional Notes
+The refactor simplifies database configuration while maintaining all existing functionality. New logging models provide comprehensive audit trails for data operations. The code generation scripts will significantly speed up development of new API endpoints.
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Commits: 10
+
+**Commits:**
+- [`cfc8c83`](https://github.com/Santiago1010/node-template/commit/cfc8c833690230bbe0662656b7329054cbcea152) docs(config): add comprehensive configuration module documentation
+- [`dfbadce`](https://github.com/Santiago1010/node-template/commit/dfbadce4db999ac362271009fcfe39c52515727d) feat(docs): enhance CRUD documentation generator with foreign key detection
+- [`5492a15`](https://github.com/Santiago1010/node-template/commit/5492a15e0d3932117dd46e883a317d09d79a9d9f) feat(validations): add comprehensive CRUD validation schemas and helper
+- [`4e8f7c9`](https://github.com/Santiago1010/node-template/commit/4e8f7c95b18b63d0ec84b4052cb33779025cf5d8) feat(scripts): add CRUD validation schema generator
+- [`9626eaa`](https://github.com/Santiago1010/node-template/commit/9626eaa0218cbad1586bebb16fcd4716ae762769) chore(bin): add CRUD validation generator to package binaries
+- [`966cd2c`](https://github.com/Santiago1010/node-template/commit/966cd2ce6d784924a111bd49fc31c7f81ec3edf1) fix(validations): correct model name generation and schema structure
+- [`af3608c`](https://github.com/Santiago1010/node-template/commit/af3608cc547260eff4e971f3555b108fcd810227) feat(validations): add dynamic schema naming based on table names
+- [`174594d`](https://github.com/Santiago1010/node-template/commit/174594d266c372218d5c863547602162ac89dcdf) fix(validations): correct update schema generation and naming
+- [`63f37d8`](https://github.com/Santiago1010/node-template/commit/63f37d8171b259544cf68c748957933f0bec16d2) fix(validations): correct update schema generation and naming
+- [`4a98a77`](https://github.com/Santiago1010/node-template/commit/4a98a773ce78afd36f89eec29b518890eda13fb8) fix(validations): correct output directory structure and file naming
+
+---
+
+
+
 ## [1.6.1] - 2025-09-16
 
 **Released:** 2025-09-16 19:55:32 UTC

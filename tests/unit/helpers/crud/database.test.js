@@ -1,15 +1,24 @@
+const sequelize = require('../../../../config/database/connection');
 const CrudHelper = require('../../../../helpers/crud.helper');
-const { sequelize } = require('../../../../config/database/connection');
 
 // Mock sequelize query method
-jest.mock('../../../../config/database/connection', () => ({
-  sequelize: {
-    query: jest.fn(),
+jest.mock('../../../../config/database/connection', () => {
+  const mockSequelize = {
+    authenticate: jest.fn().mockResolvedValue(true),
+    query: jest.fn().mockResolvedValue([[], []]),
+    close: jest.fn().mockResolvedValue(),
     config: {
       database: 'test_db',
+      host: 'localhost',
+      port: 3306,
     },
-  },
-}));
+    options: {
+      dialect: 'mysql',
+    },
+  };
+
+  return mockSequelize;
+});
 
 describe('Crud Helper - Database Operations', () => {
   let crudHelper;
