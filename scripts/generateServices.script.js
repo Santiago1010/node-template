@@ -139,7 +139,7 @@ class CrudServicesGenerator {
         try {
           const referencedTable = await this.getReferencedTable(tableData.tableName, columnName);
           if (referencedTable) {
-            const modelName = this.getModelNameFromTable(referencedTable);
+            const modelName = toCamelCase(referencedTable);
             this.foreignKeyReferences.set(columnName, {
               referencedTable,
               modelName,
@@ -252,9 +252,7 @@ class CrudServicesGenerator {
   }
 
   getModelNameFromTable(tableName) {
-    const parts = tableName.split('_');
-    const modelParts = parts.slice(1);
-    return this.capitalize(toCamelCase(modelParts.join('_')));
+    return toCamelCase(tableName);
   }
 
   async generateService(tableData, singularName, pluralName) {
@@ -269,7 +267,7 @@ class CrudServicesGenerator {
 
       // Get model names and method names
       const mainModelName = this.getModelNameFromTable(tableData.tableName);
-      const serviceName = `${this.capitalize(singleName)}Services`;
+      const serviceName = `${this.capitalize(singularName)}Services`;
       const singleName = toCamelCase(singularName);
 
       // Generate method names
@@ -283,6 +281,7 @@ class CrudServicesGenerator {
 
       // Generate filters for list method
       const filters = this.generateFilters(tableData);
+      const filterConditions = this.generateFilterConditions(tableData);
 
       // Replace template placeholders
       serviceContent = this.replaceTemplatePlaceholders(serviceContent, {
@@ -293,6 +292,7 @@ class CrudServicesGenerator {
         fields: fields,
         includes: includes,
         filters: filters,
+        filterConditions: filterConditions,
       });
 
       return serviceContent;
@@ -362,6 +362,19 @@ class CrudServicesGenerator {
     return filterFields.join(', ');
   }
 
+  generateFilterConditions(tableData) {
+    const filterConditions = [];
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      if (this.shouldIncludeInFilters(columnName, columnDetails)) {
+        const camelFieldName = toCamelCase(columnName);
+        filterConditions.push(`if (${camelFieldName}) optionsQuery.where.${camelFieldName} = ${camelFieldName};`);
+      }
+    }
+
+    return filterConditions.join('\n    ');
+  }
+
   shouldIncludeInFilters(columnName, columnDetails) {
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
 
@@ -384,7 +397,8 @@ class CrudServicesGenerator {
   }
 
   replaceTemplatePlaceholders(template, replacements) {
-    const { mainModel, serviceName, singleName, methodNames, fields, includes, filters } = replacements;
+    const { mainModel, serviceName, singleName, methodNames, fields, includes, filters, filterConditions } =
+      replacements;
 
     template = template.replace(/\{\{MAIN_MODEL\}\}/g, mainModel);
     template = template.replace(/\{\{SERVICE_NAME\}\}/g, serviceName);
@@ -406,6 +420,9 @@ class CrudServicesGenerator {
     // Includes and filters
     template = template.replace(/\{\{INCLUDES\}\}/g, includes);
     template = template.replace(/\{\{FILTERS\}\}/g, filters);
+
+    // Replace the filters placeholder with actual filter conditions
+    template = template.replace(/\/\/ Set FILTERS here/g, filterConditions);
 
     return template;
   }

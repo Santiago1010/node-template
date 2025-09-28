@@ -77,7 +77,9 @@ class {{SERVICE_NAME}} {
   static async {{DETAILS_METHOD}}(identifier, { fields = [], includeHistory = false } = {}) {
     const optionsQuery = {
       where: { [Op.or]: [{ id: identifier }] },
-      include: [],
+      include: [
+        {{INCLUDES}}
+      ],
       paranoid: false,
       subQuery: false,
       logging: wrapLogging('[{{SERVICE_NAME}}.{{DETAILS_METHOD}}] '),
