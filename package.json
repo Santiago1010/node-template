@@ -33,7 +33,8 @@
   "bin": {
     "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
     "generate-models": "./scripts/createModels.script.js",
-    "generate-crud-validations": "./scripts/generateCrudValidations.script.js"
+    "generate-crud-validations": "./scripts/generateCrudValidations.script.js",
+    "generate-services": "./scripts/generateServices.script.js"
   },
   "config": {
     "commitizen": {
