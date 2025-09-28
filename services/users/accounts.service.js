@@ -83,7 +83,7 @@ class AccountServices {
 
     const account = await usrAccounts.findOne(optionsQuery);
 
-    if (includeHistory) account.dataValues.history = true;
+    if (includeHistory) account.dataValues.history = await LogServices.getFullLogsHistory(account);
 
     return account;
   }

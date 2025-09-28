@@ -190,6 +190,121 @@ class LogServices {
 
     return compositeKey;
   }
+
+  /**
+   * Returns the full history of logs related to a specific Sequelize instance.
+   *
+   * - Accepts an instance (returned from Model.findOne / findByPk / etc.).
+   * - Optionally filters by types (creation, deletion, update, status).
+   * - Combines results from the four log tables into a single array,
+   *   normalizes each entry with `logType` and `logDate`, sorts by date
+   *   (newest-to-oldest by default) and applies pagination after merging.
+   *
+   * NOTE: This method expects a single-column primary key. If your models
+   * use composite primary keys, this method will throw an error.
+   *
+   * @param {Object} instance - Sequelize model instance (e.g. await Model.findOne(...)).
+   * @param {Object} [options]
+   * @param {number|null} [options.limit=null] - Number of items per page (applied AFTER merging + sorting).
+   * @param {number} [options.page=1] - Page number (applied only when `limit` is provided).
+   * @param {Array<string>} [options.types=['creation','deletion','update','status']] - Which log types to include.
+   * @param {string} [options.order='DESC'] - 'DESC' (newest first) or 'ASC' (oldest first).
+   * @returns {Promise<Array<Object>>} - Array of plain objects (logs) ordered by date.
+   */
+  static async getFullLogsHistory(
+    instance,
+    { limit = null, page = 1, types = ['creation', 'deletion', 'update', 'status'], order = 'DESC' } = {}
+  ) {
+    if (!instance) throw new Error('An instance is required to fetch its logs.');
+
+    const Model = instance.constructor;
+    const primaryKeys = Model.primaryKeyAttributes || [];
+
+    if (primaryKeys.length !== 1) {
+      throw new Error('getFullLogsHistory does not support composite primary keys.');
+    }
+
+    const primaryKeyName = primaryKeys[0];
+    const id = instance[primaryKeyName];
+
+    if (typeof id === 'undefined' || id === null) {
+      throw new Error('Unable to determine primary key value from the provided instance.');
+    }
+
+    // Model identity (used to ensure logs belong to the same model)
+    const modelName = Model.name;
+    const tableName = typeof Model.getTableName === 'function' ? Model.getTableName() : null;
+
+    // Available log models (assumes these exist in the same sequelize instance scope)
+    const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = sequelize.models;
+
+    const wanted = new Set((types || []).map((t) => String(t).toLowerCase()));
+
+    const queries = [];
+    if (wanted.has('creation') && logsCreation) queries.push(logsCreation.findAll({ where: { rowId: id } }));
+    if (wanted.has('deletion') && logsDeletion) queries.push(logsDeletion.findAll({ where: { rowId: id } }));
+    if (wanted.has('update') && logsUpdate) queries.push(logsUpdate.findAll({ where: { rowId: id } }));
+    if (wanted.has('status') && logsStatuses) queries.push(logsStatuses.findAll({ where: { rowId: id } }));
+
+    // Run queries in parallel
+    const results = await Promise.all(queries);
+
+    // Flatten and convert to plain objects
+    const flat = results.reduce((acc, arr) => acc.concat(arr.map((r) => r.get({ plain: true }))), []);
+
+    // Filter by model identity (the logs store tableModel as JSON with { tableName, modelName })
+    const filtered = flat.filter((log) => {
+      if (!log.tableModel) return false;
+      const lm = log.tableModel;
+      return lm.modelName === modelName || (tableName && lm.tableName === tableName);
+    });
+
+    // Normalize each record to guarantee a single sortable date field and a logType
+    const normalized = filtered.map((log) => {
+      let logType = 'unknown';
+      let logDate = null;
+
+      // Identify type and date by presence of known attributes
+      if (Object.prototype.hasOwnProperty.call(log, 'createdAt') && Object.prototype.hasOwnProperty.call(log, 'data')) {
+        logType = 'creation';
+        logDate = log.createdAt;
+      } else if (Object.prototype.hasOwnProperty.call(log, 'deletedAt')) {
+        logType = 'deletion';
+        logDate = log.deletedAt;
+      } else if (
+        Object.prototype.hasOwnProperty.call(log, 'oldData') &&
+        Object.prototype.hasOwnProperty.call(log, 'newData')
+      ) {
+        logType = 'update';
+        logDate = log.updatedAt || log.createdAt || null;
+      } else if (Object.prototype.hasOwnProperty.call(log, 'type')) {
+        logType = 'status';
+        // logsStatuses uses updatedAt to store the time of the change
+        logDate = log.updatedAt || log.createdAt || null;
+      } else {
+        // fallback to any known timestamp fields
+        logDate = log.updatedAt || log.createdAt || log.deletedAt || null;
+      }
+
+      return Object.assign({}, log, { logType, logDate });
+    });
+
+    // Sort by logDate
+    normalized.sort((a, b) => {
+      const ta = a.logDate ? new Date(a.logDate).getTime() : 0;
+      const tb = b.logDate ? new Date(b.logDate).getTime() : 0;
+
+      return String(order).toUpperCase() === 'ASC' ? ta - tb : tb - ta;
+    });
+
+    // If pagination requested, apply it AFTER sorting (so pages reflect the merged timeline)
+    if (limit && Number(limit) > 0) {
+      const start = (Number(page) - 1) * Number(limit);
+      return normalized.slice(start, start + Number(limit));
+    }
+
+    return normalized;
+  }
 }
 
 module.exports = LogServices;
