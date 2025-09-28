@@ -53,7 +53,9 @@ class {{SERVICE_NAME}} {
   static async {{LIST_METHOD}}({ limit, page, search, ids = [], fields = [], active, {{FILTERS}} } = {}) {
     const optionsQuery = {
       where: {},
-      include: [{{INCLUDES}}],
+      include: [
+        {{INCLUDES}}
+      ],
       paranoid: false,
       subQuery: false,
       logging: wrapLogging('[{{SERVICE_NAME}}.{{LIST_METHOD}}] '),
@@ -64,6 +66,8 @@ class {{SERVICE_NAME}} {
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
+
+    // Set FILTERS here
 
     if (search) optionsQuery.where = setSearchQuery({{MAIN_MODEL}}, search, optionsQuery);
 

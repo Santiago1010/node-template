@@ -12,7 +12,7 @@ const { performance } = require('perf_hooks');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const CrudHelper = require('../helpers/crud.helper');
-const { PREFIXES } = require('../helpers/constants.helper');
+const { PATHS, PREFIXES } = require('../helpers/constants.helper');
 const { cerror } = require('../helpers/debug.helper');
 const { toCamelCase } = require('../helpers/strings.helper');
 
@@ -61,8 +61,8 @@ class CrudServicesGenerator {
 
     if (args.length !== REQUIRED_ARGS) {
       console.error(`\n❌ Error: Invalid number of arguments.`);
-      console.error(`📋 Usage: npx generate-crud-services <table_name> <singular_name>`);
-      console.error(`📝 Example: npx generate-crud-services usr_users user`);
+      console.error(`📋 Usage: npx generate-services <table_name> <singular_name>`);
+      console.error(`📝 Example: npx generate-services usr_users user`);
       process.exit(1);
     }
 
@@ -269,7 +269,7 @@ class CrudServicesGenerator {
 
       // Get model names and method names
       const mainModelName = this.getModelNameFromTable(tableData.tableName);
-      const serviceName = `${this.capitalize(pluralName)}Services`;
+      const serviceName = `${this.capitalize(singleName)}Services`;
       const singleName = toCamelCase(singularName);
 
       // Generate method names
@@ -412,12 +412,12 @@ class CrudServicesGenerator {
 
   async saveService(serviceContent, tableName, groupName) {
     try {
-      const servicesDir = path.resolve(__dirname, '../services', groupName);
+      const servicesDir = path.resolve(PATHS.SERVICES, groupName);
       if (!fs.existsSync(servicesDir)) fs.mkdirSync(servicesDir, { recursive: true });
 
       const namesParts = tableName.split('_');
       const pluralName = namesParts.slice(1).join('_');
-      const fileName = `${toCamelCase(pluralName)}.service.js`;
+      const fileName = `${toCamelCase(pluralName)}.services.js`;
       const filePath = path.join(servicesDir, fileName);
 
       fs.writeFileSync(filePath, serviceContent, 'utf-8');
