@@ -16,6 +16,12 @@ const Schema = {
     unique: 'PRIMARY',
     comment: 'Unique primary key to identify each creation log.',
   },
+  rowId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'ID of the affected record.',
+    field: 'row_id',
+  },
   responsible: {
     type: DataTypes.JSON,
     allowNull: false,

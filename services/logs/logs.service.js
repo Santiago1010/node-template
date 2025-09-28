@@ -18,7 +18,10 @@ class LogServices {
    * @returns {Promise<Object>} - Newly created log entry.
    */
   static async recordCreationLog(user, model, createdData, { transaction } = {}) {
-    return await logsCreation.create({ responsible: user, tableModel: model, createdData }, { transaction });
+    return await logsCreation.create(
+      { rowId: LogServices.getPrimaryKeyValue(createdData), responsible: user, tableModel: model, createdData },
+      { transaction }
+    );
   }
 
   /**
@@ -50,6 +53,7 @@ class LogServices {
   static async recordDeletionLog(user, model, deletedData, { justification, transaction } = {}) {
     return await logsDeletion.create(
       {
+        rowId: LogServices.getPrimaryKeyValue(deletedData),
         responsible: user,
         tableModel: model,
         oldData: deletedData,
@@ -92,9 +96,9 @@ class LogServices {
   static async recordStatusChangeLog(user, model, rowId, type, { transaction } = {}) {
     return await logsStatuses.create(
       {
+        rowId,
         responsible: user,
         tableModel: model,
-        rowId,
         type: type ? 'reactivation' : 'deactivation',
       },
       { transaction }
@@ -133,6 +137,7 @@ class LogServices {
   static async recordUpdateLog(user, model, oldData, newData, { transaction } = {}) {
     return await logsUpdate.create(
       {
+        rowId: LogServices.getPrimaryKeyValue(newData),
         responsible: user,
         tableModel: model,
         oldData,
@@ -159,6 +164,31 @@ class LogServices {
     if (search) optionsQuery.where = setSearchQuery(logsUpdate, search, optionsQuery);
 
     return await paginateModel(logsUpdate, limit, page, optionsQuery);
+  }
+
+  // =============================== HELPERS =============================== //
+  /**
+   * Returns the primary key value of a Sequelize model instance.
+   * If the model has a single primary key, it returns the value of that key.
+   * If the model has a composite primary key, it returns an object with the key names as properties and the corresponding values.
+   * @param {Object} instance - Sequelize model instance.
+   * @returns {Object|number|string|boolean} Primary key value.
+   */
+  static getPrimaryKeyValue(instance) {
+    const Model = instance.constructor;
+    const primaryKeys = Model.primaryKeyAttributes;
+
+    if (primaryKeys.length === 1) {
+      const primaryKeyName = primaryKeys[0];
+      return instance[primaryKeyName];
+    }
+
+    const compositeKey = {};
+    for (const key of primaryKeys) {
+      compositeKey[key] = instance[key];
+    }
+
+    return compositeKey;
   }
 }
 
