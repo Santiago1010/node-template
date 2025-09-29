@@ -8,6 +8,7 @@
 //
 // Usage: Destructure required constants from the imported object.
 // Example: const { PATHS, MODES } = require('~/helpers/constants.helper.js');
+//
 // =============================================================================
 
 /**
