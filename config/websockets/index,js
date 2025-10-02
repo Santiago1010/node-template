@@ -140,6 +140,9 @@ class WebSocketManager {
 
           // Authentication handling - first message must be AUTH
           if (data.type === 'AUTH' && data.idAccount) {
+            // TODO: Get device.
+            // TODO: Check that the account is logged in on the device.
+
             this.registerClient(data.idAccount, ws);
             ws.idAccount = data.idAccount; // Attach user ID to connection for cleanup
 
@@ -147,7 +150,7 @@ class WebSocketManager {
             ws.send(
               JSON.stringify({
                 type: 'AUTH_SUCCESS',
-                message: 'Authenticated successfully ✅',
+                message: 'Authenticated successfully ✅', // TODO: Add timestamp to Websocket connection.
               })
             );
           }
