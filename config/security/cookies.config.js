@@ -24,7 +24,7 @@
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { DEVICE_TYPES } = require('../../helpers/constants.helper');
-const { isDevelopmentMode, detectDeviceType } = require('../../helpers/debug.helper');
+const { isDevelopmentMode } = require('../../helpers/debug.helper');
 
 // =============================================================================
 // COOKIE CONFIGURATION GENERATOR
@@ -148,29 +148,17 @@ const getCookieConfiguration = ({
  * @param {Object} res - Express response object
  * @param {Function} next - Express next function
  */
-const deviceAwareCookieMiddleware = (req, res, next) => {
-  // Detect device type from user agent or custom headers
-  const deviceType = detectDeviceType(req);
-
-  // Store device type in request for later use
-  req.deviceType = deviceType;
-
+const deviceAwareCookieMiddleware = (_, res, next) => {
   // Add cookie setter method with device-aware configuration
   res.setDeviceAwareCookie = (name, value, options = {}) => {
-    const config = getCookieConfiguration({
-      deviceType,
-      ...options,
-    });
+    const config = getCookieConfiguration({ ...options });
 
     res.cookie(name, value, config);
   };
 
   // Add cookie clearer with device-aware configuration
   res.clearDeviceAwareCookie = (name, options = {}) => {
-    const config = getCookieConfiguration({
-      deviceType,
-      ...options,
-    });
+    const config = getCookieConfiguration({ ...options });
 
     // Override for clear operation
     config.maxAge = 0;
@@ -191,13 +179,11 @@ const deviceAwareCookieMiddleware = (req, res, next) => {
  * @param {Object} req - Express request object
  * @returns {boolean} Whether to use tokens instead of cookies
  */
-const shouldUseTokensInstead = (req) => {
-  const deviceType = req.deviceType || detectDeviceType(req);
-
+const shouldUseTokensInstead = (_) => {
   // Devices that typically work better with tokens than cookies
   const tokenPreferredDevices = [DEVICE_TYPES.MOBILE_APP, DEVICE_TYPES.IOT_DEVICE, DEVICE_TYPES.DESKTOP_APP];
 
-  return tokenPreferredDevices.includes(deviceType);
+  return tokenPreferredDevices;
 };
 
 /**

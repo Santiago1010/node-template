@@ -1,63 +1,4 @@
 // =============================================================================
-// DATABASE CRUD HELPER - Automated Schema Inspection and Code Generation
-// =============================================================================
-// PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides automated database schema inspection and CRUD operation generation
-// - Extracts metadata from MySQL databases using INFORMATION_SCHEMA
-// - Generates structured code templates for database operations
-// - Supports table relationships, constraints, and column properties analysis
-//
-// ARCHITECTURAL DECISIONS:
-// - Uses raw SQL queries over ORM metadata for maximum flexibility and performance
-// - Implements separation of concerns between schema inspection and code generation
-// - Employs template-based code generation for maintainability and customization
-// - Follows promise-based async pattern for all database operations
-//
-// ALTERNATIVE APPROACHES ANALYSIS:
-// - ORM Metadata: Sequelize's describeTable() was considered but lacked detailed
-//   relationship information and custom property analysis
-// - Database Migration Tools: Tools like Sequelize migrations were rejected due to
-//   different focus (schema changes vs schema inspection)
-// - Third-party Schema Tools: Libraries like knex-schema-inspector were avoided
-//   to maintain zero dependencies and full control over query optimization
-//
-// PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(n) for column/relationship queries, O(1) for single record lookups
-// - Space complexity: O(n) for result sets, minimal memory overhead
-// - Bottlenecks: Large schema inspections may require query optimization
-// - Benchmarks: Typical table inspection completes in <100ms on standard MySQL
-//
-// SECURITY CONSIDERATIONS:
-// - Implements parameterized queries to prevent SQL injection
-// - Validates all input table/column names against expected patterns
-// - Limits database permissions to read-only INFORMATION_SCHEMA access
-// - Sanitizes all generated code outputs to prevent code injection
-//
-// USAGE EXAMPLES:
-// - Basic schema inspection:
-//   const crud = new CrudHelper();
-//   const columns = await crud.readAllColumns('users');
-//
-// - Full CRUD generation:
-//   const template = await crud.getTemplate('controllers', 'base');
-//   const customized = crud.setCrudName(template, 'users', 'user');
-//   await crud.createFile('./output', 'UserController', customized);
-//
-// MAINTENANCE & TROUBLESHOOTING:
-// - Common errors: Database connection issues, missing tables
-// - Debugging: Enable query logging through wrapLogging function
-// - Optimization: Cache frequently accessed schema information
-// - Enhancements: Add support for additional database engines
-//
-// DEPENDENCIES & COMPATIBILITY:
-// - Requires Node.js 14+ for async/await and promisify
-// - Compatible with MySQL 5.7+ and MariaDB 10.2+
-// - Uses Sequelize 6+ for database connection management
-// - No browser compatibility (server-side only)
-//
-// =============================================================================
-
-// =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const fs = require('fs'); // File system operations for template handling
@@ -72,7 +13,7 @@ const { Sequelize } = require('sequelize'); // ORM for database connection manag
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PATHS } = require('./constants.helper'); // Application path constants
+const { PATHS, PREFIXES } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
 const { toCamelCase } = require('./strings.helper'); // String transformation utility
 
@@ -83,21 +24,6 @@ const writeFile = promisify(fs.writeFile);
 /**
  * SQL query templates for MySQL schema metadata inspection
  * @namespace SQL_QUERIES
- * @description Collection of parameterized SQL queries for database schema inspection
- * All queries use INFORMATION_SCHEMA database for standard-compliant metadata access
- * @property {Function} TABLE_COMMENT - Retrieves table comment metadata
- * @property {Function} ALL_COLUMNS - Lists all columns in ordinal position order
- * @property {Function} UPDATABLE_COLUMNS - Identifies non-primary key updatable columns
- * @property {Function} REQUIRED_COLUMNS - Identifies non-nullable required columns
- * @property {Function} NULLABLE_OR_DEFAULT_COLUMNS - Finds nullable or default-valued columns
- * @property {Function} INDEXES - Retrieves non-primary key indexes
- * @property {Function} FOREIGN_KEYS - Extracts foreign key constraints information
- * @property {Function} REFERENCES - Finds tables referencing current table
- * @property {Function} BRIDGES - Identifies many-to-many relationship tables
- * @property {Function} ENUMS - Locates ENUM type columns
- * @property {Function} INDEX_DETAILS - Gets detailed index information
- * @property {Function} COLUMN_DETAILS - Retrieves comprehensive column metadata
- * @property {Function} UNIQUE_DETAILS - Extracts unique constraint information
  */
 const SQL_QUERIES = {
   TABLE_COMMENT: (schema, table) =>
@@ -248,37 +174,30 @@ const SQL_QUERIES = {
     `SELECT S.INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS S
      WHERE S.TABLE_SCHEMA = '${schema}' AND S.TABLE_NAME = '${table}'
        AND S.COLUMN_NAME = '${column}' AND S.NON_UNIQUE = 0`,
+
+  REFERENCED_TABLE: (schema, table, column) =>
+    `SELECT REFERENCED_TABLE_NAME
+     FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+     WHERE TABLE_SCHEMA = '${schema}'
+       AND TABLE_NAME = '${table}'
+       AND COLUMN_NAME = '${column}'
+       AND REFERENCED_TABLE_NAME IS NOT NULL`,
+
+  FIND_TABLE_PATTERN: (schema, pattern) =>
+    `SELECT TABLE_NAME
+     FROM INFORMATION_SCHEMA.TABLES
+     WHERE TABLE_SCHEMA = '${schema}'
+       AND TABLE_NAME LIKE '%_${pattern}%'`,
 };
 
 /**
  * Database CRUD Helper Class
  * @class CrudHelper
- * @description Provides comprehensive database schema inspection and code generation capabilities
- * Enables automatic CRUD operation generation and database metadata discovery through
- * MySQL INFORMATION_SCHEMA queries. Supports relationship detection, constraint analysis,
- * and template-based code generation.
- *
- * @example
- * // Basic usage
- * const crudHelper = new CrudHelper();
- * const userColumns = await crudHelper.readAllColumns('users');
- *
- * @example
- * // Advanced usage with code generation
- * const template = await crudHelper.getTemplate('controllers', 'base');
- * const customized = crudHelper.setCrudName(template, 'users', 'user');
- * await crudHelper.createFile('./output', 'UserController', customized);
  */
 class CrudHelper {
   /**
    * Creates a CrudHelper instance with database connection
    * @constructor
-   * @description Initializes database connection and configuration
-   * @throws {Error} If database connection is not properly configured
-   *
-   * @example
-   * const helper = new CrudHelper();
-   * await helper.readAllColumns('users');
    */
   constructor() {
     const sequelize = require('../config/database/connection');
@@ -298,8 +217,6 @@ class CrudHelper {
    * @param {string} logMessage - Descriptive message for logging
    * @param {boolean} [returnFirst=false] - Whether to return only first result
    * @returns {Promise<any>} Query results or first result if returnFirst is true
-   * @throws {Error} Database query errors with contextual information
-   * @complexity Time: O(n), Space: O(1)
    */
   async #executeQuery(query, logMessage, returnFirst = false) {
     try {
@@ -321,10 +238,6 @@ class CrudHelper {
    * Read table comment from database schema metadata
    * @param {string} table - Table name to inspect
    * @returns {Promise<string>} Table comment or empty string if none exists
-   * @throws {Error} Database errors or connection issues
-   * @example
-   * const comment = await crudHelper.readTablesComment('users');
-   * console.log(comment); // 'User information table'
    */
   async readTablesComment(table) {
     const result = await this.#executeQuery(
@@ -492,7 +405,6 @@ class CrudHelper {
    * @private
    * @param {Array<{COLUMN_NAME: string}>} searchedColumns - Raw column data from database
    * @returns {{columns: string[], formatedColumns: string[]}} Formatted column information
-   * @complexity Time: O(n), Space: O(n)
    */
   #formatColumns(searchedColumns) {
     const columns = new Set();
@@ -512,6 +424,154 @@ class CrudHelper {
       formatedColumns: Array.from(formatedColumns),
     };
   }
+
+  /**
+   * Extract prefix information from table name
+   * @param {string} tableName - Full table name with prefix
+   * @returns {{prefix: string, groupName: string, tagName: string, pluralName: string}}
+   */
+  extractPrefixInfo(tableName) {
+    const parts = tableName.split('_');
+    const prefix = parts[0];
+    const groupName = PREFIXES[prefix.toUpperCase()] || 'general';
+    const tagName = this.capitalize(groupName);
+
+    const tableNameParts = parts.slice(1);
+    const pluralName = toCamelCase(tableNameParts.join('_'));
+
+    return { prefix, groupName, tagName, pluralName };
+  }
+
+  /**
+   * Check if a field should be skipped in generation
+   * @param {string} fieldName - Field name to check
+   * @returns {boolean} True if field should be skipped
+   */
+  shouldSkipField(fieldName) {
+    const skipFields = ['id', 'created_at', 'updated_at', 'deleted_at', 'createdAt', 'updatedAt', 'deletedAt'];
+    return skipFields.includes(fieldName);
+  }
+
+  /**
+   * Check if a column is a foreign key
+   * @param {string} columnName - Column name
+   * @param {Object} columnDetails - Column details object
+   * @returns {boolean} True if column is a foreign key
+   */
+  isForeignKey(columnName, columnDetails) {
+    const isForeignKeyByName = columnName.endsWith('_id');
+    const isForeignKeyByConstraint = columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'MUL';
+    return isForeignKeyByName || isForeignKeyByConstraint;
+  }
+
+  /**
+   * Get the referenced table for a foreign key column
+   * @param {string} tableName - Source table name
+   * @param {string} columnName - Foreign key column name
+   * @returns {Promise<string|null>} Referenced table name or null
+   */
+  async getReferencedTable(tableName, columnName) {
+    try {
+      const result = await this.#executeQuery(
+        SQL_QUERIES.REFERENCED_TABLE(this.databaseName, tableName, columnName),
+        `Get referenced table for ${columnName}`
+      );
+
+      if (result && result.length > 0) {
+        return result[0].REFERENCED_TABLE_NAME;
+      }
+
+      if (columnName.endsWith('_id')) {
+        const baseName = columnName.replace('_id', '');
+        return await this.findTableByPattern(baseName);
+      }
+
+      return null;
+    } catch (error) {
+      console.warn(`Could not determine referenced table for ${columnName}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Find a table that matches a naming pattern
+   * @param {string} baseName - Base name to search for
+   * @returns {Promise<string|null>} Matched table name or null
+   */
+  async findTableByPattern(baseName) {
+    try {
+      const result = await this.#executeQuery(
+        SQL_QUERIES.FIND_TABLE_PATTERN(this.databaseName, baseName),
+        `Find table pattern for ${baseName}`
+      );
+
+      if (result && result.length > 0) {
+        const patterns = [`${baseName}s`, `${baseName}`];
+
+        for (const pattern of patterns) {
+          const match = result.find((row) => row.TABLE_NAME.endsWith(`_${pattern}`));
+          if (match) {
+            return match.TABLE_NAME;
+          }
+        }
+
+        return result[0].TABLE_NAME;
+      }
+
+      return null;
+    } catch (error) {
+      console.warn(`Could not find table pattern for ${baseName}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Check if a field is required based on column details
+   * @param {string} columnName - Column name
+   * @param {Object} columnDetails - Column details object
+   * @returns {boolean} True if field is required
+   */
+  isFieldRequired(columnName, columnDetails) {
+    if (this.shouldSkipField(columnName)) return false;
+    if (columnDetails.EXTRA && columnDetails.EXTRA.toLowerCase().includes('auto_increment')) return false;
+    if (columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'PRI') return false;
+
+    const notNullable = columnDetails.NULLABLE === '0';
+    const hasDefault = columnDetails.COLUMN_DEFAULT !== null && columnDetails.COLUMN_DEFAULT !== undefined;
+
+    return notNullable && !hasDefault;
+  }
+
+  /**
+   * Capitalize first letter of a string
+   * @param {string} str - String to capitalize
+   * @returns {string} Capitalized string
+   */
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  /**
+   * Generate method names for CRUD operations
+   * @param {string} singularName - Singular entity name
+   * @param {string} pluralName - Plural entity name
+   * @returns {Object} Object with method names
+   */
+  generateMethodNames(singularName, pluralName) {
+    const capitalizedSingular = this.capitalize(singularName);
+    const capitalizedPlural = this.capitalize(pluralName);
+
+    return {
+      create: `create${capitalizedSingular}`,
+      updateStatus: `update${capitalizedPlural}Status`,
+      list: `getList${capitalizedPlural}`,
+      details: `get${capitalizedSingular}Details`,
+      update: `update${capitalizedSingular}`,
+      delete: `delete${capitalizedSingular}`,
+    };
+  }
+
+  // =========================== FILE OPERATIONS =========================== //
 
   /**
    * Read a template file
@@ -625,11 +685,6 @@ class CrudHelper {
    * @param {string} name - Plural entity name (e.g., 'users')
    * @param {string} singular - Singular entity name (e.g., 'user')
    * @returns {string} Template with replaced method names in camelCase
-   * @complexity Time: O(1), Space: O(1)
-   *
-   * @example
-   * const template = helper.setCrudName(template, 'users', 'user');
-   * // Replaces 'create' with 'createUser', 'readAll' with 'readAllUsers', etc.
    */
   setCrudName(template, name, singular) {
     const methodNames = {

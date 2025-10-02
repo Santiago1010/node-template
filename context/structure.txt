@@ -69,9 +69,7 @@
 │   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── crud.helper.js
-│   ├── database
-│   │   ├── pagination.helper.js
-│   │   └── utilities.helper.js
+│   ├── database.helper.js
 │   ├── debug.helper.js
 │   ├── docs-generator.helper.js
 │   ├── encrypt.helper.js
@@ -130,18 +128,21 @@
 │   ├── responses
 │   └── validations
 │       ├── filters.schema.js
+│       ├── index.js
 │       ├── pagination.schema.js
+│       ├── README.md
 │       └── search.schema.js
 ├── scripts
 │   ├── createModels.script.js
 │   ├── generateCrudDocs.script.js
-│   └── generate-rsa-keys.sh
+│   ├── generateCrudValidations.script.js
+│   ├── generate-rsa-keys.sh
+│   └── generateServices.script.js
 ├── seeders
 ├── .sequelizerc
 ├── services
-│   ├── auth
-│   │   └── sessionWeb.service.js
-│   └── config
+│   └── auth
+│       └── sessionWeb.service.js
 ├── templates
 │   ├── docs
 │   │   └── crud.template.js
@@ -149,8 +150,12 @@
 │   ├── models
 │   │   ├── model.template.js
 │   │   └── setupModel.template.js
-│   └── prompts
-│       └── endpoints_docs.md
+│   ├── prompts
+│   │   └── endpoints_docs.md
+│   ├── services
+│   │   └── services.template.js
+│   └── validations
+│       └── crud.template.js
 ├── tests
 │   ├── env-setup.js
 │   ├── integration
@@ -212,4 +217,4 @@
     ├── extensions.json
     └── settings.json
 
-69 directories, 144 files
+69 directories, 149 files

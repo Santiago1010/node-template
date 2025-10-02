@@ -302,7 +302,7 @@ describe('RSA Helper Functions', () => {
 
   describe('Full Integration Test', () => {
     it('should complete full encryption/signature flow', () => {
-      const testMessage = faker.lorem.paragraph();
+      const testMessage = faker.lorem.sentence();
       const keyPair = generateRSAKeyPair();
 
       saveRSAKeysToFiles(keyPair.publicKey, keyPair.privateKey, publicKeyPath, privateKeyPath);

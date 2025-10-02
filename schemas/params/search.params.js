@@ -55,7 +55,7 @@
 //
 // DEPENDENCIES & COMPATIBILITY:
 // - Compatible with OpenAPI Specification 3.0+
-// - References external search utility: @helpers/database/utilities.helper.js
+// - References external search utility: @helpers/database.helper.js
 // - Node.js 12+ required for module syntax
 // =============================================================================
 
@@ -85,14 +85,14 @@
  * });
  *
  * @since Version 1.0.0
- * @see {@link module:@helpers/database/utilities.helper.js} for search implementation
+ * @see {@link module:@helpers/database.helper.js} for search implementation
  */
 const searchParams = [
   {
     name: 'search',
     in: 'query',
     description:
-      '**[Optional]** Filters records by searching for the specified string in all fields. Only records containing the string will be displayed. Uses the `search` function from `@helpers/database/utilities.helper.js`. Supports partial matches and case-insensitive search. Maximum search term length: 256 characters.',
+      '**[Optional]** Filters records by searching for the specified string in all fields. Only records containing the string will be displayed. Uses the `search` function from `@helpers/database.helper.js`. Supports partial matches and case-insensitive search. Maximum search term length: 256 characters.',
     schema: { type: 'string', maxLength: 256 },
     required: false,
   },

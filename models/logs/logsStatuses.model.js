@@ -18,6 +18,12 @@ const Schema = {
     unique: 'PRIMARY',
     comment: 'Unique identifier for each log.',
   },
+  rowId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'ID of the affected record.',
+    field: 'row_id',
+  },
   responsible: {
     type: DataTypes.JSON,
     allowNull: false,
@@ -36,12 +42,6 @@ const Schema = {
     },
     comment: 'Name of the affected table with its respective model name.',
     field: 'table_model',
-  },
-  rowId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    comment: 'ID of the affected record.',
-    field: 'row_id',
   },
   type: {
     type: DataTypes.ENUM('reactivation', 'deactivation'),

@@ -68,6 +68,7 @@ const debug = require('debug'); // Conditional debugging utility
 // =============================================================================
 const app = require('./app'); // Express application middleware setup
 const config = require('./config/env'); // Environment configuration
+const wsManager = require('./config/websockets/index,js'); // WebSocket manager
 
 // =============================================================================
 // DEBUG SETUP
@@ -224,7 +225,7 @@ const onListening = () => {
   debugServer(`Server startup time: ${formattedTime}`);
 
   // Production console output (always shown)
-  console.log(`Server running on ${bind}`);
+  console.log(`🏃‍♂️‍➡️ Server running on ${bind}`);
   console.log(`🚀 Server started in ${formattedTime}`);
 
   // swaggerDocs(app, port); // Future Swagger integration point
@@ -270,6 +271,8 @@ const startServer = async () => {
     // Initialize database connection first
     console.log('🔄 Initializing database connection...');
     console.log('✅ Database connected successfully');
+
+    wsManager.initialize(server);
 
     // Start HTTP server after successful database connection
     server.listen(port);

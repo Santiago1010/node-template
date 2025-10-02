@@ -28,6 +28,10 @@ describe('Crud Helper - Database Operations', () => {
     sequelize.query.mockClear();
   });
 
+  afterAll(async () => {
+    await sequelize.close();
+  });
+
   describe('readTablesComment', () => {
     it('should return the table comment', async () => {
       sequelize.query.mockResolvedValueOnce([{ TABLE_COMMENT: 'Test Table Comment' }]);

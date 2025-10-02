@@ -16,6 +16,12 @@ const Schema = {
     unique: 'PRIMARY',
     comment: 'Unique primary key to identify each deletion log.',
   },
+  rowId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'ID of the affected record.',
+    field: 'row_id',
+  },
   responsible: {
     type: DataTypes.JSON,
     allowNull: false,
@@ -44,6 +50,12 @@ const Schema = {
     },
     comment: 'Name of the affected table with the name of its respective model.',
     field: 'table_model',
+  },
+  justification: {
+    type: DataTypes.TEXT('long'),
+    allowNull: true,
+    defaultValue: null,
+    comment: 'Detailed justification for why the record was permanently deleted.',
   },
   deletedAt: {
     type: DataTypes.DATE,
