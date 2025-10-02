@@ -60,6 +60,8 @@ const PATHS = {
   VIEWS: ROOT + '/views',
   KEYS: ROOT + '/kubernetes/keys',
   DEBUG: ROOT + '/.debug',
+  DOCS: ROOT + '/docs',
+  DOCS_PATHS: ROOT + '/docs/paths',
 };
 
 /**
