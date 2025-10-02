@@ -1,5 +1,66 @@
 
 
+## [1.8.0] - 2025-10-02
+
+**Released:** 2025-10-02 23:03:54 UTC
+
+### [Add WebSocket Support and Refactor Database Utilities](https://github.com/Santiago1010/node-template/pull/40)
+
+#### 📋 Summary
+This PR introduces WebSocket real-time communication capabilities and refactors database utilities for improved maintainability. Key changes include adding WebSocket connection management, consolidating database helpers, updating log models, and adding service generation scripts.
+
+#### 🔍 What Changed
+### Added
+- WebSocket manager for real-time client communication
+- Service generation script (`generate-services`)
+- New service template for CRUD operations
+- Validation schemas README documentation
+
+### Changed
+- Consolidated database utilities into single `database.helper.js`
+- Refactored CRUD helper with enhanced foreign key detection
+- Updated log models to include `rowId` and `justification` fields
+- Simplified cookie configuration by removing device detection
+- Improved database connection configuration
+
+### Fixed
+- Test cleanup to properly close database connections
+- Updated encrypt test to use shorter test data
+
+### Removed
+- Separate log services (creation, deletion, status, update)
+- Individual database utility files (`pagination.helper.js`, `utilities.helper.js`)
+
+#### 📝 Additional Notes
+- WebSocket manager supports multiple connections per user
+- Consolidated log service provides unified audit trail
+- Database helper now includes pagination, search, and soft delete utilities
+- Service generation automates CRUD service creation
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Commits: 10
+
+**Commits:**
+- [`29776d6`](https://github.com/Santiago1010/node-template/commit/29776d693f8a3a500637d528e0cce865e0a68b62) feat(logs): implement comprehensive log history retrieval for records
+- [`ef56f3a`](https://github.com/Santiago1010/node-template/commit/ef56f3adbc0d29a453d1dc3cba2f25f4007fb1ab) feat(cli): add automated CRUD service generation script
+- [`7df7ebc`](https://github.com/Santiago1010/node-template/commit/7df7ebcaad194561e497f2bf4fff480289dc6f58) fix(cli): correct service generator naming and path issues
+- [`024f3d9`](https://github.com/Santiago1010/node-template/commit/024f3d94e3fa5855337be347f4c43725f25a3bf9) fix(cli): improve model name generation and filter implementation
+- [`621119f`](https://github.com/Santiago1010/node-template/commit/621119f7a380292d1f87244495674e8549548234) chore: update project structure documentation and constants helper
+- [`220adf7`](https://github.com/Santiago1010/node-template/commit/220adf77d86287d9f9a8768ca766088fb0a31a83) docs(validations): add comprehensive README for validation schemas
+- [`7f59ee4`](https://github.com/Santiago1010/node-template/commit/7f59ee412e70199e2c2a96067891badf0ee0c3b5) feat(websockets): implement real-time communication manager
+- [`44282d6`](https://github.com/Santiago1010/node-template/commit/44282d6cd4d1071c04225502335a27340253404b) chore(websockets): add authentication todos for device validation
+- [`cf5c820`](https://github.com/Santiago1010/node-template/commit/cf5c8201682143e6c924c9169b7b1ca1a3a4d125) refactor(docs): consolidate code generation logic into crud helper
+- [`51b34cc`](https://github.com/Santiago1010/node-template/commit/51b34cc9012c3494e2b271ba14608135e3a39b48) refactor(scripts): consolidate code generation utilities and remove duplication
+
+---
+
+
+
 ## [1.7.0] - 2025-09-27
 
 **Released:** 2025-09-27 13:14:37 UTC
