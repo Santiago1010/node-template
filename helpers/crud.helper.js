@@ -597,8 +597,6 @@ class CrudHelper {
    * @returns {Promise<string>} Created folder path
    */
   async createFolder(file, group, name) {
-    console.log(PATHS[file]);
-    console.log(group);
     const folderPath = path.join(PATHS[file], group, name);
     return await this.#ensureDirectoryExists(folderPath);
   }

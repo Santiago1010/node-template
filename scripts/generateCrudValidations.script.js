@@ -4,15 +4,12 @@
 // =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
-const fs = require('fs');
-const path = require('path');
 const { performance } = require('perf_hooks');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const CrudHelper = require('../helpers/crud.helper');
-const { PREFIXES } = require('../helpers/constants.helper');
 const { cerror } = require('../helpers/debug.helper');
 const { toCamelCase, toPascalCase } = require('../helpers/strings.helper');
 
@@ -35,15 +32,14 @@ class CrudValidationsGenerator {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
       const { tableName, singularName } = this.validateArguments();
-      const { groupName, pluralName } = this.extractPrefixInfo(tableName);
+      const { groupName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);
 
-      // Analyze relationships and enums
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
 
       const validationsContent = await this.generateValidations(tableData, singularName, pluralName);
-      await this.saveValidations(validationsContent, tableName, groupName);
+      await this.saveValidations(validationsContent, groupName, pluralName);
 
       const endTime = performance.now();
       const executionTime = ((endTime - this.startTime) / 1000).toFixed(2);
@@ -79,22 +75,6 @@ class CrudValidationsGenerator {
     return { tableName, singularName };
   }
 
-  extractPrefixInfo(tableName) {
-    const parts = tableName.split('_');
-    const prefix = parts[0].toUpperCase();
-    const groupName = PREFIXES[prefix] || 'general';
-
-    // Extract plural name from table name (excluding prefix)
-    const tableNameParts = parts.slice(1);
-    const pluralName = toCamelCase(tableNameParts.join('_'));
-
-    console.log(`📂 Prefix: ${prefix}`);
-    console.log(`📁 Group: ${groupName}`);
-    console.log(`📚 Plural: ${pluralName}`);
-
-    return { prefix, groupName, pluralName };
-  }
-
   async analyzeTable(tableName) {
     try {
       console.log(`🔍 Analyzing table: ${tableName}`);
@@ -106,7 +86,7 @@ class CrudValidationsGenerator {
 
       const columnDetails = {};
       for (const columnName of allColumns.columns) {
-        if (this.shouldSkipField(columnName)) continue;
+        if (this.crudHelper.shouldSkipField(columnName)) continue;
         const details = await this.crudHelper.detailsColumn(tableName, columnName);
         if (details) columnDetails[columnName] = details;
       }
@@ -126,18 +106,13 @@ class CrudValidationsGenerator {
     }
   }
 
-  shouldSkipField(fieldName) {
-    const skipFields = ['id', 'created_at', 'updated_at', 'deleted_at', 'createdAt', 'updatedAt', 'deletedAt'];
-    return skipFields.includes(fieldName);
-  }
-
   async analyzeForeignKeys(tableData) {
     console.log(`🔗 Analyzing foreign keys for table: ${tableData.tableName}`);
 
     for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
-      if (this.isForeignKey(columnName, columnDetails)) {
+      if (this.crudHelper.isForeignKey(columnName, columnDetails)) {
         try {
-          const referencedTable = await this.getReferencedTable(tableData.tableName, columnName);
+          const referencedTable = await this.crudHelper.getReferencedTable(tableData.tableName, columnName);
           if (referencedTable) {
             const modelName = toCamelCase(referencedTable);
             this.foreignKeyReferences.set(columnName, {
@@ -169,116 +144,20 @@ class CrudValidationsGenerator {
     }
   }
 
-  isForeignKey(columnName, columnDetails) {
-    const isForeignKeyByName = columnName.endsWith('_id');
-    const isForeignKeyByConstraint = columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'MUL';
-    return isForeignKeyByName || isForeignKeyByConstraint;
-  }
-
-  async getReferencedTable(tableName, columnName) {
-    try {
-      const query = `
-        SELECT REFERENCED_TABLE_NAME
-        FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-        WHERE
-          TABLE_SCHEMA = '${this.crudHelper.databaseName}'
-          AND TABLE_NAME = '${tableName}'
-          AND COLUMN_NAME = '${columnName}'
-          AND REFERENCED_TABLE_NAME IS NOT NULL
-      `;
-
-      const result = await this.executeQuery(query);
-
-      if (result && result.length > 0) {
-        return result[0].REFERENCED_TABLE_NAME;
-      }
-
-      // Fallback: try to guess the table name from the column name
-      if (columnName.endsWith('_id')) {
-        const baseName = columnName.replace('_id', '');
-        return await this.findTableByPattern(baseName);
-      }
-
-      return null;
-    } catch (error) {
-      console.warn(`Could not determine referenced table for ${columnName}: ${error.message}`);
-      return null;
-    }
-  }
-
-  async findTableByPattern(baseName) {
-    try {
-      const query = `
-        SELECT TABLE_NAME
-        FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_SCHEMA = '${this.crudHelper.databaseName}'
-        AND TABLE_NAME LIKE '%_${baseName}%'
-      `;
-
-      const result = await this.executeQuery(query);
-
-      if (result && result.length > 0) {
-        const patterns = [`${baseName}s`, `${baseName}`];
-
-        for (const pattern of patterns) {
-          const match = result.find((row) => row.TABLE_NAME.endsWith(`_${pattern}`));
-          if (match) {
-            return match.TABLE_NAME;
-          }
-        }
-
-        return result[0].TABLE_NAME;
-      }
-
-      return null;
-    } catch (error) {
-      cerror(`Could not find table pattern for ${baseName}`, error.message);
-      return null;
-    }
-  }
-
-  async executeQuery(query) {
-    try {
-      const { Sequelize } = require('sequelize');
-      const result = await this.crudHelper.sequelize.query(query, {
-        type: Sequelize.QueryTypes.SELECT,
-        logging: false,
-      });
-      return result;
-    } catch (error) {
-      console.warn(`Database query failed:`, error.message);
-      return null;
-    }
-  }
-
-  getModelNameFromTable(tableName) {
-    const parts = tableName.split('_');
-    const modelParts = parts.slice(1);
-    return this.capitalize(toCamelCase(modelParts.join('_')));
-  }
-
   async generateValidations(tableData, singularName, pluralName) {
     try {
-      const templatePath = path.resolve(__dirname, '../templates/validations/crud.template.js');
-
-      if (!fs.existsSync(templatePath)) {
-        throw new Error(`Template file not found: ${templatePath}`);
-      }
-
-      let validationsContent = fs.readFileSync(templatePath, 'utf-8');
+      let validationsContent = await this.crudHelper.getTemplate('validations', 'crud');
       const mainModelName = toCamelCase(tableData.tableName);
       const imports = this.generateImports(tableData);
       const schemas = this.generateSchemas(tableData, mainModelName);
 
-      // Replace placeholders
       validationsContent = validationsContent.replace(/\{\{MAIN_MODEL\}\}/g, mainModelName);
       validationsContent = validationsContent.replace(/\{\{MORE_MODELS\}\}/g, imports.moreModels);
 
-      // Add custom schemas
       validationsContent = this.insertCreateSchema(validationsContent, schemas.createSchema);
       validationsContent = this.insertUpdateStatusSchema(validationsContent, schemas.updateStatusSchema);
       validationsContent = this.insertListSchema(validationsContent, schemas.listSchema);
-      validationsContent = this.insertDetailsSchema(validationsContent, schemas.detailsSchema);
+      validationsContent = this.insertDetailsSchema(validationsContent);
       validationsContent = this.insertUpdateSchema(validationsContent, mainModelName, schemas.updateSchema);
 
       validationsContent = this.replaceSchemaNames(
@@ -314,21 +193,18 @@ class CrudValidationsGenerator {
 
     for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
       const camelFieldName = toCamelCase(columnName);
-      const isRequired = this.isFieldRequired(columnName, columnDetails, tableData);
-      const validationSchema = this.generateFieldValidation(columnName, columnDetails, isRequired, mainModelName);
+      const isRequired = this.crudHelper.isFieldRequired(columnName, columnDetails);
+      const validationSchema = this.generateFieldValidation(columnName, columnDetails, isRequired);
 
-      // CREATE schema fields
-      if (!this.shouldSkipField(columnName)) {
+      if (!this.crudHelper.shouldSkipField(columnName)) {
         createFields.push(`  ${camelFieldName}: ${validationSchema.create},`);
       }
 
-      // UPDATE schema fields (todos los campos de creación, pero opcionales)
-      if (!this.shouldSkipField(columnName)) {
+      if (!this.crudHelper.shouldSkipField(columnName)) {
         const updateValidation = validationSchema.create.replace('required: true', 'required: false');
         updateFields.push(`  ${camelFieldName}: ${updateValidation},`);
       }
 
-      // LIST schema filters (solo foreign keys y enums)
       if (this.shouldIncludeInListFilters(columnName, columnDetails)) {
         listFilters.push(`  ${camelFieldName}: ${validationSchema.list},`);
       }
@@ -338,7 +214,7 @@ class CrudValidationsGenerator {
       createSchema: createFields.join('\n'),
       updateStatusSchema: this.generateUpdateStatusFields(mainModelName),
       listSchema: listFilters.join('\n'),
-      detailsSchema: '', // Solo dejar comentario
+      detailsSchema: '',
       updateSchema: updateFields.join('\n'),
     };
   }
@@ -347,7 +223,6 @@ class CrudValidationsGenerator {
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
     const camelFieldName = toCamelCase(columnName);
 
-    // Foreign key validation
     if (this.foreignKeyReferences.has(columnName)) {
       const foreignKeyInfo = this.foreignKeyReferences.get(columnName);
       return {
@@ -357,7 +232,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Enum validation
     if (this.enumColumns.has(columnName)) {
       const enumValues = this.enumColumns.get(columnName);
       const enumArray = enumValues.map((v) => `'${v}'`).join(', ');
@@ -368,7 +242,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Data type based validation
     return this.generateTypeBasedValidation(columnName, columnDetails, columnType, isRequired);
   }
 
@@ -376,7 +249,6 @@ class CrudValidationsGenerator {
     const camelFieldName = toCamelCase(columnName);
     const fieldName = (columnDetails.COLUMN_NAME || '').toLowerCase();
 
-    // String types
     if (columnType.includes('varchar') || columnType.includes('char') || columnType.includes('text')) {
       const lengthMatch = columnType.match(/\((\d+)\)/);
       const maxLength = lengthMatch ? parseInt(lengthMatch[1], 10) : undefined;
@@ -386,7 +258,6 @@ class CrudValidationsGenerator {
         ...(maxLength && { maxLength }),
       };
 
-      // Special string validations
       if (fieldName.includes('email')) {
         options.pattern = '/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/';
       } else if (fieldName.includes('phone') || fieldName.includes('telefono')) {
@@ -409,7 +280,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Numeric types
     if (this.isNumericType(columnType)) {
       const isBoolean = fieldName.endsWith('_is') || fieldName.startsWith('is_');
 
@@ -436,7 +306,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Date types
     if (columnType.includes('date') || columnType.includes('timestamp')) {
       return {
         create: `commonSchemas.dateSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
@@ -445,7 +314,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Boolean types
     if (columnType.includes('boolean') || columnType.includes('bool')) {
       return {
         create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
@@ -454,7 +322,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // JSON types
     if (columnType.includes('json')) {
       return {
         create: `commonSchemas.objectSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
@@ -463,7 +330,6 @@ class CrudValidationsGenerator {
       };
     }
 
-    // Default to string
     return {
       create: `commonSchemas.stringSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
       list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false })`,
@@ -500,21 +366,9 @@ class CrudValidationsGenerator {
     return {};
   }
 
-  isFieldRequired(columnName, columnDetails) {
-    if (this.shouldSkipField(columnName)) return false;
-    if (columnDetails.EXTRA && columnDetails.EXTRA.toLowerCase().includes('auto_increment')) return false;
-    if (columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'PRI') return false;
-
-    const notNullable = columnDetails.NULLABLE === '0';
-    const hasDefault = columnDetails.COLUMN_DEFAULT !== null && columnDetails.COLUMN_DEFAULT !== undefined;
-
-    return notNullable && !hasDefault;
-  }
-
   shouldIncludeInListFilters(columnName, columnDetails) {
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
 
-    // Solo incluir enums y foreign keys
     if (columnType.includes('enum')) return true;
     if (this.foreignKeyReferences.has(columnName)) return true;
 
@@ -562,7 +416,6 @@ class CrudValidationsGenerator {
   }
 
   insertDetailsSchema(content) {
-    // No insertar campos adicionales, solo dejar el comentario
     return content;
   }
 
@@ -576,17 +429,11 @@ class CrudValidationsGenerator {
     return content.replace(placeholder, replacement);
   }
 
-  async saveValidations(validationsContent, tableName, groupName) {
+  async saveValidations(validationsContent, groupName, pluralName) {
     try {
-      const validationsDir = path.resolve(__dirname, '../routes/' + groupName + '/validations');
-      if (!fs.existsSync(validationsDir)) fs.mkdirSync(validationsDir, { recursive: true });
-
-      const namesParts = tableName.split('_');
-      const pluralName = namesParts.slice(1).join('_');
-      const fileName = `${toCamelCase(pluralName)}.validations.js`;
-      const filePath = path.join(validationsDir, fileName);
-
-      fs.writeFileSync(filePath, validationsContent, 'utf-8');
+      const fileName = `${toCamelCase(pluralName)}.validations`;
+      const folderPath = await this.crudHelper.createFolder('VALIDATIONS', groupName, '');
+      const filePath = await this.crudHelper.createFile(folderPath, fileName, validationsContent);
 
       console.log(`📄 Validations saved to: ${filePath}`);
     } catch (error) {
@@ -604,10 +451,6 @@ class CrudValidationsGenerator {
       .replace(/deleteSchema/g, `delete${singularName}Schema`);
 
     return validationsContent;
-  }
-
-  capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }
 
