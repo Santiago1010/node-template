@@ -70,6 +70,7 @@ const WebSocket = require('ws'); // RFC-6455 compliant WebSocket server implemen
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const sequelize = require('../database/connection'); // Database connection and ORM
+const { getDeviceInfo } = require('../../helpers/utilities.helper'); // Device fingerprint generation
 
 // =============================================================================
 // MODELS
@@ -148,99 +149,26 @@ class WebSocketManager {
   }
 
   /**
-   * Extracts and generates device information from WebSocket request
+   * Generates device fingerprint from device information
    *
-   * @description Creates unique device fingerprint using SHA-256 hash of
-   * request metadata including user agent, IP address, and accept headers.
-   * Used for security validation and device identification without storing
-   * personally identifiable information.
+   * @description Creates a unique hash based on device characteristics for
+   * session validation and security tracking. Uses SHA-256 for consistent
+   * fingerprinting across connections.
    *
-   * @param {http.IncomingMessage} request - HTTP upgrade request object
-   * @returns {Object} Device information with fingerprint and metadata
-   *
-   * @throws {Error} If cryptographic operations fail
+   * @param {Object} deviceInfo - Device information object from getDeviceInfo()
+   * @returns {string} SHA-256 hash representing device fingerprint
+   * @private
    *
    * @example
-   * const deviceInfo = getDeviceInfo(request);
-   * // Returns:
-   * // {
-   * //   fingerprint: 'a1b2c3d4e5f6...',
-   * //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-   * //   ip: '192.168.1.100',
-   * //   platform: 'Windows',
-   * //   browser: 'Chrome',
-   * //   timestamp: '2024-01-15T10:30:00.000Z'
-   * // }
+   * const fingerprint = generateDeviceFingerprint(deviceInfo);
+   * // Returns: "a7f5c8d9e2b4f6a8c1d3e5f7b9c2d4e6..."
    *
    * @complexity Time: O(1), Space: O(1)
-   * @security Uses cryptographic hash for fingerprint generation
+   * @security Uses cryptographic hash for consistent fingerprinting
    */
-  getDeviceInfo(request) {
-    // Business Rule: Collect minimum necessary information for fingerprinting
-    const userAgent = request.headers['user-agent'] || '';
-    const ip =
-      request.headers['x-forwarded-for']?.split(',')[0].trim() ||
-      request.headers['x-real-ip'] ||
-      request.socket.remoteAddress ||
-      'unknown';
-
-    const acceptLanguage = request.headers['accept-language'] || '';
-    const acceptEncoding = request.headers['accept-encoding'] || '';
-
-    // Performance Note: SHA-256 provides good balance of speed and collision resistance
-    const fingerprintData = `${userAgent}|${ip}|${acceptLanguage}|${acceptEncoding}`;
-    const fingerprint = crypto.createHash('sha256').update(fingerprintData).digest('hex').substring(0, 32);
-
-    // Extract additional metadata for logging and analytics
-    const platform = this.extractPlatform(userAgent);
-    const browser = this.extractBrowser(userAgent);
-
-    return {
-      fingerprint,
-      userAgent,
-      ip,
-      platform,
-      browser,
-      timestamp: new Date().toISOString(),
-    };
-  }
-
-  /**
-   * Extracts operating system platform from user agent string
-   *
-   * @param {string} userAgent - HTTP user agent string
-   * @returns {string} Detected platform name or 'Unknown'
-   * @private
-   *
-   * @complexity Time: O(1), Space: O(1)
-   */
-  extractPlatform(userAgent) {
-    const ua = userAgent.toLowerCase();
-    if (ua.includes('windows')) return 'Windows';
-    if (ua.includes('mac')) return 'macOS';
-    if (ua.includes('linux')) return 'Linux';
-    if (ua.includes('android')) return 'Android';
-    if (ua.includes('iphone') || ua.includes('ipad')) return 'iOS';
-    return 'Unknown';
-  }
-
-  /**
-   * Extracts browser name from user agent string
-   *
-   * @param {string} userAgent - HTTP user agent string
-   * @returns {string} Detected browser name or 'Unknown'
-   * @private
-   *
-   * @complexity Time: O(1), Space: O(1)
-   */
-  extractBrowser(userAgent) {
-    const ua = userAgent.toLowerCase();
-    if (ua.includes('edg')) return 'Edge';
-    if (ua.includes('chrome')) return 'Chrome';
-    if (ua.includes('firefox')) return 'Firefox';
-    if (ua.includes('safari') && !ua.includes('chrome')) return 'Safari';
-    if (ua.includes('opera') || ua.includes('opr')) return 'Opera';
-    return 'Unknown';
+  generateDeviceFingerprint(deviceInfo) {
+    const fingerprintData = `${deviceInfo.browser}-${deviceInfo.browserVersion}-${deviceInfo.os}-${deviceInfo.deviceType}`;
+    return crypto.createHash('sha256').update(fingerprintData).digest('hex');
   }
 
   /**
@@ -292,11 +220,12 @@ class WebSocketManager {
       // Step 3: Device fingerprint validation with security logging
       const storedPayload = activeAccess.payload;
       const storedFingerprint = storedPayload?.deviceFingerprint;
+      const currentFingerprint = this.generateDeviceFingerprint(deviceInfo);
 
       // Business Rule: Allow connection even on device mismatch but log warning
-      if (storedFingerprint && storedFingerprint !== deviceInfo.fingerprint) {
+      if (storedFingerprint && storedFingerprint !== currentFingerprint) {
         console.warn(`⚠️ Device fingerprint mismatch for account ${idAccount}`);
-        console.warn(`Expected: ${storedFingerprint}, Got: ${deviceInfo.fingerprint}`);
+        console.warn(`Expected: ${storedFingerprint}, Got: ${currentFingerprint}`);
         // TODO: Consider implementing secondary verification for high-security scenarios
       }
 
@@ -304,7 +233,8 @@ class WebSocketManager {
         valid: true,
         account,
         access: activeAccess,
-        deviceMatch: storedFingerprint === deviceInfo.fingerprint,
+        deviceMatch: storedFingerprint === currentFingerprint,
+        fingerprint: currentFingerprint,
       };
     } catch (error) {
       console.error('❌ Validation error:', error.message);
@@ -346,12 +276,14 @@ class WebSocketManager {
     this.wss.on('connection', (ws, request) => {
       console.log('New WebSocket connection 🔌');
 
-      // Extract and attach device information to WebSocket instance
-      const deviceInfo = this.getDeviceInfo(request);
+      // Extract and attach device information to WebSocket instance using unified helper
+      const deviceInfo = getDeviceInfo(request, true); // onlyStatic=true for WebSocket context
       ws.deviceInfo = deviceInfo;
 
-      console.log(`📱 Device: ${deviceInfo.platform} - ${deviceInfo.browser}`);
-      console.log(`🔑 Fingerprint: ${deviceInfo.fingerprint}`);
+      console.log(`📱 Device: ${deviceInfo.os} - ${deviceInfo.browser} ${deviceInfo.browserVersion}`);
+      console.log(`📱 Type: ${deviceInfo.deviceType}`);
+      console.log(`🌐 IP: ${deviceInfo.ip}`);
+      console.log(`🗣️ Language: ${deviceInfo.language}`);
 
       // Message event handler - processes incoming client messages
       ws.on('message', async (message) => {
@@ -377,9 +309,13 @@ class WebSocketManager {
                     message: 'Authenticated successfully ✅',
                     timestamp: ws.connectedAt.toISOString(),
                     device: {
-                      platform: deviceInfo.platform,
                       browser: deviceInfo.browser,
-                      fingerprint: deviceInfo.fingerprint,
+                      browserVersion: deviceInfo.browserVersion,
+                      os: deviceInfo.os,
+                      deviceType: deviceInfo.deviceType,
+                      language: deviceInfo.language,
+                      ip: deviceInfo.ip,
+                      fingerprint: validation.fingerprint,
                     },
                     deviceMatch: validation.deviceMatch,
                     account: {
