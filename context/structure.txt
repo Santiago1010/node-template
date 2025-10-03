@@ -35,6 +35,8 @@
 │   │   ├── helmet.config.js
 │   │   ├── rateLimit.config.js
 │   │   └── README.md
+│   ├── sockets
+│   │   └── webManager.js
 │   └── tools
 │       ├── logger.config.js
 │       ├── morgan.config.js
@@ -107,6 +109,7 @@
 │   ├── index.js
 │   ├── README.md
 │   └── users
+│       ├── usrAccesses.model.js
 │       └── usrAccounts.model.js
 ├── package.json
 ├── package-lock.json
@@ -217,4 +220,4 @@
     ├── extensions.json
     └── settings.json
 
-69 directories, 149 files
+70 directories, 151 files

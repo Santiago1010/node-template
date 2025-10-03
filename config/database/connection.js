@@ -22,7 +22,7 @@ setupModels(sequelize);
 const initializeConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('✅ Database connection established successfully');
+    console.log('💾 Database connection established successfully');
 
     // Sincronizar modelos solo en desarrollo
     if (isDevelopmentMode(true)) {

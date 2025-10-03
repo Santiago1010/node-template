@@ -68,7 +68,7 @@ const debug = require('debug'); // Conditional debugging utility
 // =============================================================================
 const app = require('./app'); // Express application middleware setup
 const config = require('./config/env'); // Environment configuration
-const wsManager = require('./config/websockets/index,js'); // WebSocket manager
+const wsManager = require('./config/sockets/webManager.js'); // WebSocket manager
 
 // =============================================================================
 // DEBUG SETUP
@@ -226,7 +226,7 @@ const onListening = () => {
 
   // Production console output (always shown)
   console.log(`🏃‍♂️‍➡️ Server running on ${bind}`);
-  console.log(`🚀 Server started in ${formattedTime}`);
+  console.log(`⏱️ Server started in ${formattedTime}`);
 
   // swaggerDocs(app, port); // Future Swagger integration point
 };
@@ -266,11 +266,10 @@ const server = http.createServer(app);
  */
 const startServer = async () => {
   try {
-    console.log('🔄 Starting server...');
+    console.log('⚙️ Starting server...');
 
     // Initialize database connection first
-    console.log('🔄 Initializing database connection...');
-    console.log('✅ Database connected successfully');
+    console.log('🔗 Initializing database connection...');
 
     wsManager.initialize(server);
 
