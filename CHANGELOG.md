@@ -1,5 +1,55 @@
 
 
+## [1.9.0] - 2025-10-04
+
+**Released:** 2025-10-04 13:59:58 UTC
+
+### [WebSocket Manager Rewrite with Enhanced Security Features](https://github.com/Santiago1010/node-template/pull/41)
+
+#### 📋 Summary
+This PR completely rewrites the WebSocket management system to include device fingerprinting, enhanced authentication, and structured messaging. It replaces the previous implementation with a more secure and feature-rich solution.
+
+#### 🔍 What Changed
+### Added
+- New WebSocket manager with device fingerprinting and enhanced security
+- Device information extraction utility in helpers
+- User access tracking model (usrAccesses)
+- Comprehensive sockets documentation
+
+### Changed
+- Replaced legacy WebSocket implementation with new secure manager
+- Updated database connection logging icon
+- Modified server startup logging messages
+- Restructured sockets configuration directory
+
+### Fixed
+- N/A
+
+### Removed
+- Legacy WebSocket manager from config/websockets
+
+#### 📝 Additional Notes
+The new implementation includes device fingerprinting using browser, OS, and device type for security validation. Breaking changes include new authentication requirements and message structure. Existing WebSocket clients will need updates to comply with the new authentication flow.
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Commits: 5
+
+**Commits:**
+- [`1a74225`](https://github.com/Santiago1010/node-template/commit/1a74225a797f72b50f0bf570f27f86d3355ddee4) feat(websockets): implement enhanced websocket manager with device fingerprinting
+- [`0c8178e`](https://github.com/Santiago1010/node-template/commit/0c8178ec58b5d0571d0894ac7c4089dc41bf8354) docs(websockets): enhance websocket manager documentation and code comments
+- [`dcd671e`](https://github.com/Santiago1010/node-template/commit/dcd671ed80a466ad6c74fa8e90b0a34ec29d3fcb) feat(utils): add device information extraction utility
+- [`28129f0`](https://github.com/Santiago1010/node-template/commit/28129f0695a340a219e91c8ce8d48a635a93dc66) refactor(sockets): replace device info extraction with utility helper
+- [`33d4c4b`](https://github.com/Santiago1010/node-template/commit/33d4c4b5b33647ac0723983ee6276c6df8cc759c) docs(sockets): add comprehensive WebSocket configuration documentation
+
+---
+
+
+
 ## [1.8.0] - 2025-10-02
 
 **Released:** 2025-10-02 23:03:54 UTC

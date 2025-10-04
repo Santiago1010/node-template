@@ -34,6 +34,10 @@ Implements multiple security layers to protect the application:
 -   **Rate Limiting**: To protect the API against brute-force and denial-of-service attacks.
 -   **Cookies**: To manage secure cookies, with policies that adapt to the client's device type.
 
+### [Sockets](./sockets/README.md)
+
+Manages real-time communication through **WebSockets**. It provides a singleton manager that handles client authentication, multi-device connection tracking, and targeted messaging, enabling features like live notifications and interactive events.
+
 ### [Tools](./tools/README.md)
 
 Configures development and monitoring tools:

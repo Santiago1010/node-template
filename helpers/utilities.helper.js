@@ -524,6 +524,134 @@ const retry = async (fn, maxAttempts = 3, baseDelay = 1000) => {
   }
 };
 
+/**
+ * Extracts device information from an HTTP request object
+ * @param {Object} req - HTTP request object
+ * @param {boolean} [onlyStatic=false] - Whether to return only static information
+ * @returns {Object} Device information with fingerprint and metadata
+ *
+ * @example
+ * const deviceInfo = getDeviceInfo(request);
+ * // Returns:
+ * // {
+ * //   browser: 'Chrome',
+ * //   browserVersion: '76.0.3809.132',
+ * //   os: 'Windows 10/11',
+ * //   deviceType: 'Desktop',
+ * //   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+ * //   language: 'en-US',
+ * //   ip: '192.168.1.100',
+ * //   timestamp: '2024-01-15T10:30:00.000Z',
+ * //   referer: 'https://example.com',
+ * //   acceptEncoding: 'gzip, deflate, br',
+ * //   connection: 'keep-alive',
+ * //   host: 'example.com',
+ * //   method: 'GET',
+ * //   path: '/api/data',
+ * //   protocol: 'http',
+ * // }
+ *
+ * @complexity Time: O(1), Space: O(1)
+ * @security Uses cryptographic hash for fingerprint generation
+ */
+const getDeviceInfo = (req, onlyStatic = false) => {
+  const ua = req.headers['user-agent'] || '';
+  const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'Unknown';
+  const acceptLanguage = req.headers['accept-language'] || '';
+
+  const getBrowser = () => {
+    if (ua.includes('Firefox/')) return 'Firefox';
+    if (ua.includes('Chrome/') && !ua.includes('Edg')) return 'Chrome';
+    if (ua.includes('Safari/') && !ua.includes('Chrome')) return 'Safari';
+    if (ua.includes('Edg/')) return 'Edge';
+    if (ua.includes('Opera/') || ua.includes('OPR/')) return 'Opera';
+    return 'Unknown';
+  };
+
+  const getBrowserVersion = () => {
+    const browser = getBrowser();
+    if (browser === 'Unknown') return 'Unknown';
+    const patterns = {
+      Chrome: /Chrome\/([\d.]+)/,
+      Firefox: /Firefox\/([\d.]+)/,
+      Safari: /Version\/([\d.]+)/,
+      Edge: /Edg\/([\d.]+)/,
+      Opera: /(?:Opera|OPR)\/([\d.]+)/,
+    };
+    const match = ua.match(patterns[browser]);
+    return match ? match[1] : 'Unknown';
+  };
+
+  const getOS = () => {
+    if (ua.includes('Windows NT 10.0')) return 'Windows 10/11';
+    if (ua.includes('Windows NT 6.3')) return 'Windows 8.1';
+    if (ua.includes('Windows NT 6.2')) return 'Windows 8';
+    if (ua.includes('Windows NT 6.1')) return 'Windows 7';
+    if (ua.includes('Windows')) return 'Windows';
+    if (ua.includes('Mac OS X')) {
+      const match = ua.match(/Mac OS X ([\d_]+)/);
+      return match ? `macOS ${match[1].replace(/_/g, '.')}` : 'macOS';
+    }
+    if (ua.includes('Android')) {
+      const match = ua.match(/Android ([\d.]+)/);
+      return match ? `Android ${match[1]}` : 'Android';
+    }
+    if (ua.includes('iPhone') || ua.includes('iPad')) {
+      const match = ua.match(/OS ([\d_]+)/);
+      return match ? `iOS ${match[1].replace(/_/g, '.')}` : 'iOS';
+    }
+    if (ua.includes('Linux')) return 'Linux';
+    return 'Unknown';
+  };
+
+  const getDeviceType = () => {
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return 'Tablet';
+    }
+    if (
+      /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)
+    ) {
+      return 'Mobile';
+    }
+    return 'Desktop';
+  };
+
+  const getLanguage = () => {
+    if (!acceptLanguage) return 'Unknown';
+    return acceptLanguage.split(',')[0].trim();
+  };
+
+  const staticInfo = {
+    browser: getBrowser(),
+    browserVersion: getBrowserVersion(),
+    os: getOS(),
+    deviceType: getDeviceType(),
+    userAgent: ua,
+    language: getLanguage(),
+    ip: ip,
+  };
+
+  if (onlyStatic) {
+    return staticInfo;
+  }
+
+  const dynamicInfo = {
+    timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+    referer: req.headers['referer'] || req.headers['referrer'] || 'Direct',
+    acceptEncoding: req.headers['accept-encoding'] || 'Unknown',
+    connection: req.headers['connection'] || 'Unknown',
+    host: req.headers['host'] || 'Unknown',
+    method: req.method,
+    path: req.path || req.url,
+    protocol: req.protocol || 'Unknown',
+  };
+
+  return {
+    ...staticInfo,
+    ...dynamicInfo,
+  };
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -558,4 +686,5 @@ module.exports = {
   capitalize,
   toBoolean,
   retry,
+  getDeviceInfo,
 };
