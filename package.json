@@ -34,7 +34,8 @@
     "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
     "generate-models": "./scripts/createModels.script.js",
     "generate-crud-validations": "./scripts/generateCrudValidations.script.js",
-    "generate-services": "./scripts/generateServices.script.js"
+    "generate-services": "./scripts/generateServices.script.js",
+    "generate-controllers": "./scripts/generateControllers.script.js"
   },
   "config": {
     "commitizen": {
