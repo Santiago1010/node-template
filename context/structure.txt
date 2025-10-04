@@ -36,6 +36,7 @@
 │   │   ├── rateLimit.config.js
 │   │   └── README.md
 │   ├── sockets
+│   │   ├── README.md
 │   │   └── webManager.js
 │   └── tools
 │       ├── logger.config.js
@@ -220,4 +221,4 @@
     ├── extensions.json
     └── settings.json
 
-70 directories, 151 files
+70 directories, 152 files
