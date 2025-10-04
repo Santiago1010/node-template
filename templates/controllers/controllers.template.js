@@ -57,7 +57,7 @@ class {{CONTROLLER_NAME}} {
    */
   static async {{LIST_METHOD}}(req, res, next) {
     try {
-      const result = await {{SERVICE_NAME}}.{{LIST_METHOD}}(req.query;);
+      const result = await {{SERVICE_NAME}}.{{LIST_METHOD}}(req.query);
 
       return success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.list', data: result});
     } catch (error) {

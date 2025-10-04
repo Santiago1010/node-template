@@ -149,8 +149,8 @@ class CrudControllersGenerator {
       let controllerContent = await this.crudHelper.getTemplate('controllers', 'controllers');
 
       const controllerName = `${formatCapitalize(singularName)}Controllers`;
-      const serviceName = `${formatCapitalize(singularName)}Services`;
-      const serviceVariable = `${toCamelCase(singularName)}Services`;
+      const serviceName = `${formatCapitalize(pluralName)}Services`;
+      const serviceVariable = `${toCamelCase(singularName)}`;
 
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
       const fields = this.generateFieldLists(tableData);

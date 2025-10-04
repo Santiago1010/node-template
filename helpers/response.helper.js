@@ -1,3 +1,6 @@
+// =============================================================================
+// INTERNAL DEPENDENCIES
+// =============================================================================
 const i18n = require('../config/i18n');
 
 /**
@@ -15,4 +18,7 @@ const success = (res, { httpCode = 200, messagePath, messageData, data }) => {
   return res.status(httpCode).json({ message: i18n.__mf(messagePath, messageData), ...data });
 };
 
+// =============================================================================
+// MODULE EXPORTS
+// =============================================================================
 module.exports = { success };
