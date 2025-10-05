@@ -130,11 +130,16 @@
 ├── README.md
 ├── routes
 │   ├── app
+│   │   └── index.js
 │   ├── bot
+│   │   └── index.js
 │   ├── desktop
+│   │   └── index.js
 │   ├── index.js
 │   ├── wearable
+│   │   └── index.js
 │   └── web
+│       └── index.js
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
@@ -154,6 +159,7 @@
 │   ├── endpoints.script.js
 │   ├── generateControllers.script.js
 │   ├── generateCrudDocs.script.js
+│   ├── generateCrudEndpoints.script.js
 │   ├── generateCrudValidations.script.js
 │   ├── generate-rsa-keys.sh
 │   └── generateServices.script.js
@@ -169,7 +175,7 @@
 ├── templates
 │   ├── crud
 │   │   ├── controllers.template.js
-│   │   ├── crud.template.js
+│   │   ├── docs.template.js
 │   │   ├── endpoints.template.js
 │   │   ├── services.template.js
 │   │   └── validations.template.js
@@ -242,4 +248,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 153 files
+90 directories, 159 files

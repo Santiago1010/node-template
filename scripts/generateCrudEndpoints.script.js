@@ -69,7 +69,7 @@ class CrudEndpointsGenerator {
     return { tableName, singularName };
   }
 
-  async generateEndpoints(_, pluralName) {
+  async generateEndpoints(singularName, pluralName) {
     try {
       console.log(`🔧 Generating endpoints for: ${pluralName}`);
 
@@ -78,9 +78,13 @@ class CrudEndpointsGenerator {
       const controllerName = toCamelCase(`${pluralName} controller`);
       const pluralCamelName = toCamelCase(pluralName);
 
+      // Generate method names using CrudHelper
+      const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
+
       endpointContent = this.replaceTemplatePlaceholders(endpointContent, {
         controllerName,
         pluralName: pluralCamelName,
+        methodNames,
       });
 
       console.log(`📝 Endpoints generated successfully`);
@@ -91,18 +95,26 @@ class CrudEndpointsGenerator {
   }
 
   replaceTemplatePlaceholders(template, replacements) {
-    const { controllerName, pluralName } = replacements;
+    const { controllerName, pluralName, methodNames } = replacements;
 
     template = template.replace(/\{\{CONTROLLER_NAME\}\}/g, controllerName);
     template = template.replace(/\{\{PLURAL_NAME\}\}/g, pluralName);
+
+    // Replace method name placeholders
+    template = template.replace(/\{\{CREATE_METHOD\}\}/g, methodNames.create);
+    template = template.replace(/\{\{UPDATE_STATUS_METHOD\}\}/g, methodNames.updateStatus);
+    template = template.replace(/\{\{LIST_METHOD\}\}/g, methodNames.list);
+    template = template.replace(/\{\{DETAILS_METHOD\}\}/g, methodNames.details);
+    template = template.replace(/\{\{UPDATE_METHOD\}\}/g, methodNames.update);
+    template = template.replace(/\{\{DELETE_METHOD\}\}/g, methodNames.delete);
 
     return template;
   }
 
   async saveEndpoints(endpointContent, groupName, pluralName) {
     try {
-      const fileName = `${toCamelCase(pluralName)}.endpoints`;
-      const folderPath = await this.crudHelper.createFolder('ROUTES_COMMON', groupName, '');
+      const fileName = `${toCamelCase(pluralName)}.routes`;
+      const folderPath = await this.crudHelper.createFolder('ROUTES_DEFAULT', groupName, '');
       const filePath = await this.crudHelper.createFile(folderPath, fileName, endpointContent);
 
       console.log(`📄 Endpoints saved to: ${filePath}`);

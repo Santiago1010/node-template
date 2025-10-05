@@ -16,17 +16,17 @@ const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util
 // =============================================================================
 const router = express.Router();
 
-router.post('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.create), validationErrorHandler, {{CONTROLLER_NAME}}.create);
+router.post('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{CREATE_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{CREATE_METHOD}});
 
-router.patch('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.updateStatus), validationErrorHandler, {{CONTROLLER_NAME}}.updateStatus);
+router.patch('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{UPDATE_STATUS_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{UPDATE_STATUS_METHOD}});
 
-router.get('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.list), validationErrorHandler, {{CONTROLLER_NAME}}.list);
+router.get('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{LIST_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{LIST_METHOD}});
 
-router.get('/:identifier', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.details), validationErrorHandler, {{CONTROLLER_NAME}}.details);
+router.get('/:identifier', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{DETAILS_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{DETAILS_METHOD}});
 
-router.put('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.update), validationErrorHandler, {{CONTROLLER_NAME}}.update);
+router.put('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{UPDATE_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{UPDATE_METHOD}});
 
-router.delete('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.delete), validationErrorHandler, {{CONTROLLER_NAME}}.delete);
+router.delete('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{DELETE_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{DELETE_METHOD}});
 
 // =============================================================================
 // MODULE EXPORTS

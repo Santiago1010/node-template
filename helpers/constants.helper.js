@@ -147,7 +147,7 @@ const PATHS = {
   DEBUG: ROOT + '/.debug',
   DOCS: ROOT + '/docs',
   DOCS_PATHS: ROOT + '/docs/paths',
-  ROUTES_COMMON: ROOT + '/routes/common',
+  ROUTES_DEFAULT: ROOT + '/routes/web',
 };
 
 /**
