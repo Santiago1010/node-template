@@ -15,7 +15,7 @@ const { Sequelize } = require('sequelize'); // ORM for database connection manag
 // =============================================================================
 const { PATHS, PREFIXES } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
-const { toCamelCase } = require('./strings.helper'); // String transformation utility
+const { toCamelCase, formatCapitalize } = require('./strings.helper'); // String transformation utility
 
 // Promisified filesystem operations
 const readFile = promisify(fs.readFile);
@@ -434,7 +434,7 @@ class CrudHelper {
     const parts = tableName.split('_');
     const prefix = parts[0];
     const groupName = PREFIXES[prefix.toUpperCase()] || 'general';
-    const tagName = this.capitalize(groupName);
+    const tagName = formatCapitalize(groupName);
 
     const tableNameParts = parts.slice(1);
     const pluralName = toCamelCase(tableNameParts.join('_'));
@@ -549,8 +549,8 @@ class CrudHelper {
    * @returns {Object} Object with method names
    */
   generateMethodNames(singularName, pluralName) {
-    const capitalizedSingular = this.capitalize(singularName);
-    const capitalizedPlural = this.capitalize(pluralName);
+    const capitalizedSingular = formatCapitalize(singularName);
+    const capitalizedPlural = formatCapitalize(pluralName);
 
     return {
       create: `create${capitalizedSingular}`,

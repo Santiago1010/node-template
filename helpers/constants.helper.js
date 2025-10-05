@@ -119,6 +119,7 @@ const ROOT = process.cwd();
  * @property {string} DEBUG - Debug information and development artifacts
  * @property {string} DOCS - Documentation files and API specifications
  * @property {string} DOCS_PATHS - Path documentation and routing diagrams
+ * @property {string} ROUTES_COMMON - Common route definitions and endpoint configurations
  *
  * @example
  * // Reading a template file
@@ -146,6 +147,7 @@ const PATHS = {
   DEBUG: ROOT + '/.debug',
   DOCS: ROOT + '/docs',
   DOCS_PATHS: ROOT + '/docs/paths',
+  ROUTES_COMMON: ROOT + '/routes/common',
 };
 
 /**

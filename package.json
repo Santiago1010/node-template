@@ -32,6 +32,7 @@
   "main": "index.js",
   "bin": {
     "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
+    "generate-crud-endpoints": "./scripts/generateCrudEndpoints.script.js",
     "generate-models": "./scripts/createModels.script.js",
     "generate-crud-validations": "./scripts/generateCrudValidations.script.js",
     "generate-services": "./scripts/generateServices.script.js",
