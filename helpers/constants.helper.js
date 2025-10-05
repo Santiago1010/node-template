@@ -211,7 +211,7 @@ const PREFIXES = {
  *
  * @since Version 1.5.0
  */
-const DEVICES = ['common', 'web', 'app', 'wearable', 'desktop', 'bot', 'unknown'];
+const DEVICES = ['common', 'web', 'app', 'wearable', 'desktop', 'bot'];
 
 /**
  * HTTP methods with numeric identifiers for efficient processing
