@@ -16,8 +16,6 @@ const routerApi = (app) => {
 
   const apiRouterV1 = express.Router();
 
-  apiRouterV1.use('/auth', require('./auth'));
-
   app.use('/api/web/v1', apiRouterV1);
 };
 
