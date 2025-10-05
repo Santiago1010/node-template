@@ -2,7 +2,6 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const express = require('express');
-const { checkSchema } = require('express-validator');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -10,13 +9,14 @@ const { checkSchema } = require('express-validator');
 const SessionController = require('../../controllers/auth/sessionWeb.controller');
 const { loginSchema } = require('./validations/session.validations');
 const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
+const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
 // =============================================================================
 // SET UP ROUTER
 // =============================================================================
 const router = express.Router();
 
-router.post('/login/web', checkSchema(loginSchema), validationErrorHandler, SessionController.loginWeb);
+router.post('/login/web', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.loginWeb);
 
 // =============================================================================
 // MODULE EXPORTS
