@@ -14,7 +14,8 @@
     "invalid": "{field} contains an invalid value",
     "string": "validations.string",
     "passwordLength": "validations.passwordLength",
-    "passwordUppercase": "validations.passwordUppercase"
+    "passwordUppercase": "validations.passwordUppercase",
+    "array": "validations.array"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
