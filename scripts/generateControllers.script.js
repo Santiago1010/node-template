@@ -146,7 +146,7 @@ class CrudControllersGenerator {
 
   async generateController(tableData, singularName, pluralName) {
     try {
-      let controllerContent = await this.crudHelper.getTemplate('controllers', 'controllers');
+      let controllerContent = await this.crudHelper.getTemplate('crud', 'controllers');
 
       const controllerName = `${formatCapitalize(singularName)}Controllers`;
       const serviceName = `${formatCapitalize(pluralName)}Services`;
@@ -224,7 +224,7 @@ class CrudControllersGenerator {
   async saveController(controllerContent, groupName, pluralName) {
     try {
       const fileName = `${toCamelCase(pluralName)}.controllers`;
-      const folderPath = await this.crudHelper.createFolder('CONTROLLERS', groupName, '');
+      const folderPath = await this.crudHelper.createFolder('CONTROLLERS', 'common/' + groupName, '');
       const filePath = await this.crudHelper.createFile(folderPath, fileName, controllerContent);
 
       console.log(`📄 Controller saved to: ${filePath}`);

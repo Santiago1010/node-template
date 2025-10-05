@@ -3,8 +3,8 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const {{SERVICE_NAME}} = require('../services/{{SERVICE_VARIABLE}}.services');
-const { success } = require('../../helpers/response.helper');
+const {{SERVICE_NAME}} = require('../../services/common/{{SERVICE_VARIABLE}}.services');
+const { success } = require('../../../helpers/response.helper');
 
 // =============================================================================
 // {{CONTROLLER_NAME}}
