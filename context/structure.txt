@@ -52,8 +52,6 @@
 │   └── web
 ├── controllers
 │   ├── app
-│   ├── auth
-│   │   └── sessionWeb.controller.js
 │   ├── bot
 │   ├── common
 │   ├── desktop
@@ -104,6 +102,18 @@
 │   └── keys
 ├── LICENSE
 ├── middlewares
+│   ├── app
+│   ├── bot
+│   ├── common
+│   ├── desktop
+│   ├── errors
+│   │   ├── asyncError.middleware.js
+│   │   ├── errorHandler.middleware.js
+│   │   ├── notFound.middleware.js
+│   │   ├── requestLogger.middleware.js
+│   │   └── validationError.middleware.js
+│   ├── wearable
+│   └── web
 ├── migrations
 ├── models
 │   ├── configurations
@@ -120,13 +130,7 @@
 ├── README.md
 ├── routes
 │   ├── app
-│   ├── auth
-│   │   ├── index.js
-│   │   ├── session.route.js
-│   │   └── validations
-│   │       └── session.validations.js
 │   ├── bot
-│   ├── common
 │   ├── desktop
 │   ├── index.js
 │   ├── wearable
@@ -157,28 +161,24 @@
 ├── .sequelizerc
 ├── services
 │   ├── app
-│   ├── auth
-│   │   └── sessionWeb.service.js
 │   ├── bot
 │   ├── common
 │   ├── desktop
 │   ├── wearable
 │   └── web
 ├── templates
-│   ├── controllers
-│   │   └── controllers.template.js
-│   ├── docs
-│   │   └── crud.template.js
+│   ├── crud
+│   │   ├── controllers.template.js
+│   │   ├── crud.template.js
+│   │   ├── endpoints.template.js
+│   │   ├── services.template.js
+│   │   └── validations.template.js
 │   ├── emails
 │   ├── models
 │   │   ├── model.template.js
 │   │   └── setupModel.template.js
-│   ├── prompts
-│   │   └── endpoints_docs.md
-│   ├── services
-│   │   └── services.template.js
-│   └── validations
-│       └── crud.template.js
+│   └── prompts
+│       └── endpoints_docs.md
 ├── tests
 │   ├── env-setup.js
 │   ├── integration
@@ -242,4 +242,4 @@
     ├── extensions.json
     └── settings.json
 
-91 directories, 152 files
+90 directories, 153 files
