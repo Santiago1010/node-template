@@ -43,6 +43,34 @@ function processStack(stack, basePath = '') {
   });
 }
 
+/**
+ * Parsea la ruta del endpoint y extrae información estructurada
+ * @param {string} fullPath - Ruta completa del endpoint (ej: '/api/web/v1/auth/login/web')
+ * @returns {Object} Objeto con platform, version, group y path
+ */
+function parseEndpointPath(fullPath) {
+  // Patrón: /api/{platform}/{version}/{group}/{resto...}
+  const regex = /^\/api\/([^\/]+)\/([^\/]+)\/([^\/]+)(.*)$/;
+  const match = fullPath.match(regex);
+
+  if (!match) {
+    return {
+      platform: null,
+      version: null,
+      group: null,
+      path: fullPath,
+    };
+  }
+
+  return {
+    platform: match[1],
+    version: match[2],
+    group: match[3],
+    path: match[4] || '/',
+  };
+}
+
+// Procesar el stack de Express
 processStack(app._router.stack);
 
 const endpoints = expressEndpoints(app);
@@ -51,8 +79,17 @@ const schemas = getRegisteredSchemas();
 const endpointsWithSchemas = endpoints.map((endpoint) => {
   const schema = schemas.find((s) => endpoint.path.includes(s.path) && endpoint.methods.includes(s.method));
 
+  const parsedPath = parseEndpointPath(endpoint.path);
+  const method = endpoint.methods[0]?.toLowerCase() || 'get';
+
   return {
-    ...endpoint,
+    method,
+    platform: parsedPath.platform,
+    version: parsedPath.version,
+    group: parsedPath.group,
+    path: parsedPath.path,
+    requiresAuthorization: true,
+    hasSensitiveInformation: true,
     validationSchema: schema ? schema.schema : null,
   };
 });

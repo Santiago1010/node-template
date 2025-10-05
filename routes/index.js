@@ -18,7 +18,7 @@ const routerApi = (app) => {
 
   apiRouterV1.use('/auth', require('./auth'));
 
-  app.use('/api/v1', apiRouterV1);
+  app.use('/api/web/v1', apiRouterV1);
 };
 
 // =============================================================================
