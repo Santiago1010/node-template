@@ -125,21 +125,21 @@ class ExtendedModel extends Model {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
-    this.hasMany(models.configPagesHasEndpoints, {
-      foreignKey: 'idEndpoint',
-      sourceKey: 'id',
-      as: 'pagesHasEndpoints',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
+    // this.hasMany(models.configPagesHasEndpoints, {
+    //   foreignKey: 'idEndpoint',
+    //   sourceKey: 'id',
+    //   as: 'pagesHasEndpoints',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
 
     // Bridges
-    this.belongsToMany(models.configPages, {
-      through: { model: models.configPagesHasEndpoints },
-      foreignKey: 'idEndpoint',
-      otherKey: 'idPage',
-      as: 'pages',
-    });
+    // this.belongsToMany(models.configPages, {
+    //   through: { model: models.configPagesHasEndpoints },
+    //   foreignKey: 'idEndpoint',
+    //   otherKey: 'idPage',
+    //   as: 'pages',
+    // });
   }
 
   static config(sequelize) {

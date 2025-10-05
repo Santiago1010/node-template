@@ -168,28 +168,28 @@ class ExtendedModel extends Model {
     });
 
     // References
-    this.hasMany(models.configEndpointsRequestSchema, {
-      foreignKey: 'fieldId',
-      sourceKey: 'id',
-      as: 'schema',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.configPagesEndpointsHasSchemas, {
-      foreignKey: 'idEndpointField',
-      sourceKey: 'id',
-      as: 'pagesEndpointsHasSchemas',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
+    // this.hasMany(models.configEndpointsRequestSchema, {
+    //   foreignKey: 'fieldId',
+    //   sourceKey: 'id',
+    //   as: 'schema',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.configPagesEndpointsHasSchemas, {
+    //   foreignKey: 'idEndpointField',
+    //   sourceKey: 'id',
+    //   as: 'pagesEndpointsHasSchemas',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
 
-    // Bridges
-    this.belongsToMany(models.configPagesHasEndpoints, {
-      through: { model: models.configPagesEndpointsHasSchemas },
-      foreignKey: 'idEndpointField',
-      otherKey: 'idPageEndpoint',
-      as: 'endpoints',
-    });
+    // // Bridges
+    // this.belongsToMany(models.configPagesHasEndpoints, {
+    //   through: { model: models.configPagesEndpointsHasSchemas },
+    //   foreignKey: 'idEndpointField',
+    //   otherKey: 'idPageEndpoint',
+    //   as: 'endpoints',
+    // });
   }
 
   static config(sequelize) {
