@@ -45,7 +45,6 @@
 ├── context
 │   ├── app
 │   ├── bot
-│   ├── common
 │   ├── desktop
 │   ├── structure.txt
 │   ├── wearable
@@ -105,6 +104,7 @@
 │   ├── app
 │   ├── bot
 │   ├── common
+│   │   └── cors.middleware.js
 │   ├── desktop
 │   ├── errors
 │   │   ├── asyncError.middleware.js
@@ -248,4 +248,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 159 files
+89 directories, 160 files

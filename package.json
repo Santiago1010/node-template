@@ -63,7 +63,8 @@
     "test:verbose": "jest --verbose",
     "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
     "models:generate": "node ./scripts/createModels.script.js",
-    "models:create": "node ./scripts/createModels.script.js"
+    "models:create": "node ./scripts/createModels.script.js",
+    "sync-endpoints": "node ./scripts/endpoints.script.js"
   },
   "overrides": {
     "glob": "^10.3.10",
