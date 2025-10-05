@@ -81,13 +81,13 @@ class ExtendedModel extends Model {
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });
-    this.hasMany(models.configRoles, {
-      foreignKey: 'securityLevelId',
-      sourceKey: 'id',
-      as: 'roles',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
+    // this.hasMany(models.configRoles, {
+    //   foreignKey: 'securityLevelId',
+    //   sourceKey: 'id',
+    //   as: 'roles',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
 
     // Bridges
   }

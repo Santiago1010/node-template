@@ -354,7 +354,7 @@ const syncEndpoint = async (endpointData, transaction) => {
   }
 
   console.log(
-    `  ${created ? '✅ Creado' : '🔄 Actualizado'}: ${method.toUpperCase()} ${platform}/${version}/${group}${path}`
+    `  ${created ? '✅ Created' : '🔄 Updated'}: ${method.toUpperCase()} ${platform}/${version}/${group}${path}`
   );
 
   // Process validation schema if present
@@ -393,7 +393,7 @@ const syncValidationSchema = async (endpointId, validationSchema, transaction) =
   });
 
   if (!defaultSecurityLevel) {
-    console.warn('  ⚠️  No se encontró un nivel de seguridad por defecto. Saltando sincronización de esquema.');
+    console.warn('  ⚠️  No default security level found. Skipping schema synchronization.');
     return;
   }
 
@@ -412,15 +412,15 @@ const syncValidationSchema = async (endpointId, validationSchema, transaction) =
   const fieldsToDelete = existingFields.filter((f) => !currentFieldNames.has(f.name));
   for (const field of fieldsToDelete) {
     await field.destroy({ transaction });
-    console.log(`    🗑️  Campo eliminado: ${field.name}`);
+    console.log(`    🗑️  Field deleted: ${field.name}`);
   }
 
   // Process each field in the current validation schema
   for (const [fieldName, fieldSchema] of Object.entries(validationSchema)) {
     await processNestedFields(fieldName, fieldSchema, endpointId, securityLevelId, null, transaction);
 
-    const action = existingFieldNames.has(fieldName) ? 'actualizado' : 'creado';
-    console.log(`    📝 Campo ${action}: ${fieldName}`);
+    const action = existingFieldNames.has(fieldName) ? 'updated' : 'created';
+    console.log(`    📝 Field ${action}: ${fieldName}`);
   }
 };
 
@@ -443,7 +443,7 @@ const syncValidationSchema = async (endpointId, validationSchema, transaction) =
  * @since Version 1.0.0
  */
 const main = async () => {
-  console.log('🚀 Iniciando sincronización de endpoints...\n');
+  console.log('🚀 Starting endpoint synchronization...\n');
 
   try {
     // Process Express application to extract validation schemas
@@ -471,7 +471,7 @@ const main = async () => {
       };
     });
 
-    console.log(`📊 Total de endpoints encontrados: ${endpointsWithSchemas.length}\n`);
+    console.log(`📊 Total endpoints found: ${endpointsWithSchemas.length}\n`);
 
     // Execute synchronization within transaction for data consistency
     await sequelize.transaction(async (transaction) => {
@@ -480,22 +480,22 @@ const main = async () => {
       }
     });
 
-    console.log('\n✅ Sincronización completada exitosamente!');
+    console.log('\n✅ Synchronization completed successfully!');
 
     // Display synchronization statistics
     const totalEndpoints = await configEndpoints.count();
     const totalSchemas = await configEndpointsRequestSchema.count();
 
-    console.log(`\n📈 Estadísticas:`);
-    console.log(`   - Endpoints en BD: ${totalEndpoints}`);
-    console.log(`   - Campos de esquema en BD: ${totalSchemas}`);
+    console.log(`\n📈 Statistics:`);
+    console.log(`   - Endpoints in DB: ${totalEndpoints}`);
+    console.log(`   - Schema fields in DB: ${totalSchemas}`);
   } catch (error) {
-    console.error('❌ Error durante la sincronización:', error);
+    console.error('❌ Error during synchronization:', error);
     throw error;
   } finally {
     // Ensure database connection is closed
     await sequelize.close();
-    console.log('\n🔌 Conexión a la base de datos cerrada.');
+    console.log('\n🔌 Database connection closed.');
   }
 };
 
@@ -511,10 +511,10 @@ const main = async () => {
  */
 main()
   .then(() => {
-    console.log('\n👋 Script finalizado.');
+    console.log('\n👋 Script finished.');
     process.exit(0); // Success exit code
   })
   .catch((error) => {
-    console.error('\n💥 Error fatal:', error);
+    console.error('\n💥 Fatal error:', error);
     process.exit(1); // Error exit code
   });
