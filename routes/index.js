@@ -14,9 +14,17 @@ const userAgent = require('express-useragent');
 const routerApi = (app) => {
   app.use(userAgent.express());
 
-  const apiRouterV1 = express.Router();
+  const routerAppV1 = express.Router();
+  const routerBotV1 = express.Router();
+  const routerDesktopV1 = express.Router();
+  const routerWearableV1 = express.Router();
+  const routerWebV1 = express.Router();
 
-  app.use('/api/web/v1', apiRouterV1);
+  app.use('/api/app/v1', routerAppV1);
+  app.use('/api/bot/v1', routerBotV1);
+  app.use('/api/desktop/v1', routerDesktopV1);
+  app.use('/api/wearable/v1', routerWearableV1);
+  app.use('/api/web/v1', routerWebV1);
 };
 
 // =============================================================================
