@@ -1,5 +1,65 @@
 
 
+## [1.10.0] - 2025-10-05
+
+**Released:** 2025-10-05 20:54:36 UTC
+
+### [Refactor Project Structure and Enhance CRUD Generation](https://github.com/Santiago1010/node-template/pull/42)
+
+#### 📋 Summary
+This PR implements a comprehensive restructuring of the application architecture to support multiple client platforms (web, app, bot, desktop, wearable) and enhances the CRUD generation system with improved templates, validation, and documentation.
+
+#### 🔍 What Changed
+### Added
+- Multi-platform architecture with separate routes, controllers, and services for web, app, bot, desktop, and wearable
+- New configuration models for endpoints and security levels (`configEndpoints`, `configEndpointsRequestSchema`, `configSecurityLevels`)
+- Enhanced CRUD generation scripts for controllers, endpoints, and services
+- Validation schema registry utility for automatic endpoint documentation
+- Response helper utility for standardized API responses
+- Endpoint synchronization script for automatic route registration
+
+### Changed
+- Restructured project directory organization by platform type
+- Updated constants helper with comprehensive documentation and new device types
+- Enhanced CRUD helper with improved type detection and template handling
+- Refactored route structure to support platform-specific API versions
+- Improved template system with better organization and placeholder replacement
+
+### Removed
+- Legacy authentication controllers and services (`sessionWeb.controller.js`, `sessionWeb.service.js`)
+- Obsolete middleware files (`pageUseEndpoint.middleware.js`, `session.middleware.js`)
+- Old route structure and validation files
+
+#### 📝 Additional Notes
+- New platform structure enables independent development for web, mobile apps, bots, desktop apps, and wearables
+- Validation registry automatically captures and documents API endpoints
+- Enhanced constants helper provides comprehensive configuration management
+- All CRUD generation scripts now use improved templates with better error handling
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Commits: 10
+
+**Commits:**
+- [`b5d26ba`](https://github.com/Santiago1010/node-template/commit/b5d26baf73b8219f49131104b364d48c75cba561) chore(i18n): translate console messages to english and clean up associations
+- [`412d111`](https://github.com/Santiago1010/node-template/commit/412d111265520009d94144e5bd00820510bc34f9) chore(i18n): add array validation message key
+- [`f337e26`](https://github.com/Santiago1010/node-template/commit/f337e26b6f102700b291c087e43e4e68c28d29ed) refactor(config): enhance constants helper and remove unused middlewares
+- [`8fa5546`](https://github.com/Santiago1010/node-template/commit/8fa5546ff0ef4f322a8e19e6b17c22fffc9b7ece) refactor(architecture): reorganize project structure and consolidate templates
+- [`e137c78`](https://github.com/Santiago1010/node-template/commit/e137c78a396df6e43925c386a11329556b665970) feat(cli): add CRUD endpoints generator script
+- [`3c4102a`](https://github.com/Santiago1010/node-template/commit/3c4102ad82d598c0080efc6ac294f993f51a4b71) chore(routes): add platform-specific route index files
+- [`3604960`](https://github.com/Santiago1010/node-template/commit/360496031dd65dd257e96e5ee79e0c9b4b20c168) refactor(cli): enhance CRUD endpoints generator and update structure
+- [`6926f99`](https://github.com/Santiago1010/node-template/commit/6926f9913f4c54e80a89daf0bf6ef6561e0b6fd9) feat(api): implement multi-platform routing and restore logging service
+- [`ee293f3`](https://github.com/Santiago1010/node-template/commit/ee293f3641f0c259d7b9b30689e7cb964753804a) chore(middleware): restore CORS middleware and update scripts
+- [`83d9b74`](https://github.com/Santiago1010/node-template/commit/83d9b74ee7ec32f968ede655aeadff11fc624a88) refactor(crud): consolidate templates and update generation paths
+
+---
+
+
+
 ## [1.9.0] - 2025-10-04
 
 **Released:** 2025-10-04 13:59:58 UTC
