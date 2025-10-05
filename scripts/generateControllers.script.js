@@ -16,10 +16,10 @@ const { toCamelCase, formatCapitalize } = require('../helpers/strings.helper');
 // =============================================================================
 // SCRIPT CONFIGURATION
 // =============================================================================
-const SCRIPT_NAME = 'Generate CRUD Services';
+const SCRIPT_NAME = 'Generate CRUD Controllers';
 const REQUIRED_ARGS = 2;
 
-class CrudServicesGenerator {
+class CrudControllersGenerator {
   constructor() {
     this.crudHelper = new CrudHelper();
     this.startTime = performance.now();
@@ -38,8 +38,8 @@ class CrudServicesGenerator {
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
 
-      const serviceContent = await this.generateService(tableData, singularName, pluralName);
-      await this.saveService(serviceContent, groupName, pluralName);
+      const controllerContent = await this.generateController(tableData, singularName, pluralName);
+      await this.saveController(controllerContent, groupName, pluralName);
 
       const endTime = performance.now();
       const executionTime = ((endTime - this.startTime) / 1000).toFixed(2);
@@ -57,8 +57,8 @@ class CrudServicesGenerator {
 
     if (args.length !== REQUIRED_ARGS) {
       console.error(`\n❌ Error: Invalid number of arguments.`);
-      console.error(`📋 Usage: npx generate-services <table_name> <singular_name>`);
-      console.error(`📝 Example: npx generate-services usr_users user`);
+      console.error(`📋 Usage: npx generate-crud-controllers <table_name> <singular_name>`);
+      console.error(`📝 Example: npx generate-crud-controllers usr_users user`);
       process.exit(1);
     }
 
@@ -144,34 +144,30 @@ class CrudServicesGenerator {
     }
   }
 
-  async generateService(tableData, singularName, pluralName) {
+  async generateController(tableData, singularName, pluralName) {
     try {
-      let serviceContent = await this.crudHelper.getTemplate('crud', 'services');
+      let controllerContent = await this.crudHelper.getTemplate('crud', 'controllers');
 
-      const mainModelName = toCamelCase(tableData.tableName);
-      const serviceName = `${formatCapitalize(singularName)}Services`;
-      const singleName = toCamelCase(singularName);
+      const controllerName = `${formatCapitalize(singularName)}Controllers`;
+      const serviceName = `${formatCapitalize(pluralName)}Services`;
+      const serviceVariable = `${toCamelCase(singularName)}`;
 
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
       const fields = this.generateFieldLists(tableData);
-      const includes = this.generateIncludes();
-      const filters = this.generateFilters(tableData);
-      const filterConditions = this.generateFilterConditions(tableData);
 
-      serviceContent = this.replaceTemplatePlaceholders(serviceContent, {
-        mainModel: mainModelName,
-        serviceName: serviceName,
-        singleName: singleName,
-        methodNames: methodNames,
-        fields: fields,
-        includes: includes,
-        filters: filters,
-        filterConditions: filterConditions,
+      controllerContent = this.replaceTemplatePlaceholders(controllerContent, {
+        controllerName,
+        serviceName,
+        serviceVariable,
+        singularName,
+        pluralName,
+        methodNames,
+        fields,
       });
 
-      return serviceContent;
+      return controllerContent;
     } catch (error) {
-      throw new Error(`Failed to generate service: ${error.message}`);
+      throw new Error(`Failed to generate controller: ${error.message}`);
     }
   }
 
@@ -198,59 +194,18 @@ class CrudServicesGenerator {
       allFields: allFieldsArray.join(', '),
       requiredFields: requiredFieldsArray.join(', '),
       optionalFields: optionalFieldsArray.join(', '),
-      allData: allFieldsArray.join(', '),
     };
   }
 
-  generateIncludes() {
-    const includes = Array.from(this.foreignKeyReferences.values())
-      .map((fk) => `// { model: ${fk.modelName}, as: '${fk.modelName.toLowerCase()}' }`)
-      .join('\n    ');
-
-    return includes || '// Add your model includes here';
-  }
-
-  generateFilters(tableData) {
-    const filterFields = [];
-
-    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
-      if (this.shouldIncludeInFilters(columnName, columnDetails)) {
-        filterFields.push(toCamelCase(columnName));
-      }
-    }
-
-    return filterFields.join(', ');
-  }
-
-  generateFilterConditions(tableData) {
-    const filterConditions = [];
-
-    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
-      if (this.shouldIncludeInFilters(columnName, columnDetails)) {
-        const camelFieldName = toCamelCase(columnName);
-        filterConditions.push(`if (${camelFieldName}) optionsQuery.where.${camelFieldName} = ${camelFieldName};`);
-      }
-    }
-
-    return filterConditions.join('\n    ');
-  }
-
-  shouldIncludeInFilters(columnName, columnDetails) {
-    const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
-
-    if (columnType.includes('enum')) return true;
-    if (this.foreignKeyReferences.has(columnName)) return true;
-
-    return false;
-  }
-
   replaceTemplatePlaceholders(template, replacements) {
-    const { mainModel, serviceName, singleName, methodNames, fields, includes, filters, filterConditions } =
+    const { controllerName, serviceName, serviceVariable, singularName, pluralName, methodNames, fields } =
       replacements;
 
-    template = template.replace(/\{\{MAIN_MODEL\}\}/g, mainModel);
+    template = template.replace(/\{\{CONTROLLER_NAME\}\}/g, controllerName);
     template = template.replace(/\{\{SERVICE_NAME\}\}/g, serviceName);
-    template = template.replace(/\{\{SINGLE_NAME\}\}/g, singleName);
+    template = template.replace(/\{\{SERVICE_VARIABLE\}\}/g, serviceVariable);
+    template = template.replace(/\{\{SINGULAR_NAME\}\}/g, singularName);
+    template = template.replace(/\{\{PLURAL_NAME\}\}/g, pluralName);
 
     template = template.replace(/\{\{CREATE_METHOD\}\}/g, methodNames.create);
     template = template.replace(/\{\{UPDATE_STATUS_METHOD\}\}/g, methodNames.updateStatus);
@@ -259,34 +214,29 @@ class CrudServicesGenerator {
     template = template.replace(/\{\{UPDATE_METHOD\}\}/g, methodNames.update);
     template = template.replace(/\{\{DELETE_METHOD\}\}/g, methodNames.delete);
 
+    template = template.replace(/\{\{ALL_FIELDS\}\}/g, fields.allFields);
     template = template.replace(/\{\{REQUIRED_FIELDS\}\}/g, fields.requiredFields);
     template = template.replace(/\{\{OPTIONAL_FIELDS\}\}/g, fields.optionalFields);
-    template = template.replace(/\{\{ALL_DATA\}\}/g, fields.allData);
-
-    template = template.replace(/\{\{INCLUDES\}\}/g, includes);
-    template = template.replace(/\{\{FILTERS\}\}/g, filters);
-
-    template = template.replace(/\/\/ Set FILTERS here/g, filterConditions);
 
     return template;
   }
 
-  async saveService(serviceContent, groupName, pluralName) {
+  async saveController(controllerContent, groupName, pluralName) {
     try {
-      const fileName = `${toCamelCase(pluralName)}.services`;
-      const folderPath = await this.crudHelper.createFolder('SERVICES', 'common/' + groupName, '');
-      const filePath = await this.crudHelper.createFile(folderPath, fileName, serviceContent);
+      const fileName = `${toCamelCase(pluralName)}.controllers`;
+      const folderPath = await this.crudHelper.createFolder('CONTROLLERS', 'common/' + groupName, '');
+      const filePath = await this.crudHelper.createFile(folderPath, fileName, controllerContent);
 
-      console.log(`📄 Service saved to: ${filePath}`);
+      console.log(`📄 Controller saved to: ${filePath}`);
     } catch (error) {
-      throw new Error(`Failed to save service: ${error.message}`);
+      throw new Error(`Failed to save controller: ${error.message}`);
     }
   }
 }
 
 if (require.main === module) {
-  const generator = new CrudServicesGenerator();
+  const generator = new CrudControllersGenerator();
   generator.run().catch(console.error);
 }
 
-module.exports = CrudServicesGenerator;
+module.exports = CrudControllersGenerator;

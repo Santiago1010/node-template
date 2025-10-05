@@ -27,10 +27,10 @@ describe('Crud Helper - Filesystem Operations', () => {
     it('should read and return a template file', async () => {
       const templateContent = 'template content';
       fs.readFile.mockImplementation((_, __, callback) => callback(null, templateContent));
-      const content = await crudHelper.getTemplate('folder', 'name');
+      const content = await crudHelper.getTemplate('crud', 'services');
       expect(content).toBe(templateContent);
       expect(fs.readFile).toHaveBeenCalledWith(
-        path.join(PATHS.TEMPLATES, 'folder', 'name.template.js'),
+        path.join(PATHS.TEMPLATES, 'crud', 'services.template.js'),
         'utf-8',
         expect.any(Function)
       );

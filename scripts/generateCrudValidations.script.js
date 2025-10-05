@@ -146,7 +146,7 @@ class CrudValidationsGenerator {
 
   async generateValidations(tableData, singularName, pluralName) {
     try {
-      let validationsContent = await this.crudHelper.getTemplate('validations', 'crud');
+      let validationsContent = await this.crudHelper.getTemplate('crud', 'validations');
       const mainModelName = toCamelCase(tableData.tableName);
       const imports = this.generateImports(tableData);
       const schemas = this.generateSchemas(tableData, mainModelName);
@@ -432,7 +432,7 @@ class CrudValidationsGenerator {
   async saveValidations(validationsContent, groupName, pluralName) {
     try {
       const fileName = `${toCamelCase(pluralName)}.validations`;
-      const folderPath = await this.crudHelper.createFolder('VALIDATIONS', groupName, '');
+      const folderPath = await this.crudHelper.createFolder('ROUTES_DEFAULT', groupName + '/validations', '');
       const filePath = await this.crudHelper.createFile(folderPath, fileName, validationsContent);
 
       console.log(`📄 Validations saved to: ${filePath}`);

@@ -43,11 +43,19 @@
 │       ├── morgan.config.js
 │       └── README.md
 ├── context
-│   └── structure.txt
+│   ├── app
+│   ├── bot
+│   ├── desktop
+│   ├── structure.txt
+│   ├── wearable
+│   └── web
 ├── controllers
-│   ├── auth
-│   │   └── sessionWeb.controller.js
-│   └── config
+│   ├── app
+│   ├── bot
+│   ├── common
+│   ├── desktop
+│   ├── wearable
+│   └── web
 ├── .debug
 ├── docker-compose.yml
 ├── Dockerfile
@@ -78,6 +86,7 @@
 │   ├── encrypt.helper.js
 │   ├── numbers.helper.js
 │   ├── performance.helper.js
+│   ├── response.helper.js
 │   ├── security.helper.js
 │   ├── strings.helper.js
 │   ├── utilities.helper.js
@@ -92,6 +101,8 @@
 │   └── keys
 ├── LICENSE
 ├── middlewares
+│   ├── app
+│   ├── bot
 │   ├── common
 │   │   └── cors.middleware.js
 │   ├── desktop
@@ -101,12 +112,14 @@
 │   │   ├── notFound.middleware.js
 │   │   ├── requestLogger.middleware.js
 │   │   └── validationError.middleware.js
-│   ├── mobile
+│   ├── wearable
 │   └── web
-│       ├── pageUseEndpoint.middleware.js
-│       └── session.middleware.js
 ├── migrations
 ├── models
+│   ├── configurations
+│   │   ├── configEndpoints.model.js
+│   │   ├── configEndpointsRequestSchema.model.js
+│   │   └── configSecurityLevels.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
@@ -116,12 +129,17 @@
 ├── package-lock.json
 ├── README.md
 ├── routes
-│   ├── auth
-│   │   ├── index.js
-│   │   ├── session.route.js
-│   │   └── validations
-│   │       └── session.validations.js
-│   └── index.js
+│   ├── app
+│   │   └── index.js
+│   ├── bot
+│   │   └── index.js
+│   ├── desktop
+│   │   └── index.js
+│   ├── index.js
+│   ├── wearable
+│   │   └── index.js
+│   └── web
+│       └── index.js
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
@@ -138,28 +156,36 @@
 │       └── search.schema.js
 ├── scripts
 │   ├── createModels.script.js
+│   ├── endpoints.script.js
+│   ├── generateControllers.script.js
 │   ├── generateCrudDocs.script.js
+│   ├── generateCrudEndpoints.script.js
 │   ├── generateCrudValidations.script.js
 │   ├── generate-rsa-keys.sh
 │   └── generateServices.script.js
 ├── seeders
 ├── .sequelizerc
 ├── services
-│   └── auth
-│       └── sessionWeb.service.js
+│   ├── app
+│   ├── bot
+│   ├── common
+│   ├── desktop
+│   ├── users
+│   ├── wearable
+│   └── web
 ├── templates
-│   ├── docs
-│   │   └── crud.template.js
+│   ├── crud
+│   │   ├── controllers.template.js
+│   │   ├── docs.template.js
+│   │   ├── endpoints.template.js
+│   │   ├── services.template.js
+│   │   └── validations.template.js
 │   ├── emails
 │   ├── models
 │   │   ├── model.template.js
 │   │   └── setupModel.template.js
-│   ├── prompts
-│   │   └── endpoints_docs.md
-│   ├── services
-│   │   └── services.template.js
-│   └── validations
-│       └── crud.template.js
+│   └── prompts
+│       └── endpoints_docs.md
 ├── tests
 │   ├── env-setup.js
 │   ├── integration
@@ -217,8 +243,10 @@
 │       │       ├── object.test.js
 │       │       └── validation.test.js
 │       └── middlewares
+├── utils
+│   └── validationRegistry.util.js
 └── .vscode
     ├── extensions.json
     └── settings.json
 
-70 directories, 152 files
+90 directories, 160 files

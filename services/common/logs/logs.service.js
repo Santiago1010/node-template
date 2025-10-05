@@ -1,8 +1,8 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const sequelize = require('../../config/database/connection');
-const { paginateModel, setSearchQuery } = require('../../helpers/database.helper');
+const sequelize = require('../../../config/database/connection');
+const { paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
 
 const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = sequelize.models;
 

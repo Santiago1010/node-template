@@ -535,11 +535,11 @@ class ModelGenerator extends CrudHelper {
         // default tinyint size preference for readability
         sequelizeType += `(2)`;
       } else if (cleanSize === '1') {
-        const normalizedName = (columnName || '').toLowerCase();
-        if (normalizedName.startsWith('is_') || normalizedName.endsWith('_is') || normalizedName.includes('_is_')) {
-          sequelizeType = 'BOOLEAN';
+        // Use shouldBeTinyInt to determine if it should be BOOLEAN or TINYINT(1)
+        if (this.shouldBeTinyInt(columnName, columnType)) {
+          sequelizeType = 'TINYINT(1)';
         } else {
-          sequelizeType += `(${cleanSize})`;
+          sequelizeType = 'BOOLEAN';
         }
       } else {
         sequelizeType += `(${cleanSize})`;

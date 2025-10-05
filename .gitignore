@@ -792,5 +792,7 @@ kubernetes/keys/
 !models/logs/
 !routes/logs/
 !services/logs/
+!services/common/logs/
+!services/**/logs/*.js
 
 # End of https://www.toptal.com/developers/gitignore/api/node,audio,linux,macos,video,dotenv,images,windows,libreoffice,sublimetext,visualstudio,microsoftoffice,visualstudiocode

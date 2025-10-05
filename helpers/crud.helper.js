@@ -15,7 +15,7 @@ const { Sequelize } = require('sequelize'); // ORM for database connection manag
 // =============================================================================
 const { PATHS, PREFIXES } = require('./constants.helper'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
-const { toCamelCase } = require('./strings.helper'); // String transformation utility
+const { toCamelCase, formatCapitalize } = require('./strings.helper'); // String transformation utility
 
 // Promisified filesystem operations
 const readFile = promisify(fs.readFile);
@@ -434,7 +434,7 @@ class CrudHelper {
     const parts = tableName.split('_');
     const prefix = parts[0];
     const groupName = PREFIXES[prefix.toUpperCase()] || 'general';
-    const tagName = this.capitalize(groupName);
+    const tagName = formatCapitalize(groupName);
 
     const tableNameParts = parts.slice(1);
     const pluralName = toCamelCase(tableNameParts.join('_'));
@@ -543,23 +543,14 @@ class CrudHelper {
   }
 
   /**
-   * Capitalize first letter of a string
-   * @param {string} str - String to capitalize
-   * @returns {string} Capitalized string
-   */
-  capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  /**
    * Generate method names for CRUD operations
    * @param {string} singularName - Singular entity name
    * @param {string} pluralName - Plural entity name
    * @returns {Object} Object with method names
    */
   generateMethodNames(singularName, pluralName) {
-    const capitalizedSingular = this.capitalize(singularName);
-    const capitalizedPlural = this.capitalize(pluralName);
+    const capitalizedSingular = formatCapitalize(singularName);
+    const capitalizedPlural = formatCapitalize(pluralName);
 
     return {
       create: `create${capitalizedSingular}`,
@@ -677,6 +668,32 @@ class CrudHelper {
       console.error(`Error creating file: ${filePath}`, error);
       throw error;
     }
+  }
+
+  /**
+   * Determine if a tinyint(1) column should be treated as TINYINT(1) instead of BOOLEAN
+   * @param {string} columnName - Column name to validate
+   * @param {string} columnType - Column type from database (e.g., 'tinyint(1)')
+   * @returns {boolean} True if should be TINYINT(1), false if should be BOOLEAN
+   */
+  shouldBeTinyInt(columnName, columnType) {
+    // First check: must be tinyint(1)
+    if (!columnType || !columnType.toLowerCase().includes('tinyint(1)')) {
+      return false;
+    }
+
+    const lowerName = columnName.toLowerCase();
+
+    // Check if it matches boolean naming conventions
+    const isBooleanName =
+      lowerName.startsWith('is_') || // is_active, is_enabled
+      lowerName.includes('require') || // require_approval, requires_auth
+      lowerName.startsWith('has_') || // has_permission
+      lowerName.endsWith('_has'); // user_has, role_has
+
+    // If it matches boolean conventions, it should be BOOLEAN (return false)
+    // If it doesn't match, it should be TINYINT(1) (return true)
+    return !isBooleanName;
   }
 
   /**

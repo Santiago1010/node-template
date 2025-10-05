@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "",
   "keywords": [
     "template",
@@ -31,9 +31,11 @@
   "type": "commonjs",
   "main": "index.js",
   "bin": {
+    "generate-controllers": "./scripts/generateControllers.script.js",
     "generate-crud-docs": "./scripts/generateCrudDocs.script.js",
-    "generate-models": "./scripts/createModels.script.js",
+    "generate-crud-endpoints": "./scripts/generateCrudEndpoints.script.js",
     "generate-crud-validations": "./scripts/generateCrudValidations.script.js",
+    "generate-models": "./scripts/createModels.script.js",
     "generate-services": "./scripts/generateServices.script.js"
   },
   "config": {
@@ -45,23 +47,24 @@
     "**/*": ["biome check --fix --unsafe", "biome format --write", "git add ."]
   },
   "scripts": {
+    "debug": "node ./scripts/debug.script.js",
     "dev": "node --watch index.js",
     "dev:inspect": "node --watch --inspect index.js",
-    "debug": "node ./scripts/debug.script.js",
     "format": "biome format",
     "format:write": "biome format --write",
     "lint": "biome lint",
     "lint:fix": "biome lint --fix",
+    "models:create": "node ./scripts/createModels.script.js",
+    "models:generate": "node ./scripts/createModels.script.js",
     "prepare": "husky",
     "start": "node index.js",
+    "sync-endpoints": "node ./scripts/endpoints.script.js",
     "test": "NODE_ENV=test jest --detectOpenHandles --passWithNoTests",
-    "test:unit": "jest tests/unit --passWithNoTests",
-    "test:watch": "jest --watch",
-    "test:coverage": "NODE_ENV=test jest --coverage",
-    "test:verbose": "jest --verbose",
     "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
-    "models:generate": "node ./scripts/createModels.script.js",
-    "models:create": "node ./scripts/createModels.script.js"
+    "test:coverage": "NODE_ENV=test jest --coverage",
+    "test:unit": "jest tests/unit --passWithNoTests",
+    "test:verbose": "jest --verbose",
+    "test:watch": "jest --watch"
   },
   "overrides": {
     "glob": "^10.3.10",
@@ -106,6 +109,7 @@
     "rimraf": "^5.0.5",
     "sanitize-html": "^2.16.0",
     "sequelize": "^6.37.5",
+    "supertest": "^7.1.4",
     "ua-parser-js": "^2.0.3",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0",

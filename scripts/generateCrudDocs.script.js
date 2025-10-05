@@ -189,7 +189,7 @@ class CrudDocsGenerator {
 
   async generateDocumentation(tableData, singularName, pluralName, tagName) {
     try {
-      let documentation = await this.crudHelper.getTemplate('docs', 'crud');
+      let documentation = await this.crudHelper.getTemplate('crud', 'docs');
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
 
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
