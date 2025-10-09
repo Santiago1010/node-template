@@ -202,9 +202,9 @@ class CrudHelper {
   constructor() {
     const sequelize = require('../config/database/connection');
 
-    if (!sequelize) {
-      throw new Error('Database connection is not properly configured');
-    }
+    // if (!sequelize) {
+    //   throw new Error('Database connection is not properly configured');
+    // }
 
     this.sequelize = sequelize;
     this.databaseName = this.sequelize.config.database;
