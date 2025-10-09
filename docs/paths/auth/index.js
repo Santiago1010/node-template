@@ -1,5 +1,5 @@
-const session = require('./session.doc');
+const session = require('./session.docs');
 
-const authDocs = { ...session };
+const authDocs = { '/auth/login': { ...session.login } };
 
 module.exports = authDocs;
