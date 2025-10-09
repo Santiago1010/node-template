@@ -26,9 +26,10 @@ const routerApi = (app) => {
   if (isDevelopmentMode(true)) {
     const swaggerUI = require('swagger-ui-express');
 
-    routerBase.use('/api/docs', swaggerUI.serve, swaggerUI.setup(docs, { swaggerOptions: { docExpansion: 'none' } }));
+    routerBase.use('/docs', swaggerUI.serve, swaggerUI.setup(docs, { swaggerOptions: { docExpansion: 'none' } }));
   }
 
+  app.use('/api', routerBase);
   app.use('/api/app/v1', routerAppV1);
   app.use('/api/bot/v1', routerBotV1);
   app.use('/api/desktop/v1', routerDesktopV1);
