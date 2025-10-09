@@ -1,5 +1,50 @@
 
 
+## [1.10.3] - 2025-10-09
+
+**Released:** 2025-10-09 20:56:47 UTC
+
+### [Add Project Documentation](https://github.com/Santiago1010/node-template/pull/54)
+
+#### 📋 Summary
+Add comprehensive contributing guidelines and developer setup documentation to establish project standards and onboarding process.
+
+#### 🔍 What Changed
+### Added
+- CONTRIBUTING.md with contribution guidelines and commit standards
+- DEVELOPER_SETUP.md with detailed development environment setup
+
+### Changed
+- N/A
+
+### Fixed
+- N/A
+
+### Removed
+- N/A
+
+#### 📝 Additional Notes
+- Documents follow Conventional Commits specification
+- Includes both Docker and local development setup options
+- Establishes code quality standards with Biome and Jest
+- Provides clear pull request and contribution workflow
+
+**Type of Change:** Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, developer experience
+- Milestone: DX1 — Onboarding + local dev
+- Commits: 1
+
+**Commits:**
+- [`8003f1e`](https://github.com/Santiago1010/node-template/commit/8003f1e5dd31c6d029b2a66444c842d0f564f1fd) docs: add contributing and developer setup guides
+
+---
+
+
+
 ## [1.10.2] - 2025-10-09
 
 **Released:** 2025-10-09 20:41:36 UTC
