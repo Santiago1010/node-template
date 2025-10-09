@@ -2,7 +2,7 @@
 // FORMATTING AND CONVERTION - UNIT TESTS
 // =============================================================================
 
-const numbersHelper = require('../../../../helpers/numbers.helper');
+const numbersHelper = require('../../../../utils/numbers.util');
 
 describe('Formatting and Conversion Functions', () => {
   beforeEach(() => {

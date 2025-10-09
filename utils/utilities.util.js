@@ -12,7 +12,7 @@
 const moment = require('moment');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
-const { cerror } = require('./debug.helper');
+const { cerror } = require('../helpers/debug.helper');
 
 // =============================================================================
 // ARRAY MANIPULATION FUNCTIONS

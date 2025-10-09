@@ -2,7 +2,7 @@
 // ROUNDING AND PRECISION - UNIT TESTS
 // =============================================================================
 
-const numbersHelper = require('../../../../helpers/numbers.helper');
+const numbersHelper = require('../../../../utils/numbers.util');
 
 describe('Rounding and Precision Functions', () => {
   beforeEach(() => {

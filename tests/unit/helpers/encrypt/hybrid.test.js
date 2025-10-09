@@ -60,7 +60,7 @@ const { faker } = require('@faker-js/faker'); // Realistic test data generation
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { encryptHybrid, decryptHybrid } = require('../../../../helpers/encrypt.helper');
+const { encryptHybrid, decryptHybrid } = require('../../../../utils/encrypt.util');
 
 /**
  * Hybrid Encryption Functions Test Suite

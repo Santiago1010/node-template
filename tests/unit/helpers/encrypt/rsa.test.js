@@ -68,7 +68,7 @@ const {
   decryptWithRSA,
   signWithRSA,
   verifyRSASignature,
-} = require('../../../../helpers/encrypt.helper');
+} = require('../../../../utils/encrypt.util');
 
 /**
  * RSA Helper Functions Test Suite

@@ -59,14 +59,14 @@ const { faker } = require('@faker-js/faker'); // Test data generation for realis
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { KEY_SIZES } = require('../../../../helpers/constants.helper'); // Cryptographic constants for key and IV sizes
+const { KEY_SIZES } = require('../../../../utils/constants.util'); // Cryptographic constants for key and IV sizes
 const {
   generateAESKey,
   deriveAESKeyFromPassword,
   generateIV,
   encryptWithAES,
   decryptWithAES,
-} = require('../../../../helpers/encrypt.helper'); // AES cryptographic operations implementation
+} = require('../../../../utils/encrypt.util'); // AES cryptographic operations implementation
 
 /**
  * AES Key Generation Functions Test Suite

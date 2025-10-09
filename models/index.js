@@ -66,7 +66,7 @@ const path = require('path'); // Path resolution for cross-platform compatibilit
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PATHS } = require('../helpers/constants.helper'); // Application path constants
+const { PATHS } = require('../utils/constants.util'); // Application path constants
 
 // =============================================================================
 // CONSTANTS AND CONFIGURATION

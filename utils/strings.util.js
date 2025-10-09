@@ -48,7 +48,7 @@
 //
 // DEPENDENCIES & COMPATIBILITY:
 // - Node.js 12+ required for modern JavaScript features
-// - Relies on constants.helper for pattern definitions
+// - Relies on constants.util for pattern definitions
 // - Uses debug.helper for consistent error logging
 // - No browser-specific APIs used (could be used in browser with proper bundling)
 //
@@ -57,8 +57,8 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { ESCAPE_SEQUENCES, STRING_CONSTANTS } = require('./constants.helper'); // Regex patterns and constants
-const { cerror } = require('./debug.helper'); // Error logging utility
+const { ESCAPE_SEQUENCES, STRING_CONSTANTS } = require('./constants.util'); // Regex patterns and constants
+const { cerror } = require('../helpers/debug.helper'); // Error logging utility
 
 // =============================================================================
 // VALIDATION FUNCTIONS

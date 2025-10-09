@@ -52,8 +52,8 @@ const _ = require('lodash'); // Utility functions for array operations and mathe
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { NUMBER_CONSTANTS } = require('./constants.helper'); // Number-related constants
-const { perror } = require('./debug.helper');
+const { NUMBER_CONSTANTS } = require('./constants.util'); // Number-related constants
+const { perror } = require('../helpers/debug.helper'); // Error logging utility
 
 /**
  * Converts input to number using unary plus operator

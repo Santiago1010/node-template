@@ -4,7 +4,7 @@ const {
   chunkArray,
   flattenArray,
   shuffleArray,
-} = require('../../../../helpers/utilities.helper');
+} = require('../../../../utils/utilities.util');
 
 describe('Array Manipulation Functions', () => {
   describe('stringToArray', () => {

@@ -33,7 +33,7 @@ const {
   fileFormat, // File log format
   stream, // Log file write stream
 } = require('./config/tools/morgan.config');
-const { ROOT } = require('./helpers/constants.helper'); // Root directory path constant
+const { ROOT } = require('./utils/constants.util'); // Root directory path constant
 const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
 const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler

@@ -1,4 +1,4 @@
-const { deepClone, deepMerge, getNestedValue, setNestedValue } = require('../../../../helpers/utilities.helper');
+const { deepClone, deepMerge, getNestedValue, setNestedValue } = require('../../../../utils/utilities.util');
 
 describe('Object Manipulation Functions', () => {
   describe('deepClone', () => {

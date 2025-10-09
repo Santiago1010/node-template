@@ -57,7 +57,7 @@ const { faker } = require('@faker-js/faker'); // Test data generation library
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { hashSHA256, createHMAC, verifyHMAC } = require('../../../../helpers/encrypt.helper'); // Cryptographic helper functions
+const { hashSHA256, createHMAC, verifyHMAC } = require('../../../../utils/encrypt.util'); // Cryptographic helper functions
 
 /**
  * Hashing Functions Test Suite

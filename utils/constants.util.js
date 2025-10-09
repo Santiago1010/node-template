@@ -34,7 +34,7 @@
 // - Sensitive fields list enables automatic data masking in logs
 //
 // USAGE EXAMPLES:
-// - Basic usage: const { PATHS, MODES } = require('~/helpers/constants.helper.js');
+// - Basic usage: const { PATHS, MODES } = require('~/utils/constants.util.js');
 // - Environment checking: if (currentMode >= MODES.PRODUCTION) { enableCaching(); }
 // - Path resolution: const templatePath = PATHS.TEMPLATES + '/email.hbs';
 // - Security validation: if (SECURITY_PATTERNS.EMAIL.test(email)) { proceed(); }

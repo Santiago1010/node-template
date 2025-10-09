@@ -73,7 +73,7 @@ const { getSignedUrl } = require('@aws-sdk/s3-request-presigner'); // Pre-signed
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { S3_CONFIG } = require('../constants.helper'); // S3 configuration constants
+const { S3_CONFIG } = require('../../utils/constants.util'); // S3 configuration constants
 const { aws } = require('../../config/env'); // AWS environment configuration
 
 // =============================================================================

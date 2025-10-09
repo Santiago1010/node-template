@@ -60,7 +60,7 @@ const { faker } = require('@faker-js/faker'); // Test data generation
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { hashPassword, verifyPassword } = require('../../../../helpers/encrypt.helper');
+const { hashPassword, verifyPassword } = require('../../../../utils/encrypt.util');
 
 // Mock bcrypt to isolate unit tests from actual implementation
 jest.mock('bcrypt');

@@ -64,7 +64,7 @@ const {
   generateRandomString,
   generateSecureToken,
   constantTimeEquals,
-} = require('../../../../helpers/encrypt.helper'); // Cryptographic utility functions
+} = require('../../../../utils/encrypt.util'); // Cryptographic utility functions
 
 /**
  * Cryptographic Utility Functions Test Suite

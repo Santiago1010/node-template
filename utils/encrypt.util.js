@@ -21,7 +21,7 @@ const bcrypt = require('bcrypt');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { KEY_SIZES, ALGORITHMS } = require('./constants.helper');
+const { KEY_SIZES, ALGORITHMS } = require('./constants.util');
 
 // =============================================================================
 // RSA KEY MANAGEMENT FUNCTIONS

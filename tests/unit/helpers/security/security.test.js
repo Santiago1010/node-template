@@ -9,7 +9,7 @@ const moment = require('moment');
 const sanitize = require('sanitize-html');
 const securityHelper = require('../../../../helpers/security.helper');
 const config = require('../../../../config/env');
-const { SECURITY_CONFIG } = require('../../../../helpers/constants.helper');
+const { SECURITY_CONFIG } = require('../../../../utils/constants.util');
 
 // Mock dependencies
 jest.mock('crypto');
@@ -28,7 +28,7 @@ jest.mock('../../../../config/env', () => ({
 jest.mock('../../../../config/i18n', () => ({
   __: jest.fn((key) => key),
 }));
-jest.mock('../../../../helpers/constants.helper', () => ({
+jest.mock('../../../../utils/constants.util', () => ({
   SECURITY_CONFIG: {
     PASSWORD_POLICY: {
       SALT: 10,

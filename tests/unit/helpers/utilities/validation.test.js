@@ -1,4 +1,4 @@
-const { isEmpty, isPlainObject } = require('../../../../helpers/utilities.helper');
+const { isEmpty, isPlainObject } = require('../../../../utils/utilities.util');
 
 describe('Type Checking and Validation Functions', () => {
   describe('isEmpty', () => {

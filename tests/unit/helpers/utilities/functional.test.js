@@ -1,4 +1,4 @@
-const { debounce, throttle, compose, pipe } = require('../../../../helpers/utilities.helper');
+const { debounce, throttle, compose, pipe } = require('../../../../utils/utilities.util');
 
 describe('Functional Programming Helpers', () => {
   jest.useFakeTimers();

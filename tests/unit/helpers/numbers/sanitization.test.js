@@ -2,7 +2,7 @@
 // SANITIZATION - UNIT TESTS
 // =============================================================================
 
-const numbersHelper = require('../../../../helpers/numbers.helper');
+const numbersHelper = require('../../../../utils/numbers.util');
 
 describe('Sanitization Functions', () => {
   beforeEach(() => {

@@ -1,11 +1,4 @@
-const {
-  randomString,
-  generateUUID,
-  sleep,
-  capitalize,
-  toBoolean,
-  retry,
-} = require('../../../../helpers/utilities.helper');
+const { randomString, generateUUID, sleep, capitalize, toBoolean, retry } = require('../../../../utils/utilities.util');
 
 describe('Utility Functions', () => {
   describe('randomString', () => {
