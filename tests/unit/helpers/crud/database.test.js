@@ -309,18 +309,46 @@ describe('Crud Helper - Database Operations', () => {
 
   describe('getTemplate - Error Handling', () => {
     it('should log and rethrow errors when template reading fails', async () => {
+      // 1. Mock console.error
       // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const fs = require('fs');
-      const errorMessage = 'Template not found';
-      fs.readFile.mockImplementation((_, __, callback) => callback(new Error(errorMessage)));
+      // 2. Clear module cache FIRST
+      jest.resetModules();
 
-      await expect(crudHelper.getTemplate('invalid', 'template')).rejects.toThrow(errorMessage);
+      // 3. Mock fs BEFORE requiring anything
+      const mockReadFile = jest
+        .fn()
+        .mockRejectedValue(
+          new Error(
+            "ENOENT: no such file or directory, open '/home/debian-sca/projects/node/new_template/templates/invalid/template.template.js'"
+          )
+        );
 
+      jest.doMock('fs', () => ({
+        readFile: jest.fn(),
+        existsSync: jest.fn(),
+        mkdirSync: jest.fn(),
+      }));
+
+      jest.doMock('util', () => ({
+        promisify: jest.fn(() => mockReadFile),
+      }));
+
+      // 4. NOW require the module with mocks in place
+      const CrudHelperMocked = require('../../../../helpers/crud.helper');
+      const crudHelperMocked = new CrudHelperMocked();
+
+      // 5. Execute test
+      await expect(crudHelperMocked.getTemplate('invalid', 'template')).rejects.toThrow();
+
+      // 6. Verify the console.error was called correctly
       expect(consoleSpy).toHaveBeenCalledWith('Error reading template: invalid/template', expect.any(Error));
 
+      // 7. Cleanup
       consoleSpy.mockRestore();
+      jest.dontMock('fs');
+      jest.dontMock('util');
     });
   });
 });
