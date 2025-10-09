@@ -1,0 +1,20 @@
+module.exports = {
+  tags: [
+    { name: 'Authentication' },
+    { name: 'Administration' },
+    { name: 'Configurations' },
+    { name: 'Data' },
+    { name: 'Documents' },
+    { name: 'Financial' },
+    { name: 'Geographic' },
+    { name: 'Human-Resources' },
+    { name: 'Inventories' },
+    { name: 'Logs' },
+    { name: 'Projects' },
+    { name: 'Research-And-Development' },
+    { name: 'Security' },
+    { name: 'Support' },
+    { name: 'Templates' },
+    { name: 'Users' },
+  ],
+};
