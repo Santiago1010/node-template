@@ -29,6 +29,8 @@ const routerApi = (app) => {
     routerBase.use('/docs', swaggerUI.serve, swaggerUI.setup(docs, { swaggerOptions: { docExpansion: 'none' } }));
   }
 
+  routerWebV1.use('/web', require('./web'));
+
   app.use('/api', routerBase);
   app.use('/api/app/v1', routerAppV1);
   app.use('/api/bot/v1', routerBotV1);
