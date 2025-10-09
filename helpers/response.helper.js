@@ -1,7 +1,26 @@
 // =============================================================================
+// THIRD-PARTY DEPENDENCIES
+// =============================================================================
+const Boom = require('@hapi/boom');
+
+// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const i18n = require('../config/i18n');
+
+/**
+ * Normalize and validate an HTTP status code. Returns a valid status code
+ * (number between 100 and 599). If invalid, returns fallback (500).
+ * @param {any} code
+ * @param {number} fallback
+ * @returns {number}
+ */
+const normalizeStatusCode = (code, fallback = 500) => {
+  const n = Number(code);
+  if (!Number.isInteger(n)) return fallback;
+  if (n < 100 || n > 599) return fallback;
+  return n;
+};
 
 /**
  * Sends a successful JSON response with the given HTTP status code, optional
@@ -16,35 +35,61 @@ const i18n = require('../config/i18n');
  *
  * @returns {Response} Express response object with JSON response
  */
-const success = (res, { httpCode = 200, messagePath, messageData, data = {} }) => {
+const success = (res, { httpCode = 200, messagePath, messageData, data = {} } = {}) => {
   const responseData = messagePath ? { message: i18n.__mf(messagePath, messageData) } : {};
   Object.assign(responseData, data);
 
-  return res.status(httpCode).json(responseData);
+  return res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
 };
 
 /**
- * Throws an error with a custom HTTP status code and localized message.
+ * Creates a Boom error with a custom HTTP status code and localized message.
+ *
+ * Usage (unchanged in callers): `throw error({ httpCode: 404, messagePath: 'auth.login.accountNotFound' })`
  *
  * @param {Object} options - Error configuration
  * @param {number} [options.httpCode=500] - HTTP status code for the error
  * @param {string} [options.messagePath] - Path to localized message
  * @param {Object} [options.messageData] - Data to pass to localized message
- * @param {string} [options.details] - Additional error details (optional)
+ * @param {any} [options.details] - Additional error details (optional, will be added to payload)
  *
- * @returns {Error} Custom error object
+ * @returns {Boom} Boom error object (ready to be thrown)
  */
-const error = ({ httpCode = 500, messagePath, messageData, details }) => {
-  const message = messagePath
-    ? i18n.__mf(messagePath, messageData)
-    : i18n.__('errors.internalServerError') || 'Internal Server Error';
+const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
+  // Resolve message using i18n (fall back to a sensible default)
+  let message;
+  try {
+    message = messagePath ? i18n.__mf(messagePath, messageData) : i18n.__('errors.internalServerError');
+  } catch (_) {
+    message = i18n.__('errors.internalServerError') || 'Internal Server Error';
+  }
 
-  const err = new Error(message);
-  err.statusCode = httpCode;
+  if (!message) message = 'Internal Server Error';
 
-  if (details) err.details = details;
+  // Normalize status code
+  const statusCode = normalizeStatusCode(httpCode, 500);
 
-  return err;
+  // Create a standard Error
+  const baseError = new Error(message);
+  baseError.statusCode = statusCode;
+
+  // Convert to Boom
+  const boomError = Boom.boomify(baseError, { statusCode });
+
+  console.error(boomError);
+
+  // Clean up payload: remove stack & timestamp if any middleware adds them
+  if (boomError.output?.payload) {
+    delete boomError.output.payload.stack;
+    delete boomError.output.payload.timestamp;
+  }
+
+  // Add custom details if provided
+  if (details !== undefined) {
+    boomError.output.payload.details = details;
+  }
+
+  return boomError;
 };
 
 // =============================================================================

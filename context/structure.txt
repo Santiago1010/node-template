@@ -57,13 +57,25 @@
 │   ├── desktop
 │   ├── wearable
 │   └── web
+│       └── auth
+│           └── session.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
 ├── Dockerfile
 ├── .dockerignore
 ├── docs
-│   └── paths
+│   ├── basicInfo.js
+│   ├── components
+│   │   └── index.js
+│   ├── index.js
+│   ├── paths
+│   │   ├── auth
+│   │   │   ├── index.js
+│   │   │   └── session.docs.js
+│   │   └── index.js
+│   ├── server.js
+│   └── tags.js
 ├── .editorconfig
 ├── .env
 ├── .env.example
@@ -134,6 +146,10 @@
 │   ├── wearable
 │   │   └── index.js
 │   └── web
+│       ├── auth
+│       │   ├── index.js
+│       │   └── validations
+│       │       └── login.validations.js
 │       └── index.js
 ├── schemas
 │   ├── params
@@ -164,6 +180,8 @@
 │   ├── app
 │   ├── bot
 │   ├── common
+│   │   └── auth
+│   │       └── session.service.js
 │   ├── desktop
 │   ├── users
 │   ├── wearable
@@ -247,4 +265,4 @@
     ├── extensions.json
     └── settings.json
 
-91 directories, 157 files
+97 directories, 169 files

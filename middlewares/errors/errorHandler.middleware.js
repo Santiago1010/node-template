@@ -77,12 +77,6 @@ const errorHandler = (error, req, res, next) => {
 
   const { statusCode, payload } = boomError.output;
 
-  // Include stack trace and timestamp in development mode
-  if (isDevelopmentMode()) {
-    payload.stack = error.stack;
-    payload.timestamp = moment().format();
-  }
-
   // Send formatted error response
   res.status(statusCode).json(payload);
 };
