@@ -26,6 +26,7 @@ const login = standardRequest('post', {
       },
     },
   },
+  responses: {},
 });
 
 module.exports = { login };

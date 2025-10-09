@@ -23,7 +23,31 @@ const success = (res, { httpCode = 200, messagePath, messageData, data = {} }) =
   return res.status(httpCode).json(responseData);
 };
 
+/**
+ * Throws an error with a custom HTTP status code and localized message.
+ *
+ * @param {Object} options - Error configuration
+ * @param {number} [options.httpCode=500] - HTTP status code for the error
+ * @param {string} [options.messagePath] - Path to localized message
+ * @param {Object} [options.messageData] - Data to pass to localized message
+ * @param {string} [options.details] - Additional error details (optional)
+ *
+ * @returns {Error} Custom error object
+ */
+const error = ({ httpCode = 500, messagePath, messageData, details }) => {
+  const message = messagePath
+    ? i18n.__mf(messagePath, messageData)
+    : i18n.__('errors.internalServerError') || 'Internal Server Error';
+
+  const err = new Error(message);
+  err.statusCode = httpCode;
+
+  if (details) err.details = details;
+
+  return err;
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = { success };
+module.exports = { success, error };
