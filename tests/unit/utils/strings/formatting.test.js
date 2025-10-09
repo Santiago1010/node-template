@@ -1,7 +1,7 @@
 // =============================================================================
 // STRING FORMATTING - UNIT TESTS
 // =============================================================================
-const stringsHelper = require('../../../../helpers/strings.helper');
+const stringsHelper = require('../../../../utils/strings.util');
 const { ESCAPE_SEQUENCES } = require('../../../../utils/constants.util');
 const { cerror } = require('../../../../helpers/debug.helper');
 

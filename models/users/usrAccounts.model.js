@@ -9,7 +9,7 @@ const { Model, DataTypes } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { aes } = require('../../config/env');
-const { encryptWithAES, decryptWithAES } = require('../../helpers/encrypt.helper');
+const { encryptWithAES, decryptWithAES } = require('../../utils/encrypt.util');
 
 // Contains information about a user's account.
 

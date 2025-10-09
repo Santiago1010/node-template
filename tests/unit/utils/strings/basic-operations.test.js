@@ -2,7 +2,7 @@
 // BASIC STRING OPERATIONS - UNIT TESTS
 // =============================================================================
 
-const stringsHelper = require('../../../../helpers/strings.helper');
+const stringsHelper = require('../../../../utils/strings.util');
 const { cerror } = require('../../../../helpers/debug.helper');
 
 // Mock the debug helper

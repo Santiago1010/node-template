@@ -2,7 +2,7 @@
 // STRING VALIDATION - UNIT TESTS
 // =============================================================================
 
-const stringsHelper = require('../../../../helpers/strings.helper');
+const stringsHelper = require('../../../../utils/strings.util');
 
 describe('String Validation Functions', () => {
   describe('isValidString', () => {

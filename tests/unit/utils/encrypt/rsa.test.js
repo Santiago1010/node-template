@@ -41,7 +41,7 @@
 // DEPENDENCIES & COMPATIBILITY:
 // - Requires Node.js 16+ with fs and path modules
 // - Uses Jest testing framework
-// - Depends on ../../../../helpers/encrypt.helper module
+// - Depends on ../../../../utils/encrypt.util module
 //
 // =============================================================================
 
@@ -79,7 +79,7 @@ const {
  *
  * @group Cryptography/RSA
  * @requires jest/testing-framework
- * @see {@link ../../../../helpers/encrypt.helper} for implementation details
+ * @see {@link ../../../../utils/encrypt.util} for implementation details
  */
 describe('RSA Helper Functions', () => {
   const testDir = path.join(__dirname, 'temp-rsa-keys');

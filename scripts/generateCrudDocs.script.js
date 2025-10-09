@@ -11,7 +11,7 @@ const { performance } = require('perf_hooks');
 // =============================================================================
 const CrudHelper = require('../helpers/crud.helper');
 const { cerror } = require('../helpers/debug.helper');
-const { toCamelCase, formatCapitalize } = require('../helpers/strings.helper');
+const { toCamelCase, formatCapitalize } = require('../utils/strings.util');
 
 // =============================================================================
 // SCRIPT CONFIGURATION

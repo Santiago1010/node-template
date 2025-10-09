@@ -82,7 +82,7 @@ const {
  * @test {encryptWithAES} {decryptWithAES} Validates encryption/decryption round-trip
  *
  * @since 1.0.0
- * @see {@link module:../../../../helpers/encrypt.helper} for implementation details
+ * @see {@link module:../../../../utils/encrypt.util} for implementation details
  */
 describe('AES Key Generation Functions', () => {
   let testPassword;
