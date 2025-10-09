@@ -1,5 +1,57 @@
 
 
+## [1.10.2] - 2025-10-09
+
+**Released:** 2025-10-09 20:41:36 UTC
+
+### [Refactor project structure and enhance CRUD helper](https://github.com/Santiago1010/node-template/pull/53)
+
+#### 📋 Summary
+This PR reorganizes the project structure by moving utility helpers to a dedicated `utils` directory, removes the performance helper module, enhances the CRUD helper with additional functionality and test coverage, and improves the response helper with optional message support.
+
+#### 🔍 What Changed
+### Added
+- New utility files in `utils/` directory (constants, encrypt, numbers, strings, utilities)
+- Comprehensive test suite for CRUD helper methods
+- Response helper tests covering various parameter combinations
+- New CRUD functionality including table pattern matching and field validation
+
+### Changed
+- Moved helper files from `helpers/` to `utils/` directory
+- Converted private CRUD methods to public for better testability
+- Enhanced response helper with optional message support
+- Improved boolean detection in CRUD helper with additional patterns
+- Updated project structure documentation
+
+### Removed
+- Performance helper module and all associated tests
+- Web middleware directory
+- Constructor validation from CRUD helper
+
+#### 📝 Additional Notes
+The performance helper was removed as it was deemed unnecessary for current project requirements. The CRUD helper enhancements provide better database interaction capabilities and improved error handling.
+
+**Type of Change:** Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: testing, developer experience
+- Milestone: A1 — Swagger sync + tests
+- Commits: 6
+
+**Commits:**
+- [`2879965`](https://github.com/Santiago1010/node-template/commit/28799650d9e559c9df9f00048b41ceaf5a9be9ab) refactor(crud): reorganize helper structure and enhance test coverage
+- [`39f24d5`](https://github.com/Santiago1010/node-template/commit/39f24d5df90e5c2b73b5983470c7eef6436d9560) refactor(crud): convert private methods to public and enhance test coverage
+- [`eeea279`](https://github.com/Santiago1010/node-template/commit/eeea279b93f9f4ff2c6825caa28de957407ac78c) test(crud): fix template error handling test with proper module mocking
+- [`3e6dc4d`](https://github.com/Santiago1010/node-template/commit/3e6dc4d66260ca8d75d6ce9f5bb839819d1b96df) test(crud): simplify template error test with fs/promises mock
+- [`2dfcc07`](https://github.com/Santiago1010/node-template/commit/2dfcc0748dfb3589e4fdf070095ea82e5d8a836c) feat(response): enhance success helper with optional message support
+- [`e54c85a`](https://github.com/Santiago1010/node-template/commit/e54c85a6a532932744912b42f0f5fe792ae83023) refactor(performance): remove performance helper and related tests
+
+---
+
+
+
 ## [1.10.1] - 2025-10-09
 
 **Released:** 2025-10-09 00:35:27 UTC
