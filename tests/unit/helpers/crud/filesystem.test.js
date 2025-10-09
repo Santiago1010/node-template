@@ -107,4 +107,78 @@ describe('Crud Helper - Filesystem Operations', () => {
       expect(fs.writeFile).toHaveBeenCalledWith(filePath, 'content', 'utf-8', expect.any(Function));
     });
   });
+
+  describe('ensureDirectoryExists - Error Handling', () => {
+    it('should handle mkdirSync errors when directory creation fails', async () => {
+      fs.existsSync.mockReturnValue(false);
+      const errorMessage = 'Permission denied';
+
+      // Mock mkdirSync to throw an error
+      fs.mkdirSync.mockImplementationOnce(() => {
+        throw new Error(errorMessage);
+      });
+
+      await expect(crudHelper.ensureDirectoryExists('/invalid/path')).rejects.toThrow(errorMessage);
+      expect(fs.mkdirSync).toHaveBeenCalledWith('/invalid/path', { recursive: true });
+    });
+
+    it('should successfully create directory when it does not exist', async () => {
+      fs.existsSync.mockReturnValue(false);
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+      fs.mkdirSync.mockImplementation(() => {}); // Successful creation
+
+      const dirPath = '/test/new/directory';
+      const result = await crudHelper.ensureDirectoryExists(dirPath);
+
+      expect(result).toBe(dirPath);
+      expect(fs.mkdirSync).toHaveBeenCalledWith(dirPath, { recursive: true });
+    });
+
+    it('should skip creation when directory already exists', async () => {
+      fs.existsSync.mockReturnValue(true);
+
+      const dirPath = '/test/existing/directory';
+      const result = await crudHelper.ensureDirectoryExists(dirPath);
+
+      expect(result).toBe(dirPath);
+      expect(fs.mkdirSync).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('writeFileIfNotExists - Error Handling', () => {
+    it('should handle writeFile errors when file creation fails', async () => {
+      fs.existsSync.mockReturnValue(false);
+      const errorMessage = 'Disk full';
+
+      // Mock writeFile to reject with an error
+      fs.writeFile.mockImplementation((_, __, ___, callback) => {
+        callback(new Error(errorMessage));
+      });
+
+      await expect(crudHelper.writeFileIfNotExists('/test/file.js', 'content')).rejects.toThrow(errorMessage);
+      expect(fs.writeFile).toHaveBeenCalled();
+    });
+
+    it('should successfully write file when it does not exist', async () => {
+      fs.existsSync.mockReturnValue(false);
+      fs.writeFile.mockImplementation((_, __, ___, callback) => callback(null));
+
+      const filePath = '/test/newfile.js';
+      const content = 'test content';
+      const result = await crudHelper.writeFileIfNotExists(filePath, content);
+
+      expect(result).toBe(filePath);
+      expect(fs.writeFile).toHaveBeenCalledWith(filePath, content, 'utf-8', expect.any(Function));
+    });
+
+    it('should skip creation when file already exists', async () => {
+      fs.existsSync.mockReturnValue(true);
+
+      const filePath = '/test/existing.js';
+      const result = await crudHelper.writeFileIfNotExists(filePath, 'content');
+
+      expect(result).toBe(filePath);
+      expect(fs.writeFile).not.toHaveBeenCalled();
+    });
+  });
 });

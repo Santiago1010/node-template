@@ -60,6 +60,18 @@ describe('Crud Helper - Database Operations', () => {
       expect(columns).toEqual(['id', 'name']);
       expect(formatedColumns).toEqual(['id', 'name']);
     });
+
+    it('should handle null or undefined column names', async () => {
+      sequelize.query.mockResolvedValueOnce([
+        { COLUMN_NAME: 'id' },
+        { COLUMN_NAME: null },
+        { COLUMN_NAME: undefined },
+        { something_else: 'value' },
+      ]);
+      const { columns, formatedColumns } = await crudHelper.readAllColumns('test_table');
+      expect(columns).toEqual(['id']);
+      expect(formatedColumns).toEqual(['id']);
+    });
   });
 
   describe('readUpdatableColumns', () => {
@@ -162,11 +174,23 @@ describe('Crud Helper - Database Operations', () => {
   });
 
   describe('getReferencedTable', () => {
+    it('should return referenced table from direct query result', async () => {
+      sequelize.query.mockResolvedValueOnce([{ REFERENCED_TABLE_NAME: 'direct_ref_table' }]);
+      const referencedTable = await crudHelper.getReferencedTable('test_table', 'any_column_id');
+      expect(referencedTable).toBe('direct_ref_table');
+    });
+
     it('should return referenced table for a column ending with _id', async () => {
       sequelize.query.mockResolvedValueOnce([]); // No direct reference found
       sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'related_models' }]);
       const referencedTable = await crudHelper.getReferencedTable('test_table', 'related_model_id');
       expect(referencedTable).toBe('related_models');
+    });
+
+    it('should return null if column does not end with _id and no direct reference is found', async () => {
+      sequelize.query.mockResolvedValueOnce([]);
+      const referencedTable = await crudHelper.getReferencedTable('test_table', 'some_column');
+      expect(referencedTable).toBeNull();
     });
 
     it('should return null if no referenced table is found', async () => {
@@ -190,10 +214,22 @@ describe('Crud Helper - Database Operations', () => {
       expect(tableName).toBe('usr_users');
     });
 
+    it('should return the first table name if no pattern matches', async () => {
+      sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'some_other_table' }]);
+      const tableName = await crudHelper.findTableByPattern('user');
+      expect(tableName).toBe('some_other_table');
+    });
+
     it('should return the first match if multiple patterns match', async () => {
       sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'app_users' }, { TABLE_NAME: 'dev_users' }]);
       const tableName = await crudHelper.findTableByPattern('users');
       expect(tableName).toBe('app_users');
+    });
+
+    it('should return null if no tables are found', async () => {
+      sequelize.query.mockResolvedValueOnce([]);
+      const tableName = await crudHelper.findTableByPattern('user');
+      expect(tableName).toBeNull();
     });
 
     it('should handle errors gracefully', async () => {
@@ -220,6 +256,10 @@ describe('Crud Helper - Database Operations', () => {
       expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '0', COLUMN_DEFAULT: null })).toBe(true);
     });
 
+    it('should return true for non-nullable fields with undefined default value', () => {
+      expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '0', COLUMN_DEFAULT: undefined })).toBe(true);
+    });
+
     it('should return false for nullable fields', () => {
       expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '1', COLUMN_DEFAULT: null })).toBe(false);
     });
@@ -234,6 +274,11 @@ describe('Crud Helper - Database Operations', () => {
       expect(crudHelper.shouldBeTinyInt('any_column', 'varchar(255)')).toBe(false);
     });
 
+    it('should return false if column type is null or undefined', () => {
+      expect(crudHelper.shouldBeTinyInt('any_column', null)).toBe(false);
+      expect(crudHelper.shouldBeTinyInt('any_column', undefined)).toBe(false);
+    });
+
     it('should return false for boolean-like names', () => {
       expect(crudHelper.shouldBeTinyInt('is_active', 'tinyint(1)')).toBe(false);
       expect(crudHelper.shouldBeTinyInt('require_approval', 'tinyint(1)')).toBe(false);
@@ -243,6 +288,39 @@ describe('Crud Helper - Database Operations', () => {
 
     it('should return true for non-boolean-like names', () => {
       expect(crudHelper.shouldBeTinyInt('status', 'tinyint(1)')).toBe(true);
+    });
+  });
+
+  describe('executeQuery - Error Handling', () => {
+    it('should log and rethrow errors when query execution fails', async () => {
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const errorMessage = 'Connection lost';
+
+      sequelize.query.mockRejectedValueOnce(new Error(errorMessage));
+
+      await expect(crudHelper.executeQuery('SELECT * FROM invalid', 'Test query')).rejects.toThrow(errorMessage);
+
+      expect(consoleSpy).toHaveBeenCalledWith('Error executing query: Test query', expect.any(Error));
+
+      consoleSpy.mockRestore();
+    });
+  });
+
+  describe('getTemplate - Error Handling', () => {
+    it('should log and rethrow errors when template reading fails', async () => {
+      // biome-ignore lint/suspicious/noEmptyBlockStatements: Arrow function needs empty block
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+      const fs = require('fs');
+      const errorMessage = 'Template not found';
+      fs.readFile.mockImplementation((_, __, callback) => callback(new Error(errorMessage)));
+
+      await expect(crudHelper.getTemplate('invalid', 'template')).rejects.toThrow(errorMessage);
+
+      expect(consoleSpy).toHaveBeenCalledWith('Error reading template: invalid/template', expect.any(Error));
+
+      consoleSpy.mockRestore();
     });
   });
 });

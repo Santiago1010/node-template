@@ -218,7 +218,7 @@ class CrudHelper {
    * @param {boolean} [returnFirst=false] - Whether to return only first result
    * @returns {Promise<any>} Query results or first result if returnFirst is true
    */
-  async #executeQuery(query, logMessage, returnFirst = false) {
+  async executeQuery(query, logMessage, returnFirst = false) {
     try {
       const result = await this.sequelize.query(query, {
         type: Sequelize.QueryTypes.SELECT,
@@ -240,7 +240,7 @@ class CrudHelper {
    * @returns {Promise<string>} Table comment or empty string if none exists
    */
   async readTablesComment(table) {
-    const result = await this.#executeQuery(
+    const result = await this.executeQuery(
       SQL_QUERIES.TABLE_COMMENT(this.databaseName, table),
       'Query table comment',
       true
@@ -257,7 +257,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async readAllColumns(table) {
-    return await this.#searchColumns(SQL_QUERIES.ALL_COLUMNS(this.databaseName, table), 'Query all columns of a table');
+    return await this.searchColumns(SQL_QUERIES.ALL_COLUMNS(this.databaseName, table), 'Query all columns of a table');
   }
 
   /**
@@ -266,7 +266,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async readUpdatableColumns(table) {
-    return await this.#searchColumns(
+    return await this.searchColumns(
       SQL_QUERIES.UPDATABLE_COLUMNS(this.databaseName, table),
       'Query updatable columns of a table (excluding primary key and timestamps)'
     );
@@ -278,7 +278,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async readRequiredColumns(table) {
-    return await this.#searchColumns(
+    return await this.searchColumns(
       SQL_QUERIES.REQUIRED_COLUMNS(this.databaseName, table),
       'Query required columns of a table (excluding primary key)'
     );
@@ -290,7 +290,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async readNullableOrDefaultColumns(table) {
-    return await this.#searchColumns(
+    return await this.searchColumns(
       SQL_QUERIES.NULLABLE_OR_DEFAULT_COLUMNS(this.databaseName, table),
       'Query nullable or default columns of a table (excluding primary key and timestamps)'
     );
@@ -302,7 +302,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async searchEnums(table) {
-    return await this.#searchColumns(SQL_QUERIES.ENUMS(this.databaseName, table), 'Query enums of a table');
+    return await this.searchColumns(SQL_QUERIES.ENUMS(this.databaseName, table), 'Query enums of a table');
   }
 
   // =========================== INDEX AND RELATIONSHIP METHODS =========================== //
@@ -313,7 +313,7 @@ class CrudHelper {
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Column information
    */
   async searchIndexes(table) {
-    return await this.#searchColumns(SQL_QUERIES.INDEXES(this.databaseName, table), 'Query indexes of a table');
+    return await this.searchColumns(SQL_QUERIES.INDEXES(this.databaseName, table), 'Query indexes of a table');
   }
 
   /**
@@ -322,10 +322,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Foreign key information
    */
   async searchForeignKeys(table) {
-    return await this.#executeQuery(
-      SQL_QUERIES.FOREIGN_KEYS(this.databaseName, table),
-      'Query foreign keys of a table'
-    );
+    return await this.executeQuery(SQL_QUERIES.FOREIGN_KEYS(this.databaseName, table), 'Query foreign keys of a table');
   }
 
   /**
@@ -334,7 +331,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Reference information
    */
   async searchReferences(table) {
-    return await this.#executeQuery(SQL_QUERIES.REFERENCES(this.databaseName, table), 'Query references of a table');
+    return await this.executeQuery(SQL_QUERIES.REFERENCES(this.databaseName, table), 'Query references of a table');
   }
 
   /**
@@ -343,7 +340,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Bridge table information
    */
   async searchBridges(table) {
-    return await this.#executeQuery(SQL_QUERIES.BRIDGES(this.databaseName, table), 'Query "bridges" of a table');
+    return await this.executeQuery(SQL_QUERIES.BRIDGES(this.databaseName, table), 'Query "bridges" of a table');
   }
 
   /**
@@ -353,7 +350,7 @@ class CrudHelper {
    * @returns {Promise<any[]>} Index details
    */
   async detailsIndex(table, column) {
-    return await this.#executeQuery(
+    return await this.executeQuery(
       SQL_QUERIES.INDEX_DETAILS(this.databaseName, table, column),
       'Query details of an index'
     );
@@ -366,7 +363,7 @@ class CrudHelper {
    * @returns {Promise<any>} Column details
    */
   async detailsColumn(table, column) {
-    return await this.#executeQuery(
+    return await this.executeQuery(
       SQL_QUERIES.COLUMN_DETAILS(this.databaseName, table, column),
       'Query details of a column',
       true
@@ -380,7 +377,7 @@ class CrudHelper {
    * @returns {Promise<string>} Index name
    */
   async uniqueDetails(table, column) {
-    const result = await this.#executeQuery(
+    const result = await this.executeQuery(
       SQL_QUERIES.UNIQUE_DETAILS(this.databaseName, table, column),
       'Query unique details of a column',
       true
@@ -395,9 +392,9 @@ class CrudHelper {
    * @param {string} logMessage - Log message
    * @returns {Promise<{columns: string[], formatedColumns: string[]}>} Formatted column information
    */
-  async #searchColumns(query, logMessage) {
-    const columns = await this.#executeQuery(query, logMessage);
-    return this.#formatColumns(columns);
+  async searchColumns(query, logMessage) {
+    const columns = await this.executeQuery(query, logMessage);
+    return this.formatColumns(columns);
   }
 
   /**
@@ -406,7 +403,7 @@ class CrudHelper {
    * @param {Array<{COLUMN_NAME: string}>} searchedColumns - Raw column data from database
    * @returns {{columns: string[], formatedColumns: string[]}} Formatted column information
    */
-  #formatColumns(searchedColumns) {
+  formatColumns(searchedColumns) {
     const columns = new Set();
     const formatedColumns = new Set();
 
@@ -461,7 +458,8 @@ class CrudHelper {
   isForeignKey(columnName, columnDetails) {
     const isForeignKeyByName = columnName.endsWith('_id');
     const isForeignKeyByConstraint = columnDetails.COLUMN_KEY && columnDetails.COLUMN_KEY.toUpperCase() === 'MUL';
-    return isForeignKeyByName || isForeignKeyByConstraint;
+
+    return Boolean(isForeignKeyByName || isForeignKeyByConstraint);
   }
 
   /**
@@ -472,7 +470,7 @@ class CrudHelper {
    */
   async getReferencedTable(tableName, columnName) {
     try {
-      const result = await this.#executeQuery(
+      const result = await this.executeQuery(
         SQL_QUERIES.REFERENCED_TABLE(this.databaseName, tableName, columnName),
         `Get referenced table for ${columnName}`
       );
@@ -500,7 +498,7 @@ class CrudHelper {
    */
   async findTableByPattern(baseName) {
     try {
-      const result = await this.#executeQuery(
+      const result = await this.executeQuery(
         SQL_QUERIES.FIND_TABLE_PATTERN(this.databaseName, baseName),
         `Find table pattern for ${baseName}`
       );
@@ -589,7 +587,7 @@ class CrudHelper {
    */
   async createFolder(file, group, name) {
     const folderPath = path.join(PATHS[file], group, name);
-    return await this.#ensureDirectoryExists(folderPath);
+    return await this.ensureDirectoryExists(folderPath);
   }
 
   /**
@@ -599,7 +597,7 @@ class CrudHelper {
    */
   async createModelsFolder(group) {
     const folderPath = path.join('sync_models', group);
-    return await this.#ensureDirectoryExists(folderPath);
+    return await this.ensureDirectoryExists(folderPath);
   }
 
   /**
@@ -611,7 +609,7 @@ class CrudHelper {
    */
   async createFile(folderPath, name, content) {
     const filePath = path.join(folderPath, `${name}.js`);
-    return await this.#writeFileIfNotExists(filePath, content);
+    return await this.writeFileIfNotExists(filePath, content);
   }
 
   /**
@@ -633,7 +631,7 @@ class CrudHelper {
    * @param {string} dirPath - Directory path
    * @returns {Promise<string>} Directory path
    */
-  async #ensureDirectoryExists(dirPath) {
+  async ensureDirectoryExists(dirPath) {
     try {
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });
@@ -655,7 +653,7 @@ class CrudHelper {
    * @param {string} content - File content
    * @returns {Promise<string>} File path
    */
-  async #writeFileIfNotExists(filePath, content) {
+  async writeFileIfNotExists(filePath, content) {
     try {
       if (!fs.existsSync(filePath)) {
         await writeFile(filePath, content, 'utf-8');
@@ -689,7 +687,8 @@ class CrudHelper {
       lowerName.startsWith('is_') || // is_active, is_enabled
       lowerName.includes('require') || // require_approval, requires_auth
       lowerName.startsWith('has_') || // has_permission
-      lowerName.endsWith('_has'); // user_has, role_has
+      lowerName.endsWith('_has') || // user_has, role_has
+      lowerName.endsWith('_has_'); // user_has_roles, role_has_user
 
     // If it matches boolean conventions, it should be BOOLEAN (return false)
     // If it doesn't match, it should be TINYINT(1) (return true)
