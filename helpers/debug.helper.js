@@ -11,7 +11,7 @@ const moment = require('moment'); // Date/time manipulation and formatting
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { MODES, PATHS, DEBUG_SETTINGS } = require('./constants.helper'); // Constants and paths
+const { MODES, PATHS, DEBUG_SETTINGS } = require('../utils/constants.util'); // Constants and paths
 const { isLocal, mode } = require('../config/env'); // Application configuration
 
 /**

@@ -23,7 +23,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { DEVICE_TYPES } = require('../../helpers/constants.helper');
+const { DEVICE_TYPES } = require('../../utils/constants.util');
 const { isDevelopmentMode } = require('../../helpers/debug.helper');
 
 // =============================================================================

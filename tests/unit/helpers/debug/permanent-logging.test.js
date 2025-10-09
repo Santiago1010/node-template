@@ -1,5 +1,5 @@
 const { plog, pdir, perror } = require('../../../../helpers/debug.helper');
-const { DEBUG_SETTINGS } = require('../../../../helpers/constants.helper');
+const { DEBUG_SETTINGS } = require('../../../../utils/constants.util');
 
 describe('Permanent Logging Functions (plog, pdir, perror)', () => {
   // Helper to generate the expected header

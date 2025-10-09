@@ -3,7 +3,7 @@
 // =============================================================================
 
 const ContextHelper = require('../../../../helpers/context.helper');
-const { CONTEXT_KEYS } = require('../../../../helpers/constants.helper');
+const { CONTEXT_KEYS } = require('../../../../utils/constants.util');
 
 // Mock dependencies
 jest.mock('moment', () =>

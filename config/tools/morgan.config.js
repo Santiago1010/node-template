@@ -72,7 +72,7 @@ const moment = require('moment'); // Date formatting and manipulation library
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PATHS } = require('../../helpers/constants.helper'); // Application path constants
+const { PATHS } = require('../../utils/constants.util'); // Application path constants
 
 // =============================================================================
 // COLOR FORMATTING UTILITIES

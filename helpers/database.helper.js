@@ -22,7 +22,7 @@ const { Op } = require('sequelize');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { DB_CONFIG } = require('./constants.helper');
+const { DB_CONFIG } = require('../utils/constants.util');
 const { cerror, wrapLogging } = require('./debug.helper');
 
 // =============================================================================

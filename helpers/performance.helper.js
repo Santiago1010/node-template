@@ -33,7 +33,7 @@ const moment = require('moment');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const debugHelper = require('./debug.helper');
-const { PATHS, PERFORMANCE_CONFIG } = require('./constants.helper');
+const { PATHS, PERFORMANCE_CONFIG } = require('../utils/constants.util');
 
 // =============================================================================
 // CONSTANTS AND CONFIGURATION

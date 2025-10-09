@@ -27,7 +27,7 @@ const { validationResult } = require('express-validator'); // Express validator 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { SENSITIVE_FIELDS } = require('../../helpers/constants.helper');
+const { SENSITIVE_FIELDS } = require('../../utils/constants.util');
 
 /**
  * Determines if a field name contains sensitive information

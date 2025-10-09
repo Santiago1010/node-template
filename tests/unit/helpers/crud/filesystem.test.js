@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const CrudHelper = require('../../../../helpers/crud.helper');
-const { PATHS } = require('../../../../helpers/constants.helper');
+const { PATHS } = require('../../../../utils/constants.util');
 
 // Mock fs module
 jest.mock('fs', () => ({

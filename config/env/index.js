@@ -59,7 +59,7 @@ const path = require('path');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { environmentSchema } = require('./schema');
-const { MODES } = require('../../helpers/constants.helper');
+const { MODES } = require('../../utils/constants.util');
 
 // =============================================================================
 // NATIVE .ENV FILE PARSER

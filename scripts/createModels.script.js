@@ -71,9 +71,9 @@ const { Sequelize } = require('sequelize'); // ORM for database abstraction, sch
 // =============================================================================
 const databaseConnection = require('../config/database/connection'); // Shared database connection instance with connection pooling
 const CrudHelper = require('../helpers/crud.helper'); // Base class for CRUD operations, template management, and file generation
-const { PREFIXES } = require('../helpers/constants.helper'); // Table prefix to logical group name mappings for organized model structure
+const { PREFIXES } = require('../utils/constants.util'); // Table prefix to logical group name mappings for organized model structure
 const { wrapLogging, cerror } = require('../helpers/debug.helper'); // Enhanced logging utilities with context wrapping and error formatting
-const { toCamelCase, tabs } = require('../helpers/strings.helper'); // String transformation utilities for naming conventions and code formatting
+const { toCamelCase, tabs } = require('../utils/strings.util'); // String transformation utilities for naming conventions and code formatting
 
 // =============================================================================
 // CONFIGURATION CONSTANTS

@@ -13,9 +13,9 @@ const { Sequelize } = require('sequelize'); // ORM for database connection manag
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PATHS, PREFIXES } = require('./constants.helper'); // Application path constants
+const { PATHS, PREFIXES } = require('../utils/constants.util'); // Application path constants
 const { wrapLogging } = require('./debug.helper'); // Logging wrapper utility
-const { toCamelCase, formatCapitalize } = require('./strings.helper'); // String transformation utility
+const { toCamelCase, formatCapitalize } = require('../utils/strings.util'); // String transformation utility
 
 // Promisified filesystem operations
 const readFile = promisify(fs.readFile);

@@ -32,7 +32,7 @@ const DailyRotateFile = require('winston-daily-rotate-file');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { PATHS, LOG_COLORS, LOG_LEVELS, SENSITIVE_FIELDS } = require('../../helpers/constants.helper');
+const { PATHS, LOG_COLORS, LOG_LEVELS, SENSITIVE_FIELDS } = require('../../utils/constants.util');
 const { isDevelopmentMode } = require('../../helpers/debug.helper');
 
 // =============================================================================

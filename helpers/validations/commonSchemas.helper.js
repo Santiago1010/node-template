@@ -30,7 +30,7 @@ const securityHelper = require('../security.helper');
 const stringHelper = require('../strings.helper');
 const utilitiesHelper = require('../utilities.helper');
 const i18n = require('../../config/i18n');
-const { THREAT_LEVELS } = require('../constants.helper');
+const { THREAT_LEVELS } = require('../../utils/constants.util');
 const { cerror, isDevelopmentMode } = require('../debug.helper');
 
 // =============================================================================

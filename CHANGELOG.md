@@ -1,5 +1,53 @@
 
 
+## [1.10.1] - 2025-10-09
+
+**Released:** 2025-10-09 00:35:27 UTC
+
+### [Refactor helper modules to utils directory](https://github.com/Santiago1010/node-template/pull/49)
+
+#### 📋 Summary
+Restructured project by moving helper modules from `helpers/` to `utils/` directory and updating all import references across the codebase.
+
+#### 🔍 What Changed
+### Added
+- New `utils/` directory structure
+
+### Changed
+- Moved `constants.helper.js` to `utils/constants.util.js`
+- Moved `encrypt.helper.js` to `utils/encrypt.util.js`
+- Moved `numbers.helper.js` to `utils/numbers.util.js`
+- Moved `strings.helper.js` to `utils/strings.util.js`
+- Moved `utilities.helper.js` to `utils/utilities.util.js`
+- Updated all import paths across 40+ files to reference new utils location
+- Updated test file paths and imports to match new structure
+
+### Fixed
+- N/A
+
+### Removed
+- Old helper files from `helpers/` directory
+
+#### 📝 Additional Notes
+This refactor improves project structure by separating utility functions from business logic helpers. All functionality remains identical - only file locations and import paths have changed.
+
+**Type of Change:** Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: developer experience, refactor
+- Milestone: DX1 — Onboarding + local dev
+- Commits: 2
+
+**Commits:**
+- [`e85669c`](https://github.com/Santiago1010/node-template/commit/e85669c78bc8e55eccdbc759d4581186cb60501b) refactor(utils): reorganize helper modules into utils directory
+- [`972df63`](https://github.com/Santiago1010/node-template/commit/972df63c20e67ef88679e3363634cb2e140fd5d4) chore(tests): update test file paths and imports for utils reorganization
+
+---
+
+
+
 ## [1.10.0] - 2025-10-05
 
 **Released:** 2025-10-05 20:54:36 UTC

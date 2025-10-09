@@ -23,7 +23,7 @@ const rateLimit = require('express-rate-limit');
 // =============================================================================
 const i18n = require('../i18n');
 const { isDevelopmentMode } = require('../../helpers/debug.helper');
-const { SECURITY_CONFIG } = require('../../helpers/constants.helper');
+const { SECURITY_CONFIG } = require('../../utils/constants.util');
 const { checkRateLimit } = require('../../helpers/security.helper');
 
 // =============================================================================

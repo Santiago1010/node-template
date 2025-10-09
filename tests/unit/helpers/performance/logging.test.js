@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { logPerformance, generatePerformanceReport } = require('../../../../helpers/performance.helper');
-const { PATHS } = require('../../../../helpers/constants.helper');
+const { PATHS } = require('../../../../utils/constants.util');
 
 const PERFORMANCE_LOG_PATH = path.join(PATHS.LOGS, 'performance.log');
 

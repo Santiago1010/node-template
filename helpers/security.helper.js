@@ -73,7 +73,7 @@ const sanitize = require('sanitize-html'); // HTML input sanitization (v2.x)
 // =============================================================================
 const config = require('../config/env'); // Application configuration
 const i18n = require('../config/i18n'); // Internationalization support
-const { SECURITY_CONFIG } = require('./constants.helper'); // Security constants
+const { SECURITY_CONFIG } = require('../utils/constants.util'); // Security constants
 
 // =============================================================================
 // UTILITY FUNCTIONS

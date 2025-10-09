@@ -3,7 +3,7 @@ const { I18n } = require('i18n');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 const config = require('../../config/env');
-const { PATHS } = require('../../helpers/constants.helper');
+const { PATHS } = require('../../utils/constants.util');
 
 const i18n = new I18n({
   locales: ['es', 'en'],
