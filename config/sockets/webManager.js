@@ -70,7 +70,7 @@ const WebSocket = require('ws'); // RFC-6455 compliant WebSocket server implemen
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const sequelize = require('../database/connection'); // Database connection and ORM
-const { getDeviceInfo } = require('../../helpers/utilities.helper'); // Device fingerprint generation
+const { getDeviceInfo } = require('../../utils/utilities.util'); // Device fingerprint generation
 
 // =============================================================================
 // MODELS

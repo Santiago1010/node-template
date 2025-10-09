@@ -1,5 +1,52 @@
 
 
+## [1.11.0] - 2025-10-09
+
+**Released:** 2025-10-09 22:05:40 UTC
+
+### [Add OpenAPI Documentation and Refactor Project Structure (#44)](https://github.com/Santiago1010/node-template/pull/55)
+
+#### 📋 Summary
+This PR introduces comprehensive OpenAPI documentation and refactors the project structure by moving utilities to a dedicated directory and cleaning up unused performance helpers.
+
+#### 🔍 What Changed
+### Added
+- OpenAPI documentation structure with basicInfo, components, paths, server, and tags
+- Swagger UI integration accessible at `/api/docs` in development mode
+- Login endpoint documentation with request schema and validation
+- CONTRIBUTING.md and DEVELOPER_SETUP.md documentation files
+
+### Changed
+- Moved `getDeviceInfo` helper from `helpers/` to `utils/` directory
+- Enhanced tag descriptions in OpenAPI documentation
+- Updated project structure with organized test directories
+
+### Removed
+- `performance.helper.js` and associated test files
+- Redundant test files in crud and performance directories
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Milestone: A1 — Swagger sync + tests
+- Commits: 7
+
+**Commits:**
+- [`404fe59`](https://github.com/Santiago1010/node-template/commit/404fe5948d3210a91a4fd09ae81069bc80ca77f3) refactor(utils): move utilities helper to utils directory and clean up test structure
+- [`e2275b7`](https://github.com/Santiago1010/node-template/commit/e2275b72ccb57872bbf913c3f58861a3bb0a8ae3) feat(docs): add OpenAPI documentation structure
+- [`705f217`](https://github.com/Santiago1010/node-template/commit/705f21700b14ad5e87daf0d701635b1d906dac78) docs(api): add OpenAPI paths structure for authentication
+- [`eba3b8f`](https://github.com/Santiago1010/node-template/commit/eba3b8f6192b9a8a584e7d8cd442846eb92dde15) feat(docs): add Swagger UI documentation endpoint in development
+- [`ee78fa4`](https://github.com/Santiago1010/node-template/commit/ee78fa4243b5afc701d421d2c58dfe2e00caabc3) fix(docs): correct Swagger UI endpoint routing
+- [`2a4e6f9`](https://github.com/Santiago1010/node-template/commit/2a4e6f9f884547ce3174456e83c80c1f7dc69347) feat(docs): add login endpoint documentation and enhance tag descriptions
+- [`92c0d74`](https://github.com/Santiago1010/node-template/commit/92c0d7422ad704490750620bdcd65eb8781fc94f) feat(docs): enhance login endpoint documentation with request schema
+
+---
+
+
+
 ## [1.10.3] - 2025-10-09
 
 **Released:** 2025-10-09 20:56:47 UTC
