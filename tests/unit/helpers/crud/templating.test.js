@@ -21,7 +21,7 @@ describe('Crud Helper - Templating', () => {
         someObject.readAll();
         someObject.readOne();
         someObject.update();
-        someObject.updateStatus();
+        someObject.updateStatus() {}
         someObject.delete();
 
         await logsCreation.create();
@@ -41,7 +41,7 @@ describe('Crud Helper - Templating', () => {
         someObject.readAllUsers();
         someObject.readOneUser();
         someObject.updateUser();
-        someObject.updateUsersStatus();
+        someObject.updateUsersStatus() {}
         someObject.deleteUser();
 
         await logsCreation.create();
@@ -52,6 +52,24 @@ describe('Crud Helper - Templating', () => {
       const result = crudHelper.setCrudName(template, 'users', 'user');
       // Normalize whitespace for comparison
       expect(result.replace(/\s+/g, ' ')).toBe(expected.replace(/\s+/g, ' '));
+    });
+  });
+
+  describe('generateMethodNames', () => {
+    it('should generate correct method names', () => {
+      const singularName = 'user';
+      const pluralName = 'users';
+      const expectedMethods = {
+        create: 'createUser',
+        updateStatus: 'updateUsersStatus',
+        list: 'getListUsers',
+        details: 'getUserDetails',
+        update: 'updateUser',
+        delete: 'deleteUser',
+      };
+
+      const methodNames = crudHelper.generateMethodNames(singularName, pluralName);
+      expect(methodNames).toEqual(expectedMethods);
     });
   });
 });

@@ -160,4 +160,89 @@ describe('Crud Helper - Database Operations', () => {
       expect(details).toBe('');
     });
   });
+
+  describe('getReferencedTable', () => {
+    it('should return referenced table for a column ending with _id', async () => {
+      sequelize.query.mockResolvedValueOnce([]); // No direct reference found
+      sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'related_models' }]);
+      const referencedTable = await crudHelper.getReferencedTable('test_table', 'related_model_id');
+      expect(referencedTable).toBe('related_models');
+    });
+
+    it('should return null if no referenced table is found', async () => {
+      sequelize.query.mockResolvedValueOnce([]);
+      sequelize.query.mockResolvedValueOnce([]);
+      const referencedTable = await crudHelper.getReferencedTable('test_table', 'related_model_id');
+      expect(referencedTable).toBeNull();
+    });
+
+    it('should handle errors gracefully', async () => {
+      sequelize.query.mockRejectedValue(new Error('Query failed'));
+      const referencedTable = await crudHelper.getReferencedTable('test_table', 'related_model_id');
+      expect(referencedTable).toBeNull();
+    });
+  });
+
+  describe('findTableByPattern', () => {
+    it('should find a table by pattern', async () => {
+      sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'usr_users' }]);
+      const tableName = await crudHelper.findTableByPattern('user');
+      expect(tableName).toBe('usr_users');
+    });
+
+    it('should return the first match if multiple patterns match', async () => {
+      sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'app_users' }, { TABLE_NAME: 'dev_users' }]);
+      const tableName = await crudHelper.findTableByPattern('users');
+      expect(tableName).toBe('app_users');
+    });
+
+    it('should handle errors gracefully', async () => {
+      sequelize.query.mockRejectedValue(new Error('Query failed'));
+      const tableName = await crudHelper.findTableByPattern('user');
+      expect(tableName).toBeNull();
+    });
+  });
+
+  describe('isFieldRequired', () => {
+    it('should return false for skipped fields', () => {
+      expect(crudHelper.isFieldRequired('id', {})).toBe(false);
+    });
+
+    it('should return false for auto-incrementing fields', () => {
+      expect(crudHelper.isFieldRequired('any_field', { EXTRA: 'auto_increment' })).toBe(false);
+    });
+
+    it('should return false for primary key fields', () => {
+      expect(crudHelper.isFieldRequired('any_field', { COLUMN_KEY: 'PRI' })).toBe(false);
+    });
+
+    it('should return true for non-nullable fields without default value', () => {
+      expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '0', COLUMN_DEFAULT: null })).toBe(true);
+    });
+
+    it('should return false for nullable fields', () => {
+      expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '1', COLUMN_DEFAULT: null })).toBe(false);
+    });
+
+    it('should return false for fields with a default value', () => {
+      expect(crudHelper.isFieldRequired('any_field', { NULLABLE: '0', COLUMN_DEFAULT: 'default' })).toBe(false);
+    });
+  });
+
+  describe('shouldBeTinyInt', () => {
+    it('should return false if column type is not tinyint(1)', () => {
+      expect(crudHelper.shouldBeTinyInt('any_column', 'varchar(255)')).toBe(false);
+    });
+
+    it('should return false for boolean-like names', () => {
+      expect(crudHelper.shouldBeTinyInt('is_active', 'tinyint(1)')).toBe(false);
+      expect(crudHelper.shouldBeTinyInt('require_approval', 'tinyint(1)')).toBe(false);
+      expect(crudHelper.shouldBeTinyInt('has_permission', 'tinyint(1)')).toBe(false);
+      expect(crudHelper.shouldBeTinyInt('user_has', 'tinyint(1)')).toBe(false);
+    });
+
+    it('should return true for non-boolean-like names', () => {
+      expect(crudHelper.shouldBeTinyInt('status', 'tinyint(1)')).toBe(true);
+    });
+  });
 });

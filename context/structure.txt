@@ -77,19 +77,14 @@
 ├── helpers
 │   ├── aws
 │   │   └── s3.helper.js
-│   ├── constants.helper.js
 │   ├── context.helper.js
 │   ├── crud.helper.js
 │   ├── database.helper.js
 │   ├── debug.helper.js
 │   ├── docs-generator.helper.js
-│   ├── encrypt.helper.js
-│   ├── numbers.helper.js
 │   ├── performance.helper.js
 │   ├── response.helper.js
 │   ├── security.helper.js
-│   ├── strings.helper.js
-│   ├── utilities.helper.js
 │   └── validations
 │       ├── commonSchemas.helper.js
 │       ├── databaseSchemas.helper.js
@@ -112,8 +107,7 @@
 │   │   ├── notFound.middleware.js
 │   │   ├── requestLogger.middleware.js
 │   │   └── validationError.middleware.js
-│   ├── wearable
-│   └── web
+│   └── wearable
 ├── migrations
 ├── models
 │   ├── configurations
@@ -192,7 +186,6 @@
 │   ├── setup.js
 │   └── unit
 │       ├── helpers
-│       │   ├── constants
 │       │   ├── context
 │       │   │   └── context.test.js
 │       │   ├── crud
@@ -205,45 +198,52 @@
 │       │   │   └── permanent-logging.test.js
 │       │   ├── docs
 │       │   │   └── docs.test.js
-│       │   ├── encrypt
-│       │   │   ├── aes.test.js
-│       │   │   ├── hashing.test.js
-│       │   │   ├── hybrid.test.js
-│       │   │   ├── password.test.js
-│       │   │   ├── rsa.test.js
-│       │   │   └── utilities.test.js
-│       │   ├── numbers
-│       │   │   ├── basic-math.test.js
-│       │   │   ├── formatting-convertion.test.js
-│       │   │   ├── percentage.test.js
-│       │   │   ├── random.test.js
-│       │   │   ├── rounding-precision.test.js
-│       │   │   ├── sanitization.test.js
-│       │   │   ├── utilities.test.js
-│       │   │   └── validation.test.js
 │       │   ├── performance
 │       │   │   ├── logging.test.js
 │       │   │   ├── monitoring.test.js
 │       │   │   ├── optimization.test.js
 │       │   │   ├── timing.test.js
 │       │   │   └── tracking.test.js
-│       │   ├── security
-│       │   │   └── security.test.js
-│       │   ├── strings
-│       │   │   ├── advanced-processing.test.js
-│       │   │   ├── basic-operations.test.js
-│       │   │   ├── case-conversion.test.js
-│       │   │   ├── formatting.test.js
-│       │   │   ├── utility.test.js
-│       │   │   └── validation.test.js
-│       │   └── utilities
-│       │       ├── array.test.js
-│       │       ├── functional.test.js
-│       │       ├── general.test.js
-│       │       ├── object.test.js
-│       │       └── validation.test.js
-│       └── middlewares
+│       │   └── security
+│       │       └── security.test.js
+│       ├── middlewares
+│       └── utils
+│           ├── constants
+│           ├── encrypt
+│           │   ├── aes.test.js
+│           │   ├── hashing.test.js
+│           │   ├── hybrid.test.js
+│           │   ├── password.test.js
+│           │   ├── rsa.test.js
+│           │   └── utilities.test.js
+│           ├── numbers
+│           │   ├── basic-math.test.js
+│           │   ├── formatting-convertion.test.js
+│           │   ├── percentage.test.js
+│           │   ├── random.test.js
+│           │   ├── rounding-precision.test.js
+│           │   ├── sanitization.test.js
+│           │   ├── utilities.test.js
+│           │   └── validation.test.js
+│           ├── strings
+│           │   ├── advanced-processing.test.js
+│           │   ├── basic-operations.test.js
+│           │   ├── case-conversion.test.js
+│           │   ├── formatting.test.js
+│           │   ├── utility.test.js
+│           │   └── validation.test.js
+│           └── utilities
+│               ├── array.test.js
+│               ├── functional.test.js
+│               ├── general.test.js
+│               ├── object.test.js
+│               └── validation.test.js
 ├── utils
+│   ├── constants.util.js
+│   ├── encrypt.util.js
+│   ├── numbers.util.js
+│   ├── strings.util.js
+│   ├── utilities.util.js
 │   └── validationRegistry.util.js
 └── .vscode
     ├── extensions.json
