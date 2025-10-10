@@ -320,8 +320,8 @@ const config = {
     aes: {
       users: {
         password: {
-          key: env.USER_PASSWORD_KEY,
-          iv: env.USER_PASSWORD_IV,
+          key: process.env.USER_PASSWORD_KEY,
+          iv: process.env.USER_PASSWORD_IV,
         },
       },
       hybrid: {

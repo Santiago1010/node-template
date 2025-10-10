@@ -382,8 +382,7 @@ const verifyHMAC = (data, key, expectedHMAC) => {
  */
 const hashPassword = async (password, saltRounds = 12) => {
   try {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    return hashedPassword;
+    return await bcrypt.hash(password, saltRounds);
   } catch (error) {
     throw new Error(`Password hashing failed: ${error.message}`);
   }

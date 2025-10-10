@@ -35,9 +35,24 @@ const normalizeStatusCode = (code, fallback = 500) => {
  *
  * @returns {Response} Express response object with JSON response
  */
-const success = (res, { httpCode = 200, messagePath, messageData, data = {} } = {}) => {
-  const responseData = messagePath ? { message: i18n.__mf(messagePath, messageData) } : {};
-  Object.assign(responseData, data);
+const success = (res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
+  const responseData = {};
+
+  if (messagePath) {
+    try {
+      let message = i18n.__(messagePath);
+
+      if (typeof message === 'string' && messageData && Object.keys(messageData).length > 0) {
+        message = i18n.__mf(messagePath, messageData);
+      }
+
+      if (typeof message === 'string') responseData.message = message;
+    } catch (err) {
+      console.error('i18n error:', err);
+    }
+  }
+
+  if (Object.keys(data).length > 0) Object.assign(responseData, JSON.parse(JSON.stringify(data)));
 
   return res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
 };

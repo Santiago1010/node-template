@@ -5,12 +5,6 @@
 // =============================================================================
 const { Model, DataTypes } = require('sequelize');
 
-// =============================================================================
-// INTERNAL DEPENDENCIES
-// =============================================================================
-const { aes } = require('../../config/env');
-const { encryptWithAES, decryptWithAES } = require('../../utils/encrypt.util');
-
 // Contains information about a user's account.
 
 const TABLE_NAME = 'usr_accounts';
@@ -127,21 +121,6 @@ const Schema = {
   password: {
     type: DataTypes.BLOB,
     allowNull: false,
-    get() {
-      const encryptedPassword = this.getDataValue('password');
-      if (!encryptedPassword) return null;
-
-      const encryptedString = encryptedPassword.toString('utf8');
-
-      return decryptWithAES(encryptedString, aes.users.password.key, aes.users.password.iv);
-    },
-    set(value) {
-      const encryptedString = encryptWithAES(value, aes.users.password.key, aes.users.password.iv);
-
-      const buffer = Buffer.from(encryptedString.encrypted, 'utf8');
-      this.setDataValue('password', buffer);
-    },
-    comment: "Hash of the user's access password. It is encrypted for enhanced security of the user's information.",
   },
   createdAt: {
     type: DataTypes.DATE,

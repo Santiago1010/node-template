@@ -1,6 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
 // =============================================================================
@@ -16,7 +17,7 @@ const { error } = require('../../../helpers/response.helper');
 const { usrAccounts } = sequelize.models;
 
 class SessionService {
-  static async login(credential, _) {
+  static async login(credential, password) {
     const account = await usrAccounts.findOne({
       attributes: [
         'id',
@@ -35,6 +36,10 @@ class SessionService {
 
     if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.accountNotFound' });
 
+    if (!account.emailConfirmedAt && !account.mobileNumberConfirmedAt) {
+      throw error({ httpCode: 401, messagePath: 'auth.login.accountNotConfirmed' });
+    }
+
     if (credential === account.email && !account.emailConfirmedAt) {
       throw error({ httpCode: 401, messagePath: 'auth.login.emailNotConfirmed' });
     }
@@ -42,6 +47,9 @@ class SessionService {
     if (credential === account.mobileNumber && !account.mobileNumberConfirmedAt) {
       throw error({ httpCode: 401, messagePath: 'auth.login.mobileNotConfirmed' });
     }
+
+    const validPassword = bcrypt.compareSync(password, account.password);
+    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
     return account;
   }
