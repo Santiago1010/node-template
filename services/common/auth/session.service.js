@@ -24,6 +24,8 @@ class SessionService {
         'userId',
         'employeeId',
         'internalCode',
+        'profile',
+        'profileInt',
         'email',
         'emailConfirmedAt',
         'mobileNumber',

@@ -77,6 +77,32 @@ const Schema = {
     comment: 'Internal code assigned to each account.',
     field: 'internal_code',
   },
+  profile: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const userId = this.getDataValue('userId');
+      const employeeId = this.getDataValue('employeeId');
+
+      if (userId && !employeeId) return 'customer';
+
+      if (!userId && employeeId) return 'employee';
+
+      return 'unknown';
+    },
+  },
+  profileInt: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const userId = this.getDataValue('userId');
+      const employeeId = this.getDataValue('employeeId');
+
+      if (userId && !employeeId) return 1;
+
+      if (!userId && employeeId) return 2;
+
+      return 0;
+    },
+  },
   email: {
     type: DataTypes.STRING(150),
     allowNull: false,
