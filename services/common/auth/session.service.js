@@ -55,9 +55,13 @@ class SessionService {
     const validPassword = bcrypt.compareSync(password, account.password);
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
-    return { accessToken: SessionService.createAccessToken(account) };
+    const accessToken = SessionService.createAccessToken(account);
+    const refreshToken = SessionService.createRefreshToken(account);
+
+    return { accessToken, refreshToken };
   }
 
+  // =============================== HELPERS =============================== //
   static createAccessToken(account) {
     const payload = { accountId: account.id, internalCode: account.internalCode, email: account.email };
 
@@ -67,6 +71,13 @@ class SessionService {
     return createJWT(payload, config.jwt.accessToken.secret, {
       subject: 'acces_token_' + account.internalCode,
       expiresIn: config.jwt.accessToken.expiration,
+    });
+  }
+
+  static createRefreshToken(account) {
+    return createJWT({ accountId: account.id, internalCode: account.internalCode }, config.jwt.refreshToken.secret, {
+      subject: 'refresh_token_' + account.internalCode,
+      expiresIn: config.jwt.refreshToken.expiration,
     });
   }
 }
