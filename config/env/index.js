@@ -273,13 +273,11 @@ const config = {
     algorithm: process.env.JWT_ALGORITHM || 'HS256',
     accessToken: {
       secret: process.env.JWT_ACCESS_TOKEN_SECRET || 'fallback-access-token-secret',
-      expiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION || '15m',
-      subject: process.env.JWT_ACCESS_TOKEN_SUBJECT || 'user',
+      expiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME || '15m',
     },
     refreshToken: {
       secret: process.env.JWT_REFRESH_TOKEN_SECRET || 'fallback-refresh-token-secret',
-      expiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION || '7d',
-      subject: process.env.JWT_REFRESH_TOKEN_SUBJECT || 'user',
+      expiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME || '7d',
     },
   },
 

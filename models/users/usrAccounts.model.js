@@ -145,7 +145,7 @@ const Schema = {
     field: 'mobile_number_confirmed_at',
   },
   password: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING(200),
     allowNull: false,
   },
   createdAt: {

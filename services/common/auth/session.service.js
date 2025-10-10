@@ -8,8 +8,10 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const sequelize = require('../../../config/database/connection');
+const config = require('../../../config/env');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
+const { createJWT } = require('../../../helpers/security.helper');
 
 // =============================================================================
 // MODELS
@@ -53,7 +55,19 @@ class SessionService {
     const validPassword = bcrypt.compareSync(password, account.password);
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
-    return account;
+    return { accessToken: SessionService.createAccessToken(account) };
+  }
+
+  static createAccessToken(account) {
+    const payload = { accountId: account.id, internalCode: account.internalCode, email: account.email };
+
+    if (account.userId) payload.userId = account.userId;
+    if (account.employeeId) payload.employeeId = account.employeeId;
+
+    return createJWT(payload, config.jwt.accessToken.secret, {
+      subject: 'acces_token_' + account.internalCode,
+      expiresIn: config.jwt.accessToken.expiration,
+    });
   }
 }
 
