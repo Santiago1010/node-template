@@ -2,7 +2,8 @@
   "fields": {
     "test": "La variable de prueba",
     "credential": "fields.credential",
-    "password": "fields.password"
+    "password": "fields.password",
+    "fingerprint": "fields.fingerprint"
   },
   "validations": {
     "required": "El campo {field} es requerido",
@@ -15,7 +16,8 @@
     "string": "validations.string",
     "passwordLength": "validations.passwordLength",
     "passwordUppercase": "validations.passwordUppercase",
-    "array": "validations.array"
+    "array": "validations.array",
+    "alphanumericOnly": "validations.alphanumericOnly"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -35,7 +37,8 @@
   },
   "auth": {
     "login": {
-      "invalidCredentials": "auth.login.invalidCredentials"
+      "invalidCredentials": "auth.login.invalidCredentials",
+      "success": "auth.login.success"
     }
   },
   "enums": {

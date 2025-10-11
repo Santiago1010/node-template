@@ -18,7 +18,7 @@
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const i18n = require('../../config/i18n');
-const { convertToNumber } = require('../numbers.helper');
+const { convertToNumber } = require('../../utils/numbers.util');
 
 // =============================================================================
 // HELPER FUNCTIONS

@@ -8,7 +8,6 @@ const { Op } = require('sequelize');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const ScopeServices = require('../configurations/scopes.services');
 const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
 const sequelize = require('../../../config/database/connection');
@@ -16,7 +15,6 @@ const config = require('../../../config/env');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
 const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
-const { generateUUID } = require('../../../utils/utilities.util');
 
 // =============================================================================
 // MODELS
@@ -24,7 +22,7 @@ const { generateUUID } = require('../../../utils/utilities.util');
 const { usrAccounts, configRoles } = sequelize.models;
 
 class SessionService {
-  static async login(credential, password, device) {
+  static async login(credential, password, fingerprint, device) {
     const account = await usrAccounts.findOne({
       attributes: [
         'id',
@@ -67,16 +65,15 @@ class SessionService {
     account.password = undefined;
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    return await SessionService.createTokens(account, device);
+    return await SessionService.createTokens(account, fingerprint, device);
   }
 
-  static async createTokens(account, device) {
-    const managedDevice = await SessionService.manageDevice(account.id, device);
-    const scopes = await ScopeServices.getAllScopesOfAnAccount(account.id, account.role.id);
+  static async createTokens(account, fingerprint, device) {
+    const managedDevice = await SessionService.manageDevice(account.id, fingerprint, device);
 
     const isSafeMode = !managedDevice.isTrusted;
 
-    const accessToken = SessionService.createAccessToken(account, isSafeMode, scopes);
+    const accessToken = SessionService.createAccessToken(account, isSafeMode);
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
     const { jti } = SessionService.validRefreshToken(refreshToken, account);
@@ -84,18 +81,17 @@ class SessionService {
 
     await AccessServices.createAccess(account.id, managedDevice.id, jti, { isSafeMode });
 
-    return { isSafeMode, scopes, accessToken, refreshToken };
+    return { accessToken, refreshToken };
   }
 
   // =============================== TOKENS ================================ //
-  static createAccessToken(account, isSafeMode, scopes) {
+  static createAccessToken(account, isSafeMode) {
     const payload = {
       accountId: account.id,
       internalCode: account.internalCode,
       email: account.email,
       isSafeMode,
       role: account.role,
-      scopes,
     };
 
     if (account.userId) payload.userId = account.userId;
@@ -129,13 +125,13 @@ class SessionService {
   }
 
   // ================================ DEVICE ================================ //
-  static async manageDevice(accountId, { deviceType, userAgent, browser, os, ip }) {
+  static async manageDevice(accountId, fingerprint, { deviceType, userAgent, browser, os, ip }) {
     const lastUsedAt = moment().valueOf();
 
-    const existingDevice = await DeviceServices.registeredDevice(accountId, deviceType, browser, os);
+    const existingDevice = await DeviceServices.registeredDevice(accountId, fingerprint, deviceType, browser, os);
 
     if (!existingDevice) {
-      return await DeviceServices.createDevice(accountId, generateUUID(), {
+      return await DeviceServices.createDevice(accountId, fingerprint, {
         name: userAgent,
         type: deviceType,
         browser,

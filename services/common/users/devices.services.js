@@ -144,9 +144,9 @@ class DeviceServices {
   }
 
   // =============================== HELPERS =============================== //
-  static async registeredDevice(accountId, type, browser, os) {
+  static async registeredDevice(accountId, fingerprint, type, browser, os) {
     const device = await usrDevices.findOne({
-      where: { accountId, type, browser, os },
+      where: { accountId, fingerprint, type, browser, os },
       paranoid: false,
       logging: wrapLogging('[DeviceServices.registeredDevice]'),
     });

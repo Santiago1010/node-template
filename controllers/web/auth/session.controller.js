@@ -6,12 +6,12 @@ const { getDeviceInfo } = require('../../../utils/utilities.util');
 
 class SessionController {
   static async login(req, res, next) {
-    const { credential, password } = req.body;
+    const { credential, password, fingerprint } = req.body;
 
     try {
-      const response = await SessionService.login(credential, password, getDeviceInfo(req, true));
+      const response = await SessionService.login(credential, password, fingerprint, getDeviceInfo(req, true));
 
-      const { accessToken, refreshToken, ...cleanedResponse } = response;
+      const { accessToken, refreshToken } = response;
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
@@ -26,7 +26,7 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
-      return success(res, { messagePath: 'auth.login', data: { ...cleanedResponse } });
+      return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
       return next(error);
     }

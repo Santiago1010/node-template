@@ -25,10 +25,10 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const numberHelper = require('../numbers.helper');
+const numberHelper = require('../../utils/numbers.util');
 const securityHelper = require('../security.helper');
-const stringHelper = require('../strings.helper');
-const utilitiesHelper = require('../utilities.helper');
+const stringHelper = require('../../utils/strings.util');
+const utilitiesHelper = require('../../utils/utilities.util');
 const i18n = require('../../config/i18n');
 const { THREAT_LEVELS } = require('../../utils/constants.util');
 const { cerror, isDevelopmentMode } = require('../debug.helper');
@@ -42,7 +42,7 @@ const getFieldName = (name) => {
 
 const defaultStringSanitizer = (value) => {
   if (typeof value !== 'string') return value;
-  return securityHelper.validateAndSanitizeString(value, {
+  return securityHelper.sanitizeHTML(value, {
     allowHTML: false,
     allowSpecialChars: true,
   }).sanitized;
