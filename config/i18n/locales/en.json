@@ -35,10 +35,7 @@
   },
   "auth": {
     "login": {
-      "accountNotFound": "auth.login.accountNotFound",
-      "emailNotConfirmed": "auth.login.emailNotConfirmed",
-      "accountNotConfirmed": "auth.login.accountNotConfirmed",
-      "mobileNotConfirmed": "auth.login.mobileNotConfirmed"
+      "invalidCredentials": "auth.login.invalidCredentials"
     }
   },
   "enums": {

@@ -49,22 +49,23 @@ class SessionService {
       logging: wrapLogging('[SessionService.login] Get account by credential'),
     });
 
-    if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.accountNotFound' });
+    if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
 
     if (!account.emailConfirmedAt && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.accountNotConfirmed' });
+      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
     }
 
     if (credential === account.email && !account.emailConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.emailNotConfirmed' });
+      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
     }
 
     if (credential === account.mobileNumber && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.mobileNotConfirmed' });
+      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
     }
 
-    const validPassword = bcrypt.compareSync(password, account.password);
-    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
+    const validPassword = await bcrypt.compare(password, account.password);
+    account.password = undefined;
+    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
     return await SessionService.createTokens(account, device);
   }
@@ -79,7 +80,7 @@ class SessionService {
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
     const { jti } = SessionService.validRefreshToken(refreshToken, account);
-    if (!jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidRefreshToken' });
+    if (!jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
     await AccessServices.createAccess(account.id, managedDevice.id, jti, { isSafeMode });
 
