@@ -100,9 +100,8 @@ class DeviceServices {
   }
 
   static async updateDevice(
-    user,
     id,
-    { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt } = {}
+    { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt, user } = {}
   ) {
     const updateData = { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt };
 
@@ -119,7 +118,7 @@ class DeviceServices {
         logging: wrapLogging('[DeviceServices.updateDevice] ', updateData),
       });
 
-      await LogServices.recordUpdateLog(user, usrDevices, oldData, updatedData, { transaction });
+      if (user) await LogServices.recordUpdateLog(user, usrDevices, oldData, updatedData, { transaction });
 
       return updatedData;
     });
@@ -142,6 +141,19 @@ class DeviceServices {
 
       return deletedData;
     });
+  }
+
+  // =============================== HELPERS =============================== //
+  static async registeredDevice(accountId, type, browser, os) {
+    const device = await usrDevices.findOne({
+      where: { accountId, type, browser, os },
+      paranoid: false,
+      logging: wrapLogging('[DeviceServices.registeredDevice]'),
+    });
+
+    if (!device) return false;
+
+    return JSON.parse(JSON.stringify(device));
   }
 }
 

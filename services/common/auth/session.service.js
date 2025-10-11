@@ -58,21 +58,17 @@ class SessionService {
     const validPassword = bcrypt.compareSync(password, account.password);
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
-    await DeviceServices.createDevice(account.id, generateUUID(), {
-      type: device.deviceType,
-      browser: device.browser,
-      os: device.os,
-      lastIp: device.ip,
-      lastUsedAt: moment().valueOf(),
-    });
+    const managedDevice = await SessionService.manageDevice(account.id, device);
+
+    console.log(JSON.parse(JSON.stringify(managedDevice)));
 
     const accessToken = SessionService.createAccessToken(account);
-    const refreshToken = SessionService.createRefreshToken(account);
+    const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
     return { accessToken, refreshToken };
   }
 
-  // =============================== HELPERS =============================== //
+  // =============================== TOKENS ================================ //
   static createAccessToken(account) {
     const payload = { accountId: account.id, internalCode: account.internalCode, email: account.email };
 
@@ -85,11 +81,37 @@ class SessionService {
     });
   }
 
-  static createRefreshToken(account) {
-    return createJWT({ accountId: account.id, internalCode: account.internalCode }, config.jwt.refreshToken.secret, {
+  static createRefreshToken(account, device) {
+    const payload = {
+      accountId: account.id,
+      internalCode: account.internalCode,
+      device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
+    };
+
+    return createJWT(payload, config.jwt.refreshToken.secret, {
       subject: 'refresh_token_' + account.internalCode,
       expiresIn: config.jwt.refreshToken.expiration,
     });
+  }
+
+  // ================================ DEVICE ================================ //
+  static async manageDevice(accountId, { deviceType, userAgent, browser, os, ip }) {
+    const lastUsedAt = moment().valueOf();
+
+    const existingDevice = await DeviceServices.registeredDevice(accountId, deviceType, browser, os);
+
+    if (!existingDevice) {
+      return await DeviceServices.createDevice(accountId, generateUUID(), {
+        name: userAgent,
+        type: deviceType,
+        browser,
+        os,
+        lastIp: ip,
+        lastUsedAt,
+      });
+    }
+
+    return await DeviceServices.updateDevice(existingDevice.id, { name: userAgent, lastIp: ip, lastUsedAt });
   }
 }
 

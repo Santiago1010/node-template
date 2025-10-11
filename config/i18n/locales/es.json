@@ -29,7 +29,8 @@
   },
   "error": {
     "internal_server": "error.internal_server",
-    "invalid_token": "error.invalid_token"
+    "invalid_token": "error.invalid_token",
+    "validation": "error.validation"
   },
   "auth": {
     "login": {
@@ -37,6 +38,11 @@
       "emailNotConfirmed": "auth.login.emailNotConfirmed",
       "accountNotConfirmed": "auth.login.accountNotConfirmed",
       "mobileNotConfirmed": "auth.login.mobileNotConfirmed"
+    }
+  },
+  "enums": {
+    "type": {
+      "desktop": "enums.type.desktop"
     }
   }
 }
