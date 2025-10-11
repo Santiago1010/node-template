@@ -14,7 +14,7 @@ const { wrapLogging } = require('../../../helpers/debug.helper');
 // =============================================================================
 // MODELS
 // =============================================================================
-const { configScopes } = sequelize.models;
+const { configScopes, usrAccounts, configRoles } = sequelize.models;
 
 class ScopeServices {
   // ================================= CRUD ================================= //
@@ -134,9 +134,45 @@ class ScopeServices {
   }
 
   // ================================ UTILS ================================ //
-  // static async getAllScopesOfAnAccount(accountId, roleId) {
-  //   const [accountScopes, roleScopes] = await Promise.all([]);
-  // }
+  static async getAllScopesOfAnAccount(accountId, roleId) {
+    const scopes = new Set();
+
+    const [accountScopes, roleScopes] = await Promise.all([
+      await configScopes.findAll({
+        attributes: ['name'],
+        include: {
+          model: usrAccounts,
+          as: 'accounts',
+          through: { attributes: [] },
+          attributes: [],
+          where: { id: accountId },
+          required: true,
+        },
+        subQuery: false,
+        raw: true,
+        logging: wrapLogging('[ScopeServices.getAllScopesOfAnAccount] Get account scopes'),
+      }),
+      await configScopes.findAll({
+        attributes: ['name'],
+        include: {
+          model: configRoles,
+          as: 'roles',
+          through: { attributes: [] },
+          attributes: [],
+          where: { id: roleId },
+          required: true,
+        },
+        subQuery: false,
+        raw: true,
+        logging: wrapLogging('[ScopeServices.getAllScopesOfAnAccount] Get role scopes'),
+      }),
+    ]);
+
+    for (const { name } of accountScopes) scopes.add(name);
+    for (const { name } of roleScopes) scopes.add(name);
+
+    return Array.from(scopes);
+  }
 }
 
 module.exports = ScopeServices;

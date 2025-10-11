@@ -8,6 +8,7 @@ const { Op } = require('sequelize');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const ScopeServices = require('../configurations/scopes.services');
 const DeviceServices = require('../users/devices.services');
 const sequelize = require('../../../config/database/connection');
 const config = require('../../../config/env');
@@ -65,23 +66,25 @@ class SessionService {
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
     const managedDevice = await SessionService.manageDevice(account.id, device);
+    const scopes = await ScopeServices.getAllScopesOfAnAccount(account.id, account.role.id);
 
     const isSafeMode = !managedDevice.isTrusted;
 
-    const accessToken = SessionService.createAccessToken(account, isSafeMode);
+    const accessToken = SessionService.createAccessToken(account, isSafeMode, scopes);
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
-    return { isSafeMode, accessToken, refreshToken };
+    return { isSafeMode, scopes, accessToken, refreshToken };
   }
 
   // =============================== TOKENS ================================ //
-  static createAccessToken(account, isSafeMode) {
+  static createAccessToken(account, isSafeMode, scopes) {
     const payload = {
       accountId: account.id,
       internalCode: account.internalCode,
       email: account.email,
       isSafeMode,
       role: account.role,
+      scopes,
     };
 
     if (account.userId) payload.userId = account.userId;
