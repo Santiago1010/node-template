@@ -2,16 +2,19 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 const { Op } = require('sequelize');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const DeviceServices = require('../users/devices.services');
 const sequelize = require('../../../config/database/connection');
 const config = require('../../../config/env');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
 const { createJWT } = require('../../../helpers/security.helper');
+const { generateUUID } = require('../../../utils/utilities.util');
 
 // =============================================================================
 // MODELS
@@ -19,7 +22,7 @@ const { createJWT } = require('../../../helpers/security.helper');
 const { usrAccounts } = sequelize.models;
 
 class SessionService {
-  static async login(credential, password) {
+  static async login(credential, password, device) {
     const account = await usrAccounts.findOne({
       attributes: [
         'id',
@@ -54,6 +57,14 @@ class SessionService {
 
     const validPassword = bcrypt.compareSync(password, account.password);
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
+
+    await DeviceServices.createDevice(account.id, generateUUID(), {
+      type: device.deviceType,
+      browser: device.browser,
+      os: device.os,
+      lastIp: device.ip,
+      lastUsedAt: moment().valueOf(),
+    });
 
     const accessToken = SessionService.createAccessToken(account);
     const refreshToken = SessionService.createRefreshToken(account);
