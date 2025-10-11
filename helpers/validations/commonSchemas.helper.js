@@ -40,13 +40,13 @@ const getFieldName = (name) => {
   return typeof i18n !== 'undefined' ? i18n.__mf('fields.' + name) : `fields.${name}`;
 };
 
-const defaultStringSanitizer = (value) => {
-  if (typeof value !== 'string') return value;
-  return securityHelper.sanitizeHTML(value, {
-    allowHTML: false,
-    allowSpecialChars: true,
-  }).sanitized;
-};
+// const defaultStringSanitizer = (value) => {
+//   if (typeof value !== 'string') return value;
+//   return securityHelper.sanitizeHTML(value, {
+//     allowHTML: false,
+//     allowSpecialChars: true,
+//   }).sanitized;
+// };
 
 // =============================================================================
 // SCHEMA GENERATORS
@@ -244,7 +244,7 @@ const stringSchema = (
   const fieldName = getFieldName(name);
   const validationSchema = { in: location };
 
-  formattingFunctions.push(defaultStringSanitizer);
+  // formattingFunctions.push(defaultStringSanitizer);
 
   // Initial configuration for optional fields
   if (!required) {

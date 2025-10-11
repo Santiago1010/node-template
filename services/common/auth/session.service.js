@@ -76,10 +76,16 @@ class SessionService {
     const accessToken = SessionService.createAccessToken(account, isSafeMode);
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
-    const { jti } = SessionService.validRefreshToken(refreshToken, account);
-    if (!jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    const payloadRefreshToken = SessionService.validRefreshToken(refreshToken, account);
+    if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    await AccessServices.createAccess(account.id, managedDevice.id, jti, { isSafeMode });
+    await AccessServices.createAccess(
+      account.id,
+      managedDevice.id,
+      payloadRefreshToken.jti,
+      moment(payloadRefreshToken.exp * 1000).valueOf(),
+      { isSafeMode }
+    );
 
     return { accessToken, refreshToken };
   }

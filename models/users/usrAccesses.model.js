@@ -46,6 +46,12 @@ const Schema = {
     comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
     field: 'id_token',
   },
+  expiresAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    comment: 'Date and time the access expires. Updated each time the token is refreshed.',
+    field: 'expires_at',
+  },
   isSafeMode: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

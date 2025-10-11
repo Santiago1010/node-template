@@ -18,10 +18,12 @@ const { usrAccesses } = sequelize.models;
 
 class AccessServices {
   // ================================= CRUD ================================= //
-  static async createAccess(accountId, deviceId, idToken, { isSafeMode, user } = {}) {
-    const createData = { accountId, deviceId, idToken, isSafeMode };
+  static async createAccess(accountId, deviceId, idToken, expiresAt, { isSafeMode, user } = {}) {
+    const createData = { accountId, deviceId, idToken, expiresAt, isSafeMode };
 
     return await sequelize.transaction(async (transaction) => {
+      await usrAccesses.destroy({ where: { accountId, deviceId }, transaction });
+
       const access = await usrAccesses.create(createData, {
         transaction,
         logging: wrapLogging('[AccessServices.createAccess] ', createData),
