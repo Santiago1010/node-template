@@ -105,7 +105,7 @@ class SessionService {
       });
     }
 
-    return { accessToken, refreshToken };
+    return { isSafeMode, accessToken, refreshToken };
   }
 
   // =============================== TOKENS ================================ //

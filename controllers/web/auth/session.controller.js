@@ -26,6 +26,8 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
+      // TODO: Create email delivery in case of safe mode (suspicious device).
+
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
       return next(error);
