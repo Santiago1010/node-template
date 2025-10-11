@@ -1,5 +1,78 @@
 
 
+## [1.12.0] - 2025-10-11
+
+**Released:** 2025-10-11 21:29:25 UTC
+
+### [Authentication System with Device Fingerprinting](https://github.com/Santiago1010/node-template/pull/56)
+
+#### 📋 Summary
+Implement comprehensive authentication system with device fingerprinting, JWT token management, and enhanced security features including device tracking and safe mode detection.
+
+#### 🔍 What Changed
+### Added
+- Session controller with login functionality
+- Device fingerprinting and tracking system
+- JWT token management with access/refresh tokens
+- Device management services (create, update, track)
+- Access logging and session management
+- New database models: configRoles, configScopes, usrDevices, usrAccountsHasScopes
+- Authentication route validations
+- Enhanced response helper with error handling
+- API documentation for auth endpoints
+
+### Changed
+- Updated JWT configuration (removed subject fields, standardized expiration names)
+- Modified usrAccounts model (removed AES encryption, added virtual profile fields)
+- Enhanced usrAccesses model (added device relationship, removed payload field)
+- Improved security helper (JWT issuer, algorithm options)
+- Updated i18n locales with new auth messages and validations
+- Refactored validation helpers to use utility modules
+- Enhanced error handling in response helper
+
+### Fixed
+- JWT token creation and verification consistency
+- Password hashing implementation
+- Error response formatting
+- Development mode cookie settings
+
+### Removed
+- Request logger middleware (commented out)
+- AES encryption from user passwords
+- Redundant JWT subject configurations
+
+#### 📝 Additional Notes
+- Implements secure session management with device tracking
+- Adds comprehensive scope-based permission system
+- Includes safe mode for suspicious device detection
+- Enhanced logging and audit trail capabilities
+- Follows security best practices for token management
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement
+- Milestone: M1 — Auth & device tokens
+- Commits: 10
+
+**Commits:**
+- [`2341fbb`](https://github.com/Santiago1010/node-template/commit/2341fbb9faff76ee193cfaa504b617ba26fe36e4) feat(auth): implement role-based access and safe mode authentication
+- [`e49759e`](https://github.com/Santiago1010/node-template/commit/e49759eb8300bade740a06e31b5c8e0e848fe392) feat(auth): implement scope-based permission system
+- [`666cfb4`](https://github.com/Santiago1010/node-template/commit/666cfb4bff1fef1ac637c3de2bc178a819b7818d) feat(auth): implement account-specific scopes and role-based permissions
+- [`d4cc3ef`](https://github.com/Santiago1010/node-template/commit/d4cc3ef6a9726b767b33d8166410555746a4b152) feat(auth): implement access tracking and token validation system
+- [`5e30dd4`](https://github.com/Santiago1010/node-template/commit/5e30dd49a7efc4d0c3acd5a73b359335710ecc7b) feat(auth): implement http-only cookies and unified error messaging
+- [`08342b3`](https://github.com/Santiago1010/node-template/commit/08342b32391dedc678366cd0478f63079d04034a) feat(auth): implement login validation and fingerprint support
+- [`038d59b`](https://github.com/Santiago1010/node-template/commit/038d59b176622ebcc3f8c3f7431982af502a4bc1) feat(auth): implement access expiration and cleanup
+- [`bd5f6bc`](https://github.com/Santiago1010/node-template/commit/bd5f6bca53117cc9f1e094944df52272b20f4daf) refactor(auth): optimize access record management
+- [`7575a10`](https://github.com/Santiago1010/node-template/commit/7575a103c1fa9f3b2d188b1c609ecc9aa83405ef) feat(auth): include safe mode status in login response
+- [`9a288d7`](https://github.com/Santiago1010/node-template/commit/9a288d770577ad9095bf04eb68dfd3ea5045e88d) feat(auth): implement role-based access control system
+
+---
+
+
+
 ## [1.11.0] - 2025-10-09
 
 **Released:** 2025-10-09 22:05:40 UTC
