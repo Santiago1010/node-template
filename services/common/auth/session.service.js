@@ -79,13 +79,31 @@ class SessionService {
     const payloadRefreshToken = SessionService.validRefreshToken(refreshToken, account);
     if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    await AccessServices.createAccess(
-      account.id,
-      managedDevice.id,
-      payloadRefreshToken.jti,
-      moment(payloadRefreshToken.exp * 1000).valueOf(),
-      { isSafeMode }
-    );
+    const { total, results } = await AccessServices.getListAccesses({
+      limit: 5,
+      page: 1,
+      active: true,
+      accountId: account.id,
+      deviceId: managedDevice.id,
+    });
+
+    if (total === 0) {
+      await AccessServices.createAccess(
+        account.id,
+        managedDevice.id,
+        payloadRefreshToken.jti,
+        moment(payloadRefreshToken.exp * 1000).valueOf(),
+        { isSafeMode }
+      );
+    } else {
+      await AccessServices.updateAccess(results[0].id, {
+        accountId: account.id,
+        deviceId: managedDevice.id,
+        idToken: payloadRefreshToken.jti,
+        expiresAt: moment(payloadRefreshToken.exp * 1000).valueOf(),
+        isSafeMode,
+      });
+    }
 
     return { accessToken, refreshToken };
   }

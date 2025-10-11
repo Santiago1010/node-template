@@ -99,8 +99,8 @@ class AccessServices {
     return access;
   }
 
-  static async updateAccess(user, id, { accountId, deviceId, idToken, isSafeMode } = {}) {
-    const updateData = { accountId, deviceId, idToken, isSafeMode };
+  static async updateAccess(id, { accountId, deviceId, idToken, expiresAt, isSafeMode, user } = {}) {
+    const updateData = { accountId, deviceId, idToken, expiresAt, isSafeMode };
 
     const access = await usrAccesses.findByPk(id, {
       paranoid: false,
@@ -115,7 +115,7 @@ class AccessServices {
         logging: wrapLogging('[AccessServices.updateAccess] ', updateData),
       });
 
-      await LogServices.recordUpdateLog(user, usrAccesses, oldData, updatedData, { transaction });
+      if (user) await LogServices.recordUpdateLog(user, usrAccesses, oldData, updatedData, { transaction });
 
       return updatedData;
     });
