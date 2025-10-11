@@ -5,12 +5,6 @@
 // =============================================================================
 const { Model, DataTypes } = require('sequelize');
 
-// =============================================================================
-// INTERNAL DEPENDENCIES
-// =============================================================================
-const { aes } = require('../../config/env');
-const { encryptWithAES, decryptWithAES } = require('../../utils/encrypt.util');
-
 // Contains information about a user's account.
 
 const TABLE_NAME = 'usr_accounts';
@@ -83,6 +77,32 @@ const Schema = {
     comment: 'Internal code assigned to each account.',
     field: 'internal_code',
   },
+  profile: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const userId = this.getDataValue('userId');
+      const employeeId = this.getDataValue('employeeId');
+
+      if (userId && !employeeId) return 'customer';
+
+      if (!userId && employeeId) return 'employee';
+
+      return 'unknown';
+    },
+  },
+  profileInt: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const userId = this.getDataValue('userId');
+      const employeeId = this.getDataValue('employeeId');
+
+      if (userId && !employeeId) return 1;
+
+      if (!userId && employeeId) return 2;
+
+      return 0;
+    },
+  },
   email: {
     type: DataTypes.STRING(150),
     allowNull: false,
@@ -125,23 +145,8 @@ const Schema = {
     field: 'mobile_number_confirmed_at',
   },
   password: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING(200),
     allowNull: false,
-    get() {
-      const encryptedPassword = this.getDataValue('password');
-      if (!encryptedPassword) return null;
-
-      const encryptedString = encryptedPassword.toString('utf8');
-
-      return decryptWithAES(encryptedString, aes.users.password.key, aes.users.password.iv);
-    },
-    set(value) {
-      const encryptedString = encryptWithAES(value, aes.users.password.key, aes.users.password.iv);
-
-      const buffer = Buffer.from(encryptedString.encrypted, 'utf8');
-      this.setDataValue('password', buffer);
-    },
-    comment: "Hash of the user's access password. It is encrypted for enhanced security of the user's information.",
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -169,7 +174,7 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(_) {
+  static associate(models) {
     // // Indexes
     // this.belongsTo(models.usrEmployees, {
     //   foreignKey: 'employeeId',
@@ -178,13 +183,13 @@ class ExtendedModel extends Model {
     //   onUpdate: 'CASCADE',
     //   onDelete: 'CASCADE',
     // });
-    // this.belongsTo(models.configRoles, {
-    //   foreignKey: 'rolId',
-    //   targetKey: 'id',
-    //   as: 'rol',
-    //   onUpdate: 'CASCADE',
-    //   onDelete: 'CASCADE',
-    // });
+    this.belongsTo(models.configRoles, {
+      foreignKey: 'rolId',
+      targetKey: 'id',
+      as: 'role',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    });
     // this.belongsTo(models.usrUsers, {
     //   foreignKey: 'userId',
     //   targetKey: 'id',

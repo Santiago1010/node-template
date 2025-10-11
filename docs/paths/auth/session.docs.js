@@ -17,15 +17,17 @@ const login = standardRequest('post', {
     content: {
       'application/json': {
         schema: {
-          required: ['credential', 'password'],
+          required: ['credential', 'password', 'fingerprint'],
           properties: {
             credential: { type: 'string', description: '', example: faker.internet.email().toLowerCase() },
             password: { type: 'string', description: '', example: faker.internet.password() },
+            fingerprint: { type: 'string', description: '', example: faker.string.uuid() },
           },
         },
       },
     },
   },
+  responses: {},
 });
 
 module.exports = { login };

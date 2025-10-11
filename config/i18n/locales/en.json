@@ -2,7 +2,8 @@
   "fields": {
     "test": "Test variable",
     "credential": "fields.credential",
-    "password": "fields.password"
+    "password": "fields.password",
+    "fingerprint": "fields.fingerprint"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -15,7 +16,8 @@
     "string": "validations.string",
     "passwordLength": "validations.passwordLength",
     "passwordUppercase": "validations.passwordUppercase",
-    "array": "validations.array"
+    "array": "validations.array",
+    "alphanumericOnly": "validations.alphanumericOnly"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -29,6 +31,22 @@
   },
   "error": {
     "internal_server": "error.internal_server",
-    "invalid_token": "error.invalid_token"
+    "invalid_token": "error.invalid_token",
+    "validation": "error.validation",
+    "database": "error.database"
+  },
+  "auth": {
+    "login": {
+      "invalidCredentials": "auth.login.invalidCredentials",
+      "success": "auth.login.success"
+    }
+  },
+  "enums": {
+    "type": {
+      "desktop": "enums.type.desktop"
+    },
+    "target": {
+      "everyone": "enums.target.everyone"
+    }
   }
 }

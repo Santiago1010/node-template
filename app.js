@@ -34,7 +34,7 @@ const {
   stream, // Log file write stream
 } = require('./config/tools/morgan.config');
 const { ROOT } = require('./utils/constants.util'); // Root directory path constant
-const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
+// const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
 const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
 const corsMiddleware = require('./middlewares/common/cors.middleware');
@@ -96,7 +96,7 @@ app.use(
 );
 
 // Custom request logging middleware
-app.use(requestLogger());
+// app.use(requestLogger());
 
 routerApi(app);
 

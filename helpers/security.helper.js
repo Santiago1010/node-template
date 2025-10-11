@@ -276,12 +276,12 @@ const createJWT = (payload, secret, options = {}) => {
     algorithm: config.jwt.algorithm,
     expiresIn: config.jwt.expiresIn,
     notBefore: '0s',
-    issuer: config.jwt.issuer,
+    issuer: config.url,
     audience: config.jwt.audience,
     jwtid: crypto.randomBytes(16).toString('hex'), // Secure random JWT ID
   };
 
-  return jwt.sign(payload, secret, { ...defaultOptions, ...options });
+  return jwt.sign(payload, secret, { ...JSON.parse(JSON.stringify(defaultOptions)), ...options });
 };
 
 /**
@@ -325,7 +325,7 @@ const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
   };
 
   try {
-    return jwt.verify(token, secret, { ...defaultOptions, ...options });
+    return jwt.verify(token, secret, { ...JSON.parse(JSON.stringify(defaultOptions)), ...options });
   } catch (error) {
     switch (error.name) {
       case 'JsonWebTokenError':

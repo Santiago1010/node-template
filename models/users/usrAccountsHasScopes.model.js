@@ -2,10 +2,10 @@
 
 const { Model, DataTypes } = require('sequelize');
 
-// Log of account access and devices.
+// Temporary scopes that a specific account can have.
 
-const TABLE_NAME = 'usr_accesses';
-const MODEL_NAME = 'usrAccesses';
+const TABLE_NAME = 'usr_accounts_has_scopes';
+const MODEL_NAME = 'usrAccountsHasScopes';
 
 const Schema = {
   id: {
@@ -14,7 +14,7 @@ const Schema = {
     primaryKey: true,
     autoIncrement: true,
     unique: 'PRIMARY',
-    comment: 'Unique identifier for each access.',
+    comment: 'Unique identifier for each relationship between an account and a scope.',
   },
   accountId: {
     type: DataTypes.INTEGER,
@@ -28,36 +28,17 @@ const Schema = {
     comment: 'Account ID.',
     field: 'account_id',
   },
-  deviceId: {
+  scopeId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      table: 'usr_devices',
+      table: 'config_scopes',
       column: 'id',
-      model: 'usrDevices',
+      model: 'configScopes',
       key: 'id',
     },
-    comment: 'ID of the device from which the access was recorded.',
-    field: 'device_id',
-  },
-  idToken: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-    comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
-    field: 'id_token',
-  },
-  expiresAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    comment: 'Date and time the access expires. Updated each time the token is refreshed.',
-    field: 'expires_at',
-  },
-  isSafeMode: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: '0',
-    comment: 'Indicates whether access was performed in safe mode.',
-    field: 'is_safe_mode',
+    comment: 'Scope ID.',
+    field: 'scope_id',
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -94,10 +75,10 @@ class ExtendedModel extends Model {
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });
-    this.belongsTo(models.usrDevices, {
-      foreignKey: 'deviceId',
+    this.belongsTo(models.configScopes, {
+      foreignKey: 'scopeId',
       targetKey: 'id',
-      as: 'device',
+      as: 'scope',
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });

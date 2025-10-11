@@ -57,13 +57,25 @@
 │   ├── desktop
 │   ├── wearable
 │   └── web
+│       └── auth
+│           └── session.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
 ├── Dockerfile
 ├── .dockerignore
 ├── docs
-│   └── paths
+│   ├── basicInfo.js
+│   ├── components
+│   │   └── index.js
+│   ├── index.js
+│   ├── paths
+│   │   ├── auth
+│   │   │   ├── index.js
+│   │   │   └── session.docs.js
+│   │   └── index.js
+│   ├── server.js
+│   └── tags.js
 ├── .editorconfig
 ├── .env
 ├── .env.example
@@ -114,12 +126,17 @@
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
 │   │   ├── configEndpointsRequestSchema.model.js
+│   │   ├── configRolesHasScopes.model.js
+│   │   ├── configRoles.model.js
+│   │   ├── configScopes.model.js
 │   │   └── configSecurityLevels.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
 │       ├── usrAccesses.model.js
-│       └── usrAccounts.model.js
+│       ├── usrAccountsHasScopes.model.js
+│       ├── usrAccounts.model.js
+│       └── usrDevices.model.js
 ├── package.json
 ├── package-lock.json
 ├── README.md
@@ -134,6 +151,10 @@
 │   ├── wearable
 │   │   └── index.js
 │   └── web
+│       ├── auth
+│       │   ├── index.js
+│       │   └── validations
+│       │       └── login.validations.js
 │       └── index.js
 ├── schemas
 │   ├── params
@@ -164,8 +185,14 @@
 │   ├── app
 │   ├── bot
 │   ├── common
+│   │   ├── auth
+│   │   │   └── session.service.js
+│   │   ├── configurations
+│   │   │   └── scopes.services.js
+│   │   └── users
+│   │       ├── accesses.services.js
+│   │       └── devices.services.js
 │   ├── desktop
-│   ├── users
 │   ├── wearable
 │   └── web
 ├── templates
@@ -247,4 +274,4 @@
     ├── extensions.json
     └── settings.json
 
-91 directories, 157 files
+98 directories, 177 files

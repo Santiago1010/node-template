@@ -182,9 +182,9 @@ describe('Security Helper', () => {
         algorithm: config.jwt.algorithm,
         expiresIn: config.jwt.expiresIn,
         notBefore: '0s',
-        issuer: config.jwt.issuer,
+        issuer: config.url,
         audience: config.jwt.audience,
-        jwtid: mockBuffer.toString('hex'),
+        jwtid: crypto.randomBytes(16).toString('hex'),
       });
       expect(result).toBe(token);
     });
