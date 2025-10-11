@@ -28,23 +28,23 @@ const Schema = {
     comment: 'Account ID.',
     field: 'account_id',
   },
+  deviceId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      table: 'usr_devices',
+      column: 'id',
+      model: 'usrDevices',
+      key: 'id',
+    },
+    comment: 'ID of the device from which the access was recorded.',
+    field: 'device_id',
+  },
   idToken: {
     type: DataTypes.STRING(100),
     allowNull: false,
     comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
     field: 'id_token',
-  },
-  payload: {
-    type: DataTypes.JSON,
-    allowNull: false,
-    comment: 'Payload stored for future sessions to compare.',
-  },
-  isReliable: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: '0',
-    comment: 'Indicates whether the device is trusted or not.',
-    field: 'is_reliable',
   },
   isSafeMode: {
     type: DataTypes.BOOLEAN,
@@ -85,6 +85,13 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
+      onUpdate: 'RESTRICT',
+      onDelete: 'RESTRICT',
+    });
+    this.belongsTo(models.usrDevices, {
+      foreignKey: 'deviceId',
+      targetKey: 'id',
+      as: 'device',
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });

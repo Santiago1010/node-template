@@ -9,12 +9,13 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const ScopeServices = require('../configurations/scopes.services');
+const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
 const sequelize = require('../../../config/database/connection');
 const config = require('../../../config/env');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
-const { createJWT } = require('../../../helpers/security.helper');
+const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
 const { generateUUID } = require('../../../utils/utilities.util');
 
 // =============================================================================
@@ -65,6 +66,10 @@ class SessionService {
     const validPassword = bcrypt.compareSync(password, account.password);
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidPassword' });
 
+    return await SessionService.createTokens(account, device);
+  }
+
+  static async createTokens(account, device) {
     const managedDevice = await SessionService.manageDevice(account.id, device);
     const scopes = await ScopeServices.getAllScopesOfAnAccount(account.id, account.role.id);
 
@@ -72,6 +77,11 @@ class SessionService {
 
     const accessToken = SessionService.createAccessToken(account, isSafeMode, scopes);
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
+
+    const { jti } = SessionService.validRefreshToken(refreshToken, account);
+    if (!jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidRefreshToken' });
+
+    await AccessServices.createAccess(account.id, managedDevice.id, jti, { isSafeMode });
 
     return { isSafeMode, scopes, accessToken, refreshToken };
   }
@@ -107,6 +117,14 @@ class SessionService {
       subject: 'refresh_token_' + account.internalCode,
       expiresIn: config.jwt.refreshToken.expiration,
     });
+  }
+
+  static validRefreshToken(refreshToken, account) {
+    const payload = verifyJWT(refreshToken, config.jwt.refreshToken.secret, {
+      subject: 'refresh_token_' + account.internalCode,
+    });
+
+    return payload;
   }
 
   // ================================ DEVICE ================================ //

@@ -325,7 +325,7 @@ const verifyJWT = (token, secret, options = {}, customHttpError = 401) => {
   };
 
   try {
-    return jwt.verify(token, secret, { ...defaultOptions, ...options });
+    return jwt.verify(token, secret, { ...JSON.parse(JSON.stringify(defaultOptions)), ...options });
   } catch (error) {
     switch (error.name) {
       case 'JsonWebTokenError':
