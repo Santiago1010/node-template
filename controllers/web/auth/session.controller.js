@@ -1,6 +1,9 @@
+const moment = require('moment');
+
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
 const { isDevelopmentMode } = require('../../../helpers/debug.helper');
+const { del, buildKey, increment, tagKey, set } = require('../../../helpers/cache.helper');
 const { success } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
 
@@ -9,9 +12,39 @@ class SessionController {
     const { credential, password, fingerprint } = req.body;
 
     try {
-      const response = await SessionService.login(credential, password, fingerprint, getDeviceInfo(req, true));
+      const deviceInfo = getDeviceInfo(req, true);
+      const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
 
-      const { accessToken, refreshToken } = response;
+      const attempts = await increment(rateLimitKey);
+
+      if (attempts === 1) {
+        await set(rateLimitKey, attempts, 900);
+      }
+
+      if (attempts > 5) {
+        const ttl = await ttl(rateLimitKey);
+        throw new Error(`Too many login attempts. Try again in ${Math.ceil(ttl / 60)} minutes`);
+      }
+
+      const response = await SessionService.login(credential, password, fingerprint, deviceInfo);
+
+      const { accessToken, refreshToken, accountId } = response;
+
+      await del(rateLimitKey);
+
+      const sessionKey = buildKey('session', accountId, fingerprint);
+      await set(
+        sessionKey,
+        {
+          userId: accountId,
+          fingerprint,
+          deviceInfo,
+          loginAt: moment().toISOString(),
+        },
+        config.jwt.accessToken.expiration / 1000
+      );
+
+      await tagKey(sessionKey, [`account:${accountId}`, 'active_sessions']);
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true,
@@ -25,8 +58,6 @@ class SessionController {
         sameSite: 'strict',
         maxAge: config.jwt.refreshToken.expiration,
       });
-
-      // TODO: Create email delivery in case of safe mode (suspicious device).
 
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
