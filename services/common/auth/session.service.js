@@ -19,7 +19,7 @@ const { generateUUID } = require('../../../utils/utilities.util');
 // =============================================================================
 // MODELS
 // =============================================================================
-const { usrAccounts } = sequelize.models;
+const { usrAccounts, configRoles } = sequelize.models;
 
 class SessionService {
   static async login(credential, password, device) {
@@ -38,6 +38,12 @@ class SessionService {
         'password',
       ],
       where: { [Op.or]: [{ internalCode: credential }, { email: credential }, { mobileNumber: credential }] },
+      include: {
+        model: configRoles,
+        as: 'role',
+        attributes: ['id', 'name'],
+        required: true,
+      },
       logging: wrapLogging('[SessionService.login] Get account by credential'),
     });
 
@@ -60,17 +66,23 @@ class SessionService {
 
     const managedDevice = await SessionService.manageDevice(account.id, device);
 
-    console.log(JSON.parse(JSON.stringify(managedDevice)));
+    const isSafeMode = !managedDevice.isTrusted;
 
-    const accessToken = SessionService.createAccessToken(account);
+    const accessToken = SessionService.createAccessToken(account, isSafeMode);
     const refreshToken = SessionService.createRefreshToken(account, managedDevice);
 
-    return { accessToken, refreshToken };
+    return { isSafeMode, accessToken, refreshToken };
   }
 
   // =============================== TOKENS ================================ //
-  static createAccessToken(account) {
-    const payload = { accountId: account.id, internalCode: account.internalCode, email: account.email };
+  static createAccessToken(account, isSafeMode) {
+    const payload = {
+      accountId: account.id,
+      internalCode: account.internalCode,
+      email: account.email,
+      isSafeMode,
+      role: account.role,
+    };
 
     if (account.userId) payload.userId = account.userId;
     if (account.employeeId) payload.employeeId = account.employeeId;

@@ -6,8 +6,6 @@ class SessionController {
   static async login(req, res, next) {
     const { credential, password } = req.body;
 
-    console.log(getDeviceInfo(req, true));
-
     try {
       const response = await SessionService.login(credential, password, getDeviceInfo(req, true));
 

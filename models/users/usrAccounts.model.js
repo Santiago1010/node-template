@@ -174,7 +174,7 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(_) {
+  static associate(models) {
     // // Indexes
     // this.belongsTo(models.usrEmployees, {
     //   foreignKey: 'employeeId',
@@ -183,13 +183,13 @@ class ExtendedModel extends Model {
     //   onUpdate: 'CASCADE',
     //   onDelete: 'CASCADE',
     // });
-    // this.belongsTo(models.configRoles, {
-    //   foreignKey: 'rolId',
-    //   targetKey: 'id',
-    //   as: 'rol',
-    //   onUpdate: 'CASCADE',
-    //   onDelete: 'CASCADE',
-    // });
+    this.belongsTo(models.configRoles, {
+      foreignKey: 'rolId',
+      targetKey: 'id',
+      as: 'role',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    });
     // this.belongsTo(models.usrUsers, {
     //   foreignKey: 'userId',
     //   targetKey: 'id',

@@ -43,6 +43,9 @@
   "enums": {
     "type": {
       "desktop": "enums.type.desktop"
+    },
+    "target": {
+      "everyone": "enums.target.everyone"
     }
   }
 }
