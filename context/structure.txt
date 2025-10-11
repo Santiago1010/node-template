@@ -126,12 +126,17 @@
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
 │   │   ├── configEndpointsRequestSchema.model.js
+│   │   ├── configRolesHasScopes.model.js
+│   │   ├── configRoles.model.js
+│   │   ├── configScopes.model.js
 │   │   └── configSecurityLevels.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
 │       ├── usrAccesses.model.js
-│       └── usrAccounts.model.js
+│       ├── usrAccountsHasScopes.model.js
+│       ├── usrAccounts.model.js
+│       └── usrDevices.model.js
 ├── package.json
 ├── package-lock.json
 ├── README.md
@@ -180,10 +185,14 @@
 │   ├── app
 │   ├── bot
 │   ├── common
-│   │   └── auth
-│   │       └── session.service.js
+│   │   ├── auth
+│   │   │   └── session.service.js
+│   │   ├── configurations
+│   │   │   └── scopes.services.js
+│   │   └── users
+│   │       ├── accesses.services.js
+│   │       └── devices.services.js
 │   ├── desktop
-│   ├── users
 │   ├── wearable
 │   └── web
 ├── templates
@@ -265,4 +274,4 @@
     ├── extensions.json
     └── settings.json
 
-97 directories, 169 files
+98 directories, 177 files
