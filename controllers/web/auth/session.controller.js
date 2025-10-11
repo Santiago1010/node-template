@@ -41,7 +41,7 @@ class SessionController {
           deviceInfo,
           loginAt: moment().toISOString(),
         },
-        config.jwt.accessToken.expiration / 1000
+        Math.floor(config.jwt.accessToken.expiration / 1000)
       );
 
       await tagKey(sessionKey, [`account:${accountId}`, 'active_sessions']);

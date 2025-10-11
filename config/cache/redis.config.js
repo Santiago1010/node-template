@@ -91,12 +91,12 @@ class RedisClient {
     });
 
     this.client.on('connect', () => {
-      console.info('Redis client connecting');
+      console.info('🟡 Redis client connecting');
       this.connectionStats.connected = false;
     });
 
     this.client.on('ready', () => {
-      console.info('Redis client ready');
+      console.info('🟢 Redis client ready');
       this.connectionStats.connected = true;
       this.connectionStats.lastError = null;
     });
