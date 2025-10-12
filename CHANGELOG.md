@@ -1,5 +1,58 @@
 
 
+## [1.14.0] - 2025-10-12
+
+**Released:** 2025-10-12 20:02:53 UTC
+
+### [Comprehensive Security Middleware Implementation](https://github.com/Santiago1010/node-template/pull/60)
+
+#### 📋 Summary
+This PR implements a comprehensive security middleware suite with input sanitization, CSRF protection, data exposure guards, file upload security, mass assignment protection, and BOLA (Broken Object Level Authorization) prevention.
+
+#### 🔍 What Changed
+### Added
+- BOLA middleware for resource ownership verification with caching
+- CSRF protection with token validation and double-submit cookie
+- Data exposure guard for PII filtering and response size limiting
+- File upload security with type validation and malware scanning
+- Mass assignment protection with field filtering and role-based rules
+- Input sanitizer with SQL/NoSQL injection and XSS prevention
+- Security configuration with field-specific sanitization rules
+- Security utilities for data masking and validation
+
+### Changed
+- Reorganized middleware structure into dedicated security directory
+- Consolidated security patterns in constants utility
+- Updated app.js to include global sanitizer middleware
+- Enhanced constants utility with comprehensive security configurations
+
+### Removed
+- Unused middleware directories (app, bot, desktop, wearable)
+- Test directory structure (tests will be reimplemented separately)
+
+#### 📝 Additional Notes
+All security middlewares are configured with environment-aware strictness levels. Development mode has relaxed security for testing, while production enforces strict validation. The implementation follows OWASP security best practices and includes comprehensive logging for security events.
+
+**Type of Change:** New Feature, Documentation, Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement, developer experience, refactor
+- Milestone: DX1 — Onboarding + local dev
+- Commits: 5
+
+**Commits:**
+- [`b413cd1`](https://github.com/Santiago1010/node-template/commit/b413cd1844d5b90822517862f832fc2458e39b18) feat(security): implement comprehensive security middleware suite
+- [`6811ef2`](https://github.com/Santiago1010/node-template/commit/6811ef2c9295e4ace90f8fc9621920723516ae18) refactor(security): centralize security constants in utils module
+- [`c3cefca`](https://github.com/Santiago1010/node-template/commit/c3cefca9cf9bf14eab612500b5f25b47640c7916) feat(security): implement comprehensive input sanitization and security utilities
+- [`e9e28f8`](https://github.com/Santiago1010/node-template/commit/e9e28f8654301acffef2d4b5939ae83d5b803050) refactor(security): consolidate security pattern imports in sanitizer middleware
+- [`d8c44c4`](https://github.com/Santiago1010/node-template/commit/d8c44c47b4472752364b2d5d584908577370ede0) chore(structure): reorganize security middleware and update file structure
+
+---
+
+
+
 ## [1.13.0] - 2025-10-12
 
 **Released:** 2025-10-12 14:25:38 UTC
