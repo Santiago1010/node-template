@@ -127,6 +127,7 @@ const config = {
   port: env.PORT,
   url: env.BASE_URL.replace('${PORT}', env.PORT.toString()),
   isLocal: MODES[(env.NODE_ENV || 'development').toUpperCase()] === 0,
+  name: env.PROJECT_NAME,
 
   // ===========================================================================
   // INTERNATIONALIZATION
