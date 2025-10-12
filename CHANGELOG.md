@@ -1,5 +1,56 @@
 
 
+## [1.13.0] - 2025-10-12
+
+**Released:** 2025-10-12 14:25:38 UTC
+
+### [Add Redis cache helper with session management and rate limiting](https://github.com/Santiago1010/node-template/pull/59)
+
+#### 📋 Summary
+Implements a comprehensive Redis caching layer with session storage, rate limiting, and distributed locking capabilities. Adds login rate limiting and session management to enhance security and performance.
+
+#### 🔍 What Changed
+### Added
+- Comprehensive Redis cache helper with get/set, tagging, locking, and bulk operations
+- Login rate limiting (5 attempts per 15 minutes per IP)
+- Session storage in Redis with device fingerprinting
+- Extensive unit test suite for cache operations
+- Session tagging for bulk invalidation
+
+### Changed
+- Enhanced Redis connection logging with status indicators
+- Session controller to include rate limiting and session storage
+- Session service to return account ID for session tracking
+
+### Fixed
+- Potential race conditions in login attempts
+- Session management security with device fingerprinting
+
+#### 📝 Additional Notes
+- Cache helper supports multiple invalidation strategies (pattern matching, tag-based)
+- Implements distributed locking for concurrent access control
+- Session data includes device info and login timestamp for security
+- Comprehensive error handling and logging throughout cache operations
+
+**Type of Change:** New Feature, Documentation, Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement, testing, developer experience
+- Milestone: DX1 — Onboarding + local dev
+- Commits: 4
+
+**Commits:**
+- [`7e17bf4`](https://github.com/Santiago1010/node-template/commit/7e17bf432d9e4e51f3cd8e10394b5a5789a12f3f) feat(auth): implement login rate limiting and session management
+- [`8f8b43d`](https://github.com/Santiago1010/node-template/commit/8f8b43d52036559853e253eee80b55d539babcaf) docs(cache): add comprehensive jsdoc documentation to cache helper
+- [`f0dd433`](https://github.com/Santiago1010/node-template/commit/f0dd433534a204a47d7826080352669078490c27) test(cache): add comprehensive unit test suite for cache helper
+- [`1f642d9`](https://github.com/Santiago1010/node-template/commit/1f642d9e8795c4e12123e41b39a60b3e65de8e0b) test(cache): add comprehensive error handling and edge case tests
+
+---
+
+
+
 ## [1.12.0] - 2025-10-11
 
 **Released:** 2025-10-11 21:29:25 UTC
