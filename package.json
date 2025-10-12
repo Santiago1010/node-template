@@ -53,6 +53,7 @@
     "format": "biome format",
     "format:write": "biome format --write",
     "lint": "biome lint",
+    "lint:docs-endpoints": "node ./scripts/docs-paths-lint.script.js",
     "lint:fix": "biome lint --fix",
     "models:create": "node ./scripts/createModels.script.js",
     "models:generate": "node ./scripts/createModels.script.js",
