@@ -3,13 +3,7 @@ const sanitizeHtml = require('sanitize-html');
 
 const i18n = require('../../config/i18n');
 const { logger } = require('../../config/tools/logger.config');
-const {
-  SQL_INJECTION_PATTERNS,
-  NOSQL_INJECTION_PATTERNS,
-  COMMAND_INJECTION_PATTERNS,
-  PATH_TRAVERSAL_PATTERNS,
-  XSS_PATTERNS,
-} = require('../../utils/constants.util');
+const { SECURITY_PATTERNS } = require('../../utils/constants.util');
 
 class Sanitizer {
   static sanitizeRequest(options = {}) {
@@ -78,21 +72,21 @@ class Sanitizer {
     let sanitized = str.trim();
 
     if (strictMode) {
-      if (SQL_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
+      if (SECURITY_PATTERNS.SQL_INJECTION.some((pattern) => pattern.test(sanitized))) {
         throw new Error('Potential SQL injection detected');
       }
 
-      if (NOSQL_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
+      if (SECURITY_PATTERNS.NOSQL_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
         throw new Error('Potential NoSQL injection detected');
       }
 
-      if (COMMAND_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
+      if (SECURITY_PATTERNS.COMMAND_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
         throw new Error('Potential command injection detected');
       }
     }
 
-    sanitized = sanitized.replace(PATH_TRAVERSAL_PATTERNS[0], '');
-    sanitized = sanitized.replace(PATH_TRAVERSAL_PATTERNS[1], '');
+    sanitized = sanitized.replace(SECURITY_PATTERNS.PATH_TRAVERSAL_PATTERNS[0], '');
+    sanitized = sanitized.replace(SECURITY_PATTERNS.PATH_TRAVERSAL_PATTERNS[1], '');
 
     if (allowHtml) {
       sanitized = sanitizeHtml(sanitized, {
@@ -103,7 +97,7 @@ class Sanitizer {
         allowedSchemes: ['http', 'https', 'mailto'],
       });
     } else {
-      if (XSS_PATTERNS.some((pattern) => pattern.test(sanitized))) {
+      if (SECURITY_PATTERNS.XSS_PATTERNS.some((pattern) => pattern.test(sanitized))) {
         sanitized = sanitized.replace(/<[^>]*>/g, '');
       }
     }
@@ -116,7 +110,7 @@ class Sanitizer {
       try {
         const checkInjection = (obj) => {
           if (typeof obj === 'string') {
-            for (const pattern of SQL_INJECTION_PATTERNS) {
+            for (const pattern of SECURITY_PATTERNS.SQL_INJECTION_PATTERNS) {
               if (pattern.test(obj)) {
                 logger.warn('SQL injection attempt detected', {
                   input: obj.substring(0, 100),
@@ -179,7 +173,7 @@ class Sanitizer {
       try {
         const checkPath = (value) => {
           if (typeof value === 'string') {
-            for (const pattern of PATH_TRAVERSAL_PATTERNS) {
+            for (const pattern of SECURITY_PATTERNS.PATH_TRAVERSAL_PATTERNS) {
               if (pattern.test(value)) {
                 logger.warn('Path traversal attempt detected', {
                   input: value,
