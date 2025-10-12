@@ -1,54 +1,11 @@
 const path = require('path');
 const crypto = require('crypto');
+
 const boom = require('@hapi/boom');
+
 const i18n = require('../../config/i18n');
 const { logger } = require('../../config/tools/logger.config');
-
-const ALLOWED_MIME_TYPES = {
-  image: ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
-  document: [
-    'application/pdf',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  ],
-  spreadsheet: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-  video: ['video/mp4', 'video/mpeg', 'video/quicktime', 'video/webm'],
-  audio: ['audio/mpeg', 'audio/wav', 'audio/ogg'],
-};
-
-const DANGEROUS_EXTENSIONS = [
-  '.exe',
-  '.bat',
-  '.cmd',
-  '.com',
-  '.pif',
-  '.scr',
-  '.vbs',
-  '.js',
-  '.jar',
-  '.msi',
-  '.app',
-  '.deb',
-  '.rpm',
-  '.dmg',
-  '.pkg',
-  '.sh',
-  '.bash',
-  '.ps1',
-];
-
-const FILE_SIGNATURE_MAP = {
-  ffd8ffe0: 'image/jpeg',
-  ffd8ffe1: 'image/jpeg',
-  ffd8ffe2: 'image/jpeg',
-  '89504e47': 'image/png',
-  47494638: 'image/gif',
-  52494646: 'image/webp',
-  25504446: 'application/pdf',
-  '504b0304': 'application/zip',
-  '504b0506': 'application/zip',
-  '504b0708': 'application/zip',
-};
+const { ALLOWED_MIME_TYPES, DANGEROUS_EXTENSIONS, FILE_SIGNATURE_MAP } = require('../../utils/constants.util');
 
 class FileUploadGuard {
   static validateFileType(allowedTypes = ['image']) {

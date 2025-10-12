@@ -6,16 +6,12 @@ const i18n = require('../../config/i18n');
 const { logger } = require('../../config/tools/logger.config');
 const { set, get, del } = require('../../helpers/cache.helper');
 const { isDevelopmentMode } = require('../../helpers/debug.helper');
-
-const CSRF_TOKEN_LENGTH = 32;
-const CSRF_TOKEN_TTL = 3600;
-const CSRF_HEADER_NAME = 'x-csrf-token';
-const CSRF_COOKIE_NAME = 'csrf-token';
+const { SECURITY_CONFIG } = require('../../utils/constants.util');
 
 class CSRFProtection {
   static generateToken(req, res, next) {
     try {
-      const token = crypto.randomBytes(CSRF_TOKEN_LENGTH).toString('hex');
+      const token = crypto.randomBytes(SECURITY_CONFIG.CSRF.TOKEN_LENGTH).toString('hex');
       const accountId = req.user?.accountId || req.sessionID || req.ip;
       const tokenKey = `csrf:${accountId}:${token}`;
 
@@ -27,14 +23,14 @@ class CSRFProtection {
           userAgent: req.get('user-agent'),
           createdAt: Date.now(),
         },
-        CSRF_TOKEN_TTL
+        SECURITY_CONFIG.CSRF.TOKEN_LENGTH
       );
 
-      res.cookie(CSRF_COOKIE_NAME, token, {
+      res.cookie(SECURITY_CONFIG.CSRF.COOKIE_NAME, token, {
         httpOnly: true,
         secure: !isDevelopmentMode(true),
         sameSite: 'strict',
-        maxAge: CSRF_TOKEN_TTL * 1000,
+        maxAge: SECURITY_CONFIG.CSRF.TOKEN_LENGTH * 1000,
       });
 
       req.csrfToken = token;
@@ -67,7 +63,7 @@ class CSRFProtection {
           return next();
         }
 
-        const tokenFromHeader = req.get(CSRF_HEADER_NAME);
+        const tokenFromHeader = req.get(SECURITY_CONFIG.CSRF.HEADER_NAME);
         const tokenFromBody = req.body?._csrf;
         const tokenFromQuery = req.query?._csrf;
         const token = tokenFromHeader || tokenFromBody || tokenFromQuery;
@@ -121,8 +117,8 @@ class CSRFProtection {
           return next();
         }
 
-        const cookieToken = req.cookies[CSRF_COOKIE_NAME];
-        const headerToken = req.get(CSRF_HEADER_NAME);
+        const cookieToken = req.cookies[SECURITY_CONFIG.CSRF.COOKIE_NAME];
+        const headerToken = req.get(SECURITY_CONFIG.CSRF.HEADER_NAME);
 
         if (!cookieToken || !headerToken) {
           logger.warn('CSRF double-submit cookie check failed - missing tokens', {
@@ -197,7 +193,7 @@ class CSRFProtection {
   static rotateToken() {
     return async (req, res, next) => {
       try {
-        const oldToken = req.cookies[CSRF_COOKIE_NAME];
+        const oldToken = req.cookies[SECURITY_CONFIG.CSRF.COOKIE_NAME];
 
         if (oldToken) {
           const accountId = req.user?.accountId || req.sessionID || req.ip;

@@ -2,29 +2,7 @@ const boom = require('@hapi/boom');
 
 const i18n = require('../../config/i18n');
 const { logger } = require('../../config/tools/logger.config');
-
-const PROTECTED_FIELDS = [
-  'id',
-  'createdAt',
-  'updatedAt',
-  'deletedAt',
-  'password',
-  'rolId',
-  'securityLevel',
-  'isAdmin',
-  'isSuperAdmin',
-  'permissions',
-  'scopes',
-  'verified',
-  'emailConfirmedAt',
-  'mobileNumberConfirmedAt',
-];
-
-const ROLE_PROTECTED_FIELDS = {
-  user: ['rolId', 'securityLevelId', 'permissions', 'scopes', 'isAdmin'],
-  admin: ['isSuperAdmin', 'systemRole'],
-  system: [],
-};
+const { ROLE_PROTECTED_FIELDS, PROTECTED_FIELDS } = require('../../utils/constants.util');
 
 class MassAssignmentGuard {
   static filterAllowedFields(allowedFields = [], options = {}) {

@@ -3,27 +3,13 @@ const sanitizeHtml = require('sanitize-html');
 
 const i18n = require('../../config/i18n');
 const { logger } = require('../../config/tools/logger.config');
-
-const SQL_INJECTION_PATTERNS = [
-  /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|EXECUTE|UNION|DECLARE)\b)/gi,
-  /(--|\;|\*|\/\*|\*\/|xp_|sp_)/gi,
-  /('|('')|;|--|\/\*|\*\/|xp_|sp_)/gi,
-];
-
-const NOSQL_INJECTION_PATTERNS = [/\$where/gi, /\$ne/gi, /\$gt/gi, /\$lt/gi, /\$regex/gi, /\$or/gi, /\$and/gi];
-
-const COMMAND_INJECTION_PATTERNS = [/[;&|`$(){}[\]<>]/g, /\.\.\//g, /(curl|wget|nc|netcat|bash|sh|powershell|cmd)/gi];
-
-const PATH_TRAVERSAL_PATTERNS = [/\.\.[\/\\]/g, /[\/\\]\.\./g, /%2e%2e/gi, /%252e/gi];
-
-const XSS_PATTERNS = [
-  /<script[^>]*>.*?<\/script>/gi,
-  /on\w+\s*=/gi,
-  /javascript:/gi,
-  /<iframe/gi,
-  /<object/gi,
-  /<embed/gi,
-];
+const {
+  SQL_INJECTION_PATTERNS,
+  NOSQL_INJECTION_PATTERNS,
+  COMMAND_INJECTION_PATTERNS,
+  PATH_TRAVERSAL_PATTERNS,
+  XSS_PATTERNS,
+} = require('../../utils/constants.util');
 
 class Sanitizer {
   static sanitizeRequest(options = {}) {

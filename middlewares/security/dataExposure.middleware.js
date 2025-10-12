@@ -1,57 +1,5 @@
-// middlewares/security/dataExposure.middleware.js
-
 const { logger } = require('../../config/tools/logger.config');
-
-const SENSITIVE_FIELDS = [
-  'password',
-  'passwordHash',
-  'salt',
-  'securityToken',
-  'resetToken',
-  'verificationToken',
-  'apiKey',
-  'apiSecret',
-  'privateKey',
-  'refreshToken',
-  'accessToken',
-  'sessionId',
-  'sessionToken',
-  'ssn',
-  'taxId',
-  'creditCard',
-  'cvv',
-  'pin',
-  'bankAccount',
-];
-
-const PII_FIELDS = [
-  'email',
-  'mobileNumber',
-  'phoneNumber',
-  'address',
-  'fullAddress',
-  'zipCode',
-  'postalCode',
-  'dateOfBirth',
-  'birthDate',
-  'identificationNumber',
-  'passport',
-  'driverLicense',
-];
-
-const INTERNAL_FIELDS = [
-  'deletedAt',
-  'internalCode',
-  'internalId',
-  'systemId',
-  'securityLevel',
-  'securityLevelId',
-  'rolId',
-  'employeeId',
-  'createdBy',
-  'updatedBy',
-  'deletedBy',
-];
+const { SENSITIVE_FIELDS, PII_FIELDS, INTERNAL_FIELDS } = require('../../utils/constants.util');
 
 class DataExposureGuard {
   static filterSensitiveData(options = {}) {
