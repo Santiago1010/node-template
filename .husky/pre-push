@@ -1,3 +1,16 @@
+# =============================================================================
+# PRE-PUSH GIT HOOK
+# =============================================================================
+# This hook runs before pushing code to the remote repository.
+# It performs the following validations:
+#   1. Skips in CI environments
+#   2. Skips for auto-generated commits
+#   3. Validates endpoint documentation is in sync
+#   4. Runs test suite with coverage
+#
+# Any validation failure will abort the push operation.
+# =============================================================================
+
 # Function to detect if we are in CI
 is_ci() {
     [ -n "$CI" ] || [ -n "$GITHUB_ACTIONS" ] || [ -n "$JENKINS_URL" ] || [ -n "$TRAVIS" ]
@@ -20,6 +33,24 @@ if is_auto_commit; then
     exit 0
 fi
 
+# =============================================================================
+# DOCUMENTATION VALIDATION
+# =============================================================================
+echo "📚 Validating endpoint documentation..."
+npm run lint:docs-endpoints
+
+# Check if documentation validation passed
+if [ $? -ne 0 ]; then
+    echo "❌ Documentation validation failed! Push aborted."
+    echo "💡 Fix the documentation inconsistencies before pushing."
+    exit 1
+fi
+
+echo "✅ Documentation validation passed!"
+
+# =============================================================================
+# TEST SUITE EXECUTION
+# =============================================================================
 echo "🧪 Running tests before push..."
 npm run test:coverage
 

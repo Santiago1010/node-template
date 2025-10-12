@@ -1,5 +1,40 @@
 
 
+## [1.14.1] - 2025-10-12
+
+**Released:** 2025-10-12 20:49:25 UTC
+
+### [Add endpoint documentation validation hook](https://github.com/Santiago1010/node-template/pull/61)
+
+#### 📋 Summary
+This PR adds automated validation to ensure Express endpoints are properly documented in the OpenAPI specification. It introduces a new linting script and integrates it into the pre-push Git hook to prevent pushes with undocumented endpoints.
+
+#### 🔍 What Changed
+### Added
+- `scripts/docs-paths-lint.script.js` - New documentation linter that validates sync between Express routes and OpenAPI docs
+- `lint:docs-endpoints` npm script in package.json
+- Documentation validation step in pre-push Git hook
+
+### Changed
+- Enhanced `.husky/pre-push` hook with structured comments and documentation validation
+- Updated package.json with new lint script
+
+**Type of Change:** Documentation, Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, testing, automation
+- Milestone: A1 — Swagger sync + tests
+- Commits: 1
+
+**Commits:**
+- [`c506974`](https://github.com/Santiago1010/node-template/commit/c5069740712dae605c220e3c0f5593983c5b56ca) feat(ci): add endpoint documentation validation in pre-push hook
+
+---
+
+
+
 ## [1.14.0] - 2025-10-12
 
 **Released:** 2025-10-12 20:02:53 UTC
