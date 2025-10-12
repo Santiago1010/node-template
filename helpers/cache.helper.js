@@ -89,7 +89,7 @@ const { CACHE_CONFIG } = require('../utils/constants.util'); // Cache configurat
  * @see {@link invalidatePattern} for pattern-based key operations
  */
 const buildKey = (...parts) => {
-  return parts.filter(Boolean).join(':');
+  return parts.filter((p) => p !== null && p !== undefined && p !== '' && p !== false).join(':');
 };
 
 // =============================================================================
@@ -135,11 +135,21 @@ const get = async (key) => {
     const value = await redisClient.get(key);
     if (!value) return null;
 
-    try {
-      return JSON.parse(value);
-    } catch {
-      return value;
+    // Conservative JSON detection: only attempt JSON.parse for objects/arrays
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          // If parsing fails, return original string
+          return value;
+        }
+      }
     }
+
+    // For everything else (including numeric strings), return as-is
+    return value;
   } catch (error) {
     console.error('Cache get error', { key, error: error.message });
     throw error;
@@ -694,7 +704,7 @@ const increment = async (key, amount = 1) => {
  * @see {@link increment} for increasing counters
  */
 const decrement = async (key, amount = 1) => {
-  return increment(key, -amount);
+  return module.exports.increment(key, -amount);
 };
 
 // =============================================================================
