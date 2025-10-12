@@ -34,10 +34,11 @@ const {
   stream, // Log file write stream
 } = require('./config/tools/morgan.config');
 const { ROOT } = require('./utils/constants.util'); // Root directory path constant
-// const { requestLogger } = require('./middlewares/errors/requestLogger.middleware'); // Request logging
+const { isDevelopmentMode } = require('./helpers/debug.helper'); // Environment detection
 const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
 const corsMiddleware = require('./middlewares/common/cors.middleware');
+const Sanitizer = require('./middlewares/security/sanitizer.middleware');
 
 // Configure moment.js to use application's default timezone and language
 moment.tz.setDefault(config.timeZone.name);
@@ -55,6 +56,19 @@ app.set('view engine', 'ejs'); // Use EJS as template engine
 
 // Security middleware with custom configuration
 app.use(helmet(getHelmetConfiguration()));
+
+app.use(
+  Sanitizer.sanitizeRequest({
+    sanitizeBody: true,
+    sanitizeQuery: true,
+    sanitizeParams: true,
+    strictMode: !isDevelopmentMode(true),
+  })
+);
+
+app.use(Sanitizer.preventSQLInjection());
+app.use(Sanitizer.preventNoSQLInjection());
+app.use(Sanitizer.preventPathTraversal());
 
 // Apply rate limiting to all requests
 app.use(generalLimiter);
