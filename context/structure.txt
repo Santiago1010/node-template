@@ -34,7 +34,8 @@
 │   │   ├── cors.config.js
 │   │   ├── helmet.config.js
 │   │   ├── rateLimit.config.js
-│   │   └── README.md
+│   │   ├── README.md
+│   │   └── sanitizer.config.js
 │   ├── sockets
 │   │   ├── README.md
 │   │   └── webManager.js
@@ -110,18 +111,21 @@
 │   └── keys
 ├── LICENSE
 ├── middlewares
-│   ├── app
-│   ├── bot
 │   ├── common
 │   │   └── cors.middleware.js
-│   ├── desktop
 │   ├── errors
 │   │   ├── asyncError.middleware.js
 │   │   ├── errorHandler.middleware.js
 │   │   ├── notFound.middleware.js
 │   │   ├── requestLogger.middleware.js
 │   │   └── validationError.middleware.js
-│   └── wearable
+│   └── security
+│       ├── bola.middleware.js
+│       ├── csrf.middleware.js
+│       ├── dataExposure.middleware.js
+│       ├── fileUpload.middleware.js
+│       ├── massAssignment.middleware.js
+│       └── sanitizer.middleware.js
 ├── migrations
 ├── models
 │   ├── configurations
@@ -213,6 +217,7 @@
 │   ├── constants.util.js
 │   ├── encrypt.util.js
 │   ├── numbers.util.js
+│   ├── security.util.js
 │   ├── strings.util.js
 │   ├── utilities.util.js
 │   └── validationRegistry.util.js
@@ -220,4 +225,4 @@
     ├── extensions.json
     └── settings.json
 
-80 directories, 141 files
+77 directories, 149 files
