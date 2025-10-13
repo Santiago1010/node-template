@@ -781,6 +781,7 @@ FodyWeavers.xsd
 
 ### Project Specific Additions ###
 .secrets
+scripts/backups-secrets.script.js
 
 # Custom project folders and files
 sync_models/

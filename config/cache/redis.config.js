@@ -120,7 +120,7 @@ class RedisClient {
    */
   async connect() {
     try {
-      const vaultSecrets = await getSecret('redis', 'password');
+      const vaultSecrets = await getSecret('cache/redis', 'password');
 
       const config = {
         url: `redis://${redis.host}:${redis.port}`,
