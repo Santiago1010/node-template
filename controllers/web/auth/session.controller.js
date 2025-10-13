@@ -12,6 +12,8 @@ class SessionController {
     const { credential, password, fingerprint } = req.body;
 
     try {
+      const sessionService = await new SessionService().initialize();
+
       const deviceInfo = getDeviceInfo(req, true);
       const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
 
@@ -26,7 +28,7 @@ class SessionController {
         throw new Error(`Too many login attempts. Try again in ${Math.ceil(ttl / 60)} minutes`);
       }
 
-      const response = await SessionService.login(credential, password, fingerprint, deviceInfo);
+      const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
       const { accessToken, refreshToken, accountId } = response;
 

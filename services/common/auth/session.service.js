@@ -10,20 +10,29 @@ const { Op } = require('sequelize');
 // =============================================================================
 const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
-const sequelize = require('../../../config/database/connection');
 const config = require('../../../config/env');
+const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
 const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
 
-// =============================================================================
-// MODELS
-// =============================================================================
-const { usrAccounts, configRoles } = sequelize.models;
-
 class SessionService {
-  static async login(credential, password, fingerprint, device) {
-    const account = await usrAccounts.findOne({
+  constructor() {
+    this.sequelize = null;
+    this.models = null;
+  }
+
+  async initialize() {
+    if (!this.sequelize) {
+      this.sequelize = await getSequelize();
+      this.models = this.sequelize.models;
+    }
+
+    return this;
+  }
+
+  async login(credential, password, fingerprint, device) {
+    const account = await this.models.usrAccounts.findOne({
       attributes: [
         'id',
         'userId',
@@ -39,7 +48,7 @@ class SessionService {
       ],
       where: { [Op.or]: [{ internalCode: credential }, { email: credential }, { mobileNumber: credential }] },
       include: {
-        model: configRoles,
+        model: this.models.configRoles,
         as: 'role',
         attributes: ['id', 'name'],
         required: true,
@@ -65,18 +74,18 @@ class SessionService {
     account.password = undefined;
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    return await SessionService.createTokens(account, fingerprint, device);
+    return await this.createTokens(account, fingerprint, device);
   }
 
-  static async createTokens(account, fingerprint, device) {
-    const managedDevice = await SessionService.manageDevice(account.id, fingerprint, device);
+  async createTokens(account, fingerprint, device) {
+    const managedDevice = await this.manageDevice(account.id, fingerprint, device);
 
     const isSafeMode = !managedDevice.isTrusted;
 
-    const accessToken = SessionService.createAccessToken(account, isSafeMode);
-    const refreshToken = SessionService.createRefreshToken(account, managedDevice);
+    const accessToken = this.createAccessToken(account, isSafeMode);
+    const refreshToken = this.createRefreshToken(account, managedDevice);
 
-    const payloadRefreshToken = SessionService.validRefreshToken(refreshToken, account);
+    const payloadRefreshToken = this.validRefreshToken(refreshToken, account);
     if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
     const { total, results } = await AccessServices.getListAccesses({
@@ -109,7 +118,7 @@ class SessionService {
   }
 
   // =============================== TOKENS ================================ //
-  static createAccessToken(account, isSafeMode) {
+  createAccessToken(account, isSafeMode) {
     const payload = {
       accountId: account.id,
       internalCode: account.internalCode,
@@ -127,7 +136,7 @@ class SessionService {
     });
   }
 
-  static createRefreshToken(account, device) {
+  createRefreshToken(account, device) {
     const payload = {
       accountId: account.id,
       internalCode: account.internalCode,
@@ -140,7 +149,7 @@ class SessionService {
     });
   }
 
-  static validRefreshToken(refreshToken, account) {
+  validRefreshToken(refreshToken, account) {
     const payload = verifyJWT(refreshToken, config.jwt.refreshToken.secret, {
       subject: 'refresh_token_' + account.internalCode,
     });
@@ -149,7 +158,7 @@ class SessionService {
   }
 
   // ================================ DEVICE ================================ //
-  static async manageDevice(accountId, fingerprint, { deviceType, userAgent, browser, os, ip }) {
+  async manageDevice(accountId, fingerprint, { deviceType, userAgent, browser, os, ip }) {
     const lastUsedAt = moment().valueOf();
 
     const existingDevice = await DeviceServices.registeredDevice(accountId, fingerprint, deviceType, browser, os);
