@@ -169,7 +169,6 @@ const config = {
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT,
       db: parseInt(env.REDIS_DB, 10) || 0,
-      localUrl: process.env.REDIS_URL_LOCAL,
     },
   },
 
