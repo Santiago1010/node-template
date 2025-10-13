@@ -28,6 +28,9 @@ class SessionService {
       this.models = this.sequelize.models;
     }
 
+    this.accessesService = await new AccessServices().initialize();
+    this.devicesService = await new DeviceServices().initialize();
+
     return this;
   }
 
@@ -88,7 +91,7 @@ class SessionService {
     const payloadRefreshToken = this.validRefreshToken(refreshToken, account);
     if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    const { total, results } = await AccessServices.getListAccesses({
+    const { total, results } = await this.accessesService.getListAccesses({
       limit: 5,
       page: 1,
       active: true,
@@ -97,7 +100,7 @@ class SessionService {
     });
 
     if (total === 0) {
-      await AccessServices.createAccess(
+      await this.accessesService.createAccess(
         account.id,
         managedDevice.id,
         payloadRefreshToken.jti,
@@ -105,7 +108,7 @@ class SessionService {
         { isSafeMode }
       );
     } else {
-      await AccessServices.updateAccess(results[0].id, {
+      await this.accessesService.updateAccess(results[0].id, {
         accountId: account.id,
         deviceId: managedDevice.id,
         idToken: payloadRefreshToken.jti,
@@ -161,10 +164,10 @@ class SessionService {
   async manageDevice(accountId, fingerprint, { deviceType, userAgent, browser, os, ip }) {
     const lastUsedAt = moment().valueOf();
 
-    const existingDevice = await DeviceServices.registeredDevice(accountId, fingerprint, deviceType, browser, os);
+    const existingDevice = await this.devicesService.registeredDevice(accountId, fingerprint, deviceType, browser, os);
 
     if (!existingDevice) {
-      return await DeviceServices.createDevice(accountId, fingerprint, {
+      return await this.devicesService.createDevice(accountId, fingerprint, {
         name: userAgent,
         type: deviceType,
         browser,
@@ -174,7 +177,7 @@ class SessionService {
       });
     }
 
-    return await DeviceServices.updateDevice(existingDevice.id, { name: userAgent, lastIp: ip, lastUsedAt });
+    return await this.devicesService.updateDevice(existingDevice.id, { name: userAgent, lastIp: ip, lastUsedAt });
   }
 }
 

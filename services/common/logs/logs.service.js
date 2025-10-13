@@ -1,12 +1,24 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const sequelize = require('../../../config/database/connection');
+const { getSequelize } = require('../../../config/database/connection');
 const { paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
 
-const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = sequelize.models;
-
 class LogServices {
+  constructor() {
+    this.sequelize = null;
+    this.models = null;
+  }
+
+  async initialize() {
+    if (!this.sequelize) {
+      this.sequelize = await getSequelize();
+      this.models = this.sequelize.models;
+    }
+
+    return this;
+  }
+
   // =============================== CREATION =============================== //
   /**
    * Creates a creation log for a given record.
@@ -17,8 +29,9 @@ class LogServices {
    * @param {Object} [options.transaction] - Sequelize transaction object.
    * @returns {Promise<Object>} - Newly created log entry.
    */
-  static async recordCreationLog(user, model, createdData, { transaction } = {}) {
-    return await logsCreation.create(
+
+  async recordCreationLog(user, model, createdData, { transaction } = {}) {
+    return await this.models.logsCreation.create(
       { rowId: LogServices.getPrimaryKeyValue(createdData), responsible: user, tableModel: model, createdData },
       { transaction }
     );
@@ -32,12 +45,13 @@ class LogServices {
    * @param {string} [options.search] - Search query.
    * @returns {Promise<Object>} - Paginated list of creation logs.
    */
-  static async listCreationLogs({ limit, page, search } = {}) {
+
+  async listCreationLogs({ limit, page, search } = {}) {
     const optionsQuery = { where: {} };
 
-    if (search) optionsQuery.where = setSearchQuery(logsCreation, search, optionsQuery);
+    if (search) optionsQuery.where = setSearchQuery(this.models.logsCreation, search, optionsQuery);
 
-    return await paginateModel(logsCreation, limit, page, optionsQuery);
+    return await paginateModel(this.models.logsCreation, limit, page, optionsQuery);
   }
 
   // =============================== DELETION =============================== //
@@ -50,8 +64,9 @@ class LogServices {
    * @param {Object} [options.transaction] - Sequelize transaction object.
    * @returns {Promise<Object>} - Newly created log entry.
    */
-  static async recordDeletionLog(user, model, deletedData, { justification, transaction } = {}) {
-    return await logsDeletion.create(
+
+  async recordDeletionLog(user, model, deletedData, { justification, transaction } = {}) {
+    return await this.models.logsDeletion.create(
       {
         rowId: LogServices.getPrimaryKeyValue(deletedData),
         responsible: user,
@@ -71,15 +86,16 @@ class LogServices {
    * @param {string} [options.search] - Search query.
    * @returns {Promise<Object>} - Paginated list of deletion logs.
    */
-  static async listDeletionLogs({ limit, page, search } = {}) {
+
+  async listDeletionLogs({ limit, page, search } = {}) {
     const optionsQuery = {
       where: {},
       order: [['deletedAt', 'DESC']],
     };
 
-    if (search) optionsQuery.where = setSearchQuery(logsDeletion, search, optionsQuery);
+    if (search) optionsQuery.where = setSearchQuery(this.models.logsDeletion, search, optionsQuery);
 
-    return await paginateModel(logsDeletion, limit, page, optionsQuery);
+    return await paginateModel(this.models.logsDeletion, limit, page, optionsQuery);
   }
 
   // ================================ STATUS ================================ //
@@ -93,8 +109,9 @@ class LogServices {
    * @param {Object} [options.transaction] - Sequelize transaction object.
    * @returns {Promise<Object>} - Newly created log entry.
    */
-  static async recordStatusChangeLog(user, model, rowId, type, { transaction } = {}) {
-    return await logsStatuses.create(
+
+  async recordStatusChangeLog(user, model, rowId, type, { transaction } = {}) {
+    return await this.models.logsStatuses.create(
       {
         rowId,
         responsible: user,
@@ -114,13 +131,14 @@ class LogServices {
    * @param {string} [options.type] - Filter by type ('reactivation' or 'deactivation').
    * @returns {Promise<Object>} - Paginated list of status logs.
    */
-  static async listStatusLogs({ limit, page, search, type } = {}) {
+
+  async listStatusLogs({ limit, page, search, type } = {}) {
     const optionsQuery = { where: {} };
 
-    if (search) optionsQuery.where = setSearchQuery(logsStatuses, search, optionsQuery);
+    if (search) optionsQuery.where = setSearchQuery(this.models.logsStatuses, search, optionsQuery);
     if (type) optionsQuery.where.type = type;
 
-    return await paginateModel(logsStatuses, limit, page, optionsQuery);
+    return await paginateModel(this.models.logsStatuses, limit, page, optionsQuery);
   }
 
   // ================================ UPDATE ================================ //
@@ -134,8 +152,9 @@ class LogServices {
    * @param {Object} [options.transaction] - Sequelize transaction object.
    * @returns {Promise<Object>} - Newly created log entry.
    */
-  static async recordUpdateLog(user, model, oldData, newData, { transaction } = {}) {
-    return await logsUpdate.create(
+
+  async recordUpdateLog(user, model, oldData, newData, { transaction } = {}) {
+    return await this.models.logsUpdate.create(
       {
         rowId: LogServices.getPrimaryKeyValue(newData),
         responsible: user,
@@ -155,15 +174,16 @@ class LogServices {
    * @param {string} [options.search] - Search query.
    * @returns {Promise<Object>} - Paginated list of update logs.
    */
-  static async listUpdateLogs({ limit, page, search } = {}) {
+
+  async listUpdateLogs({ limit, page, search } = {}) {
     const optionsQuery = {
       where: {},
       order: [['updatedAt', 'DESC']],
     };
 
-    if (search) optionsQuery.where = setSearchQuery(logsUpdate, search, optionsQuery);
+    if (search) optionsQuery.where = setSearchQuery(this.models.logsUpdate, search, optionsQuery);
 
-    return await paginateModel(logsUpdate, limit, page, optionsQuery);
+    return await paginateModel(this.models.logsUpdate, limit, page, optionsQuery);
   }
 
   // =============================== HELPERS =============================== //
@@ -174,7 +194,8 @@ class LogServices {
    * @param {Object} instance - Sequelize model instance.
    * @returns {Object|number|string|boolean} Primary key value.
    */
-  static getPrimaryKeyValue(instance) {
+
+  getPrimaryKeyValue(instance) {
     const Model = instance.constructor;
     const primaryKeys = Model.primaryKeyAttributes;
 
@@ -211,7 +232,8 @@ class LogServices {
    * @param {string} [options.order='DESC'] - 'DESC' (newest first) or 'ASC' (oldest first).
    * @returns {Promise<Array<Object>>} - Array of plain objects (logs) ordered by date.
    */
-  static async getFullLogsHistory(
+
+  async getFullLogsHistory(
     instance,
     { limit = null, page = 1, types = ['creation', 'deletion', 'update', 'status'], order = 'DESC' } = {}
   ) {
@@ -236,7 +258,7 @@ class LogServices {
     const tableName = typeof Model.getTableName === 'function' ? Model.getTableName() : null;
 
     // Available log models (assumes these exist in the same sequelize instance scope)
-    const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = sequelize.models;
+    const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = this.models.models;
 
     const wanted = new Set((types || []).map((t) => String(t).toLowerCase()));
 
