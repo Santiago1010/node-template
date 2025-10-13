@@ -3,7 +3,7 @@ const moment = require('moment');
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
 const { isDevelopmentMode } = require('../../../helpers/debug.helper');
-const { del, buildKey, increment, tagKey, set } = require('../../../helpers/cache.helper');
+const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
 
@@ -24,8 +24,8 @@ class SessionController {
       }
 
       if (attempts > 5) {
-        const ttl = await ttl(rateLimitKey);
-        throw new Error(`Too many login attempts. Try again in ${Math.ceil(ttl / 60)} minutes`);
+        const varTtl = await ttl(rateLimitKey);
+        throw new Error(`Too many login attempts. Try again in ${Math.ceil(varTtl / 60)} minutes`);
       }
 
       const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
