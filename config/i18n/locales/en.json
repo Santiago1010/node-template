@@ -27,7 +27,8 @@
     "login": {
       "accountNotFound": "errors.login.accountNotFound",
       "invalidPassword": "errors.login.invalidPassword"
-    }
+    },
+    "internalServerError": "errors.internalServerError"
   },
   "error": {
     "internal_server": "error.internal_server",
@@ -38,7 +39,8 @@
   "auth": {
     "login": {
       "invalidCredentials": "auth.login.invalidCredentials",
-      "success": "auth.login.success"
+      "success": "auth.login.success",
+      "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes."
     }
   },
   "enums": {
