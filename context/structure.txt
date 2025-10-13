@@ -100,10 +100,11 @@
 │   ├── docs-generator.helper.js
 │   ├── response.helper.js
 │   ├── security.helper.js
-│   └── validations
-│       ├── commonSchemas.helper.js
-│       ├── databaseSchemas.helper.js
-│       └── index.js
+│   ├── validations
+│   │   ├── commonSchemas.helper.js
+│   │   ├── databaseSchemas.helper.js
+│   │   └── index.js
+│   └── vault.helper.js
 ├── index.js
 ├── jest.config.js
 ├── kubernetes
@@ -226,4 +227,4 @@
     ├── extensions.json
     └── settings.json
 
-77 directories, 150 files
+77 directories, 151 files
