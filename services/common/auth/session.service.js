@@ -15,11 +15,15 @@ const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
 const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
+const { getSecret } = require('../../../helpers/vault.helper');
 
 class SessionService {
   constructor() {
     this.sequelize = null;
     this.models = null;
+
+    this.accessTokenSecret = null;
+    this.refreshTokenSecret = null;
   }
 
   async initialize() {
@@ -27,6 +31,11 @@ class SessionService {
       this.sequelize = await getSequelize();
       this.models = this.sequelize.models;
     }
+
+    const { access_token_secret, refresh_token_secret } = await getSecret('jwt/web');
+
+    this.accessTokenSecret = access_token_secret;
+    this.refreshTokenSecret = refresh_token_secret;
 
     this.accessesService = await new AccessServices().initialize();
     this.devicesService = await new DeviceServices().initialize();
@@ -133,7 +142,7 @@ class SessionService {
     if (account.userId) payload.userId = account.userId;
     if (account.employeeId) payload.employeeId = account.employeeId;
 
-    return createJWT(payload, config.jwt.accessToken.secret, {
+    return createJWT(payload, this.accessTokenSecret, {
       subject: 'acces_token_' + account.internalCode,
       expiresIn: config.jwt.accessToken.expiration,
     });
@@ -146,14 +155,14 @@ class SessionService {
       device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
     };
 
-    return createJWT(payload, config.jwt.refreshToken.secret, {
+    return createJWT(payload, this.refreshTokenSecret, {
       subject: 'refresh_token_' + account.internalCode,
       expiresIn: config.jwt.refreshToken.expiration,
     });
   }
 
   validRefreshToken(refreshToken, account) {
-    const payload = verifyJWT(refreshToken, config.jwt.refreshToken.secret, {
+    const payload = verifyJWT(refreshToken, this.refreshTokenSecret, {
       subject: 'refresh_token_' + account.internalCode,
     });
 

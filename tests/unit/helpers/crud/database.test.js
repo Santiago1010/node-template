@@ -1,35 +1,40 @@
-const sequelize = require('../../../../config/database/connection');
 const CrudHelper = require('../../../../helpers/crud.helper');
 
-// Mock sequelize query method
-jest.mock('../../../../config/database/connection', () => {
-  const mockSequelize = {
-    authenticate: jest.fn().mockResolvedValue(true),
-    query: jest.fn().mockResolvedValue([[], []]),
-    close: jest.fn().mockResolvedValue(),
-    config: {
-      database: 'test_db',
-      host: 'localhost',
-      port: 3306,
-    },
-    options: {
-      dialect: 'mysql',
-    },
-  };
+const mockSequelize = {
+  authenticate: jest.fn().mockResolvedValue(true),
+  query: jest.fn().mockResolvedValue([[], []]),
+  close: jest.fn().mockResolvedValue(),
+  config: {
+    database: 'test_db',
+    host: 'localhost',
+    port: 3306,
+  },
+  options: {
+    dialect: 'mysql',
+  },
+};
 
-  return mockSequelize;
-});
+jest.mock('../../../../config/database/connection', () => ({
+  getSequelize: jest.fn().mockResolvedValue(mockSequelize),
+}));
+
+const { getSequelize } = require('../../../../config/database/connection');
 
 describe('Crud Helper - Database Operations', () => {
   let crudHelper;
+  let sequelize;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     crudHelper = new CrudHelper();
+
+    sequelize = await getSequelize();
     sequelize.query.mockClear();
   });
 
   afterAll(async () => {
-    await sequelize.close();
+    if (sequelize) {
+      await sequelize.close();
+    }
   });
 
   describe('readTablesComment', () => {
@@ -110,8 +115,7 @@ describe('Crud Helper - Database Operations', () => {
     it('should return indexes', async () => {
       sequelize.query.mockResolvedValueOnce([{ INDEX_NAME: 'name_idx' }]);
       const { columns } = await crudHelper.searchIndexes('test_table');
-      // The helper returns a formatted columns object, so we check that
-      expect(columns).toEqual([]); // no column name in mock
+      expect(columns).toEqual([]);
     });
   });
 
@@ -181,7 +185,7 @@ describe('Crud Helper - Database Operations', () => {
     });
 
     it('should return referenced table for a column ending with _id', async () => {
-      sequelize.query.mockResolvedValueOnce([]); // No direct reference found
+      sequelize.query.mockResolvedValueOnce([]);
       sequelize.query.mockResolvedValueOnce([{ TABLE_NAME: 'related_models' }]);
       const referencedTable = await crudHelper.getReferencedTable('test_table', 'related_model_id');
       expect(referencedTable).toBe('related_models');
@@ -329,7 +333,6 @@ describe('Crud Helper - Database Operations', () => {
 
       await expect(crudHelperMocked.getTemplate('invalid', 'template')).rejects.toThrow();
 
-      // Verifica que console.error fue llamado
       expect(consoleSpy).toHaveBeenCalledTimes(1);
       expect(consoleSpy).toHaveBeenCalledWith(
         'Error reading template: invalid/template',
