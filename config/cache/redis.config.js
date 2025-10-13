@@ -43,6 +43,7 @@ const { createClient } = require('redis');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const { redis } = require('../env').cache;
+const { getSecret } = require('../../helpers/vault.helper');
 
 /**
  * Enhanced Redis client with connection management and monitoring
@@ -119,6 +120,23 @@ class RedisClient {
    */
   async connect() {
     try {
+      const vaultSecrets = await getSecret('redis', 'password');
+
+      const config = {
+        url: `redis://${redis.host}:${redis.port}`,
+        password: vaultSecrets,
+        socket: {
+          reconnectStrategy: (retries) => Math.min(retries * 100, 3000),
+          keepAlive: 30000,
+          connectTimeout: 10000,
+          lazyConnect: false,
+        },
+        ...this.config,
+      };
+
+      this.client = createClient(config);
+      this.initEvents();
+
       await this.client.connect();
       this.startPingInterval();
     } catch (error) {
@@ -339,17 +357,19 @@ const redisClient = new RedisClient();
  * @param {Object} [customConfig] - Optional custom configuration
  * @returns {RedisClient} Legacy Redis client instance
  */
-const createLegacyClient = (customConfig = {}) => {
+const createLegacyClient = async (customConfig = {}) => {
+  const vaultSecrets = await getSecret('cache/redis', 'password');
+
   const config = {
     url: `redis://${redis.host}:${redis.port}`,
-    password: redis.password,
+    password: vaultSecrets,
     socket: {
       reconnectStrategy: (retries) => Math.min(retries * 100, 3000),
       keepAlive: 30000,
       connectTimeout: 10000,
       lazyConnect: false,
     },
-    legacyMode: true, // Enable legacy mode for v3 compatibility
+    legacyMode: true,
     ...customConfig,
   };
 

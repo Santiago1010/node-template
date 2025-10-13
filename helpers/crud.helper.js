@@ -200,14 +200,25 @@ class CrudHelper {
    * @constructor
    */
   constructor() {
-    const sequelize = require('../config/database/connection');
+    this.sequelize = null;
+    this.databaseName = null;
+    this.initPromise = null;
+  }
 
-    // if (!sequelize) {
-    //   throw new Error('Database connection is not properly configured');
-    // }
-
-    this.sequelize = sequelize;
-    this.databaseName = this.sequelize.config.database;
+  /**
+   * Initialize database connection (lazy loading)
+   * @private
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    if (!this.initPromise) {
+      this.initPromise = (async () => {
+        const { getSequelize } = require('../config/database/connection');
+        this.sequelize = await getSequelize();
+        this.databaseName = this.sequelize.config.database;
+      })();
+    }
+    return this.initPromise;
   }
 
   /**
@@ -219,6 +230,8 @@ class CrudHelper {
    * @returns {Promise<any>} Query results or first result if returnFirst is true
    */
   async executeQuery(query, logMessage, returnFirst = false) {
+    await this.initialize();
+
     try {
       const result = await this.sequelize.query(query, {
         type: Sequelize.QueryTypes.SELECT,

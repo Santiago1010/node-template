@@ -69,13 +69,8 @@ const WebSocket = require('ws'); // RFC-6455 compliant WebSocket server implemen
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const sequelize = require('../database/connection'); // Database connection and ORM
+const { getSequelize } = require('../database/connection'); // Sequelize ORM for database operations
 const { getDeviceInfo } = require('../../utils/utilities.util'); // Device fingerprint generation
-
-// =============================================================================
-// MODELS
-// =============================================================================
-const { usrAccounts, usrAccesses } = sequelize.models; // User account and access session models
 
 /**
  * WebSocketManager - Real-time Communication Management Class
@@ -200,6 +195,9 @@ class WebSocketManager {
    */
   async validateAccountAndDevice(idAccount, deviceInfo) {
     try {
+      const sequelize = await getSequelize();
+      const { usrAccounts, usrAccesses } = sequelize.models;
+
       // Step 1: Account validation - check existence and active status
       const account = await usrAccounts.findByPk(idAccount);
 

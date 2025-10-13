@@ -3,8 +3,8 @@ const moment = require('moment');
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
 const { isDevelopmentMode } = require('../../../helpers/debug.helper');
-const { del, buildKey, increment, tagKey, set } = require('../../../helpers/cache.helper');
-const { success } = require('../../../helpers/response.helper');
+const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
+const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
 
 class SessionController {
@@ -12,6 +12,8 @@ class SessionController {
     const { credential, password, fingerprint } = req.body;
 
     try {
+      const sessionService = await new SessionService().initialize();
+
       const deviceInfo = getDeviceInfo(req, true);
       const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
 
@@ -22,11 +24,16 @@ class SessionController {
       }
 
       if (attempts > 5) {
-        const ttl = await ttl(rateLimitKey);
-        throw new Error(`Too many login attempts. Try again in ${Math.ceil(ttl / 60)} minutes`);
+        const remainingTTL = await ttl(rateLimitKey);
+        // throw new Error(`Too many login attempts. Try again in ${Math.ceil(remainingTTL / 60)} minutes`);
+        throw error({
+          httpCode: 429,
+          messagePath: 'auth.login.tooManyAttempts',
+          messageData: { remainingTTL: Math.ceil(remainingTTL / 60) },
+        });
       }
 
-      const response = await SessionService.login(credential, password, fingerprint, deviceInfo);
+      const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
       const { accessToken, refreshToken, accountId } = response;
 
