@@ -1,5 +1,72 @@
 
 
+## [1.14.2] - 2025-10-13
+
+**Released:** 2025-10-13 19:47:39 UTC
+
+### [Secure Secrets Management with HashiCorp Vault Integration](https://github.com/Santiago1010/node-template/pull/65)
+
+#### 📋 Summary
+This PR implements a comprehensive secure secrets management system using HashiCorp Vault, migrating all sensitive credentials from environment variables to Vault while maintaining backward compatibility and improving security posture.
+
+#### 🔍 What Changed
+### Added
+- Vault helper with secure secrets retrieval, management, and health checks
+- Project name configuration for Vault namespacing
+- New security configurations (BOLA, CSRF, anomaly detection)
+- Localized error messages for rate limiting and internal errors
+- Documentation linting script
+
+### Changed
+- Environment configuration simplified with sensitive data moved to Vault
+- Database connection now uses async initialization with Vault credentials
+- Redis configuration integrates Vault for password management
+- All services converted to instance-based pattern with async initialization
+- JWT secrets now retrieved from Vault instead of environment variables
+- Session service updated to use Vault for token secrets
+
+### Fixed
+- Variable naming conflicts in session controller
+- Test configurations to support async database connections
+- Model reference issues in service methods
+
+### Removed
+- All sensitive credentials from environment configuration
+- Redundant environment variables and comments
+- Unused service configurations (AI, analytics, messaging, OAuth providers)
+- Vault test script (replaced with integrated approach)
+
+#### 📝 Additional Notes
+- Vault secrets are namespaced by project and environment (project/env/path)
+- Database connection uses lazy loading to handle Vault dependency
+- All services now require explicit initialization before use
+- Breaking changes require Vault setup for all sensitive credentials
+- Fallback mechanisms maintained for development environments
+
+**Type of Change:** Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: developer experience, refactor, security
+- Commits: 10
+
+**Commits:**
+- [`4d20a30`](https://github.com/Santiago1010/node-template/commit/4d20a3002b2448695d7d6caccef64b3f3e81d868) feat(vault): implement secure secrets management with HashiCorp Vault integration
+- [`102e0a0`](https://github.com/Santiago1010/node-template/commit/102e0a055d26cefbf29adf7ea4d92fb098692163) refactor(vault): simplify vault helper and integrate with database connection
+- [`f03afc7`](https://github.com/Santiago1010/node-template/commit/f03afc7bd1678e6376861f53ad516b176abd18db) refactor(auth): convert session service to instance-based with async initialization
+- [`f3f51e7`](https://github.com/Santiago1010/node-template/commit/f3f51e7b9c008aea3a89bc99a80a71ddf180c4a8) refactor(services): convert all services to instance-based pattern with async initialization
+- [`97b79af`](https://github.com/Santiago1010/node-template/commit/97b79af917e6db785555f4a5604e87df0500eccc) refactor(config): simplify environment configuration and update socket database access
+- [`dda9a7e`](https://github.com/Santiago1010/node-template/commit/dda9a7e1b140c1ff9e32b30aec9d90e2d05f963b) chore(structure): update project structure documentation
+- [`47db226`](https://github.com/Santiago1010/node-template/commit/47db2268c15c352b40af848f640150aa79475da7) feat(cache): integrate vault for redis password management
+- [`fd055c0`](https://github.com/Santiago1010/node-template/commit/fd055c04706c5c19a759ae863154a83386f08d1c) feat(auth): integrate vault for jwt secret management and update tests
+- [`5facbd4`](https://github.com/Santiago1010/node-template/commit/5facbd41c982fbf53279d08da128e4ca06b0a5fe) fix(auth): resolve variable naming conflict in session controller
+- [`a5a2087`](https://github.com/Santiago1010/node-template/commit/a5a20871ca89f6f7a370b1b86dd5619b49176349) feat(i18n): add localized error messages for rate limiting and internal errors
+
+---
+
+
+
 ## [1.14.1] - 2025-10-12
 
 **Released:** 2025-10-12 20:49:25 UTC
