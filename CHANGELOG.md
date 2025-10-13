@@ -1,5 +1,32 @@
 
 
+## [1.14.3] - 2025-10-13
+
+**Released:** 2025-10-13 22:43:42 UTC
+
+### [Update Redis secret path and gitignore](https://github.com/Santiago1010/node-template/pull/66)
+
+#### 📋 Summary
+Update Redis configuration to use new secret path and add backup script to gitignore
+
+#### 🔍 What Changed
+### Changed
+- Redis secret path from 'redis' to 'cache/redis' in configuration
+- Updated .gitignore to exclude scripts/backups-secrets.script.js
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: security
+- Commits: 1
+
+**Commits:**
+- [`55113c0`](https://github.com/Santiago1010/node-template/commit/55113c032b8f57b8abb3ff1f62780c43ece39beb) chore(config): update redis secret path and gitignore
+
+---
+
+
+
 ## [1.14.2] - 2025-10-13
 
 **Released:** 2025-10-13 19:47:39 UTC
