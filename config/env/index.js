@@ -123,32 +123,32 @@ const config = {
   // ===========================================================================
   // APPLICATION CONFIGURATION
   // ===========================================================================
-  mode: env.NODE_ENV,
-  port: env.PORT,
-  url: env.BASE_URL.replace('${PORT}', env.PORT.toString()),
+  mode: process.env.NODE_ENV,
+  port: process.env.PORT,
+  url: process.env.BASE_URL.replace('${PORT}', env.PORT.toString()),
   isLocal: MODES[(env.NODE_ENV || 'development').toUpperCase()] === 0,
-  name: env.PROJECT_NAME,
+  name: process.env.PROJECT_NAME,
 
   // ===========================================================================
   // INTERNATIONALIZATION
   // ===========================================================================
-  lang: env.DEFAULT_LANG,
+  lang: process.env.DEFAULT_LANG,
   timeZone: {
-    utc: env.DEFAULT_TIME_ZONE_UTC,
-    name: env.DEFAULT_TIME_ZONE_NAME,
+    utc: process.env.DEFAULT_TIME_ZONE_UTC,
+    name: process.env.DEFAULT_TIME_ZONE_NAME,
   },
 
   // ===========================================================================
   // DATABASE CONFIGURATION (Public settings only - credentials in Vault)
   // ===========================================================================
   database: {
-    dialect: env.DB_DIALECT,
-    ssl: env.DB_SSL === 'true',
+    dialect: process.env.DB_DIALECT,
+    ssl: process.env.DB_SSL === 'true',
 
     // Read Replica (public configuration)
     readReplica: {
-      host: env.DB_READ_HOST,
-      port: env.DB_READ_PORT,
+      host: process.env.DB_READ_HOST,
+      port: process.env.DB_READ_PORT,
     },
 
     // Connection Pool Configuration
@@ -166,10 +166,10 @@ const config = {
   cache: {
     // Redis Configuration (public endpoints only)
     redis: {
-      host: env.REDIS_HOST,
-      port: env.REDIS_PORT,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
       db: parseInt(env.REDIS_DB, 10) || 0,
-      localUrl: env.REDIS_URL_LOCAL,
+      localUrl: process.env.REDIS_URL_LOCAL,
     },
   },
 
@@ -190,12 +190,12 @@ const config = {
   // JWT CONFIGURATION (Algorithm and expiration only - secrets in Vault)
   // ===========================================================================
   jwt: {
-    algorithm: env.JWT_ALGORITHM,
+    algorithm: process.env.JWT_ALGORITHM,
     accessToken: {
-      expiration: env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+      expiration: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
     },
     refreshToken: {
-      expiration: env.JWT_REFRESH_TOKEN_EXPIRATION_TIME,
+      expiration: process.env.JWT_REFRESH_TOKEN_EXPIRATION_TIME,
     },
   },
 
@@ -206,22 +206,22 @@ const config = {
     // AWS S3 Configuration (public settings)
     aws: {
       s3: {
-        endpoint: env.AWS_ENDPOINT_URL,
-        region: env.AWS_REGION,
-        bucket: env.AWS_S3_BUCKET,
+        endpoint: process.env.AWS_ENDPOINT_URL,
+        region: process.env.AWS_REGION,
+        bucket: process.env.AWS_S3_BUCKET,
         forcePathStyle: true,
       },
     },
 
     // Google Cloud Storage (public settings)
     googleCloud: {
-      projectId: env.GOOGLE_CLOUD_PROJECT_ID,
-      bucket: env.GOOGLE_CLOUD_STORAGE_BUCKET,
+      projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+      bucket: process.env.GOOGLE_CLOUD_STORAGE_BUCKET,
     },
 
     // Azure Blob Storage (public settings)
     azure: {
-      container: env.AZURE_STORAGE_CONTAINER,
+      container: process.env.AZURE_STORAGE_CONTAINER,
     },
   },
 
@@ -229,10 +229,10 @@ const config = {
   // DEVELOPMENT & TESTING
   // ===========================================================================
   development: {
-    debug: env.DEBUG === 'true',
-    logLevel: env.LOG_LEVEL,
+    debug: process.env.DEBUG === 'true',
+    logLevel: process.env.LOG_LEVEL,
     faker: {
-      locale: env.FAKER_LOCALE,
+      locale: process.env.FAKER_LOCALE,
       seed: parseInt(env.FAKER_SEED, 10) || 12345,
     },
   },
@@ -241,16 +241,20 @@ const config = {
   // CORS & SECURITY HEADERS
   // ===========================================================================
   cors: {
-    origin: env.CORS_ORIGIN,
-    methods: env.CORS_METHODS?.split(',') || ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: env.CORS_ALLOWED_HEADERS?.split(',') || ['Content-Type', 'Authorization', 'X-Requested-With'],
+    origin: process.env.CORS_ORIGIN,
+    methods: process.env.CORS_METHODS?.split(',') || ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: process.env.CORS_ALLOWED_HEADERS?.split(',') || [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+    ],
   },
 
   securityHeaders: {
     csp: {
-      defaultSrc: env.CSP_DEFAULT_SRC,
-      scriptSrc: env.CSP_SCRIPT_SRC,
-      styleSrc: env.CSP_STYLE_SRC,
+      defaultSrc: process.env.CSP_DEFAULT_SRC,
+      scriptSrc: process.env.CSP_SCRIPT_SRC,
+      styleSrc: process.env.CSP_STYLE_SRC,
     },
   },
 
@@ -258,23 +262,23 @@ const config = {
   // APP SECURITY CONFIGURATION
   // ===========================================================================
   appSecurity: {
-    bolaStrictMode: env.BOLA_STRICT_MODE === 'true',
-    csrfEnabled: env.CSRF_ENABLED === 'true',
-    csrfStrictMode: env.CSRF_STRICT_MODE === 'true',
+    bolaStrictMode: process.env.BOLA_STRICT_MODE === 'true',
+    csrfEnabled: process.env.CSRF_ENABLED === 'true',
+    csrfStrictMode: process.env.CSRF_STRICT_MODE === 'true',
     maxFileSizeMB: parseInt(process.env.MAX_FILE_SIZE_MB, 10) || 10,
     maxFilesPerRequest: parseInt(process.env.MAX_FILES_PER_REQUEST, 10) || 5,
-    securityAuditEnabled: env.SECURITY_AUDIT_ENABLED === 'true',
-    anomalyDetectionEnabled: env.ANOMALY_DETECTION_ENABLED === 'true',
+    securityAuditEnabled: process.env.SECURITY_AUDIT_ENABLED === 'true',
+    anomalyDetectionEnabled: process.env.ANOMALY_DETECTION_ENABLED === 'true',
   },
 
   // ===========================================================================
   // VAULT CONFIGURATION
   // ===========================================================================
   vault: {
-    address: env.VAULT_ADDR,
+    address: process.env.VAULT_ADDR,
     // Token should be injected at runtime for production
     // This is only for development
-    token: env.VAULT_TOKEN,
+    token: process.env.VAULT_TOKEN,
   },
 };
 
