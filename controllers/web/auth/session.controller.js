@@ -77,6 +77,10 @@ class SessionController {
       return next(error);
     }
   }
+
+  static protectedTest(_, res, __) {
+    return success(res, { messagePath: 'auth.session.protectedTest' });
+  }
 }
 
 module.exports = SessionController;

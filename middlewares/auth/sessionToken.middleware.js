@@ -1,23 +1,34 @@
 const ContextHelper = require('../../helpers/context.helper');
 const { get, buildKey } = require('../../helpers/cache.helper');
+const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 const { verifyJWT } = require('../../helpers/security.helper');
 const { getSecret } = require('../../helpers/vault.helper');
 
 const validateWebSession = async (req, _, next) => {
   try {
-    const { accessToken } = req.cookies;
+    const { accessToken, refreshToken } = req.cookies;
 
-    if (!accessToken) throw error({ httpCode: 401, messagePath: 'auth.session.missingToken' });
+    if (!accessToken) {
+      perror('No access token found', { cookies: req.cookies });
 
-    const fingerprint = req.body.fingerprint || req.headers['x-fingerprint'];
+      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+    }
+
+    if (!refreshToken) {
+      perror('No refresh token found', { cookies: req.cookies });
+
+      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+    }
+
+    const fingerprint = req.headers['x-fingerprint'];
 
     if (!fingerprint) {
-      throw error({
-        httpCode: 401,
-        messagePath: 'auth.session.missingFingerprint',
-      });
+      perror('No fingerprint found', { headers: req.headers });
+
+      throw error({ httpCode: 401, messagePath: 'auth.session.missingFingerprint' });
     }
+
     const { access_token_secret } = await getSecret('jwt/' + ContextHelper.get('environment'));
 
     const payload = verifyJWT(
@@ -27,19 +38,12 @@ const validateWebSession = async (req, _, next) => {
       498
     );
 
-    if (!payload || !payload.accountId) {
-      throw error({
-        httpCode: 498,
-        messagePath: 'auth.session.invalidToken',
-      });
-    }
+    if (!payload || !payload.accountId) throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
 
     const sessionKey = buildKey('session', payload.accountId, fingerprint);
     const sessionData = await get(sessionKey);
 
-    if (!sessionData) {
-      throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
-    }
+    if (!sessionData) throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
 
     req.user = {
       accountId: payload.accountId,
@@ -54,7 +58,7 @@ const validateWebSession = async (req, _, next) => {
     req.session = sessionData;
     req.fingerprint = fingerprint;
 
-    next();
+    return next();
   } catch (err) {
     return next(err);
   }
