@@ -76,4 +76,12 @@ const setPage = async (req, _, next) => {
   }
 };
 
-module.exports = { setEnvironment, setHost, setPage };
+const setEndpoint = async (req, _, next) => {
+  const endpoint = req.path;
+
+  console.log(endpoint);
+
+  return next();
+};
+
+module.exports = { setEnvironment, setHost, setPage, setEndpoint };
