@@ -54,16 +54,18 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(_) {
+  static associate(models) {
     // Indexes
+
     // References
-    // this.hasMany(models.configPages, {
-    //   foreignKey: 'hostId',
-    //   sourceKey: 'id',
-    //   as: 'pages',
-    //   onUpdate: 'CASCADE',
-    //   onDelete: 'CASCADE',
-    // });
+    this.hasMany(models.configPages, {
+      foreignKey: 'hostId',
+      sourceKey: 'id',
+      as: 'pages',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    });
+
     // Bridges
   }
 
