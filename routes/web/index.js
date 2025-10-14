@@ -9,7 +9,7 @@ const { setHost, setPage } = require('../../middlewares/context/contextBuilder.m
 // =============================================================================
 const router = express.Router();
 
-router.use(setHost);
+router.use(setHost('web'));
 router.use(setPage);
 
 // =============================================================================

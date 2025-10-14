@@ -6,7 +6,7 @@ const { initializeConnection } = require('../../config/database/connection');
 const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 
-const setHost = async (req, _, next) => {
+const setHost = (enviroment) => async (req, _, next) => {
   const fullHost = req.protocol + '://' + req.get('host');
 
   try {
@@ -27,7 +27,7 @@ const setHost = async (req, _, next) => {
       throw error({ httpCode: 401, messagePath: 'errors.unauthorized' });
     }
 
-    ContextHelper.run({ host }, () => {
+    ContextHelper.run({ enviroment, host }, () => {
       next();
     });
   } catch (error) {
