@@ -6,9 +6,12 @@ const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
+const ContextHelper = require('../../../helpers/context.helper');
 
 class SessionController {
   static async login(req, res, next) {
+    clog('objeto de contexto', ContextHelper.get());
+
     const { credential, password, fingerprint } = req.body;
 
     try {

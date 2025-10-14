@@ -100,7 +100,7 @@ class SessionService {
     const payloadRefreshToken = this.validRefreshToken(refreshToken, account);
     if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    const { total, results } = await this.accessesService.getListAccesses({
+    const { pagination, results } = await this.accessesService.getListAccesses({
       limit: 5,
       page: 1,
       active: true,
@@ -108,7 +108,7 @@ class SessionService {
       deviceId: managedDevice.id,
     });
 
-    if (total === 0) {
+    if (pagination.total === 0) {
       await this.accessesService.createAccess(
         account.id,
         managedDevice.id,

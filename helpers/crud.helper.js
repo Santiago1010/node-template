@@ -218,6 +218,7 @@ class CrudHelper {
         this.databaseName = this.sequelize.config.database;
       })();
     }
+
     return this.initPromise;
   }
 
