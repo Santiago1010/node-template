@@ -183,7 +183,7 @@ describe('Security Helper', () => {
         expiresIn: config.jwt.expiresIn,
         notBefore: '0s',
         issuer: config.url,
-        audience: config.jwt.audience,
+        audience: undefined,
         jwtid: crypto.randomBytes(16).toString('hex'),
       });
       expect(result).toBe(token);

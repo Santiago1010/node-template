@@ -112,8 +112,12 @@
 │   └── keys
 ├── LICENSE
 ├── middlewares
-│   ├── common
-│   │   └── cors.middleware.js
+│   ├── audit
+│   │   └── pageEndpointLogger.middleware.js
+│   ├── auth
+│   │   └── sessionToken.middleware.js
+│   ├── context
+│   │   └── contextBuilder.middleware.js
 │   ├── errors
 │   │   ├── asyncError.middleware.js
 │   │   ├── errorHandler.middleware.js
@@ -122,6 +126,7 @@
 │   │   └── validationError.middleware.js
 │   └── security
 │       ├── bola.middleware.js
+│       ├── cors.middleware.js
 │       ├── csrf.middleware.js
 │       ├── dataExposure.middleware.js
 │       ├── fileUpload.middleware.js
@@ -132,6 +137,7 @@
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
 │   │   ├── configEndpointsRequestSchema.model.js
+│   │   ├── configHosts.model.js
 │   │   ├── configRolesHasScopes.model.js
 │   │   ├── configRoles.model.js
 │   │   ├── configScopes.model.js
@@ -177,6 +183,7 @@
 │       ├── README.md
 │       └── search.schema.js
 ├── scripts
+│   ├── backups-secrets.script.js
 │   ├── createModels.script.js
 │   ├── docs-paths-lint.script.js
 │   ├── endpoints.script.js
@@ -227,4 +234,4 @@
     ├── extensions.json
     └── settings.json
 
-77 directories, 151 files
+79 directories, 156 files

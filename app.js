@@ -37,7 +37,7 @@ const { ROOT } = require('./utils/constants.util'); // Root directory path const
 const { isDevelopmentMode } = require('./helpers/debug.helper'); // Environment detection
 const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
 const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
-const corsMiddleware = require('./middlewares/common/cors.middleware');
+const corsMiddleware = require('./middlewares/security/cors.middleware');
 const Sanitizer = require('./middlewares/security/sanitizer.middleware');
 
 // Configure moment.js to use application's default timezone and language

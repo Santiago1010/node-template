@@ -28,19 +28,29 @@
       "accountNotFound": "errors.login.accountNotFound",
       "invalidPassword": "errors.login.invalidPassword"
     },
-    "internalServerError": "errors.internalServerError"
+    "internalServerError": "errors.internalServerError",
+    "unauthorized": "errors.unauthorized",
+    "unauthorizedField": "errors.unauthorizedField",
+    "notFound": "errors.notFound"
   },
   "error": {
     "internal_server": "error.internal_server",
     "invalid_token": "error.invalid_token",
     "validation": "error.validation",
-    "database": "error.database"
+    "database": "error.database",
+    "invalid_input": "error.invalid_input",
+    "malformed_json": "error.malformed_json"
   },
   "auth": {
     "login": {
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes."
+    },
+    "session": {
+      "invalidSession": "auth.session.invalidSession",
+      "invalidToken": "auth.session.invalidToken",
+      "notFound": "auth.session.notFound"
     }
   },
   "enums": {
@@ -50,5 +60,9 @@
     "target": {
       "everyone": "enums.target.everyone"
     }
-  }
+  },
+  "common": {
+    "of": "of"
+  },
+  "Todo bien.": "Todo bien."
 }

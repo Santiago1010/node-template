@@ -7,11 +7,8 @@ const expressEndpoints = require('express-list-endpoints'); // Express route int
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const app = require('../app'); // Main Express application instance
-const sequelize = require('../config/database/connection'); // Database connection and models
+const { initializeConnection } = require('../config/database/connection'); // Database connection and models
 const { getRegisteredSchemas } = require('../utils/validationRegistry.util'); // Validation schema registry
-
-// Sequelize models for configuration storage
-const { configEndpoints, configEndpointsRequestSchema, configSecurityLevels } = sequelize.models;
 
 /**
  * Extracts validation schema from Express route middleware
@@ -242,6 +239,9 @@ const processNestedFields = async (
   parentFieldId = null,
   transaction
 ) => {
+  const sequelize = await initializeConnection();
+  const { configEndpointsRequestSchema } = sequelize.models;
+
   const location = mapLocation(fieldSchema.in);
   const dataType = mapSchemaDataType(fieldSchema);
   const isRequired = isFieldRequired(fieldSchema);
@@ -318,6 +318,9 @@ const processNestedFields = async (
  * @see {@link main} for the iteration context
  */
 const syncEndpoint = async (endpointData, transaction) => {
+  const sequelize = await initializeConnection();
+  const { configEndpoints } = sequelize.models;
+
   const { method, platform, version, group, path, requiresAuthorization, hasSensitiveInformation, validationSchema } =
     endpointData;
 
@@ -386,6 +389,9 @@ const syncEndpoint = async (endpointData, transaction) => {
  * @see {@link syncEndpoint} for the calling context
  */
 const syncValidationSchema = async (endpointId, validationSchema, transaction) => {
+  const sequelize = await initializeConnection();
+  const { configEndpointsRequestSchema, configSecurityLevels } = sequelize.models;
+
   // Retrieve default security level for schema fields
   const defaultSecurityLevel = await configSecurityLevels.findOne({
     where: { isDefault: true },
@@ -444,6 +450,9 @@ const syncValidationSchema = async (endpointId, validationSchema, transaction) =
  */
 const main = async () => {
   console.log('🚀 Starting endpoint synchronization...\n');
+
+  const sequelize = await initializeConnection();
+  const { configEndpoints, configEndpointsRequestSchema } = sequelize.models;
 
   try {
     // Process Express application to extract validation schemas

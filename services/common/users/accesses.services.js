@@ -33,9 +33,9 @@ class AccessServices {
     const createData = { accountId, deviceId, idToken, expiresAt, isSafeMode };
 
     return await this.sequelize.transaction(async (transaction) => {
-      await this.models.this.models.usrAccesses.destroy({ where: { accountId, deviceId }, transaction });
+      await this.models.usrAccesses.destroy({ where: { accountId, deviceId }, transaction });
 
-      const access = await this.models.this.models.usrAccesses.create(createData, {
+      const access = await this.models.usrAccesses.create(createData, {
         transaction,
         logging: wrapLogging('[AccessServices.createAccess] ', createData),
       });
@@ -103,7 +103,7 @@ class AccessServices {
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
-    const access = await this.models.this.models.usrAccesses.findOne(optionsQuery);
+    const access = await this.models.usrAccesses.findOne(optionsQuery);
 
     if (includeHistory) access.dataValues.history = await this.logService.getFullLogsHistory(access);
 
@@ -113,7 +113,7 @@ class AccessServices {
   async updateAccess(id, { accountId, deviceId, idToken, expiresAt, isSafeMode, user } = {}) {
     const updateData = { accountId, deviceId, idToken, expiresAt, isSafeMode };
 
-    const access = await this.models.this.models.usrAccesses.findByPk(id, {
+    const access = await this.models.usrAccesses.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[AccessServices.updateAccess] '),
     });
@@ -134,7 +134,7 @@ class AccessServices {
   }
 
   async deleteAccess(user, id, { justification } = {}) {
-    const access = await this.models.this.models.usrAccesses.findByPk(id, {
+    const access = await this.models.usrAccesses.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[AccessServices.deleteAccess]'),
     });

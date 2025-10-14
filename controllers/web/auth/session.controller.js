@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
-const { isDevelopmentMode } = require('../../../helpers/debug.helper');
+const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
@@ -52,6 +52,9 @@ class SessionController {
       );
 
       await tagKey(sessionKey, [`account:${accountId}`, 'active_sessions']);
+
+      clog('access token', accessToken);
+      clog('refresh token', refreshToken);
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true,

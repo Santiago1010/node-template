@@ -1,5 +1,68 @@
 
 
+## [1.15.0] - 2025-10-14
+
+**Released:** 2025-10-14 23:24:27 UTC
+
+### [Add Context Awareness and Session Management for Web Endpoints](https://github.com/Santiago1010/node-template/pull/69)
+
+#### 📋 Summary
+This PR introduces context-aware request processing with enhanced session management and endpoint auditing for web platforms. It adds new middleware for context building, session validation, and page endpoint logging while reorganizing security-related middleware.
+
+#### 🔍 What Changed
+### Added
+- Context builder middleware for environment, host, page, and endpoint context
+- Session token validation middleware with JWT verification and Redis session tracking
+- Page endpoint logger for auditing endpoint usage and field validation
+- New database models: configHosts, configPages, configPagesHasEndpoints, configPagesEndpointsHasSchemas, usrEmployees, usrUsers
+- Backup secrets script and updated project structure documentation
+
+### Changed
+- Moved CORS middleware from `common` to `security` directory
+- Updated session service to use environment-specific JWT secrets
+- Enhanced security helper with context-aware JWT audience
+- Improved CRUD helper with better database initialization
+- Updated route initialization to set environment context
+- Modified i18n files with new error messages and session translations
+
+### Fixed
+- Session token validation with proper device fingerprinting
+- Database association definitions in user account model
+- Security patterns reference in sanitizer middleware
+
+### Removed
+- Redundant comments and unused dependencies from context helper
+
+#### 📝 Additional Notes
+- Implements LRU caching for pattern matching in context builder
+- Adds batch database operations for performance optimization
+- Introduces virtual columns for enum integer representations
+- Enhances error handling with specific session-related error messages
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement, developer experience, security
+- Commits: 10
+
+**Commits:**
+- [`fe270ac`](https://github.com/Santiago1010/node-template/commit/fe270ac46be1cfdc1336edde6d576886a4eaf8ee) feat(audit): implement page-endpoint relationship tracking
+- [`501b2b3`](https://github.com/Santiago1010/node-template/commit/501b2b3f275e22afbd6838781301d2098d60cf78) feat(audit): enhance page-endpoint tracking with transaction safety and field mapping
+- [`4b49e3d`](https://github.com/Santiago1010/node-template/commit/4b49e3dfd4b6a91f8e8463294580c20ece995b73) feat(audit): implement request field tracking and improve database initialization
+- [`02fd4c9`](https://github.com/Santiago1010/node-template/commit/02fd4c93c7304f1dd40e0e13f4caf51d4b4b26ab) feat(security): implement field-level authorization and audit tracking
+- [`c06c1b5`](https://github.com/Santiago1010/node-template/commit/c06c1b565d40bf38e5974e749c9c4dd9119c8949) feat(auth): implement web session token validation middleware
+- [`1cf17dd`](https://github.com/Santiago1010/node-template/commit/1cf17ddc8483707234a76dbe2de1d6ac01c72bb6) feat(auth): enhance session validation and add protected test endpoint
+- [`f4bc021`](https://github.com/Santiago1010/node-template/commit/f4bc0217c6263ce0df8d6bcf0bd12e00255dd550) feat(auth): enhance session validation and add protected route
+- [`d9fe716`](https://github.com/Santiago1010/node-template/commit/d9fe716c5be574f9772df74a5ebff742e6035d47) feat(auth): enhance token validation and session management
+- [`bc6593e`](https://github.com/Santiago1010/node-template/commit/bc6593e66f3549013fad2f3d6b7583249269dddf) feat(auth): enhance session validation with database integrity checks
+- [`2d1c025`](https://github.com/Santiago1010/node-template/commit/2d1c0255287fca877878779c25356917b9f0767e) feat(auth): enhance session validation and user data exposure
+
+---
+
+
+
 ## [1.14.3] - 2025-10-13
 
 **Released:** 2025-10-13 22:43:42 UTC

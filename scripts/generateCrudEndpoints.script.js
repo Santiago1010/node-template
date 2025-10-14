@@ -29,6 +29,8 @@ class CrudEndpointsGenerator {
     try {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
+      await this.crudHelper.initialize();
+
       const { tableName, singularName } = this.validateArguments();
       const { groupName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
 

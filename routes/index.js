@@ -9,6 +9,7 @@ const userAgent = require('express-useragent');
 // =============================================================================
 const docs = require('../docs');
 const { isDevelopmentMode } = require('../helpers/debug.helper');
+const { setEnvironment } = require('../middlewares/context/contextBuilder.middleware');
 
 // =============================================================================
 // ROUTER API
@@ -32,11 +33,11 @@ const routerApi = (app) => {
   routerWebV1.use(require('./web'));
 
   app.use('/api', routerBase);
-  app.use('/api/app/v1', routerAppV1);
-  app.use('/api/bot/v1', routerBotV1);
-  app.use('/api/desktop/v1', routerDesktopV1);
-  app.use('/api/wearable/v1', routerWearableV1);
-  app.use('/api/web/v1', routerWebV1);
+  app.use('/api/app/v1', setEnvironment('app'), routerAppV1);
+  app.use('/api/bot/v1', setEnvironment('bot'), routerBotV1);
+  app.use('/api/desktop/v1', setEnvironment('desktop'), routerDesktopV1);
+  app.use('/api/wearable/v1', setEnvironment('wearable'), routerWearableV1);
+  app.use('/api/web/v1', setEnvironment('web'), routerWebV1);
 };
 
 // =============================================================================

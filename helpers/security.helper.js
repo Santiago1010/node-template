@@ -74,6 +74,7 @@ const sanitize = require('sanitize-html'); // HTML input sanitization (v2.x)
 const config = require('../config/env'); // Application configuration
 const i18n = require('../config/i18n'); // Internationalization support
 const { SECURITY_CONFIG } = require('../utils/constants.util'); // Security constants
+const ContextHelper = require('./context.helper');
 
 // =============================================================================
 // UTILITY FUNCTIONS
@@ -277,9 +278,12 @@ const createJWT = (payload, secret, options = {}) => {
     expiresIn: config.jwt.expiresIn,
     notBefore: '0s',
     issuer: config.url,
-    audience: config.jwt.audience,
+    audience: undefined,
     jwtid: crypto.randomBytes(16).toString('hex'), // Secure random JWT ID
   };
+
+  const host = ContextHelper.get('host');
+  if (host) defaultOptions.audience = host.url;
 
   return jwt.sign(payload, secret, { ...JSON.parse(JSON.stringify(defaultOptions)), ...options });
 };

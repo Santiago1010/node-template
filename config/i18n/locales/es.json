@@ -28,19 +28,29 @@
       "accountNotFound": "errors.login.accountNotFound",
       "invalidPassword": "errors.login.invalidPassword"
     },
-    "internalServerError": "errors.internalServerError"
+    "internalServerError": "errors.internalServerError",
+    "unauthorized": "errors.unauthorized",
+    "unauthorizedField": "El campo \"{field}\" no es autorizado para este endpoint",
+    "notFound": "errors.notFound"
   },
   "error": {
     "internal_server": "error.internal_server",
     "invalid_token": "error.invalid_token",
     "validation": "error.validation",
-    "database": "error.database"
+    "database": "error.database",
+    "invalid_input": "error.invalid_input",
+    "malformed_json": "error.malformed_json"
   },
   "auth": {
     "login": {
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Demasiados intentos de inicio de sesión. Inténtalo de nuevo en {remainingTTL} minutos."
+    },
+    "session": {
+      "invalidSession": "auth.session.invalidSession",
+      "invalidToken": "auth.session.invalidToken",
+      "notFound": "auth.session.notFound"
     }
   },
   "enums": {
@@ -50,5 +60,9 @@
     "target": {
       "everyone": "enums.target.everyone"
     }
-  }
+  },
+  "common": {
+    "of": "de"
+  },
+  "Todo bien.": "Todo bien."
 }

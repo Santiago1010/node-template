@@ -583,8 +583,8 @@ const SECURITY_CONFIG = {
  * @see {@link SECURITY_CONFIG} for related security settings
  */
 const SECURITY_PATTERNS = {
-  XSS: [/<script[^>]*>.*?<\/script>/gi, /on\w+\s*=/gi, /javascript:/gi, /<iframe/gi, /<object/gi, /<embed/gi],
-  SQL_INJECTION: [
+  XSS_PATTERNS: [/<script[^>]*>.*?<\/script>/gi, /on\w+\s*=/gi, /javascript:/gi, /<iframe/gi, /<object/gi, /<embed/gi],
+  SQL_INJECTION_PATTERNS: [
     /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|EXECUTE|UNION|DECLARE)\b)/gi,
     /(--|\;|\*|\/\*|\*\/|xp_|sp_)/gi,
     /('|('')|;|--|\/\*|\*\/|xp_|sp_)/gi,

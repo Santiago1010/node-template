@@ -78,6 +78,8 @@ class CrudDocsGenerator {
     try {
       console.log(`\n🚀 Starting ${SCRIPT_NAME}...`);
 
+      await this.crudHelper.initialize();
+
       const { tableName, singularName } = this.validateArguments();
       const { groupName, tagName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
       const tableData = await this.analyzeTable(tableName);

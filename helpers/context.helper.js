@@ -70,11 +70,6 @@
 // =============================================================================
 
 // =============================================================================
-// CORE NODE.JS DEPENDENCIES
-// =============================================================================
-// Built-in AsyncLocalStorage accessed via internal dependency
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const moment = require('moment'); // Date handling and ISO string formatting
@@ -120,7 +115,7 @@ class ContextHelper {
     try {
       // Add timestamp if not provided - ensures all contexts have consistent timing
       const contextData = {
-        [CONTEXT_KEYS.TIMESTAMP]: moment().toISOString(), // ISO 8601 format for consistency
+        [CONTEXT_KEYS.TIMESTAMP]: moment().toISOString(),
         ...initialData, // User-provided data takes precedence
       };
 

@@ -72,7 +72,7 @@ class Sanitizer {
     let sanitized = str.trim();
 
     if (strictMode) {
-      if (SECURITY_PATTERNS.SQL_INJECTION.some((pattern) => pattern.test(sanitized))) {
+      if (SECURITY_PATTERNS.SQL_INJECTION_PATTERNS.some((pattern) => pattern.test(sanitized))) {
         throw new Error('Potential SQL injection detected');
       }
 

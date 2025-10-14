@@ -11,6 +11,7 @@ const { Op } = require('sequelize');
 const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
 const config = require('../../../config/env');
+const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
@@ -32,7 +33,7 @@ class SessionService {
       this.models = this.sequelize.models;
     }
 
-    const { access_token_secret, refresh_token_secret } = await getSecret('jwt/web');
+    const { access_token_secret, refresh_token_secret } = await getSecret('jwt/' + ContextHelper.get('environment'));
 
     this.accessTokenSecret = access_token_secret;
     this.refreshTokenSecret = refresh_token_secret;
@@ -100,7 +101,7 @@ class SessionService {
     const payloadRefreshToken = this.validRefreshToken(refreshToken, account);
     if (!payloadRefreshToken.jti) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 
-    const { total, results } = await this.accessesService.getListAccesses({
+    const { pagination, results } = await this.accessesService.getListAccesses({
       limit: 5,
       page: 1,
       active: true,
@@ -108,7 +109,7 @@ class SessionService {
       deviceId: managedDevice.id,
     });
 
-    if (total === 0) {
+    if (pagination.total === 0) {
       await this.accessesService.createAccess(
         account.id,
         managedDevice.id,
@@ -131,16 +132,10 @@ class SessionService {
 
   // =============================== TOKENS ================================ //
   createAccessToken(account, isSafeMode) {
-    const payload = {
-      accountId: account.id,
-      internalCode: account.internalCode,
-      email: account.email,
-      isSafeMode,
-      role: account.role,
-    };
+    const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
 
-    if (account.userId) payload.userId = account.userId;
-    if (account.employeeId) payload.employeeId = account.employeeId;
+    if (account.userId) payload.profile = 'user';
+    if (account.employeeId) payload.profile = 'employee';
 
     return createJWT(payload, this.accessTokenSecret, {
       subject: 'acces_token_' + account.internalCode,
@@ -150,7 +145,6 @@ class SessionService {
 
   createRefreshToken(account, device) {
     const payload = {
-      accountId: account.id,
       internalCode: account.internalCode,
       device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
     };
