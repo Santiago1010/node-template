@@ -1,6 +1,7 @@
 'use strict';
 
 const { Model, DataTypes } = require('sequelize');
+
 const { formatNames } = require('../../utils/strings.util');
 
 // Basic information about users/employees.

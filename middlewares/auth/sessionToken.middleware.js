@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const ContextHelper = require('../../helpers/context.helper');
 const { getSequelize } = require('../../config/database/connection');
 const { get, buildKey } = require('../../helpers/cache.helper');
-const { perror, wrapLogging } = require('../../helpers/debug.helper');
+const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 const { verifyJWT } = require('../../helpers/security.helper');
 const { getSecret } = require('../../helpers/vault.helper');
@@ -12,7 +12,7 @@ const { getSecret } = require('../../helpers/vault.helper');
 const validateWebSession = async (req, _, next) => {
   try {
     const sequelize = await getSequelize();
-    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers } = sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, usrEmployees } = sequelize.models;
 
     const { accessToken, refreshToken } = req.cookies;
 
@@ -121,14 +121,29 @@ const validateWebSession = async (req, _, next) => {
     if (account.userId) {
       const user = await usrUsers.findByPk(account.userId, {
         attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
-        logging: wrapLogging('[SessionService.validateWebSession] Get user by id'),
       });
+
+      if (!user) {
+        perror('No user found', { userId: account.userId });
+
+        throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+      }
 
       data = { ...data, ...JSON.parse(JSON.stringify(user)) };
     }
 
     if (account.employeeId) {
-      // data =
+      const employee = await usrEmployees.findByPk(account.userId, {
+        attributes: ['id', 'document', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
+      });
+
+      if (!employee) {
+        perror('No employee found', { employeeId: account.employeeId });
+
+        throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+      }
+
+      data = { ...data, ...JSON.parse(JSON.stringify(employee)) };
     }
 
     delete account.profile;
