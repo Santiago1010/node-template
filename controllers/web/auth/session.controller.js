@@ -1,12 +1,12 @@
 const moment = require('moment');
 
 const config = require('../../../config/env');
+const ContextHelper = require('../../../helpers/context.helper');
 const SessionService = require('../../../services/common/auth/session.service');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
-const ContextHelper = require('../../../helpers/context.helper');
 
 class SessionController {
   static async login(req, res, next) {
