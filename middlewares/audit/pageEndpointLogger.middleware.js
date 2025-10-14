@@ -1,13 +1,15 @@
 const ContextHelper = require('../../helpers/context.helper');
 const { initializeConnection } = require('../../config/database/connection');
 
-const pageUseEndpoint = async (_, __, next) => {
+const locations = ['body', 'params', 'query', 'header'];
+
+const pageUseEndpoint = async (req, _, next) => {
   const page = ContextHelper.get('page');
   const endpoint = ContextHelper.get('endpoint');
 
   try {
     const sequelize = await initializeConnection();
-    const { configPagesHasEndpoints } = sequelize.models;
+    const { configPagesHasEndpoints, configPagesEndpointsHasSchemas } = sequelize.models;
 
     await sequelize.transaction(async (transaction) => {
       let pageHasEndpoint = await configPagesHasEndpoints.findOne({
@@ -22,6 +24,14 @@ const pageUseEndpoint = async (_, __, next) => {
         );
       } else {
         pageHasEndpoint = await pageHasEndpoint.restore({ transaction });
+      }
+
+      await configPagesEndpointsHasSchemas.destroy({ where: { pageEndpointId: pageHasEndpoint.id }, transaction });
+
+      for (const location of locations) {
+        for (const field of Object.keys(req[location])) {
+          console.log(field);
+        }
       }
     });
 

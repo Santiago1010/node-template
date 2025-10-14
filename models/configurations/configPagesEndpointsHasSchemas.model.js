@@ -90,24 +90,10 @@ class ExtendedModel extends Model {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
-    this.belongsTo(models.configPagesHasEndpoints, {
-      foreignKey: 'pageEndpointId',
-      targetKey: 'id',
-      as: 'pageEndpointSchemaUn',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
     this.belongsTo(models.configEndpointsRequestSchema, {
       foreignKey: 'endpointFieldId',
       targetKey: 'id',
       as: 'endpointField',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.belongsTo(models.configEndpointsRequestSchema, {
-      foreignKey: 'endpointFieldId',
-      targetKey: 'id',
-      as: 'pageEndpointSchemaUn',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
