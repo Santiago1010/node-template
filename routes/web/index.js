@@ -2,7 +2,7 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const express = require('express');
-const { setHost } = require('../../middlewares/context/contextBuilder.middleware');
+const { setHost, setPage } = require('../../middlewares/context/contextBuilder.middleware');
 
 // =============================================================================
 // SET UP ROUTER
@@ -10,6 +10,7 @@ const { setHost } = require('../../middlewares/context/contextBuilder.middleware
 const router = express.Router();
 
 router.use(setHost);
+router.use(setPage);
 
 // =============================================================================
 // ROUTES

@@ -3,8 +3,8 @@ const moment = require('moment');
 const i18n = require('../../config/i18n');
 const ContextHelper = require('../../helpers/context.helper');
 const { initializeConnection } = require('../../config/database/connection');
-const { error } = require('../../helpers/response.helper');
 const { perror } = require('../../helpers/debug.helper');
+const { error } = require('../../helpers/response.helper');
 
 const setHost = async (req, _, next) => {
   const fullHost = req.protocol + '://' + req.get('host');
@@ -33,4 +33,10 @@ const setHost = async (req, _, next) => {
   }
 };
 
-module.exports = { setHost };
+const setPage = (req, _, next) => {
+  console.log(JSON.parse(req.headers['x-path']));
+
+  return next();
+};
+
+module.exports = { setHost, setPage };
