@@ -49,7 +49,8 @@
     },
     "session": {
       "invalidSession": "auth.session.invalidSession",
-      "protectedTest": "auth.session.protectedTest"
+      "invalidToken": "auth.session.invalidToken",
+      "notFound": "auth.session.notFound"
     }
   },
   "enums": {
@@ -62,5 +63,6 @@
   },
   "common": {
     "of": "de"
-  }
+  },
+  "Todo bien.": "Todo bien."
 }

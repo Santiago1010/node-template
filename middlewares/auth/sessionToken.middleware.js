@@ -1,4 +1,5 @@
 const ContextHelper = require('../../helpers/context.helper');
+const { getSequelize } = require('../../config/database/connection');
 const { get, buildKey } = require('../../helpers/cache.helper');
 const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
@@ -7,6 +8,9 @@ const { getSecret } = require('../../helpers/vault.helper');
 
 const validateWebSession = async (req, _, next) => {
   try {
+    const sequelize = await getSequelize();
+    const { usrAccounts } = sequelize.models;
+
     const { accessToken, refreshToken } = req.cookies;
 
     if (!accessToken) {
@@ -44,14 +48,27 @@ const validateWebSession = async (req, _, next) => {
       498
     );
 
-    if (!accessTokenPayload || !accessTokenPayload.accountId) {
+    if (!accessTokenPayload || !accessTokenPayload.internalCode) {
       throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
     }
 
-    const sessionKey = buildKey('session', accessTokenPayload.accountId, fingerprint);
+    if (refreshTokenPayload.internalCode !== accessTokenPayload.internalCode) {
+      throw error({ httpCode: 401, messagePath: 'auth.session.invalidToken' });
+    }
+
+    const account = await usrAccounts.findOne({
+      where: { internalCode: accessTokenPayload.internalCode },
+      include: {},
+    });
+
+    const sessionKey = buildKey('session', account.id, fingerprint);
     const sessionData = await get(sessionKey);
 
-    if (!sessionData) throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
+    if (!sessionData) {
+      perror('No session data found in redis', { sessionKey });
+
+      throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
+    }
 
     return next();
   } catch (err) {

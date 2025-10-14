@@ -79,7 +79,7 @@ class SessionController {
   }
 
   static async protectedTest(_, res, __) {
-    return success(res, { messagePath: 'auth.session.protectedTest' });
+    return success(res, { messagePath: 'Todo bien.' });
   }
 }
 

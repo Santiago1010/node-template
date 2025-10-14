@@ -132,16 +132,10 @@ class SessionService {
 
   // =============================== TOKENS ================================ //
   createAccessToken(account, isSafeMode) {
-    const payload = {
-      accountId: account.id,
-      internalCode: account.internalCode,
-      email: account.email,
-      isSafeMode,
-      role: account.role,
-    };
+    const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
 
-    if (account.userId) payload.userId = account.userId;
-    if (account.employeeId) payload.employeeId = account.employeeId;
+    if (account.userId) payload.profile = 'user';
+    if (account.employeeId) payload.profile = 'employee';
 
     return createJWT(payload, this.accessTokenSecret, {
       subject: 'acces_token_' + account.internalCode,
@@ -151,7 +145,6 @@ class SessionService {
 
   createRefreshToken(account, device) {
     const payload = {
-      accountId: account.id,
       internalCode: account.internalCode,
       device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
     };
