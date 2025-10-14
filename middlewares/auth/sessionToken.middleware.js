@@ -1,3 +1,6 @@
+const moment = require('moment');
+const { Op } = require('sequelize');
+
 const ContextHelper = require('../../helpers/context.helper');
 const { getSequelize } = require('../../config/database/connection');
 const { get, buildKey } = require('../../helpers/cache.helper');
@@ -9,7 +12,7 @@ const { getSecret } = require('../../helpers/vault.helper');
 const validateWebSession = async (req, _, next) => {
   try {
     const sequelize = await getSequelize();
-    const { usrAccounts } = sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices } = sequelize.models;
 
     const { accessToken, refreshToken } = req.cookies;
 
@@ -56,10 +59,31 @@ const validateWebSession = async (req, _, next) => {
       throw error({ httpCode: 401, messagePath: 'auth.session.invalidToken' });
     }
 
+    const now = moment().valueOf();
+
     const account = await usrAccounts.findOne({
+      attributes: ['id'],
       where: { internalCode: accessTokenPayload.internalCode },
-      include: {},
+      include: {
+        model: usrAccesses,
+        as: 'accesses',
+        attributes: [],
+        where: { idToken: refreshTokenPayload.jti, expiresAt: { [Op.gte]: now } },
+        required: true,
+        include: {
+          model: usrDevices,
+          as: 'device',
+          attributes: [],
+          where: { fingerprint, browser: refreshTokenPayload.device.browser, os: refreshTokenPayload.device.os },
+          required: true,
+        },
+      },
+      subQuery: false,
     });
+
+    if (!account) {
+      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+    }
 
     const sessionKey = buildKey('session', account.id, fingerprint);
     const sessionData = await get(sessionKey);

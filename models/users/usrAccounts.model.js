@@ -275,13 +275,13 @@ class ExtendedModel extends Model {
     //   onUpdate: 'CASCADE',
     //   onDelete: 'CASCADE',
     // });
-    // this.hasMany(models.usrAccesses, {
-    //   foreignKey: 'accountId',
-    //   sourceKey: 'id',
-    //   as: 'accesses',
-    //   onUpdate: 'RESTRICT',
-    //   onDelete: 'RESTRICT',
-    // });
+    this.hasMany(models.usrAccesses, {
+      foreignKey: 'accountId',
+      sourceKey: 'id',
+      as: 'accesses',
+      onUpdate: 'RESTRICT',
+      onDelete: 'RESTRICT',
+    });
     // this.hasMany(models.usrImages, {
     //   foreignKey: 'idAccount',
     //   sourceKey: 'id',
