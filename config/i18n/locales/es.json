@@ -28,7 +28,8 @@
       "accountNotFound": "errors.login.accountNotFound",
       "invalidPassword": "errors.login.invalidPassword"
     },
-    "internalServerError": "errors.internalServerError"
+    "internalServerError": "errors.internalServerError",
+    "unauthorized": "errors.unauthorized"
   },
   "error": {
     "internal_server": "error.internal_server",
@@ -50,5 +51,8 @@
     "target": {
       "everyone": "enums.target.everyone"
     }
+  },
+  "common": {
+    "of": "de"
   }
 }
