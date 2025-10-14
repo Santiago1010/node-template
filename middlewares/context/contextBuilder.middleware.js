@@ -51,16 +51,17 @@ const setPage = async (req, _, next) => {
     });
 
     if (!page) {
-      perror('An attempt was made to make a request from an unknown page', {
-        host,
-        page: headerPage,
-        ip: req.ip,
-        timestamp: moment().format(
-          'dddd, DD [' + i18n.__('common.of') + '] MMMM [' + i18n.__('common.of') + '] YYYY, HH:mm:ss.SSS Z'
-        ),
+      page = await configPages.create({
+        hostId: host.id,
+        name: headerPage.name,
+        path: headerPage.path,
+        description: headerPage.description,
+        level: headerPage.level,
+        requiresAuthorization: headerPage.requiresAuthorization,
+        hasSensitiveInformation: headerPage.hasSensitiveInformation,
       });
 
-      throw error({ httpCode: 401, messagePath: 'errors.unauthorized' });
+      page = JSON.parse(JSON.stringify(page));
     }
 
     ContextHelper.set('page', page);

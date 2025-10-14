@@ -67,14 +67,14 @@ const Schema = {
   requiresAuthorization: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: '1',
+    defaultValue: true,
     comment: 'Indicates whether the page requires authorization to access it.',
     field: 'requires_authorization',
   },
   hasSensitiveInformation: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: '0',
+    defaultValue: false,
     comment:
       'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
     field: 'has_sensitive_information',
