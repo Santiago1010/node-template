@@ -79,9 +79,15 @@ const setPage = async (req, _, next) => {
 };
 
 const setEndpoint = async (req, _, next) => {
+  const method = req.method;
   const endpoint = req.originalUrl.split('?')[0];
+  const parts = endpoint.split('/');
 
-  console.log(endpoint);
+  const platform = parts[1];
+
+  console.log('Endpoint:', endpoint);
+  console.log('Método:', method);
+  console.log('Plataforma:', platform);
 
   return next();
 };
