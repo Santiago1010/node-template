@@ -6,6 +6,7 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const { pageUseEndpoint } = require('../../middlewares/audit/pageEndpointLogger.middleware');
 const { setHost, setPage, setEndpoint } = require('../../middlewares/context/contextBuilder.middleware');
 
 // =============================================================================
@@ -16,6 +17,8 @@ const router = express.Router();
 router.use(setHost);
 router.use(setPage);
 router.use(setEndpoint);
+
+router.use(pageUseEndpoint);
 
 // =============================================================================
 // ROUTES

@@ -147,7 +147,6 @@ const setEndpoint = async (req, _, next) => {
       },
       where: { method, platform, version, endpointGroup: group },
       raw: true,
-      logging: console.log,
     });
 
     if (!endpoints || endpoints.length === 0) {
