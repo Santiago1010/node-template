@@ -6,6 +6,40 @@ const { initializeConnection } = require('../../config/database/connection');
 const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 
+const patternCache = new Map();
+
+const normalizePath = (p) => {
+  if (!p) return '/';
+  if (p.length > 1 && p.endsWith('/')) return p.slice(0, -1);
+
+  return p;
+};
+
+const compilePattern = (pattern) => {
+  if (patternCache.has(pattern)) return patternCache.get(pattern);
+
+  // Split into segments and build regex parts
+  const segments = pattern.split('/').filter(Boolean);
+  const paramNames = [];
+
+  const regexParts = segments.map((seg) => {
+    if (seg.startsWith(':')) {
+      paramNames.push(seg.slice(1));
+      return '([^/]+)'; // generic segment capture (no type enforcement here)
+    }
+
+    return seg.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  });
+
+  const regexString = '^/' + regexParts.join('/') + '$';
+  const regex = new RegExp(regexString);
+
+  const compiled = { regex, paramNames, rawPattern: pattern };
+  patternCache.set(pattern, compiled);
+
+  return compiled;
+};
+
 const setEnvironment = (environment) => async (_, __, next) => {
   ContextHelper.run({ environment }, () => {
     next();
@@ -39,6 +73,19 @@ const setHost = async (req, _, next) => {
   } catch (error) {
     return next(error);
   }
+};
+
+const specificityScore = (pattern) => {
+  const segments = pattern.split('/').filter(Boolean);
+  let staticCount = 0;
+  let paramCount = 0;
+
+  for (const s of segments) {
+    if (s.startsWith(':')) paramCount++;
+    else staticCount++;
+  }
+
+  return { staticCount, paramCount, length: pattern.length };
 };
 
 const setPage = async (req, _, next) => {
@@ -79,17 +126,90 @@ const setPage = async (req, _, next) => {
 };
 
 const setEndpoint = async (req, _, next) => {
-  const method = req.method;
-  const endpoint = req.originalUrl.split('?')[0];
+  const method = req.method.toLowerCase();
+  const endpointRaw = req.originalUrl.split('?')[0];
+  const endpoint = normalizePath(endpointRaw);
   const parts = endpoint.split('/');
 
-  const platform = parts[1];
+  const platform = parts[2];
+  const version = parts[3];
+  const group = parts[4];
+  const path = '/' + parts.slice(5).join('/');
 
-  console.log('Endpoint:', endpoint);
-  console.log('Método:', method);
-  console.log('Plataforma:', platform);
+  try {
+    const sequelize = await initializeConnection();
+    const { configEndpoints } = sequelize.models;
 
-  return next();
+    // Fetch candidates filtered by metadata to reduce comparisons
+    const endpoints = await configEndpoints.findAll({
+      attributes: {
+        exclude: ['requiresAuthorization', 'hasSensitiveInformation', 'createdAt', 'updatedAt', 'deletedAt'],
+      },
+      where: { method, platform, version, endpointGroup: group },
+      raw: true,
+      logging: console.log,
+    });
+
+    if (!endpoints || endpoints.length === 0) {
+      perror('An attempt was made to make a request to an unknown endpoint', {
+        endpoint: endpointRaw,
+        ip: req.ip,
+        timestamp: moment().format(
+          'dddd, DD [' + i18n.__('common.of') + '] MMMM [' + i18n.__('common.of') + '] YYYY, HH:mm:ss.SSS Z'
+        ),
+      });
+
+      throw error({ httpCode: 404, messagePath: 'errors.notFound' });
+    }
+
+    // Build candidate list with compiled patterns and specificity metadata
+    const candidates = endpoints
+      .map((ep) => {
+        // adapt this line to the actual column name in your DB that stores the pattern
+        const pattern = ep.path;
+        if (!pattern) return null;
+
+        const compiled = compilePattern(pattern);
+        const spec = specificityScore(pattern);
+
+        return { db: ep, pattern, compiled, spec };
+      })
+      .filter(Boolean);
+
+    // Sort by specificity:
+    // 1) more static segments (desc)
+    // 2) fewer params (asc)
+    // 3) longer pattern (desc)
+    candidates.sort((a, b) => {
+      if (b.spec.staticCount !== a.spec.staticCount) return b.spec.staticCount - a.spec.staticCount;
+      if (a.spec.paramCount !== b.spec.paramCount) return a.spec.paramCount - b.spec.paramCount;
+      return b.spec.length - a.spec.length;
+    });
+
+    // Try each candidate in order and pick the first match
+    let matched = null;
+    let params = {};
+
+    for (const c of candidates) {
+      const { regex, paramNames } = c.compiled;
+      const m = regex.exec(path);
+
+      if (m) {
+        params = {};
+
+        for (let i = 0; i < paramNames.length; i++) params[paramNames[i]] = m[i + 1];
+
+        matched = { fullPath: endpointRaw, ...c.db };
+        break; // first (most specific) match wins
+      }
+    }
+
+    ContextHelper.set('endpoint', matched);
+
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 };
 
 module.exports = { setEnvironment, setHost, setPage, setEndpoint };
