@@ -34,6 +34,8 @@ const setHost = async (req, _, next) => {
     }
 
     ContextHelper.set('host', host);
+
+    return next();
   } catch (error) {
     return next(error);
   }
