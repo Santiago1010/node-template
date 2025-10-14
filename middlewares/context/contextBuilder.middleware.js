@@ -79,7 +79,7 @@ const setPage = async (req, _, next) => {
 };
 
 const setEndpoint = async (req, _, next) => {
-  const endpoint = req.path;
+  const endpoint = req.originalUrl.split('?')[0];
 
   console.log(endpoint);
 

@@ -35,7 +35,8 @@
     "internal_server": "error.internal_server",
     "invalid_token": "error.invalid_token",
     "validation": "error.validation",
-    "database": "error.database"
+    "database": "error.database",
+    "invalid_input": "error.invalid_input"
   },
   "auth": {
     "login": {
