@@ -78,7 +78,6 @@ const moment = require('moment'); // Date handling and ISO string formatting
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const asyncLocalStorage = require('../config/context'); // AsyncLocalStorage instance
-const i18n = require('../config/i18n'); // Internationalization
 const { CONTEXT_KEYS } = require('../utils/constants.util'); // Context key constants
 const { cerror } = require('./debug.helper'); // Error logging utility
 
@@ -116,9 +115,7 @@ class ContextHelper {
     try {
       // Add timestamp if not provided - ensures all contexts have consistent timing
       const contextData = {
-        [CONTEXT_KEYS.TIMESTAMP]: moment().format(
-          'dddd, DD [' + i18n.__('common.of') + '] MMMM [' + i18n.__('common.of') + '] YYYY, HH:mm:ss.SSS Z'
-        ),
+        [CONTEXT_KEYS.TIMESTAMP]: moment().toISOString(),
         ...initialData, // User-provided data takes precedence
       };
 

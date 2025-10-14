@@ -11,6 +11,7 @@ const { Op } = require('sequelize');
 const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
 const config = require('../../../config/env');
+const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
@@ -32,7 +33,7 @@ class SessionService {
       this.models = this.sequelize.models;
     }
 
-    const { access_token_secret, refresh_token_secret } = await getSecret('jwt/web');
+    const { access_token_secret, refresh_token_secret } = await getSecret('jwt/' + ContextHelper.get('environment'));
 
     this.accessTokenSecret = access_token_secret;
     this.refreshTokenSecret = refresh_token_secret;
