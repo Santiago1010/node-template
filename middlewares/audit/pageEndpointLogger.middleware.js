@@ -9,16 +9,21 @@ const pageUseEndpoint = async (_, __, next) => {
     const sequelize = await initializeConnection();
     const { configPagesHasEndpoints } = sequelize.models;
 
-    const pageHasEndpoint = await configPagesHasEndpoints.findOne({
-      where: { pageId: page.id, endpointId: endpoint.id },
-      paranoid: false,
-    });
+    await sequelize.transaction(async (transaction) => {
+      let pageHasEndpoint = await configPagesHasEndpoints.findOne({
+        where: { pageId: page.id, endpointId: endpoint.id },
+        paranoid: false,
+      });
 
-    if (!pageHasEndpoint) {
-      await configPagesHasEndpoints.create({ pageId: page.id, endpointId: endpoint.id });
-    } else {
-      await pageHasEndpoint.restore();
-    }
+      if (!pageHasEndpoint) {
+        pageHasEndpoint = await configPagesHasEndpoints.create(
+          { pageId: page.id, endpointId: endpoint.id },
+          { transaction }
+        );
+      } else {
+        pageHasEndpoint = await pageHasEndpoint.restore({ transaction });
+      }
+    });
 
     return next();
   } catch (error) {
