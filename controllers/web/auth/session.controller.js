@@ -78,8 +78,8 @@ class SessionController {
     }
   }
 
-  static async protectedTest(_, res, __) {
-    return success(res, { messagePath: 'Todo bien.' });
+  static async protectedTest(req, res, _) {
+    return success(res, { messagePath: 'Todo bien.', data: { ...req.user } });
   }
 }
 

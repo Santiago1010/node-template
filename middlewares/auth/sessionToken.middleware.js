@@ -61,23 +61,36 @@ const validateWebSession = async (req, _, next) => {
 
     const now = moment().valueOf();
 
-    const account = await usrAccounts.findOne({
-      attributes: ['id'],
-      where: { internalCode: accessTokenPayload.internalCode },
-      include: {
-        model: usrAccesses,
-        as: 'accesses',
-        attributes: [],
-        where: { idToken: refreshTokenPayload.jti, expiresAt: { [Op.gte]: now } },
-        required: true,
-        include: {
-          model: usrDevices,
-          as: 'device',
-          attributes: [],
-          where: { fingerprint, browser: refreshTokenPayload.device.browser, os: refreshTokenPayload.device.os },
-          required: true,
-        },
+    let account = await usrAccounts.findOne({
+      attributes: {
+        exclude: [
+          'rolId',
+          'dialCodeId',
+          'recoveryEmail',
+          'recoveryEmailConfirmedAt',
+          'password',
+          'createdAt',
+          'updatedAt',
+          'deletedAt',
+        ],
       },
+      where: { internalCode: accessTokenPayload.internalCode },
+      include: [
+        {
+          model: usrAccesses,
+          as: 'accesses',
+          attributes: [],
+          where: { idToken: refreshTokenPayload.jti, expiresAt: { [Op.gte]: now } },
+          required: true,
+          include: {
+            model: usrDevices,
+            as: 'device',
+            attributes: [],
+            where: { fingerprint, browser: refreshTokenPayload.device.browser, os: refreshTokenPayload.device.os },
+            required: true,
+          },
+        },
+      ],
       subQuery: false,
     });
 
@@ -93,6 +106,23 @@ const validateWebSession = async (req, _, next) => {
 
       throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
     }
+    account = JSON.parse(JSON.stringify(account));
+    let data = { profile: account.profile, idUsuario: account.profileInt };
+
+    if (account.userId) {
+      data = { idUsuario: 1, profile: 'user' };
+    }
+
+    if (account.employeeId) {
+      data = { idUsuario: 2, profile: 'employee' };
+    }
+
+    delete account.profile;
+    delete account.profileInt;
+    delete account.userId;
+    delete account.employeeId;
+
+    req.user = { ...data, account };
 
     return next();
   } catch (err) {
