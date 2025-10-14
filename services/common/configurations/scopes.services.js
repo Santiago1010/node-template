@@ -12,9 +12,9 @@ const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../.
 const { wrapLogging } = require('../../../helpers/debug.helper');
 
 class ScopeServices {
-  constructor() {
-    this.sequelize = null;
-    this.models = null;
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
   }
 
   async initialize() {

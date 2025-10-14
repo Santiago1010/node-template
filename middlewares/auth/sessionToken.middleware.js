@@ -8,6 +8,7 @@ const { perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 const { verifyJWT } = require('../../helpers/security.helper');
 const { getSecret } = require('../../helpers/vault.helper');
+const ScopeServices = require('../../services/common/configurations/scopes.services');
 
 const validateWebSession = async (req, _, next) => {
   try {
@@ -151,7 +152,10 @@ const validateWebSession = async (req, _, next) => {
     delete account.userId;
     delete account.employeeId;
 
-    req.user = { ...data, account };
+    const scopesService = new ScopeServices(sequelize);
+    const scopes = await scopesService.getAllScopesOfAnAccount(account.id, account.role.id);
+
+    req.user = { ...data, account, scopes, device: refreshTokenPayload.device };
 
     ContextHelper.set('user', req.user);
 
