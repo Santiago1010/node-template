@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const ContextHelper = require('../../helpers/context.helper');
 const { getSequelize } = require('../../config/database/connection');
 const { get, buildKey } = require('../../helpers/cache.helper');
-const { perror } = require('../../helpers/debug.helper');
+const { perror, wrapLogging } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
 const { verifyJWT } = require('../../helpers/security.helper');
 const { getSecret } = require('../../helpers/vault.helper');
@@ -12,7 +12,7 @@ const { getSecret } = require('../../helpers/vault.helper');
 const validateWebSession = async (req, _, next) => {
   try {
     const sequelize = await getSequelize();
-    const { usrAccounts, usrAccesses, usrDevices } = sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers } = sequelize.models;
 
     const { accessToken, refreshToken } = req.cookies;
 
@@ -77,6 +77,12 @@ const validateWebSession = async (req, _, next) => {
       where: { internalCode: accessTokenPayload.internalCode },
       include: [
         {
+          model: configRoles,
+          as: 'role',
+          attributes: ['id', 'name'],
+          required: true,
+        },
+        {
           model: usrAccesses,
           as: 'accesses',
           attributes: [],
@@ -95,6 +101,8 @@ const validateWebSession = async (req, _, next) => {
     });
 
     if (!account) {
+      perror('No account found', { internalCode: accessTokenPayload.internalCode });
+
       throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
     }
 
@@ -106,15 +114,21 @@ const validateWebSession = async (req, _, next) => {
 
       throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
     }
+
     account = JSON.parse(JSON.stringify(account));
-    let data = { profile: account.profile, idUsuario: account.profileInt };
+    let data = { id: 0, profile: account.profile };
 
     if (account.userId) {
-      data = { idUsuario: 1, profile: 'user' };
+      const user = await usrUsers.findByPk(account.userId, {
+        attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
+        logging: wrapLogging('[SessionService.validateWebSession] Get user by id'),
+      });
+
+      data = { ...data, ...JSON.parse(JSON.stringify(user)) };
     }
 
     if (account.employeeId) {
-      data = { idUsuario: 2, profile: 'employee' };
+      // data =
     }
 
     delete account.profile;
@@ -123,6 +137,8 @@ const validateWebSession = async (req, _, next) => {
     delete account.employeeId;
 
     req.user = { ...data, account };
+
+    ContextHelper.set('user', req.user);
 
     return next();
   } catch (err) {
