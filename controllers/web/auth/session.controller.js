@@ -1,9 +1,8 @@
 const moment = require('moment');
 
 const config = require('../../../config/env');
-const ContextHelper = require('../../../helpers/context.helper');
 const SessionService = require('../../../services/common/auth/session.service');
-const { isDevelopmentMode, clog, cdir } = require('../../../helpers/debug.helper');
+const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
@@ -74,12 +73,6 @@ class SessionController {
     } catch (error) {
       return next(error);
     }
-  }
-
-  static async protectedTest(req, res, _) {
-    cdir('Object of the context', ContextHelper.get());
-
-    return success(res, { messagePath: 'Todo bien.', data: { ...req.user } });
   }
 }
 
