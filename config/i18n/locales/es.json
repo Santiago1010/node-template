@@ -29,7 +29,8 @@
       "invalidPassword": "errors.login.invalidPassword"
     },
     "internalServerError": "errors.internalServerError",
-    "unauthorized": "errors.unauthorized"
+    "unauthorized": "errors.unauthorized",
+    "unauthorizedField": "El campo \"{field}\" no es autorizado para este endpoint"
   },
   "error": {
     "internal_server": "error.internal_server",

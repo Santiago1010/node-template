@@ -29,7 +29,8 @@
       "invalidPassword": "errors.login.invalidPassword"
     },
     "internalServerError": "errors.internalServerError",
-    "unauthorized": "errors.unauthorized"
+    "unauthorized": "errors.unauthorized",
+    "unauthorizedField": "errors.unauthorizedField"
   },
   "error": {
     "internal_server": "error.internal_server",
