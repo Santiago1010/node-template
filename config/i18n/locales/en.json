@@ -30,7 +30,8 @@
     },
     "internalServerError": "errors.internalServerError",
     "unauthorized": "errors.unauthorized",
-    "unauthorizedField": "errors.unauthorizedField"
+    "unauthorizedField": "errors.unauthorizedField",
+    "notFound": "errors.notFound"
   },
   "error": {
     "internal_server": "error.internal_server",
@@ -45,6 +46,10 @@
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes."
+    },
+    "session": {
+      "invalidSession": "auth.session.invalidSession",
+      "protectedTest": "auth.session.protectedTest"
     }
   },
   "enums": {

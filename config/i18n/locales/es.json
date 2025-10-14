@@ -30,7 +30,8 @@
     },
     "internalServerError": "errors.internalServerError",
     "unauthorized": "errors.unauthorized",
-    "unauthorizedField": "El campo \"{field}\" no es autorizado para este endpoint"
+    "unauthorizedField": "El campo \"{field}\" no es autorizado para este endpoint",
+    "notFound": "errors.notFound"
   },
   "error": {
     "internal_server": "error.internal_server",
@@ -45,6 +46,10 @@
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Demasiados intentos de inicio de sesión. Inténtalo de nuevo en {remainingTTL} minutos."
+    },
+    "session": {
+      "invalidSession": "auth.session.invalidSession",
+      "protectedTest": "auth.session.protectedTest"
     }
   },
   "enums": {

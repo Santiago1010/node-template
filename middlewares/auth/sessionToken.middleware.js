@@ -29,34 +29,29 @@ const validateWebSession = async (req, _, next) => {
       throw error({ httpCode: 401, messagePath: 'auth.session.missingFingerprint' });
     }
 
-    const { access_token_secret } = await getSecret('jwt/' + ContextHelper.get('environment'));
+    const { refresh_token_secret, access_token_secret } = await getSecret('jwt/' + ContextHelper.get('environment'));
 
-    const payload = verifyJWT(
+    const refreshTokenPayload = verifyJWT(refreshToken, refresh_token_secret);
+
+    if (!refreshTokenPayload || !refreshTokenPayload.internalCode) {
+      throw error({ httpCode: 401, messagePath: 'auth.session.invalidToken' });
+    }
+
+    const accessTokenPayload = verifyJWT(
       accessToken,
       access_token_secret,
-      { subject: 'acces_token_' + (req.params.internalCode || '') },
+      { subject: 'acces_token_' + refreshTokenPayload.internalCode },
       498
     );
 
-    if (!payload || !payload.accountId) throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
+    if (!accessTokenPayload || !accessTokenPayload.accountId) {
+      throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
+    }
 
-    const sessionKey = buildKey('session', payload.accountId, fingerprint);
+    const sessionKey = buildKey('session', accessTokenPayload.accountId, fingerprint);
     const sessionData = await get(sessionKey);
 
     if (!sessionData) throw error({ httpCode: 401, messagePath: 'auth.session.notFound' });
-
-    req.user = {
-      accountId: payload.accountId,
-      internalCode: payload.internalCode,
-      email: payload.email,
-      userId: payload.userId,
-      employeeId: payload.employeeId,
-      role: payload.role,
-      isSafeMode: payload.isSafeMode,
-    };
-
-    req.session = sessionData;
-    req.fingerprint = fingerprint;
 
     return next();
   } catch (err) {
