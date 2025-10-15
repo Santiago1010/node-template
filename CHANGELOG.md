@@ -1,5 +1,58 @@
 
 
+## [1.17.0] - 2025-10-15
+
+**Released:** 2025-10-15 19:26:49 UTC
+
+### [Add Security Level Validation to Request Schemas](https://github.com/Santiago1010/node-template/pull/83)
+
+#### 📋 Summary
+This PR implements comprehensive security level validation across all request validation schemas. It adds field-level security controls that restrict access based on user security levels, enhances validation documentation, and integrates security level checks with existing authentication middleware.
+
+#### 🔍 What Changed
+### Added
+- Security level validation to all schema generators (number, string, date, array, boolean, object, password, etc.)
+- New validation message for insufficient security level in i18n files
+- Security level model association to roles and endpoints
+- Security level extraction in endpoints synchronization script
+
+### Changed
+- Enhanced validation schema generators with comprehensive documentation
+- Updated session token middleware to include security level in user object
+- Modified login validations to use minimal security level
+- Improved endpoint synchronization with security level mapping
+
+### Fixed
+- Model associations for security levels and roles
+- Validation schema field relationships in database models
+
+#### 📝 Additional Notes
+- Security levels are now integrated with existing role-based authentication
+- Validation schemas automatically enforce security level checks when configured
+- Endpoint synchronization script maps validation security levels to database records
+- Backward compatibility maintained for existing validation schemas
+
+**Type of Change:** New Feature, Testing
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement, testing, security
+- Milestone: M2 — CI Quality & Security
+- Commits: 6
+
+**Commits:**
+- [`9afcca3`](https://github.com/Santiago1010/node-template/commit/9afcca3c0b4d18bc2bce36a8498bf48c050338ba) feat(auth): add security level to user session and role associations
+- [`61b420e`](https://github.com/Santiago1010/node-template/commit/61b420eee9d6527f3aca637199f697badc389c0b) feat(validation): add security level validation to all schema types
+- [`6ba6fe4`](https://github.com/Santiago1010/node-template/commit/6ba6fe477863cab8c58e64438df4ecd1a09c9173) feat(validation): add security level validation to database schemas
+- [`636c1ba`](https://github.com/Santiago1010/node-template/commit/636c1bad24d85253e8271fb73569c0da44f557dc) docs(validation): add comprehensive documentation to schema generators
+- [`f421816`](https://github.com/Santiago1010/node-template/commit/f4218167b00b43e493bedcb4eb47b7ee94f9bf5b) feat(endpoints): add security level extraction and validation to endpoint synchronization
+- [`300acd7`](https://github.com/Santiago1010/node-template/commit/300acd731ec0ab3633404646fb8f6b8e1d934b23) refactor(auth): remove protected route and session validation
+
+---
+
+
+
 ## [1.16.0] - 2025-10-15
 
 **Released:** 2025-10-15 18:13:33 UTC
