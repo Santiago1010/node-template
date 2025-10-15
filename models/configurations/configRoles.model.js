@@ -94,13 +94,13 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     // Indexes
-    // this.belongsTo(models.configSecurityLevels, {
-    //   foreignKey: 'securityLevelId',
-    //   targetKey: 'id',
-    //   as: 'securityLevel',
-    //   onUpdate: 'RESTRICT',
-    //   onDelete: 'RESTRICT',
-    // });
+    this.belongsTo(models.configSecurityLevels, {
+      foreignKey: 'securityLevelId',
+      targetKey: 'id',
+      as: 'securityLevel',
+      onUpdate: 'RESTRICT',
+      onDelete: 'RESTRICT',
+    });
 
     // References
     // this.hasMany(models.docPermissions, {

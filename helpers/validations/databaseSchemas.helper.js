@@ -1,42 +1,103 @@
 // =============================================================================
-// DATABASE SCHEMAS - Complete validation schemas for express-validator
+// EXPRESS VALIDATION SCHEMA GENERATORS - Sequelize Integration
 // =============================================================================
+// PRIMARY PURPOSE & FUNCTIONALITY:
+// - Provides comprehensive validation schema generators for Express.js middleware
+// - Integrates seamlessly with Sequelize ORM for database validation
+// - Supports internationalization (i18n) for error messages
+// - Handles security level-based access control for field validation
+// - Validates existence, uniqueness, and relationships in database records
 //
-// This module provides validation functions and utilities for working
-// with database schemas using express-validator. Includes validation
-// of IDs, data existence checks, and model attribute verification.
+// ARCHITECTURAL DECISIONS:
+// - Modular schema generators for reusability across different models
+// - Separation of validation logic from route handlers
+// - Integration with express-validator middleware chain
+// - Support for both single field and complex multi-field validations
+// - Built-in security level checks for sensitive field validation
 //
-// Main functions:
-// - idSchema: Complete ID validation with database verification
-// - validateUniqueField: Validation of unique fields
-// - validateMultipleIds: Validation of multiple IDs (array or string)
-// - validateModelAttributes: Verification of model attribute existence
+// ALTERNATIVE APPROACHES ANALYSIS:
+// - Manual validation in controllers: More repetitive, harder to maintain
+// - Third-party validation libraries: Less integration with Sequelize
+// - Database constraints only: No request-level validation or custom error messages
+// - Custom middleware per route: Inconsistent validation patterns
+// - Chosen approach provides centralized, reusable validation with full ORM integration
+//
+// PERFORMANCE CHARACTERISTICS:
+// - Time complexity: O(1) for simple validations, O(n) for multi-ID validations
+// - Space complexity: O(1) for single fields, O(k) for array validations (k = array size)
+// - Database queries optimized with bulk operations where possible
+// - Caching considerations: None - requires fresh database state for validation
+//
+// SECURITY CONSIDERATIONS:
+// - Security level validation prevents unauthorized field access
+// - SQL injection protection through Sequelize parameterized queries
+// - Input sanitization and type conversion for safe database operations
+// - Field-level authorization based on user security levels
+//
+// USAGE EXAMPLES:
+// - Basic ID validation for foreign key relationships
+// - Unique field validation for user registration
+// - Bulk ID validation for many-to-many relationships
+// - Dynamic attribute validation for flexible query building
+//
+// MAINTENANCE & TROUBLESHOOTING:
+// - Common issues: Missing model definitions, incorrect field references
+// - Debugging: Enable Sequelize logging for query inspection
+// - Performance: Monitor N+1 query patterns in multi-ID validations
+// - Testing: Ensure all validation paths have proper test coverage
+//
+// DEPENDENCIES & COMPATIBILITY:
+// - Required: Express.js, Sequelize ORM, i18n internationalization
+// - Node.js: >= 12.0.0 (for optional chaining and nullish coalescing)
+// - Third-party: express-validator for validation middleware
 //
 // =============================================================================
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const i18n = require('../../config/i18n');
-const { convertToNumber } = require('../../utils/numbers.util');
+const i18n = require('../../config/i18n'); // Internationalization for error messages
+const { convertToNumber } = require('../../utils/numbers.util'); // Number conversion utility
 
 // =============================================================================
 // HELPER FUNCTIONS
 // =============================================================================
 
 /**
- * Gets localized field name using i18n
- * @param {string} name - Field name
- * @returns {string} Localized field name or original name with prefix
+ * Retrieves internationalized field name for validation messages
+ *
+ * @description Gets the translated field name from i18n configuration or falls back to generic format
+ * @param {string} name - Field identifier used for i18n lookup
+ * @returns {string} Internationalized field name or fallback identifier
+ *
+ * @example
+ * // Returns translated field name like "User ID" or falls back to "fields.userId"
+ * const fieldName = getFieldName('userId');
+ *
+ * @complexity Time: O(1), Space: O(1)
+ * @since Version 1.0.0
  */
 const getFieldName = (name) => {
   return typeof i18n !== 'undefined' ? i18n.__mf('fields.' + name) : `fields.${name}`;
 };
 
 /**
- * Converts comma-separated string or array into clean array
- * @param {string|Array} value - Value to convert
- * @returns {Array} Array of cleaned values
+ * Parses and sanitizes input values into clean string arrays
+ *
+ * @description Converts various input types (array, comma-separated string) into trimmed string arrays
+ * @param {any} value - Input value to parse (array, string, or other)
+ * @returns {string[]} Array of trimmed, non-empty strings
+ *
+ * @example
+ * // Returns ['apple', 'banana', 'cherry']
+ * const fruits = parseToArray('apple, banana, cherry');
+ *
+ * @example
+ * // Returns ['one', 'two']
+ * const numbers = parseToArray([' one ', 'two', '']);
+ *
+ * @complexity Time: O(n), Space: O(n) where n is number of elements
+ * @since Version 1.0.0
  */
 const parseToArray = (value) => {
   if (Array.isArray(value)) {
@@ -54,21 +115,93 @@ const parseToArray = (value) => {
 };
 
 /**
- * Creates validation schema for IDs with database verification
- * @param {string} name - Field name for i18n
- * @param {string} location - Field location ('body', 'params', 'query')
- * @param {Object} options - Configuration options
- * @param {boolean} options.required - Whether field is required (default: true)
- * @param {Array} options.formattingFunctions - Formatting functions to apply
- * @param {Object} options.model - Sequelize model for validation
- * @returns {Object} Validation schema for express-validator
+ * Validates user security level requirements for field access
+ *
+ * @description Checks if the current user has sufficient security level to access/modify the field
+ * @param {any} value - Field value being validated
+ * @param {string} fieldName - Internationalized field name for error messages
+ * @param {number} minSecurityLevel - Minimum required security level (0 = no restriction)
+ * @param {object} req - Express request object containing user information
+ * @returns {boolean} True if security level requirement is met
+ * @throws {Error} When user security level is insufficient
+ *
+ * @example
+ * // Throws error if user security level < 3
+ * validateSecurityLevel(sensitiveData, 'Salary Field', 3, req);
+ *
+ * @complexity Time: O(1), Space: O(1)
+ * @since Version 1.0.0
  */
-const idSchema = (name, location = 'body', { required = true, formattingFunctions = [], model }) => {
+const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
+  if (minSecurityLevel === 0) return true;
+
+  const allowNull = false;
+  if (allowNull && value === null) return true;
+
+  const userSecurityLevel = req?.user?.securityLevel || 0;
+
+  if (userSecurityLevel < minSecurityLevel) {
+    throw new Error(
+      i18n.__mf('validations.insufficient_security_level', {
+        field: fieldName,
+        required: minSecurityLevel,
+        current: userSecurityLevel,
+      })
+    );
+  }
+
+  return true;
+};
+
+// =============================================================================
+// SCHEMA GENERATORS
+// =============================================================================
+
+/**
+ * Generates validation schema for database ID fields with existence checking
+ *
+ * @description Validates that an ID exists in the specified database table, with security level checks
+ * @param {string} name - Field name for internationalization
+ * @param {string} [location='body'] - Request location to validate ('body', 'params', 'query')
+ * @param {object} options - Configuration options
+ * @param {boolean} [options.required=true] - Whether the field is mandatory
+ * @param {Function[]} [options.formattingFunctions=[]] - Additional value formatting functions
+ * @param {object} options.model - Sequelize model for database existence check
+ * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @returns {object} Express-validator validation schema object
+ *
+ * @example
+ * // Basic ID validation for User model
+ * app.post('/user/:id', [
+ *   check('id', idSchema('userId', 'params', { model: User }))
+ * ]);
+ *
+ * @example
+ * // Optional ID validation with custom formatting
+ * app.get('/data', [
+ *   check('refId', idSchema('referenceId', 'query', {
+ *     required: false,
+ *     model: Reference,
+ *     formattingFunctions: [customFormatter]
+ *   }))
+ * ]);
+ *
+ * @complexity Time: O(1) + 1 database query, Space: O(1)
+ * @since Version 1.0.0
+ * @see {@link validateValueAgainstModel} for more complex model-based validation
+ */
+const idSchema = (
+  name,
+  location = 'body',
+  { required = true, formattingFunctions = [], model, minSecurityLevel = 1 }
+) => {
   const fieldName = getFieldName(name);
   const validationSchema = {
     in: location,
     custom: {
-      options: async (value) => {
+      options: async (value, { req }) => {
+        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+
         const data = await model.findByPk(value);
         return data !== null;
       },
@@ -76,7 +209,6 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
     },
   };
 
-  // Required field validation
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -87,7 +219,6 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
     };
   }
 
-  // Add convertToNumber by default if not present
   if (!formattingFunctions.includes(convertToNumber)) {
     formattingFunctions.push(convertToNumber);
   }
@@ -106,31 +237,55 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
 };
 
 /**
- * Validates if a value exists in specific database column
- * @param {string} name - Field name for i18n messages
- * @param {string} location - Field location ('body', 'params', 'query')
- * @param {Object} options - Configuration options
- * @param {Object} options.model - Sequelize model
- * @param {string} options.field - Database column name
- * @param {boolean} options.shouldExist - If true, validates existence; if false, validates non-existence
- * @param {boolean} options.required - Whether field is required (default: true)
- * @param {*} options.excludeValue - Value to exclude from validation (useful for updates)
- * @returns {Object} Validation schema for express-validator
+ * Validates field uniqueness or existence constraints in database tables
+ *
+ * @description Checks if a field value is unique (for creation) or exists (for updates) in the database
+ * @param {string} name - Field name for internationalization
+ * @param {string} [location='body'] - Request location to validate
+ * @param {object} options - Configuration options
+ * @param {object} options.model - Sequelize model for database operations
+ * @param {string} options.field - Database field name to check
+ * @param {boolean} [options.shouldExist=false] - True to require existence, false to require uniqueness
+ * @param {boolean} [options.required=true] - Whether the field is mandatory
+ * @param {any} [options.excludeValue=null] - Value to exclude from uniqueness check (for updates)
+ * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @returns {object} Express-validator validation schema object
+ *
+ * @example
+ * // Email uniqueness check for user registration
+ * validateUniqueField('email', 'body', {
+ *   model: User,
+ *   field: 'email',
+ *   shouldExist: false // Must NOT exist (unique)
+ * })
+ *
+ * @example
+ * // Username existence check for password reset (excluding current user)
+ * validateUniqueField('username', 'body', {
+ *   model: User,
+ *   field: 'username',
+ *   shouldExist: true, // Must exist
+ *   excludeValue: currentUserId // For update scenarios
+ * })
+ *
+ * @complexity Time: O(1) + 1 database query, Space: O(1)
+ * @since Version 1.0.0
  */
 const validateUniqueField = (
   name,
   location = 'body',
-  { model, field, shouldExist = false, required = true, excludeValue = null }
+  { model, field, shouldExist = false, required = true, excludeValue = null, minSecurityLevel = 1 }
 ) => {
   const fieldName = getFieldName(name);
 
   const validationSchema = {
     in: location,
     custom: {
-      options: async (value) => {
+      options: async (value, { req }) => {
+        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+
         const whereClause = { [field]: value };
 
-        // Exclude specific value if provided (useful for updates)
         if (excludeValue !== null) {
           whereClause[field] = {
             [model.sequelize.Sequelize.Op.and]: [
@@ -156,7 +311,6 @@ const validateUniqueField = (
     },
   };
 
-  // Required field validation
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -171,34 +325,60 @@ const validateUniqueField = (
 };
 
 /**
- * Validates multiple IDs that can come as array or comma-separated string
- * @param {string} name - Field name for i18n messages
- * @param {string} location - Field location ('body', 'params', 'query')
- * @param {Object} options - Configuration options
- * @param {Object} options.model - Sequelize model
- * @param {boolean} options.required - Whether field is required (default: true)
- * @param {number} options.minLength - Minimum number of required IDs
- * @param {number} options.maxLength - Maximum number of allowed IDs
- * @returns {Object} Validation schema for express-validator
+ * Validates multiple IDs for existence in database with array constraints
+ *
+ * @description Validates an array of IDs checking existence in database and array size constraints
+ * @param {string} name - Field name for internationalization
+ * @param {string} [location='body'] - Request location to validate
+ * @param {object} options - Configuration options
+ * @param {object} options.model - Sequelize model for existence checks
+ * @param {boolean} [options.required=true] - Whether the field is mandatory
+ * @param {number} [options.minLength=1] - Minimum number of IDs required
+ * @param {number} [options.maxLength=null] - Maximum number of IDs allowed
+ * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @returns {object} Express-validator validation schema object
+ *
+ * @example
+ * // Validate category IDs for product creation (2-5 categories required)
+ * validateMultipleIds('categoryIds', 'body', {
+ *   model: Category,
+ *   minLength: 2,
+ *   maxLength: 5
+ * })
+ *
+ * @example
+ * // Validate optional tag IDs (0-10 tags allowed)
+ * validateMultipleIds('tagIds', 'body', {
+ *   model: Tag,
+ *   required: false,
+ *   minLength: 0,
+ *   maxLength: 10
+ * })
+ *
+ * @complexity Time: O(n) + 1 database query, Space: O(n) where n is number of IDs
+ * @since Version 1.0.0
  */
-const validateMultipleIds = (name, location = 'body', { model, required = true, minLength = 1, maxLength = null }) => {
+const validateMultipleIds = (
+  name,
+  location = 'body',
+  { model, required = true, minLength = 1, maxLength = null, minSecurityLevel = 1 }
+) => {
   const fieldName = getFieldName(name);
 
   const validationSchema = {
     in: location,
     customSanitizer: {
       options: (value) => {
-        // Convert to array and clean values
         const idsArray = parseToArray(value);
-        // Convert to numbers if necessary
         return idsArray.map((id) => convertToNumber(id)).filter((id) => !isNaN(id));
       },
     },
     custom: {
-      options: async (value) => {
+      options: async (value, { req }) => {
+        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+
         const idsArray = Array.isArray(value) ? value : parseToArray(value);
 
-        // Validate minimum length
         if (idsArray.length < minLength) {
           throw new Error(
             i18n.__mf('validations.min_length', {
@@ -208,7 +388,6 @@ const validateMultipleIds = (name, location = 'body', { model, required = true, 
           );
         }
 
-        // Validate maximum length
         if (maxLength !== null && idsArray.length > maxLength) {
           throw new Error(
             i18n.__mf('validations.max_length', {
@@ -218,7 +397,6 @@ const validateMultipleIds = (name, location = 'body', { model, required = true, 
           );
         }
 
-        // Verify all IDs exist in database
         const existingRecords = await model.findAll({
           where: {
             id: {
@@ -245,7 +423,6 @@ const validateMultipleIds = (name, location = 'body', { model, required = true, 
     },
   };
 
-  // Required field validation
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -260,41 +437,61 @@ const validateMultipleIds = (name, location = 'body', { model, required = true, 
 };
 
 /**
- * Validates that specified attributes exist in the model
- * @param {string} name - Field name for i18n messages
- * @param {string} location - Field location ('body', 'params', 'query')
- * @param {Object} options - Configuration options
- * @param {Object} options.model - Sequelize model
- * @param {boolean} options.required - Whether field is required (default: true)
- * @param {Array} options.allowedAttributes - List of allowed attributes (optional)
- * @returns {Object} Validation schema for express-validator
+ * Validates model attribute names for safe database operations
+ *
+ * @description Ensures only valid model attributes are used in operations like sorting, filtering, or selecting
+ * @param {string} name - Field name for internationalization
+ * @param {string} [location='body'] - Request location to validate
+ * @param {object} options - Configuration options
+ * @param {object} options.model - Sequelize model to validate against
+ * @param {boolean} [options.required=true] - Whether attributes are mandatory
+ * @param {string[]} [options.allowedAttributes=null] - Custom allowed attributes (defaults to all model attributes)
+ * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @returns {object} Express-validator validation schema object
+ *
+ * @example
+ * // Validate sort fields against User model attributes
+ * validateModelAttributes('sortBy', 'query', {
+ *   model: User,
+ *   allowedAttributes: ['name', 'email', 'createdAt'] // Only allow safe fields
+ * })
+ *
+ * @example
+ * // Validate select fields for API response shaping
+ * validateModelAttributes('fields', 'query', {
+ *   model: Product,
+ *   required: false
+ * })
+ *
+ * @complexity Time: O(n) where n is number of attributes, Space: O(n)
+ * @since Version 1.0.0
  */
-const validateModelAttributes = (name, location = 'body', { model, required = true, allowedAttributes = null }) => {
+const validateModelAttributes = (
+  name,
+  location = 'body',
+  { model, required = true, allowedAttributes = null, minSecurityLevel = 1 }
+) => {
   const fieldName = getFieldName(name);
 
   const validationSchema = {
     in: location,
     customSanitizer: {
       options: (value) => {
-        // Convert to array and clean values
         return parseToArray(value);
       },
     },
     custom: {
-      options: (value) => {
+      options: (value, { req }) => {
+        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
 
         if (attributesArray.length === 0) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
-        // Get all model attributes
         const modelAttributes = Object.keys(model.rawAttributes);
-
-        // Use allowed attributes list if specified
         const validAttributes = allowedAttributes || modelAttributes;
-
-        // Verify all requested attributes exist
         const invalidAttributes = attributesArray.filter((attr) => !validAttributes.includes(attr));
 
         if (invalidAttributes.length > 0) {
@@ -312,7 +509,6 @@ const validateModelAttributes = (name, location = 'body', { model, required = tr
     },
   };
 
-  // Required field validation
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -327,23 +523,42 @@ const validateModelAttributes = (name, location = 'body', { model, required = tr
 };
 
 /**
- * Validates a value against the primary key or unique fields (non-composite) of a model.
+ * Comprehensive model-based value validation with flexible existence checking
  *
- * Automatically detects:
- *  - primary key name
- *  - single-field unique constraints (both attribute-level unique: true and indexes with unique and fields.length === 1)
+ * @description Advanced validation that checks value existence against primary key and unique fields
+ * @param {string} name - Field name for internationalization
+ * @param {string} [location='body'] - Request location to validate
+ * @param {object} options - Configuration options
+ * @param {object} options.model - Sequelize model for validation
+ * @param {boolean} [options.required=true] - Whether the field is mandatory
+ * @param {Function[]} [options.formattingFunctions=[]] - Value formatting functions
+ * @param {boolean} [options.shouldExist=true] - True to require existence, false to require non-existence
+ * @param {any} [options.excludeValue=null] - Value to exclude from checks (for updates)
+ * @param {boolean} [options.allowPrimaryKey=true] - Whether to check against primary key
+ * @param {boolean} [options.allowUniqueFields=true] - Whether to check against unique fields
+ * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @returns {object} Express-validator validation schema object
+ * @throws {Error} When model configuration is invalid or missing
  *
- * Options:
- *  - model (required) : Sequelize model
- *  - required (default true)
- *  - formattingFunctions (array of functions to sanitize the value)
- *  - shouldExist (default true) : if true validates that the value exists; if false validates that it does NOT exist
- *  - excludeValue (PK value to exclude, useful for updates)
- *  - allowPrimaryKey (default true)
- *  - allowUniqueFields (default true)
+ * @example
+ * // Validate username exists for password reset
+ * validateValueAgainstModel('username', 'body', {
+ *   model: User,
+ *   shouldExist: true,
+ *   allowPrimaryKey: false, // Only check unique fields like username/email
+ *   allowUniqueFields: true
+ * })
  *
- * Usage example:
- *  validateValueAgainstModel('identifier', 'body', { model: MyModel })
+ * @example
+ * // Validate email doesn't exist for new registration (with formatting)
+ * validateValueAgainstModel('email', 'body', {
+ *   model: User,
+ *   shouldExist: false,
+ *   formattingFunctions: [emailFormatter, trimFormatter]
+ * })
+ *
+ * @complexity Time: O(1) + 1-3 database queries, Space: O(1)
+ * @since Version 1.0.0
  */
 const validateValueAgainstModel = (
   name,
@@ -356,6 +571,7 @@ const validateValueAgainstModel = (
     excludeValue = null,
     allowPrimaryKey = true,
     allowUniqueFields = true,
+    minSecurityLevel = 1,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -364,14 +580,14 @@ const validateValueAgainstModel = (
     throw new Error('validateValueAgainstModel requires a Sequelize model in options.model');
   }
 
-  // Determine primary key
+  // Extract primary key attribute with fallback strategies
   let primaryKeyAttr = null;
   if (typeof model.primaryKeyAttribute === 'string' && model.primaryKeyAttribute.length > 0) {
     primaryKeyAttr = model.primaryKeyAttribute;
   } else if (Array.isArray(model.primaryKeyAttributes) && model.primaryKeyAttributes.length > 0) {
     primaryKeyAttr = model.primaryKeyAttributes[0];
   } else {
-    // Fallback: search in rawAttributes
+    // Fallback: manually search for primary key in attributes
     for (const attr of Object.keys(model.rawAttributes || {})) {
       if (model.rawAttributes[attr].primaryKey) {
         primaryKeyAttr = attr;
@@ -380,11 +596,11 @@ const validateValueAgainstModel = (
     }
   }
 
-  // Determine single-field unique constraints
+  // Extract unique attributes from model definition
   const uniqueAttrsSet = new Set();
-
-  // 1) Attribute-level unique: true
   const rawAttrs = model.rawAttributes || {};
+
+  // Find unique attributes from field definitions
   for (const attrName of Object.keys(rawAttrs)) {
     const attr = rawAttrs[attrName];
     if (attr && attr.unique === true) {
@@ -392,11 +608,10 @@ const validateValueAgainstModel = (
     }
   }
 
-  // 2) Indexes defined in model.options.indexes with unique: true and single field
+  // Find unique attributes from model indexes
   const indexes = (model.options && model.options.indexes) || [];
   for (const idx of indexes) {
     if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
-      // idx.fields may contain objects { name: 'col' } or strings
       const f = idx.fields[0];
       const fname =
         typeof f === 'string' ? f : f && (f.attribute || f.name || f.field) ? f.attribute || f.name || f.field : null;
@@ -404,10 +619,10 @@ const validateValueAgainstModel = (
     }
   }
 
-  // Normalize final list of unique fields (exclude PK if present)
+  // Filter out primary key from unique attributes
   const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
 
-  // If PK is integer type, add convertToNumber by default if not in formattingFunctions
+  // Auto-detect numeric primary keys for automatic number conversion
   try {
     const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
     const pkTypeKey =
@@ -433,9 +648,9 @@ const validateValueAgainstModel = (
         }
       : undefined,
     custom: {
-      options: async (value) => {
-        // empty value handled by existence/required in main schema
-        // First validate against PK (if allowed)
+      options: async (value, { req }) => {
+        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+
         const Op =
           model.sequelize && model.sequelize.Sequelize ? model.sequelize.Sequelize.Op : require('sequelize').Op;
 
@@ -443,26 +658,24 @@ const validateValueAgainstModel = (
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
-        // If PK is allowed, check findByPk
+        // Check against primary key if enabled
         if (allowPrimaryKey && primaryKeyAttr) {
           const byPk = await model.findByPk(value, { attributes: [primaryKeyAttr] });
           const existsPk = byPk !== null;
 
           if (existsPk) {
             if (!shouldExist) {
-              // When we expect it NOT to exist but found one
               throw new Error(i18n.__mf('validations.already_exists', { field: fieldName }));
             }
-            return true; // found in PK -> valid
+            return true;
           }
         }
 
-        // Check unique fields (one by one) if allowed
+        // Check against unique fields if enabled
         if (allowUniqueFields && uniqueAttrs.length > 0) {
           for (const attr of uniqueAttrs) {
             const where = { [attr]: value };
 
-            // Exclude a value by PK if specified
             if (excludeValue !== null && primaryKeyAttr) {
               where[primaryKeyAttr] = {
                 [Op.ne]: excludeValue,
@@ -476,24 +689,19 @@ const validateValueAgainstModel = (
 
             if (found) {
               if (!shouldExist) {
-                // Found but expected NOT to exist
                 throw new Error(i18n.__mf('validations.already_exists', { field: fieldName }));
               }
-              return true; // found in a unique field -> valid
+              return true;
             }
           }
 
-          // Not found in unique fields
           if (shouldExist) {
-            // we were checking for existence but it doesn't exist in PK or unique fields
             throw new Error(i18n.__mf('validations.not_exists', { field: fieldName }));
           } else {
-            // we were checking for NON-existence and it doesn't exist -> valid
             return true;
           }
         }
 
-        // If no unique fields or PK to check and existence is required -> error
         if (shouldExist) {
           throw new Error(i18n.__mf('validations.not_exists', { field: fieldName }));
         }
@@ -503,7 +711,6 @@ const validateValueAgainstModel = (
     },
   };
 
-  // Required field validation
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),

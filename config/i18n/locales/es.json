@@ -17,7 +17,8 @@
     "passwordLength": "validations.passwordLength",
     "passwordUppercase": "validations.passwordUppercase",
     "array": "validations.array",
-    "alphanumericOnly": "validations.alphanumericOnly"
+    "alphanumericOnly": "validations.alphanumericOnly",
+    "insufficient_security_level": "validations.insufficient_security_level"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
