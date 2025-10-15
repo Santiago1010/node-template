@@ -25,6 +25,8 @@ class SessionService {
 
     this.accessTokenSecret = null;
     this.refreshTokenSecret = null;
+
+    return this;
   }
 
   async initialize() {
@@ -107,6 +109,7 @@ class SessionService {
       active: true,
       accountId: account.id,
       deviceId: managedDevice.id,
+      notBefore: moment().valueOf(),
     });
 
     if (pagination.total === 0) {

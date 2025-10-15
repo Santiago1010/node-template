@@ -16,6 +16,8 @@ class {{SERVICE_NAME}} {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
     this.logService = null;
+
+    return this;
   }
 
   async initialize() {

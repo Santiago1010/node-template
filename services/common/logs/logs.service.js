@@ -8,6 +8,8 @@ class LogServices {
   constructor(sequelize = null) {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
+
+    return this;
   }
 
   async initialize() {

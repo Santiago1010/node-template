@@ -16,6 +16,8 @@ class AccessServices {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
     this.logService = null;
+
+    return this;
   }
 
   async initialize() {
@@ -64,7 +66,7 @@ class AccessServices {
     });
   }
 
-  async getListAccesses({ limit, page, search, ids = [], fields = [], active, accountId, deviceId } = {}) {
+  async getListAccesses({ limit, page, search, ids = [], fields = [], active, accountId, deviceId, notBefore } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -84,6 +86,8 @@ class AccessServices {
 
     if (accountId) optionsQuery.where.accountId = accountId;
     if (deviceId) optionsQuery.where.deviceId = deviceId;
+
+    if (notBefore) optionsQuery.where.expiresAt = { [Op.gte]: notBefore };
 
     if (search) optionsQuery.where = setSearchQuery(this.models.usrAccesses, search, optionsQuery);
 
