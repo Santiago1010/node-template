@@ -30,16 +30,16 @@ class {{SERVICE_NAME}} {
   }
 
   // ================================= CRUD ================================= //
-  async {{CREATE_METHOD}}(user, {{REQUIRED_FIELDS}}, { {{OPTIONAL_FIELDS}} } = {}) {
+  async {{CREATE_METHOD}}(user, {{REQUIRED_FIELDS}}, { {{OPTIONAL_FIELDS}}, t } = {}) {
     const createData = { {{ALL_DATA}} };
 
     return await this.sequelize.transaction(async (transaction) => {
       const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.create(createData, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{CREATE_METHOD}}] ', createData),
       });
 
-      await this.logService.recordCreationLog(user, this.models.{{MAIN_MODEL}}, {{SINGLE_NAME}}, { transaction });
+      await this.logService.recordCreationLog(user, this.models.{{MAIN_MODEL}}, {{SINGLE_NAME}}, { transaction: t || transaction });
 
       return {{SINGLE_NAME}};
     });
@@ -48,12 +48,12 @@ class {{SERVICE_NAME}} {
   async {{UPDATE_STATUS_METHOD}}(user, ids, active) {
     return await this.sequelize.transaction(async (transaction) => {
       const result = await bulkToggleSoftDelete(this.models.{{MAIN_MODEL}}, { id: { [Op.in]: ids } }, active, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_STATUS_METHOD}}]'),
       });
 
       const logsPromises = ids.map(async (id) => {
-        return await this.logService.recordStatusChangeLog(user, this.models.{{MAIN_MODEL}}, id, active, { transaction });
+        return await this.logService.recordStatusChangeLog(user, this.models.{{MAIN_MODEL}}, id, active, { transaction: t || transaction });
       });
 
       await Promise.all(logsPromises);
@@ -118,11 +118,11 @@ class {{SERVICE_NAME}} {
 
     return await this.sequelize.transaction(async (transaction) => {
       const updatedData = await {{SINGLE_NAME}}.update(updateData, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_METHOD}}] ', updateData),
       });
 
-      await this.logService.recordUpdateLog(user, this.models.{{MAIN_MODEL}}, oldData, updatedData, { transaction });
+      await this.logService.recordUpdateLog(user, this.models.{{MAIN_MODEL}}, oldData, updatedData, { transaction: t || transaction });
 
       return updatedData;
     });
@@ -137,11 +137,11 @@ class {{SERVICE_NAME}} {
     return await this.sequelize.transaction(async (transaction) => {
       const deletedData = await {{SINGLE_NAME}}.destroy({
         force: true,
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{DELETE_METHOD}}]'),
       });
 
-      await this.logService.recordDeletionLog(user, this.models.{{MAIN_MODEL}}, deletedData, { justification, transaction });
+      await this.logService.recordDeletionLog(user, this.models.{{MAIN_MODEL}}, deletedData, { justification, transaction: t || transaction });
 
       return deletedData;
     });
