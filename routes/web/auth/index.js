@@ -22,6 +22,7 @@ const router = express.Router();
 // =============================================================================
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);
 router.get('/protected', validateWebSession, (req, res) => {
+  console.log(req.user);
   res.status(200).json({ message: 'Protected route', user: req.user });
 });
 
