@@ -7,41 +7,53 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const LogServices = require('../logs/logs.service');
-const sequelize = require('../../../config/database/connection');
+const { getSequelize } = require('../../../config/database/connection');
 const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 
-// =============================================================================
-// MODELS
-// =============================================================================
-const { {{MAIN_MODEL}} } = sequelize.models;
-
 class {{SERVICE_NAME}} {
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
+    this.logService = null;
+  }
+
+  async initialize() {
+    if (!this.sequelize) {
+      this.sequelize = await getSequelize();
+      this.models = this.sequelize.models;
+    }
+
+    this.logService = new LogServices(this.sequelize);
+
+    return this;
+  }
+
   // ================================= CRUD ================================= //
-  static async {{CREATE_METHOD}}(user, {{REQUIRED_FIELDS}}, { {{OPTIONAL_FIELDS}} } = {}) {
+  async {{CREATE_METHOD}}(user, {{REQUIRED_FIELDS}}, { {{OPTIONAL_FIELDS}} } = {}) {
     const createData = { {{ALL_DATA}} };
 
-    return await sequelize.transaction(async (transaction) => {
-      const {{SINGLE_NAME}} = await {{MAIN_MODEL}}.create(createData, {
+    return await this.sequelize.transaction(async (transaction) => {
+      const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.create(createData, {
         transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{CREATE_METHOD}}] ', createData),
       });
 
-      await LogServices.recordCreationLog(user, {{MAIN_MODEL}}, {{SINGLE_NAME}}, { transaction });
+      await this.logService.recordCreationLog(user, this.models.{{MAIN_MODEL}}, {{SINGLE_NAME}}, { transaction });
 
       return {{SINGLE_NAME}};
     });
   }
 
-  static async {{UPDATE_STATUS_METHOD}}(user, ids, active) {
-    return await sequelize.transaction(async (transaction) => {
-      const result = await bulkToggleSoftDelete({{MAIN_MODEL}}, { id: { [Op.in]: ids } }, active, {
+  async {{UPDATE_STATUS_METHOD}}(user, ids, active) {
+    return await this.sequelize.transaction(async (transaction) => {
+      const result = await bulkToggleSoftDelete(this.models.{{MAIN_MODEL}}, { id: { [Op.in]: ids } }, active, {
         transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_STATUS_METHOD}}]'),
       });
 
       const logsPromises = ids.map(async (id) => {
-        return await LogServices.recordStatusChangeLog(user, {{MAIN_MODEL}}, id, active, { transaction });
+        return await this.logService.recordStatusChangeLog(user, this.models.{{MAIN_MODEL}}, id, active, { transaction });
       });
 
       await Promise.all(logsPromises);
@@ -50,7 +62,7 @@ class {{SERVICE_NAME}} {
     });
   }
 
-  static async {{LIST_METHOD}}({ limit, page, search, ids = [], fields = [], active, {{FILTERS}} } = {}) {
+  async {{LIST_METHOD}}({ limit, page, search, ids = [], fields = [], active, {{FILTERS}} } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -61,7 +73,7 @@ class {{SERVICE_NAME}} {
       logging: wrapLogging('[{{SERVICE_NAME}}.{{LIST_METHOD}}] '),
     };
 
-    if (ids && ids.lenth > 0) optionsQuery.where.id = { [Op.in]: ids };
+    if (ids && ids.length > 0) optionsQuery.where.id = { [Op.in]: ids };
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
@@ -69,12 +81,12 @@ class {{SERVICE_NAME}} {
 
     // Set FILTERS here
 
-    if (search) optionsQuery.where = setSearchQuery({{MAIN_MODEL}}, search, optionsQuery);
+    if (search) optionsQuery.where = setSearchQuery(this.models.{{MAIN_MODEL}}, search, optionsQuery);
 
-    return await paginateModel({{MAIN_MODEL}}, limit, page, optionsQuery);
+    return await paginateModel(this.models.{{MAIN_MODEL}}, limit, page, optionsQuery);
   }
 
-  static async {{DETAILS_METHOD}}(identifier, { fields = [], includeHistory = false } = {}) {
+  async {{DETAILS_METHOD}}(identifier, { fields = [], includeHistory = false } = {}) {
     const optionsQuery = {
       where: { [Op.or]: [{ id: identifier }] },
       include: [
@@ -87,49 +99,49 @@ class {{SERVICE_NAME}} {
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
-    const {{SINGLE_NAME}} = await {{MAIN_MODEL}}.findOne(optionsQuery);
+    const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.findOne(optionsQuery);
 
-    if (includeHistory) {{SINGLE_NAME}}.dataValues.history = await LogServices.getFullLogsHistory({{SINGLE_NAME}});
+    if (includeHistory) {{SINGLE_NAME}}.dataValues.history = await this.logService.getFullLogsHistory({{SINGLE_NAME}});
 
     return {{SINGLE_NAME}};
   }
 
-  static async {{UPDATE_METHOD}}(user, id, { {{ALL_DATA}} } = {}) {
+  async {{UPDATE_METHOD}}(user, id, { {{ALL_DATA}} } = {}) {
     const updateData = { {{ALL_DATA}} };
 
-    const {{SINGLE_NAME}} = await {{MAIN_MODEL}}.findByPk(id, {
+    const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_METHOD}}] '),
     });
 
     const oldData = JSON.parse(JSON.stringify({{SINGLE_NAME}}));
 
-    return await sequelize.transaction(async (transaction) => {
+    return await this.sequelize.transaction(async (transaction) => {
       const updatedData = await {{SINGLE_NAME}}.update(updateData, {
         transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_METHOD}}] ', updateData),
       });
 
-      await LogServices.recordUpdateLog(user, {{MAIN_MODEL}}, oldData, updatedData, { transaction });
+      await this.logService.recordUpdateLog(user, this.models.{{MAIN_MODEL}}, oldData, updatedData, { transaction });
 
       return updatedData;
     });
   }
 
-  static async {{DELETE_METHOD}}(user, id, { justification } = {}) {
-    const {{SINGLE_NAME}} = await {{MAIN_MODEL}}.findByPk(id, {
+  async {{DELETE_METHOD}}(user, id, { justification } = {}) {
+    const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[{{SERVICE_NAME}}.{{DELETE_METHOD}}]'),
     });
 
-    return await sequelize.transaction(async (transaction) => {
+    return await this.sequelize.transaction(async (transaction) => {
       const deletedData = await {{SINGLE_NAME}}.destroy({
         force: true,
         transaction,
         logging: wrapLogging('[{{SERVICE_NAME}}.{{DELETE_METHOD}}]'),
       });
 
-      await LogServices.recordDeletionLog(user, {{MAIN_MODEL}}, deletedData, { justification, transaction });
+      await this.logService.recordDeletionLog(user, this.models.{{MAIN_MODEL}}, deletedData, { justification, transaction });
 
       return deletedData;
     });
