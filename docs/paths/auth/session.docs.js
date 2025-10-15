@@ -21,7 +21,6 @@ const login = standardRequest('post', {
           properties: {
             credential: { type: 'string', description: '', example: faker.internet.email().toLowerCase() },
             password: { type: 'string', description: '', example: faker.internet.password() },
-            fingerprint: { type: 'string', description: '', example: faker.string.uuid() },
           },
         },
       },

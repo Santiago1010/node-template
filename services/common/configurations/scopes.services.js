@@ -15,6 +15,9 @@ class ScopeServices {
   constructor(sequelize = null) {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
+    this.logService = null;
+
+    return this;
   }
 
   async initialize() {
@@ -23,7 +26,7 @@ class ScopeServices {
       this.models = this.sequelize.models;
     }
 
-    this.logService = await new LogServices().initialize();
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
@@ -72,7 +75,7 @@ class ScopeServices {
       logging: wrapLogging('[ScopeServices.getListScopes] '),
     };
 
-    if (ids && ids.lenth > 0) optionsQuery.where.id = { [Op.in]: ids };
+    if (ids && ids.length > 0) optionsQuery.where.id = { [Op.in]: ids };
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 

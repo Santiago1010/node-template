@@ -19,12 +19,14 @@ const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
 const { getSecret } = require('../../../helpers/vault.helper');
 
 class SessionService {
-  constructor() {
-    this.sequelize = null;
-    this.models = null;
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
 
     this.accessTokenSecret = null;
     this.refreshTokenSecret = null;
+
+    return this;
   }
 
   async initialize() {
@@ -38,8 +40,8 @@ class SessionService {
     this.accessTokenSecret = access_token_secret;
     this.refreshTokenSecret = refresh_token_secret;
 
-    this.accessesService = await new AccessServices().initialize();
-    this.devicesService = await new DeviceServices().initialize();
+    this.accessesService = new AccessServices(this.sequelize);
+    this.devicesService = new DeviceServices(this.sequelize);
 
     return this;
   }
@@ -107,6 +109,7 @@ class SessionService {
       active: true,
       accountId: account.id,
       deviceId: managedDevice.id,
+      notBefore: moment().valueOf(),
     });
 
     if (pagination.total === 0) {

@@ -12,9 +12,12 @@ const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../.
 const { wrapLogging } = require('../../../helpers/debug.helper');
 
 class AccessServices {
-  constructor() {
-    this.sequelize = null;
-    this.models = null;
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
+    this.logService = null;
+
+    return this;
   }
 
   async initialize() {
@@ -23,7 +26,7 @@ class AccessServices {
       this.models = this.sequelize.models;
     }
 
-    this.logService = await new LogServices().initialize();
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
@@ -63,7 +66,7 @@ class AccessServices {
     });
   }
 
-  async getListAccesses({ limit, page, search, ids = [], fields = [], active, accountId, deviceId } = {}) {
+  async getListAccesses({ limit, page, search, ids = [], fields = [], active, accountId, deviceId, notBefore } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -83,6 +86,8 @@ class AccessServices {
 
     if (accountId) optionsQuery.where.accountId = accountId;
     if (deviceId) optionsQuery.where.deviceId = deviceId;
+
+    if (notBefore) optionsQuery.where.expiresAt = { [Op.gte]: notBefore };
 
     if (search) optionsQuery.where = setSearchQuery(this.models.usrAccesses, search, optionsQuery);
 

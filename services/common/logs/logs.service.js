@@ -5,9 +5,11 @@ const { getSequelize } = require('../../../config/database/connection');
 const { paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
 
 class LogServices {
-  constructor() {
-    this.sequelize = null;
-    this.models = null;
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
+
+    return this;
   }
 
   async initialize() {

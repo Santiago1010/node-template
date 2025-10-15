@@ -12,9 +12,12 @@ const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../.
 const { wrapLogging } = require('../../../helpers/debug.helper');
 
 class DeviceServices {
-  constructor() {
-    this.sequelize = null;
-    this.models = null;
+  constructor(sequelize = null) {
+    this.sequelize = sequelize;
+    this.models = sequelize ? sequelize.models : null;
+    this.logService = null;
+
+    return this;
   }
 
   async initialize() {
@@ -23,7 +26,7 @@ class DeviceServices {
       this.models = this.sequelize.models;
     }
 
-    this.logService = await new LogServices().initialize();
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
