@@ -12,7 +12,8 @@ class SessionController {
     const { credential, password } = req.body;
 
     try {
-      const sessionService = await new SessionService().initialize();
+      const sessionService = new SessionService();
+      await sessionService.initialize();
 
       const deviceInfo = getDeviceInfo(req, true);
       const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
