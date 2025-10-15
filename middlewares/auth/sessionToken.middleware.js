@@ -86,7 +86,8 @@ const validateWebSession = async (req, _, next) => {
     }
 
     const now = moment().valueOf();
-    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, usrEmployees } = sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, usrEmployees, configSecurityLevels } =
+      sequelize.models;
 
     // Single optimized database query with all required data
     const account = await usrAccounts.findOne({
@@ -109,6 +110,12 @@ const validateWebSession = async (req, _, next) => {
           as: 'role',
           attributes: ['id', 'name'],
           required: true,
+          include: {
+            model: configSecurityLevels,
+            as: 'securityLevel',
+            attributes: ['id', 'slug', 'name', 'description', 'priority'],
+            required: true,
+          },
         },
         {
           model: usrAccesses,
@@ -209,10 +216,15 @@ const validateWebSession = async (req, _, next) => {
     // Build final user object
     req.user = {
       ...userData,
+      internalCode: cleanAccount.internalCode,
+      securityLevel: cleanAccount.role.securityLevel.priority,
       account: cleanAccount,
       scopes,
       device: refreshTokenPayload.device,
     };
+
+    delete req.user.account.internalCode;
+    delete req.user.account.role.securityLevel.priority;
 
     ContextHelper.set('user', req.user);
 
