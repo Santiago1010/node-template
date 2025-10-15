@@ -9,7 +9,7 @@ const { getDeviceInfo } = require('../../../utils/utilities.util');
 
 class SessionController {
   static async login(req, res, next) {
-    const { credential, password, fingerprint } = req.body;
+    const { credential, password } = req.body;
 
     try {
       const sessionService = await new SessionService().initialize();
@@ -32,6 +32,8 @@ class SessionController {
           messageData: { remainingTTL: Math.ceil(remainingTTL / 60) },
         });
       }
+
+      const fingerprint = req.headers['x-fingerprint'];
 
       const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
