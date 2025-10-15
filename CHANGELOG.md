@@ -1,5 +1,60 @@
 
 
+## [1.16.0] - 2025-10-15
+
+**Released:** 2025-10-15 18:13:33 UTC
+
+### [Move fingerprint to header and refactor service initialization](https://github.com/Santiago1010/node-template/pull/82)
+
+#### 📋 Summary
+Refactored authentication flow to move fingerprint from request body to header and updated service classes to use dependency injection pattern for better testability and initialization.
+
+#### 🔍 What Changed
+### Added
+- Fingerprint header support (`x-fingerprint`) in session controller
+- Constructor injection pattern for service classes
+- `notBefore` filter for access records
+- Transaction parameter support in service template
+
+### Changed
+- Moved fingerprint from request body to header
+- Updated API documentation to remove fingerprint from body
+- Modified service initialization to support dependency injection
+- Updated CRUD service template with new initialization pattern
+- Fixed typo in length condition (`lenth` → `length`)
+
+### Fixed
+- Service initialization dependencies
+- Transaction handling in service methods
+
+### Removed
+- Fingerprint validation from login schema
+- Fingerprint from request body examples
+
+#### 📝 Additional Notes
+- Service classes now support constructor injection for better testability
+- Transaction parameter added to allow existing transaction reuse
+- Header-based fingerprint improves security by separating credentials from device identification
+
+**Type of Change:** New Feature, Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement, refactor
+- Commits: 5
+
+**Commits:**
+- [`efa52ef`](https://github.com/Santiago1010/node-template/commit/efa52ef54a4cd2476eff5853711a39d495a4ed76) refactor(services): convert static services to instance-based with dependency injection
+- [`33e6713`](https://github.com/Santiago1010/node-template/commit/33e67132cf832f7e0be07522a9181068a41cc213) refactor(services): implement dependency injection pattern across service classes
+- [`f54a04e`](https://github.com/Santiago1010/node-template/commit/f54a04edebd63413aac8833b16d74eb057ced74a) feat(crud): add external transaction support to service template methods
+- [`24a65fc`](https://github.com/Santiago1010/node-template/commit/24a65fc3adf1c02f0ee2f5c45afdb9c2cdc9d549) feat(auth): add notBefore filter to access queries and constructor returns
+- [`bdf2756`](https://github.com/Santiago1010/node-template/commit/bdf2756d6d76f09aeaa22dd751b46d696d458549) refactor(auth): move fingerprint from request body to headers
+
+---
+
+
+
 ## [1.15.0] - 2025-10-14
 
 **Released:** 2025-10-14 23:24:27 UTC
