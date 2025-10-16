@@ -52,11 +52,6 @@ class MailerHelper {
     };
 
     if (isDevelopmentMode()) {
-      baseConfig.auth = {
-        user: process.env.SMTP_USER || '',
-        pass: process.env.SMTP_PASS || '',
-      };
-
       this.defaultRecipients = {
         to: [config.email.addresses.defaultFrom],
         cc: [],
@@ -70,7 +65,7 @@ class MailerHelper {
       };
     }
 
-    if (config.email.smtp.service) {
+    if (!isDevelopmentMode() && config.email.smtp.service) {
       baseConfig.service = config.email.smtp.service;
     }
 
