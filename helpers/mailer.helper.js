@@ -6,7 +6,7 @@ const path = require('path');
 const config = require('../config/env');
 const i18n = require('../config/i18n');
 const { getSecret } = require('./vault.helper');
-const { plog, perror, isDevelopmentMode, clog } = require('./debug.helper');
+const { plog, perror, isDevelopmentMode, cdir, clog } = require('./debug.helper');
 const { PATHS } = require('../utils/constants.util');
 
 class MailerHelper {
@@ -30,7 +30,7 @@ class MailerHelper {
       this.transporter = nodemailer.createTransport(transportConfig);
 
       await this.transporter.verify();
-      plog('Mailer initialized successfully', `Service: ${config.email.smtp.service}`);
+      clog('Mailer initialized successfully', `Service: ${config.email.smtp.service}`);
 
       this.isInitialized = true;
     } catch (error) {
@@ -106,6 +106,8 @@ class MailerHelper {
 
       const enrichedVariables = {
         ...variables,
+        headerImage: '',
+        footerImage: '',
         currentYear: moment().year(),
         currentDate: moment().format('YYYY-MM-DD'),
         appName: config.name,
@@ -113,10 +115,9 @@ class MailerHelper {
         formatDate: (date, format = 'YYYY-MM-DD HH:mm:ss') => {
           return moment(date).format(format);
         },
-        t: (key, params) => i18n.__(key, params),
       };
 
-      clog('Email template variables', enrichedVariables);
+      cdir('Email template variables', enrichedVariables);
 
       const html = await ejs.renderFile(templatePath, enrichedVariables);
       return html;
