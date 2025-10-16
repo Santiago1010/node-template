@@ -6,6 +6,7 @@ const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
+const SessionMailer = require('../../../services/emails/auth/session.email');
 
 class SessionController {
   static async login(req, res, next) {
@@ -71,6 +72,9 @@ class SessionController {
         sameSite: 'strict',
         maxAge: config.jwt.refreshToken.expiration,
       });
+
+      const emailServce = new SessionMailer();
+      await emailServce.sendWelcomeEmail({ name: 'Santiago', email: 'santiago.c.a_10@hotmail.es' });
 
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {

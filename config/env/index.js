@@ -271,6 +271,28 @@ const config = {
   },
 
   // ===========================================================================
+  // SMTP / EMAIL CONFIGURATION
+  // ===========================================================================
+  email: {
+    // SMTP Provider Configuration
+    smtp: {
+      service: process.env.SMTP_SERVICE,
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT, 10) || 1025,
+      secure: process.env.SMTP_SECURE === 'true',
+      tls: {
+        rejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED === 'true',
+      },
+    },
+
+    // Email Address Configuration
+    addresses: {
+      defaultFrom: process.env.MAIL_DEFAULT_FROM,
+      support: process.env.MAIL_SUPPORT_ADDRESS,
+    },
+  },
+
+  // ===========================================================================
   // VAULT CONFIGURATION
   // ===========================================================================
   vault: {
