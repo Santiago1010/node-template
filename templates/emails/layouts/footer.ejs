@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <!-- Footer -->
+  <tr>
+    <td style="background: linear-gradient(135deg, #1A1D23 0%, #2C3038 100%); padding: 40px 30px; text-align: center;">
+      <!-- Imagen de cierre -->
+      <% if (typeof footerImage !=='undefined' && footerImage) { %>
+        <img src="<%= footerImage %>" alt="Footer" style="max-width: 150px; margin: 0 auto 20px;" />
+        <% } %>
+
+          <!-- Divisor decorativo -->
+          <div
+            style="height: 2px; background: linear-gradient(90deg, #DC143C 0%, #D4AF37 100%); max-width: 200px; margin: 0 auto 20px;">
+          </div>
+
+          <!-- Información de contacto -->
+          <p style="color: #FFFFFF; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0;">
+            <strong>Tu Empresa</strong>
+          </p>
+
+          <p style="color: #9CA3AF; font-size: 13px; line-height: 1.6; margin: 0 0 20px 0;">
+            Email: contacto@tuempresa.com<br>
+            Teléfono: +57 123 456 7890<br>
+            Dirección: Calle Principal #123, Ciudad, País
+          </p>
+
+          <!-- Enlaces del footer -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 20px 0;">
+            <tr>
+              <td align="center">
+                <a href="#" style="color: #D4AF37; text-decoration: none; font-size: 13px; margin: 0 10px;">Política de
+                  Privacidad</a>
+                <span style="color: #6B7280;">|</span>
+                <a href="#" style="color: #D4AF37; text-decoration: none; font-size: 13px; margin: 0 10px;">Términos de
+                  Servicio</a>
+                <span style="color: #6B7280;">|</span>
+                <a href="#" style="color: #D4AF37; text-decoration: none; font-size: 13px; margin: 0 10px;">Darse de
+                  Baja</a>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Redes sociales -->
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 20px 0;">
+            <tr>
+              <td align="center">
+                <a href="#" style="display: inline-block; margin: 0 8px;">
+                  <img src="https://via.placeholder.com/32x32/DC143C/FFFFFF?text=FB" alt="Facebook"
+                    style="width: 32px; height: 32px; border-radius: 50%;" />
+                </a>
+                <a href="#" style="display: inline-block; margin: 0 8px;">
+                  <img src="https://via.placeholder.com/32x32/DC143C/FFFFFF?text=TW" alt="Twitter"
+                    style="width: 32px; height: 32px; border-radius: 50%;" />
+                </a>
+                <a href="#" style="display: inline-block; margin: 0 8px;">
+                  <img src="https://via.placeholder.com/32x32/DC143C/FFFFFF?text=IG" alt="Instagram"
+                    style="width: 32px; height: 32px; border-radius: 50%;" />
+                </a>
+                <a href="#" style="display: inline-block; margin: 0 8px;">
+                  <img src="https://via.placeholder.com/32x32/DC143C/FFFFFF?text=LI" alt="LinkedIn"
+                    style="width: 32px; height: 32px; border-radius: 50%;" />
+                </a>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Copyright -->
+          <p style="color: #6B7280; font-size: 12px; line-height: 1.5; margin: 20px 0 0 0;">
+            © <%= new Date().getFullYear() %> Tu Empresa. Todos los derechos reservados.
+          </p>
+
+          <!-- Mensaje de entorno (solo visible en desarrollo) -->
+          <% if (typeof isDevelopment !=='undefined' && isDevelopment===true) { %>
+            <div
+              style="background-color: #F59E0B; color: #1A1D23; padding: 12px; border-radius: 6px; margin: 20px 0 0 0; font-weight: 600; font-size: 13px;">
+              ⚠️ ENTORNO DE DESARROLLO - Este correo es solo para pruebas
+            </div>
+            <% } %>
+
+              <!-- Información adicional de tracking (solo en producción) -->
+              <% if (typeof isDevelopment !=='undefined' && isDevelopment===false) { %>
+                <p style="color: #4B5563; font-size: 11px; line-height: 1.4; margin: 20px 0 0 0;">
+                  Has recibido este correo porque estás suscrito a nuestros servicios.<br>
+                  Si no deseas recibir más correos, puedes <a href="#" style="color: #D4AF37;">darte de baja aquí</a>.
+                </p>
+                <% } %>
+    </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+</body>
+
+</html>

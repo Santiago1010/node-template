@@ -1,18 +1,13 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
+const moment = require('moment');
 const path = require('path');
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-const timezone = require('dayjs/plugin/timezone');
 
 const config = require('../config/env');
 const i18n = require('../config/i18n');
 const { getSecret } = require('./vault.helper');
-const { plog, perror, isDevelopmentMode } = require('./debug.helper');
+const { plog, perror, isDevelopmentMode, clog } = require('./debug.helper');
 const { PATHS } = require('../utils/constants.util');
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
 
 class MailerHelper {
   constructor() {
@@ -73,8 +68,6 @@ class MailerHelper {
       baseConfig.tls = config.email.smtp.tls;
     }
 
-    console.log(baseConfig);
-
     return baseConfig;
   }
 
@@ -113,15 +106,17 @@ class MailerHelper {
 
       const enrichedVariables = {
         ...variables,
-        currentYear: dayjs().year(),
-        currentDate: dayjs().tz(config.timeZone.name).format('YYYY-MM-DD'),
+        currentYear: moment().year(),
+        currentDate: moment().format('YYYY-MM-DD'),
         appName: config.name,
         appUrl: config.url,
         formatDate: (date, format = 'YYYY-MM-DD HH:mm:ss') => {
-          return dayjs(date).tz(config.timeZone.name).format(format);
+          return moment(date).format(format);
         },
         t: (key, params) => i18n.__(key, params),
       };
+
+      clog('Email template variables', enrichedVariables);
 
       const html = await ejs.renderFile(templatePath, enrichedVariables);
       return html;
@@ -166,7 +161,7 @@ class MailerHelper {
         recipients: mailOptions.to,
         subject: mailOptions.subject,
         template: templateName || 'None',
-        timestamp: dayjs().tz(config.timeZone.name).format('YYYY-MM-DD HH:mm:ss'),
+        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
 
       return {
@@ -179,7 +174,7 @@ class MailerHelper {
         subject,
         template: templateName || 'None',
         error: error.message,
-        timestamp: dayjs().tz(config.timeZone.name).format('YYYY-MM-DD HH:mm:ss'),
+        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
 
       return {
