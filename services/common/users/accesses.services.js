@@ -15,7 +15,7 @@ class AccessServices {
   constructor(sequelize = null) {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
-    this.logService = null;
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
@@ -49,15 +49,17 @@ class AccessServices {
     });
   }
 
-  async updateAccessesStatus(user, ids, active) {
+  async updateAccessesStatus(user, ids, active, { t } = {}) {
     return await this.sequelize.transaction(async (transaction) => {
       const result = await bulkToggleSoftDelete(this.models.usrAccesses, { id: { [Op.in]: ids } }, active, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[AccessServices.updateAccessesStatus]'),
       });
 
       const logsPromises = ids.map(async (id) => {
-        return await this.logService.recordStatusChangeLog(user, this.models.usrAccesses, id, active, { transaction });
+        return await this.logService.recordStatusChangeLog(user, this.models.usrAccesses, id, active, {
+          transaction: t || transaction,
+        });
       });
 
       await Promise.all(logsPromises);
@@ -66,7 +68,18 @@ class AccessServices {
     });
   }
 
-  async getListAccesses({ limit, page, search, ids = [], fields = [], active, accountId, deviceId, notBefore } = {}) {
+  async getListAccesses({
+    limit,
+    page,
+    search,
+    ids = [],
+    fields = [],
+    active,
+    accountId,
+    deviceId,
+    idToken,
+    notBefore,
+  } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -86,6 +99,8 @@ class AccessServices {
 
     if (accountId) optionsQuery.where.accountId = accountId;
     if (deviceId) optionsQuery.where.deviceId = deviceId;
+
+    if (idToken) optionsQuery.where.idToken = idToken;
 
     if (notBefore) optionsQuery.where.expiresAt = { [Op.gte]: notBefore };
 
@@ -115,7 +130,7 @@ class AccessServices {
     return access;
   }
 
-  async updateAccess(id, { accountId, deviceId, idToken, expiresAt, isSafeMode, user } = {}) {
+  async updateAccess(id, { accountId, deviceId, idToken, expiresAt, isSafeMode, active, user, t } = {}) {
     const updateData = { accountId, deviceId, idToken, expiresAt, isSafeMode };
 
     const access = await this.models.usrAccesses.findByPk(id, {
@@ -131,8 +146,13 @@ class AccessServices {
         logging: wrapLogging('[AccessServices.updateAccess] ', updateData),
       });
 
-      if (user)
-        await this.logService.recordUpdateLog(user, this.models.usrAccesses, oldData, updatedData, { transaction });
+      if (active !== undefined) await this.updateAccessesStatus(user, [id], active);
+
+      if (user && Object.values(updateData).some((value) => value !== undefined)) {
+        await this.logService.recordUpdateLog(user, this.models.usrAccesses, oldData, updatedData, {
+          transaction: t || transaction,
+        });
+      }
 
       return updatedData;
     });

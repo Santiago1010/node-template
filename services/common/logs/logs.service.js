@@ -34,7 +34,7 @@ class LogServices {
 
   async recordCreationLog(user, model, createdData, { transaction } = {}) {
     return await this.models.logsCreation.create(
-      { rowId: LogServices.getPrimaryKeyValue(createdData), responsible: user, tableModel: model, createdData },
+      { rowId: this.getPrimaryKeyValue(createdData), responsible: user, tableModel: model, createdData },
       { transaction }
     );
   }
@@ -70,7 +70,7 @@ class LogServices {
   async recordDeletionLog(user, model, deletedData, { justification, transaction } = {}) {
     return await this.models.logsDeletion.create(
       {
-        rowId: LogServices.getPrimaryKeyValue(deletedData),
+        rowId: this.getPrimaryKeyValue(deletedData),
         responsible: user,
         tableModel: model,
         oldData: deletedData,
@@ -158,7 +158,7 @@ class LogServices {
   async recordUpdateLog(user, model, oldData, newData, { transaction } = {}) {
     return await this.models.logsUpdate.create(
       {
-        rowId: LogServices.getPrimaryKeyValue(newData),
+        rowId: this.getPrimaryKeyValue(newData),
         responsible: user,
         tableModel: model,
         oldData,

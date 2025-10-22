@@ -92,19 +92,16 @@ class SessionService {
     return await this.createTokens(account, fingerprint, device);
   }
 
-  async logout(accountId, deviceId, jti) {
-    const access = await this.accessesService.getAccessByToken(accountId, deviceId, jti);
+  async logout(user, accountId, jti) {
+    const access = await this.accessesService.getListAccesses({ limit: 1, page: 1, active: true, accountId, jti });
 
-    if (!access) {
+    if (!access.results.length === 0) {
       throw error({ httpCode: 404, messagePath: 'auth.logout.sessionNotFound' });
     }
 
-    await this.accessesService.updateAccess(access.id, {
-      active: false,
-      expiresAt: moment().valueOf(),
-    });
+    await this.accessesService.updateAccess(access.results[0].id, { active: false, user });
 
-    return { success: true };
+    return true;
   }
 
   // =============================== TOKENS ================================ //

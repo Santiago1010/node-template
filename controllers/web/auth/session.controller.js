@@ -83,8 +83,29 @@ class SessionController {
   }
 
   static async logout(req, res, next) {
+    const { account, jti, device } = req.user;
+
     try {
       console.log(req.user);
+
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      await sessionService.logout(req.user, account.id, jti);
+
+      const sessionKey = buildKey('session', account.id, device.fingerprint);
+      await del(sessionKey);
+
+      res.clearCookie('accessToken', {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+      });
+      res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+      });
 
       return success(res, { messagePath: 'auth.logout.success' });
     } catch (error) {
