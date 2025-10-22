@@ -52,6 +52,9 @@
       "invalidSession": "auth.session.invalidSession",
       "invalidToken": "auth.session.invalidToken",
       "notFound": "auth.session.notFound"
+    },
+    "logout": {
+      "success": "auth.logout.success"
     }
   },
   "enums": {

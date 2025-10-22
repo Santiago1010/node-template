@@ -221,6 +221,7 @@ const validateWebSession = async (req, _, next) => {
       account: cleanAccount,
       scopes,
       device: refreshTokenPayload.device,
+      jti: refreshTokenPayload.jti,
     };
 
     delete req.user.account.internalCode;

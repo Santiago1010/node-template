@@ -92,6 +92,22 @@ class SessionService {
     return await this.createTokens(account, fingerprint, device);
   }
 
+  async logout(accountId, deviceId, jti) {
+    const access = await this.accessesService.getAccessByToken(accountId, deviceId, jti);
+
+    if (!access) {
+      throw error({ httpCode: 404, messagePath: 'auth.logout.sessionNotFound' });
+    }
+
+    await this.accessesService.updateAccess(access.id, {
+      active: false,
+      expiresAt: moment().valueOf(),
+    });
+
+    return { success: true };
+  }
+
+  // =============================== TOKENS ================================ //
   async createTokens(account, fingerprint, device) {
     const managedDevice = await this.manageDevice(account.id, fingerprint, device);
 
@@ -133,7 +149,6 @@ class SessionService {
     return { accountId: account.id, isSafeMode, accessToken, refreshToken };
   }
 
-  // =============================== TOKENS ================================ //
   createAccessToken(account, isSafeMode) {
     const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
 

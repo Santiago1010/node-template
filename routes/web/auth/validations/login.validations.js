@@ -5,4 +5,6 @@ const loginSchema = {
   password: commonSchemas.passwordSchema('password', 'body', { required: true, minSecurityLevel: 0 }),
 };
 
-module.exports = { loginSchema };
+const logoutSchema = {};
+
+module.exports = { loginSchema, logoutSchema };

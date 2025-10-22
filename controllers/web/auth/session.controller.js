@@ -81,6 +81,16 @@ class SessionController {
       return next(error);
     }
   }
+
+  static async logout(req, res, next) {
+    try {
+      console.log(req.user);
+
+      return success(res, { messagePath: 'auth.logout.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = SessionController;
