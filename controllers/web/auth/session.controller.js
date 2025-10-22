@@ -2,13 +2,28 @@ const moment = require('moment');
 
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
+const SessionMailer = require('../../../services/emails/auth/session.email');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
-const SessionMailer = require('../../../services/emails/auth/session.email');
 
 class SessionController {
+  static async signup(req, res, next) {
+    const { firstName, firstLastName, email, password } = req.body;
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      await sessionService.signup(firstName, firstLastName, email, password);
+
+      return success(res, { messagePath: 'auth.signup.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   static async login(req, res, next) {
     const { credential, password } = req.body;
 

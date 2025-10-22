@@ -20,6 +20,8 @@ const router = express.Router();
 // =============================================================================
 // ROUTES
 // =============================================================================
+router.post('(signup', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.signup);
+
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);
 
 router.delete(

@@ -17,6 +17,7 @@ const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
 const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
 const { getSecret } = require('../../../helpers/vault.helper');
+const { generateInternalCode } = require('../../../utils/utilities.util');
 
 class SessionService {
   constructor(sequelize = null) {
@@ -44,6 +45,45 @@ class SessionService {
     this.devicesService = new DeviceServices(this.sequelize);
 
     return this;
+  }
+
+  async signup(firstName, firstLastName, email, password) {
+    const hashedPassword = await this.hashPassword(password);
+
+    const defaultRole = await this.models.configRoles.findOne({
+      attributes: ['id'],
+      where: { target: 'everyone', isDefault: true },
+      raw: true,
+      logging: wrapLogging('[SessionService.signup] Get default role'),
+    });
+
+    if (!defaultRole) throw error({ httpCode: 500, messagePath: 'auth.signup.defaultRoleNotFound' });
+
+    const ceateUserData = { firstName, firstLastName };
+
+    const createAccountData = {
+      rolId: defaultRole.id,
+      userId: null,
+      internalCode: generateInternalCode('account'),
+      email,
+      password: hashedPassword,
+    };
+
+    await this.sequelize.transaction(async (transaction) => {
+      const user = await this.models.usrUsers.create(ceateUserData, {
+        transaction,
+        logging: wrapLogging('[SessionService.signup] Create user', ceateUserData),
+      });
+
+      createAccountData.userId = user.id;
+
+      await this.models.usrAccounts.create(createAccountData, {
+        transaction,
+        logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
+      });
+    });
+
+    return true;
   }
 
   async login(credential, password, fingerprint, device) {
