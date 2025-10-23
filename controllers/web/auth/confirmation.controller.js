@@ -18,6 +18,21 @@ class ConfirmationController {
       return next(error);
     }
   }
+
+  static async confirmEmail(req, res, next) {
+    const { token } = req.params;
+
+    try {
+      const confirmationService = new ConfirmationService();
+      await confirmationService.initialize();
+
+      await confirmationService.confirmEmail(token);
+
+      return success(res, { messagePath: 'auth.login.emailConfirmed' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = ConfirmationController;

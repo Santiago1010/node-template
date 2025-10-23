@@ -8,7 +8,7 @@ const express = require('express');
 // =============================================================================
 const ConfirmationController = require('../../../controllers/web/auth/confirmation.controller');
 const SessionController = require('../../../controllers/web/auth/session.controller');
-const { sendConfirmationEmailSchema } = require('./validations/confirmation.validation');
+const { sendConfirmationEmailSchema, confirmEmailSchema } = require('./validations/confirmation.validation');
 const { loginSchema, logoutSchema, signupSchema } = require('./validations/session.validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
@@ -29,6 +29,13 @@ router.post(
   checkSchemaWithRegistry(sendConfirmationEmailSchema),
   validationErrorHandler,
   ConfirmationController.sendConfirmationEmail
+);
+
+router.get(
+  '/confirm-email/:token',
+  checkSchemaWithRegistry(confirmEmailSchema),
+  validationErrorHandler,
+  ConfirmationController.confirmEmail
 );
 
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);

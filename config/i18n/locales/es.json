@@ -6,7 +6,8 @@
     "fingerprint": "fields.fingerprint",
     "firstName": "fields.firstName",
     "firstLastName": "fields.firstLastName",
-    "email": "fields.email"
+    "email": "fields.email",
+    "token": "fields.token"
   },
   "validations": {
     "required": "El campo {field} es requerido",
