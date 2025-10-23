@@ -11,11 +11,13 @@ class SessionMailer extends MailerHelper {
   async sendWelcomeEmail(email, firstName, token) {
     const host = ContextHelper.get('host');
 
+    const url = `https://${host.url}/auth/verify-email?token=${token}`;
+
     return await this.send({
       to: email,
       subject: 'Bienvenido a nuestra aplicación',
       templateName: '/auth/welcome',
-      variables: { firstName, token, host: host.url },
+      variables: { firstName, token, url },
       locale: 'es',
     });
   }
