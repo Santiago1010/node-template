@@ -40,7 +40,11 @@ class ConfirmationService {
       logging: wrapLogging('[ConfirmationService.sendConfirmationEmail] Get account by email'),
     });
 
-    if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
+    if (!account) throw error({ httpCode: 404, messagePath: 'auth.sendConfirmationEmail.invalidCredentials' });
+
+    if (account.emailConfirmedAt) {
+      throw error({ httpCode: 400, messagePath: 'auth.sendConfirmationEmail.emailAlreadyConfirmed' });
+    }
 
     const createTokenData = {
       accountId: account.id,
