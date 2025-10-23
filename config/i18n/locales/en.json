@@ -49,7 +49,8 @@
     "login": {
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
-      "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes."
+      "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes.",
+      "confirmationEmailSent": "auth.login.confirmationEmailSent"
     },
     "session": {
       "invalidSession": "auth.session.invalidSession",
