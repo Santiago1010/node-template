@@ -1,7 +1,6 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const bcrypt = require('bcrypt');
 const moment = require('moment');
 const { Op } = require('sequelize');
 
@@ -15,7 +14,7 @@ const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
-const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
+const { createJWT, verifyJWT, hashPassword, verifyPassword } = require('../../../helpers/security.helper');
 const { getSecret } = require('../../../helpers/vault.helper');
 const { generateInternalCode } = require('../../../utils/utilities.util');
 
@@ -48,7 +47,7 @@ class SessionService {
   }
 
   async signup(firstName, firstLastName, email, password) {
-    const hashedPassword = await this.hashPassword(password);
+    const hashedPassword = await hashPassword(password, 10);
 
     const defaultRole = await this.models.configRoles.findOne({
       attributes: ['id'],
@@ -68,6 +67,15 @@ class SessionService {
       email,
       password: hashedPassword,
     };
+
+    const existingAccount = await this.models.usrAccounts.findOne({
+      attributes: ['id'],
+      where: { email },
+      raw: true,
+      logging: wrapLogging('[SessionService.signup] Get existing account'),
+    });
+
+    if (existingAccount) throw error({ httpCode: 400, messagePath: 'auth.signup.accountExists' });
 
     await this.sequelize.transaction(async (transaction) => {
       const user = await this.models.usrUsers.create(ceateUserData, {
@@ -125,7 +133,7 @@ class SessionService {
       throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
     }
 
-    const validPassword = await bcrypt.compare(password, account.password);
+    const validPassword = await verifyPassword(password, account.password);
     account.password = undefined;
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
 

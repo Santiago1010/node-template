@@ -3,7 +3,10 @@
     "test": "Test variable",
     "credential": "fields.credential",
     "password": "fields.password",
-    "fingerprint": "fields.fingerprint"
+    "fingerprint": "fields.fingerprint",
+    "firstName": "fields.firstName",
+    "firstLastName": "fields.firstLastName",
+    "email": "fields.email"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -55,6 +58,10 @@
     },
     "logout": {
       "success": "auth.logout.success"
+    },
+    "signup": {
+      "accountExists": "auth.signup.accountExists",
+      "success": "auth.signup.success"
     }
   },
   "enums": {

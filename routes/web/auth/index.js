@@ -7,7 +7,7 @@ const express = require('express');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const SessionController = require('../../../controllers/web/auth/session.controller');
-const { loginSchema, logoutSchema } = require('./validations/login.validations');
+const { loginSchema, logoutSchema, signupSchema } = require('./validations/login.validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
 const { checkSchemaWithRegistry } = require('../../../utils/validationRegistry.util');
@@ -20,7 +20,7 @@ const router = express.Router();
 // =============================================================================
 // ROUTES
 // =============================================================================
-router.post('(signup', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.signup);
+router.post('/signup', checkSchemaWithRegistry(signupSchema), validationErrorHandler, SessionController.signup);
 
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);
 

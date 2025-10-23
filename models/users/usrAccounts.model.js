@@ -71,7 +71,7 @@ const Schema = {
     field: 'dial_code_id',
   },
   internalCode: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING(30),
     allowNull: false,
     unique: 'account_code_UN',
     comment: 'Internal code assigned to each account.',
