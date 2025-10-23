@@ -1,3 +1,4 @@
+const ContextHelper = require('../../../helpers/context.helper');
 const MailerHelper = require('../../../helpers/mailer.helper');
 
 class SessionMailer extends MailerHelper {
@@ -7,15 +8,14 @@ class SessionMailer extends MailerHelper {
     return this;
   }
 
-  async sendWelcomeEmail(user) {
+  async sendWelcomeEmail(email, firstName, token) {
+    const host = ContextHelper.get('host');
+
     return await this.send({
-      to: user.email,
+      to: email,
       subject: 'Bienvenido a nuestra aplicación',
       templateName: '/auth/welcome',
-      variables: {
-        userName: user.name,
-        userEmail: user.email,
-      },
+      variables: { firstName, token, host: host.url },
       locale: 'es',
     });
   }

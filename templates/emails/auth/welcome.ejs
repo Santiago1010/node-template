@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -7,15 +7,14 @@
 </head>
 
 <body>
-  <%- include('../layouts/header.ejs', { subject: 'Bienvenido a Tu Empresa' , language: 'es' ,
-    headerImage: 'https://tudominio.com/images/logo.png' }) %>
+  <%- include('../layouts/header.ejs') %>
 
     <table width="600" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td>
           <!-- Saludo principal -->
           <h1 class="heading-1">
-            ¡Bienvenido, <%= userName %>! 🎉
+            ¡Bienvenido, <%= firstName %>! 🎉
           </h1>
 
           <p class="text-body">
@@ -36,7 +35,7 @@
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
             <tr>
               <td align="center">
-                <a href="https://www.youtube.com/@Folagor03/streams" target="_blank" class="btn btn-primary">
+                <a href="<%= host %>/verify-email?token=<%= token %>" target="_blank" class="btn btn-primary">
                   Verificar mi Correo
                 </a>
               </td>
@@ -74,7 +73,7 @@
           <div class="alert alert-warning">
             <p class="alert-title">⏰ Recordatorio</p>
             <p class="alert-text">
-              El enlace de verificación expirará en 48 horas. Si no lo usas a tiempo,
+              El enlace de verificación expirará en 1 hora. Si no lo usas a tiempo,
               deberás solicitar uno nuevo desde tu panel de usuario.
             </p>
           </div>
@@ -97,7 +96,24 @@
             </tr>
           </table>
 
+          <!-- Opción alternativa de verificación -->
+          <div class="spacing-md"></div>
+          <div style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; border-left: 4px solid #6C757D;">
+            <p class="text-small" style="margin: 0 0 10px 0; color: #6C757D;">
+              <strong>¿El botón no funciona?</strong>
+            </p>
+            <p class="text-small" style="margin: 0; color: #6C757D;">
+              Copia y pega este enlace en tu navegador:
+            </p>
+            <p class="text-small" style="margin: 10px 0 0 0; word-break: break-all;">
+              <code style="background-color: #E9ECEF; padding: 5px 10px; border-radius: 4px; font-size: 12px;">
+              <%= host %>/verify-email?token=<%= token %>
+            </code>
+            </p>
+          </div>
+
           <!-- Despedida -->
+          <div class="spacing-lg"></div>
           <p class="text-body">
             Gracias por confiar en nosotros,<br>
             <span class="text-bold color-primary">El Equipo de Tu Empresa</span>
@@ -106,8 +122,7 @@
       </tr>
     </table>
 
-    <% include('../layouts/footer.ejs', {isDevelopment: true,
-      footerImage: 'https://tudominio.com/images/footer-logo.png' }) %>
+    <%- include('../layouts/footer.ejs') %>
 </body>
 
 </html>

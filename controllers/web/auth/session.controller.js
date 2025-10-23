@@ -2,7 +2,6 @@ const moment = require('moment');
 
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
-const SessionMailer = require('../../../services/emails/auth/session.email');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
@@ -16,7 +15,9 @@ class SessionController {
       const sessionService = new SessionService();
       await sessionService.initialize();
 
-      await sessionService.signup(firstName, firstLastName, email, password);
+      const token = await sessionService.signup(firstName, firstLastName, email, password);
+
+      sessionService.sessionMailer.sendWelcomeEmail(email, firstName, token);
 
       return success(res, { messagePath: 'auth.signup.success' });
     } catch (error) {
@@ -88,8 +89,7 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
-      const emailServce = new SessionMailer();
-      await emailServce.sendWelcomeEmail({ name: 'Santiago', email: 'santiago.c.a_10@hotmail.es' });
+      await sessionService.sessionMailer.sendWelcomeEmail({ name: 'Santiago', email: 'santiago.c.a_10@hotmail.es' });
 
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {

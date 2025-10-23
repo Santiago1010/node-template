@@ -9,6 +9,7 @@ const { Op } = require('sequelize');
 // =============================================================================
 const AccessServices = require('../users/accesses.services');
 const DeviceServices = require('../users/devices.services');
+const SessionMailer = require('../../emails/auth/session.email');
 const config = require('../../../config/env');
 const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
@@ -31,6 +32,8 @@ class SessionService {
 
     this.accessTokenSecret = null;
     this.refreshTokenSecret = null;
+
+    this.sessionMailer = new SessionMailer();
 
     return this;
   }
@@ -111,7 +114,7 @@ class SessionService {
       });
     });
 
-    return true;
+    return createTokenData.token;
   }
 
   async login(credential, password, fingerprint, device) {

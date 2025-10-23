@@ -106,6 +106,7 @@ class MailerHelper {
 
       const enrichedVariables = {
         ...variables,
+        isDevelopment: isDevelopmentMode(true),
         headerImage: '',
         footerImage: '',
         currentYear: moment().year(),
