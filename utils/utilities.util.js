@@ -675,8 +675,8 @@ const generateInternalCode = (entityType, prefix = null) => {
   // Use custom prefix or get from predefined ones
   const codePrefix = prefix || prefixes[entityType.toLowerCase()] || 'GEN';
 
-  // Generate timestamp component: YYMMDDHHmmss (12 digits)
-  const timestamp = moment().format('YYMMDDHHmmss');
+  // Generate timestamp component: YYMMDDHHmmss (15 digits)
+  const timestamp = moment().format('YYMMDDHHmmssSSS');
 
   // Generate random component for additional uniqueness (4 digits)
   const random = Math.floor(1000 + Math.random() * 9000);
@@ -685,8 +685,8 @@ const generateInternalCode = (entityType, prefix = null) => {
   const checksumBase = parseInt(timestamp.slice(-6)) + random;
   const checksum = checksumBase % 10;
 
-  // Format: PREFIX-YYMMDDHHMMSS-RRRR-C
-  // Example: ACC-251022143045-5847-2
+  // Format: PREFIX-YYMMDDHHMMSSSSS-RRRR-C
+  // Example: ACC-251022143045123-5847-2
   return `${codePrefix}-${timestamp}-${random}-${checksum}`;
 };
 

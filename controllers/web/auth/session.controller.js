@@ -9,13 +9,13 @@ const { getDeviceInfo } = require('../../../utils/utilities.util');
 
 class SessionController {
   static async signup(req, res, next) {
-    const { firstName, firstLastName, email, password } = req.body;
+    const { firstName, firstLastName, email, password, preferences } = req.body;
 
     try {
       const sessionService = new SessionService();
       await sessionService.initialize();
 
-      const token = await sessionService.signup(firstName, firstLastName, email, password);
+      const token = await sessionService.signup(firstName, firstLastName, email, password, { preferences });
 
       sessionService.sessionMailer.sendWelcomeEmail(email, firstName, token);
 
