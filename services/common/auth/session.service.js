@@ -14,7 +14,13 @@ const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
-const { createJWT, verifyJWT, hashPassword, verifyPassword } = require('../../../helpers/security.helper');
+const {
+  createJWT,
+  verifyJWT,
+  hashPassword,
+  verifyPassword,
+  generateSecureToken,
+} = require('../../../helpers/security.helper');
 const { getSecret } = require('../../../helpers/vault.helper');
 const { generateInternalCode } = require('../../../utils/utilities.util');
 
@@ -68,6 +74,13 @@ class SessionService {
       password: hashedPassword,
     };
 
+    const createTokenData = {
+      accountId: null,
+      token: generateSecureToken(),
+      purpose: 'confirm_email',
+      expiresIn: moment().add(1, 'hour').toDate(),
+    };
+
     const existingAccount = await this.models.usrAccounts.findOne({
       attributes: ['id'],
       where: { email },
@@ -85,9 +98,16 @@ class SessionService {
 
       createAccountData.userId = user.id;
 
-      await this.models.usrAccounts.create(createAccountData, {
+      const account = await this.models.usrAccounts.create(createAccountData, {
         transaction,
         logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
+      });
+
+      createTokenData.accountId = account.id;
+
+      await this.models.usrTokens.create(createTokenData, {
+        transaction,
+        logging: wrapLogging("[SessionService.signup] Create token for account's confirmation", createTokenData),
       });
     });
 

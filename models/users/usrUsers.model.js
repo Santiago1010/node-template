@@ -34,6 +34,9 @@ const Schema = {
   firstName: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    set(value) {
+      this.setDataValue('firstName', formatNames(value));
+    },
     comment: 'First name of the user/customer.',
     field: 'first_name',
   },
@@ -41,12 +44,18 @@ const Schema = {
     type: DataTypes.STRING(100),
     allowNull: true,
     defaultValue: null,
+    set(value) {
+      this.setDataValue('secondName', formatNames(value));
+    },
     comment: 'Second name of the user/client (if applicable).',
     field: 'second_name',
   },
   firstLastName: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    set(value) {
+      this.setDataValue('firstLastName', formatNames(value));
+    },
     comment: 'First surname of the user/customer.',
     field: 'first_last_name',
   },
@@ -54,6 +63,9 @@ const Schema = {
     type: DataTypes.STRING(100),
     allowNull: true,
     defaultValue: null,
+    set(value) {
+      this.setDataValue('secondLastName', formatNames(value));
+    },
     comment: 'Second surname of the user/client (if applicable).',
     field: 'second_last_name',
   },
