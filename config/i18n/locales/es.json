@@ -64,6 +64,11 @@
     "signup": {
       "accountExists": "auth.signup.accountExists",
       "success": "auth.signup.success"
+    },
+    "confirmEmail": {
+      "invalidToken": "auth.confirmEmail.invalidToken",
+      "confirmationEmailSent": "auth.confirmEmail.confirmationEmailSent",
+      "emailConfirmed": "auth.confirmEmail.emailConfirmed"
     }
   },
   "enums": {

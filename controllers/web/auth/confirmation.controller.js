@@ -13,7 +13,7 @@ class ConfirmationController {
 
       confirmationService.sessionMailer.sendWelcomeEmail(email, firstName, token);
 
-      return success(res, { messagePath: 'auth.login.confirmationEmailSent' });
+      return success(res, { messagePath: 'auth.confirmEmail.confirmationEmailSent' });
     } catch (error) {
       return next(error);
     }
@@ -26,9 +26,9 @@ class ConfirmationController {
       const confirmationService = new ConfirmationService();
       await confirmationService.initialize();
 
-      await confirmationService.confirmEmail(token);
+      await confirmationService.confirmEmail(token, 'confirm_email');
 
-      return success(res, { messagePath: 'auth.login.emailConfirmed' });
+      return success(res, { messagePath: 'auth.confirmEmail.emailConfirmed' });
     } catch (error) {
       return next(error);
     }

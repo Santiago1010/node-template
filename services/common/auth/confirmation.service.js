@@ -2,6 +2,7 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const moment = require('moment');
+const { Op } = require('sequelize');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -92,6 +93,41 @@ class ConfirmationService {
     }
 
     return { firstName, token: createTokenData.token };
+  }
+
+  async confirmEmail(token, purpose) {
+    const now = moment().toDate();
+
+    const tokenDb = await this.models.usrTokens.findOne({
+      attributes: ['id', 'accountId'],
+      where: { token, purpose, expiresIn: { [Op.gte]: now }, usedAt: null },
+      include: {
+        model: this.models.usrAccounts,
+        as: 'account',
+        attributes: [],
+        where: { emailConfirmedAt: null },
+        required: true,
+      },
+      raw: true,
+      logging: wrapLogging('[ConfirmationService.confirmEmail] Get token by token'),
+    });
+
+    if (!tokenDb) throw error({ httpCode: 404, messagePath: 'auth.confirmEmail.invalidToken' });
+
+    await this.sequelize.transaction(async (transaction) => {
+      await this.models.usrTokens.destroy({
+        where: { id: { [Op.ne]: tokenDb.id }, accountId: tokenDb.accountId, purpose, usedAt: null },
+        transaction,
+        logging: wrapLogging('[ConfirmationService.confirmEmail] Destroy previous tokens not used to validate email', {
+          id: { [Op.ne]: tokenDb.id },
+          accountId: tokenDb.accountId,
+          purpose,
+          usedAt: null,
+        }),
+      });
+    });
+
+    return true;
   }
 }
 
