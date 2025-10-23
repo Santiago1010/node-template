@@ -108,7 +108,6 @@ class ConfirmationService {
         where: { emailConfirmedAt: null },
         required: true,
       },
-      raw: true,
       logging: wrapLogging('[ConfirmationService.confirmEmail] Get token by token'),
     });
 
@@ -125,6 +124,20 @@ class ConfirmationService {
           usedAt: null,
         }),
       });
+
+      await tokenDb.update(
+        { usedAt: now },
+        { transaction, logging: wrapLogging('[ConfirmationService.confirmEmail] Update token') }
+      );
+
+      await this.models.usrAccounts.update(
+        { emailConfirmedAt: now },
+        {
+          where: { id: tokenDb.accountId },
+          transaction,
+          logging: wrapLogging('[ConfirmationService.confirmEmail] Update account'),
+        }
+      );
     });
 
     return true;
