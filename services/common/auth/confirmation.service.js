@@ -109,9 +109,16 @@ class ConfirmationService {
         model: this.models.usrAccounts,
         as: 'account',
         attributes: [],
-        where: { emailConfirmedAt: null },
         required: true,
+        include: {
+          model: this.models.usrCredentials,
+          as: 'credentials',
+          attributes: [],
+          where: { credentialType: 'email', verifiedAt: null },
+          required: true,
+        },
       },
+      subQuery: false,
       logging: wrapLogging('[ConfirmationService.confirmEmail] Get token by token'),
     });
 
@@ -134,10 +141,10 @@ class ConfirmationService {
         { transaction, logging: wrapLogging('[ConfirmationService.confirmEmail] Update token') }
       );
 
-      await this.models.usrAccounts.update(
-        { emailConfirmedAt: now },
+      await this.models.usrCredentials.update(
+        { verifiedAt: now },
         {
-          where: { id: tokenDb.accountId },
+          where: { accountId: tokenDb.accountId, credentialType: 'email', verifiedAt: null },
           transaction,
           logging: wrapLogging('[ConfirmationService.confirmEmail] Update account'),
         }
