@@ -2,7 +2,7 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const moment = require('moment');
-const { Op } = require('sequelize');
+const { Op, col } = require('sequelize');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -11,7 +11,7 @@ const SessionMailer = require('../../emails/auth/session.email');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
-const { generateSecureToken } = require('../../../helpers/security.helper');
+const { generateSecureToken, verifyPassword } = require('../../../helpers/security.helper');
 
 class ConfirmationService {
   constructor(sequelize = null) {
@@ -99,11 +99,11 @@ class ConfirmationService {
     return { firstName, token: createTokenData.token };
   }
 
-  async confirmEmail(token, purpose) {
+  async confirmEmail(token, purpose, password) {
     const now = moment().toDate();
 
     const tokenDb = await this.models.usrTokens.findOne({
-      attributes: ['id', 'accountId'],
+      attributes: ['id', 'accountId', [col('account.password'), 'password']],
       where: { token, purpose, expiresIn: { [Op.gte]: now }, usedAt: null },
       include: {
         model: this.models.usrAccounts,
@@ -123,6 +123,10 @@ class ConfirmationService {
     });
 
     if (!tokenDb) throw error({ httpCode: 404, messagePath: 'auth.confirmEmail.invalidToken' });
+
+    const validPassword = await verifyPassword(password, tokenDb.password);
+
+    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.confirmEmail.wrongPassword' });
 
     await this.sequelize.transaction(async (transaction) => {
       await this.models.usrTokens.destroy({

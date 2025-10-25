@@ -21,12 +21,13 @@ class ConfirmationController {
 
   static async confirmEmail(req, res, next) {
     const { token } = req.params;
+    const { password } = req.body;
 
     try {
       const confirmationService = new ConfirmationService();
       await confirmationService.initialize();
 
-      await confirmationService.confirmEmail(token, 'confirm_email');
+      await confirmationService.confirmEmail(token, 'confirm_email', password);
 
       return success(res, { messagePath: 'auth.confirmEmail.emailConfirmed' });
     } catch (error) {

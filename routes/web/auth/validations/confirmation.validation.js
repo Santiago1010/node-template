@@ -6,6 +6,7 @@ const sendConfirmationEmailSchema = {
 
 const confirmEmailSchema = {
   token: commonSchemas.stringSchema('token', 'params', { required: true, minSecurityLevel: 0 }),
+  password: commonSchemas.passwordSchema('password', 'body', { required: true, minSecurityLevel: 0 }),
 };
 
 module.exports = { sendConfirmationEmailSchema, confirmEmailSchema };

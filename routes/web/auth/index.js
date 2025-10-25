@@ -31,7 +31,7 @@ router.post(
   ConfirmationController.sendConfirmationEmail
 );
 
-router.get(
+router.patch(
   '/confirm-email/:token',
   checkSchemaWithRegistry(confirmEmailSchema),
   validationErrorHandler,
