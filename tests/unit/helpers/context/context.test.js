@@ -6,11 +6,12 @@ const ContextHelper = require('../../../../helpers/context.helper');
 const { CONTEXT_KEYS } = require('../../../../utils/constants.util');
 
 // Mock dependencies
-jest.mock('moment', () =>
-  jest.fn(() => ({
+jest.mock('dayjs', () => {
+  const mockDayjs = jest.fn(() => ({
     toISOString: jest.fn(() => '2024-01-01T12:00:00.000Z'),
-  }))
-);
+  }));
+  return mockDayjs;
+});
 
 jest.mock('../../../../config/context', () => {
   const mockStore = new Map();
