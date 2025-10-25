@@ -43,25 +43,23 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {
+  static associate(_) {
     // Indexes
-    this.belongsTo(models.geoContinents, {
-      foreignKey: 'idContinent',
-      targetKey: 'id',
-      as: 'continent',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-
+    // this.belongsTo(models.geoContinents, {
+    //   foreignKey: 'idContinent',
+    //   targetKey: 'id',
+    //   as: 'continent',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
     // References
-    this.hasMany(models.geoCities, {
-      foreignKey: 'idTimezone',
-      sourceKey: 'id',
-      as: 'cities',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-
+    // this.hasMany(models.geoCities, {
+    //   foreignKey: 'idTimezone',
+    //   sourceKey: 'id',
+    //   as: 'cities',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
     // Bridges
   }
 
@@ -70,6 +68,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
+      timestamps: false,
+      paranoid: false,
     };
   }
 }

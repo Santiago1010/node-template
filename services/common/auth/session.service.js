@@ -79,7 +79,7 @@ class SessionService {
       {
         accountId: null,
         credentialType: 'internal_code',
-        credentialValue: generateInternalCode(),
+        credentialValue: generateInternalCode('account'),
         verifiedAt: moment().toDate(),
       },
       {
@@ -119,10 +119,11 @@ class SessionService {
         logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
       });
 
-      createCredentialData.accountId = account.id;
       createTokenData.accountId = account.id;
 
       for (const credential of createCredentialData) {
+        credential.accountId = account.id;
+
         await this.models.usrCredentials.create(credential, {
           transaction,
           logging: wrapLogging('[SessionService.signup] Create credential', credential),
@@ -134,27 +135,27 @@ class SessionService {
         logging: wrapLogging("[SessionService.signup] Create token for account's confirmation", createTokenData),
       });
 
-      if (preferences.lang && preferences.timezone) {
+      if (preferences?.lang && preferences?.timezone) {
         const [language, timezone] = await Promise.all([
           this.models.dataLanguages.findOne({
             attributes: ['id'],
-            where: { abbreviation: preferences.lang },
+            where: { abbreviation: preferences?.lang },
             raw: true,
           }),
-          this.models.dataTimezones.findOne({ attributes: ['id'], where: { name: preferences.timezone }, raw: true }),
+          this.models.dataTimezones.findOne({ attributes: ['id'], where: { name: preferences?.timezone }, raw: true }),
         ]);
 
         const createPreferencesData = {
           accountId: account.id,
-          languageId: language.id,
-          timezoneId: timezone.id,
+          languageId: language?.id,
+          timezoneId: timezone?.id,
           theme: preferences.theme,
         };
 
         if (createPreferencesData.languageId && createPreferencesData.timezoneId) {
-          await this.models.usrPreferences.create(preferences, {
+          await this.models.usrPreferences.create(createPreferencesData, {
             transaction,
-            logging: wrapLogging('[SessionService.signup] Create user preferences', preferences),
+            logging: wrapLogging('[SessionService.signup] Create user preferences', createPreferencesData),
           });
         }
       }

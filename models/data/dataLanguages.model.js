@@ -112,32 +112,30 @@ const Schema = {
 };
 
 class ExtendedModel extends Model {
-  static associate(models) {
+  static associate(_) {
     // Indexes
-    this.belongsTo(models.dataFlags, {
-      foreignKey: 'idFlag',
-      targetKey: 'id',
-      as: 'flag',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-
+    // this.belongsTo(models.dataFlags, {
+    //   foreignKey: 'idFlag',
+    //   targetKey: 'id',
+    //   as: 'flag',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
     // References
-    this.hasMany(models.geoCountriesHasLanguages, {
-      foreignKey: 'idLanguage',
-      sourceKey: 'id',
-      as: 'countriesHasLanguages',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-
+    // this.hasMany(models.geoCountriesHasLanguages, {
+    //   foreignKey: 'idLanguage',
+    //   sourceKey: 'id',
+    //   as: 'countriesHasLanguages',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
     // Bridges
-    this.belongsToMany(models.geoCountries, {
-      through: { model: models.geoCountriesHasLanguages },
-      foreignKey: 'idLanguage',
-      otherKey: 'idCountry',
-      as: 'countries',
-    });
+    // this.belongsToMany(models.geoCountries, {
+    //   through: { model: models.geoCountriesHasLanguages },
+    //   foreignKey: 'idLanguage',
+    //   otherKey: 'idCountry',
+    //   as: 'countries',
+    // });
   }
 
   static config(sequelize) {
