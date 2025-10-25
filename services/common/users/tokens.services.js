@@ -10,6 +10,7 @@ const LogServices = require('../logs/logs.service');
 const { getSequelize } = require('../../../config/database/connection');
 const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
 const { wrapLogging } = require('../../../helpers/debug.helper');
+const { error } = require('../../../helpers/response.helper');
 
 class TokenServices {
   constructor(sequelize = null) {
@@ -36,6 +37,8 @@ class TokenServices {
     const createData = { accountId, token, purpose, expiresIn, usedAt };
 
     return await this.sequelize.transaction(async (transaction) => {
+      await this.destroyPreviousTokensNotUsed(accountId, purpose, { t: t || transaction });
+
       const token = await this.models.usrTokens.create(createData, {
         transaction: t || transaction,
         logging: wrapLogging('[TokenServices.createToken] ', createData),
@@ -167,6 +170,28 @@ class TokenServices {
 
       return deletedData;
     });
+  }
+
+  // ================================= HELPERS =================================
+  async destroyPreviousTokensNotUsed(accountId, purpose, { t }) {
+    return await this.models.usrTokens.destroy({
+      where: { accountId, purpose, usedAt: null },
+      transaction: t,
+      logging: wrapLogging('[TokenServices.createToken] Destroy previous tokens not used'),
+    });
+  }
+
+  static async useAToken(accountId, token, purpose, usedAt, { t }) {
+    await this.destroyPreviousTokensNotUsed(accountId, purpose, { t });
+
+    const tokenDb = await this.models.usrTokens.findOne({
+      where: { accountId, token, purpose, usedAt: null },
+      logging: wrapLogging('[TokenServices.useAToken] Get token by token'),
+    });
+
+    if (!tokenDb) throw error({ httpCode: 404, messagePath: 'auth.invalidToken' });
+
+    return await tokenDb.update({ usedAt }, { transaction: t });
   }
 }
 

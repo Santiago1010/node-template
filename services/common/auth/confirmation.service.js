@@ -7,6 +7,7 @@ const { Op, col } = require('sequelize');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const TokenServices = require('../users/tokens.services');
 const SessionMailer = require('../../emails/auth/session.email');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
@@ -20,6 +21,8 @@ class ConfirmationService {
 
     this.sessionMailer = new SessionMailer();
 
+    this.tokenService = new TokenServices(this.sequelize);
+
     return this;
   }
 
@@ -28,6 +31,8 @@ class ConfirmationService {
       this.sequelize = await getSequelize();
       this.models = this.sequelize.models;
     }
+
+    this.tokenService = new TokenServices(this.sequelize);
 
     return this;
   }
@@ -129,21 +134,7 @@ class ConfirmationService {
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.confirmEmail.wrongPassword' });
 
     await this.sequelize.transaction(async (transaction) => {
-      await this.models.usrTokens.destroy({
-        where: { id: { [Op.ne]: tokenDb.id }, accountId: tokenDb.accountId, purpose, usedAt: null },
-        transaction,
-        logging: wrapLogging('[ConfirmationService.confirmEmail] Destroy previous tokens not used to validate email', {
-          id: { [Op.ne]: tokenDb.id },
-          accountId: tokenDb.accountId,
-          purpose,
-          usedAt: null,
-        }),
-      });
-
-      await tokenDb.update(
-        { usedAt: now },
-        { transaction, logging: wrapLogging('[ConfirmationService.confirmEmail] Update token') }
-      );
+      await this.tokenService.useAToken(tokenDb.accountId, token, purpose, now, { t: transaction });
 
       await this.models.usrCredentials.update(
         { verifiedAt: now },
@@ -153,6 +144,49 @@ class ConfirmationService {
           logging: wrapLogging('[ConfirmationService.confirmEmail] Update account'),
         }
       );
+    });
+
+    return true;
+  }
+
+  async confirmDevie(token, purpose, password, jti) {
+    const now = dayjs().toDate();
+
+    const tokenDb = await this.models.usrTokens.findOne({
+      attributes: ['id', 'accountId', [col('account.password'), 'password']],
+      where: { token, purpose, expiresIn: { [Op.gte]: now }, usedAt: null },
+      include: {
+        model: this.models.usrAccounts,
+        as: 'account',
+        attributes: [],
+        required: true,
+        include: {
+          model: this.models.usrCredentials,
+          as: 'credentials',
+          attributes: [],
+          where: { credentialType: 'email', verifiedAt: { [Op.not]: null } },
+          required: true,
+        },
+      },
+      subQuery: false,
+      logging: wrapLogging('[ConfirmationService.confirmDevie] Get token by token'),
+    });
+
+    if (!tokenDb) throw error({ httpCode: 404, messagePath: 'auth.confirmDevie.invalidToken' });
+
+    const validPassword = await verifyPassword(password, tokenDb.password);
+
+    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.confirmDevie.wrongPassword' });
+
+    const access = await this.models.usrAccesses.findOne({
+      where: { accountId: tokenDb.accountId, jti },
+      logging: wrapLogging('[ConfirmationService.confirmDevie] Get access by jti'),
+    });
+
+    if (!access) throw error({ httpCode: 404, messagePath: 'auth.confirmDevie.sessionNotFound' });
+
+    await this.sequelize.transaction(async (transaction) => {
+      await this.tokenService.useAToken(tokenDb.accountId, token, purpose, now, { t: transaction });
     });
 
     return true;
