@@ -97,6 +97,16 @@ class SessionController {
     }
   }
 
+  static async refreshToken(req, res, next) {
+    console.dir(req.user, { depth: null });
+
+    try {
+      return success(res, { httpCode: 204 });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   static async logout(req, res, next) {
     const { account, jti, device } = req.user;
 

@@ -131,6 +131,8 @@ const pageUseEndpoint = async (req, _, next) => {
     const page = ContextHelper.get('page');
     const endpoint = ContextHelper.get('endpoint');
 
+    if (!page || !endpoint) return next();
+
     // Early validation
     if (!page?.id || !endpoint?.id) {
       throw error({

@@ -40,6 +40,8 @@ router.patch(
 
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);
 
+router.patch('/refresh-token', validateWebSession, SessionController.refreshToken);
+
 router.delete(
   '/logout',
   validateWebSession,

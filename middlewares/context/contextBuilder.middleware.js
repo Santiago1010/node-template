@@ -173,7 +173,11 @@ const setHost = async (req, _, next) => {
 const setPage = async (req, _, next) => {
   try {
     // Parse header once
-    const headerPage = JSON.parse(req.headers['x-path']);
+    const xPage = req.headers['x-path'];
+
+    if (!xPage) return next();
+
+    const headerPage = JSON.parse(xPage);
 
     const sequelize = await initializeConnection();
     const { configPages } = sequelize.models;
