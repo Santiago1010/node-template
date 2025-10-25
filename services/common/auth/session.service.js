@@ -67,15 +67,28 @@ class SessionService {
 
     if (!defaultRole) throw error({ httpCode: 500, messagePath: 'auth.signup.defaultRoleNotFound' });
 
-    const ceateUserData = { firstName, firstLastName };
+    const createUserData = { firstName, firstLastName };
 
     const createAccountData = {
       rolId: defaultRole.id,
       userId: null,
-      internalCode: generateInternalCode('account'),
-      email,
       password: hashedPassword,
     };
+
+    const createCredentialData = [
+      {
+        accountId: null,
+        credentialType: 'internal_code',
+        credentialValue: generateInternalCode(),
+        verifiedAt: null,
+      },
+      {
+        accountId: null,
+        credentialType: 'email',
+        credentialValue: email,
+        verifiedAt: null,
+      },
+    ];
 
     const createTokenData = {
       accountId: null,
@@ -84,19 +97,19 @@ class SessionService {
       expiresIn: moment().add(1, 'hour').toDate(),
     };
 
-    const existingAccount = await this.models.usrAccounts.findOne({
+    const existingCredential = await this.models.usrCredentials.findOne({
       attributes: ['id'],
-      where: { email },
+      where: { credentialType: 'email', credentialValue: email },
       raw: true,
-      logging: wrapLogging('[SessionService.signup] Get existing account'),
+      logging: wrapLogging('[SessionService.signup] Get existing credential'),
     });
 
-    if (existingAccount) throw error({ httpCode: 400, messagePath: 'auth.signup.accountExists' });
+    if (existingCredential) throw error({ httpCode: 400, messagePath: 'auth.signup.accountExists' });
 
     await this.sequelize.transaction(async (transaction) => {
-      const user = await this.models.usrUsers.create(ceateUserData, {
+      const user = await this.models.usrUsers.create(createUserData, {
         transaction,
-        logging: wrapLogging('[SessionService.signup] Create user', ceateUserData),
+        logging: wrapLogging('[SessionService.signup] Create user', createUserData),
       });
 
       createAccountData.userId = user.id;
@@ -106,7 +119,15 @@ class SessionService {
         logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
       });
 
+      createCredentialData.accountId = account.id;
       createTokenData.accountId = account.id;
+
+      for (const credential of createCredentialData) {
+        await this.models.usrCredentials.create(credential, {
+          transaction,
+          logging: wrapLogging('[SessionService.signup] Create credential', credential),
+        });
+      }
 
       await this.models.usrTokens.create(createTokenData, {
         transaction,
@@ -118,48 +139,38 @@ class SessionService {
   }
 
   async login(credential, password, fingerprint, device) {
-    const account = await this.models.usrAccounts.findOne({
-      attributes: [
-        'id',
-        'userId',
-        'internalCode',
-        'profile',
-        'profileInt',
-        'email',
-        'emailConfirmedAt',
-        'mobileNumber',
-        'mobileNumberConfirmedAt',
-        'password',
-      ],
-      where: { [Op.or]: [{ internalCode: credential }, { email: credential }, { mobileNumber: credential }] },
+    const credentialRecord = await this.models.usrCredentials.findOne({
+      attributes: ['id', 'accountId', 'credentialType', 'credentialValue', 'verifiedAt'],
+      where: { credentialValue: credential, verifiedAt: { [Op.not]: null } },
       include: {
-        model: this.models.configRoles,
-        as: 'role',
-        attributes: ['id', 'name'],
+        model: this.models.usrAccounts,
+        as: 'account',
+        attributes: ['id', 'userId', 'password'],
         required: true,
+        include: {
+          model: this.models.configRoles,
+          as: 'rol',
+          attributes: ['id', 'name'],
+          required: true,
+        },
       },
-      logging: wrapLogging('[SessionService.login] Get account by credential'),
+      logging: wrapLogging('[SessionService.login] Get credential by value'),
     });
 
-    if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
-
-    if (!account.emailConfirmedAt && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    if (!credentialRecord) {
+      throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
     }
 
-    if (credential === account.email && !account.emailConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
-    }
-
-    if (credential === account.mobileNumber && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
-    }
+    const account = credentialRecord.account;
 
     const validPassword = await verifyPassword(password, account.password);
-    account.password = undefined;
-    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    if (!validPassword) {
+      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    }
 
-    return await this.createTokens(account, fingerprint, device);
+    const accountData = { id: account.id, userId: account.userId, rol: account.rol };
+
+    return await this.createTokens(accountData, fingerprint, device);
   }
 
   async logout(user, accountId, jti) {
@@ -217,29 +228,33 @@ class SessionService {
   }
 
   createAccessToken(account, isSafeMode) {
-    const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
+    // Obtener una credencial verificada del tipo internal_code o usar el ID
+    const internalCode = account.internalCode || `ACC_${account.id}`;
+    const payload = { internalCode, isSafeMode, role: account.rol.name };
 
     return createJWT(payload, this.accessTokenSecret, {
-      subject: 'acces_token_' + account.internalCode,
+      subject: 'acces_token_' + internalCode,
       expiresIn: config.jwt.accessToken.expiration,
     });
   }
 
   createRefreshToken(account, device) {
+    const internalCode = account.internalCode || `ACC_${account.id}`;
     const payload = {
-      internalCode: account.internalCode,
+      internalCode,
       device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
     };
 
     return createJWT(payload, this.refreshTokenSecret, {
-      subject: 'refresh_token_' + account.internalCode,
+      subject: 'refresh_token_' + internalCode,
       expiresIn: config.jwt.refreshToken.expiration,
     });
   }
 
   validRefreshToken(refreshToken, account) {
+    const internalCode = account.internalCode || `ACC_${account.id}`;
     const payload = verifyJWT(refreshToken, this.refreshTokenSecret, {
-      subject: 'refresh_token_' + account.internalCode,
+      subject: 'refresh_token_' + internalCode,
     });
 
     return payload;
