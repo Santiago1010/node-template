@@ -76,6 +76,9 @@ const validateWebSession = async (req, _, next) => {
       498
     );
 
+    console.log(refreshTokenPayload);
+    console.log(accessTokenPayload);
+
     if (!accessTokenPayload?.internalCode) {
       throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
     }
@@ -86,16 +89,8 @@ const validateWebSession = async (req, _, next) => {
     }
 
     const now = moment().valueOf();
-    const {
-      usrAccounts,
-      usrAccesses,
-      usrDevices,
-      configRoles,
-      usrUsers,
-      usrEmployees,
-      configSecurityLevels,
-      usrCredentials,
-    } = sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, configSecurityLevels, usrCredentials } =
+      sequelize.models;
 
     // Single optimized database query with all required data
     const account = await usrAccounts.findOne({
@@ -170,58 +165,28 @@ const validateWebSession = async (req, _, next) => {
     const internalCode = accountPlain.credentials[0].credentialValue;
 
     // Build user data object efficiently
-    const userData = {
-      id: 0,
-    };
+    const userData = { id: 0 };
 
-    // Parallel fetch of user and employee data if needed
-    const queries = [];
-
+    // Fetch user data if needed
+    let user = null;
     if (accountPlain.userId) {
-      queries.push(
-        usrUsers.findByPk(accountPlain.userId, {
-          attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
-          raw: true,
-        })
-      );
-    } else {
-      queries.push(Promise.resolve(null));
+      user = await usrUsers.findByPk(accountPlain.userId, {
+        attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
+        raw: true,
+      });
+
+      // Validate fetched data
+      if (!user) {
+        perror('No user found', { userId: accountPlain.userId });
+        throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+      }
     }
-
-    if (accountPlain.employeeId) {
-      queries.push(
-        usrEmployees.findByPk(accountPlain.employeeId, {
-          attributes: ['id', 'document', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
-          raw: true,
-        })
-      );
-    } else {
-      queries.push(Promise.resolve(null));
-    }
-
-    const [user, employee] = await Promise.all(queries);
-
-    // Validate fetched data
-    if (accountPlain.userId && !user) {
-      perror('No user found', { userId: accountPlain.userId });
-      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
-    }
-
-    if (accountPlain.employeeId && !employee) {
-      perror('No employee found', { employeeId: accountPlain.employeeId });
-      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
-    }
-
-    // Merge user/employee data efficiently
-    if (user) Object.assign(userData, user);
-    if (employee) Object.assign(userData, employee);
 
     // Clean up account data
     const cleanAccount = {
       ...accountPlain,
       credentials: undefined,
       userId: undefined,
-      employeeId: undefined,
     };
 
     // Fetch scopes in parallel with user data construction

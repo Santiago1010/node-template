@@ -82,7 +82,8 @@
       "everyone": "enums.target.everyone"
     },
     "credentialType": {
-      "undefined": "enums.credentialType.undefined"
+      "undefined": "enums.credentialType.undefined",
+      "internal_code": "enums.credentialType.internal_code"
     }
   },
   "common": {

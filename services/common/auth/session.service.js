@@ -213,9 +213,18 @@ class SessionService {
 
   // =============================== TOKENS ================================ //
   async createTokens(account, fingerprint, device) {
+    account = JSON.parse(JSON.stringify(account));
     const managedDevice = await this.manageDevice(account.id, fingerprint, device);
 
     const isSafeMode = !managedDevice.isTrusted;
+
+    const credentialCode = await this.models.usrCredentials.findOne({
+      attributes: ['credentialValue'],
+      where: { accountId: account.id, credentialType: 'internal_code', verifiedAt: { [Op.not]: null } },
+      raw: true,
+    });
+
+    account.internalCode = credentialCode.credentialValue;
 
     const accessToken = this.createAccessToken(account, isSafeMode);
     const refreshToken = this.createRefreshToken(account, managedDevice);
@@ -254,7 +263,6 @@ class SessionService {
   }
 
   createAccessToken(account, isSafeMode) {
-    // Obtener una credencial verificada del tipo internal_code o usar el ID
     const internalCode = account.internalCode || `ACC_${account.id}`;
     const payload = { internalCode, isSafeMode, role: account.rol.name };
 
