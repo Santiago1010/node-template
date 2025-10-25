@@ -149,7 +149,7 @@ class ConfirmationService {
     return true;
   }
 
-  async confirmDevie(token, purpose, password, jti, rely = false, block = false) {
+  async confirmDevice(token, purpose, password, jti, rely = false, block = false) {
     const now = dayjs().toDate();
 
     const tokenDb = await this.models.usrTokens.findOne({
@@ -160,15 +160,8 @@ class ConfirmationService {
         as: 'account',
         attributes: [],
         required: true,
-        include: {
-          model: this.models.usrCredentials,
-          as: 'credentials',
-          attributes: [],
-          where: { credentialType: 'email', verifiedAt: { [Op.not]: null } },
-          required: true,
-        },
       },
-      subQuery: false,
+      raw: true,
       logging: wrapLogging('[ConfirmationService.confirmDevie] Get token by token'),
     });
 

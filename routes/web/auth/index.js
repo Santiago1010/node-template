@@ -8,7 +8,11 @@ const express = require('express');
 // =============================================================================
 const ConfirmationController = require('../../../controllers/web/auth/confirmation.controller');
 const SessionController = require('../../../controllers/web/auth/session.controller');
-const { sendConfirmationEmailSchema, confirmEmailSchema } = require('./validations/confirmation.validation');
+const {
+  sendConfirmationEmailSchema,
+  confirmEmailSchema,
+  confirmDeviceSchema,
+} = require('./validations/confirmation.validation');
 const { loginSchema, logoutSchema, signupSchema } = require('./validations/session.validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
@@ -41,6 +45,14 @@ router.patch(
 router.post('/login', checkSchemaWithRegistry(loginSchema), validationErrorHandler, SessionController.login);
 
 router.patch('/refresh-token', validateWebSession, SessionController.refreshToken);
+
+router.patch(
+  '/verify-device/:token',
+  validateWebSession,
+  checkSchemaWithRegistry(confirmDeviceSchema),
+  validationErrorHandler,
+  ConfirmationController.confirmDevice
+);
 
 router.delete(
   '/logout',

@@ -7,7 +7,9 @@
     "firstName": "fields.firstName",
     "firstLastName": "fields.firstLastName",
     "email": "fields.email",
-    "token": "fields.token"
+    "token": "fields.token",
+    "rely": "fields.rely",
+    "block": "fields.block"
   },
   "validations": {
     "required": "El campo {field} es requerido",
@@ -22,7 +24,8 @@
     "passwordUppercase": "validations.passwordUppercase",
     "array": "validations.array",
     "alphanumericOnly": "validations.alphanumericOnly",
-    "insufficient_security_level": "validations.insufficient_security_level"
+    "insufficient_security_level": "validations.insufficient_security_level",
+    "boolean": "validations.boolean"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -73,6 +76,12 @@
     },
     "sendConfirmationEmail": {
       "emailAlreadyConfirmed": "auth.sendConfirmationEmail.emailAlreadyConfirmed"
+    },
+    "confirmDevie": {
+      "invalidToken": "auth.confirmDevie.invalidToken"
+    },
+    "confirmDevice": {
+      "deviceConfirmed": "auth.confirmDevice.deviceConfirmed"
     }
   },
   "enums": {

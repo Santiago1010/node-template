@@ -181,7 +181,7 @@ class TokenServices {
     });
   }
 
-  static async useAToken(accountId, token, purpose, usedAt, { t }) {
+  async useAToken(accountId, token, purpose, usedAt, { t }) {
     await this.destroyPreviousTokensNotUsed(accountId, purpose, { t });
 
     const tokenDb = await this.models.usrTokens.findOne({

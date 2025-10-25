@@ -34,6 +34,23 @@ class ConfirmationController {
       return next(error);
     }
   }
+
+  static async confirmDevice(req, res, next) {
+    const { jti } = req.user;
+    const { token } = req.params;
+    const { password, rely, block } = req.body;
+
+    try {
+      const confirmationService = new ConfirmationService();
+      await confirmationService.initialize();
+
+      await confirmationService.confirmDevice(token, 'secure_device', password, jti, rely, block);
+
+      return success(res, { messagePath: 'auth.confirmDevice.deviceConfirmed' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = ConfirmationController;
