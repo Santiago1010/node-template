@@ -149,7 +149,7 @@ class ConfirmationService {
     return true;
   }
 
-  async confirmDevie(token, purpose, password, jti) {
+  async confirmDevie(token, purpose, password, jti, rely = false, block = false) {
     const now = dayjs().toDate();
 
     const tokenDb = await this.models.usrTokens.findOne({
@@ -179,14 +179,28 @@ class ConfirmationService {
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.confirmDevie.wrongPassword' });
 
     const access = await this.models.usrAccesses.findOne({
-      where: { accountId: tokenDb.accountId, jti },
+      attributes: ['deviceId'],
+      where: { accountId: tokenDb.accountId, idToken: jti },
+      raw: true,
       logging: wrapLogging('[ConfirmationService.confirmDevie] Get access by jti'),
     });
 
     if (!access) throw error({ httpCode: 404, messagePath: 'auth.confirmDevie.sessionNotFound' });
 
+    const device = await this.models.usrDevices.findByPk(access.deviceId, {
+      logging: wrapLogging('[ConfirmationService.confirmDevie] Get device by id'),
+    });
+
     await this.sequelize.transaction(async (transaction) => {
       await this.tokenService.useAToken(tokenDb.accountId, token, purpose, now, { t: transaction });
+
+      await device.update(
+        { isTrusted: rely, isBlocked: block },
+        {
+          transaction,
+          logging: wrapLogging('[ConfirmationService.confirmDevie] Update device'),
+        }
+      );
     });
 
     return true;
