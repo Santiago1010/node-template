@@ -652,6 +652,44 @@ const getDeviceInfo = (req, onlyStatic = false) => {
   };
 };
 
+/**
+ * Generates a unique, readable, and aesthetic internal code for entities
+ * @param {string} entityType - Type of entity ('account', 'company', 'employee', etc.)
+ * @param {string} [prefix] - Optional custom prefix (if not provided, uses entityType)
+ * @returns {string} Formatted internal code
+ */
+const generateInternalCode = (entityType, prefix = null) => {
+  const prefixes = {
+    account: 'ACC',
+    company: 'COM',
+    employee: 'EMP',
+    customer: 'CUS',
+    supplier: 'SUP',
+    product: 'PRD',
+    invoice: 'INV',
+    order: 'ORD',
+    project: 'PRJ',
+    department: 'DEP',
+  };
+
+  // Use custom prefix or get from predefined ones
+  const codePrefix = prefix || prefixes[entityType.toLowerCase()] || 'GEN';
+
+  // Generate timestamp component: YYMMDDHHmmss (15 digits)
+  const timestamp = moment().format('YYMMDDHHmmssSSS');
+
+  // Generate random component for additional uniqueness (4 digits)
+  const random = Math.floor(1000 + Math.random() * 9000);
+
+  // Generate a checksum digit for validation
+  const checksumBase = parseInt(timestamp.slice(-6)) + random;
+  const checksum = checksumBase % 10;
+
+  // Format: PREFIX-YYMMDDHHMMSSSSS-RRRR-C
+  // Example: ACC-251022143045123-5847-2
+  return `${codePrefix}-${timestamp}-${random}-${checksum}`;
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -687,4 +725,5 @@ module.exports = {
   toBoolean,
   retry,
   getDeviceInfo,
+  generateInternalCode,
 };

@@ -78,8 +78,8 @@ class ExtendedModel extends Model {
       sequelize,
       tableName: TABLE_NAME,
       modelName: MODEL_NAME,
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
+      paranoid: false,
     };
   }
 }

@@ -2,10 +2,12 @@
 
 const { Model, DataTypes } = require('sequelize');
 
-// Log of account access and devices.
+const i18n = require('../../config/i18n');
 
-const TABLE_NAME = 'usr_accesses';
-const MODEL_NAME = 'usrAccesses';
+// Credentials available for each account.
+
+const TABLE_NAME = 'usr_credentials';
+const MODEL_NAME = 'usrCredentials';
 
 const Schema = {
   id: {
@@ -14,7 +16,7 @@ const Schema = {
     primaryKey: true,
     autoIncrement: true,
     unique: 'PRIMARY',
-    comment: 'Unique identifier for each access.',
+    comment: 'Unique ID for each credential.',
   },
   accountId: {
     type: DataTypes.INTEGER,
@@ -25,40 +27,45 @@ const Schema = {
       model: 'usrAccounts',
       key: 'id',
     },
-    comment: 'Account ID.',
+    comment: 'ID of the account to which the credential belongs.',
     field: 'account_id',
   },
-  deviceId: {
-    type: DataTypes.INTEGER,
+  credentialType: {
+    type: DataTypes.ENUM('email', 'phone', 'document', 'internal_code'),
     allowNull: false,
-    references: {
-      table: 'usr_devices',
-      column: 'id',
-      model: 'usrDevices',
-      key: 'id',
+    get() {
+      const credentialType = this.getDataValue('credentialType');
+      const translated = i18n.__('enums.credentialType.' + credentialType);
+
+      return { original: credentialType, translated };
     },
-    comment: 'ID of the device from which the access was recorded.',
-    field: 'device_id',
+    comment: 'Type of credential.',
+    field: 'credential_type',
   },
-  idToken: {
-    type: DataTypes.STRING(100),
+  credentialtypeInt: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const credentialType = this.getDataValue('credentialType');
+      const options = { email: 1, phone: 2, document: 3, internal_code: 4 };
+
+      return options[credentialType];
+    },
+    set(_) {
+      throw new Error('You cannot assign a value to a virtual column.');
+    },
+  },
+  credentialValue: {
+    type: DataTypes.STRING(150),
     allowNull: false,
-    unique: 'token_UN',
-    comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
-    field: 'id_token',
+    comment: 'Credential value.',
+    field: 'credential_value',
   },
-  expiresAt: {
+  verifiedAt: {
     type: DataTypes.DATE,
-    allowNull: false,
-    comment: 'Date and time the access expires. Updated each time the token is refreshed.',
-    field: 'expires_at',
-  },
-  isSafeMode: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: '0',
-    comment: 'Indicates whether access was performed in safe mode.',
-    field: 'is_safe_mode',
+    allowNull: true,
+    defaultValue: null,
+    comment: 'Timestamp of when the credential was verified.',
+    field: 'verified_at',
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -92,13 +99,6 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.belongsTo(models.usrDevices, {
-      foreignKey: 'deviceId',
-      targetKey: 'id',
-      as: 'device',
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });

@@ -1,5 +1,71 @@
 
 
+## [1.18.0] - 2025-10-25
+
+**Released:** 2025-10-25 03:20:06 UTC
+
+### [Feature/auth web](https://github.com/Santiago1010/node-template/pull/87)
+
+#### 📋 Summary
+This PR implements email confirmation functionality and enhances the user authentication system with signup, logout, and email verification features. Includes SMTP configuration, new database models, and email templates.
+
+#### 🔍 What Changed
+### Added
+- Email configuration (SMTP settings in env and config)
+- New authentication endpoints (signup, logout, email confirmation)
+- Email confirmation service with token management
+- New database models: usrCredentials, usrImages, usrPreferences, usrTokens, dataLanguages, dataTimezones, usrUsersDetails
+- Mailer helper with EJS template support
+- Email templates for welcome/confirmation emails
+- User credential management services
+- Preference management services
+- Token management services
+- User management services
+
+### Changed
+- Updated user account model structure (removed employee support, added credential-based auth)
+- Enhanced session service with signup and logout functionality
+- Modified session token middleware to use credential-based authentication
+- Updated role configuration (simplified target types)
+- Improved user model with automatic name formatting
+- Enhanced authentication documentation with new endpoints
+- Updated service templates for better logging and transaction handling
+
+### Removed
+- usrEmployees model (replaced by enhanced usrUsers)
+- Legacy login validation file
+
+#### 📝 Additional Notes
+- Uses nodemailer for email delivery with EJS templates
+- Implements credential-based authentication (email, internal codes)
+- Adds comprehensive user preference management
+- Includes email verification tokens with expiration
+- Supports both development (MailHog) and production SMTP configurations
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: documentation, enhancement
+- Commits: 10
+
+**Commits:**
+- [`59f45b8`](https://github.com/Santiago1010/node-template/commit/59f45b8c3daea02292e13bd3604707a258639727) feat(auth): enhance signup with preferences and improve internal code generation
+- [`b549ccf`](https://github.com/Santiago1010/node-template/commit/b549ccfa8c2ebcf94efa29aaf2952b915e5f8e63) refactor(auth): remove legacy user models and simplify session service
+- [`5c52c1f`](https://github.com/Santiago1010/node-template/commit/5c52c1f0ba81d09140fe60b3bc1ff33d1ac6f38f) feat(db): implement comprehensive user management models
+- [`93f779d`](https://github.com/Santiago1010/node-template/commit/93f779d79fdb7515b64bdb28e38eaadfd0f96b77) feat(auth): migrate to credential-based authentication system
+- [`d5df39e`](https://github.com/Santiago1010/node-template/commit/d5df39edc12da642b4a278e8574fb444806104fc) fix(db): correct model associations and comment out unused relations
+- [`b7bbd2a`](https://github.com/Santiago1010/node-template/commit/b7bbd2abe3ea58a91c57d56cc62f6ea92c4e1bef) feat(auth): add language and timezone support with user preferences
+- [`339009d`](https://github.com/Santiago1010/node-template/commit/339009daeeca96fcb60aefaf8750eec943614d4b) fix(auth): correct model configurations and signup flow
+- [`a1cf7bc`](https://github.com/Santiago1010/node-template/commit/a1cf7bc9f1d19e7e70eeb14b4e4a7d56a9d20a54) feat(auth): update email confirmation to use credential-based system
+- [`546607b`](https://github.com/Santiago1010/node-template/commit/546607b26eb031845969d1e864a38cf9c79d5ff2) refactor(auth): update session middleware for credential-based authentication
+- [`f858a49`](https://github.com/Santiago1010/node-template/commit/f858a496293f16a2b27e04fbd2db60ad6daf97db) refactor(auth): simplify role targets and update default role assignment
+
+---
+
+
+
 ## [1.17.0] - 2025-10-15
 
 **Released:** 2025-10-15 19:26:49 UTC

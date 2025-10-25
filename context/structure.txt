@@ -59,6 +59,7 @@
 │   ├── wearable
 │   └── web
 │       └── auth
+│           ├── confirmation.controller.js
 │           └── session.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
@@ -72,6 +73,7 @@
 │   ├── index.js
 │   ├── paths
 │   │   ├── auth
+│   │   │   ├── confirmation.docs.js
 │   │   │   ├── index.js
 │   │   │   └── session.docs.js
 │   │   └── index.js
@@ -98,6 +100,7 @@
 │   ├── database.helper.js
 │   ├── debug.helper.js
 │   ├── docs-generator.helper.js
+│   ├── mailer.helper.js
 │   ├── response.helper.js
 │   ├── security.helper.js
 │   ├── validations
@@ -105,6 +108,9 @@
 │   │   ├── databaseSchemas.helper.js
 │   │   └── index.js
 │   └── vault.helper.js
+├── .husky
+│   ├── pre-commit
+│   └── pre-push
 ├── index.js
 ├── jest.config.js
 ├── kubernetes
@@ -138,17 +144,30 @@
 │   │   ├── configEndpoints.model.js
 │   │   ├── configEndpointsRequestSchema.model.js
 │   │   ├── configHosts.model.js
+│   │   ├── configPagesEndpointsHasSchemas.model.js
+│   │   ├── configPagesHasEndpoints.model.js
+│   │   ├── configPages.model.js
 │   │   ├── configRolesHasScopes.model.js
 │   │   ├── configRoles.model.js
 │   │   ├── configScopes.model.js
+│   │   ├── configSecurityLevels.model copy.js
 │   │   └── configSecurityLevels.model.js
+│   ├── data
+│   │   ├── dataLanguages.model.js
+│   │   └── dataTimezones.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
 │       ├── usrAccesses.model.js
 │       ├── usrAccountsHasScopes.model.js
 │       ├── usrAccounts.model.js
-│       └── usrDevices.model.js
+│       ├── usrCredentials.model.js
+│       ├── usrDevices.model.js
+│       ├── usrImages.model.js
+│       ├── usrPreferences.model.js
+│       ├── usrTokens.model.js
+│       ├── usrUsersDetails.model.js
+│       └── usrUsers.model.js
 ├── package.json
 ├── package-lock.json
 ├── README.md
@@ -166,7 +185,8 @@
 │       ├── auth
 │       │   ├── index.js
 │       │   └── validations
-│       │       └── login.validations.js
+│       │       ├── confirmation.validation.js
+│       │       └── session.validations.js
 │       └── index.js
 ├── schemas
 │   ├── params
@@ -200,13 +220,22 @@
 │   ├── bot
 │   ├── common
 │   │   ├── auth
+│   │   │   ├── confirmation.service.js
 │   │   │   └── session.service.js
 │   │   ├── configurations
 │   │   │   └── scopes.services.js
 │   │   └── users
 │   │       ├── accesses.services.js
-│   │       └── devices.services.js
+│   │       ├── credentials.services.js
+│   │       ├── devices.services.js
+│   │       ├── preferences.services.js
+│   │       ├── tokens.services.js
+│   │       └── users.services.js
 │   ├── desktop
+│   ├── emails
+│   │   └── auth
+│   │       └── session.email.js
+│   ├── messages
 │   ├── wearable
 │   └── web
 ├── templates
@@ -217,6 +246,11 @@
 │   │   ├── services.template.js
 │   │   └── validations.template.js
 │   ├── emails
+│   │   ├── auth
+│   │   │   └── welcome.ejs
+│   │   └── layouts
+│   │       ├── footer.ejs
+│   │       └── header.ejs
 │   ├── models
 │   │   ├── model.template.js
 │   │   └── setupModel.template.js
@@ -234,4 +268,4 @@
     ├── extensions.json
     └── settings.json
 
-79 directories, 156 files
+86 directories, 183 files

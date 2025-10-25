@@ -33,7 +33,6 @@ const Schema = {
   fingerprint: {
     type: DataTypes.STRING(64),
     allowNull: false,
-    unique: 'fingerprint_UN',
     comment: 'Unique hash identifying the device (based on user agent, IP pattern, etc).',
   },
   name: {
@@ -81,14 +80,14 @@ const Schema = {
   isTrusted: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: false,
+    defaultValue: '0',
     comment: 'Indicates whether the device is trusted.',
     field: 'is_trusted',
   },
   isBlocked: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: false,
+    defaultValue: '0',
     comment: 'Indicates whether the device has been blocked.',
     field: 'is_blocked',
   },
@@ -137,7 +136,7 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
-      onUpdate: 'RESTRICT',
+      onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
 

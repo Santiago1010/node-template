@@ -86,7 +86,7 @@ const validateWebSession = async (req, _, next) => {
     }
 
     const now = moment().valueOf();
-    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, usrEmployees, configSecurityLevels } =
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, configSecurityLevels, usrCredentials } =
       sequelize.models;
 
     // Single optimized database query with all required data
@@ -103,11 +103,17 @@ const validateWebSession = async (req, _, next) => {
           'deletedAt',
         ],
       },
-      where: { internalCode: accessTokenPayload.internalCode },
       include: [
         {
+          model: usrCredentials,
+          as: 'credentials',
+          attributes: ['id', 'credentialType', 'credentialValue'],
+          where: { credentialType: 'internal_code', credentialValue: accessTokenPayload.internalCode },
+          required: true,
+        },
+        {
           model: configRoles,
-          as: 'role',
+          as: 'rol',
           attributes: ['id', 'name'],
           required: true,
           include: {
@@ -152,79 +158,50 @@ const validateWebSession = async (req, _, next) => {
     // Convert account to plain object once
     const accountPlain = account.toJSON();
 
+    // Extract internal code from credentials
+    const internalCode = accountPlain.credentials[0].credentialValue;
+
     // Build user data object efficiently
-    const userData = {
-      id: 0,
-      profile: accountPlain.profile,
-    };
+    const userData = { id: 0 };
 
-    // Parallel fetch of user and employee data if needed
-    const queries = [];
-
+    // Fetch user data if needed
+    let user = null;
     if (accountPlain.userId) {
-      queries.push(
-        usrUsers.findByPk(accountPlain.userId, {
-          attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
-          raw: true,
-        })
-      );
-    } else {
-      queries.push(Promise.resolve(null));
+      user = await usrUsers.findByPk(accountPlain.userId, {
+        attributes: ['id', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
+        raw: true,
+      });
+
+      // Validate fetched data
+      if (!user) {
+        perror('No user found', { userId: accountPlain.userId });
+        throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
+      }
     }
-
-    if (accountPlain.employeeId) {
-      queries.push(
-        usrEmployees.findByPk(accountPlain.employeeId, {
-          attributes: ['id', 'document', 'completeName', 'firstName', 'secondName', 'firstLastName', 'secondLastName'],
-          raw: true,
-        })
-      );
-    } else {
-      queries.push(Promise.resolve(null));
-    }
-
-    const [user, employee] = await Promise.all(queries);
-
-    // Validate fetched data
-    if (accountPlain.userId && !user) {
-      perror('No user found', { userId: accountPlain.userId });
-      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
-    }
-
-    if (accountPlain.employeeId && !employee) {
-      perror('No employee found', { employeeId: accountPlain.employeeId });
-      throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
-    }
-
-    // Merge user/employee data efficiently
-    if (user) Object.assign(userData, user);
-    if (employee) Object.assign(userData, employee);
 
     // Clean up account data
     const cleanAccount = {
       ...accountPlain,
-      profile: undefined,
-      profileInt: undefined,
+      credentials: undefined,
       userId: undefined,
-      employeeId: undefined,
     };
 
     // Fetch scopes in parallel with user data construction
     const scopesService = new ScopeServices(sequelize);
-    const scopes = await scopesService.getAllScopesOfAnAccount(accountPlain.id, accountPlain.role.id);
+    const scopes = await scopesService.getAllScopesOfAnAccount(accountPlain.id, accountPlain.rol.id);
 
     // Build final user object
     req.user = {
       ...userData,
-      internalCode: cleanAccount.internalCode,
-      securityLevel: cleanAccount.role.securityLevel.priority,
+      internalCode,
+      securityLevel: cleanAccount.rol.securityLevel.priority,
       account: cleanAccount,
       scopes,
       device: refreshTokenPayload.device,
+      jti: refreshTokenPayload.jti,
     };
 
-    delete req.user.account.internalCode;
-    delete req.user.account.role.securityLevel.priority;
+    delete req.user.account.rol.securityLevel.priority;
 
     ContextHelper.set('user', req.user);
 

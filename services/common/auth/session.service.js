@@ -1,7 +1,6 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const bcrypt = require('bcrypt');
 const moment = require('moment');
 const { Op } = require('sequelize');
 
@@ -9,14 +8,26 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const AccessServices = require('../users/accesses.services');
+const CredentialServices = require('../users/credentials.services');
 const DeviceServices = require('../users/devices.services');
+const PreferenceServices = require('../users/preferences.services');
+const TokenServices = require('../users/tokens.services');
+const UserServices = require('../users/users.services');
+const SessionMailer = require('../../emails/auth/session.email');
 const config = require('../../../config/env');
 const ContextHelper = require('../../../helpers/context.helper');
 const { getSequelize } = require('../../../config/database/connection');
 const { wrapLogging } = require('../../../helpers/debug.helper');
 const { error } = require('../../../helpers/response.helper');
-const { createJWT, verifyJWT } = require('../../../helpers/security.helper');
+const {
+  createJWT,
+  verifyJWT,
+  hashPassword,
+  verifyPassword,
+  generateSecureToken,
+} = require('../../../helpers/security.helper');
 const { getSecret } = require('../../../helpers/vault.helper');
+const { generateInternalCode } = require('../../../utils/utilities.util');
 
 class SessionService {
   constructor(sequelize = null) {
@@ -25,6 +36,8 @@ class SessionService {
 
     this.accessTokenSecret = null;
     this.refreshTokenSecret = null;
+
+    this.sessionMailer = new SessionMailer();
 
     return this;
   }
@@ -41,61 +54,186 @@ class SessionService {
     this.refreshTokenSecret = refresh_token_secret;
 
     this.accessesService = new AccessServices(this.sequelize);
+    this.credentialsService = new CredentialServices(this.sequelize);
     this.devicesService = new DeviceServices(this.sequelize);
+    this.preferenceService = new PreferenceServices(this.sequelize);
+    this.tokensService = new TokenServices(this.sequelize);
+    this.usersService = new UserServices(this.sequelize);
 
     return this;
   }
 
-  async login(credential, password, fingerprint, device) {
-    const account = await this.models.usrAccounts.findOne({
-      attributes: [
-        'id',
-        'userId',
-        'employeeId',
-        'internalCode',
-        'profile',
-        'profileInt',
-        'email',
-        'emailConfirmedAt',
-        'mobileNumber',
-        'mobileNumberConfirmedAt',
-        'password',
-      ],
-      where: { [Op.or]: [{ internalCode: credential }, { email: credential }, { mobileNumber: credential }] },
-      include: {
-        model: this.models.configRoles,
-        as: 'role',
-        attributes: ['id', 'name'],
-        required: true,
-      },
-      logging: wrapLogging('[SessionService.login] Get account by credential'),
+  async signup(firstName, firstLastName, email, password, { preferences } = {}) {
+    const hashedPassword = await hashPassword(password, 10);
+
+    const defaultRole = await this.models.configRoles.findOne({
+      attributes: ['id'],
+      where: { target: 'customer', isDefault: true },
+      raw: true,
+      logging: wrapLogging('[SessionService.signup] Get default role'),
     });
 
-    if (!account) throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
+    if (!defaultRole) throw error({ httpCode: 500, messagePath: 'auth.signup.defaultRoleNotFound' });
 
-    if (!account.emailConfirmedAt && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
-    }
+    const createUserData = { firstName, firstLastName };
 
-    if (credential === account.email && !account.emailConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
-    }
+    const createAccountData = {
+      rolId: defaultRole.id,
+      userId: null,
+      password: hashedPassword,
+    };
 
-    if (credential === account.mobileNumber && !account.mobileNumberConfirmedAt) {
-      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
-    }
+    const createCredentialData = [
+      {
+        accountId: null,
+        credentialType: 'internal_code',
+        credentialValue: generateInternalCode('account'),
+        verifiedAt: moment().toDate(),
+      },
+      {
+        accountId: null,
+        credentialType: 'email',
+        credentialValue: email,
+        verifiedAt: null,
+      },
+    ];
 
-    const validPassword = await bcrypt.compare(password, account.password);
-    account.password = undefined;
-    if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    const createTokenData = {
+      accountId: null,
+      token: generateSecureToken(),
+      purpose: 'confirm_email',
+      expiresIn: moment().add(1, 'hour').toDate(),
+    };
 
-    return await this.createTokens(account, fingerprint, device);
+    const existingCredential = await this.models.usrCredentials.findOne({
+      attributes: ['id'],
+      where: { credentialType: 'email', credentialValue: email },
+      raw: true,
+      logging: wrapLogging('[SessionService.signup] Get existing credential'),
+    });
+
+    if (existingCredential) throw error({ httpCode: 400, messagePath: 'auth.signup.accountExists' });
+
+    await this.sequelize.transaction(async (transaction) => {
+      const user = await this.usersService.createUser(createUserData.firstName, createUserData.firstLastName, {
+        t: transaction,
+      });
+
+      createAccountData.userId = user.id;
+
+      const account = await this.models.usrAccounts.create(createAccountData, {
+        transaction,
+        logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
+      });
+
+      for (const credential of createCredentialData) {
+        await this.credentialsService.createCredential(
+          account.id,
+          credential.credentialType,
+          credential.credentialValue,
+          { t: transaction }
+        );
+      }
+
+      await this.tokensService.createToken(
+        account.id,
+        createTokenData.token,
+        createTokenData.purpose,
+        createTokenData.expiresIn,
+        { t: transaction }
+      );
+
+      if (preferences?.lang && preferences?.timezone) {
+        const [language, timezone] = await Promise.all([
+          this.models.dataLanguages.findOne({
+            attributes: ['id'],
+            where: { abbreviation: preferences?.lang },
+            raw: true,
+          }),
+          this.models.dataTimezones.findOne({ attributes: ['id'], where: { name: preferences?.timezone }, raw: true }),
+        ]);
+
+        const createPreferencesData = {
+          languageId: language?.id,
+          timezoneId: timezone?.id,
+          theme: preferences.theme,
+        };
+
+        if (createPreferencesData.languageId && createPreferencesData.timezoneId) {
+          await this.preferenceService.createPreference(
+            account.id,
+            createPreferencesData.languageId,
+            createPreferencesData.timezoneId,
+            { theme: createPreferencesData.theme, t: transaction }
+          );
+        }
+      }
+    });
+
+    return createTokenData.token;
   }
 
+  async login(credential, password, fingerprint, device) {
+    const credentialRecord = await this.models.usrCredentials.findOne({
+      attributes: ['id', 'accountId', 'credentialType', 'credentialValue', 'verifiedAt'],
+      where: { credentialValue: credential, verifiedAt: { [Op.not]: null } },
+      include: {
+        model: this.models.usrAccounts,
+        as: 'account',
+        attributes: ['id', 'userId', 'password'],
+        required: true,
+        include: {
+          model: this.models.configRoles,
+          as: 'rol',
+          attributes: ['id', 'name'],
+          required: true,
+        },
+      },
+      logging: wrapLogging('[SessionService.login] Get credential by value'),
+    });
+
+    if (!credentialRecord) {
+      throw error({ httpCode: 404, messagePath: 'auth.login.invalidCredentials' });
+    }
+
+    const account = credentialRecord.account;
+
+    const validPassword = await verifyPassword(password, account.password);
+    if (!validPassword) {
+      throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
+    }
+
+    const accountData = { id: account.id, userId: account.userId, rol: account.rol };
+
+    return await this.createTokens(accountData, fingerprint, device);
+  }
+
+  async logout(user, accountId, jti) {
+    const access = await this.accessesService.getListAccesses({ limit: 1, page: 1, active: true, accountId, jti });
+
+    if (!access.results.length === 0) {
+      throw error({ httpCode: 404, messagePath: 'auth.logout.sessionNotFound' });
+    }
+
+    await this.accessesService.updateAccess(access.results[0].id, { active: false, user });
+
+    return true;
+  }
+
+  // =============================== TOKENS ================================ //
   async createTokens(account, fingerprint, device) {
+    account = JSON.parse(JSON.stringify(account));
     const managedDevice = await this.manageDevice(account.id, fingerprint, device);
 
     const isSafeMode = !managedDevice.isTrusted;
+
+    const credentialCode = await this.models.usrCredentials.findOne({
+      attributes: ['credentialValue'],
+      where: { accountId: account.id, credentialType: 'internal_code', verifiedAt: { [Op.not]: null } },
+      raw: true,
+    });
+
+    account.internalCode = credentialCode.credentialValue;
 
     const accessToken = this.createAccessToken(account, isSafeMode);
     const refreshToken = this.createRefreshToken(account, managedDevice);
@@ -133,34 +271,33 @@ class SessionService {
     return { accountId: account.id, isSafeMode, accessToken, refreshToken };
   }
 
-  // =============================== TOKENS ================================ //
   createAccessToken(account, isSafeMode) {
-    const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
-
-    if (account.userId) payload.profile = 'user';
-    if (account.employeeId) payload.profile = 'employee';
+    const internalCode = account.internalCode || `ACC_${account.id}`;
+    const payload = { internalCode, isSafeMode, role: account.rol.name };
 
     return createJWT(payload, this.accessTokenSecret, {
-      subject: 'acces_token_' + account.internalCode,
+      subject: 'acces_token_' + internalCode,
       expiresIn: config.jwt.accessToken.expiration,
     });
   }
 
   createRefreshToken(account, device) {
+    const internalCode = account.internalCode || `ACC_${account.id}`;
     const payload = {
-      internalCode: account.internalCode,
+      internalCode,
       device: { fingerprint: device.fingerprint, name: device.name, browser: device.browser, os: device.os },
     };
 
     return createJWT(payload, this.refreshTokenSecret, {
-      subject: 'refresh_token_' + account.internalCode,
+      subject: 'refresh_token_' + internalCode,
       expiresIn: config.jwt.refreshToken.expiration,
     });
   }
 
   validRefreshToken(refreshToken, account) {
+    const internalCode = account.internalCode || `ACC_${account.id}`;
     const payload = verifyJWT(refreshToken, this.refreshTokenSecret, {
-      subject: 'refresh_token_' + account.internalCode,
+      subject: 'refresh_token_' + internalCode,
     });
 
     return payload;

@@ -2,10 +2,12 @@
 
 const { Model, DataTypes } = require('sequelize');
 
-// Log of account access and devices.
+const i18n = require('../../config/i18n');
 
-const TABLE_NAME = 'usr_accesses';
-const MODEL_NAME = 'usrAccesses';
+// Table that stores the purpose and information of tokens.
+
+const TABLE_NAME = 'usr_tokens';
+const MODEL_NAME = 'usrTokens';
 
 const Schema = {
   id: {
@@ -14,7 +16,7 @@ const Schema = {
     primaryKey: true,
     autoIncrement: true,
     unique: 'PRIMARY',
-    comment: 'Unique identifier for each access.',
+    comment: 'Unique primary key for identifying each created token.',
   },
   accountId: {
     type: DataTypes.INTEGER,
@@ -25,40 +27,50 @@ const Schema = {
       model: 'usrAccounts',
       key: 'id',
     },
-    comment: 'Account ID.',
+    comment: "ID of the user's account for which the token was created.",
     field: 'account_id',
   },
-  deviceId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      table: 'usr_devices',
-      column: 'id',
-      model: 'usrDevices',
-      key: 'id',
-    },
-    comment: 'ID of the device from which the access was recorded.',
-    field: 'device_id',
-  },
-  idToken: {
+  token: {
     type: DataTypes.STRING(100),
     allowNull: false,
     unique: 'token_UN',
-    comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
-    field: 'id_token',
+    comment: 'Form or content of the token.',
   },
-  expiresAt: {
+  purpose: {
+    type: DataTypes.ENUM('confirm_email', 'confirm_recovery_email', 'confirm_phone', 'recover_password'),
+    allowNull: false,
+    get() {
+      const purpose = this.getDataValue('purpose');
+      const translated = i18n.__('enums.purpose.' + purpose);
+
+      return { original: purpose, translated };
+    },
+    comment: 'Purpose of the token.',
+  },
+  purposeInt: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const purpose = this.getDataValue('purpose');
+      const options = { confirm_email: 1, confirm_recovery_email: 2, confirm_phone: 3, recover_password: 4 };
+
+      return options[purpose];
+    },
+    set(_) {
+      throw new Error('You cannot assign a value to a virtual column.');
+    },
+  },
+  expiresIn: {
     type: DataTypes.DATE,
     allowNull: false,
-    comment: 'Date and time the access expires. Updated each time the token is refreshed.',
-    field: 'expires_at',
+    comment: 'Indicates the date and time limit for the use of the token.',
+    field: 'expires_in',
   },
-  isSafeMode: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: '0',
-    comment: 'Indicates whether access was performed in safe mode.',
-    field: 'is_safe_mode',
+  usedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
+    comment: 'Date and time the token was used.',
+    field: 'used_at',
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -92,15 +104,8 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.belongsTo(models.usrDevices, {
-      foreignKey: 'deviceId',
-      targetKey: 'id',
-      as: 'device',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
 
     // References

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="<%= typeof language !== 'undefined' ? language : 'es' %>">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>
+    <%= typeof subject !=='undefined' ? subject : 'Correo Electrónico' %>
+  </title>
+  <style>
+    /* Reset básico */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f4f4f4;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    img {
+      border: 0;
+      outline: none;
+      text-decoration: none;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Colores del tema */
+    .color-primary {
+      color: #DC143C;
+    }
+
+    .bg-primary {
+      background-color: #DC143C;
+    }
+
+    .color-secondary {
+      color: #D4AF37;
+    }
+
+    .bg-secondary {
+      background-color: #D4AF37;
+    }
+
+    .color-dark {
+      color: #1A1D23;
+    }
+
+    .bg-dark {
+      background-color: #1A1D23;
+    }
+
+    .color-text {
+      color: #2C3038;
+    }
+
+    .color-text-light {
+      color: #6B7280;
+    }
+
+    .color-white {
+      color: #FFFFFF;
+    }
+
+    .bg-white {
+      background-color: #FFFFFF;
+    }
+
+    /* Contenedor principal */
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+    }
+
+    /* Header */
+    .email-header {
+      background: linear-gradient(135deg, #1A1D23 0%, #2C3038 100%);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .email-logo {
+      margin: 0 auto;
+      max-width: 200px;
+    }
+
+    /* Contenido */
+    .email-content {
+      padding: 40px 30px;
+      background-color: #FFFFFF;
+    }
+
+    /* Tipografía */
+    .heading-1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0 0 20px 0;
+      color: #1A1D23;
+    }
+
+    .heading-2 {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin: 0 0 16px 0;
+      color: #1A1D23;
+    }
+
+    .heading-3 {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0 0 12px 0;
+      color: #1A1D23;
+    }
+
+    .text-body {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2C3038;
+      margin: 0 0 16px 0;
+    }
+
+    .text-small {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #6B7280;
+    }
+
+    .text-bold {
+      font-weight: 600;
+    }
+
+    /* Botones */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #DC143C;
+      color: #FFFFFF;
+    }
+
+    .btn-secondary {
+      background-color: #D4AF37;
+      color: #1A1D23;
+    }
+
+    .btn-dark {
+      background-color: #1A1D23;
+      color: #FFFFFF;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #DC143C;
+      color: #DC143C;
+      padding: 12px 30px;
+    }
+
+    /* Alertas y notificaciones */
+    .alert {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid;
+    }
+
+    .alert-info {
+      background-color: #EFF6FF;
+      border-left-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-success {
+      background-color: #F0FDF4;
+      border-left-color: #22C55E;
+      color: #15803D;
+    }
+
+    .alert-warning {
+      background-color: #FFFBEB;
+      border-left-color: #F59E0B;
+      color: #B45309;
+    }
+
+    .alert-error {
+      background-color: #FEF2F2;
+      border-left-color: #EF4444;
+      color: #B91C1C;
+    }
+
+    .alert-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0 0 8px 0;
+    }
+
+    .alert-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Divisor */
+    .divider {
+      height: 1px;
+      background-color: #E5E7EB;
+      margin: 30px 0;
+    }
+
+    .divider-bold {
+      height: 2px;
+      background: linear-gradient(90deg, #DC143C 0%, #D4AF37 100%);
+      margin: 30px 0;
+    }
+
+    /* Espaciado */
+    .spacing-sm {
+      height: 16px;
+    }
+
+    .spacing-md {
+      height: 24px;
+    }
+
+    .spacing-lg {
+      height: 40px;
+    }
+
+    /* Tarjetas */
+    .card {
+      background-color: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .card-highlight {
+      background: linear-gradient(135deg, #1A1D23 0%, #2C3038 100%);
+      color: #FFFFFF;
+      border: none;
+    }
+
+    /* Listas */
+    .list-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Enlaces */
+    a {
+      color: #DC143C;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media only screen and (max-width: 600px) {
+      .email-content {
+        padding: 30px 20px !important;
+      }
+
+      .heading-1 {
+        font-size: 24px !important;
+      }
+
+      .heading-2 {
+        font-size: 20px !important;
+      }
+
+      .btn {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f4f4f4; padding: 20px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" class="email-container">
+          <!-- Header con imagen -->
+          <tr>
+            <td class="email-header">
+              <% if (typeof headerImage !=='undefined' && headerImage) { %>
+                <img src="<%= headerImage %>" alt="Logo" class="email-logo" />
+                <% } else { %>
+                  <h1 style="color: #FFFFFF; font-size: 32px; margin: 0; letter-spacing: 1px;">
+                    <span style="color: #DC143C;">●</span>
+                    <span style="color: #D4AF37;">●</span>
+                    <span style="color: #FFFFFF;">Tu Marca</span>
+                  </h1>
+                  <% } %>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

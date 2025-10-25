@@ -40,6 +40,14 @@ const Schema = {
     comment: 'Scope ID.',
     field: 'scope_id',
   },
+  expiresAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+    defaultValue: null,
+    comment:
+      'Specifies a date and time limit for the account to be eligible for the scope. If null, this indicates that the account will permanently have that scope.',
+    field: 'expires_at',
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -72,8 +80,8 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
     this.belongsTo(models.configScopes, {
       foreignKey: 'scopeId',

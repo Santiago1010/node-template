@@ -170,6 +170,7 @@ const PATHS = {
   DOCS: ROOT + '/docs',
   DOCS_PATHS: ROOT + '/docs/paths',
   ROUTES_DEFAULT: ROOT + '/routes/web',
+  EMAIL_TEMPLATES: ROOT + '/templates/emails',
 };
 
 // =============================================================================

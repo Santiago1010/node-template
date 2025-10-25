@@ -2,10 +2,12 @@
 
 const { Model, DataTypes } = require('sequelize');
 
-// Log of account access and devices.
+const i18n = require('../../config/i18n');
 
-const TABLE_NAME = 'usr_accesses';
-const MODEL_NAME = 'usrAccesses';
+// Profile and/or cover images for each account.
+
+const TABLE_NAME = 'usr_images';
+const MODEL_NAME = 'usrImages';
 
 const Schema = {
   id: {
@@ -14,7 +16,7 @@ const Schema = {
     primaryKey: true,
     autoIncrement: true,
     unique: 'PRIMARY',
-    comment: 'Unique identifier for each access.',
+    comment: 'Unique identifier for each image.',
   },
   accountId: {
     type: DataTypes.INTEGER,
@@ -25,40 +27,36 @@ const Schema = {
       model: 'usrAccounts',
       key: 'id',
     },
-    comment: 'Account ID.',
+    comment: 'ID of the account to which the image belongs.',
     field: 'account_id',
   },
-  deviceId: {
-    type: DataTypes.INTEGER,
+  type: {
+    type: DataTypes.ENUM('profile', 'front_page'),
     allowNull: false,
-    references: {
-      table: 'usr_devices',
-      column: 'id',
-      model: 'usrDevices',
-      key: 'id',
+    get() {
+      const type = this.getDataValue('type');
+      const translated = i18n.__('enums.type.' + type);
+
+      return { original: type, translated };
     },
-    comment: 'ID of the device from which the access was recorded.',
-    field: 'device_id',
+    comment: 'Indicates the type of account image.',
   },
-  idToken: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-    unique: 'token_UN',
-    comment: 'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
-    field: 'id_token',
+  typeInt: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const type = this.getDataValue('type');
+      const options = { profile: 1, front_page: 2 };
+
+      return options[type];
+    },
+    set(_) {
+      throw new Error('You cannot assign a value to a virtual column.');
+    },
   },
-  expiresAt: {
-    type: DataTypes.DATE,
+  path: {
+    type: DataTypes.STRING(150),
     allowNull: false,
-    comment: 'Date and time the access expires. Updated each time the token is refreshed.',
-    field: 'expires_at',
-  },
-  isSafeMode: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: '0',
-    comment: 'Indicates whether access was performed in safe mode.',
-    field: 'is_safe_mode',
+    comment: 'Image path.',
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -92,15 +90,8 @@ class ExtendedModel extends Model {
       foreignKey: 'accountId',
       targetKey: 'id',
       as: 'account',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.belongsTo(models.usrDevices, {
-      foreignKey: 'deviceId',
-      targetKey: 'id',
-      as: 'device',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     });
 
     // References

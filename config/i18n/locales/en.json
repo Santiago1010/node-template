@@ -3,7 +3,11 @@
     "test": "Test variable",
     "credential": "fields.credential",
     "password": "fields.password",
-    "fingerprint": "fields.fingerprint"
+    "fingerprint": "fields.fingerprint",
+    "firstName": "fields.firstName",
+    "firstLastName": "fields.firstLastName",
+    "email": "fields.email",
+    "token": "fields.token"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -46,12 +50,28 @@
     "login": {
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
-      "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes."
+      "tooManyAttempts": "Too many login attempts. Try again in {remainingTTL} minutes.",
+      "confirmationEmailSent": "auth.login.confirmationEmailSent"
     },
     "session": {
       "invalidSession": "auth.session.invalidSession",
       "invalidToken": "auth.session.invalidToken",
       "notFound": "auth.session.notFound"
+    },
+    "logout": {
+      "success": "auth.logout.success"
+    },
+    "signup": {
+      "accountExists": "auth.signup.accountExists",
+      "success": "auth.signup.success"
+    },
+    "confirmEmail": {
+      "invalidToken": "auth.confirmEmail.invalidToken",
+      "confirmationEmailSent": "auth.confirmEmail.confirmationEmailSent",
+      "emailConfirmed": "auth.confirmEmail.emailConfirmed"
+    },
+    "sendConfirmationEmail": {
+      "emailAlreadyConfirmed": "auth.sendConfirmationEmail.emailAlreadyConfirmed"
     }
   },
   "enums": {
@@ -60,6 +80,10 @@
     },
     "target": {
       "everyone": "enums.target.everyone"
+    },
+    "credentialType": {
+      "undefined": "enums.credentialType.undefined",
+      "internal_code": "enums.credentialType.internal_code"
     }
   },
   "common": {

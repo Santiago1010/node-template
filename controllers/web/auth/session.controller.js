@@ -8,11 +8,29 @@ const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
 
 class SessionController {
+  static async signup(req, res, next) {
+    const { firstName, firstLastName, email, password, preferences } = req.body;
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      const token = await sessionService.signup(firstName, firstLastName, email, password, { preferences });
+
+      sessionService.sessionMailer.sendWelcomeEmail(email, firstName, token);
+
+      return success(res, { messagePath: 'auth.signup.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   static async login(req, res, next) {
     const { credential, password } = req.body;
 
     try {
-      const sessionService = await new SessionService().initialize();
+      const sessionService = new SessionService();
+      await sessionService.initialize();
 
       const deviceInfo = getDeviceInfo(req, true);
       const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
@@ -71,7 +89,40 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
+      await sessionService.sessionMailer.sendWelcomeEmail({ name: 'Santiago', email: 'santiago.c.a_10@hotmail.es' });
+
       return success(res, { messagePath: 'auth.login.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  static async logout(req, res, next) {
+    const { account, jti, device } = req.user;
+
+    try {
+      console.log(req.user);
+
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      await sessionService.logout(req.user, account.id, jti);
+
+      const sessionKey = buildKey('session', account.id, device.fingerprint);
+      await del(sessionKey);
+
+      res.clearCookie('accessToken', {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+      });
+      res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+      });
+
+      return success(res, { messagePath: 'auth.logout.success' });
     } catch (error) {
       return next(error);
     }

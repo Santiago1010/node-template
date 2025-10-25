@@ -36,9 +36,9 @@ const Schema = {
     comment: 'Role name.',
   },
   target: {
-    type: DataTypes.ENUM('everyone', 'employee', 'client', 'provider', 'client_user', 'project'),
+    type: DataTypes.ENUM('employee', 'customer'),
     allowNull: false,
-    defaultValue: 'everyone',
+    defaultValue: 'customer',
     get() {
       const target = this.getDataValue('target');
       const translated = i18n.__('enums.target.' + target);
@@ -51,7 +51,7 @@ const Schema = {
     type: DataTypes.VIRTUAL,
     get() {
       const target = this.getDataValue('target');
-      const options = { everyone: 1, employee: 2, client: 3, provider: 4, client_user: 5, project: 6 };
+      const options = { employee: 1, customer: 2 };
 
       return options[target];
     },
