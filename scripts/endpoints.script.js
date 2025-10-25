@@ -1,4 +1,10 @@
 // =============================================================================
+// CORE NODE.JS DEPENDENCIES
+// =============================================================================
+const fs = require('fs').promises;
+const path = require('path');
+
+// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const expressEndpoints = require('express-list-endpoints');
@@ -151,8 +157,6 @@ const mapLocation = (location) => {
 /**
  * Finds security level by priority
  *
- * @description Retrieves security level record based on priority value
- *
  * @param {number} priority - Security priority level
  * @param {Object} transaction - Sequelize transaction object
  * @returns {Promise<Object|null>} Security level record or null
@@ -169,9 +173,6 @@ const getSecurityLevelByPriority = async (priority, transaction) => {
 
 /**
  * Processes nested field structures in validation schemas with security levels
- *
- * @description Enhanced version that extracts and handles security level configuration
- *              from validation schemas with proper validation rules.
  *
  * @param {string} fieldName - Name of the field being processed
  * @param {Object} fieldSchema - Validation schema for the field
@@ -286,6 +287,119 @@ const processNestedFields = async (
 };
 
 /**
+ * Sanitizes path for file system usage
+ *
+ * @description Converts URL path parameters to file-safe format
+ * @param {string} pathStr - Original path string
+ * @returns {string} Sanitized path suitable for filenames
+ *
+ * @example
+ * sanitizePathForFilename('/users/:idUser/details/:credential')
+ * // Returns: 'users-{idUser}-details-{credential}'
+ */
+const sanitizePathForFilename = (pathStr) => {
+  return pathStr
+    .replace(/^\//, '') // Remove leading slash
+    .replace(/\/$/, '') // Remove trailing slash
+    .replace(/\/:([^\/]+)/g, '-{$1}') // Convert /:param to -{param}
+    .replace(/\//g, '-') // Convert remaining slashes to hyphens
+    .replace(/[^a-zA-Z0-9\-_{}]/g, '_'); // Replace special chars
+};
+
+/**
+ * Checks if a file is empty or contains only whitespace/comments
+ *
+ * @param {string} filePath - Path to the file
+ * @returns {Promise<boolean>} True if file is empty or doesn't exist
+ */
+const isFileEmpty = async (filePath) => {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    // Consider file empty if it has no content or only whitespace
+    return content.trim().length === 0;
+  } catch (error) {
+    // If file doesn't exist, consider it "empty"
+    if (error.code === 'ENOENT') {
+      return true;
+    }
+    throw error;
+  }
+};
+
+/**
+ * Creates directory structure recursively
+ *
+ * @param {string} dirPath - Directory path to create
+ */
+const ensureDirectoryExists = async (dirPath) => {
+  try {
+    await fs.mkdir(dirPath, { recursive: true });
+  } catch (error) {
+    if (error.code !== 'EEXIST') {
+      throw error;
+    }
+  }
+};
+
+/**
+ * Generates all UML diagrams for an endpoint
+ *
+ * @param {Object} endpointData - Endpoint information
+ * @returns {Promise<void>}
+ */
+const generateEndpointDiagrams = async (endpointData) => {
+  const { method, platform, version, group, path: endpointPath } = endpointData;
+
+  // Skip if missing required path components
+  if (!platform || !version || !group) {
+    console.log(`    ⏭️  Skipping diagram generation (incomplete path structure)`);
+    return;
+  }
+
+  // Sanitize path for filename
+  const sanitizedPath = sanitizePathForFilename(endpointPath);
+  const filename = sanitizedPath || 'root';
+
+  // Build directory structure
+  const contextDir = path.join(process.cwd(), 'context', platform, version, group);
+  await ensureDirectoryExists(contextDir);
+
+  // Define diagram types and their generators
+  const diagramTypes = [
+    { name: 'activity', generator: () => '' },
+    { name: 'usecase', generator: () => '' },
+    { name: 'sequence', generator: () => '' },
+    { name: 'communication', generator: () => '' },
+    { name: 'component', generator: () => '' },
+    { name: 'dataflow', generator: () => '' },
+  ];
+
+  let diagramsCreated = 0;
+  let diagramsSkipped = 0;
+
+  for (const { name, generator } of diagramTypes) {
+    const diagramPath = path.join(contextDir, `${method}.${filename}.${name}.puml`);
+
+    // Check if file exists and is not empty
+    const isEmpty = await isFileEmpty(diagramPath);
+
+    if (!isEmpty) {
+      diagramsSkipped++;
+      continue;
+    }
+
+    // Generate and write diagram content
+    const content = generator(endpointData);
+    await fs.writeFile(diagramPath, content, 'utf-8');
+    diagramsCreated++;
+  }
+
+  if (diagramsCreated > 0 || diagramsSkipped > 0) {
+    console.log(`    📊 Diagrams: ${diagramsCreated} created, ${diagramsSkipped} skipped (already exist)`);
+  }
+};
+
+/**
  * Synchronizes individual endpoint with database
  */
 const syncEndpoint = async (endpointData, transaction) => {
@@ -332,6 +446,9 @@ const syncEndpoint = async (endpointData, transaction) => {
   if (validationSchema) {
     await syncValidationSchema(endpoint.id, validationSchema, transaction);
   }
+
+  // Generate UML diagrams for this endpoint
+  await generateEndpointDiagrams(endpointData);
 
   return endpoint;
 };

@@ -50,6 +50,38 @@
 │   ├── structure.txt
 │   ├── wearable
 │   └── web
+│       └── v1
+│           └── auth
+│               ├── delete.logout.activity.puml
+│               ├── delete.logout.communication.puml
+│               ├── delete.logout.component.puml
+│               ├── delete.logout.dataflow.puml
+│               ├── delete.logout.sequence.puml
+│               ├── delete.logout.usecase.puml
+│               ├── patch.confirm-email-{token}.activity.puml
+│               ├── patch.confirm-email-{token}.communication.puml
+│               ├── patch.confirm-email-{token}.component.puml
+│               ├── patch.confirm-email-{token}.dataflow.puml
+│               ├── patch.confirm-email-{token}.sequence.puml
+│               ├── patch.confirm-email-{token}.usecase.puml
+│               ├── post.login.activity.puml
+│               ├── post.login.communication.puml
+│               ├── post.login.component.puml
+│               ├── post.login.dataflow.puml
+│               ├── post.login.sequence.puml
+│               ├── post.login.usecase.puml
+│               ├── post.resend-confirmation.activity.puml
+│               ├── post.resend-confirmation.communication.puml
+│               ├── post.resend-confirmation.component.puml
+│               ├── post.resend-confirmation.dataflow.puml
+│               ├── post.resend-confirmation.sequence.puml
+│               ├── post.resend-confirmation.usecase.puml
+│               ├── post.signup.activity.puml
+│               ├── post.signup.communication.puml
+│               ├── post.signup.component.puml
+│               ├── post.signup.dataflow.puml
+│               ├── post.signup.sequence.puml
+│               └── post.signup.usecase.puml
 ├── CONTRIBUTING.md
 ├── controllers
 │   ├── app
@@ -268,4 +300,4 @@
     ├── extensions.json
     └── settings.json
 
-86 directories, 183 files
+88 directories, 213 files
