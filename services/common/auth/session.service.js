@@ -60,7 +60,7 @@ class SessionService {
 
     const defaultRole = await this.models.configRoles.findOne({
       attributes: ['id'],
-      where: { target: 'everyone', isDefault: true },
+      where: { target: 'customer', isDefault: true },
       raw: true,
       logging: wrapLogging('[SessionService.signup] Get default role'),
     });
