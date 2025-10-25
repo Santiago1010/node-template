@@ -88,7 +88,11 @@
     }
   },
   "common": {
-    "of": "of"
+    "of": "of",
+    "hours": {
+      "one": "1 hour",
+      "other": "{count} hours"
+    }
   },
   "Todo bien.": "Todo bien."
 }
