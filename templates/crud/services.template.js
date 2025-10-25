@@ -15,7 +15,7 @@ class {{SERVICE_NAME}} {
   constructor(sequelize = null) {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
-    this.logService = null;
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
@@ -41,13 +41,17 @@ class {{SERVICE_NAME}} {
         logging: wrapLogging('[{{SERVICE_NAME}}.{{CREATE_METHOD}}] ', createData),
       });
 
-      await this.logService.recordCreationLog(user, this.models.{{MAIN_MODEL}}, {{SINGLE_NAME}}, { transaction: t || transaction });
+      if (user) {
+        await this.logService.recordCreationLog(user, this.models.{{MAIN_MODEL}}, {{SINGLE_NAME}}, {
+          transaction: t || transaction
+        });
+      }
 
       return {{SINGLE_NAME}};
     });
   }
 
-  async {{UPDATE_STATUS_METHOD}}(user, ids, active) {
+  async {{UPDATE_STATUS_METHOD}}(user, ids, active, { t } = {}) {
     return await this.sequelize.transaction(async (transaction) => {
       const result = await bulkToggleSoftDelete(this.models.{{MAIN_MODEL}}, { id: { [Op.in]: ids } }, active, {
         transaction: t || transaction,
@@ -55,7 +59,9 @@ class {{SERVICE_NAME}} {
       });
 
       const logsPromises = ids.map(async (id) => {
-        return await this.logService.recordStatusChangeLog(user, this.models.{{MAIN_MODEL}}, id, active, { transaction: t || transaction });
+        return await this.logService.recordStatusChangeLog(user, this.models.{{MAIN_MODEL}}, id, active, {
+          transaction: t || transaction
+        });
       });
 
       await Promise.all(logsPromises);
@@ -64,7 +70,15 @@ class {{SERVICE_NAME}} {
     });
   }
 
-  async {{LIST_METHOD}}({ limit, page, search, ids = [], fields = [], active, {{FILTERS}} } = {}) {
+  async {{LIST_METHOD}}({
+    limit,
+    page,
+    search,
+    ids = [],
+    fields = [],
+    active,
+    {{FILTERS}}
+  } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -108,7 +122,7 @@ class {{SERVICE_NAME}} {
     return {{SINGLE_NAME}};
   }
 
-  async {{UPDATE_METHOD}}(user, id, { {{ALL_DATA}} } = {}) {
+  async {{UPDATE_METHOD}}(user, id, { {{ALL_DATA}}, active, t } = {}) {
     const updateData = { {{ALL_DATA}} };
 
     const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.findByPk(id, {
@@ -124,13 +138,19 @@ class {{SERVICE_NAME}} {
         logging: wrapLogging('[{{SERVICE_NAME}}.{{UPDATE_METHOD}}] ', updateData),
       });
 
-      await this.logService.recordUpdateLog(user, this.models.{{MAIN_MODEL}}, oldData, updatedData, { transaction: t || transaction });
+      if (active !== undefined) await this.{{UPDATE_STATUS_METHOD}}(user, [id], active, { t: t || transaction });
+
+      if (user && Object.values(updateData).some((value) => value !== undefined)) {
+        await this.logService.recordUpdateLog(user, this.models.{{MAIN_MODEL}}, oldData, updatedData, {
+          transaction: t || transaction
+        });
+      }
 
       return updatedData;
     });
   }
 
-  async {{DELETE_METHOD}}(user, id, { justification } = {}) {
+  async {{DELETE_METHOD}}(user, id, { justification, t } = {}) {
     const {{SINGLE_NAME}} = await this.models.{{MAIN_MODEL}}.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[{{SERVICE_NAME}}.{{DELETE_METHOD}}]'),
@@ -143,7 +163,10 @@ class {{SERVICE_NAME}} {
         logging: wrapLogging('[{{SERVICE_NAME}}.{{DELETE_METHOD}}]'),
       });
 
-      await this.logService.recordDeletionLog(user, this.models.{{MAIN_MODEL}}, deletedData, { justification, transaction: t || transaction });
+      await this.logService.recordDeletionLog(user, this.models.{{MAIN_MODEL}}, deletedData, {
+        justification,
+        transaction: t || transaction
+      });
 
       return deletedData;
     });
