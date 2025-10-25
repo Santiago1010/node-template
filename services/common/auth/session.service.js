@@ -55,7 +55,7 @@ class SessionService {
     return this;
   }
 
-  async signup(firstName, firstLastName, email, password) {
+  async signup(firstName, firstLastName, email, password, { preferences } = {}) {
     const hashedPassword = await hashPassword(password, 10);
 
     const defaultRole = await this.models.configRoles.findOne({
@@ -80,7 +80,7 @@ class SessionService {
         accountId: null,
         credentialType: 'internal_code',
         credentialValue: generateInternalCode(),
-        verifiedAt: null,
+        verifiedAt: moment().toDate(),
       },
       {
         accountId: null,
@@ -133,6 +133,31 @@ class SessionService {
         transaction,
         logging: wrapLogging("[SessionService.signup] Create token for account's confirmation", createTokenData),
       });
+
+      if (preferences.lang && preferences.timezone) {
+        const [language, timezone] = await Promise.all([
+          this.models.dataLanguages.findOne({
+            attributes: ['id'],
+            where: { abbreviation: preferences.lang },
+            raw: true,
+          }),
+          this.models.dataTimezones.findOne({ attributes: ['id'], where: { name: preferences.timezone }, raw: true }),
+        ]);
+
+        const createPreferencesData = {
+          accountId: account.id,
+          languageId: language.id,
+          timezoneId: timezone.id,
+          theme: preferences.theme,
+        };
+
+        if (createPreferencesData.languageId && createPreferencesData.timezoneId) {
+          await this.models.usrPreferences.create(preferences, {
+            transaction,
+            logging: wrapLogging('[SessionService.signup] Create user preferences', preferences),
+          });
+        }
+      }
     });
 
     return createTokenData.token;
