@@ -92,7 +92,74 @@
     "hours": {
       "one": "1 hour",
       "other": "{count} hours"
-    }
+    },
+    "unknown": "common.unknown"
   },
-  "Todo bien.": "Todo bien."
+  "Todo bien.": "Todo bien.",
+  "email": {
+    "sendWelcomeEmail": {
+      "subject": "email.sendWelcomeEmail.subject",
+      "welcomeGreeting": "email.sendWelcomeEmail.welcomeGreeting",
+      "paragraph1": "email.sendWelcomeEmail.paragraph1",
+      "importantInformation": "email.sendWelcomeEmail.importantInformation",
+      "paragraph2": "email.sendWelcomeEmail.paragraph2",
+      "verifyMyEmail": "email.sendWelcomeEmail.verifyMyEmail",
+      "whatYouDo": "email.sendWelcomeEmail.whatYouDo",
+      "explorePanel": {
+        "title": "email.sendWelcomeEmail.explorePanel.title",
+        "paragraph": "email.sendWelcomeEmail.explorePanel.paragraph"
+      },
+      "configProfile": {
+        "title": "email.sendWelcomeEmail.configProfile.title",
+        "paragraph": "email.sendWelcomeEmail.configProfile.paragraph"
+      },
+      "reminder": {
+        "title": "email.sendWelcomeEmail.reminder.title",
+        "paragraph": "email.sendWelcomeEmail.reminder.paragraph"
+      },
+      "questions": "email.sendWelcomeEmail.questions",
+      "contactSupport": "email.sendWelcomeEmail.contactSupport",
+      "alternative": {
+        "button": "email.sendWelcomeEmail.alternative.button",
+        "copyPaste": "email.sendWelcomeEmail.alternative.copyPaste"
+      },
+      "thanks": "email.sendWelcomeEmail.thanks"
+    },
+    "sendUnknownDeviceAlert": {
+      "subject": "email.sendUnknownDeviceAlert.subject",
+      "securityAlert": "email.sendUnknownDeviceAlert.securityAlert",
+      "unknownDeviceDetected": "email.sendUnknownDeviceAlert.unknownDeviceDetected",
+      "paragraph1": "email.sendUnknownDeviceAlert.paragraph1",
+      "paragraph2": "email.sendUnknownDeviceAlert.paragraph2",
+      "deviceInfo": {
+        "title": "email.sendUnknownDeviceAlert.deviceInfo.title",
+        "device": "email.sendUnknownDeviceAlert.deviceInfo.device",
+        "browser": "email.sendUnknownDeviceAlert.deviceInfo.browser",
+        "location": "email.sendUnknownDeviceAlert.deviceInfo.location",
+        "ip": "email.sendUnknownDeviceAlert.deviceInfo.ip",
+        "date": "email.sendUnknownDeviceAlert.deviceInfo.date"
+      },
+      "safeModeActive": "email.sendUnknownDeviceAlert.safeModeActive",
+      "paragraph3": "email.sendUnknownDeviceAlert.paragraph3",
+      "safeModeFeatures": {
+        "title": "email.sendUnknownDeviceAlert.safeModeFeatures.title",
+        "feature1": "email.sendUnknownDeviceAlert.safeModeFeatures.feature1",
+        "feature2": "email.sendUnknownDeviceAlert.safeModeFeatures.feature2",
+        "feature3": "email.sendUnknownDeviceAlert.safeModeFeatures.feature3",
+        "feature4": "email.sendUnknownDeviceAlert.safeModeFeatures.feature4"
+      },
+      "confirmInstructions": "email.sendUnknownDeviceAlert.confirmInstructions",
+      "confirmDevice": "email.sendUnknownDeviceAlert.confirmDevice",
+      "notYou": {
+        "title": "email.sendUnknownDeviceAlert.notYou.title",
+        "paragraph": "email.sendUnknownDeviceAlert.notYou.paragraph"
+      },
+      "reviewSecurity": "email.sendUnknownDeviceAlert.reviewSecurity",
+      "alternative": {
+        "button": "email.sendUnknownDeviceAlert.alternative.button",
+        "copyPaste": "email.sendUnknownDeviceAlert.alternative.copyPaste"
+      },
+      "thanks": "email.sendUnknownDeviceAlert.thanks"
+    }
+  }
 }

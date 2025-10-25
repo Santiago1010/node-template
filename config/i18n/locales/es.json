@@ -92,7 +92,74 @@
     "hours": {
       "one": "1 hora",
       "other": "{count} horas"
-    }
+    },
+    "unknown": "Desconocido"
   },
-  "Todo bien.": "Todo bien."
+  "Todo bien.": "Todo bien.",
+  "email": {
+    "sendWelcomeEmail": {
+      "subject": "email.sendWelcomeEmail.subject",
+      "welcomeGreeting": "email.sendWelcomeEmail.welcomeGreeting",
+      "paragraph1": "email.sendWelcomeEmail.paragraph1",
+      "importantInformation": "email.sendWelcomeEmail.importantInformation",
+      "paragraph2": "email.sendWelcomeEmail.paragraph2",
+      "verifyMyEmail": "email.sendWelcomeEmail.verifyMyEmail",
+      "whatYouDo": "email.sendWelcomeEmail.whatYouDo",
+      "explorePanel": {
+        "title": "email.sendWelcomeEmail.explorePanel.title",
+        "paragraph": "email.sendWelcomeEmail.explorePanel.paragraph"
+      },
+      "configProfile": {
+        "title": "email.sendWelcomeEmail.configProfile.title",
+        "paragraph": "email.sendWelcomeEmail.configProfile.paragraph"
+      },
+      "reminder": {
+        "title": "email.sendWelcomeEmail.reminder.title",
+        "paragraph": "email.sendWelcomeEmail.reminder.paragraph"
+      },
+      "questions": "email.sendWelcomeEmail.questions",
+      "contactSupport": "email.sendWelcomeEmail.contactSupport",
+      "alternative": {
+        "button": "email.sendWelcomeEmail.alternative.button",
+        "copyPaste": "email.sendWelcomeEmail.alternative.copyPaste"
+      },
+      "thanks": "email.sendWelcomeEmail.thanks"
+    },
+    "sendUnknownDeviceAlert": {
+      "subject": "Alerta de Seguridad: Inicio de sesión desde dispositivo desconocido",
+      "securityAlert": "🔔 Alerta de Seguridad",
+      "unknownDeviceDetected": "Dispositivo Desconocido Detectado",
+      "paragraph1": "Hola {firstName}, hemos detectado un inicio de sesión desde un dispositivo que no reconocemos.",
+      "paragraph2": "Por tu seguridad, hemos activado automáticamente el modo seguro en tu cuenta. A continuación, encontrarás los detalles del inicio de sesión:",
+      "deviceInfo": {
+        "title": "Detalles del Dispositivo",
+        "device": "Dispositivo",
+        "browser": "Navegador",
+        "location": "Ubicación",
+        "ip": "Dirección IP",
+        "date": "Fecha y hora"
+      },
+      "safeModeActive": "🛡️ Modo Seguro Activado",
+      "paragraph3": "Tu cuenta está protegida con las siguientes restricciones de seguridad:",
+      "safeModeFeatures": {
+        "title": "Características del Modo Seguro:",
+        "feature1": "Acceso limitado a funciones sensibles",
+        "feature2": "Verificación adicional para cambios importantes",
+        "feature3": "Monitoreo continuo de actividad sospechosa",
+        "feature4": "Notificaciones de seguridad mejoradas"
+      },
+      "confirmInstructions": "Si este inicio de sesión fuiste tú, confirma tu dispositivo para desactivar el modo seguro:",
+      "confirmDevice": "Confirmar Dispositivo",
+      "notYou": {
+        "title": "¿No fuiste tú?",
+        "paragraph": "Si no reconoces esta actividad, te recomendamos cambiar tu contraseña inmediatamente y revisar la configuración de seguridad de tu cuenta."
+      },
+      "reviewSecurity": "Revisar Configuración de Seguridad",
+      "alternative": {
+        "button": "¿El botón no funciona?",
+        "copyPaste": "Copia y pega este enlace en tu navegador:"
+      },
+      "thanks": "Gracias por ayudarnos a mantener tu cuenta segura"
+    }
+  }
 }

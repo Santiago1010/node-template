@@ -89,7 +89,7 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
-      await sessionService.sessionMailer.sendWelcomeEmail({ name: 'Santiago', email: 'santiago.c.a_10@hotmail.es' });
+      await sessionService.sessionMailer.sendUnknownDeviceAlert(credential, deviceInfo, 'aaaaa');
 
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
