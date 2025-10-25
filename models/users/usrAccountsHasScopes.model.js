@@ -86,7 +86,7 @@ class ExtendedModel extends Model {
     this.belongsTo(models.configScopes, {
       foreignKey: 'scopeId',
       targetKey: 'id',
-      as: 'scopeId',
+      as: 'scope',
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });

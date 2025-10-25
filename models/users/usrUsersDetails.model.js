@@ -122,20 +122,20 @@ class ExtendedModel extends Model {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
-    this.belongsTo(models.geoCities, {
-      foreignKey: 'birthCirtyId',
-      targetKey: 'id',
-      as: 'birthCity',
-      onUpdate: 'SET NULL',
-      onDelete: 'SET NULL',
-    });
-    this.belongsTo(models.geoCities, {
-      foreignKey: 'residenceCityId',
-      targetKey: 'id',
-      as: 'residenceCity',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
+    // this.belongsTo(models.geoCities, {
+    //   foreignKey: 'birthCirtyId',
+    //   targetKey: 'id',
+    //   as: 'birthCity',
+    //   onUpdate: 'SET NULL',
+    //   onDelete: 'SET NULL',
+    // });
+    // this.belongsTo(models.geoCities, {
+    //   foreignKey: 'residenceCityId',
+    //   targetKey: 'id',
+    //   as: 'residenceCity',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
 
     // References
 

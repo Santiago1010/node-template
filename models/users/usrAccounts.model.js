@@ -110,27 +110,27 @@ class ExtendedModel extends Model {
     });
 
     // References
-    this.hasMany(models.docDocumentsAccess, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'access',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
-    this.hasMany(models.docPermissions, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'permissions',
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    });
-    this.hasMany(models.docVersionsSocializations, {
-      foreignKey: 'idAccount',
-      sourceKey: 'id',
-      as: 'socializations',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
+    // this.hasMany(models.docDocumentsAccess, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'access',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
+    // this.hasMany(models.docPermissions, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'permissions',
+    //   onUpdate: 'CASCADE',
+    //   onDelete: 'CASCADE',
+    // });
+    // this.hasMany(models.docVersionsSocializations, {
+    //   foreignKey: 'idAccount',
+    //   sourceKey: 'id',
+    //   as: 'socializations',
+    //   onUpdate: 'RESTRICT',
+    //   onDelete: 'RESTRICT',
+    // });
     this.hasMany(models.usrAccesses, {
       foreignKey: 'accountId',
       sourceKey: 'id',
