@@ -6,7 +6,7 @@ const fs = require('fs'); // File system operations
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment'); // Date/time manipulation and formatting
+const dayjs = require('dayjs'); // Date/time manipulation and formatting
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -49,14 +49,14 @@ const parseDebugFile = () => {
 const isTimestampValid = (timestampStr) => {
   if (!timestampStr) return false;
 
-  const timestamp = moment(timestampStr, 'YYYY-MM-DD HH:mm:ss').valueOf();
+  const timestamp = dayjs(timestampStr, 'YYYY-MM-DD HH:mm:ss').valueOf();
 
   if (isNaN(timestamp)) {
     console.warn(`Invalid timestamp format in debug file: ${timestampStr}`);
     return false;
   }
 
-  const now = moment().valueOf();
+  const now = dayjs().valueOf();
   return now <= timestamp;
 };
 
@@ -141,7 +141,7 @@ const isDevelopmentMode = (allowDevMode = false) => {
  * @returns {string} A message indicating the debug mode status
  */
 const setDebugMode = (enable = true, timeoutMinutes = DEBUG_SETTINGS.DEBUG_TIMEOUT_MINUTES) => {
-  const now = moment();
+  const now = dayjs();
   let expirationTime = null;
   let response = 'Debug mode ';
 

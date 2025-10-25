@@ -576,7 +576,7 @@ class CrudDocsGenerator {
     ) {
       documentation = documentation.replace(
         "const { faker } = require('@faker-js/faker');",
-        "const moment = require('moment');\nconst { faker } = require('@faker-js/faker');"
+        "const dayjs = require('dayjs');\nconst { faker } = require('@faker-js/faker');"
       );
     }
 

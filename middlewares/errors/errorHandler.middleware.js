@@ -23,7 +23,7 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
-const moment = require('moment'); // Date/time manipulation
+const dayjs = require('dayjs'); // Date/time manipulation
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -48,7 +48,7 @@ const errorHandler = (error, req, res, next) => {
     method: req.method,
     ip: req.ip,
     userAgent: req.get('User-Agent'),
-    timestamp: moment().format(),
+    timestamp: dayjs().format(),
   });
 
   // Skip processing if headers already sent

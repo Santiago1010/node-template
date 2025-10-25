@@ -1,7 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 
 // =============================================================================
@@ -88,7 +88,7 @@ class SessionService {
         accountId: null,
         credentialType: 'internal_code',
         credentialValue: generateInternalCode('account'),
-        verifiedAt: moment().toDate(),
+        verifiedAt: dayjs().toDate(),
       },
       {
         accountId: null,
@@ -102,7 +102,7 @@ class SessionService {
       accountId: null,
       token: generateSecureToken(),
       purpose: 'confirm_email',
-      expiresIn: moment().add(1, 'hour').toDate(),
+      expiresIn: dayjs().add(1, 'hour').toDate(),
     };
 
     const existingCredential = await this.models.usrCredentials.findOne({
@@ -247,7 +247,7 @@ class SessionService {
       active: true,
       accountId: account.id,
       deviceId: managedDevice.id,
-      notBefore: moment().valueOf(),
+      notBefore: dayjs().valueOf(),
     });
 
     if (pagination.total === 0) {
@@ -255,7 +255,7 @@ class SessionService {
         account.id,
         managedDevice.id,
         payloadRefreshToken.jti,
-        moment(payloadRefreshToken.exp * 1000).valueOf(),
+        dayjs(payloadRefreshToken.exp * 1000).valueOf(),
         { isSafeMode }
       );
     } else {
@@ -263,7 +263,7 @@ class SessionService {
         accountId: account.id,
         deviceId: managedDevice.id,
         idToken: payloadRefreshToken.jti,
-        expiresAt: moment(payloadRefreshToken.exp * 1000).valueOf(),
+        expiresAt: dayjs(payloadRefreshToken.exp * 1000).valueOf(),
         isSafeMode,
       });
     }
@@ -305,7 +305,7 @@ class SessionService {
 
   // ================================ DEVICE ================================ //
   async manageDevice(accountId, fingerprint, { deviceType, userAgent, browser, os, ip }) {
-    const lastUsedAt = moment().valueOf();
+    const lastUsedAt = dayjs().valueOf();
 
     const existingDevice = await this.devicesService.registeredDevice(accountId, fingerprint, deviceType, browser, os);
 

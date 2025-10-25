@@ -8,9 +8,18 @@ const path = require('path'); // Utilities for working with file and directory p
 // =============================================================================
 const compression = require('compression'); // Response compression middleware
 const cookieParser = require('cookie-parser'); // Parse Cookie header and populate req.cookies
+const dayjs = require('dayjs'); // Lightweight date library
 const express = require('express'); // Web framework for Node.js
 const helmet = require('helmet'); // Security middleware to set HTTP headers
-const moment = require('moment-timezone'); // Date library with timezone support
+
+// Day.js plugins
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+const localizedFormat = require('dayjs/plugin/localizedFormat');
+
+// Day.js locales
+require('dayjs/locale/es');
+require('dayjs/locale/en');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -18,6 +27,9 @@ const moment = require('moment-timezone'); // Date library with timezone support
 const routerApi = require('./routes');
 const config = require('./config/env'); // Application configuration (environment variables)
 const getHelmetConfiguration = require('./config/security/helmet.config'); // Custom Helmet config
+const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
+const corsMiddleware = require('./middlewares/security/cors.middleware'); // CORS middleware
+const Sanitizer = require('./middlewares/security/sanitizer.middleware'); // Sanitizer middleware
 const {
   deviceAwareCookieMiddleware, // Device-specific cookie handling
   authStrategyMiddleware, // Authentication strategy initialization
@@ -36,13 +48,15 @@ const {
 const { ROOT } = require('./utils/constants.util'); // Root directory path constant
 const { isDevelopmentMode } = require('./helpers/debug.helper'); // Environment detection
 const { notFoundHandler } = require('./middlewares/errors/notFound.middleware'); // 404 error handler
-const errorHandler = require('./middlewares/errors/errorHandler.middleware'); // Global error handler
-const corsMiddleware = require('./middlewares/security/cors.middleware');
-const Sanitizer = require('./middlewares/security/sanitizer.middleware');
 
-// Configure moment.js to use application's default timezone and language
-moment.tz.setDefault(config.timeZone.name);
-moment.locale(config.lang);
+// Configure Day.js plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
+
+// Configure Day.js to use application's default timezone and language
+dayjs.tz.setDefault(config.timeZone.name); // Ej: 'America/Bogota'
+dayjs.locale(config.lang); // Ej: 'es'
 
 // Initialize Express application
 const app = express();

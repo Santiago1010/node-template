@@ -10,7 +10,7 @@
 // ARCHITECTURAL DECISIONS:
 // - Uses Morgan middleware for standardized HTTP logging functionality
 // - Implements custom tokens for enhanced formatting and coloring
-// - Employs moment.js for consistent timestamp formatting across environments
+// - Employs day.js for consistent timestamp formatting across environments
 // - Utilizes Node.js streams for non-blocking file log writing
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
@@ -53,7 +53,7 @@
 // DEPENDENCIES & COMPATIBILITY:
 // - Node.js: Requires 12.x or higher (uses ES6+ features)
 // - Morgan: 1.10.x - compatible with Express 4.x middleware system
-// - Moment.js: 2.29.x - used for timestamp formatting
+// - day.js: 2.29.x - used for timestamp formatting
 // - File system: Requires write permissions to logs directory
 // =============================================================================
 
@@ -67,7 +67,7 @@ const path = require('path'); // Path resolution for cross-platform compatibilit
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const morgan = require('morgan'); // HTTP request logger middleware for Express
-const moment = require('moment'); // Date formatting and manipulation library
+const dayjs = require('dayjs'); // Date formatting and manipulation library
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -108,12 +108,12 @@ const color = {
 // =============================================================================
 
 /**
- * Custom timestamp token using moment.js for consistent formatting
+ * Custom timestamp token using day.js for consistent formatting
  * @name date
  * @memberof morgan.token
  * @returns {string} Formatted timestamp in DD/MM/YYYY, HH:mm:ss format
  */
-morgan.token('date', () => moment().format('DD/MM/YYYY, HH:mm:ss'));
+morgan.token('date', () => dayjs().format('DD/MM/YYYY, HH:mm:ss'));
 
 /**
  * Status code colorizer based on HTTP response ranges

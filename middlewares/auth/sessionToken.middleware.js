@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 
 const ContextHelper = require('../../helpers/context.helper');
@@ -19,7 +19,7 @@ const SECRETS_CACHE_TTL = 3600000; // 1 hour in milliseconds
  * Gets JWT secrets with caching to reduce Vault calls
  */
 const getJWTSecrets = async () => {
-  const now = moment().valueOf();
+  const now = dayjs().valueOf();
 
   if (jwtSecretsCache && now - secretsCacheTime < SECRETS_CACHE_TTL) {
     return jwtSecretsCache;
@@ -85,7 +85,7 @@ const validateWebSession = async (req, _, next) => {
       throw error({ httpCode: 401, messagePath: 'auth.session.invalidToken' });
     }
 
-    const now = moment().valueOf();
+    const now = dayjs().valueOf();
     const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, configSecurityLevels, usrCredentials } =
       sequelize.models;
 
