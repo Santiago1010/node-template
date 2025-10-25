@@ -1,5 +1,49 @@
 
 
+## [1.18.1] - 2025-10-25
+
+**Released:** 2025-10-25 13:58:27 UTC
+
+### [Add UML diagram generation for API endpoints](https://github.com/Santiago1010/node-template/pull/88)
+
+#### 📋 Summary
+Implements automatic UML diagram generation for API endpoints during synchronization. The system creates six diagram types (activity, use case, sequence, communication, component, dataflow) for each endpoint and organizes them in structured directories.
+
+#### 🔍 What Changed
+### Added
+- 30 UML diagram files for auth endpoints (login, signup, logout, confirm-email, resend-confirmation)
+- `generateEndpointDiagrams` function for automatic diagram creation
+- `sanitizePathForFilename` utility for URL path to filename conversion
+- `isFileEmpty` function to check file content before generation
+- `ensureDirectoryExists` function for recursive directory creation
+
+### Changed
+- Modified `endpoints.script.js` to integrate diagram generation
+- Updated directory structure from 86 to 88 directories, 183 to 213 files
+- Removed redundant JSDoc comments from helper functions
+
+### Fixed
+- N/A
+
+### Removed
+- N/A
+
+#### 📝 Additional Notes
+Diagram generators are currently stubbed and return empty content. Future implementation will populate these with actual UML diagram generation logic. The system skips generation for existing non-empty files to preserve manual edits.
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: automation
+- Commits: 1
+
+**Commits:**
+- [`8f7d704`](https://github.com/Santiago1010/node-template/commit/8f7d704228cd6103e3fc1651c4703805a1fba767) feat(docs): add UML diagram generation for API endpoints
+
+---
+
+
+
 ## [1.18.0] - 2025-10-25
 
 **Released:** 2025-10-25 03:20:06 UTC
