@@ -1,5 +1,52 @@
 
 
+## [1.18.2] - 2025-10-25
+
+**Released:** 2025-10-25 15:17:15 UTC
+
+### [Replace Moment.js with Day.js for date handling](https://github.com/Santiago1010/node-template/pull/89)
+
+#### 📋 Summary
+This PR migrates the entire codebase from Moment.js to Day.js for date operations, reducing bundle size and improving performance while maintaining equivalent functionality.
+
+#### 🔍 What Changed
+### Added
+- Day.js library with UTC, timezone, and localizedFormat plugins
+- Spanish and English locale support
+
+### Changed
+- Updated all date operations from Moment.js to Day.js API
+- Modified Morgan configuration to use Day.js for timestamps
+- Refactored session management, error handlers, and middleware
+- Updated utilities, services, and controllers to use Day.js
+- Enhanced documentation and code comments
+
+### Removed
+- Moment.js and Moment Timezone dependencies
+- Legacy debug configuration file
+
+#### 📝 Additional Notes
+Day.js provides equivalent functionality with significantly reduced bundle size (~2KB vs ~20KB). The migration maintains backward compatibility for most use cases but requires attention to API differences in method signatures.
+
+**Type of Change:** Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: developer experience, refactor
+- Commits: 5
+
+**Commits:**
+- [`1932dce`](https://github.com/Santiago1010/node-template/commit/1932dcea22293b2d2f0163dab63ff1b938e1af1e) refactor(deps): replace moment-timezone with dayjs for date handling
+- [`8ccb69f`](https://github.com/Santiago1010/node-template/commit/8ccb69f71fb2e25af8a02a82bd5d79f91d026e6d) refactor(deps): complete migration from moment to dayjs
+- [`e625aca`](https://github.com/Santiago1010/node-template/commit/e625acac6ba585b0de39328a9e303d0fe3958ed8) chore(deps): remove moment and moment-timezone dependencies
+- [`2d9480f`](https://github.com/Santiago1010/node-template/commit/2d9480fd82c2c17f7c3a1d7d229e9b30f36614da) docs: update documentation to reflect dayjs migration
+- [`a5581e5`](https://github.com/Santiago1010/node-template/commit/a5581e5925dae14effb375f4676bcc6b3d183f2e) test: update context helper test mocks for dayjs migration
+
+---
+
+
+
 ## [1.18.1] - 2025-10-25
 
 **Released:** 2025-10-25 13:58:27 UTC
