@@ -77,4 +77,11 @@ const login = standardRequest('post', {
   responses: {},
 });
 
-module.exports = { signup, login };
+const logout = standardRequest('delete', {
+  tags: ['Auth'],
+  operationId: 'logout',
+  description: '',
+  security: [{ jwtCookieAuth: [] }],
+});
+
+module.exports = { signup, login, logout };
