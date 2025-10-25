@@ -10,7 +10,7 @@
 // ARCHITECTURAL DECISIONS:
 // - Uses Morgan middleware for standardized HTTP logging functionality
 // - Implements custom tokens for enhanced formatting and coloring
-// - Employs moment.js for consistent timestamp formatting across environments
+// - Employs day.js for consistent timestamp formatting across environments
 // - Utilizes Node.js streams for non-blocking file log writing
 //
 // ALTERNATIVE APPROACHES ANALYSIS:
@@ -53,7 +53,7 @@
 // DEPENDENCIES & COMPATIBILITY:
 // - Node.js: Requires 12.x or higher (uses ES6+ features)
 // - Morgan: 1.10.x - compatible with Express 4.x middleware system
-// - Moment.js: 2.29.x - used for timestamp formatting
+// - day.js: 2.29.x - used for timestamp formatting
 // - File system: Requires write permissions to logs directory
 // =============================================================================
 

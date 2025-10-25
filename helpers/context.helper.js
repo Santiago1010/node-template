@@ -13,7 +13,7 @@
 // - Uses AsyncLocalStorage over async_hooks directly for better stability and abstraction
 // - Implements defensive programming with comprehensive error handling
 // - Provides both generic and domain-specific context accessors
-// - Uses moment.js for standardized timestamp handling
+// - Uses day.js for standardized timestamp handling
 // - Follows a static class pattern for global accessibility
 // - Implements snapshot/restore functionality for context persistence
 //

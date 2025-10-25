@@ -109,7 +109,7 @@ const generateSecureToken = (length = 32) => {
 /**
  * Gets current timestamp in milliseconds since Unix epoch
  *
- * @description Uses moment.js for consistent timestamp generation.
+ * @description Uses day.js for consistent timestamp generation.
  * More reliable than Date.now() for cross-timezone applications.
  *
  * @returns {number} Current timestamp in milliseconds

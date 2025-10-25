@@ -47,7 +47,7 @@ This file configures **Morgan**, an HTTP request logger middleware for Express. 
     -   `statusColor`: Color-codes the HTTP status code (e.g., `2xx` is green, `4xx` is yellow, `5xx` is red).
     -   `coloredMethod`: Assigns a unique color to each HTTP method (GET, POST, etc.).
     -   `coloredResponseTime`: Color-codes the response time to provide a quick visual indicator of performance (e.g., fast responses are green, slow ones are red).
--   **High-Precision Timestamps**: Uses `moment.js` for consistent date and time formatting and `process.hrtime` for high-precision response time measurement.
+-   **High-Precision Timestamps**: Uses `day.js` for consistent date and time formatting and `process.hrtime` for high-precision response time measurement.
 -   **Asynchronous Logging**: Writes to log files using a non-blocking stream, ensuring that logging does not negatively impact application performance.
 
 ## How They Work Together
