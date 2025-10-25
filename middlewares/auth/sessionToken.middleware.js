@@ -162,7 +162,7 @@ const validateWebSession = async (req, _, next) => {
     const internalCode = accountPlain.credentials[0].credentialValue;
 
     // Build user data object efficiently
-    const userData = { id: 0 };
+    let userData = { id: 0 };
 
     // Fetch user data if needed
     let user = null;
@@ -177,14 +177,14 @@ const validateWebSession = async (req, _, next) => {
         perror('No user found', { userId: accountPlain.userId });
         throw error({ httpCode: 401, messagePath: 'auth.session.invalidSession' });
       }
+
+      userData = { ...user };
     }
 
     // Clean up account data
-    const cleanAccount = {
-      ...accountPlain,
-      credentials: undefined,
-      userId: undefined,
-    };
+    const cleanAccount = { ...accountPlain };
+    delete cleanAccount.userId;
+    delete cleanAccount.credentials;
 
     // Fetch scopes in parallel with user data construction
     const scopesService = new ScopeServices(sequelize);

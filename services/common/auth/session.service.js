@@ -208,6 +208,96 @@ class SessionService {
     return await this.createTokens(accountData, fingerprint, device);
   }
 
+  async refreshTokens(accountId, currentJti, fingerprint, device) {
+    const currentAccess = await this.accessesService.getListAccesses({
+      limit: 1,
+      page: 1,
+      active: true,
+      accountId,
+      jti: currentJti,
+      notBefore: dayjs().valueOf(),
+    });
+
+    if (currentAccess.results.length === 0) {
+      throw error({ httpCode: 401, messagePath: 'auth.refreshToken.sessionExpired' });
+    }
+
+    const access = currentAccess.results[0];
+
+    const account = await this.models.usrAccounts.findOne({
+      attributes: ['id', 'userId'],
+      where: { id: accountId },
+      include: [
+        {
+          model: this.models.configRoles,
+          as: 'rol',
+          attributes: ['id', 'name'],
+          required: true,
+        },
+        {
+          model: this.models.usrCredentials,
+          as: 'credentials',
+          attributes: ['credentialValue'],
+          where: {
+            credentialType: 'internal_code',
+            verifiedAt: { [Op.not]: null },
+          },
+          required: true,
+        },
+      ],
+      logging: wrapLogging('[SessionService.refreshTokens] Get account info'),
+    });
+
+    if (!account) {
+      throw error({ httpCode: 401, messagePath: 'auth.refreshToken.accountNotFound' });
+    }
+
+    const accountData = {
+      id: account.id,
+      userId: account.userId,
+      rol: account.rol,
+      internalCode: account.credentials[0].credentialValue,
+    };
+
+    const deviceRecord = await this.devicesService.registeredDevice(
+      accountId,
+      fingerprint,
+      device.type || 'desktop',
+      device.browser,
+      device.os
+    );
+
+    if (!deviceRecord) {
+      throw error({ httpCode: 401, messagePath: 'auth.refreshToken.deviceNotFound' });
+    }
+
+    const isSafeMode = access.isSafeMode || !deviceRecord.isTrusted;
+
+    const newAccessToken = this.createAccessToken(accountData, isSafeMode);
+    const newRefreshToken = this.createRefreshToken(accountData, {
+      fingerprint: deviceRecord.fingerprint,
+      name: deviceRecord.name,
+      browser: deviceRecord.browser,
+      os: deviceRecord.os,
+    });
+
+    const payloadRefreshToken = this.validRefreshToken(newRefreshToken, accountData);
+
+    if (!payloadRefreshToken.jti) {
+      throw error({ httpCode: 500, messagePath: 'auth.refreshToken.tokenGenerationFailed' });
+    }
+
+    await this.accessesService.updateAccess(access.id, {
+      idToken: payloadRefreshToken.jti,
+      expiresAt: dayjs(payloadRefreshToken.exp * 1000).valueOf(),
+      lastActivityAt: dayjs().valueOf(),
+    });
+
+    await this.devicesService.updateDevice(deviceRecord.id, { lastUsedAt: dayjs().valueOf() });
+
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+  }
+
   async logout(user, accountId, jti) {
     const access = await this.accessesService.getListAccesses({ limit: 1, page: 1, active: true, accountId, jti });
 

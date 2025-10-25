@@ -98,9 +98,44 @@ class SessionController {
   }
 
   static async refreshToken(req, res, next) {
-    console.dir(req.user, { depth: null });
-
     try {
+      const { account, device, jti } = req.user;
+      const fingerprint = req.headers['x-fingerprint'];
+
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      const { accessToken, refreshToken } = await sessionService.refreshTokens(account.id, jti, fingerprint, device);
+
+      const sessionKey = buildKey('session', account.id, fingerprint);
+      await set(
+        sessionKey,
+        {
+          userId: account.id,
+          fingerprint,
+          deviceInfo: device,
+          refreshedAt: dayjs().toISOString(),
+        },
+        Math.floor(config.jwt.accessToken.expiration / 1000)
+      );
+
+      res.cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+        maxAge: config.jwt.accessToken.expiration,
+      });
+
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+        maxAge: config.jwt.refreshToken.expiration,
+      });
+
+      clog('New access token', accessToken);
+      clog('New refresh token', refreshToken);
+
       return success(res, { httpCode: 204 });
     } catch (error) {
       return next(error);
