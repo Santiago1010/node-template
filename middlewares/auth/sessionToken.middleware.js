@@ -76,9 +76,6 @@ const validateWebSession = async (req, _, next) => {
       498
     );
 
-    console.log(refreshTokenPayload);
-    console.log(accessTokenPayload);
-
     if (!accessTokenPayload?.internalCode) {
       throw error({ httpCode: 498, messagePath: 'auth.session.invalidToken' });
     }
