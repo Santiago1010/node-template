@@ -88,7 +88,7 @@ class SessionService {
         accountId: null,
         credentialType: 'internal_code',
         credentialValue: generateInternalCode('account'),
-        verifiedAt: dayjs().toDate(),
+        verifiedAt: dayjs().toISOString(),
       },
       {
         accountId: null,
@@ -97,6 +97,8 @@ class SessionService {
         verifiedAt: null,
       },
     ];
+
+    console.log(createCredentialData);
 
     const createTokenData = {
       accountId: null,
@@ -131,7 +133,7 @@ class SessionService {
           account.id,
           credential.credentialType,
           credential.credentialValue,
-          { t: transaction }
+          { verifiedAt: credential.verifiedAt, t: transaction }
         );
       }
 
@@ -269,7 +271,7 @@ class SessionService {
       id: account.id,
       userId: account.userId,
       rol: account.rol,
-      internalCode: account.credentials[0].credentialValue,
+      internalCode: account.dataValues.credentials[0].dataValues.credentialValue,
     };
 
     const deviceRecord = await this.devicesService.registeredDevice(

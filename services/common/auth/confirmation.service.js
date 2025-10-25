@@ -124,6 +124,7 @@ class ConfirmationService {
         },
       },
       subQuery: false,
+      raw: true,
       logging: wrapLogging('[ConfirmationService.confirmEmail] Get token by token'),
     });
 
@@ -172,9 +173,8 @@ class ConfirmationService {
     if (!validPassword) throw error({ httpCode: 401, messagePath: 'auth.confirmDevie.wrongPassword' });
 
     const access = await this.models.usrAccesses.findOne({
-      attributes: ['deviceId'],
+      attributes: ['id', 'deviceId'],
       where: { accountId: tokenDb.accountId, idToken: jti },
-      raw: true,
       logging: wrapLogging('[ConfirmationService.confirmDevie] Get access by jti'),
     });
 
@@ -186,6 +186,14 @@ class ConfirmationService {
 
     await this.sequelize.transaction(async (transaction) => {
       await this.tokenService.useAToken(tokenDb.accountId, token, purpose, now, { t: transaction });
+
+      await access.update(
+        { isSafeMode: !rely },
+        {
+          transaction,
+          logging: wrapLogging('[ConfirmationService.confirmDevie] Update access'),
+        }
+      );
 
       await device.update(
         { isTrusted: rely, isBlocked: block },
