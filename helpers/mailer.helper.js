@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const path = require('path');
 
 const config = require('../config/env');
@@ -109,12 +109,12 @@ class MailerHelper {
         isDevelopment: isDevelopmentMode(true),
         headerImage: '',
         footerImage: '',
-        currentYear: moment().year(),
-        currentDate: moment().format('YYYY-MM-DD'),
+        currentYear: dayjs().year(),
+        currentDate: dayjs().format('YYYY-MM-DD'),
         appName: config.name,
         appUrl: config.url,
         formatDate: (date, format = 'YYYY-MM-DD HH:mm:ss') => {
-          return moment(date).format(format);
+          return dayjs(date).format(format);
         },
       };
 
@@ -163,7 +163,7 @@ class MailerHelper {
         recipients: mailOptions.to,
         subject: mailOptions.subject,
         template: templateName || 'None',
-        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        timestamp: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       });
 
       return {
@@ -176,7 +176,7 @@ class MailerHelper {
         subject,
         template: templateName || 'None',
         error: error.message,
-        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        timestamp: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       });
 
       return {

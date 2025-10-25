@@ -1,7 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { Op, col } = require('sequelize');
 
 // =============================================================================
@@ -50,7 +50,7 @@ class ConfirmationService {
       accountId: account.id,
       token: generateSecureToken(),
       purpose: 'confirm_email',
-      expiresIn: moment().add(1, 'hour').toDate(),
+      expiresIn: dayjs().add(1, 'hour').toDate(),
     };
 
     await this.sequelize.transaction(async (transaction) => {
@@ -100,7 +100,7 @@ class ConfirmationService {
   }
 
   async confirmEmail(token, purpose, password) {
-    const now = moment().toDate();
+    const now = dayjs().toDate();
 
     const tokenDb = await this.models.usrTokens.findOne({
       attributes: ['id', 'accountId', [col('account.password'), 'password']],

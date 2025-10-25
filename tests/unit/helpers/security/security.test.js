@@ -2,20 +2,20 @@
 // SECURITY HELPER - UNIT TESTS
 // =============================================================================
 
-const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const dayjs = require('dayjs');
 const jwt = require('jsonwebtoken');
-const moment = require('moment');
 const sanitize = require('sanitize-html');
 const securityHelper = require('../../../../helpers/security.helper');
 const config = require('../../../../config/env');
 const { SECURITY_CONFIG } = require('../../../../utils/constants.util');
 
 // Mock dependencies
-jest.mock('crypto');
 jest.mock('bcrypt');
+jest.mock('crypto');
+jest.mock('dayjs');
 jest.mock('jsonwebtoken');
-jest.mock('moment');
 jest.mock('sanitize-html');
 jest.mock('../../../../config/env', () => ({
   jwt: {
@@ -70,12 +70,12 @@ describe('Security Helper', () => {
   describe('getCurrentTimestamp', () => {
     it('should return the current timestamp in milliseconds', () => {
       const mockTimestamp = 1672531200000;
-      const momentInstance = { valueOf: jest.fn().mockReturnValue(mockTimestamp) };
-      moment.mockReturnValue(momentInstance);
+      const dayjsInstance = { valueOf: jest.fn().mockReturnValue(mockTimestamp) };
+      dayjs.mockReturnValue(dayjsInstance);
       const timestamp = securityHelper.getCurrentTimestamp();
       expect(timestamp).toBe(mockTimestamp);
-      expect(moment).toHaveBeenCalled();
-      expect(momentInstance.valueOf).toHaveBeenCalled();
+      expect(dayjs).toHaveBeenCalled();
+      expect(dayjsInstance.valueOf).toHaveBeenCalled();
     });
   });
 

@@ -9,7 +9,7 @@
 // =============================================================================
 
 // ------------------------- EXTERNAL DEPENDENCIES ------------------------- //
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 // ------------------------- INTERNAL DEPENDENCIES ------------------------- //
 const { cerror } = require('../helpers/debug.helper');
@@ -356,7 +356,7 @@ const throttle = (func, wait) => {
   let lastTime = 0;
 
   return (...args) => {
-    const now = moment().valueOf();
+    const now = dayjs().valueOf();
 
     if (now - lastTime >= wait) {
       lastTime = now;
@@ -636,7 +636,7 @@ const getDeviceInfo = (req, onlyStatic = false) => {
   }
 
   const dynamicInfo = {
-    timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+    timestamp: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     referer: req.headers['referer'] || req.headers['referrer'] || 'Direct',
     acceptEncoding: req.headers['accept-encoding'] || 'Unknown',
     connection: req.headers['connection'] || 'Unknown',
@@ -676,7 +676,7 @@ const generateInternalCode = (entityType, prefix = null) => {
   const codePrefix = prefix || prefixes[entityType.toLowerCase()] || 'GEN';
 
   // Generate timestamp component: YYMMDDHHmmss (15 digits)
-  const timestamp = moment().format('YYMMDDHHmmssSSS');
+  const timestamp = dayjs().format('YYMMDDHHmmssSSS');
 
   // Generate random component for additional uniqueness (4 digits)
   const random = Math.floor(1000 + Math.random() * 9000);

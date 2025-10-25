@@ -18,7 +18,7 @@
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
-const moment = require('moment'); // Date/time manipulation
+const dayjs = require('dayjs'); // Date/time manipulation
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -43,7 +43,7 @@ const notFoundHandler = (req, _, next) => {
     url: req.originalUrl,
     ip: req.ip,
     userAgent: req.get('User-Agent'),
-    timestamp: moment().format(), // Using moment.js for consistent timestamp formatting
+    timestamp: dayjs().format(), // Using day.js for consistent timestamp formatting
     headers: req.headers,
     query: req.query,
     params: req.params,
@@ -106,7 +106,7 @@ const smartNotFoundHandler = (options = {}) => {
         ip: req.ip,
         userAgent: req.get('User-Agent'),
         referer: req.get('Referer'),
-        timestamp: moment().format(), // Using moment.js for consistent timestamp formatting
+        timestamp: dayjs().format(), // Using day.js for consistent timestamp formatting
       });
     }
 
@@ -120,7 +120,7 @@ const smartNotFoundHandler = (options = {}) => {
     let additionalInfo = {
       method: req.method,
       path: req.originalUrl,
-      timestamp: moment().format(), // Using moment.js for consistent timestamp formatting
+      timestamp: dayjs().format(), // Using day.js for consistent timestamp formatting
     };
 
     // Add suggestions if enabled

@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const i18n = require('../../config/i18n');
 const ContextHelper = require('../../helpers/context.helper');
@@ -124,7 +124,7 @@ const getTimestampFormat = () => {
   return timestampFormat;
 };
 
-const getFormattedTimestamp = () => moment().format(getTimestampFormat());
+const getFormattedTimestamp = () => dayjs().format(getTimestampFormat());
 
 // ============================================================================
 // MIDDLEWARE FUNCTIONS

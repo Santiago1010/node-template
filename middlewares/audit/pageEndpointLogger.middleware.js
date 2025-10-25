@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const ContextHelper = require('../../helpers/context.helper');
 const i18n = require('../../config/i18n');
@@ -65,7 +65,7 @@ const validateEndpointFields = async (endpointId, requestFields, configEndpoints
   });
 
   // Validate all fields exist
-  const timestamp = moment().format(
+  const timestamp = dayjs().format(
     'dddd, DD [' + i18n.__('common.of') + '] MMMM [' + i18n.__('common.of') + '] YYYY, HH:mm:ss.SSS Z'
   );
 

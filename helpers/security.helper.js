@@ -65,7 +65,7 @@ const crypto = require('crypto'); // Cryptographically secure random number gene
 const bcrypt = require('bcrypt'); // Password hashing and verification (v5.x)
 const Boom = require('@hapi/boom'); // HTTP-friendly error objects (v9.x)
 const jwt = require('jsonwebtoken'); // JWT token generation and verification (v8.x)
-const moment = require('moment'); // Date manipulation and formatting (v2.x)
+const dayjs = require('dayjs'); // Date manipulation and formatting (v2.x)
 const sanitize = require('sanitize-html'); // HTML input sanitization (v2.x)
 
 // =============================================================================
@@ -121,7 +121,7 @@ const generateSecureToken = (length = 32) => {
  * @complexity Time: O(1), Space: O(1)
  * @since Version 1.0.0
  */
-const getCurrentTimestamp = () => moment().valueOf();
+const getCurrentTimestamp = () => dayjs().valueOf();
 
 /**
  * Sanitizes HTML input to prevent XSS attacks
