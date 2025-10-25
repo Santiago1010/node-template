@@ -8,7 +8,11 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const AccessServices = require('../users/accesses.services');
+const CredentialServices = require('../users/credentials.services');
 const DeviceServices = require('../users/devices.services');
+const PreferenceServices = require('../users/preferences.services');
+const TokenServices = require('../users/tokens.services');
+const UserServices = require('../users/users.services');
 const SessionMailer = require('../../emails/auth/session.email');
 const config = require('../../../config/env');
 const ContextHelper = require('../../../helpers/context.helper');
@@ -50,7 +54,11 @@ class SessionService {
     this.refreshTokenSecret = refresh_token_secret;
 
     this.accessesService = new AccessServices(this.sequelize);
+    this.credentialsService = new CredentialServices(this.sequelize);
     this.devicesService = new DeviceServices(this.sequelize);
+    this.preferenceService = new PreferenceServices(this.sequelize);
+    this.tokensService = new TokenServices(this.sequelize);
+    this.usersService = new UserServices(this.sequelize);
 
     return this;
   }
@@ -107,9 +115,8 @@ class SessionService {
     if (existingCredential) throw error({ httpCode: 400, messagePath: 'auth.signup.accountExists' });
 
     await this.sequelize.transaction(async (transaction) => {
-      const user = await this.models.usrUsers.create(createUserData, {
-        transaction,
-        logging: wrapLogging('[SessionService.signup] Create user', createUserData),
+      const user = await this.usersService.createUser(createUserData.firstName, createUserData.firstLastName, {
+        t: transaction,
       });
 
       createAccountData.userId = user.id;
@@ -119,21 +126,22 @@ class SessionService {
         logging: wrapLogging('[SessionService.signup] Create account', createAccountData),
       });
 
-      createTokenData.accountId = account.id;
-
       for (const credential of createCredentialData) {
-        credential.accountId = account.id;
-
-        await this.models.usrCredentials.create(credential, {
-          transaction,
-          logging: wrapLogging('[SessionService.signup] Create credential', credential),
-        });
+        await this.credentialsService.createCredential(
+          account.id,
+          credential.credentialType,
+          credential.credentialValue,
+          { t: transaction }
+        );
       }
 
-      await this.models.usrTokens.create(createTokenData, {
-        transaction,
-        logging: wrapLogging("[SessionService.signup] Create token for account's confirmation", createTokenData),
-      });
+      await this.tokensService.createToken(
+        account.id,
+        createTokenData.token,
+        createTokenData.purpose,
+        createTokenData.expiresIn,
+        { t: transaction }
+      );
 
       if (preferences?.lang && preferences?.timezone) {
         const [language, timezone] = await Promise.all([
@@ -146,17 +154,18 @@ class SessionService {
         ]);
 
         const createPreferencesData = {
-          accountId: account.id,
           languageId: language?.id,
           timezoneId: timezone?.id,
           theme: preferences.theme,
         };
 
         if (createPreferencesData.languageId && createPreferencesData.timezoneId) {
-          await this.models.usrPreferences.create(createPreferencesData, {
-            transaction,
-            logging: wrapLogging('[SessionService.signup] Create user preferences', createPreferencesData),
-          });
+          await this.preferenceService.createPreference(
+            account.id,
+            createPreferencesData.languageId,
+            createPreferencesData.timezoneId,
+            { theme: createPreferencesData.theme, t: transaction }
+          );
         }
       }
     });
