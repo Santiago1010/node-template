@@ -205,7 +205,20 @@ class SessionService {
 
     const accountData = { id: account.id, userId: account.userId, rol: account.rol };
 
-    return await this.createTokens(accountData, fingerprint, device);
+    const responseTokens = await this.createTokens(accountData, fingerprint, device);
+
+    if (responseTokens.isSafeMode) {
+      const createdToken = await this.tokensService.createToken(
+        account.id,
+        generateSecureToken(),
+        'secure_device',
+        dayjs().add(1, 'day').toDate()
+      );
+
+      if (createdToken) responseTokens.secureToken = createdToken.token;
+    }
+
+    return responseTokens;
   }
 
   async refreshTokens(accountId, currentJti, fingerprint, device) {

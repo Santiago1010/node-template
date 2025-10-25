@@ -129,7 +129,7 @@
       "subject": "Alerta de Seguridad: Inicio de sesión desde dispositivo desconocido",
       "securityAlert": "🔔 Alerta de Seguridad",
       "unknownDeviceDetected": "Dispositivo Desconocido Detectado",
-      "paragraph1": "Hola {firstName}, hemos detectado un inicio de sesión desde un dispositivo que no reconocemos.",
+      "paragraph1": "Hola, {firstName}, hemos detectado un inicio de sesión desde un dispositivo que no reconocemos.",
       "paragraph2": "Por tu seguridad, hemos activado automáticamente el modo seguro en tu cuenta. A continuación, encontrarás los detalles del inicio de sesión:",
       "deviceInfo": {
         "title": "Detalles del Dispositivo",

@@ -85,8 +85,8 @@ class SessionMailer extends MailerHelper {
 
     const userData = await this.getUserData(email);
 
-    const confirmUrl = `https://${host.url}/confirm-device/${token}`;
-    const securityUrl = `https://${host.url}/security-settings`;
+    const confirmUrl = `${host.url}/confirm-device/${token}`;
+    const securityUrl = `${host.url}/security-settings`;
 
     const deviceName =
       deviceData.userAgent ||

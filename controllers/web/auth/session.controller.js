@@ -55,7 +55,7 @@ class SessionController {
 
       const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
-      const { accessToken, refreshToken, accountId } = response;
+      const { accessToken, refreshToken, accountId, secureToken } = response;
 
       await del(rateLimitKey);
 
@@ -89,7 +89,7 @@ class SessionController {
         maxAge: config.jwt.refreshToken.expiration,
       });
 
-      await sessionService.sessionMailer.sendUnknownDeviceAlert(credential, deviceInfo, 'aaaaa');
+      await sessionService.sessionMailer.sendUnknownDeviceAlert(credential, deviceInfo, secureToken);
 
       return success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
