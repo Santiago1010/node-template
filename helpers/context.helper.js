@@ -63,7 +63,7 @@
 //
 // DEPENDENCIES & COMPATIBILITY:
 // - Requires Node.js 16+ (AsyncLocalStorage support)
-// - Uses moment.js for timestamp handling
+// - Uses day.js for timestamp handling
 // - Compatible with Express, Koa, and other web frameworks
 // - Works with any async/await or callback-based code
 //
@@ -72,7 +72,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-const moment = require('moment'); // Date handling and ISO string formatting
+const dayjs = require('dayjs'); // Date handling and ISO string formatting
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -115,7 +115,7 @@ class ContextHelper {
     try {
       // Add timestamp if not provided - ensures all contexts have consistent timing
       const contextData = {
-        [CONTEXT_KEYS.TIMESTAMP]: moment().toISOString(),
+        [CONTEXT_KEYS.TIMESTAMP]: dayjs().toISOString(),
         ...initialData, // User-provided data takes precedence
       };
 

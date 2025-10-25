@@ -67,7 +67,7 @@ const path = require('path'); // Path resolution for cross-platform compatibilit
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const morgan = require('morgan'); // HTTP request logger middleware for Express
-const moment = require('moment'); // Date formatting and manipulation library
+const dayjs = require('dayjs'); // Date formatting and manipulation library
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -108,12 +108,12 @@ const color = {
 // =============================================================================
 
 /**
- * Custom timestamp token using moment.js for consistent formatting
+ * Custom timestamp token using day.js for consistent formatting
  * @name date
  * @memberof morgan.token
  * @returns {string} Formatted timestamp in DD/MM/YYYY, HH:mm:ss format
  */
-morgan.token('date', () => moment().format('DD/MM/YYYY, HH:mm:ss'));
+morgan.token('date', () => dayjs().format('DD/MM/YYYY, HH:mm:ss'));
 
 /**
  * Status code colorizer based on HTTP response ranges

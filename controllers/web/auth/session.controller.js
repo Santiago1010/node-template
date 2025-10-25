@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 const config = require('../../../config/env');
 const SessionService = require('../../../services/common/auth/session.service');
@@ -66,7 +66,7 @@ class SessionController {
           userId: accountId,
           fingerprint,
           deviceInfo,
-          loginAt: moment().toISOString(),
+          loginAt: dayjs().toISOString(),
         },
         Math.floor(config.jwt.accessToken.expiration / 1000)
       );
