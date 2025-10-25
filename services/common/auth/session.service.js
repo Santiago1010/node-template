@@ -122,7 +122,6 @@ class SessionService {
       attributes: [
         'id',
         'userId',
-        'employeeId',
         'internalCode',
         'profile',
         'profileInt',
@@ -219,9 +218,6 @@ class SessionService {
 
   createAccessToken(account, isSafeMode) {
     const payload = { internalCode: account.internalCode, isSafeMode, role: account.role.name };
-
-    if (account.userId) payload.profile = 'user';
-    if (account.employeeId) payload.profile = 'employee';
 
     return createJWT(payload, this.accessTokenSecret, {
       subject: 'acces_token_' + account.internalCode,
