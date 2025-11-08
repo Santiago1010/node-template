@@ -1,7 +1,7 @@
 const dayjs = require('dayjs');
 
 const config = require('../../../config/env');
-const SessionService = require('../../../services/common/auth/session.service');
+const SessionService = require('../../../services/auth/session.service');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');

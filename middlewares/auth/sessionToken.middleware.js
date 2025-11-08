@@ -2,7 +2,7 @@ const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 
 const ContextHelper = require('../../helpers/context.helper');
-const ScopeServices = require('../../services/common/configurations/scopes.services');
+const ScopeServices = require('../../services/configurations/scopes.services');
 const { getSequelize } = require('../../config/database/connection');
 const { get, buildKey } = require('../../helpers/cache.helper');
 const { perror } = require('../../helpers/debug.helper');

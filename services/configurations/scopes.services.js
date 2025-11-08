@@ -7,9 +7,9 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const LogServices = require('../logs/logs.service');
-const { getSequelize } = require('../../../config/database/connection');
-const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
-const { wrapLogging } = require('../../../helpers/debug.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../helpers/database.helper');
+const { wrapLogging } = require('../../helpers/debug.helper');
 
 class ScopeServices {
   constructor(sequelize = null) {

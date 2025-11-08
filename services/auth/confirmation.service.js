@@ -8,11 +8,11 @@ const { Op, col } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const TokenServices = require('../users/tokens.services');
-const SessionMailer = require('../../emails/auth/session.email');
-const { getSequelize } = require('../../../config/database/connection');
-const { wrapLogging } = require('../../../helpers/debug.helper');
-const { error } = require('../../../helpers/response.helper');
-const { generateSecureToken, verifyPassword } = require('../../../helpers/security.helper');
+const SessionMailer = require('../emails/auth/session.email');
+const { getSequelize } = require('../../config/database/connection');
+const { wrapLogging } = require('../../helpers/debug.helper');
+const { error } = require('../../helpers/response.helper');
+const { generateSecureToken, verifyPassword } = require('../../helpers/security.helper');
 
 class ConfirmationService {
   constructor(sequelize = null) {

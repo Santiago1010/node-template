@@ -7,10 +7,10 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const LogServices = require('../logs/logs.service');
-const { getSequelize } = require('../../../config/database/connection');
-const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
-const { wrapLogging } = require('../../../helpers/debug.helper');
-const { error } = require('../../../helpers/response.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../helpers/database.helper');
+const { wrapLogging } = require('../../helpers/debug.helper');
+const { error } = require('../../helpers/response.helper');
 
 class TokenServices {
   constructor(sequelize = null) {

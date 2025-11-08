@@ -1,8 +1,8 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { getSequelize } = require('../../../config/database/connection');
-const { paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { paginateModel, setSearchQuery } = require('../../helpers/database.helper');
 
 class LogServices {
   constructor(sequelize = null) {

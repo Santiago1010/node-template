@@ -13,21 +13,21 @@ const DeviceServices = require('../users/devices.services');
 const PreferenceServices = require('../users/preferences.services');
 const TokenServices = require('../users/tokens.services');
 const UserServices = require('../users/users.services');
-const SessionMailer = require('../../emails/auth/session.email');
-const config = require('../../../config/env');
-const ContextHelper = require('../../../helpers/context.helper');
-const { getSequelize } = require('../../../config/database/connection');
-const { wrapLogging } = require('../../../helpers/debug.helper');
-const { error } = require('../../../helpers/response.helper');
+const SessionMailer = require('../emails/auth/session.email');
+const config = require('../../config/env');
+const ContextHelper = require('../../helpers/context.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { wrapLogging } = require('../../helpers/debug.helper');
+const { error } = require('../../helpers/response.helper');
 const {
   createJWT,
   verifyJWT,
   hashPassword,
   verifyPassword,
   generateSecureToken,
-} = require('../../../helpers/security.helper');
-const { getSecret } = require('../../../helpers/vault.helper');
-const { generateInternalCode } = require('../../../utils/utilities.util');
+} = require('../../helpers/security.helper');
+const { getSecret } = require('../../helpers/vault.helper');
+const { generateInternalCode } = require('../../utils/utilities.util');
 
 class SessionService {
   constructor(sequelize = null) {
