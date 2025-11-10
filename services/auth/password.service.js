@@ -1,8 +1,8 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
-// const dayjs = require('dayjs');
-// const { Op, col } = require('sequelize');
+const dayjs = require('dayjs');
+const { Op } = require('sequelize');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
@@ -10,9 +10,9 @@
 const TokenServices = require('../users/tokens.services');
 const SessionMailer = require('../emails/auth/session.email');
 const { getSequelize } = require('../../config/database/connection');
-// const { wrapLogging } = require('../../helpers/debug.helper');
-// const { error } = require('../../helpers/response.helper');
-// const { generateSecureToken, verifyPassword } = require('../../helpers/security.helper');
+const { wrapLogging, perror } = require('../../helpers/debug.helper');
+const { error } = require('../../helpers/response.helper');
+const { generateSecureToken } = require('../../helpers/security.helper');
 
 class PasswordService {
   constructor(sequelize = null) {
@@ -33,6 +33,34 @@ class PasswordService {
     }
 
     return this;
+  }
+
+  async fogotPassword(email) {
+    const account = await this.models.usrAccounts.findOne({
+      attributes: ['id'],
+      include: {
+        model: this.models.usrCredentials,
+        as: 'credentials',
+        attributes: [],
+        where: { credentialType: 'email', credentialValue: email, verifiedAt: { [Op.not]: null } },
+        required: true,
+      },
+      subQuery: false,
+      logging: wrapLogging('[PasswordService.fogotPassword] Get account by email'),
+    });
+
+    if (!account) {
+      perror('[PasswordService.fogotPassword] No account found or not verified', { email });
+
+      throw error({ httpCode: 404, messagePath: 'auth.fogotPassword.invalidCredentials' });
+    }
+
+    const token = generateSecureToken();
+    const expiresIn = dayjs().add(1, 'hour').toDate();
+
+    await this.tokenService.createToken(account.id, token, 'recover_password', expiresIn);
+
+    return { accountId: account.id, token };
   }
 }
 

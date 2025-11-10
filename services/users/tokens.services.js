@@ -120,6 +120,23 @@ class TokenServices {
     return token;
   }
 
+  async getToken({ accountId, purpose, active, customWhere = {} } = {}) {
+    const optionsQuery = {
+      where: customWhere,
+      paranoid: false,
+      subQuery: false,
+      logging: wrapLogging('[TokenServices.getToken] '),
+    };
+
+    if (accountId) optionsQuery.where.accountId = accountId;
+
+    if (purpose) optionsQuery.where.purpose = purpose;
+
+    if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
+
+    return await this.models.usrTokens.findOne(optionsQuery);
+  }
+
   async updateToken(id, { accountId, token, purpose, expiresIn, usedAt, active, user, t } = {}) {
     const updateData = { accountId, token, purpose, expiresIn, usedAt };
 
