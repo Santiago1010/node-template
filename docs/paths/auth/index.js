@@ -1,4 +1,5 @@
 const confirmation = require('./confirmation.docs');
+const password = require('./password.docs');
 const session = require('./session.docs');
 
 const authDocs = {
@@ -7,6 +8,7 @@ const authDocs = {
   '/auth/confirm-email/{token}': { ...confirmation.confirmEmail },
   '/auth/login': { ...session.login },
   '/auth/logout': { ...session.logout },
+  '/auth/forgot-password': { ...password.fogotPassword },
 };
 
 module.exports = authDocs;

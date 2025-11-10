@@ -8,7 +8,7 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const TokenServices = require('../users/tokens.services');
-const SessionMailer = require('../emails/auth/session.email');
+const PasswordMailer = require('../emails/auth/password.email');
 const { getSequelize } = require('../../config/database/connection');
 const { wrapLogging, perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
@@ -19,7 +19,7 @@ class PasswordService {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
 
-    this.sessionMailer = new SessionMailer();
+    this.passwordMailer = new PasswordMailer();
 
     this.tokenService = new TokenServices(this.sequelize);
 
@@ -60,7 +60,7 @@ class PasswordService {
 
     await this.tokenService.createToken(account.id, token, 'recover_password', expiresIn);
 
-    return { accountId: account.id, token };
+    return token;
   }
 }
 

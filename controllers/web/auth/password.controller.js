@@ -9,9 +9,9 @@ class PasswordController {
       const passwordService = new PasswordService();
       await passwordService.initialize();
 
-      const { accountId, token } = await passwordService.fogotPassword(email);
+      const token = await passwordService.fogotPassword(email);
 
-      passwordService.sessionMailer.sendRecoverPasswordEmail(email, accountId, token);
+      passwordService.passwordMailer.sendPasswordResetEmail(email, token);
 
       return success(res, { messagePath: 'auth.fogotPassword.success' });
     } catch (error) {
