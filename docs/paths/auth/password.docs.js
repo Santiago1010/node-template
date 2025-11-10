@@ -27,4 +27,24 @@ const fogotPassword = standardRequest('post', {
   },
 });
 
-module.exports = { fogotPassword };
+const recoverPassword = standardRequest('patch', {
+  tags: ['Auth'],
+  operationId: 'recoverPassword',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          required: ['token', 'password'],
+          properties: {
+            token: { type: 'string', description: '', example: faker.datatype.uuid() },
+            password: { type: 'string', description: '', example: faker.internet.password() },
+          },
+        },
+      },
+    },
+  },
+});
+
+module.exports = { fogotPassword, recoverPassword };
