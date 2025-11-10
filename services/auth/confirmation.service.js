@@ -39,7 +39,7 @@ class ConfirmationService {
 
   async sendConfirmationEmail(email) {
     const account = await this.models.usrAccounts.findOne({
-      attributes: ['id', 'userId', 'employeeId', 'email', 'emailConfirmedAt'],
+      attributes: ['id', 'userId', 'email', 'emailConfirmedAt'],
       where: { email },
       raw: true,
       logging: wrapLogging('[ConfirmationService.sendConfirmationEmail] Get account by email'),
