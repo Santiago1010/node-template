@@ -82,6 +82,9 @@
     },
     "confirmDevice": {
       "deviceConfirmed": "auth.confirmDevice.deviceConfirmed"
+    },
+    "fogotPassword": {
+      "success": "auth.fogotPassword.success"
     }
   },
   "enums": {
@@ -169,6 +172,34 @@
         "copyPaste": "email.sendUnknownDeviceAlert.alternative.copyPaste"
       },
       "thanks": "email.sendUnknownDeviceAlert.thanks"
+    },
+    "sendPasswordResetEmail": {
+      "subject": "email.sendPasswordResetEmail.subject",
+      "passwordReset": "email.sendPasswordResetEmail.passwordReset",
+      "greeting": "email.sendPasswordResetEmail.greeting",
+      "paragraph1": "email.sendPasswordResetEmail.paragraph1",
+      "paragraph2": "email.sendPasswordResetEmail.paragraph2",
+      "resetPassword": "email.sendPasswordResetEmail.resetPassword",
+      "expirationNotice": {
+        "title": "email.sendPasswordResetEmail.expirationNotice.title",
+        "paragraph": "email.sendPasswordResetEmail.expirationNotice.paragraph"
+      },
+      "securityTips": {
+        "title": "email.sendPasswordResetEmail.securityTips.title",
+        "tip1": "email.sendPasswordResetEmail.securityTips.tip1",
+        "tip2": "email.sendPasswordResetEmail.securityTips.tip2",
+        "tip3": "email.sendPasswordResetEmail.securityTips.tip3"
+      },
+      "notRequested": {
+        "title": "email.sendPasswordResetEmail.notRequested.title",
+        "paragraph": "email.sendPasswordResetEmail.notRequested.paragraph"
+      },
+      "contactSupport": "email.sendPasswordResetEmail.contactSupport",
+      "alternative": {
+        "button": "email.sendPasswordResetEmail.alternative.button",
+        "copyPaste": "email.sendPasswordResetEmail.alternative.copyPaste"
+      },
+      "thanks": "email.sendPasswordResetEmail.thanks"
     }
   }
 }

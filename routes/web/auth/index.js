@@ -7,12 +7,14 @@ const express = require('express');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const ConfirmationController = require('../../../controllers/web/auth/confirmation.controller');
+const PasswordController = require('../../../controllers/web/auth/password.controller');
 const SessionController = require('../../../controllers/web/auth/session.controller');
 const {
   sendConfirmationEmailSchema,
   confirmEmailSchema,
   confirmDeviceSchema,
 } = require('./validations/confirmation.validation');
+const { fogotPasswordSchema, recoverPasswordSchema } = require('./validations/password.validation');
 const { loginSchema, logoutSchema, signupSchema } = require('./validations/session.validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
@@ -60,6 +62,20 @@ router.delete(
   checkSchemaWithRegistry(logoutSchema),
   validationErrorHandler,
   SessionController.logout
+);
+
+router.post(
+  '/forgot-password',
+  checkSchemaWithRegistry(fogotPasswordSchema),
+  validationErrorHandler,
+  PasswordController.fogotPassword
+);
+
+router.patch(
+  '/forgot-password',
+  checkSchemaWithRegistry(recoverPasswordSchema),
+  validationErrorHandler,
+  PasswordController.recoverPassword
 );
 
 // =============================================================================

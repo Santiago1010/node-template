@@ -120,7 +120,7 @@ class TokenServices {
     return token;
   }
 
-  async getToken({ accountId, purpose, active, customWhere = {} } = {}) {
+  async getToken({ accountId, token, purpose, active, customWhere = {} } = {}) {
     const optionsQuery = {
       where: customWhere,
       paranoid: false,
@@ -129,6 +129,8 @@ class TokenServices {
     };
 
     if (accountId) optionsQuery.where.accountId = accountId;
+
+    if (token) optionsQuery.where.token = token;
 
     if (purpose) optionsQuery.where.purpose = purpose;
 
