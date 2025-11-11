@@ -9,7 +9,7 @@ const authDocs = {
   '/auth/login': { ...session.login },
   '/auth/logout': { ...session.logout },
   '/auth/forgot-password': { ...password.fogotPassword },
-  '/auth/recover-password': { ...password.recoverPassword },
+  '/auth/recover-password/{token}': { ...password.recoverPassword },
 };
 
 module.exports = authDocs;

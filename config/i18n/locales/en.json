@@ -85,6 +85,10 @@
     },
     "fogotPassword": {
       "success": "auth.fogotPassword.success"
+    },
+    "recoverPassword": {
+      "success": "auth.recoverPassword.success",
+      "invalidToken": "auth.recoverPassword.invalidToken"
     }
   },
   "enums": {
@@ -200,6 +204,39 @@
         "copyPaste": "email.sendPasswordResetEmail.alternative.copyPaste"
       },
       "thanks": "email.sendPasswordResetEmail.thanks"
+    },
+    "sendPasswordChangedEmail": {
+      "subject": "email.sendPasswordChangedEmail.subject",
+      "passwordChanged": "email.sendPasswordChangedEmail.passwordChanged",
+      "greeting": "email.sendPasswordChangedEmail.greeting",
+      "paragraph1": "email.sendPasswordChangedEmail.paragraph1",
+      "changeDetails": {
+        "title": "email.sendPasswordChangedEmail.changeDetails.title",
+        "date": "email.sendPasswordChangedEmail.changeDetails.date",
+        "browser": "email.sendPasswordChangedEmail.changeDetails.browser",
+        "location": "email.sendPasswordChangedEmail.changeDetails.location",
+        "ip": "email.sendPasswordChangedEmail.changeDetails.ip"
+      },
+      "paragraph2": "email.sendPasswordChangedEmail.paragraph2",
+      "notYou": {
+        "title": "email.sendPasswordChangedEmail.notYou.title",
+        "paragraph": "email.sendPasswordChangedEmail.notYou.paragraph"
+      },
+      "immediateActions": {
+        "title": "email.sendPasswordChangedEmail.immediateActions.title",
+        "action1": "email.sendPasswordChangedEmail.immediateActions.action1",
+        "action2": "email.sendPasswordChangedEmail.immediateActions.action2",
+        "action3": "email.sendPasswordChangedEmail.immediateActions.action3"
+      },
+      "reviewSecurity": "email.sendPasswordChangedEmail.reviewSecurity",
+      "contactSupport": "email.sendPasswordChangedEmail.contactSupport",
+      "securityRecommendations": {
+        "title": "email.sendPasswordChangedEmail.securityRecommendations.title",
+        "rec1": "email.sendPasswordChangedEmail.securityRecommendations.rec1",
+        "rec2": "email.sendPasswordChangedEmail.securityRecommendations.rec2",
+        "rec3": "email.sendPasswordChangedEmail.securityRecommendations.rec3"
+      },
+      "thanks": "email.sendPasswordChangedEmail.thanks"
     }
   }
 }

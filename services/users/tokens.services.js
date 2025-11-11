@@ -210,7 +210,9 @@ class TokenServices {
 
     if (!tokenDb) throw error({ httpCode: 404, messagePath: 'auth.invalidToken' });
 
-    return await tokenDb.update({ usedAt }, { transaction: t });
+    return await this.sequelize.transaction(async (transaction) => {
+      return await tokenDb.update({ usedAt }, { transaction: t || transaction });
+    });
   }
 }
 

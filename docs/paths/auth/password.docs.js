@@ -32,18 +32,22 @@ const recoverPassword = standardRequest('patch', {
   tags: ['Auth'],
   operationId: 'recoverPassword',
   description: '',
+  parameters: [
+    {
+      name: 'token',
+      in: 'path',
+      description: '',
+      schema: { type: 'string' },
+      required: true,
+    },
+  ],
   requestBody: {
     required: true,
     content: {
       'application/json': {
         schema: {
-          required: ['token', 'password'],
+          required: ['password'],
           properties: {
-            token: {
-              type: 'string',
-              description: '',
-              example: faker.string.alphanumeric({ length: { min: 20, max: 50 } }),
-            },
             password: { type: 'string', description: '', example: faker.internet.password() },
           },
         },

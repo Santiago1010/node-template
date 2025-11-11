@@ -21,7 +21,8 @@ class PasswordController {
   }
 
   static async recoverPassword(req, res, next) {
-    const { token, password } = req.body;
+    const { token } = req.params;
+    const { password } = req.body;
 
     try {
       const passwordService = new PasswordService();

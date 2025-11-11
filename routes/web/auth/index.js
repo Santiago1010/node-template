@@ -72,7 +72,7 @@ router.post(
 );
 
 router.patch(
-  '/forgot-password',
+  '/recover-password/:token',
   checkSchemaWithRegistry(recoverPasswordSchema),
   validationErrorHandler,
   PasswordController.recoverPassword

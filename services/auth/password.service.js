@@ -86,8 +86,6 @@ class PasswordService {
       throw error({ httpCode: 404, messagePath: 'auth.recoverPassword.invalidToken' });
     }
 
-    await this.tokenService.useAToken(tokenDb.accountId, token, 'recover_password', now);
-
     const account = await this.models.usrAccounts.findByPk(tokenDb.accountId, {
       logging: wrapLogging('[PasswordService.recoverPassword] Get account by id'),
     });
@@ -98,10 +96,14 @@ class PasswordService {
       throw error({ httpCode: 404, messagePath: 'auth.recoverPassword.accountNotFound' });
     }
 
-    await account.update(
-      { password: await hashPassword(password) },
-      { logging: wrapLogging('[PasswordService.recoverPassword] Update account password') }
-    );
+    await this.sequelize.transaction(async (transaction) => {
+      await this.tokenService.useAToken(tokenDb.accountId, token, 'recover_password', now, { t: transaction });
+
+      await account.update(
+        { password: await hashPassword(password) },
+        { transaction, logging: wrapLogging('[PasswordService.recoverPassword] Update account password') }
+      );
+    });
 
     const credential = await this.models.usrCredentials.findOne({
       where: { accountId: account.id, credentialType: 'email', verifiedAt: { [Op.not]: null } },
