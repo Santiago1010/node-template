@@ -24,13 +24,12 @@
     "pkief.material-icon-theme",
     "redhat.vscode-yaml",
     "usernamehw.errorlens",
-    "visualstudioexptteam.intellicode-api-usage-examples",
-    "visualstudioexptteam.vscodeintellicode",
     "wix.vscode-import-cost",
     "yzhang.markdown-all-in-one",
     "biomejs.biome",
     "digitalbrainstem.javascript-ejs-support",
     "j69.ejs-beautify",
-    "vivaxy.vscode-conventional-commits"
+    "vivaxy.vscode-conventional-commits",
+    "github.copilot-chat"
   ]
 }
