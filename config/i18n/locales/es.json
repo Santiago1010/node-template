@@ -238,5 +238,12 @@
       },
       "thanks": "email.sendPasswordChangedEmail.thanks"
     }
+  },
+  "messages": {
+    "sms": {
+      "otp": {
+        "login": "Tu código de acceso seguro es: {otp}"
+      }
+    }
   }
 }

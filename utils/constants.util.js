@@ -551,6 +551,10 @@ const SECURITY_CONFIG = {
     MAX_ARRAY_LENGTH: 1000,
     MAX_OBJECT_DEPTH: 10,
   },
+
+  OTP: {
+    LENGTH: 6,
+  },
 };
 
 /**
