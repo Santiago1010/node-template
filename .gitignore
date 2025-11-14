@@ -787,6 +787,7 @@ scripts/backups-secrets.script.js
 sync_models/
 kubernetes/keys/
 0.Project_info/
+scripts/private
 
 # Preserve specific logs folders
 !controllers/logs/
