@@ -4,11 +4,18 @@ const { getSecret } = require('../../../helpers/vault.helper');
 
 class SMSService {
   static async getClient() {
-    const { account_sid: accountSid, auth_token: authToken } = await getSecret('messaging/sms/twlio');
+    const { account_sid: accountSid, auth_token: authToken } = await getSecret('messaging/sms/twilio');
 
-    return require('twilio')(accountSid, authToken);
+    const client = require('twilio')(accountSid, authToken);
+
+    if (!client) {
+      throw new Error('Twilio client not initialized');
+    }
+
+    return client;
   }
 
+  // =================================== OTP ===================================
   static async sendOTPLogin(to, otp, from = sms.twilio.phoneNumber) {
     const client = await this.getClient();
 
@@ -16,6 +23,8 @@ class SMSService {
 
     return response;
   }
+
+  // ============================== NOTIFICATIONS ==============================
 }
 
 module.exports = SMSService;
