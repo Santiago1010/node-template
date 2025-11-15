@@ -84,4 +84,58 @@ const logout = standardRequest('delete', {
   security: [{ jwtCookieAuth: [] }],
 });
 
-module.exports = { signup, login, logout };
+const readAllSessions = standardRequest('get', {
+  tags: ['Auth'],
+  operationId: 'readAllSessions',
+  description: '',
+  parameters: [
+    {
+      name: 'active',
+      in: 'query',
+      description: '',
+      schema: { type: 'boolean' },
+      required: false,
+    },
+  ],
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const revokeSession = standardRequest('delete', {
+  tags: ['Auth'],
+  operationId: 'revokeSession',
+  description: '',
+  parameters: [
+    {
+      name: 'sessionid',
+      in: 'path',
+      description: '',
+      schema: { type: 'string' },
+      required: true,
+    },
+  ],
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const revokeAllSessionsExceptCurrent = standardRequest('delete', {
+  tags: ['Auth'],
+  operationId: 'revokeAllSessionsExceptCurrent',
+  description: '',
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const refreshToken = standardRequest('patch', {
+  tags: ['Auth'],
+  operationId: 'refreshToken',
+  description: '',
+  security: [{ jwtCookieAuth: [] }],
+});
+
+module.exports = {
+  signup,
+  login,
+  logout,
+  readAllSessions,
+  revokeSession,
+  revokeAllSessionsExceptCurrent,
+  refreshToken,
+};
