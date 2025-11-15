@@ -106,7 +106,7 @@ class ExtendedModel extends Model {
     // Indexes
 
     // References
-    this.hasMany(models.usrAccounts, {
+    this.hasOne(models.usrAccounts, {
       foreignKey: 'userId',
       sourceKey: 'id',
       as: 'accounts',

@@ -175,9 +175,6 @@ class SessionService {
     return createTokenData.token;
   }
 
-  /**
-   * Login paso 1: Verifica credenciales y envía OTP si 2FA está habilitado
-   */
   async login(credential, password, fingerprint, device) {
     const credentialRecord = await this.models.usrCredentials.findOne({
       attributes: ['id', 'accountId', 'credentialType', 'credentialValue', 'verifiedAt'],
