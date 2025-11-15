@@ -130,6 +130,26 @@ const refreshToken = standardRequest('patch', {
   security: [{ jwtCookieAuth: [] }],
 });
 
+const verifyOTP = standardRequest('post', {
+  tags: ['Auth'],
+  operationId: 'verifyOTP',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          required: ['otpCode'],
+          properties: {
+            otpCode: { type: 'string', description: '', example: faker.string.alphanumeric(6).toUpperCase() },
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+});
+
 module.exports = {
   signup,
   login,
@@ -138,4 +158,5 @@ module.exports = {
   revokeSession,
   revokeAllSessionsExceptCurrent,
   refreshToken,
+  verifyOTP,
 };

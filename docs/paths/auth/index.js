@@ -15,6 +15,8 @@ const authDocs = {
   '/auth/recover-password/{token}': { ...password.recoverPassword },
   '/auth/verify-device/{token}': { ...device.verifyDevice },
   '/auth/change-password': { ...password.changePassword },
+  '/auth/send-verify-code': { ...twoFactor.sendOtpCode },
+  '/auth/verify-code': { ...session.verifyOTP },
   '/auth/enable-2fa': { ...twoFactor.enable2fa },
   '/auth/disable-2fa': { ...twoFactor.disable2fa },
   '/auth/get-2fa-status': { ...twoFactor.get2faStatus },

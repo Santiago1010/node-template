@@ -51,4 +51,36 @@ const get2faStatus = standardRequest('get', {
   security: [{ jwtCookieAuth: [] }],
 });
 
-module.exports = { enable2fa, disable2fa, get2faStatus };
+const sendOtpCode = standardRequest('post', {
+  tags: ['Auth'],
+  operationId: 'sendOtpCode',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          required: ['channel'],
+          properties: {
+            channel: { type: 'string', description: '', example: faker.helpers.arrayElement(['sms', 'whatsapp']) },
+            purpose: {
+              type: 'string',
+              description: '',
+              example: faker.helpers.arrayElement([
+                'login',
+                'setup',
+                'transaction',
+                'sensitive_actions',
+                'secure_mode',
+                'disable',
+              ]),
+            },
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+});
+
+module.exports = { enable2fa, disable2fa, get2faStatus, sendOtpCode };
