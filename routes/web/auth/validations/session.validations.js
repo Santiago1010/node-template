@@ -18,8 +18,4 @@ const loginSchema = {
 
 const logoutSchema = {};
 
-const verifyOTPSchema = {
-  otpCode: commonSchemas.stringSchema('otpCode', 'body', { required: true, minSecurityLevel: 0 }),
-};
-
-module.exports = { signupSchema, loginSchema, logoutSchema, verifyOTPSchema };
+module.exports = { signupSchema, loginSchema, logoutSchema };
