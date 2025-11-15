@@ -57,4 +57,26 @@ const recoverPassword = standardRequest('patch', {
   responses: {},
 });
 
-module.exports = { fogotPassword, recoverPassword };
+const changePassword = standardRequest('patch', {
+  tags: ['Auth'],
+  operationId: 'changePassword',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          required: ['currentPassword', 'newPassword'],
+          properties: {
+            currentPassword: { type: 'string', description: '', example: faker.internet.password() },
+            newPassword: { type: 'string', description: '', example: faker.internet.password() },
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+  security: [{ jwtCookieAuth: [] }],
+});
+
+module.exports = { fogotPassword, recoverPassword, changePassword };

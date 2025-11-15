@@ -12,6 +12,7 @@ const authDocs = {
   '/auth/forgot-password': { ...password.fogotPassword },
   '/auth/recover-password/{token}': { ...password.recoverPassword },
   '/auth/verify-device/{token}': { ...device.verifyDevice },
+  '/auth/change-password': { ...password.changePassword },
 };
 
 module.exports = authDocs;
