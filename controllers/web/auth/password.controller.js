@@ -38,6 +38,21 @@ class PasswordController {
       return next(error);
     }
   }
+
+  static async changePassword(req, res, next) {
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+      const passwordService = new PasswordService();
+      await passwordService.initialize();
+
+      await passwordService.changePassword(req.user.id, currentPassword, newPassword);
+
+      return success(res, { messagePath: 'auth.changePassword.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = PasswordController;

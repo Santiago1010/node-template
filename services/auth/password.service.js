@@ -12,7 +12,7 @@ const PasswordMailer = require('../emails/auth/password.email');
 const { getSequelize } = require('../../config/database/connection');
 const { wrapLogging, perror } = require('../../helpers/debug.helper');
 const { error } = require('../../helpers/response.helper');
-const { generateSecureToken, hashPassword } = require('../../helpers/security.helper');
+const { generateSecureToken, hashPassword, verifyPassword } = require('../../helpers/security.helper');
 
 class PasswordService {
   constructor(sequelize = null) {
@@ -121,6 +121,33 @@ class PasswordService {
     }
 
     return credential.credentialValue;
+  }
+
+  async changePassword(accountId, currentPassword, newPassword) {
+    const account = await this.models.usrAccounts.findByPk(accountId, {
+      logging: wrapLogging('[PasswordService.changePassword] Get account by id'),
+    });
+
+    if (!account) {
+      perror('[PasswordService.changePassword] No account found', { accountId });
+
+      throw error({ httpCode: 404, messagePath: 'auth.changePassword.accountNotFound' });
+    }
+
+    const validPassword = await verifyPassword(currentPassword, account.password);
+    if (!validPassword) {
+      throw error({ httpCode: 401, messagePath: 'auth.changePassword.invalidCredentials' });
+    }
+
+    const repeatedPassword = await verifyPassword(newPassword, account.password);
+    if (repeatedPassword) {
+      throw error({ httpCode: 400, messagePath: 'auth.changePassword.repeatPassword' });
+    }
+
+    await account.update(
+      { password: await hashPassword(newPassword) },
+      { logging: wrapLogging('[PasswordService.changePassword] Update account password') }
+    );
   }
 }
 

@@ -10,7 +10,9 @@
     "token": "fields.token",
     "rely": "fields.rely",
     "block": "fields.block",
-    "otpCode": "fields.otpCode"
+    "otpCode": "fields.otpCode",
+    "currentPassword": "fields.currentPassword",
+    "newPassword": "fields.newPassword"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -94,6 +96,10 @@
     },
     "verifyOTP": {
       "sessionExpired": "auth.verifyOTP.sessionExpired"
+    },
+    "changePassword": {
+      "success": "auth.changePassword.success",
+      "repeatPassword": "auth.changePassword.repeatPassword"
     }
   },
   "enums": {

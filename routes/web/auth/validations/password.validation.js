@@ -9,4 +9,9 @@ const recoverPasswordSchema = {
   password: commonSchemas.passwordSchema('password', 'body', { required: true, minSecurityLevel: 0 }),
 };
 
-module.exports = { fogotPasswordSchema, recoverPasswordSchema };
+const changePasswordSchema = {
+  currentPassword: commonSchemas.passwordSchema('currentPassword', 'body', { required: true, minSecurityLevel: 0 }),
+  newPassword: commonSchemas.passwordSchema('newPassword', 'body', { required: true, minSecurityLevel: 0 }),
+};
+
+module.exports = { fogotPasswordSchema, recoverPasswordSchema, changePasswordSchema };
