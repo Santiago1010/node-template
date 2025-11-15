@@ -66,6 +66,13 @@ const Schema = {
     allowNull: false,
     comment: "Hash of the user's access password. It is encrypted for enhanced security of the user's information.",
   },
+  twoFactorEnabled: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    comment: 'Indicates whether you have 2-step verification enabled or not.',
+    field: 'two_factor_enabled',
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,

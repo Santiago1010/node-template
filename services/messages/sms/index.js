@@ -28,7 +28,11 @@ class SMSService {
   static async sendOTPLogin(to, otp = SMSService.generateOTP(), from = sms.twilio.phoneNumber) {
     const client = await this.getClient();
 
-    const response = await client.messages.create({ body: i18n.__mf('messages.sms.otp.login', { otp }), from, to });
+    const response = await client.messages.create({
+      body: i18n.__mf('messages.sms.otp.login', { otp }),
+      from,
+      to: '+57' + to,
+    });
 
     return response;
   }

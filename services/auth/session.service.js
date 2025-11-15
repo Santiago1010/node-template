@@ -13,6 +13,7 @@ const DeviceServices = require('../users/devices.services');
 const PreferenceServices = require('../users/preferences.services');
 const TokenServices = require('../users/tokens.services');
 const UserServices = require('../users/users.services');
+const OTPService = require('../users/otp-codes.service');
 const SessionMailer = require('../emails/auth/session.email');
 const config = require('../../config/env');
 const ContextHelper = require('../../helpers/context.helper');
@@ -59,6 +60,7 @@ class SessionService {
     this.preferenceService = new PreferenceServices(this.sequelize);
     this.tokensService = new TokenServices(this.sequelize);
     this.usersService = new UserServices(this.sequelize);
+    this.otpService = new OTPService(this.sequelize);
 
     return this;
   }
@@ -97,8 +99,6 @@ class SessionService {
         verifiedAt: null,
       },
     ];
-
-    console.log(createCredentialData);
 
     const createTokenData = {
       accountId: null,
@@ -175,6 +175,9 @@ class SessionService {
     return createTokenData.token;
   }
 
+  /**
+   * Login paso 1: Verifica credenciales y envía OTP si 2FA está habilitado
+   */
   async login(credential, password, fingerprint, device) {
     const credentialRecord = await this.models.usrCredentials.findOne({
       attributes: ['id', 'accountId', 'credentialType', 'credentialValue', 'verifiedAt'],
@@ -182,7 +185,7 @@ class SessionService {
       include: {
         model: this.models.usrAccounts,
         as: 'account',
-        attributes: ['id', 'userId', 'password'],
+        attributes: ['id', 'userId', 'password', 'twoFactorEnabled', 'dialCodeId'],
         required: true,
         include: {
           model: this.models.configRoles,
@@ -205,8 +208,75 @@ class SessionService {
       throw error({ httpCode: 401, messagePath: 'auth.login.invalidCredentials' });
     }
 
-    const accountData = { id: account.id, userId: account.userId, rol: account.rol };
+    if (account.twoFactorEnabled) {
+      const phoneCredential = await this.models.usrCredentials.findOne({
+        attributes: ['credentialValue'],
+        where: {
+          accountId: account.id,
+          credentialType: 'phone',
+          verifiedAt: { [Op.not]: null },
+        },
+        raw: true,
+        logging: wrapLogging('[SessionService.login] Get phone credential'),
+      });
 
+      if (!phoneCredential) {
+        throw error({ httpCode: 400, messagePath: 'auth.login.noPhoneForOTP' });
+      }
+
+      const otpResult = await this.otpService.generateAndSendOTP(
+        account.id,
+        'sms',
+        'login',
+        phoneCredential.credentialValue
+      );
+
+      return {
+        requires2FA: true,
+        accountId: account.id,
+        otpSent: true,
+        otpChannel: 'sms',
+        expiresAt: otpResult.expiresAt,
+      };
+    }
+
+    const accountData = { id: account.id, userId: account.userId, rol: account.rol };
+    const responseTokens = await this.createTokens(accountData, fingerprint, device);
+
+    if (responseTokens.isSafeMode) {
+      const createdToken = await this.tokensService.createToken(
+        account.id,
+        generateSecureToken(),
+        'secure_device',
+        dayjs().add(1, 'day').toDate()
+      );
+
+      if (createdToken) responseTokens.secureToken = createdToken.token;
+    }
+
+    return responseTokens;
+  }
+
+  async verifyLoginOTP(accountId, otpCode, channel, fingerprint, device) {
+    await this.otpService.verifyOTP(accountId, otpCode, channel, 'login');
+
+    const account = await this.models.usrAccounts.findOne({
+      attributes: ['id', 'userId'],
+      where: { id: accountId },
+      include: {
+        model: this.models.configRoles,
+        as: 'rol',
+        attributes: ['id', 'name'],
+        required: true,
+      },
+      logging: wrapLogging('[SessionService.verifyLoginOTP] Get account info'),
+    });
+
+    if (!account) {
+      throw error({ httpCode: 404, messagePath: 'auth.login.accountNotFound' });
+    }
+
+    const accountData = { id: account.id, userId: account.userId, rol: account.rol };
     const responseTokens = await this.createTokens(accountData, fingerprint, device);
 
     if (responseTokens.isSafeMode) {

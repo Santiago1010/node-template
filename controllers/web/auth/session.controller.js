@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 const config = require('../../../config/env');
 const SessionService = require('../../../services/auth/session.service');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
-const { del, buildKey, increment, tagKey, set, ttl } = require('../../../helpers/cache.helper');
+const { del, buildKey, increment, tagKey, set, ttl, get } = require('../../../helpers/cache.helper');
 const { success, error } = require('../../../helpers/response.helper');
 const { getDeviceInfo } = require('../../../utils/utilities.util');
 
@@ -43,7 +43,7 @@ class SessionController {
 
       if (attempts > 5) {
         const remainingTTL = await ttl(rateLimitKey);
-        // throw new Error(`Too many login attempts. Try again in ${Math.ceil(remainingTTL / 60)} minutes`);
+
         throw error({
           httpCode: 429,
           messagePath: 'auth.login.tooManyAttempts',
@@ -55,6 +55,31 @@ class SessionController {
 
       const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
+      if (response.requires2FA) {
+        const tempSessionKey = buildKey('temp_session', response.accountId, fingerprint);
+        await set(
+          tempSessionKey,
+          {
+            accountId: response.accountId,
+            fingerprint,
+            deviceInfo,
+            loginAttemptAt: dayjs().toISOString(),
+          },
+          600
+        );
+
+        return success(res, {
+          messagePath: 'auth.login.otpRequired',
+          data: {
+            requires2FA: true,
+            otpSent: response.otpSent,
+            otpChannel: response.otpChannel,
+            expiresAt: response.expiresAt,
+          },
+        });
+      }
+
+      // Login sin 2FA - proceso normal
       const { accessToken, refreshToken, accountId, secureToken } = response;
 
       await del(rateLimitKey);
@@ -91,6 +116,80 @@ class SessionController {
 
       if (secureToken) {
         sessionService.sessionMailer.sendUnknownDeviceAlert(credential, deviceInfo, secureToken);
+      }
+
+      return success(res, { messagePath: 'auth.login.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  static async verifyOTP(req, res, next) {
+    const { otpCode, channel = 'sms' } = req.body;
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      const fingerprint = req.headers['x-fingerprint'];
+
+      const tempSessionKey = buildKey('temp_session', '*', fingerprint);
+      const tempSession = await get(tempSessionKey);
+
+      if (!tempSession) {
+        throw error({
+          httpCode: 400,
+          messagePath: 'auth.verifyOTP.sessionExpired',
+        });
+      }
+
+      const { accountId, deviceInfo } = tempSession;
+
+      // Verificar el código OTP
+      const response = await sessionService.verifyLoginOTP(accountId, otpCode, channel, fingerprint, deviceInfo);
+
+      const { accessToken, refreshToken, secureToken } = response;
+
+      // Limpiar sesión temporal y rate limit
+      await del(tempSessionKey);
+      const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
+      await del(rateLimitKey);
+
+      // Crear sesión definitiva
+      const sessionKey = buildKey('session', accountId, fingerprint);
+      await set(
+        sessionKey,
+        {
+          userId: accountId,
+          fingerprint,
+          deviceInfo,
+          loginAt: dayjs().toISOString(),
+          verified2FA: true,
+        },
+        Math.floor(config.jwt.accessToken.expiration / 1000)
+      );
+
+      await tagKey(sessionKey, [`account:${accountId}`, 'active_sessions']);
+
+      clog('access token', accessToken);
+      clog('refresh token', refreshToken);
+
+      res.cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+        maxAge: config.jwt.accessToken.expiration,
+      });
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: !isDevelopmentMode(true),
+        sameSite: 'strict',
+        maxAge: config.jwt.refreshToken.expiration,
+      });
+
+      if (secureToken) {
+        const deviceInfo = getDeviceInfo(req, true);
+        sessionService.sessionMailer.sendUnknownDeviceAlert(accountId, deviceInfo, secureToken);
       }
 
       return success(res, { messagePath: 'auth.login.success' });
@@ -148,8 +247,6 @@ class SessionController {
     const { account, jti, device } = req.user;
 
     try {
-      console.log(req.user);
-
       const sessionService = new SessionService();
       await sessionService.initialize();
 

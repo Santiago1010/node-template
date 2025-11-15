@@ -55,7 +55,8 @@
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Demasiados intentos de inicio de sesión. Inténtalo de nuevo en {remainingTTL} minutos.",
-      "confirmationEmailSent": "auth.login.confirmationEmailSent"
+      "confirmationEmailSent": "auth.login.confirmationEmailSent",
+      "otpRequired": "auth.login.otpRequired"
     },
     "session": {
       "invalidSession": "auth.session.invalidSession",
