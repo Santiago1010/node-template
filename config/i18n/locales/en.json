@@ -12,7 +12,9 @@
     "block": "fields.block",
     "otpCode": "fields.otpCode",
     "currentPassword": "fields.currentPassword",
-    "newPassword": "fields.newPassword"
+    "newPassword": "fields.newPassword",
+    "sessionid": "fields.sessionid",
+    "sessionId": "fields.sessionId"
   },
   "validations": {
     "required": "The {field} field is required",

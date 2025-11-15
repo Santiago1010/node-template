@@ -11,6 +11,11 @@ const router = express.Router();
 // =============================================================================
 // ROUTES
 // =============================================================================
+router.use('/', require('./confirmation.routes'));
+router.use('/', require('./device.routes'));
+router.use('/', require('./password.routes'));
+router.use('/', require('./session.routes'));
+router.use('/', require('./two-factor.routes'));
 
 // =============================================================================
 // MODULE EXPORTS

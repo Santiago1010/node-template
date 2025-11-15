@@ -268,6 +268,23 @@ class SessionController {
       return next(error);
     }
   }
+
+  static async revokeSession(req, res, next) {
+    const { sessionId } = req.params;
+    const { id: accountId, jti } = req.user;
+    const fingerprint = req.headers['x-fingerprint'];
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      await sessionService.revokeSession(sessionId, accountId, jti, fingerprint);
+
+      return success(res, { messagePath: 'auth.revokeSession.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = SessionController;

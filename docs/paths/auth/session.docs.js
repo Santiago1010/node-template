@@ -106,7 +106,7 @@ const revokeSession = standardRequest('delete', {
   description: '',
   parameters: [
     {
-      name: 'sessionid',
+      name: 'sessionId',
       in: 'path',
       description: '',
       schema: { type: 'string' },

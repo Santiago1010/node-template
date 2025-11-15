@@ -494,6 +494,9 @@ class SessionService {
 
     return await this.devicesService.updateDevice(existingDevice.id, { name: userAgent, lastIp: ip, lastUsedAt });
   }
+
+  // =============================== SESSIONS =============================== //
+  // async revokeSession(sessionId, accountId, jti, fingerprint) {}
 }
 
 module.exports = SessionService;

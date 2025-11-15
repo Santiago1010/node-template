@@ -18,4 +18,8 @@ const loginSchema = {
 
 const logoutSchema = {};
 
-module.exports = { signupSchema, loginSchema, logoutSchema };
+const revokeSessionSchema = {
+  sessionId: commonSchemas.stringSchema('sessionId', 'params', { required: true, minSecurityLevel: 0 }),
+};
+
+module.exports = { signupSchema, loginSchema, logoutSchema, revokeSessionSchema };

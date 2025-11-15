@@ -13,7 +13,7 @@ const authDocs = {
   '/auth/logout': { ...session.logout },
   '/auth/refresh-token': { ...session.refreshToken },
 
-  '/auth/session/{sessionid}/revoke': { ...session.revokeSession },
+  '/auth/session/{sessionId}/revoke': { ...session.revokeSession },
   '/auth/sessions': { ...session.readAllSessions },
   '/auth/sessions/revoke-all-except-current': { ...session.revokeAllSessionsExceptCurrent },
 

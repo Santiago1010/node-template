@@ -44,6 +44,14 @@ router.delete(
 
 router.patch('/refresh-token', validateWebSession, SessionController.refreshToken);
 
+router.delete(
+  '/session/:sessionId/revoke',
+  validateWebSession,
+  checkSchemaWithRegistry(sessionSchemas.revokeSessionSchema),
+  validationErrorHandler,
+  SessionController.revokeSession
+);
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
