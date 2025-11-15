@@ -125,7 +125,7 @@ class SessionController {
   }
 
   static async verifyOTP(req, res, next) {
-    const { otpCode, channel = 'sms' } = req.body;
+    const { otpCode } = req.body;
 
     try {
       const sessionService = new SessionService();
@@ -145,17 +145,14 @@ class SessionController {
 
       const { accountId, deviceInfo } = tempSession;
 
-      // Verificar el código OTP
-      const response = await sessionService.verifyLoginOTP(accountId, otpCode, channel, fingerprint, deviceInfo);
+      const response = await sessionService.verifyLoginOTP(accountId, otpCode, fingerprint, deviceInfo);
 
       const { accessToken, refreshToken, secureToken } = response;
 
-      // Limpiar sesión temporal y rate limit
       await del(tempSessionKey);
       const rateLimitKey = buildKey('rate_limit', 'login', req.ip);
       await del(rateLimitKey);
 
-      // Crear sesión definitiva
       const sessionKey = buildKey('session', accountId, fingerprint);
       await set(
         sessionKey,

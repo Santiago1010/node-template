@@ -15,7 +15,7 @@ const {
   confirmDeviceSchema,
 } = require('./validations/confirmation.validation');
 const { fogotPasswordSchema, recoverPasswordSchema } = require('./validations/password.validation');
-const { loginSchema, logoutSchema, signupSchema } = require('./validations/session.validations');
+const { loginSchema, logoutSchema, signupSchema, verifyOTPSchema } = require('./validations/session.validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
 const { checkSchemaWithRegistry } = require('../../../utils/validationRegistry.util');
@@ -76,6 +76,13 @@ router.patch(
   checkSchemaWithRegistry(recoverPasswordSchema),
   validationErrorHandler,
   PasswordController.recoverPassword
+);
+
+router.post(
+  '/verify-code',
+  checkSchemaWithRegistry(verifyOTPSchema),
+  validationErrorHandler,
+  SessionController.verifyOTP
 );
 
 // =============================================================================

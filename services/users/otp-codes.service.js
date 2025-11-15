@@ -94,7 +94,7 @@ class OTPService {
     };
   }
 
-  async verifyOTP(accountId, code, channel, purpose) {
+  async verifyOTP(accountId, code, purpose) {
     const now = dayjs().toDate();
 
     const otpRecord = await this.models.usrOtpCodes.findOne({
@@ -102,7 +102,6 @@ class OTPService {
       where: {
         accountId,
         code,
-        channel,
         purpose,
         expiresAt: { [Op.gte]: now },
         usedAt: null,

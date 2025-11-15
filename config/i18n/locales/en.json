@@ -9,7 +9,8 @@
     "email": "fields.email",
     "token": "fields.token",
     "rely": "fields.rely",
-    "block": "fields.block"
+    "block": "fields.block",
+    "otpCode": "fields.otpCode"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -90,6 +91,9 @@
     "recoverPassword": {
       "success": "auth.recoverPassword.success",
       "invalidToken": "auth.recoverPassword.invalidToken"
+    },
+    "verifyOTP": {
+      "sessionExpired": "auth.verifyOTP.sessionExpired"
     }
   },
   "enums": {

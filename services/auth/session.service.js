@@ -257,8 +257,8 @@ class SessionService {
     return responseTokens;
   }
 
-  async verifyLoginOTP(accountId, otpCode, channel, fingerprint, device) {
-    await this.otpService.verifyOTP(accountId, otpCode, channel, 'login');
+  async verifyLoginOTP(accountId, otpCode, fingerprint, device) {
+    await this.otpService.verifyOTP(accountId, otpCode, 'login');
 
     const account = await this.models.usrAccounts.findOne({
       attributes: ['id', 'userId'],
