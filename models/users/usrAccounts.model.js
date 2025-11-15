@@ -115,6 +115,13 @@ class ExtendedModel extends Model {
       onUpdate: 'RESTRICT',
       onDelete: 'RESTRICT',
     });
+    this.belongsTo(models.geoDialCodes, {
+      foreignKey: 'dialCodeId',
+      targetKey: 'id',
+      as: 'dialCode',
+      onUpdate: 'RESTRICT',
+      onDelete: 'RESTRICT',
+    });
 
     // References
     // this.hasMany(models.docDocumentsAccess, {

@@ -101,11 +101,14 @@
       "desktop": "enums.type.desktop"
     },
     "target": {
-      "everyone": "enums.target.everyone"
+      "everyone": "enums.target.everyone",
+      "customer": "enums.target.customer"
     },
     "credentialType": {
       "undefined": "enums.credentialType.undefined",
-      "internal_code": "enums.credentialType.internal_code"
+      "internal_code": "enums.credentialType.internal_code",
+      "email": "enums.credentialType.email",
+      "phone": "enums.credentialType.phone"
     },
     "channel": {
       "sms": "enums.channel.sms"

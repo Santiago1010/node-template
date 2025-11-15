@@ -526,6 +526,36 @@ const wrapText = (text, width = STRING_CONSTANTS.DEFAULT_WORD_WRAP_WIDTH) => {
   return lines.join('\n');
 };
 
+/**
+ * Formats a phone number based on a given mask and dial code.
+ *
+ * @param {string} mask - The phone number mask, where '#' represents a digit and 'DC' represents the dial code
+ * @param {string} dialCode - The dial code to use in the formatted phone number
+ * @param {string} number - The phone number to format
+ * @returns {string} The formatted phone number
+ *
+ * @example
+ * formatPhone('+# (###) ###-####', '1', '1234567890') // "+1 (123) 456-7890"
+ */
+const formatPhone = (mask, dialCode, number) => {
+  const digits = number.replace(/\D/g, '').split('');
+  let output = '';
+
+  for (const ch of mask) {
+    if (ch === '#') {
+      output += digits.shift() ?? '';
+    } else if (ch === 'DC') {
+      output = output.replace(/DC/, dialCode);
+    } else {
+      output += ch;
+    }
+  }
+
+  output = output.replace(/DC/g, dialCode);
+
+  return output.trim();
+};
+
 // =============================================================================
 // CASE CONVERSION FUNCTIONS
 // =============================================================================
@@ -1010,6 +1040,7 @@ module.exports = {
   toTitleCase,
   formatEscapeSequences,
   wrapText,
+  formatPhone,
 
   // Case Conversion Functions
   toCamelCase,

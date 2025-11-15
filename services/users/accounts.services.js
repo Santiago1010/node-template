@@ -7,9 +7,10 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const LogServices = require('../logs/logs.service');
-const { getSequelize } = require('../../../config/database/connection');
-const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
-const { wrapLogging } = require('../../../helpers/debug.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../helpers/database.helper');
+const { wrapLogging } = require('../../helpers/debug.helper');
+const { formatPhone } = require('../../utils/strings.util');
 
 class AccountServices {
   constructor(sequelize = null) {
@@ -161,6 +162,12 @@ class AccountServices {
           attributes: ['id', 'name', 'target', 'targetInt'],
           where: {},
           required: true,
+          include: {
+            model: this.models.configSecurityLevels,
+            as: 'securityLevel',
+            attributes: ['id', 'slug', 'name', 'priority', 'description'],
+            required: true,
+          },
         },
         {
           model: this.models.usrCredentials,
@@ -169,6 +176,11 @@ class AccountServices {
           where: {},
           required: true,
           separate: true,
+        },
+        {
+          model: this.models.geoDialCodes,
+          as: 'dialCode',
+          required: false,
         },
       ],
       subQuery: false,
@@ -185,9 +197,9 @@ class AccountServices {
 
     if (dialCodeId) optionsQuery.where.dialCodeId = dialCodeId;
 
-    if (credentialType) optionsQuery.where.credentials.credentialType = credentialType;
+    if (credentialType) optionsQuery.include[2].where.credentialType = credentialType;
 
-    if (credentialValue) optionsQuery.where.credentials.credentialValue = credentialValue;
+    if (credentialValue) optionsQuery.include[2].where.credentialValue = credentialValue;
 
     if (verifiedCredential !== undefined) {
       optionsQuery.where.credentials.verifiedAt = verifiedCredential ? { [Op.not]: null } : null;
@@ -196,6 +208,17 @@ class AccountServices {
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
     const account = await this.models.usrAccounts.findOne(optionsQuery);
+
+    if (!account) return null;
+
+    for (const credential of account.credentials) {
+      if (credential.credentialtypeInt === 2 && account.dialCode?.mask) {
+        const formattedNumber = formatPhone(account.dialCode.mask, account.dialCode.code, credential.credentialValue);
+
+        if (formattedNumber) credential.dataValues.formattedNumber = formattedNumber;
+        credential.dataValues.credentialValue = account.dialCode.code + credential.credentialValue;
+      }
+    }
 
     return account;
   }
