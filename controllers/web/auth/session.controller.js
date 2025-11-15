@@ -56,7 +56,7 @@ class SessionController {
       const response = await sessionService.login(credential, password, fingerprint, deviceInfo);
 
       if (response.requires2FA) {
-        const tempSessionKey = buildKey('temp_session', response.accountId, fingerprint);
+        const tempSessionKey = buildKey('temp_session', fingerprint);
         await set(
           tempSessionKey,
           {
@@ -133,7 +133,7 @@ class SessionController {
 
       const fingerprint = req.headers['x-fingerprint'];
 
-      const tempSessionKey = buildKey('temp_session', '*', fingerprint);
+      const tempSessionKey = buildKey('temp_session', fingerprint);
       const tempSession = await get(tempSessionKey);
 
       if (!tempSession) {

@@ -106,6 +106,12 @@
     "credentialType": {
       "undefined": "enums.credentialType.undefined",
       "internal_code": "enums.credentialType.internal_code"
+    },
+    "channel": {
+      "sms": "enums.channel.sms"
+    },
+    "purpose": {
+      "undefined": "enums.purpose.undefined"
     }
   },
   "common": {
