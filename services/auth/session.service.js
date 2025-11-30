@@ -496,6 +496,12 @@ class SessionService {
   }
 
   // =============================== SESSIONS =============================== //
+  async getSessions(accountId, { limit, page } = {}) {
+    const accesses = await this.accessesService.getListAccesses({ limit, page, accountId });
+
+    return accesses;
+  }
+
   async revokeSession(sessionId, accountId) {
     const accessFilter = { limit: 1, page: 1, active: true, accountId };
 

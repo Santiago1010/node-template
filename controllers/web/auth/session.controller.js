@@ -269,6 +269,22 @@ class SessionController {
     }
   }
 
+  // =============================== SESSIONS =============================== //
+  static async getSessions(req, res, next) {
+    const { accountId } = req.user;
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      const sessions = await sessionService.getSessions(accountId, req.query);
+
+      return success(res, { messagePath: 'auth.getSessions.success', data: sessions });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   static async revokeSession(req, res, next) {
     const { sessionId } = req.params;
     const { id: accountId, jti } = req.user;
