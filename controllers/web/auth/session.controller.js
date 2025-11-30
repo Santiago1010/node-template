@@ -278,7 +278,7 @@ class SessionController {
       const sessionService = new SessionService();
       await sessionService.initialize();
 
-      await sessionService.revokeSession(sessionId, accountId, jti, fingerprint);
+      await sessionService.revokeSession(parseInt(sessionId), accountId, jti, fingerprint);
 
       return success(res, { messagePath: 'auth.revokeSession.success' });
     } catch (error) {

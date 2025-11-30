@@ -91,13 +91,14 @@ class AccessServices {
       logging: wrapLogging('[AccessServices.getListAccesses] '),
     };
 
-    if (ids && ids.lenth > 0) optionsQuery.where.id = { [Op.in]: ids };
+    if (ids && ids.length > 0) optionsQuery.where.id = { [Op.in]: ids };
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
     if (accountId) optionsQuery.where.accountId = accountId;
+
     if (deviceId) optionsQuery.where.deviceId = deviceId;
 
     if (idToken) optionsQuery.where.idToken = idToken;
@@ -128,6 +129,23 @@ class AccessServices {
     if (includeHistory) access.dataValues.history = await this.logService.getFullLogsHistory(access);
 
     return access;
+  }
+
+  async getAccess({ fields = [], id, active }) {
+    const optionsQuery = {
+      where: {},
+      paranoid: false,
+      subQuery: false,
+      logging: wrapLogging('[AccessServices.getAccess] '),
+    };
+
+    if (fields && fields.length > 0) optionsQuery.attributes = fields;
+
+    if (id) optionsQuery.where.id = id;
+
+    if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
+
+    return await this.models.usrAccesses.findOne(optionsQuery);
   }
 
   async updateAccess(id, { accountId, deviceId, idToken, expiresAt, isSafeMode, active, user, t } = {}) {

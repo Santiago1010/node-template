@@ -79,7 +79,7 @@ class DeviceServices {
       logging: wrapLogging('[DeviceServices.getListDevices] '),
     };
 
-    if (ids && ids.lenth > 0) optionsQuery.where.id = { [Op.in]: ids };
+    if (ids && ids.length > 0) optionsQuery.where.id = { [Op.in]: ids };
 
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 

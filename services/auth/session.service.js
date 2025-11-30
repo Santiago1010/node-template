@@ -496,7 +496,21 @@ class SessionService {
   }
 
   // =============================== SESSIONS =============================== //
-  // async revokeSession(sessionId, accountId, jti, fingerprint) {}
+  async revokeSession(sessionId, accountId) {
+    const accessFilter = { limit: 1, page: 1, active: true, accountId };
+
+    if (sessionId) accessFilter.ids = [sessionId];
+
+    const accessList = await this.accessesService.getListAccesses(accessFilter);
+
+    if (!accessList || !accessList.results || accessList.results.length === 0) {
+      throw error({ httpCode: 404, messagePath: 'auth.revokeSession.sessionNotFound' });
+    }
+
+    const access = accessList.results[0];
+
+    await access.destroy({ logging: wrapLogging('[AccessServices.deleteAccess] Revoke session') });
+  }
 }
 
 module.exports = SessionService;

@@ -102,6 +102,10 @@
     "changePassword": {
       "success": "auth.changePassword.success",
       "repeatPassword": "auth.changePassword.repeatPassword"
+    },
+    "revokeSession": {
+      "success": "auth.revokeSession.success",
+      "sessionNotFound": "auth.revokeSession.sessionNotFound"
     }
   },
   "enums": {
