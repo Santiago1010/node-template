@@ -79,6 +79,7 @@ class AccessServices {
     deviceId,
     idToken,
     notBefore,
+    exceptJti,
   } = {}) {
     const optionsQuery = {
       where: {},
@@ -104,6 +105,8 @@ class AccessServices {
     if (idToken) optionsQuery.where.idToken = idToken;
 
     if (notBefore) optionsQuery.where.expiresAt = { [Op.gte]: notBefore };
+
+    if (exceptJti) optionsQuery.where.idToken = { [Op.not]: exceptJti };
 
     if (search) optionsQuery.where = setSearchQuery(this.models.usrAccesses, search, optionsQuery);
 

@@ -59,6 +59,14 @@ router.delete(
   SessionController.revokeSession
 );
 
+router.delete(
+  '/sessions/revoke-all-except-current',
+  validateWebSession,
+  checkSchemaWithRegistry(sessionSchemas.revokeAllSessionExceptCurrentSchema),
+  validationErrorHandler,
+  SessionController.revokeAllSessionExceptCurrent
+);
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================

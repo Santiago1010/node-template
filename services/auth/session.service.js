@@ -496,8 +496,8 @@ class SessionService {
   }
 
   // =============================== SESSIONS =============================== //
-  async getSessions(accountId, { limit, page } = {}) {
-    const accesses = await this.accessesService.getListAccesses({ limit, page, accountId });
+  async getSessions(accountId, { limit, page, active } = {}) {
+    const accesses = await this.accessesService.getListAccesses({ limit, page, accountId, active });
 
     return accesses;
   }
@@ -516,6 +516,24 @@ class SessionService {
     const access = accessList.results[0];
 
     await access.destroy({ logging: wrapLogging('[AccessServices.deleteAccess] Revoke session') });
+  }
+
+  async revokeAllSessionExceptCurrent(accountId, jti) {
+    const accessFilter = { active: true, accountId, exceptJti: jti };
+
+    const accessList = await this.accessesService.getListAccesses(accessFilter);
+
+    if (!accessList || !accessList.results || accessList.results.length === 0) {
+      return;
+    }
+
+    await Promise.all(
+      accessList.results.map((access) =>
+        access.destroy({
+          logging: wrapLogging('[SessionService.revokeAllSessionExceptCurrent] Revoke session'),
+        })
+      )
+    );
   }
 }
 

@@ -301,6 +301,21 @@ class SessionController {
       return next(error);
     }
   }
+
+  static async revokeAllSessionExceptCurrent(req, res, next) {
+    const { accountId, jti } = req.user;
+
+    try {
+      const sessionService = new SessionService();
+      await sessionService.initialize();
+
+      await sessionService.revokeAllSessionExceptCurrent(accountId, jti);
+
+      return success(res, { messagePath: 'auth.revokeAllSessionExceptCurrent.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = SessionController;

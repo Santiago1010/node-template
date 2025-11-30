@@ -28,4 +28,13 @@ const revokeSessionSchema = {
   sessionId: commonSchemas.stringSchema('sessionId', 'params', { required: true, minSecurityLevel: 0 }),
 };
 
-module.exports = { signupSchema, loginSchema, logoutSchema, getSessionsSchema, revokeSessionSchema };
+const revokeAllSessionExceptCurrentSchema = {};
+
+module.exports = {
+  signupSchema,
+  loginSchema,
+  logoutSchema,
+  getSessionsSchema,
+  revokeSessionSchema,
+  revokeAllSessionExceptCurrentSchema,
+};

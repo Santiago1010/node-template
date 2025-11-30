@@ -112,6 +112,9 @@
     },
     "getSessions": {
       "success": "auth.getSessions.success"
+    },
+    "revokeAllSessionExceptCurrent": {
+      "success": "auth.revokeAllSessionExceptCurrent.success"
     }
   },
   "enums": {
