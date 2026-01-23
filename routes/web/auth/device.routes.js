@@ -6,7 +6,7 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const ConfirmationController = require('../../../controllers/web/auth/confirmation.controller');
+const DeviceController = require('../../../controllers/web/auth/devices.controller');
 const { deviceSchemas } = require('./validations');
 const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
@@ -25,8 +25,10 @@ router.patch(
   validateWebSession,
   checkSchemaWithRegistry(deviceSchemas.confirmDeviceSchema),
   validationErrorHandler,
-  ConfirmationController.confirmDevice
+  DeviceController.confirmDevice
 );
+
+router.get('/devices', validateWebSession, DeviceController.readAllDevices);
 
 // =============================================================================
 // MODULE EXPORTS

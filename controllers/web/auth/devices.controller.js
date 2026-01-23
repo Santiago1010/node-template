@@ -1,0 +1,39 @@
+const ConfirmationService = require('../../../services/auth/confirmation.service');
+const { success } = require('../../../helpers/response.helper');
+const DeviceServices = require('../../../services/users/devices.services');
+
+class DeviceController {
+  static async confirmDevice(req, res, next) {
+    const { jti } = req.user;
+    const { token } = req.params;
+    const { password, rely, block } = req.body;
+
+    try {
+      const confirmationService = new ConfirmationService();
+      await confirmationService.initialize();
+
+      await confirmationService.confirmDevice(token, 'secure_device', password, jti, rely, block);
+
+      return success(res, { messagePath: 'auth.confirmDevice.deviceConfirmed' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  static async readAllDevices(req, res, next) {
+    const { accountId } = req.user;
+
+    try {
+      const deviceService = new DeviceServices();
+      await deviceService.initialize();
+
+      const devices = await deviceService.getListDevices({ accountId });
+
+      return success(res, { data: devices, messagePath: 'auth.readAllDevices.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+}
+
+module.exports = DeviceController;
