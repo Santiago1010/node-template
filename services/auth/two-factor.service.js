@@ -187,9 +187,6 @@ class TwoFactorService {
     if (purpose === 'setup') {
       await this.otpService.enable2FA(accountId);
 
-      // TODO: Send email notifying the activation of 2FA
-      // await this.sessionMailer.send2FAEnabled(account);
-
       return { message: '2FA enabled successfully', enabled: true };
     }
 
@@ -210,9 +207,6 @@ class TwoFactorService {
     }
 
     await this.otpService.disable2FA(accountId);
-
-    // TODO: Send email notifying the deactivation of 2FA
-    // await this.sessionMailer.send2FADisabled(account);
 
     return true;
   }
