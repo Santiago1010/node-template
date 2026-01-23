@@ -44,7 +44,7 @@
     }
   },
   "lint-staged": {
-    "**/*": ["biome check --fix --unsafe", "biome format --write", "git add ."]
+    "**/*": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
   },
   "scripts": {
     "debug": "node ./scripts/debug.script.js",
