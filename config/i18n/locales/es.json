@@ -17,7 +17,11 @@
     "sessionId": "fields.sessionId",
     "limit": "fields.limit",
     "page": "fields.page",
-    "active": "fields.active"
+    "active": "fields.active",
+    "dialCodeId": "fields.dialCodeId",
+    "number": "fields.number",
+    "channel": "fields.channel",
+    "purpose": "fields.purpose"
   },
   "validations": {
     "required": "El campo {field} es requerido",
@@ -33,7 +37,8 @@
     "array": "validations.array",
     "alphanumericOnly": "validations.alphanumericOnly",
     "insufficient_security_level": "validations.insufficient_security_level",
-    "boolean": "validations.boolean"
+    "boolean": "validations.boolean",
+    "pattern": "validations.pattern"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
