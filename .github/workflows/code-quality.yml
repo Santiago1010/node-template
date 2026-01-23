@@ -1,0 +1,304 @@
+name: 'CI Quality & Security Checks'
+
+# =============================================================================
+# WORKFLOW TRIGGERS
+# =============================================================================
+# Runs on:
+# - Push to develop/main branches (direct commits)
+# - Pull requests targeting develop/main branches
+# =============================================================================
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+
+# =============================================================================
+# WORKFLOW PERMISSIONS
+# =============================================================================
+permissions:
+  contents: read           # Required to checkout code
+  security-events: write   # Required for CodeQL
+  actions: read           # Required for workflow metadata
+  checks: write           # Required to create check runs
+
+# =============================================================================
+# CONCURRENCY CONTROL
+# =============================================================================
+# Cancel in-progress runs for the same PR/branch to save resources
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ===========================================================================
+  # JOB 1: CODE QUALITY CHECKS
+  # ===========================================================================
+  # Validates code formatting and linting using Biome
+  # Fails if any issues are found (no auto-fix in CI)
+  # ===========================================================================
+  code-quality:
+    name: 'Code Quality (Biome)'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run Biome Linter'
+        run: npm run lint
+        continue-on-error: false  # Fail the job if linting fails
+
+      - name: 'Run Biome Format Check'
+        run: npm run format:check
+        continue-on-error: false  # Fail the job if formatting is incorrect
+
+      - name: 'Quality Check Summary'
+        if: success()
+        run: |
+          echo "✅ Code quality checks passed"
+          echo "- Biome linting: PASSED"
+          echo "- Code formatting: PASSED"
+
+  # ===========================================================================
+  # JOB 2: DEPENDENCY SECURITY AUDIT
+  # ===========================================================================
+  # Checks for known vulnerabilities in dependencies
+  # Uses both npm audit and audit-ci for comprehensive scanning
+  # ===========================================================================
+  dependency-audit:
+    name: 'Dependency Security Audit'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run npm audit'
+        run: npm audit --audit-level=moderate
+        continue-on-error: false
+
+      - name: 'Install audit-ci'
+        run: npm install -g audit-ci
+
+      - name: 'Run audit-ci (Strict Mode)'
+        run: |
+          # audit-ci fails on moderate+ vulnerabilities
+          # Configurable via .audit-ci.json if needed
+          audit-ci --moderate
+        continue-on-error: false
+
+      - name: 'Audit Summary'
+        if: success()
+        run: |
+          echo "✅ Dependency audit passed"
+          echo "- npm audit: No vulnerabilities found"
+          echo "- audit-ci: No moderate+ vulnerabilities"
+
+  # ===========================================================================
+  # JOB 3: CODEQL SECURITY ANALYSIS
+  # ===========================================================================
+  # Advanced semantic code analysis for security vulnerabilities
+  # Scans for common patterns like SQL injection, XSS, etc.
+  # ===========================================================================
+  codeql-analysis:
+    name: 'CodeQL Security Analysis'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 'Initialize CodeQL'
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          # Runs queries from security-and-quality suite
+          queries: security-and-quality
+
+      - name: 'Perform CodeQL Analysis'
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+      - name: 'CodeQL Summary'
+        if: success()
+        run: |
+          echo "✅ CodeQL analysis completed"
+          echo "- Language: JavaScript/TypeScript"
+          echo "- Query suite: security-and-quality"
+
+  # ===========================================================================
+  # JOB 4: TESTING & COVERAGE
+  # ===========================================================================
+  # Runs test suite with coverage reporting
+  # Coverage gating is commented out until tests are complete
+  # ===========================================================================
+  testing:
+    name: 'Test Suite & Coverage'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run Tests with Coverage'
+        run: npm run test:coverage
+        continue-on-error: false
+
+      # =========================================================================
+      # COVERAGE GATING (COMMENTED - ENABLE WHEN TESTS ARE COMPLETE)
+      # =========================================================================
+      # Uncomment the section below to enforce minimum coverage thresholds
+      # =========================================================================
+
+      # - name: 'Check Coverage Thresholds'
+      #   run: |
+      #     # Extract coverage percentages from coverage report
+      #     # Adjust paths based on your coverage reporter (jest/nyc/etc)
+      #
+      #     LINES=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+      #     BRANCHES=$(cat coverage/coverage-summary.json | jq '.total.branches.pct')
+      #     FUNCTIONS=$(cat coverage/coverage-summary.json | jq '.total.functions.pct')
+      #     STATEMENTS=$(cat coverage/coverage-summary.json | jq '.total.statements.pct')
+      #
+      #     # Define minimum thresholds
+      #     MIN_LINES=80
+      #     MIN_BRANCHES=70
+      #     MIN_FUNCTIONS=75
+      #     MIN_STATEMENTS=80
+      #
+      #     echo "📊 Coverage Report:"
+      #     echo "  Lines: ${LINES}% (minimum: ${MIN_LINES}%)"
+      #     echo "  Branches: ${BRANCHES}% (minimum: ${MIN_BRANCHES}%)"
+      #     echo "  Functions: ${FUNCTIONS}% (minimum: ${MIN_FUNCTIONS}%)"
+      #     echo "  Statements: ${STATEMENTS}% (minimum: ${MIN_STATEMENTS}%)"
+      #
+      #     # Check thresholds
+      #     FAILED=0
+      #
+      #     if (( $(echo "$LINES < $MIN_LINES" | bc -l) )); then
+      #       echo "❌ Lines coverage below threshold"
+      #       FAILED=1
+      #     fi
+      #
+      #     if (( $(echo "$BRANCHES < $MIN_BRANCHES" | bc -l) )); then
+      #       echo "❌ Branches coverage below threshold"
+      #       FAILED=1
+      #     fi
+      #
+      #     if (( $(echo "$FUNCTIONS < $MIN_FUNCTIONS" | bc -l) )); then
+      #       echo "❌ Functions coverage below threshold"
+      #       FAILED=1
+      #     fi
+      #
+      #     if (( $(echo "$STATEMENTS < $MIN_STATEMENTS" | bc -l) )); then
+      #       echo "❌ Statements coverage below threshold"
+      #       FAILED=1
+      #     fi
+      #
+      #     if [ $FAILED -eq 1 ]; then
+      #       echo "💡 Tip: Add more tests to improve coverage"
+      #       exit 1
+      #     fi
+      #
+      #     echo "✅ All coverage thresholds met"
+
+      - name: 'Testing Summary'
+        if: success()
+        run: |
+          echo "✅ Test suite passed"
+          echo "- All tests executed successfully"
+          echo "- Coverage report generated"
+          # echo "- Coverage thresholds: MET" # Uncomment when gating is enabled
+
+  # ===========================================================================
+  # JOB 5: FINAL STATUS CHECK
+  # ===========================================================================
+  # Aggregates all job results - required for branch protection
+  # This job will only succeed if ALL previous jobs pass
+  # ===========================================================================
+  ci-status:
+    name: 'CI Status Check'
+    runs-on: ubuntu-latest
+    needs: [code-quality, dependency-audit, codeql-analysis, testing]
+    if: always()  # Run even if previous jobs fail
+
+    steps:
+      - name: 'Check All Jobs Status'
+        run: |
+          echo "📊 CI Pipeline Results:"
+          echo "  - Code Quality: ${{ needs.code-quality.result }}"
+          echo "  - Dependency Audit: ${{ needs.dependency-audit.result }}"
+          echo "  - CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
+          echo "  - Testing: ${{ needs.testing.result }}"
+
+          # Fail if any job failed
+          if [[ "${{ needs.code-quality.result }}" != "success" ]] || \
+             [[ "${{ needs.dependency-audit.result }}" != "success" ]] || \
+             [[ "${{ needs.codeql-analysis.result }}" != "success" ]] || \
+             [[ "${{ needs.testing.result }}" != "success" ]]; then
+            echo "❌ CI pipeline failed - see job details above"
+            exit 1
+          fi
+
+          echo "✅ All CI checks passed successfully!"
+
+      - name: 'Add PR Comment (on failure)'
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = {
+              'Code Quality': '${{ needs.code-quality.result }}',
+              'Dependency Audit': '${{ needs.dependency-audit.result }}',
+              'CodeQL Analysis': '${{ needs.codeql-analysis.result }}',
+              'Testing': '${{ needs.testing.result }}'
+            };
+
+            const failed = Object.entries(jobs)
+              .filter(([_, status]) => status !== 'success')
+              .map(([name, _]) => `- ❌ ${name}`)
+              .join('\n');
+
+            const body = `## ⚠️ CI Pipeline Failed\n\n` +
+                         `The following checks need attention:\n\n${failed}\n\n` +
+                         `Please review the workflow run details and fix the issues.`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
