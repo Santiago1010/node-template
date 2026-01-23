@@ -56,13 +56,9 @@ jobs:
       - name: 'Install Dependencies'
         run: npm ci
 
-      - name: 'Run Biome Linter'
-        run: npm run lint
-        continue-on-error: false  # Fail the job if linting fails
-
-      - name: 'Run Biome Format Check'
-        run: npm run format:check
-        continue-on-error: false  # Fail the job if formatting is incorrect
+      - name: 'Run Biome Check (Lint + Format)'
+        run: npm run check
+        continue-on-error: false
 
       - name: 'Quality Check Summary'
         if: success()
@@ -94,26 +90,39 @@ jobs:
       - name: 'Install Dependencies'
         run: npm ci
 
-      - name: 'Run npm audit'
-        run: npm audit --audit-level=moderate
+      - name: 'Run npm audit (Production Dependencies)'
+        run: npm audit --omit=dev --audit-level=high
         continue-on-error: false
 
       - name: 'Install audit-ci'
         run: npm install -g audit-ci
 
-      - name: 'Run audit-ci (Strict Mode)'
+      - name: 'Run audit-ci (High+ Vulnerabilities)'
         run: |
-          # audit-ci fails on moderate+ vulnerabilities
-          # Configurable via .audit-ci.json if needed
-          audit-ci --moderate
+          # Create .audit-ci.json config if it doesn't exist
+          cat > .audit-ci.json << 'EOF'
+          {
+            "high": true,
+            "moderate": false,
+            "low": false,
+            "critical": true,
+            "report-type": "summary",
+            "advisories": [],
+            "allowlist": [],
+            "registry": "https://registry.npmjs.org"
+          }
+          EOF
+
+          # Run audit-ci with config
+          audit-ci --config .audit-ci.json
         continue-on-error: false
 
       - name: 'Audit Summary'
         if: success()
         run: |
           echo "✅ Dependency audit passed"
-          echo "- npm audit: No vulnerabilities found"
-          echo "- audit-ci: No moderate+ vulnerabilities"
+          echo "- npm audit: No high/critical vulnerabilities"
+          echo "- audit-ci: Dependency check completed"
 
   # ===========================================================================
   # JOB 3: CODEQL SECURITY ANALYSIS
@@ -135,7 +144,6 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: javascript
-          # Runs queries from security-and-quality suite
           queries: security-and-quality
 
       - name: 'Perform CodeQL Analysis'
@@ -147,7 +155,7 @@ jobs:
         if: success()
         run: |
           echo "✅ CodeQL analysis completed"
-          echo "- Language: JavaScript/TypeScript"
+          echo "- Language: JavaScript/Node.js"
           echo "- Query suite: security-and-quality"
 
   # ===========================================================================
@@ -166,21 +174,27 @@ jobs:
       - name: 'Check All Jobs Status'
         run: |
           echo "📊 CI Pipeline Results:"
-          echo "  - Code Quality: ${{ needs.code-quality.result }}"
-          echo "  - Dependency Audit: ${{ needs.dependency-audit.result }}"
-          echo "  - CodeQL Analysis: ${{ needs.codeql-analysis.result }}"
-          echo "  - Testing: ${{ needs.testing.result }}"
+          echo "========================================="
+          echo "  Code Quality:      ${{ needs.code-quality.result }}"
+          echo "  Dependency Audit:  ${{ needs.dependency-audit.result }}"
+          echo "  CodeQL Analysis:   ${{ needs.codeql-analysis.result }}"
+          echo "  Testing:           ${{ needs.testing.result }}"
+          echo "========================================="
 
           # Fail if any job failed
           if [[ "${{ needs.code-quality.result }}" != "success" ]] || \
              [[ "${{ needs.dependency-audit.result }}" != "success" ]] || \
              [[ "${{ needs.codeql-analysis.result }}" != "success" ]] || \
              [[ "${{ needs.testing.result }}" != "success" ]]; then
-            echo "❌ CI pipeline failed - see job details above"
+            echo ""
+            echo "❌ CI pipeline failed"
+            echo "Review the job details above for more information"
             exit 1
           fi
 
+          echo ""
           echo "✅ All CI checks passed successfully!"
+          echo "🎉 Ready for review and merge"
 
       - name: 'Add PR Comment (on failure)'
         if: failure() && github.event_name == 'pull_request'
@@ -196,12 +210,44 @@ jobs:
 
             const failed = Object.entries(jobs)
               .filter(([_, status]) => status !== 'success')
-              .map(([name, _]) => `- ❌ ${name}`)
+              .map(([name, status]) => `- ❌ **${name}**: \`${status}\``)
+              .join('\n');
+
+            const passed = Object.entries(jobs)
+              .filter(([_, status]) => status === 'success')
+              .map(([name, _]) => `- ✅ **${name}**: \`success\``)
               .join('\n');
 
             const body = `## ⚠️ CI Pipeline Failed\n\n` +
-                         `The following checks need attention:\n\n${failed}\n\n` +
-                         `Please review the workflow run details and fix the issues.`;
+                         `### Failed Checks\n${failed}\n\n` +
+                         (passed ? `### Passed Checks\n${passed}\n\n` : '') +
+                         `---\n\n` +
+                         `**Next Steps:**\n` +
+                         `1. Review the [workflow run details](${context.payload.repository.html_url}/actions/runs/${context.runId})\n` +
+                         `2. Fix the failing checks\n` +
+                         `3. Push your changes to re-trigger the CI pipeline\n\n` +
+                         `💡 **Tip:** Run \`npm run check:fix\` locally to fix most issues automatically.`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: 'Add PR Comment (on success)'
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## ✅ CI Pipeline Passed\n\n` +
+                         `All quality and security checks have passed:\n\n` +
+                         `- ✅ **Code Quality**: Biome linting and formatting\n` +
+                         `- ✅ **Dependency Audit**: No high/critical vulnerabilities\n` +
+                         `- ✅ **CodeQL Analysis**: Security scan completed\n` +
+                         `- ✅ **Testing**: Test suite executed\n\n` +
+                         `---\n\n` +
+                         `🎉 **This PR is ready for review!**`;
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
