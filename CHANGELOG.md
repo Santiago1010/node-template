@@ -1,5 +1,84 @@
 
 
+## [1.19.0] - 2026-01-23
+
+**Released:** 2026-01-23 17:05:01 UTC
+
+### [Add 2FA, device management, and password recovery features](https://github.com/Santiago1010/node-template/pull/90)
+
+#### 📋 Summary
+This PR implements comprehensive authentication security features including two-factor authentication (2FA), device management, password recovery, and session management. It also adds a new CI/CD workflow for code quality and security checks, along with necessary database models and service layer updates.
+
+#### 🔍 What Changed
+### Added
+- GitHub Actions workflow for CI quality & security checks (Biome linting, dependency audit, CodeQL, testing)
+- Two-factor authentication (2FA) system with SMS/WhatsApp OTP support
+- Device management endpoints (list, update, verify devices)
+- Password recovery system (forgot password, reset password, change password)
+- Session management endpoints (list sessions, revoke sessions, refresh tokens)
+- New models: `geoCities`, `geoDialCodes`, `usrOtpCodes`
+- New controllers: `devices.controller.js`, `password.controller.js`, `two-factor.controller.js`
+- New services: `password.service.js`, `two-factor.service.js`, `otp-codes.service.js`, `accounts.services.js`, SMS service
+- New email templates for password reset, password changed, unknown device alerts
+- API documentation for all new endpoints
+- Twilio SMS integration for OTP delivery
+- Environment configuration for SMS service
+
+### Changed
+- Restructured auth routes into modular files (`confirmation.routes.js`, `device.routes.js`, etc.)
+- Updated session controller to support 2FA login flow and token refresh
+- Reorganized services directory structure (moved from `services/common/` to `services/`)
+- Updated `usrAccounts` model with `twoFactorEnabled` field and `dialCodeId` foreign key
+- Updated `usrTokens` model with `secure_device` purpose
+- Updated `usrUsers` model association from `hasMany` to `hasOne` for accounts
+- Enhanced confirmation service with device verification
+- Updated `.gitignore` to exclude private scripts
+- Updated `.vscode/extensions.json` with new extensions
+- Updated `crud.helper.js` boolean detection to include 'enabled' field
+- Refactored session token middleware for better user data handling
+
+### Fixed
+- Context builder middleware to handle missing x-path header gracefully
+- Page endpoint logger middleware to avoid errors when page/endpoint is missing
+- Boolean field detection in CRUD helper
+
+### Removed
+- Old `scripts/backups-secrets.script.js` file
+- Unused VS Code extensions from recommendations
+
+#### 📝 Additional Notes
+- The CI workflow includes comprehensive checks: Biome linting/formatting, dependency security audit (npm audit + audit-ci), CodeQL security analysis, and test execution with coverage reporting
+- Coverage gating is commented out but ready for future implementation
+- SMS service uses Twilio and requires proper environment variable setup (`TWILIO_PHONE_NUMBER`)
+- Device fingerprinting is used for session and device tracking
+- Safe mode is activated for unknown/untrusted devices, requiring verification
+- All new endpoints are documented in OpenAPI format
+
+**Type of Change:** New Feature, Refactoring
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@Sleon4](https://github.com/Sleon4)
+- Labels: enhancement, refactor
+- Milestone: M2 — CI Quality & Security
+- Commits: 10
+
+**Commits:**
+- [`39f24d5`](https://github.com/Santiago1010/node-template/commit/39f24d5df90e5c2b73b5983470c7eef6436d9560) refactor(crud): convert private methods to public and enhance test coverage
+- [`eeea279`](https://github.com/Santiago1010/node-template/commit/eeea279b93f9f4ff2c6825caa28de957407ac78c) test(crud): fix template error handling test with proper module mocking
+- [`3e6dc4d`](https://github.com/Santiago1010/node-template/commit/3e6dc4d66260ca8d75d6ce9f5bb839819d1b96df) test(crud): simplify template error test with fs/promises mock
+- [`2dfcc07`](https://github.com/Santiago1010/node-template/commit/2dfcc0748dfb3589e4fdf070095ea82e5d8a836c) feat(response): enhance success helper with optional message support
+- [`e54c85a`](https://github.com/Santiago1010/node-template/commit/e54c85a6a532932744912b42f0f5fe792ae83023) refactor(performance): remove performance helper and related tests
+- [`d42efb9`](https://github.com/Santiago1010/node-template/commit/d42efb90310d994945ced6cb5223613a2ff69a15) chore: auto-update version and changelog [skip ci]
+- [`ad0976e`](https://github.com/Santiago1010/node-template/commit/ad0976ec78136267bce113b55c5affe6ef8e70d8) Merge pull request #53 from Santiago1010/50-achieve-required-unit-test-coverage-for-helpershelperjs-top-level-helpers
+- [`8003f1e`](https://github.com/Santiago1010/node-template/commit/8003f1e5dd31c6d029b2a66444c842d0f564f1fd) docs: add contributing and developer setup guides
+- [`f5a763e`](https://github.com/Santiago1010/node-template/commit/f5a763e3be201e3038dba60773236f7e655d787c) chore: auto-update version and changelog [skip ci]
+- [`052cefa`](https://github.com/Santiago1010/node-template/commit/052cefaed5df136455586a32e50cd78b62a7b447) Merge pull request #54 from Santiago1010/45-create-contributingmd-and-developer_setupmd
+
+---
+
+
+
 ## [1.18.2] - 2025-10-25
 
 **Released:** 2025-10-25 15:17:15 UTC
