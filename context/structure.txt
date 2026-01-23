@@ -52,12 +52,42 @@
 │   └── web
 │       └── v1
 │           └── auth
+│               ├── delete.disable-2fa.activity.puml
+│               ├── delete.disable-2fa.communication.puml
+│               ├── delete.disable-2fa.component.puml
+│               ├── delete.disable-2fa.dataflow.puml
+│               ├── delete.disable-2fa.sequence.puml
+│               ├── delete.disable-2fa.usecase.puml
 │               ├── delete.logout.activity.puml
 │               ├── delete.logout.communication.puml
 │               ├── delete.logout.component.puml
 │               ├── delete.logout.dataflow.puml
 │               ├── delete.logout.sequence.puml
 │               ├── delete.logout.usecase.puml
+│               ├── delete.session-{sessionId}-revoke.activity.puml
+│               ├── delete.session-{sessionId}-revoke.communication.puml
+│               ├── delete.session-{sessionId}-revoke.component.puml
+│               ├── delete.session-{sessionId}-revoke.dataflow.puml
+│               ├── delete.session-{sessionId}-revoke.sequence.puml
+│               ├── delete.session-{sessionId}-revoke.usecase.puml
+│               ├── delete.sessions-revoke-all-except-current.activity.puml
+│               ├── delete.sessions-revoke-all-except-current.communication.puml
+│               ├── delete.sessions-revoke-all-except-current.component.puml
+│               ├── delete.sessions-revoke-all-except-current.dataflow.puml
+│               ├── delete.sessions-revoke-all-except-current.sequence.puml
+│               ├── delete.sessions-revoke-all-except-current.usecase.puml
+│               ├── get.sessions.activity.puml
+│               ├── get.sessions.communication.puml
+│               ├── get.sessions.component.puml
+│               ├── get.sessions.dataflow.puml
+│               ├── get.sessions.sequence.puml
+│               ├── get.sessions.usecase.puml
+│               ├── patch.change-password.activity.puml
+│               ├── patch.change-password.communication.puml
+│               ├── patch.change-password.component.puml
+│               ├── patch.change-password.dataflow.puml
+│               ├── patch.change-password.sequence.puml
+│               ├── patch.change-password.usecase.puml
 │               ├── patch.confirm-email-{token}.activity.puml
 │               ├── patch.confirm-email-{token}.communication.puml
 │               ├── patch.confirm-email-{token}.component.puml
@@ -111,7 +141,19 @@
 │               ├── post.signup.component.puml
 │               ├── post.signup.dataflow.puml
 │               ├── post.signup.sequence.puml
-│               └── post.signup.usecase.puml
+│               ├── post.signup.usecase.puml
+│               ├── post.verify-code.activity.puml
+│               ├── post.verify-code.communication.puml
+│               ├── post.verify-code.component.puml
+│               ├── post.verify-code.dataflow.puml
+│               ├── post.verify-code.sequence.puml
+│               ├── post.verify-code.usecase.puml
+│               ├── post.veryfy-code.activity.puml
+│               ├── post.veryfy-code.communication.puml
+│               ├── post.veryfy-code.component.puml
+│               ├── post.veryfy-code.dataflow.puml
+│               ├── post.veryfy-code.sequence.puml
+│               └── post.veryfy-code.usecase.puml
 ├── CONTRIBUTING.md
 ├── controllers
 │   ├── app
@@ -123,7 +165,8 @@
 │       └── auth
 │           ├── confirmation.controller.js
 │           ├── password.controller.js
-│           └── session.controller.js
+│           ├── session.controller.js
+│           └── two-factor.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
@@ -140,7 +183,8 @@
 │   │   │   ├── devices.docs.js
 │   │   │   ├── index.js
 │   │   │   ├── password.docs.js
-│   │   │   └── session.docs.js
+│   │   │   ├── session.docs.js
+│   │   │   └── two-factor.docs.js
 │   │   └── index.js
 │   ├── server.js
 │   └── tags.js
@@ -220,6 +264,9 @@
 │   ├── data
 │   │   ├── dataLanguages.model.js
 │   │   └── dataTimezones.model.js
+│   ├── geographic
+│   │   ├── geoCities.model.js
+│   │   └── geoDialCodes.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
@@ -229,6 +276,7 @@
 │       ├── usrCredentials.model.js
 │       ├── usrDevices.model.js
 │       ├── usrImages.model.js
+│       ├── usrOtpCodes.model.js
 │       ├── usrPreferences.model.js
 │       ├── usrTokens.model.js
 │       ├── usrUsersDetails.model.js
@@ -248,11 +296,19 @@
 │   │   └── index.js
 │   └── web
 │       ├── auth
+│       │   ├── confirmation.routes.js
+│       │   ├── device.routes.js
 │       │   ├── index.js
+│       │   ├── password.routes.js
+│       │   ├── session.routes.js
+│       │   ├── two-factor.routes.js
 │       │   └── validations
 │       │       ├── confirmation.validation.js
+│       │       ├── devices.validation.js
+│       │       ├── index.js
 │       │       ├── password.validation.js
-│       │       └── session.validations.js
+│       │       ├── session.validations.js
+│       │       └── two-factor.validation.js
 │       └── index.js
 ├── schemas
 │   ├── params
@@ -279,14 +335,20 @@
 │   ├── generate-rsa-keys.sh
 │   ├── generateServices.script.js
 │   └── private
+│       ├── auth-endpoints.script.js
+│       ├── backups-secrets.script.js
 │       └── .gitkeep
 ├── seeders
+│   ├── 01-base-continents.seed.js
+│   ├── 02-base-regions.seed.js
+│   └── 03-base-countries.seed.js
 ├── .sequelizerc
 ├── services
 │   ├── auth
 │   │   ├── confirmation.service.js
 │   │   ├── password.service.js
-│   │   └── session.service.js
+│   │   ├── session.service.js
+│   │   └── two-factor.service.js
 │   ├── configurations
 │   │   └── scopes.services.js
 │   ├── emails
@@ -298,8 +360,10 @@
 │   │       └── index.js
 │   └── users
 │       ├── accesses.services.js
+│       ├── accounts.services.js
 │       ├── credentials.services.js
 │       ├── devices.services.js
+│       ├── otp-codes.service.js
 │       ├── preferences.services.js
 │       ├── tokens.services.js
 │       └── users.services.js
@@ -336,4 +400,4 @@
     ├── extensions.json
     └── settings.json
 
-84 directories, 255 files
+85 directories, 316 files
