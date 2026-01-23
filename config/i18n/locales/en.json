@@ -21,7 +21,8 @@
     "dialCodeId": "fields.dialCodeId",
     "number": "fields.number",
     "channel": "fields.channel",
-    "purpose": "fields.purpose"
+    "purpose": "fields.purpose",
+    "deviceId": "fields.deviceId"
   },
   "validations": {
     "required": "The {field} field is required",

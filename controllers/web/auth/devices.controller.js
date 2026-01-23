@@ -34,6 +34,22 @@ class DeviceController {
       return next(error);
     }
   }
+
+  static async updateDevice(req, res, next) {
+    const { deviceId } = req.params;
+    const { rely, block, active } = req.body;
+
+    try {
+      const deviceService = new DeviceServices();
+      await deviceService.initialize();
+
+      await deviceService.updateDevice(deviceId, { isTrusted: rely, isBlocked: block, active });
+
+      return success(res, { messagePath: 'auth.updateDevice.success' });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 module.exports = DeviceController;

@@ -164,6 +164,7 @@
 │   └── web
 │       └── auth
 │           ├── confirmation.controller.js
+│           ├── devices.controller.js
 │           ├── password.controller.js
 │           ├── session.controller.js
 │           └── two-factor.controller.js
@@ -335,8 +336,6 @@
 │   ├── generate-rsa-keys.sh
 │   ├── generateServices.script.js
 │   └── private
-│       ├── auth-endpoints.script.js
-│       ├── backups-secrets.script.js
 │       └── .gitkeep
 ├── seeders
 │   ├── 01-base-continents.seed.js
@@ -400,4 +399,4 @@
     ├── extensions.json
     └── settings.json
 
-85 directories, 316 files
+85 directories, 317 files

@@ -115,7 +115,7 @@ class DeviceServices {
 
   async updateDevice(
     id,
-    { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt, user } = {}
+    { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt, active, user } = {}
   ) {
     const updateData = { accountId, fingerprint, name, type, browser, os, isTrusted, isBlocked, lastIp, lastUsedAt };
 
@@ -131,6 +131,8 @@ class DeviceServices {
         transaction,
         logging: wrapLogging('[DeviceServices.updateDevice] ', updateData),
       });
+
+      if (active !== undefined) await this.updateDevicesStatus(user, [id], active);
 
       if (user) await LogServices.recordUpdateLog(user, this.models.usrDevices, oldData, updatedData, { transaction });
 

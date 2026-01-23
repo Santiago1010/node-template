@@ -30,6 +30,14 @@ router.patch(
 
 router.get('/devices', validateWebSession, DeviceController.readAllDevices);
 
+router.patch(
+  '/devices/:deviceId',
+  validateWebSession,
+  checkSchemaWithRegistry(deviceSchemas.updateDeviceSchema),
+  validationErrorHandler,
+  DeviceController.updateDevice
+);
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
