@@ -1284,6 +1284,10 @@ const FILE_SIGNATURE_MAP = {
   '504b0708': 'application/zip',
 };
 
+const VAULT_PATHS = {
+  RSA_KEYS_PATH: 'encryption/rsa-keys',
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
@@ -1363,4 +1367,7 @@ module.exports = {
   ALLOWED_MIME_TYPES,
   DANGEROUS_EXTENSIONS,
   FILE_SIGNATURE_MAP,
+
+  // Vault Management
+  VAULT_PATHS,
 };
