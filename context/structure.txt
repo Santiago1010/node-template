@@ -287,6 +287,7 @@
 │       ├── cors.middleware.js
 │       ├── csrf.middleware.js
 │       ├── dataExposure.middleware.js
+│       ├── decrypt.middleware.js
 │       ├── fileUpload.middleware.js
 │       ├── massAssignment.middleware.js
 │       └── sanitizer.middleware.js
@@ -445,4 +446,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 359 files
+90 directories, 357 files
