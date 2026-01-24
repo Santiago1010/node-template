@@ -1,7 +1,7 @@
 const { error } = require('../../helpers/response.helper');
 const { getPublicKey } = require('../../utils/encrypt.util');
 
-class SecurityService {
+class KeyService {
   static async showPublicKey() {
     const publicKey = await getPublicKey();
 
@@ -11,4 +11,4 @@ class SecurityService {
   }
 }
 
-module.exports = SecurityService;
+module.exports = KeyService;
