@@ -159,6 +159,8 @@
 │   ├── app
 │   ├── bot
 │   ├── common
+│   │   └── security
+│   │       └── keys.controller.js
 │   ├── desktop
 │   ├── wearable
 │   └── web
@@ -186,7 +188,10 @@
 │   │   │   ├── password.docs.js
 │   │   │   ├── session.docs.js
 │   │   │   └── two-factor.docs.js
-│   │   └── index.js
+│   │   ├── index.js
+│   │   └── security
+│   │       ├── index.js
+│   │       └── keys.docs.js
 │   ├── server.js
 │   └── tags.js
 ├── .editorconfig
@@ -310,7 +315,9 @@
 │       │       ├── password.validation.js
 │       │       ├── session.validations.js
 │       │       └── two-factor.validation.js
-│       └── index.js
+│       ├── index.js
+│       └── security
+│           └── index.js
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
@@ -357,6 +364,8 @@
 │   ├── messages
 │   │   └── sms
 │   │       └── index.js
+│   ├── security
+│   │   └── keys.service.js
 │   └── users
 │       ├── accesses.services.js
 │       ├── accounts.services.js
@@ -399,4 +408,4 @@
     ├── extensions.json
     └── settings.json
 
-85 directories, 317 files
+89 directories, 323 files
