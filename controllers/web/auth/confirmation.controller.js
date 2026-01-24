@@ -1,4 +1,4 @@
-const ConfirmationService = require('../../../services/common/auth/confirmation.service');
+const ConfirmationService = require('../../../services/auth/confirmation.service');
 const { success } = require('../../../helpers/response.helper');
 
 class ConfirmationController {

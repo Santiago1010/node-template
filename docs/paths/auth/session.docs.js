@@ -84,4 +84,79 @@ const logout = standardRequest('delete', {
   security: [{ jwtCookieAuth: [] }],
 });
 
-module.exports = { signup, login, logout };
+const readAllSessions = standardRequest('get', {
+  tags: ['Auth'],
+  operationId: 'readAllSessions',
+  description: '',
+  parameters: [
+    {
+      name: 'active',
+      in: 'query',
+      description: '',
+      schema: { type: 'boolean' },
+      required: false,
+    },
+  ],
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const revokeSession = standardRequest('delete', {
+  tags: ['Auth'],
+  operationId: 'revokeSession',
+  description: '',
+  parameters: [
+    {
+      name: 'sessionId',
+      in: 'path',
+      description: '',
+      schema: { type: 'string' },
+      required: true,
+    },
+  ],
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const revokeAllSessionsExceptCurrent = standardRequest('delete', {
+  tags: ['Auth'],
+  operationId: 'revokeAllSessionsExceptCurrent',
+  description: '',
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const refreshToken = standardRequest('patch', {
+  tags: ['Auth'],
+  operationId: 'refreshToken',
+  description: '',
+  security: [{ jwtCookieAuth: [] }],
+});
+
+const verifyOTP = standardRequest('post', {
+  tags: ['Auth'],
+  operationId: 'verifyOTP',
+  description: '',
+  requestBody: {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          required: ['otpCode'],
+          properties: {
+            otpCode: { type: 'string', description: '', example: faker.string.alphanumeric(6).toUpperCase() },
+          },
+        },
+      },
+    },
+  },
+  responses: {},
+});
+
+module.exports = {
+  signup,
+  login,
+  logout,
+  readAllSessions,
+  revokeSession,
+  revokeAllSessionsExceptCurrent,
+  refreshToken,
+  verifyOTP,
+};

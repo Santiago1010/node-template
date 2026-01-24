@@ -52,18 +52,78 @@
 │   └── web
 │       └── v1
 │           └── auth
+│               ├── delete.disable-2fa.activity.puml
+│               ├── delete.disable-2fa.communication.puml
+│               ├── delete.disable-2fa.component.puml
+│               ├── delete.disable-2fa.dataflow.puml
+│               ├── delete.disable-2fa.sequence.puml
+│               ├── delete.disable-2fa.usecase.puml
 │               ├── delete.logout.activity.puml
 │               ├── delete.logout.communication.puml
 │               ├── delete.logout.component.puml
 │               ├── delete.logout.dataflow.puml
 │               ├── delete.logout.sequence.puml
 │               ├── delete.logout.usecase.puml
+│               ├── delete.session-{sessionId}-revoke.activity.puml
+│               ├── delete.session-{sessionId}-revoke.communication.puml
+│               ├── delete.session-{sessionId}-revoke.component.puml
+│               ├── delete.session-{sessionId}-revoke.dataflow.puml
+│               ├── delete.session-{sessionId}-revoke.sequence.puml
+│               ├── delete.session-{sessionId}-revoke.usecase.puml
+│               ├── delete.sessions-revoke-all-except-current.activity.puml
+│               ├── delete.sessions-revoke-all-except-current.communication.puml
+│               ├── delete.sessions-revoke-all-except-current.component.puml
+│               ├── delete.sessions-revoke-all-except-current.dataflow.puml
+│               ├── delete.sessions-revoke-all-except-current.sequence.puml
+│               ├── delete.sessions-revoke-all-except-current.usecase.puml
+│               ├── get.sessions.activity.puml
+│               ├── get.sessions.communication.puml
+│               ├── get.sessions.component.puml
+│               ├── get.sessions.dataflow.puml
+│               ├── get.sessions.sequence.puml
+│               ├── get.sessions.usecase.puml
+│               ├── patch.change-password.activity.puml
+│               ├── patch.change-password.communication.puml
+│               ├── patch.change-password.component.puml
+│               ├── patch.change-password.dataflow.puml
+│               ├── patch.change-password.sequence.puml
+│               ├── patch.change-password.usecase.puml
 │               ├── patch.confirm-email-{token}.activity.puml
 │               ├── patch.confirm-email-{token}.communication.puml
 │               ├── patch.confirm-email-{token}.component.puml
 │               ├── patch.confirm-email-{token}.dataflow.puml
 │               ├── patch.confirm-email-{token}.sequence.puml
 │               ├── patch.confirm-email-{token}.usecase.puml
+│               ├── patch.recover-password.activity.puml
+│               ├── patch.recover-password.communication.puml
+│               ├── patch.recover-password.component.puml
+│               ├── patch.recover-password.dataflow.puml
+│               ├── patch.recover-password.sequence.puml
+│               ├── patch.recover-password-{token}.activity.puml
+│               ├── patch.recover-password-{token}.communication.puml
+│               ├── patch.recover-password-{token}.component.puml
+│               ├── patch.recover-password-{token}.dataflow.puml
+│               ├── patch.recover-password-{token}.sequence.puml
+│               ├── patch.recover-password-{token}.usecase.puml
+│               ├── patch.recover-password.usecase.puml
+│               ├── patch.refresh-token.activity.puml
+│               ├── patch.refresh-token.communication.puml
+│               ├── patch.refresh-token.component.puml
+│               ├── patch.refresh-token.dataflow.puml
+│               ├── patch.refresh-token.sequence.puml
+│               ├── patch.refresh-token.usecase.puml
+│               ├── patch.verify-device-{token}.activity.puml
+│               ├── patch.verify-device-{token}.communication.puml
+│               ├── patch.verify-device-{token}.component.puml
+│               ├── patch.verify-device-{token}.dataflow.puml
+│               ├── patch.verify-device-{token}.sequence.puml
+│               ├── patch.verify-device-{token}.usecase.puml
+│               ├── post.forgot-password.activity.puml
+│               ├── post.forgot-password.communication.puml
+│               ├── post.forgot-password.component.puml
+│               ├── post.forgot-password.dataflow.puml
+│               ├── post.forgot-password.sequence.puml
+│               ├── post.forgot-password.usecase.puml
 │               ├── post.login.activity.puml
 │               ├── post.login.communication.puml
 │               ├── post.login.component.puml
@@ -81,7 +141,19 @@
 │               ├── post.signup.component.puml
 │               ├── post.signup.dataflow.puml
 │               ├── post.signup.sequence.puml
-│               └── post.signup.usecase.puml
+│               ├── post.signup.usecase.puml
+│               ├── post.verify-code.activity.puml
+│               ├── post.verify-code.communication.puml
+│               ├── post.verify-code.component.puml
+│               ├── post.verify-code.dataflow.puml
+│               ├── post.verify-code.sequence.puml
+│               ├── post.verify-code.usecase.puml
+│               ├── post.veryfy-code.activity.puml
+│               ├── post.veryfy-code.communication.puml
+│               ├── post.veryfy-code.component.puml
+│               ├── post.veryfy-code.dataflow.puml
+│               ├── post.veryfy-code.sequence.puml
+│               └── post.veryfy-code.usecase.puml
 ├── CONTRIBUTING.md
 ├── controllers
 │   ├── app
@@ -92,7 +164,10 @@
 │   └── web
 │       └── auth
 │           ├── confirmation.controller.js
-│           └── session.controller.js
+│           ├── devices.controller.js
+│           ├── password.controller.js
+│           ├── session.controller.js
+│           └── two-factor.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
@@ -106,8 +181,11 @@
 │   ├── paths
 │   │   ├── auth
 │   │   │   ├── confirmation.docs.js
+│   │   │   ├── devices.docs.js
 │   │   │   ├── index.js
-│   │   │   └── session.docs.js
+│   │   │   ├── password.docs.js
+│   │   │   ├── session.docs.js
+│   │   │   └── two-factor.docs.js
 │   │   └── index.js
 │   ├── server.js
 │   └── tags.js
@@ -187,6 +265,9 @@
 │   ├── data
 │   │   ├── dataLanguages.model.js
 │   │   └── dataTimezones.model.js
+│   ├── geographic
+│   │   ├── geoCities.model.js
+│   │   └── geoDialCodes.model.js
 │   ├── index.js
 │   ├── README.md
 │   └── users
@@ -196,6 +277,7 @@
 │       ├── usrCredentials.model.js
 │       ├── usrDevices.model.js
 │       ├── usrImages.model.js
+│       ├── usrOtpCodes.model.js
 │       ├── usrPreferences.model.js
 │       ├── usrTokens.model.js
 │       ├── usrUsersDetails.model.js
@@ -215,10 +297,19 @@
 │   │   └── index.js
 │   └── web
 │       ├── auth
+│       │   ├── confirmation.routes.js
+│       │   ├── device.routes.js
 │       │   ├── index.js
+│       │   ├── password.routes.js
+│       │   ├── session.routes.js
+│       │   ├── two-factor.routes.js
 │       │   └── validations
 │       │       ├── confirmation.validation.js
-│       │       └── session.validations.js
+│       │       ├── devices.validation.js
+│       │       ├── index.js
+│       │       ├── password.validation.js
+│       │       ├── session.validations.js
+│       │       └── two-factor.validation.js
 │       └── index.js
 ├── schemas
 │   ├── params
@@ -235,7 +326,6 @@
 │       ├── README.md
 │       └── search.schema.js
 ├── scripts
-│   ├── backups-secrets.script.js
 │   ├── createModels.script.js
 │   ├── docs-paths-lint.script.js
 │   ├── endpoints.script.js
@@ -244,32 +334,38 @@
 │   ├── generateCrudEndpoints.script.js
 │   ├── generateCrudValidations.script.js
 │   ├── generate-rsa-keys.sh
-│   └── generateServices.script.js
+│   ├── generateServices.script.js
+│   └── private
+│       └── .gitkeep
 ├── seeders
+│   ├── 01-base-continents.seed.js
+│   ├── 02-base-regions.seed.js
+│   └── 03-base-countries.seed.js
 ├── .sequelizerc
 ├── services
-│   ├── app
-│   ├── bot
-│   ├── common
-│   │   ├── auth
-│   │   │   ├── confirmation.service.js
-│   │   │   └── session.service.js
-│   │   ├── configurations
-│   │   │   └── scopes.services.js
-│   │   └── users
-│   │       ├── accesses.services.js
-│   │       ├── credentials.services.js
-│   │       ├── devices.services.js
-│   │       ├── preferences.services.js
-│   │       ├── tokens.services.js
-│   │       └── users.services.js
-│   ├── desktop
+│   ├── auth
+│   │   ├── confirmation.service.js
+│   │   ├── password.service.js
+│   │   ├── session.service.js
+│   │   └── two-factor.service.js
+│   ├── configurations
+│   │   └── scopes.services.js
 │   ├── emails
 │   │   └── auth
+│   │       ├── password.email.js
 │   │       └── session.email.js
 │   ├── messages
-│   ├── wearable
-│   └── web
+│   │   └── sms
+│   │       └── index.js
+│   └── users
+│       ├── accesses.services.js
+│       ├── accounts.services.js
+│       ├── credentials.services.js
+│       ├── devices.services.js
+│       ├── otp-codes.service.js
+│       ├── preferences.services.js
+│       ├── tokens.services.js
+│       └── users.services.js
 ├── templates
 │   ├── crud
 │   │   ├── controllers.template.js
@@ -279,6 +375,9 @@
 │   │   └── validations.template.js
 │   ├── emails
 │   │   ├── auth
+│   │   │   ├── password-changed.ejs
+│   │   │   ├── password-reset.ejs
+│   │   │   ├── unknown-device.ejs
 │   │   │   └── welcome.ejs
 │   │   └── layouts
 │   │       ├── footer.ejs
@@ -300,4 +399,4 @@
     ├── extensions.json
     └── settings.json
 
-88 directories, 213 files
+85 directories, 317 files

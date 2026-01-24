@@ -7,7 +7,22 @@
     "firstName": "fields.firstName",
     "firstLastName": "fields.firstLastName",
     "email": "fields.email",
-    "token": "fields.token"
+    "token": "fields.token",
+    "rely": "fields.rely",
+    "block": "fields.block",
+    "otpCode": "fields.otpCode",
+    "currentPassword": "fields.currentPassword",
+    "newPassword": "fields.newPassword",
+    "sessionid": "fields.sessionid",
+    "sessionId": "fields.sessionId",
+    "limit": "fields.limit",
+    "page": "fields.page",
+    "active": "fields.active",
+    "dialCodeId": "fields.dialCodeId",
+    "number": "fields.number",
+    "channel": "fields.channel",
+    "purpose": "fields.purpose",
+    "deviceId": "fields.deviceId"
   },
   "validations": {
     "required": "El campo {field} es requerido",
@@ -22,7 +37,9 @@
     "passwordUppercase": "validations.passwordUppercase",
     "array": "validations.array",
     "alphanumericOnly": "validations.alphanumericOnly",
-    "insufficient_security_level": "validations.insufficient_security_level"
+    "insufficient_security_level": "validations.insufficient_security_level",
+    "boolean": "validations.boolean",
+    "pattern": "validations.pattern"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -36,7 +53,8 @@
     "internalServerError": "errors.internalServerError",
     "unauthorized": "errors.unauthorized",
     "unauthorizedField": "El campo \"{field}\" no es autorizado para este endpoint",
-    "notFound": "errors.notFound"
+    "notFound": "errors.notFound",
+    "invalidPageOrEndpoint": "errors.invalidPageOrEndpoint"
   },
   "error": {
     "internal_server": "error.internal_server",
@@ -51,7 +69,8 @@
       "invalidCredentials": "auth.login.invalidCredentials",
       "success": "auth.login.success",
       "tooManyAttempts": "Demasiados intentos de inicio de sesión. Inténtalo de nuevo en {remainingTTL} minutos.",
-      "confirmationEmailSent": "auth.login.confirmationEmailSent"
+      "confirmationEmailSent": "auth.login.confirmationEmailSent",
+      "otpRequired": "auth.login.otpRequired"
     },
     "session": {
       "invalidSession": "auth.session.invalidSession",
@@ -72,6 +91,36 @@
     },
     "sendConfirmationEmail": {
       "emailAlreadyConfirmed": "auth.sendConfirmationEmail.emailAlreadyConfirmed"
+    },
+    "confirmDevie": {
+      "invalidToken": "auth.confirmDevie.invalidToken"
+    },
+    "confirmDevice": {
+      "deviceConfirmed": "auth.confirmDevice.deviceConfirmed"
+    },
+    "fogotPassword": {
+      "success": "auth.fogotPassword.success"
+    },
+    "recoverPassword": {
+      "success": "auth.recoverPassword.success",
+      "invalidToken": "auth.recoverPassword.invalidToken"
+    },
+    "verifyOTP": {
+      "sessionExpired": "auth.verifyOTP.sessionExpired"
+    },
+    "changePassword": {
+      "success": "auth.changePassword.success",
+      "repeatPassword": "auth.changePassword.repeatPassword"
+    },
+    "revokeSession": {
+      "success": "auth.revokeSession.success",
+      "sessionNotFound": "auth.revokeSession.sessionNotFound"
+    },
+    "getSessions": {
+      "success": "auth.getSessions.success"
+    },
+    "revokeAllSessionExceptCurrent": {
+      "success": "auth.revokeAllSessionExceptCurrent.success"
     }
   },
   "enums": {
@@ -79,15 +128,163 @@
       "desktop": "enums.type.desktop"
     },
     "target": {
-      "everyone": "enums.target.everyone"
+      "everyone": "enums.target.everyone",
+      "customer": "enums.target.customer"
     },
     "credentialType": {
       "undefined": "enums.credentialType.undefined",
-      "internal_code": "enums.credentialType.internal_code"
+      "internal_code": "enums.credentialType.internal_code",
+      "email": "enums.credentialType.email",
+      "phone": "enums.credentialType.phone"
+    },
+    "channel": {
+      "sms": "enums.channel.sms"
+    },
+    "purpose": {
+      "undefined": "enums.purpose.undefined"
     }
   },
   "common": {
-    "of": "de"
+    "of": "de",
+    "hours": {
+      "one": "1 hora",
+      "other": "{count} horas"
+    },
+    "unknown": "Desconocido"
   },
-  "Todo bien.": "Todo bien."
+  "Todo bien.": "Todo bien.",
+  "email": {
+    "sendWelcomeEmail": {
+      "subject": "email.sendWelcomeEmail.subject",
+      "welcomeGreeting": "email.sendWelcomeEmail.welcomeGreeting",
+      "paragraph1": "email.sendWelcomeEmail.paragraph1",
+      "importantInformation": "email.sendWelcomeEmail.importantInformation",
+      "paragraph2": "email.sendWelcomeEmail.paragraph2",
+      "verifyMyEmail": "email.sendWelcomeEmail.verifyMyEmail",
+      "whatYouDo": "email.sendWelcomeEmail.whatYouDo",
+      "explorePanel": {
+        "title": "email.sendWelcomeEmail.explorePanel.title",
+        "paragraph": "email.sendWelcomeEmail.explorePanel.paragraph"
+      },
+      "configProfile": {
+        "title": "email.sendWelcomeEmail.configProfile.title",
+        "paragraph": "email.sendWelcomeEmail.configProfile.paragraph"
+      },
+      "reminder": {
+        "title": "email.sendWelcomeEmail.reminder.title",
+        "paragraph": "email.sendWelcomeEmail.reminder.paragraph"
+      },
+      "questions": "email.sendWelcomeEmail.questions",
+      "contactSupport": "email.sendWelcomeEmail.contactSupport",
+      "alternative": {
+        "button": "email.sendWelcomeEmail.alternative.button",
+        "copyPaste": "email.sendWelcomeEmail.alternative.copyPaste"
+      },
+      "thanks": "email.sendWelcomeEmail.thanks"
+    },
+    "sendUnknownDeviceAlert": {
+      "subject": "Alerta de Seguridad: Inicio de sesión desde dispositivo desconocido",
+      "securityAlert": "🔔 Alerta de Seguridad",
+      "unknownDeviceDetected": "Dispositivo Desconocido Detectado",
+      "paragraph1": "Hola, {firstName}, hemos detectado un inicio de sesión desde un dispositivo que no reconocemos.",
+      "paragraph2": "Por tu seguridad, hemos activado automáticamente el modo seguro en tu cuenta. A continuación, encontrarás los detalles del inicio de sesión:",
+      "deviceInfo": {
+        "title": "Detalles del Dispositivo",
+        "device": "Dispositivo",
+        "browser": "Navegador",
+        "location": "Ubicación",
+        "ip": "Dirección IP",
+        "date": "Fecha y hora"
+      },
+      "safeModeActive": "🛡️ Modo Seguro Activado",
+      "paragraph3": "Tu cuenta está protegida con las siguientes restricciones de seguridad:",
+      "safeModeFeatures": {
+        "title": "Características del Modo Seguro:",
+        "feature1": "Acceso limitado a funciones sensibles",
+        "feature2": "Verificación adicional para cambios importantes",
+        "feature3": "Monitoreo continuo de actividad sospechosa",
+        "feature4": "Notificaciones de seguridad mejoradas"
+      },
+      "confirmInstructions": "Si este inicio de sesión fuiste tú, confirma tu dispositivo para desactivar el modo seguro:",
+      "confirmDevice": "Confirmar Dispositivo",
+      "notYou": {
+        "title": "¿No fuiste tú?",
+        "paragraph": "Si no reconoces esta actividad, te recomendamos cambiar tu contraseña inmediatamente y revisar la configuración de seguridad de tu cuenta."
+      },
+      "reviewSecurity": "Revisar Configuración de Seguridad",
+      "alternative": {
+        "button": "¿El botón no funciona?",
+        "copyPaste": "Copia y pega este enlace en tu navegador:"
+      },
+      "thanks": "Gracias por ayudarnos a mantener tu cuenta segura"
+    },
+    "sendPasswordResetEmail": {
+      "subject": "email.sendPasswordResetEmail.subject",
+      "passwordReset": "email.sendPasswordResetEmail.passwordReset",
+      "greeting": "email.sendPasswordResetEmail.greeting",
+      "paragraph1": "email.sendPasswordResetEmail.paragraph1",
+      "paragraph2": "email.sendPasswordResetEmail.paragraph2",
+      "resetPassword": "email.sendPasswordResetEmail.resetPassword",
+      "expirationNotice": {
+        "title": "email.sendPasswordResetEmail.expirationNotice.title",
+        "paragraph": "email.sendPasswordResetEmail.expirationNotice.paragraph"
+      },
+      "securityTips": {
+        "title": "email.sendPasswordResetEmail.securityTips.title",
+        "tip1": "email.sendPasswordResetEmail.securityTips.tip1",
+        "tip2": "email.sendPasswordResetEmail.securityTips.tip2",
+        "tip3": "email.sendPasswordResetEmail.securityTips.tip3"
+      },
+      "notRequested": {
+        "title": "email.sendPasswordResetEmail.notRequested.title",
+        "paragraph": "email.sendPasswordResetEmail.notRequested.paragraph"
+      },
+      "contactSupport": "email.sendPasswordResetEmail.contactSupport",
+      "alternative": {
+        "button": "email.sendPasswordResetEmail.alternative.button",
+        "copyPaste": "email.sendPasswordResetEmail.alternative.copyPaste"
+      },
+      "thanks": "email.sendPasswordResetEmail.thanks"
+    },
+    "sendPasswordChangedEmail": {
+      "subject": "email.sendPasswordChangedEmail.subject",
+      "passwordChanged": "email.sendPasswordChangedEmail.passwordChanged",
+      "greeting": "email.sendPasswordChangedEmail.greeting",
+      "paragraph1": "email.sendPasswordChangedEmail.paragraph1",
+      "changeDetails": {
+        "title": "email.sendPasswordChangedEmail.changeDetails.title",
+        "date": "email.sendPasswordChangedEmail.changeDetails.date",
+        "browser": "email.sendPasswordChangedEmail.changeDetails.browser",
+        "location": "email.sendPasswordChangedEmail.changeDetails.location",
+        "ip": "email.sendPasswordChangedEmail.changeDetails.ip"
+      },
+      "paragraph2": "email.sendPasswordChangedEmail.paragraph2",
+      "notYou": {
+        "title": "email.sendPasswordChangedEmail.notYou.title",
+        "paragraph": "email.sendPasswordChangedEmail.notYou.paragraph"
+      },
+      "immediateActions": {
+        "title": "email.sendPasswordChangedEmail.immediateActions.title",
+        "action1": "email.sendPasswordChangedEmail.immediateActions.action1",
+        "action2": "email.sendPasswordChangedEmail.immediateActions.action2",
+        "action3": "email.sendPasswordChangedEmail.immediateActions.action3"
+      },
+      "reviewSecurity": "email.sendPasswordChangedEmail.reviewSecurity",
+      "contactSupport": "email.sendPasswordChangedEmail.contactSupport",
+      "securityRecommendations": {
+        "title": "email.sendPasswordChangedEmail.securityRecommendations.title",
+        "rec1": "email.sendPasswordChangedEmail.securityRecommendations.rec1",
+        "rec2": "email.sendPasswordChangedEmail.securityRecommendations.rec2",
+        "rec3": "email.sendPasswordChangedEmail.securityRecommendations.rec3"
+      },
+      "thanks": "email.sendPasswordChangedEmail.thanks"
+    }
+  },
+  "messages": {
+    "sms": {
+      "otp": {
+        "login": "Tu código de acceso seguro es: {otp}"
+      }
+    }
+  }
 }

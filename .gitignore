@@ -781,12 +781,12 @@ FodyWeavers.xsd
 
 ### Project Specific Additions ###
 .secrets
-scripts/backups-secrets.script.js
 
 # Custom project folders and files
 sync_models/
 kubernetes/keys/
 0.Project_info/
+scripts/private/**.js
 
 # Preserve specific logs folders
 !controllers/logs/

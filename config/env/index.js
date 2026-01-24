@@ -301,6 +301,11 @@ const config = {
     // This is only for development
     token: process.env.VAULT_TOKEN,
   },
+  sms: {
+    twilio: {
+      phoneNumber: process.env.TWILIO_PHONE_NUMBER,
+    },
+  },
 };
 
 // =============================================================================

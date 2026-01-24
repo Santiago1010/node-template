@@ -37,7 +37,13 @@ const Schema = {
     comment: 'Form or content of the token.',
   },
   purpose: {
-    type: DataTypes.ENUM('confirm_email', 'confirm_recovery_email', 'confirm_phone', 'recover_password'),
+    type: DataTypes.ENUM(
+      'confirm_email',
+      'confirm_recovery_email',
+      'confirm_phone',
+      'recover_password',
+      'secure_device'
+    ),
     allowNull: false,
     get() {
       const purpose = this.getDataValue('purpose');
@@ -51,7 +57,13 @@ const Schema = {
     type: DataTypes.VIRTUAL,
     get() {
       const purpose = this.getDataValue('purpose');
-      const options = { confirm_email: 1, confirm_recovery_email: 2, confirm_phone: 3, recover_password: 4 };
+      const options = {
+        confirm_email: 1,
+        confirm_recovery_email: 2,
+        confirm_phone: 3,
+        recover_password: 4,
+        secure_device: 5,
+      };
 
       return options[purpose];
     },

@@ -14,99 +14,92 @@
         <table width="600" cellpadding="0" cellspacing="0" border="0" class="email-container">
           <tr>
             <td class="email-content">
-              <!-- Saludo principal -->
               <h1 class="heading-1">
-                ¡Bienvenido, <%= firstName %>! 🎉
+                <%= welcomeGreeting %>
               </h1>
 
               <p class="text-body">
-                Estamos emocionados de tenerte con nosotros. Tu cuenta ha sido creada exitosamente
-                y ya puedes comenzar a disfrutar de todos nuestros servicios.
+                <%= paragraph1 %>
               </p>
 
-              <!-- Alerta de información -->
               <div class="alert alert-info">
-                <p class="alert-title">📌 Información Importante</p>
+                <p class="alert-title">
+                  📌 <%= importantInformation %>
+                </p>
                 <p class="alert-text">
-                  Por favor, verifica tu correo electrónico haciendo clic en el botón de abajo
-                  para activar todas las funcionalidades de tu cuenta.
+                  <%= paragraph2 %>
                 </p>
               </div>
 
-              <!-- Botón de acción -->
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
                 <tr>
                   <td align="center">
                     <a href="<%= url %>" target="_blank" class="btn btn-primary">
-                      Verificar mi Correo
+                      <%= verifyMyEmail %>
                     </a>
                   </td>
                 </tr>
               </table>
 
-              <!-- Divisor -->
               <div class="divider-bold"></div>
 
-              <!-- Sección de características -->
-              <h2 class="heading-2">¿Qué puedes hacer ahora?</h2>
+              <h2 class="heading-2">
+                <%= whatYouDo %>
+              </h2>
 
               <div class="card">
-                <h3 class="heading-3 color-primary">✨ Explora tu Panel</h3>
+                <h3 class="heading-3 color-primary">
+                  ✨ <%= explorePanel.title %>
+                </h3>
                 <p class="text-body">
-                  Accede a tu panel de control personalizado y descubre todas las herramientas disponibles.
+                  <%= explorePanel.paragraph %>
                 </p>
               </div>
 
               <div class="card">
-                <h3 class="heading-3 color-secondary">🎯 Configura tu Perfil</h3>
+                <h3 class="heading-3 color-secondary">
+                  🎯 <%= configProfile.title %>
+                </h3>
                 <p class="text-body">
-                  Personaliza tu experiencia completando tu perfil y ajustando tus preferencias.
+                  <%= configProfile.paragraph %>
                 </p>
               </div>
 
-              <div class="card card-highlight">
-                <h3 class="heading-3" style="color: #D4AF37;">💎 Acceso Premium</h3>
-                <p style="color: #FFFFFF; font-size: 16px; line-height: 1.6; margin: 0;">
-                  Como nuevo usuario, tienes 30 días de acceso premium completamente gratis.
-                </p>
-              </div>
-
-              <!-- Alerta de advertencia -->
               <div class="alert alert-warning">
-                <p class="alert-title">⏰ Recordatorio</p>
+                <p class="alert-title">
+                  ⏰ <%= reminder.title %>
+                </p>
                 <p class="alert-text">
-                  El enlace de verificación expirará en 1 hora. Si no lo usas a tiempo,
-                  deberás solicitar uno nuevo desde tu panel de usuario.
+                  <%= reminder.paragraph %>
                 </p>
               </div>
 
-              <!-- Espaciado -->
               <div class="spacing-lg"></div>
 
-              <!-- Información de soporte -->
               <p class="text-body">
-                ¿Tienes preguntas? Nuestro equipo de soporte está disponible 24/7 para ayudarte.
+                <%= questions %>
               </p>
 
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 20px 0;">
                 <tr>
                   <td align="center">
                     <a href="mailto:soporte@tuempresa.com" class="btn btn-outline">
-                      Contactar Soporte
+                      <%= contactSupport %>
                     </a>
                   </td>
                 </tr>
               </table>
 
-              <!-- Opción alternativa de verificación -->
               <div class="spacing-md"></div>
               <div
                 style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; border-left: 4px solid #6C757D;">
                 <p class="text-small" style="margin: 0 0 10px 0; color: #6C757D;">
-                  <strong>¿El botón no funciona?</strong>
+                  <strong>
+                    <%= alternative.button %>
+                  </strong>
                 </p>
                 <p class="text-small" style="margin: 0; color: #6C757D;">
-                  Copia y pega este enlace en tu navegador:
+                  <%= alternative.copyPaste %>
                 </p>
                 <p class="text-small" style="margin: 10px 0 0 0; word-break: break-all;">
                   <code style="background-color: #E9ECEF; padding: 5px 10px; border-radius: 4px; font-size: 12px;">
@@ -115,11 +108,11 @@
                 </p>
               </div>
 
-              <!-- Despedida -->
               <div class="spacing-lg"></div>
               <p class="text-body">
-                Gracias por confiar en nosotros,<br>
-                <span class="text-bold color-primary">El Equipo de Tu Empresa</span>
+                <%= thanks %>,
+                  <br>
+                  <span class="text-bold color-primary">Company Inc.</span>
               </p>
             </td>
           </tr>
