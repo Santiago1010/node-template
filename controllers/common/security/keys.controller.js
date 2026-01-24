@@ -6,7 +6,7 @@ class KeyController {
     try {
       const publicKey = await KeyService.showPublicKey();
 
-      return success(res, { data: publicKey, messagePath: 'showPublicKey.success' });
+      return success(res, { data: { publicKey }, messagePath: 'showPublicKey.success' });
     } catch (error) {
       return next(error);
     }
