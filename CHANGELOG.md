@@ -1,5 +1,117 @@
 
 
+## [1.21.0] - 2026-01-25
+
+**Released:** 2026-01-25 20:51:12 UTC
+
+### [Add database schema and initial seed data](https://github.com/Santiago1010/node-template/pull/93)
+
+#### 📋 Summary
+This PR introduces the complete database schema for the application including configuration tables, geographical data tables, user management tables, and logging tables. It also includes initial seed data for security levels, flags, countries, subdivisions, timezones, languages, and currencies.
+
+#### 🔍 What Changed
+### Added
+- **Configuration tables:**
+  - `config_endpoints` - API endpoint definitions with permissions
+  - `config_endpoints_has_required_scopes` - Endpoint-scope relationships
+  - `config_endpoints_request_schema` - Request parameter schemas for endpoints
+  - `config_hosts` - Allowed hosts for API access
+  - `config_pages` - Frontend page definitions with hierarchy
+  - `config_pages_endpoints_has_schemas` - Page-endpoint-field mappings
+  - `config_pages_has_endpoints` - Page-endpoint relationships
+  - `config_pages_has_required_scopes` - Page-scope relationships
+  - `config_roles` - User roles with security levels
+  - `config_roles_has_scopes` - Role-scope assignments
+  - `config_scopes` - System-wide permission scopes
+  - `config_security_levels` - Application access security levels
+  - `config_shorteners` - URL shortening service data
+
+- **Data tables:**
+  - `data_flags` - Country flag information and paths
+  - `data_languages` - Language definitions with internationalization
+  - `data_timezones` - Timezone definitions with UTC offsets
+  - `data_types_identification` - Country-specific identification document types
+  - `data_currencies` - Currency information (implied by seeder)
+
+- **Geographical tables:**
+  - `geo_cities` - City definitions with timezone associations
+  - `geo_continents` - Continent information
+  - `geo_countries` - Country information with capital and flag references
+  - `geo_countries_has_currencies` - Country-currency relationships
+  - `geo_countries_has_languages` - Country-language relationships
+  - `geo_dial_codes` - Country dialing codes with masks
+  - `geo_regions` - Continent region definitions
+  - `geo_sub_divisions` - Political subdivisions (states, provinces)
+
+- **Logging tables:**
+  - `logs_creation` - Record creation audit logs
+  - `logs_deletion` - Record deletion audit logs
+  - `logs_statuses` - Status change (activation/deactivation) logs
+  - `logs_updates` - Record update audit logs
+
+- **User management tables:**
+  - `usr_accesses` - Account access logs with device tracking
+  - `usr_accounts` - User account information with roles
+  - `usr_accounts_has_scopes` - Account-specific scope assignments
+  - `usr_credentials` - Authentication credentials (email, phone, etc.)
+  - `usr_devices` - Registered devices with trust status
+  - `usr_images` - Profile and cover images
+  - `usr_otp_codes` - One-time password codes for authentication
+  - `usr_preferences` - User preferences and settings
+  - `usr_users` - Basic user information
+  - `usr_users_details` - Additional user details (birth city, residence, etc.)
+
+- **Seed data files:**
+  - `03-base-security-levels.seed.js` - Security level definitions
+  - `04-base-flags.seed.js` - Country flag data
+  - `05-base-countries.seed.js` - Country information
+  - `06-base-sub-divisions.seed.js` - Political subdivisions
+  - `07-base-timezones.seed.js` - Timezone data
+  - `08-base-languages.seed.js` - Language definitions
+  - `09-base-currencies.seed.js` - Currency information
+
+### Changed
+- `.sequelizerc` - Updated paths for seeders and migrations from `database/` to root directory
+
+### Fixed
+- None
+
+### Removed
+- None
+
+#### 📝 Additional Notes
+- All tables include standardized timestamp columns (`created_at`, `updated_at`, `deleted_at`) for consistency
+- Foreign key relationships are properly indexed for performance
+- Tables use `utf8mb4` charset and `utf8mb4_general_ci` collation for full Unicode support
+- Soft delete pattern is implemented across most tables for data preservation
+- Audit logging tables store JSON data to maintain historical records even when referenced data is deleted
+- The schema supports internationalization with JSON fields for multilingual content
+- Security features include scope-based permissions, endpoint authorization, and safe mode functionality
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: documentation, enhancement, automation
+- Commits: 10
+
+**Commits:**
+- [`7e1363b`](https://github.com/Santiago1010/node-template/commit/7e1363b3099369932e19ff66aa9841ea4c09d491) feat(db): add host and page configuration tables
+- [`859a457`](https://github.com/Santiago1010/node-template/commit/859a4572107d794e4b951d4cd16ab7ca47d9647f) feat(db): add role and security configuration tables
+- [`d7af876`](https://github.com/Santiago1010/node-template/commit/d7af8764e51e861a4d76c25b5f57443c120b866c) feat(db): add data configuration and reference tables
+- [`53b7235`](https://github.com/Santiago1010/node-template/commit/53b72355cd4fcb4ea75e21b95d698b03bde1a486) feat(db): add geographical data tables for cities, countries and regions
+- [`8dc1188`](https://github.com/Santiago1010/node-template/commit/8dc1188f1a4c051051bdfdbee059c8140f3085ad) feat(db): complete geographical schema and add audit logging tables
+- [`8e996bf`](https://github.com/Santiago1010/node-template/commit/8e996bf0fa4103e271bbf289a63c80cb24a2714e) feat(db): add user module database tables
+- [`5715773`](https://github.com/Santiago1010/node-template/commit/571577315d38256bd21cfde10c647a26084b68a3) feat(seeds): add base security levels and country flags seeders
+- [`9d88197`](https://github.com/Santiago1010/node-template/commit/9d881971490d93e4a0d667b6e41ac3dd9bfa985a) fix(db): correct column name and add languages/timezones seeders
+- [`85e0aca`](https://github.com/Santiago1010/node-template/commit/85e0aca6665a97d648a594338bf645feeabe6c37) feat(db): add base currencies seeder
+- [`333d735`](https://github.com/Santiago1010/node-template/commit/333d735e877401c774e598d7c153decb119a2043) feat(db): add base sub-divisions seeder for Afghanistan
+
+---
+
+
+
 ## [1.20.0] - 2026-01-25
 
 **Released:** 2026-01-25 00:15:46 UTC
