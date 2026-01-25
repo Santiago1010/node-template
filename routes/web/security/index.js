@@ -6,26 +6,14 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { pageUseEndpoint } = require('../../middlewares/audit/pageEndpointLogger.middleware');
-const { setHost, setPage, setEndpoint } = require('../../middlewares/context/contextBuilder.middleware');
+const KeyController = require('../../../controllers/common/security/keys.controller');
 
 // =============================================================================
 // SET UP ROUTER
 // =============================================================================
 const router = express.Router();
 
-router.use(setHost);
-router.use(setPage);
-router.use(setEndpoint);
-
-router.use(pageUseEndpoint);
-
-// =============================================================================
-// ROUTES
-// =============================================================================
-router.use('/auth', require('./auth'));
-
-router.use('/security', require('./security'));
+router.get('/public-key', KeyController.showPublicKey);
 
 // =============================================================================
 // MODULE EXPORTS

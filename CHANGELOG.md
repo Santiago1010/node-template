@@ -1,5 +1,60 @@
 
 
+## [1.20.0] - 2026-01-25
+
+**Released:** 2026-01-25 00:15:46 UTC
+
+### [Add security endpoint for public key retrieval and RSA key management](https://github.com/Santiago1010/node-template/pull/92)
+
+#### 📋 Summary
+This PR introduces a new security endpoint for retrieving the public encryption key and integrates RSA key management with Vault storage. It enables secure encryption/decryption workflows and provides infrastructure for handling sensitive data transmission.
+
+#### 🔍 What Changed
+### Added
+- `GET /security/public-key` endpoint with controller, service, and routing
+- Security documentation structure with OpenAPI paths
+- Vault-based RSA key management functions in encrypt utility
+- Decrypt middleware for handling encrypted request data
+- Translation keys for showPublicKey endpoint success messages
+- PlantUML diagrams for security endpoints and expanded auth functionality
+- VAULT_PATHS constant for centralized key storage configuration
+
+### Changed
+- Updated system structure documentation to reflect new security modules
+- Modified encryption utility to remove verbose comments and integrate dayjs
+- Updated main web router to include security routes
+- Updated documentation paths index to include security endpoints
+- Reformatted i18n JSON files with consistent tab indentation
+
+#### 📝 Additional Notes
+- The RSA key management uses Vault for secure storage and retrieval
+- The public key endpoint enables clients to encrypt sensitive data before transmission
+- The decrypt middleware supports decryption of properties in body, query, and params
+- Key rotation functionality is included for periodic security updates
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: enhancement, developer experience
+- Milestone: M2 — Auth endpoints & per-user keys
+- Commits: 8
+
+**Commits:**
+- [`7bb2e2f`](https://github.com/Santiago1010/node-template/commit/7bb2e2fb546f57b6c90c27890dcb31170f5a7f69) feat(encrypt): integrate RSA key management with vault storage
+- [`e8bb855`](https://github.com/Santiago1010/node-template/commit/e8bb8552501c15eed030312a87ee8e5b70d62ac7) feat(security): add public key retrieval endpoint and service
+- [`cfa272b`](https://github.com/Santiago1010/node-template/commit/cfa272b0dce54a3486d9cf5d367cb06b53ddd9d0) refactor(security): rename service and add controller for public key endpoint
+- [`ad0d0ae`](https://github.com/Santiago1010/node-template/commit/ad0d0aef4f7c308739fc971f19bacdc6e70e3db9) feat(security): add public-key endpoint routing
+- [`ffb696a`](https://github.com/Santiago1010/node-template/commit/ffb696af1740f277da50b50711aa35bf516e4dd7) chore: update system structure documentation for new endpoints
+- [`fe3691c`](https://github.com/Santiago1010/node-template/commit/fe3691c553be573dac9bac272ea175f33a2cf961) fix(i18n): add showPublicKey translation key for security endpoint
+- [`9d26dfa`](https://github.com/Santiago1010/node-template/commit/9d26dfafe83a473fb1acb4a7d89109db6ed127e4) feat(security): add middleware for decrypting sensitive request data
+- [`e5d41b5`](https://github.com/Santiago1010/node-template/commit/e5d41b5717cbdc3477be676f4cccbdd65658ad5a) chore: update structure documentation with new decrypt middleware
+
+---
+
+
+
 ## [1.19.0] - 2026-01-23
 
 **Released:** 2026-01-23 17:05:01 UTC

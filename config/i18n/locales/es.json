@@ -286,5 +286,8 @@
         "login": "Tu código de acceso seguro es: {otp}"
       }
     }
+  },
+  "showPublicKey": {
+    "success": "showPublicKey.success"
   }
 }

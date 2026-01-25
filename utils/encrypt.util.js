@@ -1,13 +1,4 @@
 // =============================================================================
-// ENCRYPT HELPER - Complete encryption/decryption utilities
-// =============================================================================
-// This module provides comprehensive encryption and decryption functions
-// using RSA (public/private key) and AES algorithms, along with utility
-// functions for key generation, hashing, and secure random generation.
-//
-// =============================================================================
-
-// =============================================================================
 // CORE NODE.JS DEPENDENCIES
 // =============================================================================
 const crypto = require('crypto');
@@ -17,11 +8,13 @@ const fs = require('fs');
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const bcrypt = require('bcrypt');
+const dayjs = require('dayjs');
 
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { KEY_SIZES, ALGORITHMS } = require('./constants.util');
+const { KEY_SIZES, ALGORITHMS, VAULT_PATHS } = require('./constants.util');
+const { getSecret, setSecret } = require('../helpers/vault.helper');
 
 // =============================================================================
 // RSA KEY MANAGEMENT FUNCTIONS
@@ -156,6 +149,96 @@ const verifyRSASignature = (data, signature, publicKey) => {
   } catch (error) {
     console.error('Unexpected error in RSA verification:', error);
     return false;
+  }
+};
+
+/**
+ * Initializes RSA key pair in Vault
+ * If keys already exist, returns existing keys
+ * Otherwise, generates new keys and saves them to Vault
+ * @returns {Promise<Object>} Object containing publicKey and privateKey strings
+ * @throws {Error} If error occurs during key generation or Vault operations
+ */
+const initializeRSAKeys = async () => {
+  try {
+    // Check if keys already exist
+    const existingKeys = await getSecret(VAULT_PATHS.RSA_KEYS_PATH).catch(() => null);
+
+    if (existingKeys?.publicKey && existingKeys?.privateKey) {
+      return existingKeys;
+    }
+
+    // Generate new keys
+    const { publicKey, privateKey } = generateRSAKeyPair();
+
+    await setSecret(VAULT_PATHS.RSA_KEYS_PATH, {
+      publicKey,
+      privateKey,
+      createdAt: dayjs().toISOString(),
+    });
+
+    return { publicKey, privateKey };
+  } catch (error) {
+    throw new Error(`Failed to initialize RSA keys: ${error.message}`);
+  }
+};
+
+/**
+ * Retrieves the public RSA key from Vault
+ * @returns {Promise<string>} Public RSA key in PEM format
+ * @throws {Error} If public key is not found in Vault or an error occurs during retrieval
+ */
+const getPublicKey = async () => {
+  try {
+    const publicKey = await getSecret(VAULT_PATHS.RSA_KEYS_PATH, 'publicKey');
+
+    if (!publicKey) {
+      throw new Error('Public key not found in Vault');
+    }
+
+    return publicKey;
+  } catch (error) {
+    throw new Error(`Failed to get public key: ${error.message}`);
+  }
+};
+
+/**
+ * Retrieves the private RSA key from Vault
+ * @returns {Promise<string>} Private RSA key in PEM format
+ * @throws {Error} If private key is not found in Vault or an error occurs during retrieval
+ */
+const getPrivateKey = async () => {
+  try {
+    const privateKey = await getSecret(VAULT_PATHS.RSA_KEYS_PATH, 'privateKey');
+
+    if (!privateKey) {
+      throw new Error('Private key not found in Vault');
+    }
+
+    return privateKey;
+  } catch (error) {
+    throw new Error(`Failed to get private key: ${error.message}`);
+  }
+};
+
+/**
+ * Rotates the RSA key pair in Vault with a new pair
+ * @returns {Promise<{success: boolean}>} Success indicator of key rotation
+ * @throws {Error} If an error occurs during key rotation
+ */
+const rotateRSAKeys = async () => {
+  try {
+    const { publicKey, privateKey } = generateRSAKeyPair();
+
+    await setSecret(VAULT_PATHS.RSA_KEYS_PATH, {
+      publicKey,
+      privateKey,
+      rotatedAt: dayjs().toISOString(),
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw new Error(`Failed to rotate RSA keys: ${error.message}`);
   }
 };
 
@@ -484,6 +567,10 @@ module.exports = {
   decryptWithRSA,
   signWithRSA,
   verifyRSASignature,
+  initializeRSAKeys,
+  getPublicKey,
+  getPrivateKey,
+  rotateRSAKeys,
 
   // AES Functions
   generateAESKey,

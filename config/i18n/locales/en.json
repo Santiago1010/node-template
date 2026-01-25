@@ -286,5 +286,8 @@
         "login": "messages.sms.otp.login"
       }
     }
+  },
+  "showPublicKey": {
+    "success": "showPublicKey.success"
   }
 }
