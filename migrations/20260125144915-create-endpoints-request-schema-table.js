@@ -130,7 +130,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('config_endpoints_request_schema');
   },
 };

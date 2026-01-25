@@ -4,50 +4,52 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'config_endpoints',
+      'config_pages',
       {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          allowNull: false,
-          comment: 'Unique primary key to identify each endpoint.',
+          comment: 'Unique primary key to identify each page.',
         },
-        method: {
-          type: Sequelize.ENUM('post', 'get', 'put', 'patch', 'delete', 'options'),
+        host_id: {
+          type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'Method of the endpoint to which permission will be granted.',
+          comment: 'ID of the client to which the page belongs.',
         },
-        platform: {
-          type: Sequelize.STRING(50),
-          allowNull: false,
-          comment: 'Target platform for the endpoint configuration',
+        page_id: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: null,
+          comment: 'ID of the parent page to which the child belongs. If null, it is a "first-line page".',
         },
-        version: {
-          type: Sequelize.STRING(10),
-          allowNull: false,
-          comment: 'Version identifier of the endpoint configuration',
-        },
-        endpoint_group: {
+        name: {
           type: Sequelize.STRING(100),
           allowNull: false,
-          comment: 'Grouping of different endpoints',
+          comment: 'Page name (extracted from Vue router 4).',
         },
         path: {
           type: Sequelize.STRING(200),
           allowNull: false,
-          comment: 'Path of the endpoint to which permission will be granted.',
+          comment:
+            'Path of the specific page for identification. It must be exactly the same as the path used by the end user to access the view.',
         },
         description: {
           type: Sequelize.TEXT,
           allowNull: true,
-          comment: "Optional description of the endpoint's function.",
+          comment: 'Optional description of what can be done or viewed on the page.',
+        },
+        level: {
+          type: Sequelize.TINYINT(1),
+          allowNull: false,
+          defaultValue: 1,
+          comment: 'Indicates whether it is level 1, 2, or 3 (this being the last level allowed).',
         },
         requires_authorization: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
           defaultValue: true,
-          comment: 'Indicates whether or not the endpoint requires authorization to be executed.',
+          comment: 'Indicates whether the page requires authorization to access it.',
         },
         has_sensitive_information: {
           type: Sequelize.BOOLEAN,
@@ -80,19 +82,48 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Table with the permissions of a role with the endpoints.',
+        comment: "Table that stores the application's frontend pages.",
       }
     );
 
-    await queryInterface.addIndex('config_endpoints', ['method', 'platform', 'version', 'endpoint_group', 'path'], {
-      unique: true,
-      name: 'endpoint_UN',
+    await queryInterface.addIndex('config_pages', ['page_id'], {
+      name: 'parent',
+    });
+
+    await queryInterface.addIndex('config_pages', ['host_id'], {
+      name: 'host',
+    });
+
+    await queryInterface.addIndex('config_pages', ['page_id'], {
+      name: 'parent_page',
+    });
+
+    await queryInterface.addConstraint('config_pages', {
+      fields: ['page_id'],
+      type: 'foreign key',
+      name: 'config_pages_ibfk_1',
+      references: {
+        table: 'config_pages',
+        field: 'id',
+      },
+      onDelete: 'SET NULL',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('config_pages', {
+      fields: ['host_id'],
+      type: 'foreign key',
+      name: 'config_pages_ibfk_2',
+      references: {
+        table: 'config_hosts',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.removeIndex('config_endpoints', 'endpoint_UN');
-
-    await queryInterface.dropTable('config_endpoints');
+    await queryInterface.dropTable('config_pages');
   },
 };

@@ -4,24 +4,29 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'config_endpoints_has_required_scopes',
+      'config_pages_endpoints_has_schemas',
       {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          allowNull: false,
-          comment: 'Unique identifier for each relationship between endpoint and mandatory scope.',
+          comment: 'Primary key, unique identifier for each page-endpoint-field relationship.',
         },
-        endpoint_id: {
+        page_endpoint_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'Endpoint ID.',
+          comment: 'Foreign key referencing the page-endpoint relationship.',
         },
-        scope_id: {
+        endpoint_field_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'Scope ID that the user must have in order to run the endpoint.',
+          comment: 'Foreign key referencing the specific endpoint field configuration.',
+        },
+        location: {
+          type: Sequelize.ENUM('body', 'params', 'query', 'header', 'auth_token'),
+          allowNull: false,
+          comment:
+            'Field location in the request from the page: body, parameters (path), query (URL), header, or auth_token',
         },
         created_at: {
           type: Sequelize.DATE,
@@ -47,36 +52,41 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Relationship between scopes and endpoints.',
+        comment: 'Maps which fields are used in page-endpoint relationships',
       }
     );
 
-    await queryInterface.addIndex('config_endpoints_has_required_scopes', ['endpoint_id'], {
-      name: 'endpoint',
+    await queryInterface.addIndex('config_pages_endpoints_has_schemas', ['page_endpoint_id', 'endpoint_field_id'], {
+      name: 'page_endpoint_schema_UN',
+      unique: true,
     });
 
-    await queryInterface.addIndex('config_endpoints_has_required_scopes', ['scope_id'], {
-      name: 'scope',
+    await queryInterface.addIndex('config_pages_endpoints_has_schemas', ['page_endpoint_id'], {
+      name: 'page_endpoint',
     });
 
-    await queryInterface.addConstraint('config_endpoints_has_required_scopes', {
-      fields: ['endpoint_id'],
+    await queryInterface.addIndex('config_pages_endpoints_has_schemas', ['endpoint_field_id'], {
+      name: 'endpoint_field',
+    });
+
+    await queryInterface.addConstraint('config_pages_endpoints_has_schemas', {
+      fields: ['page_endpoint_id'],
       type: 'foreign key',
-      name: 'config_endpoints_required_scopes_ibfk_1',
+      name: 'config_pages_endpoints_has_schemas_ibfk_1',
       references: {
-        table: 'config_endpoints',
+        table: 'config_pages_has_endpoints',
         field: 'id',
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
 
-    await queryInterface.addConstraint('config_endpoints_has_required_scopes', {
-      fields: ['scope_id'],
+    await queryInterface.addConstraint('config_pages_endpoints_has_schemas', {
+      fields: ['endpoint_field_id'],
       type: 'foreign key',
-      name: 'config_endpoints_required_scopes_ibfk_2',
+      name: 'config_pages_endpoints_has_schemas_ibfk_2',
       references: {
-        table: 'config_scopes',
+        table: 'config_endpoints_request_schema',
         field: 'id',
       },
       onDelete: 'CASCADE',
@@ -85,6 +95,6 @@ module.exports = {
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('config_endpoints_has_required_scopes');
+    await queryInterface.dropTable('config_pages_endpoints_has_schemas');
   },
 };
