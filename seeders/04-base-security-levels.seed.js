@@ -32,9 +32,6 @@ module.exports = {
           fr: 'Informations accessibles à tous sans restrictions.',
         }),
         is_default: 0,
-        created_at: '2025-09-29 19:25:56',
-        updated_at: '2025-09-29 19:26:07',
-        deleted_at: null,
       },
       {
         id: 2,
@@ -65,9 +62,6 @@ module.exports = {
           fr: 'Informations destinées uniquement aux employés et aux collaborateurs autorisés.',
         }),
         is_default: 1,
-        created_at: '2025-09-29 19:26:38',
-        updated_at: '2025-09-29 19:26:38',
-        deleted_at: null,
       },
       {
         id: 3,
@@ -98,9 +92,6 @@ module.exports = {
           fr: 'Informations nécessitant une protection particulière en raison de leur caractère confidentiel.',
         }),
         is_default: 0,
-        created_at: '2025-09-29 19:28:48',
-        updated_at: '2025-09-29 19:28:48',
-        deleted_at: null,
       },
       {
         id: 4,
@@ -131,9 +122,6 @@ module.exports = {
           fr: 'Informations hautement sensibles avec un accès très limité, uniquement pour le personnel autorisé.',
         }),
         is_default: 0,
-        created_at: '2025-09-29 19:29:30',
-        updated_at: '2025-09-29 19:29:30',
-        deleted_at: null,
       },
     ];
 

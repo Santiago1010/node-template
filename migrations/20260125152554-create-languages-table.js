@@ -12,7 +12,7 @@ module.exports = {
           autoIncrement: true,
           comment: 'Unique primary key for identifying each language.',
         },
-        falg_id: {
+        flag_id: {
           type: Sequelize.INTEGER,
           allowNull: true,
           defaultValue: null,
