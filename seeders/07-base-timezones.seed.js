@@ -3,7 +3,6 @@
 module.exports = {
   get: () => {
     const timezones = [
-      // África (continent_id: 1)
       { id: 1, continent_id: 1, name: 'Africa/Abidjan', utc: '+00:00' },
       { id: 2, continent_id: 1, name: 'Africa/Accra', utc: '+00:00' },
       { id: 3, continent_id: 1, name: 'Africa/Addis_Ababa', utc: '+03:00' },
