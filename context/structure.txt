@@ -207,7 +207,6 @@
 │           ├── password.controller.js
 │           ├── session.controller.js
 │           └── two-factor.controller.js
-├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
 ├── Dockerfile
@@ -292,6 +291,46 @@
 │       ├── massAssignment.middleware.js
 │       └── sanitizer.middleware.js
 ├── migrations
+│   ├── 20260125143614-create-endpoints-table.js
+│   ├── 20260125144712-create-endpoints-required-scopes-table.js
+│   ├── 20260125144915-create-endpoints-request-schema-table.js
+│   ├── 20260125145732-create-host-table.js
+│   ├── 20260125145841-create-pages-table.js
+│   ├── 20260125150126-create-pages-endpoints-schemas-table.js
+│   ├── 20260125150404-create-pages-endpoints-table.js
+│   ├── 20260125150749-create-pages-required-scopes-table.js
+│   ├── 20260125151056-create-roles-table.js
+│   ├── 20260125151330-create-roles-scopes-table.js
+│   ├── 20260125151441-create-scopes-table.js
+│   ├── 20260125151654-create-security-levels-table.js
+│   ├── 20260125151851-create-shorteners-table.js
+│   ├── 20260125152216-create-currencies-table.js
+│   ├── 20260125152554-create-languages-table.js
+│   ├── 20260125152806-create-timezones-table.js
+│   ├── 20260125153006-create-types-identification-table.js
+│   ├── 20260125153915-create-cities-table.js
+│   ├── 20260125154132-create-continents-table.js
+│   ├── 20260125154714-create-countries-table.js
+│   ├── 20260125160030-create-countries-currencies-table.js
+│   ├── 20260125160314-create-countries-languages-table.js
+│   ├── 20260125160650-create-dial-codes-table.js
+│   ├── 20260125161039-create-regions-table.js
+│   ├── 20260125161137-create-sub-divisions-table.js
+│   ├── 20260125162017-create-logs-creation-table.js
+│   ├── 20260125162134-create-logs-deletion-table.js
+│   ├── 20260125162610-create-logs-statuses-table.js
+│   ├── 20260125162659-create-logs-updates-table.js
+│   ├── 20260125164253-create-accesses-table.js
+│   ├── 20260125165355-create-accounts-table.js
+│   ├── 20260125165454-create-accounts-scopes-table.js
+│   ├── 20260125165529-create-credentials-table.js
+│   ├── 20260125170115-create-devices-table.js
+│   ├── 20260125170419-create-images-table.js
+│   ├── 20260125170536-create-otp-codes-table.js
+│   ├── 20260125170632-create-user-preferences-table.js
+│   ├── 20260125170816-create-tokens-table.js
+│   ├── 20260125170951-create-users-table.js
+│   └── 20260125171124-create-users-details-table.js
 ├── models
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
@@ -385,7 +424,15 @@
 ├── seeders
 │   ├── 01-base-continents.seed.js
 │   ├── 02-base-regions.seed.js
-│   └── 03-base-countries.seed.js
+│   ├── 03-base-security-levels.seed.js
+│   ├── 04-base-flags.seed.js
+│   ├── 05-base-countries.seed.js
+│   ├── 06-base-sub-divisions.seed.js
+│   ├── 07-base-timezones.seed.js
+│   ├── 08-base-languages.seed.js
+│   ├── 09-base-currencies.seed.js
+│   ├── 10-base-dial-code.seed.js
+│   └── 11-base-countries-currencies.seed.js
 ├── .sequelizerc
 ├── services
 │   ├── auth
@@ -446,4 +493,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 357 files
+90 directories, 408 files

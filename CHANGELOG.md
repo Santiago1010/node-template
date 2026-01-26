@@ -1,5 +1,52 @@
 
 
+## [1.22.0] - 2026-01-26
+
+**Released:** 2026-01-26 02:10:14 UTC
+
+### [Add database migrations and seed data for core entities](https://github.com/Santiago1010/node-template/pull/94)
+
+#### 📋 Summary
+This PR introduces foundational database migrations and seed data for core application entities including user management, authentication, and geographic data systems. It adds the initial database structure and populates reference data for countries, currencies, languages, and other essential domain models.
+
+#### 🔍 What Changed
+### Added
+- 32 new database migration files for core entities (users, accounts, tokens, endpoints, roles, scopes, etc.)
+- 7 new seeders for security levels, flags, sub-divisions, timezones, languages, currencies, and dial codes
+- Extended country seeder with data for 10 additional countries (Albania through Argentina)
+- New seeders for dial codes and country-currency relationships
+
+### Changed
+- Updated project structure documentation to reflect new migration and seeder files
+- Modified existing country seeder to include additional country records
+- Updated sub-divisions seeder (content changes not shown in diff)
+
+#### 📝 Additional Notes
+This PR establishes the core database schema required for upcoming authentication, user management, and localization features. The migrations follow a modular structure with proper foreign key relationships. The seed data includes multilingual support for country names and follows ISO standards for country codes and abbreviations.
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: documentation, enhancement, automation
+- Commits: 9
+
+**Commits:**
+- [`3512661`](https://github.com/Santiago1010/node-template/commit/35126619906f703be9071598d3c59c4e44eb9585) chore(db): adjust file count after migrations and seeders addition
+- [`73a0f93`](https://github.com/Santiago1010/node-template/commit/73a0f93ad125043d74e900f344a501c886867178) feat(db): add sub-division data for multiple countries
+- [`b60f065`](https://github.com/Santiago1010/node-template/commit/b60f065ae3b726fbdf02fbc6fd96232011d6752d) feat(db): add antarctic territory sub-divisions
+- [`45c2856`](https://github.com/Santiago1010/node-template/commit/45c28564e79101765a9b1c46488960216f5b5a49) feat(db): add international dial codes seeder
+- [`6c92105`](https://github.com/Santiago1010/node-template/commit/6c92105fba07df1fb40fc15cb270fdf19c0db7c2) feat(db): extend sub-division data for 17 additional countries
+- [`18233f5`](https://github.com/Santiago1010/node-template/commit/18233f560d2a4f3406cda77c3325c337f8410b19) feat(db): add countries, currencies, and currency relationships
+- [`e6ba4a3`](https://github.com/Santiago1010/node-template/commit/e6ba4a31fd067783b6e7436a00ed4cced04eb314) feat(db): expand sub-division data for 25 additional countries
+- [`9be4b22`](https://github.com/Santiago1010/node-template/commit/9be4b222ad82d17f6dc9355a4d2ca306315d1ea1) Context
+- [`a6edec9`](https://github.com/Santiago1010/node-template/commit/a6edec9a474b435a923bc922f61ae89dd8ef1c8d) Context
+
+---
+
+
+
 ## [1.21.0] - 2026-01-25
 
 **Released:** 2026-01-25 20:51:12 UTC
