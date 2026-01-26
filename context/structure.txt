@@ -207,7 +207,6 @@
 │           ├── password.controller.js
 │           ├── session.controller.js
 │           └── two-factor.controller.js
-├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
 ├── Dockerfile
@@ -431,7 +430,9 @@
 │   ├── 06-base-sub-divisions.seed.js
 │   ├── 07-base-timezones.seed.js
 │   ├── 08-base-languages.seed.js
-│   └── 09-base-currencies.seed.js
+│   ├── 09-base-currencies.seed.js
+│   ├── 10-base-dial-code.seed.js
+│   └── 11-base-countries-currencies.seed.js
 ├── .sequelizerc
 ├── services
 │   ├── auth
@@ -492,4 +493,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 406 files
+90 directories, 408 files
