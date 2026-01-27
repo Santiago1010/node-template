@@ -1,5 +1,65 @@
 
 
+## [1.23.0] - 2026-01-27
+
+**Released:** 2026-01-27 16:42:18 UTC
+
+### [Update country seed data and ignore list](https://github.com/Santiago1010/node-template/pull/95)
+
+#### 📋 Summary
+This PR updates the country seed data with corrected translations, region mappings, and removes the deprecated `surface_area` field. It also adds a new seeder file to the Biome ignore list and updates the project structure documentation.
+
+#### 🔍 What Changed
+### Added
+- Åland Islands country entry (id: 2)
+- Missing country-currency associations for multiple countries
+- `.debug` directory to project structure
+
+### Changed
+- Updated `region_id` and `flag_id` mappings for multiple countries
+- Corrected multilingual country names (popular_name and official_name) across 10 languages
+- Changed `abbreviation` field from JSON string to direct object format
+- Updated currency format examples in country-currency associations
+- Modified Biome configuration to ignore `seeders/06-base-sub-divisions.seed.js`
+
+### Fixed
+- Spelling corrections in Portuguese, Spanish, French, and other language translations
+- Country name inconsistencies (e.g., "Czech Republic" → "Czechia", "Côte d'Ivoire" standardizations)
+- Region assignments for multiple countries
+
+### Removed
+- `surface_area` field from all country entries
+- Redundant country entries (Ascension Island, Diego Garcia, Northern Ireland, Scotland, etc.)
+- Duplicate currency associations
+
+#### 📝 Additional Notes
+- The `surface_area` field was removed as it's not used in the current application and was inconsistent across entries
+- Country IDs have been renumbered sequentially after removing redundant entries
+- All abbreviation fields now use direct objects instead of JSON strings for better performance and readability
+- The project structure now reflects the actual file count after cleanup
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: documentation, enhancement, automation
+- Commits: 8
+
+**Commits:**
+- [`f330157`](https://github.com/Santiago1010/node-template/commit/f330157e2922abd1e05c1ed3abd7620a20d6008c) feat(db): update country seed data with corrections and new fields
+- [`8495550`](https://github.com/Santiago1010/node-template/commit/8495550d59a66f8d2522c59ccbfc3df6e2e8519b) feat(db): Add political divisions for countries
+- [`ffdbedf`](https://github.com/Santiago1010/node-template/commit/ffdbedf5ccbb1d182e9a4915905e18d8119d7e14) feat(db): Add political divisions for countries
+- [`ea4dec0`](https://github.com/Santiago1010/node-template/commit/ea4dec04bf213d5a0d750422e40e846be4aa64e2) chore(db): add seed data for country-currency associations with formatting examples
+- [`db14a98`](https://github.com/Santiago1010/node-template/commit/db14a9825a6f177560c400c29108ec2b1a748ef7) chore(config): cleanup currency seed scripts and update biome ignore patterns
+- [`d7a7ca0`](https://github.com/Santiago1010/node-template/commit/d7a7ca04aebc33a8cf3be28895eea143039dbeba) temporary deleted
+- [`b4a219e`](https://github.com/Santiago1010/node-template/commit/b4a219ecdd3829f9c9f82469b2a2020fcc11a147) feat(db): Add political divisions for countries
+- [`76f6917`](https://github.com/Santiago1010/node-template/commit/76f691782e338df8f23b414af8e7c15f5592a54d) debug
+
+---
+
+
+
 ## [1.22.0] - 2026-01-26
 
 **Released:** 2026-01-26 02:10:14 UTC
