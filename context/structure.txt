@@ -207,6 +207,7 @@
 │           ├── password.controller.js
 │           ├── session.controller.js
 │           └── two-factor.controller.js
+├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
 ├── Dockerfile
@@ -493,4 +494,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 408 files
+90 directories, 406 files
