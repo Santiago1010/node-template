@@ -1,4 +1,4 @@
-const { database } = require('..');
+const { database } = require('../env');
 
 const dbConfig = {
   username: database.user,

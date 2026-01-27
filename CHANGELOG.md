@@ -148,7 +148,7 @@ This PR introduces the complete database schema for the application including co
   - `geo_countries_has_languages` - Country-language relationships
   - `geo_dial_codes` - Country dialing codes with masks
   - `geo_regions` - Continent region definitions
-  - `geo_sub_divisions` - Political subdivisions (states, provinces)
+  - `geo_divisions` - Political subdivisions (states, provinces)
 
 - **Logging tables:**
   - `logs_creation` - Record creation audit logs
