@@ -97,7 +97,7 @@
       "dist/**",
       "test/**",
       "coverage/**",
-      "seeders/06-base-sub-divisions.seed.js"
+      "seeders/06-base-divisions.seed.js"
     ]
   },
   "overrides": [
