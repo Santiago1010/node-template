@@ -34,7 +34,6 @@ module.exports = {
         }),
         abbreviation: { two: 'af', three: 'AFG' },
         tld: '.af',
-        geonameId: 1149361,
       },
       {
         id: 2,
@@ -67,7 +66,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ax', three: 'ALA' },
         tld: '.ax',
-        geonameId: 661882,
       },
       {
         id: 3,
@@ -100,7 +98,6 @@ module.exports = {
         }),
         abbreviation: { two: 'al', three: 'ALB' },
         tld: '.al',
-        geonameId: 783754,
       },
       {
         id: 4,
@@ -133,7 +130,6 @@ module.exports = {
         }),
         abbreviation: { two: 'dz', three: 'DZA' },
         tld: '.dz',
-        geonameId: 2589581,
       },
       {
         id: 5,
@@ -166,7 +162,6 @@ module.exports = {
         }),
         abbreviation: { two: 'as', three: 'ASM' },
         tld: '.as',
-        geonameId: 5880801,
       },
       {
         id: 6,
@@ -199,7 +194,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ad', three: 'AND' },
         tld: '.ad',
-        geonameId: 3041565,
       },
       {
         id: 7,
@@ -232,7 +226,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ao', three: 'AGO' },
         tld: '.ao',
-        geonameId: 3351879,
       },
       {
         id: 8,
@@ -265,7 +258,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ai', three: 'AIA' },
         tld: '.ai',
-        geonameId: 3573511,
       },
       {
         id: 9,
@@ -298,7 +290,6 @@ module.exports = {
         }),
         abbreviation: { two: 'aq', three: 'ATA' },
         tld: '.aq',
-        geonameId: 6697173,
       },
       {
         id: 10,
@@ -331,7 +322,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ag', three: 'ATG' },
         tld: '.ag',
-        geonameId: 3576396,
       },
       {
         id: 11,
@@ -364,7 +354,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ar', three: 'ARG' },
         tld: '.ar',
-        geonameId: 3865483,
       },
       {
         id: 12,
@@ -397,7 +386,6 @@ module.exports = {
         }),
         abbreviation: { two: 'am', three: 'ARM' },
         tld: '.am',
-        geonameId: 174982,
       },
       {
         id: 13,
@@ -430,7 +418,6 @@ module.exports = {
         }),
         abbreviation: { two: 'aw', three: 'ABW' },
         tld: '.aw',
-        geonameId: 3577279,
       },
       {
         id: 14,
@@ -463,7 +450,6 @@ module.exports = {
         }),
         abbreviation: { two: 'au', three: 'AUS' },
         tld: '.au',
-        geonameId: 2077456,
       },
       {
         id: 15,
@@ -496,7 +482,6 @@ module.exports = {
         }),
         abbreviation: { two: 'at', three: 'AUT' },
         tld: '.at',
-        geonameId: 2782113,
       },
       {
         id: 16,
@@ -529,7 +514,6 @@ module.exports = {
         }),
         abbreviation: { two: 'az', three: 'AZE' },
         tld: '.az',
-        geonameId: 587116,
       },
       {
         id: 17,
@@ -562,7 +546,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bs', three: 'BHS' },
         tld: '.bs',
-        geonameId: 3572887,
       },
       {
         id: 18,
@@ -595,7 +578,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bh', three: 'BHR' },
         tld: '.bh',
-        geonameId: 290291,
       },
       {
         id: 19,
@@ -628,7 +610,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bd', three: 'BGD' },
         tld: '.bd',
-        geonameId: 1210997,
       },
       {
         id: 20,
@@ -661,7 +642,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bb', three: 'BRB' },
         tld: '.bb',
-        geonameId: 3374084,
       },
       {
         id: 21,
@@ -694,7 +674,6 @@ module.exports = {
         }),
         abbreviation: { two: 'by', three: 'BLR' },
         tld: '.by',
-        geonameId: 630336,
       },
       {
         id: 22,
@@ -727,7 +706,6 @@ module.exports = {
         }),
         abbreviation: { two: 'be', three: 'BEL' },
         tld: '.be',
-        geonameId: 2802361,
       },
       {
         id: 23,
@@ -760,7 +738,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bz', three: 'BLZ' },
         tld: '.bz',
-        geonameId: 3582678,
       },
       {
         id: 24,
@@ -793,7 +770,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bj', three: 'BEN' },
         tld: '.bj',
-        geonameId: 2395170,
       },
       {
         id: 25,
@@ -826,7 +802,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bm', three: 'BMU' },
         tld: '.bm',
-        geonameId: 3573345,
       },
       {
         id: 26,
@@ -859,7 +834,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bt', three: 'BTN' },
         tld: '.bt',
-        geonameId: 1252634,
       },
       {
         id: 27,
@@ -892,7 +866,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bo', three: 'BOL' },
         tld: '.bo',
-        geonameId: 3923057,
       },
       {
         id: 28,
@@ -925,7 +898,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bq', three: 'BES' },
         tld: '.bq',
-        geonameId: 7626844,
       },
       {
         id: 29,
@@ -958,7 +930,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ba', three: 'BIH' },
         tld: '.ba',
-        geonameId: 3277605,
       },
       {
         id: 30,
@@ -991,7 +962,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bw', three: 'BWA' },
         tld: '.bw',
-        geonameId: 933860,
       },
       {
         id: 31,
@@ -1024,7 +994,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bv', three: 'BVT' },
         tld: '.bv',
-        geonameId: 3371123,
       },
       {
         id: 32,
@@ -1057,7 +1026,6 @@ module.exports = {
         }),
         abbreviation: { two: 'br', three: 'BRA' },
         tld: '.br',
-        geonameId: 3469034,
       },
       {
         id: 33,
@@ -1090,7 +1058,6 @@ module.exports = {
         }),
         abbreviation: { two: 'io', three: 'IOT' },
         tld: '.io',
-        geonameId: 1282588,
       },
       {
         id: 34,
@@ -1123,7 +1090,6 @@ module.exports = {
         }),
         abbreviation: { two: 'vg', three: 'VGB' },
         tld: '.vg',
-        geonameId: 3577718,
       },
       {
         id: 35,
@@ -1156,7 +1122,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bn', three: 'BRN' },
         tld: '.bn',
-        geonameId: 1820814,
       },
       {
         id: 36,
@@ -1189,7 +1154,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bg', three: 'BGR' },
         tld: '.bg',
-        geonameId: 732800,
       },
       {
         id: 37,
@@ -1222,7 +1186,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bf', three: 'BFA' },
         tld: '.bf',
-        geonameId: 2361809,
       },
       {
         id: 38,
@@ -1255,7 +1218,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bi', three: 'BDI' },
         tld: '.bi',
-        geonameId: 433561,
       },
       {
         id: 39,
@@ -1288,7 +1250,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cv', three: 'CPV' },
         tld: '.cv',
-        geonameId: 3374766,
       },
       {
         id: 40,
@@ -1321,7 +1282,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kh', three: 'KHM' },
         tld: '.kh',
-        geonameId: 1831722,
       },
       {
         id: 41,
@@ -1354,7 +1314,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cm', three: 'CMR' },
         tld: '.cm',
-        geonameId: 2233387,
       },
       {
         id: 42,
@@ -1387,7 +1346,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ca', three: 'CAN' },
         tld: '.ca',
-        geonameId: 6251999,
       },
       {
         id: 43,
@@ -1420,7 +1378,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ky', three: 'CYM' },
         tld: '.ky',
-        geonameId: 3580718,
       },
       {
         id: 44,
@@ -1453,7 +1410,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cf', three: 'CAF' },
         tld: '.cf',
-        geonameId: 239880,
       },
       {
         id: 45,
@@ -1486,7 +1442,6 @@ module.exports = {
         }),
         abbreviation: { two: 'td', three: 'TCD' },
         tld: '.td',
-        geonameId: 2434508,
       },
       {
         id: 46,
@@ -1519,7 +1474,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cl', three: 'CHL' },
         tld: '.cl',
-        geonameId: 3895114,
       },
       {
         id: 47,
@@ -1552,7 +1506,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cn', three: 'CHN' },
         tld: '.cn',
-        geonameId: 1814991,
       },
       {
         id: 48,
@@ -1585,7 +1538,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cx', three: 'CXR' },
         tld: '.cx',
-        geonameId: 2078138,
       },
       {
         id: 49,
@@ -1618,7 +1570,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cc', three: 'CCK' },
         tld: '.cc',
-        geonameId: 1547376,
       },
       {
         id: 50,
@@ -1651,7 +1602,6 @@ module.exports = {
         }),
         abbreviation: { two: 'co', three: 'COL' },
         tld: '.co',
-        geonameId: 3686110,
       },
       {
         id: 51,
@@ -1684,7 +1634,6 @@ module.exports = {
         }),
         abbreviation: { two: 'km', three: 'COM' },
         tld: '.km',
-        geonameId: 921929,
       },
       {
         id: 52,
@@ -1717,7 +1666,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cg', three: 'COG' },
         tld: '.cg',
-        geonameId: 2260494,
       },
       {
         id: 53,
@@ -1750,7 +1698,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ck', three: 'COK' },
         tld: '.ck',
-        geonameId: 1899402,
       },
       {
         id: 54,
@@ -1783,7 +1730,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cr', three: 'CRI' },
         tld: '.cr',
-        geonameId: 3624060,
       },
       {
         id: 55,
@@ -1816,7 +1762,6 @@ module.exports = {
         }),
         abbreviation: { two: 'hr', three: 'HRV' },
         tld: '.hr',
-        geonameId: 3202326,
       },
       {
         id: 56,
@@ -1849,7 +1794,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cu', three: 'CUB' },
         tld: '.cu',
-        geonameId: 3562981,
       },
       {
         id: 57,
@@ -1882,7 +1826,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cw', three: 'CUW' },
         tld: '.cw',
-        geonameId: 7626836,
       },
       {
         id: 58,
@@ -1915,7 +1858,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cy', three: 'CYP' },
         tld: '.cy',
-        geonameId: 146669,
       },
       {
         id: 59,
@@ -1948,7 +1890,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cz', three: 'CZE' },
         tld: '.cz',
-        geonameId: 3077311,
       },
       {
         id: 60,
@@ -1981,7 +1922,6 @@ module.exports = {
         }),
         abbreviation: { two: 'dk', three: 'DNK' },
         tld: '.dk',
-        geonameId: 2623032,
       },
       {
         id: 61,
@@ -2014,7 +1954,6 @@ module.exports = {
         }),
         abbreviation: { two: 'dj', three: 'DJI' },
         tld: '.dj',
-        geonameId: 223816,
       },
       {
         id: 62,
@@ -2047,7 +1986,6 @@ module.exports = {
         }),
         abbreviation: { two: 'dm', three: 'DMA' },
         tld: '.dm',
-        geonameId: 3575830,
       },
       {
         id: 63,
@@ -2080,7 +2018,6 @@ module.exports = {
         }),
         abbreviation: { two: 'do', three: 'DOM' },
         tld: '.do',
-        geonameId: 3508796,
       },
       {
         id: 64,
@@ -2113,7 +2050,6 @@ module.exports = {
         }),
         abbreviation: { two: 'cd', three: 'COD' },
         tld: '.cd',
-        geonameId: 203312,
       },
       {
         id: 65,
@@ -2146,7 +2082,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ec', three: 'ECU' },
         tld: '.ec',
-        geonameId: 3658394,
       },
       {
         id: 66,
@@ -2179,7 +2114,6 @@ module.exports = {
         }),
         abbreviation: { two: 'eg', three: 'EGY' },
         tld: '.eg',
-        geonameId: 357994,
       },
       {
         id: 67,
@@ -2212,7 +2146,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sv', three: 'SLV' },
         tld: '.sv',
-        geonameId: 3585968,
       },
       {
         id: 68,
@@ -2245,7 +2178,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gq', three: 'GNQ' },
         tld: '.gq',
-        geonameId: 2309096,
       },
       {
         id: 69,
@@ -2278,7 +2210,6 @@ module.exports = {
         }),
         abbreviation: { two: 'er', three: 'ERI' },
         tld: '.er',
-        geonameId: 338010,
       },
       {
         id: 70,
@@ -2311,7 +2242,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ee', three: 'EST' },
         tld: '.ee',
-        geonameId: 453733,
       },
       {
         id: 71,
@@ -2344,7 +2274,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sz', three: 'SWZ' },
         tld: '.sz',
-        geonameId: 934841,
       },
       {
         id: 72,
@@ -2377,7 +2306,6 @@ module.exports = {
         }),
         abbreviation: { two: 'et', three: 'ETH' },
         tld: '.et',
-        geonameId: 337996,
       },
       {
         id: 73,
@@ -2410,7 +2338,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fk', three: 'FLK' },
         tld: '.fk',
-        geonameId: 3474414,
       },
       {
         id: 74,
@@ -2443,7 +2370,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fo', three: 'FRO' },
         tld: '.fo',
-        geonameId: 2622320,
       },
       {
         id: 75,
@@ -2476,7 +2402,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fj', three: 'FJI' },
         tld: '.fj',
-        geonameId: 2205218,
       },
       {
         id: 76,
@@ -2509,7 +2434,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fi', three: 'FIN' },
         tld: '.fi',
-        geonameId: 660013,
       },
       {
         id: 77,
@@ -2542,7 +2466,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fr', three: 'FRA' },
         tld: '.fr',
-        geonameId: 3017382,
       },
       {
         id: 78,
@@ -2575,7 +2498,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gf', three: 'GUF' },
         tld: '.gf',
-        geonameId: 3381670,
       },
       {
         id: 79,
@@ -2608,7 +2530,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pf', three: 'PYF' },
         tld: '.pf',
-        geonameId: 4030656,
       },
       {
         id: 80,
@@ -2641,7 +2562,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tf', three: 'ATF' },
         tld: '.tf',
-        geonameId: 1546748,
       },
       {
         id: 81,
@@ -2674,7 +2594,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ga', three: 'GAB' },
         tld: '.ga',
-        geonameId: 2400553,
       },
       {
         id: 82,
@@ -2707,7 +2626,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ge', three: 'GEO' },
         tld: '.ge',
-        geonameId: 614540,
       },
       {
         id: 83,
@@ -2740,7 +2658,6 @@ module.exports = {
         }),
         abbreviation: { two: 'de', three: 'DEU' },
         tld: '.de',
-        geonameId: 2921044,
       },
       {
         id: 84,
@@ -2773,7 +2690,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gh', three: 'GHA' },
         tld: '.gh',
-        geonameId: 2300660,
       },
       {
         id: 85,
@@ -2806,7 +2722,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gi', three: 'GIB' },
         tld: '.gi',
-        geonameId: 2411586,
       },
       {
         id: 86,
@@ -2839,7 +2754,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gr', three: 'GRC' },
         tld: '.gr',
-        geonameId: 390903,
       },
       {
         id: 87,
@@ -2872,7 +2786,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gl', three: 'GRL' },
         tld: '.gl',
-        geonameId: 3425505,
       },
       {
         id: 88,
@@ -2905,7 +2818,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gd', three: 'GRD' },
         tld: '.gd',
-        geonameId: 3580239,
       },
       {
         id: 89,
@@ -2938,7 +2850,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gp', three: 'GLP' },
         tld: '.gp',
-        geonameId: 3579143,
       },
       {
         id: 90,
@@ -2971,7 +2882,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gu', three: 'GUM' },
         tld: '.gu',
-        geonameId: 4043988,
       },
       {
         id: 91,
@@ -3004,7 +2914,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gt', three: 'GTM' },
         tld: '.gt',
-        geonameId: 3595528,
       },
       {
         id: 92,
@@ -3037,7 +2946,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gg', three: 'GGY' },
         tld: '.gg',
-        geonameId: 3042362,
       },
       {
         id: 93,
@@ -3070,7 +2978,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gn', three: 'GIN' },
         tld: '.gn',
-        geonameId: 2420477,
       },
       {
         id: 94,
@@ -3103,7 +3010,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gw', three: 'GNB' },
         tld: '.gw',
-        geonameId: 2372248,
       },
       {
         id: 95,
@@ -3136,7 +3042,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gy', three: 'GUY' },
         tld: '.gy',
-        geonameId: 3378535,
       },
       {
         id: 96,
@@ -3169,7 +3074,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ht', three: 'HTI' },
         tld: '.ht',
-        geonameId: 3723988,
       },
       {
         id: 97,
@@ -3202,7 +3106,6 @@ module.exports = {
         }),
         abbreviation: { two: 'hm', three: 'HMD' },
         tld: '.hm',
-        geonameId: 1547314,
       },
       {
         id: 98,
@@ -3235,7 +3138,6 @@ module.exports = {
         }),
         abbreviation: { two: 'hn', three: 'HND' },
         tld: '.hn',
-        geonameId: 3608932,
       },
       {
         id: 99,
@@ -3268,7 +3170,6 @@ module.exports = {
         }),
         abbreviation: { two: 'hk', three: 'HKG' },
         tld: '.hk',
-        geonameId: 1819730,
       },
       {
         id: 100,
@@ -3301,7 +3202,6 @@ module.exports = {
         }),
         abbreviation: { two: 'hu', three: 'HUN' },
         tld: '.hu',
-        geonameId: 719819,
       },
       {
         id: 101,
@@ -3334,7 +3234,6 @@ module.exports = {
         }),
         abbreviation: { two: 'is', three: 'ISL' },
         tld: '.is',
-        geonameId: 2629691,
       },
       {
         id: 102,
@@ -3367,7 +3266,6 @@ module.exports = {
         }),
         abbreviation: { two: 'in', three: 'IND' },
         tld: '.in',
-        geonameId: 1269750,
       },
       {
         id: 103,
@@ -3400,7 +3298,6 @@ module.exports = {
         }),
         abbreviation: { two: 'id', three: 'IDN' },
         tld: '.id',
-        geonameId: 1643084,
       },
       {
         id: 104,
@@ -3433,7 +3330,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ir', three: 'IRN' },
         tld: '.ir',
-        geonameId: 130758,
       },
       {
         id: 105,
@@ -3466,7 +3362,6 @@ module.exports = {
         }),
         abbreviation: { two: 'iq', three: 'IRQ' },
         tld: '.iq',
-        geonameId: 99237,
       },
       {
         id: 106,
@@ -3499,7 +3394,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ie', three: 'IRL' },
         tld: '.ie',
-        geonameId: 2963597,
       },
       {
         id: 107,
@@ -3532,7 +3426,6 @@ module.exports = {
         }),
         abbreviation: { two: 'im', three: 'IMN' },
         tld: '.im',
-        geonameId: 3042225,
       },
       {
         id: 108,
@@ -3565,7 +3458,6 @@ module.exports = {
         }),
         abbreviation: { two: 'il', three: 'ISR' },
         tld: '.il',
-        geonameId: 294640,
       },
       {
         id: 109,
@@ -3598,7 +3490,6 @@ module.exports = {
         }),
         abbreviation: { two: 'it', three: 'ITA' },
         tld: '.it',
-        geonameId: 3175395,
       },
       {
         id: 110,
@@ -3631,7 +3522,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ci', three: 'CIV' },
         tld: '.ci',
-        geonameId: 2287781,
       },
       {
         id: 111,
@@ -3664,7 +3554,6 @@ module.exports = {
         }),
         abbreviation: { two: 'jm', three: 'JAM' },
         tld: '.jm',
-        geonameId: 3489940,
       },
       {
         id: 112,
@@ -3697,7 +3586,6 @@ module.exports = {
         }),
         abbreviation: { two: 'jp', three: 'JPN' },
         tld: '.jp',
-        geonameId: 1861060,
       },
       {
         id: 113,
@@ -3730,7 +3618,6 @@ module.exports = {
         }),
         abbreviation: { two: 'je', three: 'JEY' },
         tld: '.je',
-        geonameId: 3042142,
       },
       {
         id: 114,
@@ -3763,7 +3650,6 @@ module.exports = {
         }),
         abbreviation: { two: 'jo', three: 'JOR' },
         tld: '.jo',
-        geonameId: 248816,
       },
       {
         id: 115,
@@ -3796,7 +3682,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kz', three: 'KAZ' },
         tld: '.kz',
-        geonameId: 1522867,
       },
       {
         id: 116,
@@ -3829,7 +3714,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ke', three: 'KEN' },
         tld: '.ke',
-        geonameId: 192950,
       },
       {
         id: 117,
@@ -3862,7 +3746,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ki', three: 'KIR' },
         tld: '.ki',
-        geonameId: 4030945,
       },
       {
         id: 118,
@@ -3895,7 +3778,6 @@ module.exports = {
         }),
         abbreviation: { two: 'xk', three: 'XKX' },
         tld: '.xk',
-        geonameId: 831053,
       },
       {
         id: 119,
@@ -3928,7 +3810,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kw', three: 'KWT' },
         tld: '.kw',
-        geonameId: 285570,
       },
       {
         id: 120,
@@ -3961,7 +3842,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kg', three: 'KGZ' },
         tld: '.kg',
-        geonameId: 1527747,
       },
       {
         id: 121,
@@ -3994,7 +3874,6 @@ module.exports = {
         }),
         abbreviation: { two: 'la', three: 'LAO' },
         tld: '.la',
-        geonameId: 1655842,
       },
       {
         id: 122,
@@ -4027,7 +3906,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lv', three: 'LVA' },
         tld: '.lv',
-        geonameId: 458258,
       },
       {
         id: 123,
@@ -4060,7 +3938,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lb', three: 'LBN' },
         tld: '.lb',
-        geonameId: 272103,
       },
       {
         id: 124,
@@ -4093,7 +3970,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ls', three: 'LSO' },
         tld: '.ls',
-        geonameId: 932692,
       },
       {
         id: 125,
@@ -4126,7 +4002,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lr', three: 'LBR' },
         tld: '.lr',
-        geonameId: 2275384,
       },
       {
         id: 126,
@@ -4159,7 +4034,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ly', three: 'LBY' },
         tld: '.ly',
-        geonameId: 2215636,
       },
       {
         id: 127,
@@ -4192,7 +4066,6 @@ module.exports = {
         }),
         abbreviation: { two: 'li', three: 'LIE' },
         tld: '.li',
-        geonameId: 3042058,
       },
       {
         id: 128,
@@ -4225,7 +4098,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lt', three: 'LTU' },
         tld: '.lt',
-        geonameId: 597427,
       },
       {
         id: 129,
@@ -4258,7 +4130,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lu', three: 'LUX' },
         tld: '.lu',
-        geonameId: 2960313,
       },
       {
         id: 130,
@@ -4291,7 +4162,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mo', three: 'MAC' },
         tld: '.mo',
-        geonameId: 1821275,
       },
       {
         id: 131,
@@ -4324,7 +4194,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mg', three: 'MDG' },
         tld: '.mg',
-        geonameId: 1062947,
       },
       {
         id: 132,
@@ -4357,7 +4226,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mw', three: 'MWI' },
         tld: '.mw',
-        geonameId: 927384,
       },
       {
         id: 133,
@@ -4390,7 +4258,6 @@ module.exports = {
         }),
         abbreviation: { two: 'my', three: 'MYS' },
         tld: '.my',
-        geonameId: 1733045,
       },
       {
         id: 134,
@@ -4423,7 +4290,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mv', three: 'MDV' },
         tld: '.mv',
-        geonameId: 1282028,
       },
       {
         id: 135,
@@ -4456,7 +4322,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ml', three: 'MLI' },
         tld: '.ml',
-        geonameId: 2453866,
       },
       {
         id: 136,
@@ -4489,7 +4354,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mt', three: 'MLT' },
         tld: '.mt',
-        geonameId: 2562770,
       },
       {
         id: 137,
@@ -4522,7 +4386,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mh', three: 'MHL' },
         tld: '.mh',
-        geonameId: 2080185,
       },
       {
         id: 138,
@@ -4555,7 +4418,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mq', three: 'MTQ' },
         tld: '.mq',
-        geonameId: 3570311,
       },
       {
         id: 139,
@@ -4588,7 +4450,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mr', three: 'MRT' },
         tld: '.mr',
-        geonameId: 2378080,
       },
       {
         id: 140,
@@ -4621,7 +4482,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mu', three: 'MUS' },
         tld: '.mu',
-        geonameId: 934292,
       },
       {
         id: 141,
@@ -4654,7 +4514,6 @@ module.exports = {
         }),
         abbreviation: { two: 'yt', three: 'MYT' },
         tld: '.yt',
-        geonameId: 1024031,
       },
       {
         id: 142,
@@ -4687,7 +4546,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mx', three: 'MEX' },
         tld: '.mx',
-        geonameId: 3996063,
       },
       {
         id: 143,
@@ -4720,7 +4578,6 @@ module.exports = {
         }),
         abbreviation: { two: 'fm', three: 'FSM' },
         tld: '.fm',
-        geonameId: 2081918,
       },
       {
         id: 144,
@@ -4753,7 +4610,6 @@ module.exports = {
         }),
         abbreviation: { two: 'md', three: 'MDA' },
         tld: '.md',
-        geonameId: 617790,
       },
       {
         id: 145,
@@ -4786,7 +4642,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mc', three: 'MCO' },
         tld: '.mc',
-        geonameId: 2993457,
       },
       {
         id: 146,
@@ -4819,7 +4674,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mn', three: 'MNG' },
         tld: '.mn',
-        geonameId: 2029969,
       },
       {
         id: 147,
@@ -4852,7 +4706,6 @@ module.exports = {
         }),
         abbreviation: { two: 'me', three: 'MNE' },
         tld: '.me',
-        geonameId: 3194884,
       },
       {
         id: 148,
@@ -4885,7 +4738,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ms', three: 'MSR' },
         tld: '.ms',
-        geonameId: 3578097,
       },
       {
         id: 149,
@@ -4918,7 +4770,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ma', three: 'MAR' },
         tld: '.ma',
-        geonameId: 2542007,
       },
       {
         id: 150,
@@ -4951,7 +4802,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mz', three: 'MOZ' },
         tld: '.mz',
-        geonameId: 1036973,
       },
       {
         id: 151,
@@ -4984,7 +4834,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mm', three: 'MMR' },
         tld: '.mm',
-        geonameId: 1327865,
       },
       {
         id: 152,
@@ -5017,7 +4866,6 @@ module.exports = {
         }),
         abbreviation: { two: 'na', three: 'NAM' },
         tld: '.na',
-        geonameId: 3355338,
       },
       {
         id: 153,
@@ -5050,7 +4898,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nr', three: 'NRU' },
         tld: '.nr',
-        geonameId: 2110425,
       },
       {
         id: 154,
@@ -5083,7 +4930,6 @@ module.exports = {
         }),
         abbreviation: { two: 'np', three: 'NPL' },
         tld: '.np',
-        geonameId: 1282988,
       },
       {
         id: 155,
@@ -5116,7 +4962,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nc', three: 'NCL' },
         tld: '.nc',
-        geonameId: 2139685,
       },
       {
         id: 156,
@@ -5149,7 +4994,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nz', three: 'NZL' },
         tld: '.nz',
-        geonameId: 2186224,
       },
       {
         id: 157,
@@ -5182,7 +5026,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ni', three: 'NIC' },
         tld: '.ni',
-        geonameId: 3617476,
       },
       {
         id: 158,
@@ -5215,7 +5058,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ne', three: 'NER' },
         tld: '.ne',
-        geonameId: 2440476,
       },
       {
         id: 159,
@@ -5248,7 +5090,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ng', three: 'NGA' },
         tld: '.ng',
-        geonameId: 2328926,
       },
       {
         id: 160,
@@ -5281,7 +5122,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nu', three: 'NIU' },
         tld: '.nu',
-        geonameId: 4036232,
       },
       {
         id: 161,
@@ -5314,7 +5154,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nf', three: 'NFK' },
         tld: '.nf',
-        geonameId: 2155115,
       },
       {
         id: 162,
@@ -5347,7 +5186,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kp', three: 'PRK' },
         tld: '.kp',
-        geonameId: 1873107,
       },
       {
         id: 163,
@@ -5380,7 +5218,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mk', three: 'MKD' },
         tld: '.mk',
-        geonameId: 718075,
       },
       {
         id: 164,
@@ -5413,7 +5250,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mp', three: 'MNP' },
         tld: '.mp',
-        geonameId: 4041468,
       },
       {
         id: 165,
@@ -5446,7 +5282,6 @@ module.exports = {
         }),
         abbreviation: { two: 'no', three: 'NOR' },
         tld: '.no',
-        geonameId: 3144096,
       },
       {
         id: 166,
@@ -5479,7 +5314,6 @@ module.exports = {
         }),
         abbreviation: { two: 'om', three: 'OMN' },
         tld: '.om',
-        geonameId: 286963,
       },
       {
         id: 167,
@@ -5512,7 +5346,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pk', three: 'PAK' },
         tld: '.pk',
-        geonameId: 1168579,
       },
       {
         id: 168,
@@ -5545,7 +5378,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pw', three: 'PLW' },
         tld: '.pw',
-        geonameId: 1559582,
       },
       {
         id: 169,
@@ -5578,7 +5410,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ps', three: 'PSE' },
         tld: '.ps',
-        geonameId: 6254930,
       },
       {
         id: 170,
@@ -5611,7 +5442,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pa', three: 'PAN' },
         tld: '.pa',
-        geonameId: 3703430,
       },
       {
         id: 171,
@@ -5644,7 +5474,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pg', three: 'PNG' },
         tld: '.pg',
-        geonameId: 2088628,
       },
       {
         id: 172,
@@ -5677,7 +5506,6 @@ module.exports = {
         }),
         abbreviation: { two: 'py', three: 'PRY' },
         tld: '.py',
-        geonameId: 3437598,
       },
       {
         id: 173,
@@ -5710,7 +5538,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pe', three: 'PER' },
         tld: '.pe',
-        geonameId: 3932488,
       },
       {
         id: 174,
@@ -5743,7 +5570,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ph', three: 'PHL' },
         tld: '.ph',
-        geonameId: 1694008,
       },
       {
         id: 175,
@@ -5776,7 +5602,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pn', three: 'PCN' },
         tld: '.pn',
-        geonameId: 4030699,
       },
       {
         id: 176,
@@ -5809,7 +5634,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pl', three: 'POL' },
         tld: '.pl',
-        geonameId: 798544,
       },
       {
         id: 177,
@@ -5842,7 +5666,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pt', three: 'PRT' },
         tld: '.pt',
-        geonameId: 2264397,
       },
       {
         id: 178,
@@ -5875,7 +5698,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pr', three: 'PRI' },
         tld: '.pr',
-        geonameId: 4566966,
       },
       {
         id: 179,
@@ -5908,7 +5730,6 @@ module.exports = {
         }),
         abbreviation: { two: 'qa', three: 'QAT' },
         tld: '.qa',
-        geonameId: 289688,
       },
       {
         id: 180,
@@ -5941,7 +5762,6 @@ module.exports = {
         }),
         abbreviation: { two: 're', three: 'REU' },
         tld: '.re',
-        geonameId: 935317,
       },
       {
         id: 181,
@@ -5974,7 +5794,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ro', three: 'ROU' },
         tld: '.ro',
-        geonameId: 798549,
       },
       {
         id: 182,
@@ -6007,7 +5826,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ru', three: 'RUS' },
         tld: '.ru',
-        geonameId: 2017370,
       },
       {
         id: 183,
@@ -6040,7 +5858,6 @@ module.exports = {
         }),
         abbreviation: { two: 'rw', three: 'RWA' },
         tld: '.rw',
-        geonameId: 49518,
       },
       {
         id: 184,
@@ -6073,7 +5890,6 @@ module.exports = {
         }),
         abbreviation: { two: 'bl', three: 'BLM' },
         tld: '.bl',
-        geonameId: 3578476,
       },
       {
         id: 185,
@@ -6106,7 +5922,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sh', three: 'SHN' },
         tld: '.sh',
-        geonameId: 3370751,
       },
       {
         id: 186,
@@ -6139,7 +5954,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lc', three: 'LCA' },
         tld: '.lc',
-        geonameId: 3576468,
       },
       {
         id: 187,
@@ -6172,7 +5986,6 @@ module.exports = {
         }),
         abbreviation: { two: 'mf', three: 'MAF' },
         tld: '.mf',
-        geonameId: 3578421,
       },
       {
         id: 188,
@@ -6205,7 +6018,6 @@ module.exports = {
         }),
         abbreviation: { two: 'pm', three: 'SPM' },
         tld: '.pm',
-        geonameId: 3424932,
       },
       {
         id: 189,
@@ -6238,7 +6050,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ws', three: 'WSM' },
         tld: '.ws',
-        geonameId: 4034894,
       },
       {
         id: 190,
@@ -6271,7 +6082,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sm', three: 'SMR' },
         tld: '.sm',
-        geonameId: 3168068,
       },
       {
         id: 191,
@@ -6304,7 +6114,6 @@ module.exports = {
         }),
         abbreviation: { two: 'st', three: 'STP' },
         tld: '.st',
-        geonameId: 2410758,
       },
       {
         id: 192,
@@ -6337,7 +6146,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sa', three: 'SAU' },
         tld: '.sa',
-        geonameId: 102358,
       },
       {
         id: 193,
@@ -6370,7 +6178,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sn', three: 'SEN' },
         tld: '.sn',
-        geonameId: 2245662,
       },
       {
         id: 194,
@@ -6403,7 +6210,6 @@ module.exports = {
         }),
         abbreviation: { two: 'rs', three: 'SRB' },
         tld: '.rs',
-        geonameId: 6290252,
       },
       {
         id: 195,
@@ -6436,7 +6242,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sc', three: 'SYC' },
         tld: '.sc',
-        geonameId: 241170,
       },
       {
         id: 196,
@@ -6469,7 +6274,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sl', three: 'SLE' },
         tld: '.sl',
-        geonameId: 2403846,
       },
       {
         id: 197,
@@ -6502,7 +6306,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sg', three: 'SGP' },
         tld: '.sg',
-        geonameId: 1880251,
       },
       {
         id: 198,
@@ -6535,7 +6338,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sx', three: 'SXM' },
         tld: '.sx',
-        geonameId: 7609695,
       },
       {
         id: 199,
@@ -6568,7 +6370,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sk', three: 'SVK' },
         tld: '.sk',
-        geonameId: 3057568,
       },
       {
         id: 200,
@@ -6601,7 +6402,6 @@ module.exports = {
         }),
         abbreviation: { two: 'si', three: 'SVN' },
         tld: '.si',
-        geonameId: 3190538,
       },
       {
         id: 201,
@@ -6634,7 +6434,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sb', three: 'SLB' },
         tld: '.sb',
-        geonameId: 2103350,
       },
       {
         id: 202,
@@ -6667,7 +6466,6 @@ module.exports = {
         }),
         abbreviation: { two: 'so', three: 'SOM' },
         tld: '.so',
-        geonameId: 51537,
       },
       {
         id: 203,
@@ -6700,7 +6498,6 @@ module.exports = {
         }),
         abbreviation: { two: 'za', three: 'ZAF' },
         tld: '.za',
-        geonameId: 953987,
       },
       {
         id: 204,
@@ -6733,7 +6530,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gs', three: 'SGS' },
         tld: '.gs',
-        geonameId: 3474415,
       },
       {
         id: 205,
@@ -6766,7 +6562,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kr', three: 'KOR' },
         tld: '.kr',
-        geonameId: 1835841,
       },
       {
         id: 206,
@@ -6799,7 +6594,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ss', three: 'SSD' },
         tld: '.ss',
-        geonameId: 7909807,
       },
       {
         id: 207,
@@ -6832,7 +6626,6 @@ module.exports = {
         }),
         abbreviation: { two: 'es', three: 'ESP' },
         tld: '.es',
-        geonameId: 2510769,
       },
       {
         id: 208,
@@ -6865,7 +6658,6 @@ module.exports = {
         }),
         abbreviation: { two: 'lk', three: 'LKA' },
         tld: '.lk',
-        geonameId: 1227603,
       },
       {
         id: 209,
@@ -6898,7 +6690,6 @@ module.exports = {
         }),
         abbreviation: { two: 'kn', three: 'KNA' },
         tld: '.kn',
-        geonameId: 3575174,
       },
       {
         id: 210,
@@ -6931,7 +6722,6 @@ module.exports = {
         }),
         abbreviation: { two: 'vc', three: 'VCT' },
         tld: '.vc',
-        geonameId: 3577815,
       },
       {
         id: 211,
@@ -6964,7 +6754,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sd', three: 'SDN' },
         tld: '.sd',
-        geonameId: 366755,
       },
       {
         id: 212,
@@ -6997,7 +6786,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sr', three: 'SUR' },
         tld: '.sr',
-        geonameId: 3382998,
       },
       {
         id: 213,
@@ -7030,7 +6818,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sj', three: 'SJM' },
         tld: '.sj',
-        geonameId: 607072,
       },
       {
         id: 214,
@@ -7063,7 +6850,6 @@ module.exports = {
         }),
         abbreviation: { two: 'se', three: 'SWE' },
         tld: '.se',
-        geonameId: 2661886,
       },
       {
         id: 215,
@@ -7096,7 +6882,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ch', three: 'CHE' },
         tld: '.ch',
-        geonameId: 2658434,
       },
       {
         id: 216,
@@ -7129,7 +6914,6 @@ module.exports = {
         }),
         abbreviation: { two: 'sy', three: 'SYR' },
         tld: '.sy',
-        geonameId: 163843,
       },
       {
         id: 217,
@@ -7162,7 +6946,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tw', three: 'TWN' },
         tld: '.tw',
-        geonameId: 1668284,
       },
       {
         id: 218,
@@ -7195,7 +6978,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tj', three: 'TJK' },
         tld: '.tj',
-        geonameId: 1220409,
       },
       {
         id: 219,
@@ -7228,7 +7010,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tz', three: 'TZA' },
         tld: '.tz',
-        geonameId: 149590,
       },
       {
         id: 220,
@@ -7261,7 +7042,6 @@ module.exports = {
         }),
         abbreviation: { two: 'th', three: 'THA' },
         tld: '.th',
-        geonameId: 1605651,
       },
       {
         id: 221,
@@ -7294,7 +7074,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gm', three: 'GMB' },
         tld: '.gm',
-        geonameId: 2413451,
       },
       {
         id: 222,
@@ -7327,7 +7106,6 @@ module.exports = {
         }),
         abbreviation: { two: 'nl', three: 'NLD' },
         tld: '.nl',
-        geonameId: 2750405,
       },
       {
         id: 223,
@@ -7360,7 +7138,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tl', three: 'TLS' },
         tld: '.tl',
-        geonameId: 1966436,
       },
       {
         id: 224,
@@ -7393,7 +7170,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tg', three: 'TGO' },
         tld: '.tg',
-        geonameId: 2363686,
       },
       {
         id: 225,
@@ -7426,7 +7202,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tk', three: 'TKL' },
         tld: '.tk',
-        geonameId: 4031074,
       },
       {
         id: 226,
@@ -7459,7 +7234,6 @@ module.exports = {
         }),
         abbreviation: { two: 'to', three: 'TON' },
         tld: '.to',
-        geonameId: 4032283,
       },
       {
         id: 227,
@@ -7492,7 +7266,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tt', three: 'TTO' },
         tld: '.tt',
-        geonameId: 3573591,
       },
       {
         id: 228,
@@ -7525,7 +7298,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tn', three: 'TUN' },
         tld: '.tn',
-        geonameId: 2464461,
       },
       {
         id: 229,
@@ -7558,7 +7330,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tr', three: 'TUR' },
         tld: '.tr',
-        geonameId: 298795,
       },
       {
         id: 230,
@@ -7591,7 +7362,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tm', three: 'TKM' },
         tld: '.tm',
-        geonameId: 1218197,
       },
       {
         id: 231,
@@ -7624,7 +7394,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tc', three: 'TCA' },
         tld: '.tc',
-        geonameId: 3576916,
       },
       {
         id: 232,
@@ -7657,7 +7426,6 @@ module.exports = {
         }),
         abbreviation: { two: 'tv', three: 'TUV' },
         tld: '.tv',
-        geonameId: 2110297,
       },
       {
         id: 233,
@@ -7690,7 +7458,6 @@ module.exports = {
         }),
         abbreviation: { two: 'um', three: 'UMI' },
         tld: '.um',
-        geonameId: 5854968,
       },
       {
         id: 234,
@@ -7723,7 +7490,6 @@ module.exports = {
         }),
         abbreviation: { two: 'vi', three: 'VIR' },
         tld: '.vi',
-        geonameId: 4796775,
       },
       {
         id: 235,
@@ -7756,7 +7522,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ug', three: 'UGA' },
         tld: '.ug',
-        geonameId: 226074,
       },
       {
         id: 236,
@@ -7789,7 +7554,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ua', three: 'UKR' },
         tld: '.ua',
-        geonameId: 690791,
       },
       {
         id: 237,
@@ -7822,7 +7586,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ae', three: 'ARE' },
         tld: '.ae',
-        geonameId: 290557,
       },
       {
         id: 238,
@@ -7855,7 +7618,6 @@ module.exports = {
         }),
         abbreviation: { two: 'gb', three: 'GBR' },
         tld: '.uk',
-        geonameId: 2635167,
       },
       {
         id: 239,
@@ -7888,7 +7650,6 @@ module.exports = {
         }),
         abbreviation: { two: 'us', three: 'USA' },
         tld: '.us',
-        geonameId: 6252001,
       },
       {
         id: 240,
@@ -7921,7 +7682,6 @@ module.exports = {
         }),
         abbreviation: { two: 'uy', three: 'URY' },
         tld: '.uy',
-        geonameId: 3439705,
       },
       {
         id: 241,
@@ -7954,7 +7714,6 @@ module.exports = {
         }),
         abbreviation: { two: 'uz', three: 'UZB' },
         tld: '.uz',
-        geonameId: 1512440,
       },
       {
         id: 242,
@@ -7987,7 +7746,6 @@ module.exports = {
         }),
         abbreviation: { two: 'vu', three: 'VUT' },
         tld: '.vu',
-        geonameId: 2134431,
       },
       {
         id: 243,
@@ -8020,7 +7778,6 @@ module.exports = {
         }),
         abbreviation: { two: 'va', three: 'VAT' },
         tld: '.va',
-        geonameId: 3164670,
       },
       {
         id: 244,
@@ -8053,7 +7810,6 @@ module.exports = {
         }),
         abbreviation: { two: 've', three: 'VEN' },
         tld: '.ve',
-        geonameId: 3625428,
       },
       {
         id: 245,
@@ -8086,7 +7842,6 @@ module.exports = {
         }),
         abbreviation: { two: 'vn', three: 'VNM' },
         tld: '.vn',
-        geonameId: 1562822,
       },
       {
         id: 246,
@@ -8119,7 +7874,6 @@ module.exports = {
         }),
         abbreviation: { two: 'wf', three: 'WLF' },
         tld: '.wf',
-        geonameId: 4034749,
       },
       {
         id: 247,
@@ -8152,7 +7906,6 @@ module.exports = {
         }),
         abbreviation: { two: 'eh', three: 'ESH' },
         tld: '.eh',
-        geonameId: 2461445,
       },
       {
         id: 248,
@@ -8185,7 +7938,6 @@ module.exports = {
         }),
         abbreviation: { two: 'ye', three: 'YEM' },
         tld: '.ye',
-        geonameId: 69543,
       },
       {
         id: 249,
@@ -8218,7 +7970,6 @@ module.exports = {
         }),
         abbreviation: { two: 'zm', three: 'ZMB' },
         tld: '.zm',
-        geonameId: 895949,
       },
       {
         id: 250,
@@ -8251,7 +8002,6 @@ module.exports = {
         }),
         abbreviation: { two: 'zw', three: 'ZWE' },
         tld: '.zw',
-        geonameId: 878675,
       },
     ];
 
@@ -8273,7 +8023,6 @@ module.exports = {
             'popular_name',
             'official_name',
             'abbreviation',
-            'surface_area',
             'tld',
           ],
         });
