@@ -23,11 +23,6 @@ module.exports = {
           unique: true,
           comment: 'Continent abbreviation.',
         },
-        surface_area: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          comment: 'Approximate surface area of the continent (measured in km²).',
-        },
       },
       {
         engine: 'InnoDB',
