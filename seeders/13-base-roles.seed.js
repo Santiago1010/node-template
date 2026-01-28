@@ -26,7 +26,9 @@ const roles = [
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.bulkInsert('config_roles', [roles]);
+    await queryInterface.bulkInsert('config_roles', [roles], {
+      updateOnDuplicate: ['security_level_id', 'name', 'target', 'is_default'],
+    });
   },
 
   down: async (queryInterface) => {

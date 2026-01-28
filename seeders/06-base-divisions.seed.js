@@ -73046,7 +73046,7 @@ module.exports = {
     for (let i = 0; i < divisions.length; i += batchSize) {
       const batch = divisions.slice(i, i + batchSize);
       for (const division of batch) {
-        await queryInterface.bulkInsert('geo_divisions', [division], {
+        await queryInterface.bulkInsert('geo_political_divisions', [division], {
           updateOnDuplicate: [],
         });
       }
@@ -73054,6 +73054,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.bulkDelete('geo_divisions', null, {});
+    await queryInterface.bulkDelete('geo_political_divisions', null, {});
   },
 };

@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'geo_divisions',
+      'geo_political_divisions',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -42,15 +42,15 @@ module.exports = {
       }
     );
 
-    await queryInterface.addIndex('geo_divisions', ['country_id'], {
+    await queryInterface.addIndex('geo_political_divisions', ['country_id'], {
       name: 'country',
     });
 
-    await queryInterface.addIndex('geo_divisions', ['capital_id'], {
+    await queryInterface.addIndex('geo_political_divisions', ['capital_id'], {
       name: 'capital',
     });
 
-    await queryInterface.addConstraint('geo_divisions', {
+    await queryInterface.addConstraint('geo_political_divisions', {
       fields: ['country_id'],
       type: 'foreign key',
       name: 'geo_divisions_ibfk_1',
@@ -61,21 +61,9 @@ module.exports = {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-
-    await queryInterface.addConstraint('geo_divisions', {
-      fields: ['capital_id'],
-      type: 'foreign key',
-      name: 'geo_divisions_ibfk_2',
-      references: {
-        table: 'geo_cities',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('geo_divisions');
+    await queryInterface.dropTable('geo_political_divisions');
   },
 };

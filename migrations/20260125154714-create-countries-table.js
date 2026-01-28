@@ -83,18 +83,6 @@ module.exports = {
     });
 
     await queryInterface.addConstraint('geo_countries', {
-      fields: ['capital_id'],
-      type: 'foreign key',
-      name: 'geo_countries_ibfk_2',
-      references: {
-        table: 'geo_cities',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-
-    await queryInterface.addConstraint('geo_countries', {
       fields: ['flag_id'],
       type: 'foreign key',
       name: 'geo_countries_ibfk_3',

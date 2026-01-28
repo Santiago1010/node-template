@@ -50,7 +50,7 @@ module.exports = {
       type: 'foreign key',
       name: 'geo_cities_ibfk_1',
       references: {
-        table: 'geo_divisions',
+        table: 'geo_political_divisions',
         field: 'id',
       },
       onDelete: 'CASCADE',

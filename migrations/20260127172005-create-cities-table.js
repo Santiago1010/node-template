@@ -89,6 +89,30 @@ module.exports = {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
+
+    await queryInterface.addConstraint('geo_countries', {
+      fields: ['capital_id'],
+      type: 'foreign key',
+      name: 'geo_countries_ibfk_2',
+      references: {
+        table: 'geo_cities',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('geo_political_divisions', {
+      fields: ['capital_id'],
+      type: 'foreign key',
+      name: 'geo_divisions_ibfk_2',
+      references: {
+        table: 'geo_cities',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   },
 
   async down(queryInterface, _Sequelize) {
