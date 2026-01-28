@@ -1,5 +1,37 @@
 
 
+## [1.24.0] - 2026-01-28
+
+**Released:** 2026-01-28 22:48:18 UTC
+
+### [🎯 Merge Request Overview](https://github.com/Santiago1010/node-template/pull/96)
+
+**Note:** No structured PR sections found (📋 Summary, 🔍 What Changed, 📝 Additional Notes)
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: documentation, enhancement, automation
+- Commits: 10
+
+**Commits:**
+- [`12d1069`](https://github.com/Santiago1010/node-template/commit/12d1069527705833736e063870a573c4a113cb59) refactor(db): rename tables and fix foreign key constraints
+- [`f79a06c`](https://github.com/Santiago1010/node-template/commit/f79a06ca73c01293e6147ee0160dea03802fc3e1) chore(config): exclude 0.Project_info directory from biome linting
+- [`244c6bb`](https://github.com/Santiago1010/node-template/commit/244c6bb045b6083d0f1456a46730a02ff8c42a54) fix(db): re-add required scope tables and consolidate constraints
+- [`657863d`](https://github.com/Santiago1010/node-template/commit/657863d1f6a0b02aad2a6150accd6dcdc012fe72) feat(db): create http request logs table with partitioning
+- [`3b544be`](https://github.com/Santiago1010/node-template/commit/3b544be93dd2b9ccabdf7f497cf9b6f5ad98fbb2) refactor(db): reorganize foreign keys and add migration script
+- [`35db91b`](https://github.com/Santiago1010/node-template/commit/35db91b41d36e15ec1ae63e7c0b2d37f6a29ef0c) refactor(db): reorganize foreign keys and add migration script
+- [`f9a871a`](https://github.com/Santiago1010/node-template/commit/f9a871ade7a94b6bc9d8a623b0b40a2f1d60d626) refactor(db): standardize column types and improve migrations
+- [`e70ca34`](https://github.com/Santiago1010/node-template/commit/e70ca346bedeb5bf4caf78b031c37b2fc98ecf50) refactor(db): add database scripts and update data structures
+- [`ea7c659`](https://github.com/Santiago1010/node-template/commit/ea7c659b2ce922389173e419ed7f91e8efe3806c) refactor(db): clean up temporary config and update seeder columns
+- [`efe3a47`](https://github.com/Santiago1010/node-template/commit/efe3a474e30988f0be07b1b234e708ce2e2d3510) fix(db): use actual database name from vault secrets
+
+---
+
+
+
 ## [1.23.0] - 2026-01-27
 
 **Released:** 2026-01-27 16:42:18 UTC
