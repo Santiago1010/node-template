@@ -18,7 +18,7 @@ const divisions = [
       fr: 'Badakhchan',
     }),
     denomination: 'province',
-    geonameId: 1147745,
+    // geonameId: 1147745,
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ const divisions = [
       fr: 'Badghis',
     }),
     denomination: 'province',
-    geonameId: 1147707,
+    // geonameId: 1147707,
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ const divisions = [
       fr: 'Baghlan',
     }),
     denomination: 'province',
-    geonameId: 1147537,
+    // geonameId: 1147537,
   },
   {
     id: 4,
@@ -75,7 +75,7 @@ const divisions = [
       fr: 'Balkh',
     }),
     denomination: 'province',
-    geonameId: 1147288,
+    // geonameId: 1147288,
   },
   {
     id: 5,
@@ -94,7 +94,7 @@ const divisions = [
       fr: 'Bamyan',
     }),
     denomination: 'province',
-    geonameId: 1147239,
+    // geonameId: 1147239,
   },
   {
     id: 6,
@@ -113,7 +113,7 @@ const divisions = [
       fr: 'Daykundi',
     }),
     denomination: 'province',
-    geonameId: 6957553,
+    // geonameId: 6957553,
   },
   {
     id: 7,
@@ -132,7 +132,7 @@ const divisions = [
       fr: 'Farah',
     }),
     denomination: 'province',
-    geonameId: 1142263,
+    // geonameId: 1142263,
   },
   {
     id: 8,
@@ -151,7 +151,7 @@ const divisions = [
       fr: 'Faryab',
     }),
     denomination: 'province',
-    geonameId: 1142226,
+    // geonameId: 1142226,
   },
   {
     id: 9,
@@ -170,7 +170,7 @@ const divisions = [
       fr: 'Ghazni',
     }),
     denomination: 'province',
-    geonameId: 1141268,
+    // geonameId: 1141268,
   },
   {
     id: 10,
@@ -189,7 +189,7 @@ const divisions = [
       fr: 'Ghowr',
     }),
     denomination: 'province',
-    geonameId: 1141103,
+    // geonameId: 1141103,
   },
   {
     id: 11,
@@ -208,7 +208,7 @@ const divisions = [
       fr: 'Helmand',
     }),
     denomination: 'province',
-    geonameId: 1140043,
+    // geonameId: 1140043,
   },
   {
     id: 12,
@@ -227,7 +227,7 @@ const divisions = [
       fr: 'Hérat',
     }),
     denomination: 'province',
-    geonameId: 1140025,
+    // geonameId: 1140025,
   },
   {
     id: 13,
@@ -246,7 +246,7 @@ const divisions = [
       fr: 'Djôzdjân',
     }),
     denomination: 'province',
-    geonameId: 1139049,
+    // geonameId: 1139049,
   },
   {
     id: 14,
@@ -265,7 +265,7 @@ const divisions = [
       fr: 'Kaboul',
     }),
     denomination: 'province',
-    geonameId: 1138957,
+    // geonameId: 1138957,
   },
   {
     id: 15,
@@ -284,7 +284,7 @@ const divisions = [
       fr: 'Kandahar',
     }),
     denomination: 'province',
-    geonameId: 1138335,
+    // geonameId: 1138335,
   },
   {
     id: 16,
@@ -303,7 +303,7 @@ const divisions = [
       fr: 'Kapissa',
     }),
     denomination: 'province',
-    geonameId: 1138255,
+    // geonameId: 1138255,
   },
   {
     id: 17,
@@ -322,7 +322,7 @@ const divisions = [
       fr: 'Khost',
     }),
     denomination: 'province',
-    geonameId: 1444362,
+    // geonameId: 1444362,
   },
   {
     id: 18,
@@ -341,7 +341,7 @@ const divisions = [
       fr: 'Kounar',
     }),
     denomination: 'province',
-    geonameId: 1135702,
+    // geonameId: 1135702,
   },
   {
     id: 19,
@@ -360,7 +360,7 @@ const divisions = [
       fr: 'Kondôz',
     }),
     denomination: 'province',
-    geonameId: 1135690,
+    // geonameId: 1135690,
   },
   {
     id: 20,
@@ -379,7 +379,7 @@ const divisions = [
       fr: 'Laghmân',
     }),
     denomination: 'province',
-    geonameId: 1135022,
+    // geonameId: 1135022,
   },
   {
     id: 21,
@@ -398,7 +398,7 @@ const divisions = [
       fr: 'Logar',
     }),
     denomination: 'province',
-    geonameId: 1134561,
+    // geonameId: 1134561,
   },
   {
     id: 22,
@@ -417,7 +417,7 @@ const divisions = [
       fr: 'Maïdan Wardak',
     }),
     denomination: 'province',
-    geonameId: 1121863,
+    // geonameId: 1121863,
   },
   {
     id: 23,
@@ -436,7 +436,7 @@ const divisions = [
       fr: 'Nangarhâr',
     }),
     denomination: 'province',
-    geonameId: 1132366,
+    // geonameId: 1132366,
   },
   {
     id: 24,
@@ -455,7 +455,7 @@ const divisions = [
       fr: 'Nimroz',
     }),
     denomination: 'province',
-    geonameId: 1131821,
+    // geonameId: 1131821,
   },
   {
     id: 25,
@@ -474,7 +474,7 @@ const divisions = [
       fr: 'Nouristan',
     }),
     denomination: 'province',
-    geonameId: 1444363,
+    // geonameId: 1444363,
   },
   {
     id: 26,
@@ -493,7 +493,7 @@ const divisions = [
       fr: 'Orozgân',
     }),
     denomination: 'province',
-    geonameId: 1131461,
+    // geonameId: 1131461,
   },
   {
     id: 27,
@@ -512,7 +512,7 @@ const divisions = [
       fr: 'Paktiâ',
     }),
     denomination: 'province',
-    geonameId: 1131257,
+    // geonameId: 1131257,
   },
   {
     id: 28,
@@ -531,7 +531,7 @@ const divisions = [
       fr: 'Paktika',
     }),
     denomination: 'province',
-    geonameId: 1131256,
+    // geonameId: 1131256,
   },
   {
     id: 29,
@@ -550,7 +550,7 @@ const divisions = [
       fr: 'Panjchir',
     }),
     denomination: 'province',
-    geonameId: 6957555,
+    // geonameId: 6957555,
   },
   {
     id: 30,
@@ -569,7 +569,7 @@ const divisions = [
       fr: 'Parvân',
     }),
     denomination: 'province',
-    geonameId: 1131054,
+    // geonameId: 1131054,
   },
   {
     id: 31,
@@ -588,7 +588,7 @@ const divisions = [
       fr: 'Samangân',
     }),
     denomination: 'province',
-    geonameId: 1127766,
+    // geonameId: 1127766,
   },
   {
     id: 32,
@@ -607,7 +607,7 @@ const divisions = [
       fr: 'Sar-e Pol',
     }),
     denomination: 'province',
-    geonameId: 1127106,
+    // geonameId: 1127106,
   },
   {
     id: 33,
@@ -626,7 +626,7 @@ const divisions = [
       fr: 'Takhar',
     }),
     denomination: 'province',
-    geonameId: 1123230,
+    // geonameId: 1123230,
   },
   {
     id: 34,
@@ -645,7 +645,7 @@ const divisions = [
       fr: 'Zâbol',
     }),
     denomination: 'province',
-    geonameId: 1121143,
+    // geonameId: 1121143,
   },
   {
     id: 35,
@@ -664,7 +664,7 @@ const divisions = [
       fr: 'Ålands landsbygd',
     }),
     denomination: 'region',
-    geonameId: 9611692,
+    // geonameId: 9611692,
   },
   {
     id: 36,
@@ -683,7 +683,7 @@ const divisions = [
       fr: 'Ålands skärgård',
     }),
     denomination: 'archipelago',
-    geonameId: 9611694,
+    // geonameId: 9611694,
   },
   {
     id: 37,
@@ -702,7 +702,7 @@ const divisions = [
       fr: 'Mariehamn',
     }),
     denomination: 'city',
-    geonameId: 9611689,
+    // geonameId: 9611689,
   },
   {
     id: 38,
@@ -721,7 +721,7 @@ const divisions = [
       fr: 'Comté de Berat',
     }),
     denomination: 'county',
-    geonameId: 865730,
+    // geonameId: 865730,
   },
   {
     id: 39,
@@ -740,7 +740,7 @@ const divisions = [
       fr: 'Comté de Dibër',
     }),
     denomination: 'county',
-    geonameId: 865731,
+    // geonameId: 865731,
   },
   {
     id: 40,
@@ -759,7 +759,7 @@ const divisions = [
       fr: 'Comté de Durrës',
     }),
     denomination: 'county',
-    geonameId: 3344947,
+    // geonameId: 3344947,
   },
   {
     id: 41,
@@ -778,7 +778,7 @@ const divisions = [
       fr: "Comté d'Elbasan",
     }),
     denomination: 'county',
-    geonameId: 865732,
+    // geonameId: 865732,
   },
   {
     id: 42,
@@ -797,7 +797,7 @@ const divisions = [
       fr: 'Comté de Fier',
     }),
     denomination: 'county',
-    geonameId: 3344948,
+    // geonameId: 3344948,
   },
   {
     id: 43,
@@ -816,7 +816,7 @@ const divisions = [
       fr: 'Comté de Gjirokastre',
     }),
     denomination: 'county',
-    geonameId: 865733,
+    // geonameId: 865733,
   },
   {
     id: 44,
@@ -835,7 +835,7 @@ const divisions = [
       fr: 'Comté de Korçë',
     }),
     denomination: 'county',
-    geonameId: 865734,
+    // geonameId: 865734,
   },
   {
     id: 45,
@@ -854,7 +854,7 @@ const divisions = [
       fr: 'Comté de Kukës',
     }),
     denomination: 'county',
-    geonameId: 865735,
+    // geonameId: 865735,
   },
   {
     id: 46,
@@ -873,7 +873,7 @@ const divisions = [
       fr: 'Comté de Lezhë',
     }),
     denomination: 'county',
-    geonameId: 3344949,
+    // geonameId: 3344949,
   },
   {
     id: 47,
@@ -892,7 +892,7 @@ const divisions = [
       fr: 'Comté de Shkodër',
     }),
     denomination: 'county',
-    geonameId: 3344950,
+    // geonameId: 3344950,
   },
   {
     id: 48,
@@ -911,7 +911,7 @@ const divisions = [
       fr: 'Tirana',
     }),
     denomination: 'county',
-    geonameId: 3344951,
+    // geonameId: 3344951,
   },
   {
     id: 49,
@@ -930,7 +930,7 @@ const divisions = [
       fr: 'Comté de Vlorë',
     }),
     denomination: 'county',
-    geonameId: 3344952,
+    // geonameId: 3344952,
   },
   {
     id: 50,
@@ -949,7 +949,7 @@ const divisions = [
       fr: 'Adrar',
     }),
     denomination: 'province',
-    geonameId: 2508807,
+    // geonameId: 2508807,
   },
   {
     id: 51,
@@ -968,7 +968,7 @@ const divisions = [
       fr: 'Aïn Defla',
     }),
     denomination: 'province',
-    geonameId: 2508226,
+    // geonameId: 2508226,
   },
   {
     id: 52,
@@ -987,7 +987,7 @@ const divisions = [
       fr: 'Aïn Témouchent',
     }),
     denomination: 'province',
-    geonameId: 2507899,
+    // geonameId: 2507899,
   },
   {
     id: 53,
@@ -1006,7 +1006,7 @@ const divisions = [
       fr: 'Alger',
     }),
     denomination: 'province',
-    geonameId: 2507475,
+    // geonameId: 2507475,
   },
   {
     id: 54,
@@ -1025,7 +1025,7 @@ const divisions = [
       fr: 'Annaba',
     }),
     denomination: 'province',
-    geonameId: 2506994,
+    // geonameId: 2506994,
   },
   {
     id: 55,
@@ -1044,7 +1044,7 @@ const divisions = [
       fr: 'Batna',
     }),
     denomination: 'province',
-    geonameId: 2505569,
+    // geonameId: 2505569,
   },
   {
     id: 56,
@@ -1063,7 +1063,7 @@ const divisions = [
       fr: 'Béchar',
     }),
     denomination: 'province',
-    geonameId: 2505525,
+    // geonameId: 2505525,
   },
   {
     id: 57,
@@ -1082,7 +1082,7 @@ const divisions = [
       fr: 'Béjaïa',
     }),
     denomination: 'province',
-    geonameId: 2505325,
+    // geonameId: 2505325,
   },
   {
     id: 58,
@@ -1101,7 +1101,7 @@ const divisions = [
       fr: 'Beni Abbes',
     }),
     denomination: 'province',
-    geonameId: 12226385,
+    // geonameId: 12226385,
   },
   {
     id: 59,
@@ -1120,7 +1120,7 @@ const divisions = [
       fr: 'Biskra',
     }),
     denomination: 'province',
-    geonameId: 2503822,
+    // geonameId: 2503822,
   },
   {
     id: 60,
@@ -1139,7 +1139,7 @@ const divisions = [
       fr: 'Blida',
     }),
     denomination: 'province',
-    geonameId: 2503765,
+    // geonameId: 2503765,
   },
   {
     id: 61,
@@ -1158,7 +1158,7 @@ const divisions = [
       fr: 'Bordj Badji Mokhtar',
     }),
     denomination: 'province',
-    geonameId: 12226383,
+    // geonameId: 12226383,
   },
   {
     id: 62,
@@ -1177,7 +1177,7 @@ const divisions = [
       fr: 'Bordj Bou Arreridj',
     }),
     denomination: 'province',
-    geonameId: 2503699,
+    // geonameId: 2503699,
   },
   {
     id: 63,
@@ -1196,7 +1196,7 @@ const divisions = [
       fr: 'Bouira',
     }),
     denomination: 'province',
-    geonameId: 2502951,
+    // geonameId: 2502951,
   },
   {
     id: 64,
@@ -1215,7 +1215,7 @@ const divisions = [
       fr: 'Boumerdes',
     }),
     denomination: 'province',
-    geonameId: 2502638,
+    // geonameId: 2502638,
   },
   {
     id: 65,
@@ -1234,7 +1234,7 @@ const divisions = [
       fr: 'Chlef',
     }),
     denomination: 'province',
-    geonameId: 2501296,
+    // geonameId: 2501296,
   },
   {
     id: 66,
@@ -1253,7 +1253,7 @@ const divisions = [
       fr: 'Constantine',
     }),
     denomination: 'province',
-    geonameId: 2501147,
+    // geonameId: 2501147,
   },
   {
     id: 67,
@@ -1272,7 +1272,7 @@ const divisions = [
       fr: 'Djanet',
     }),
     denomination: 'province',
-    geonameId: 12226388,
+    // geonameId: 12226388,
   },
   {
     id: 68,
@@ -1291,7 +1291,7 @@ const divisions = [
       fr: 'Djelfa',
     }),
     denomination: 'province',
-    geonameId: 2500013,
+    // geonameId: 2500013,
   },
   {
     id: 69,
@@ -1310,7 +1310,7 @@ const divisions = [
       fr: 'El Bayadh',
     }),
     denomination: 'province',
-    geonameId: 2498541,
+    // geonameId: 2498541,
   },
   {
     id: 70,
@@ -1329,7 +1329,7 @@ const divisions = [
       fr: 'El Menia',
     }),
     denomination: 'province',
-    geonameId: 12226389,
+    // geonameId: 12226389,
   },
   {
     id: 71,
@@ -1348,7 +1348,7 @@ const divisions = [
       fr: 'El Mghair',
     }),
     denomination: 'province',
-    geonameId: 12226391,
+    // geonameId: 12226391,
   },
   {
     id: 72,
@@ -1367,7 +1367,7 @@ const divisions = [
       fr: 'El Oued',
     }),
     denomination: 'province',
-    geonameId: 2497406,
+    // geonameId: 2497406,
   },
   {
     id: 73,
@@ -1386,7 +1386,7 @@ const divisions = [
       fr: 'El Tarf',
     }),
     denomination: 'province',
-    geonameId: 2497322,
+    // geonameId: 2497322,
   },
   {
     id: 74,
@@ -1405,7 +1405,7 @@ const divisions = [
       fr: 'Ghardaïa',
     }),
     denomination: 'province',
-    geonameId: 2496045,
+    // geonameId: 2496045,
   },
   {
     id: 75,
@@ -1424,7 +1424,7 @@ const divisions = [
       fr: 'Guelma',
     }),
     denomination: 'province',
-    geonameId: 2495659,
+    // geonameId: 2495659,
   },
   {
     id: 76,
@@ -1443,7 +1443,7 @@ const divisions = [
       fr: 'Illizi',
     }),
     denomination: 'province',
-    geonameId: 2493455,
+    // geonameId: 2493455,
   },
   {
     id: 77,
@@ -1462,7 +1462,7 @@ const divisions = [
       fr: 'In Guezzam',
     }),
     denomination: 'province',
-    geonameId: 12226386,
+    // geonameId: 12226386,
   },
   {
     id: 78,
@@ -1481,7 +1481,7 @@ const divisions = [
       fr: 'In Salah',
     }),
     denomination: 'province',
-    geonameId: 12226387,
+    // geonameId: 12226387,
   },
   {
     id: 79,
@@ -1500,7 +1500,7 @@ const divisions = [
       fr: 'Jijel',
     }),
     denomination: 'province',
-    geonameId: 2492910,
+    // geonameId: 2492910,
   },
   {
     id: 80,
@@ -1519,7 +1519,7 @@ const divisions = [
       fr: 'Khenchela',
     }),
     denomination: 'province',
-    geonameId: 2491887,
+    // geonameId: 2491887,
   },
   {
     id: 81,
@@ -1538,7 +1538,7 @@ const divisions = [
       fr: 'Laghouat',
     }),
     denomination: 'province',
-    geonameId: 2491188,
+    // geonameId: 2491188,
   },
   {
     id: 82,
@@ -1557,7 +1557,7 @@ const divisions = [
       fr: 'Mascara',
     }),
     denomination: 'province',
-    geonameId: 2490095,
+    // geonameId: 2490095,
   },
   {
     id: 83,
@@ -1576,7 +1576,7 @@ const divisions = [
       fr: 'Médéa',
     }),
     denomination: 'province',
-    geonameId: 2488831,
+    // geonameId: 2488831,
   },
   {
     id: 84,
@@ -1595,7 +1595,7 @@ const divisions = [
       fr: 'Mila',
     }),
     denomination: 'province',
-    geonameId: 2487449,
+    // geonameId: 2487449,
   },
   {
     id: 85,
@@ -1614,7 +1614,7 @@ const divisions = [
       fr: 'Mostaganem',
     }),
     denomination: 'province',
-    geonameId: 2487130,
+    // geonameId: 2487130,
   },
   {
     id: 86,
@@ -1633,7 +1633,7 @@ const divisions = [
       fr: 'Msila',
     }),
     denomination: 'province',
-    geonameId: 2486682,
+    // geonameId: 2486682,
   },
   {
     id: 87,
@@ -1652,7 +1652,7 @@ const divisions = [
       fr: 'Naama',
     }),
     denomination: 'province',
-    geonameId: 2486512,
+    // geonameId: 2486512,
   },
   {
     id: 88,
@@ -1671,7 +1671,7 @@ const divisions = [
       fr: 'Oran',
     }),
     denomination: 'province',
-    geonameId: 2485920,
+    // geonameId: 2485920,
   },
   {
     id: 89,
@@ -1690,7 +1690,7 @@ const divisions = [
       fr: 'Ouargla',
     }),
     denomination: 'province',
-    geonameId: 2485794,
+    // geonameId: 2485794,
   },
   {
     id: 90,
@@ -1709,7 +1709,7 @@ const divisions = [
       fr: 'Ouled Djellal',
     }),
     denomination: 'province',
-    geonameId: 12226392,
+    // geonameId: 12226392,
   },
   {
     id: 91,
@@ -1728,7 +1728,7 @@ const divisions = [
       fr: 'Oum el Bouaghi',
     }),
     denomination: 'province',
-    geonameId: 2484618,
+    // geonameId: 2484618,
   },
   {
     id: 92,
@@ -1747,7 +1747,7 @@ const divisions = [
       fr: 'Relizane',
     }),
     denomination: 'province',
-    geonameId: 2483666,
+    // geonameId: 2483666,
   },
   {
     id: 93,
@@ -1766,7 +1766,7 @@ const divisions = [
       fr: 'Saïda',
     }),
     denomination: 'province',
-    geonameId: 2482557,
+    // geonameId: 2482557,
   },
   {
     id: 94,
@@ -1785,7 +1785,7 @@ const divisions = [
       fr: 'Sétif',
     }),
     denomination: 'province',
-    geonameId: 2481696,
+    // geonameId: 2481696,
   },
   {
     id: 95,
@@ -1804,7 +1804,7 @@ const divisions = [
       fr: 'Sidi Bel Abbès',
     }),
     denomination: 'province',
-    geonameId: 2481001,
+    // geonameId: 2481001,
   },
   {
     id: 96,
@@ -1823,7 +1823,7 @@ const divisions = [
       fr: 'Skikda',
     }),
     denomination: 'province',
-    geonameId: 2479532,
+    // geonameId: 2479532,
   },
   {
     id: 97,
@@ -1842,7 +1842,7 @@ const divisions = [
       fr: 'Souk Ahras',
     }),
     denomination: 'province',
-    geonameId: 2479213,
+    // geonameId: 2479213,
   },
   {
     id: 98,
@@ -1861,7 +1861,7 @@ const divisions = [
       fr: 'Tamanrasset',
     }),
     denomination: 'province',
-    geonameId: 2478217,
+    // geonameId: 2478217,
   },
   {
     id: 99,
@@ -1880,7 +1880,7 @@ const divisions = [
       fr: 'Tébessa',
     }),
     denomination: 'province',
-    geonameId: 2477457,
+    // geonameId: 2477457,
   },
   {
     id: 100,
@@ -1899,7 +1899,7 @@ const divisions = [
       fr: 'Tiaret',
     }),
     denomination: 'province',
-    geonameId: 2476893,
+    // geonameId: 2476893,
   },
   {
     id: 101,
@@ -1918,7 +1918,7 @@ const divisions = [
       fr: 'Timimoun',
     }),
     denomination: 'province',
-    geonameId: 12226384,
+    // geonameId: 12226384,
   },
   {
     id: 102,
@@ -1937,7 +1937,7 @@ const divisions = [
       fr: 'Tindouf',
     }),
     denomination: 'province',
-    geonameId: 2476302,
+    // geonameId: 2476302,
   },
   {
     id: 103,
@@ -1956,7 +1956,7 @@ const divisions = [
       fr: 'Tipaza',
     }),
     denomination: 'province',
-    geonameId: 2476027,
+    // geonameId: 2476027,
   },
   {
     id: 104,
@@ -1975,7 +1975,7 @@ const divisions = [
       fr: 'Tissemsilt',
     }),
     denomination: 'province',
-    geonameId: 2475858,
+    // geonameId: 2475858,
   },
   {
     id: 105,
@@ -1994,7 +1994,7 @@ const divisions = [
       fr: 'Tizi Ouzou',
     }),
     denomination: 'province',
-    geonameId: 2475741,
+    // geonameId: 2475741,
   },
   {
     id: 106,
@@ -2013,7 +2013,7 @@ const divisions = [
       fr: 'Tlemcen',
     }),
     denomination: 'province',
-    geonameId: 2475683,
+    // geonameId: 2475683,
   },
   {
     id: 107,
@@ -2032,7 +2032,7 @@ const divisions = [
       fr: 'Touggourt',
     }),
     denomination: 'province',
-    geonameId: 12226390,
+    // geonameId: 12226390,
   },
   {
     id: 108,
@@ -2051,7 +2051,7 @@ const divisions = [
       fr: 'Andorre-la-Vieille',
     }),
     denomination: 'parish',
-    geonameId: 3041566,
+    // geonameId: 3041566,
   },
   {
     id: 109,
@@ -2070,7 +2070,7 @@ const divisions = [
       fr: 'Canillo',
     }),
     denomination: 'parish',
-    geonameId: 3041203,
+    // geonameId: 3041203,
   },
   {
     id: 110,
@@ -2089,7 +2089,7 @@ const divisions = [
       fr: 'Encamp',
     }),
     denomination: 'parish',
-    geonameId: 3040684,
+    // geonameId: 3040684,
   },
   {
     id: 111,
@@ -2108,7 +2108,7 @@ const divisions = [
       fr: 'Escaldes-Engordany',
     }),
     denomination: 'parish',
-    geonameId: 3338529,
+    // geonameId: 3338529,
   },
   {
     id: 112,
@@ -2127,7 +2127,7 @@ const divisions = [
       fr: 'La Massana',
     }),
     denomination: 'parish',
-    geonameId: 3040131,
+    // geonameId: 3040131,
   },
   {
     id: 113,
@@ -2146,7 +2146,7 @@ const divisions = [
       fr: 'Ordino',
     }),
     denomination: 'parish',
-    geonameId: 3039676,
+    // geonameId: 3039676,
   },
   {
     id: 114,
@@ -2165,7 +2165,7 @@ const divisions = [
       fr: 'Sant Julià de Loria',
     }),
     denomination: 'parish',
-    geonameId: 3039162,
+    // geonameId: 3039162,
   },
   {
     id: 115,
@@ -2184,7 +2184,7 @@ const divisions = [
       fr: 'Bengo',
     }),
     denomination: 'province',
-    geonameId: 2243598,
+    // geonameId: 2243598,
   },
   {
     id: 116,
@@ -2203,7 +2203,7 @@ const divisions = [
       fr: 'Benguela',
     }),
     denomination: 'province',
-    geonameId: 3351660,
+    // geonameId: 3351660,
   },
   {
     id: 117,
@@ -2222,7 +2222,7 @@ const divisions = [
       fr: 'Bié',
     }),
     denomination: 'province',
-    geonameId: 3351640,
+    // geonameId: 3351640,
   },
   {
     id: 118,
@@ -2241,7 +2241,7 @@ const divisions = [
       fr: 'Cabinda',
     }),
     denomination: 'province',
-    geonameId: 2243266,
+    // geonameId: 2243266,
   },
   {
     id: 119,
@@ -2260,7 +2260,7 @@ const divisions = [
       fr: 'Cuando Cubango',
     }),
     denomination: 'province',
-    geonameId: 876337,
+    // geonameId: 876337,
   },
   {
     id: 120,
@@ -2279,7 +2279,7 @@ const divisions = [
       fr: 'Cuanza Norte',
     }),
     denomination: 'province',
-    geonameId: 2241660,
+    // geonameId: 2241660,
   },
   {
     id: 121,
@@ -2298,7 +2298,7 @@ const divisions = [
       fr: 'Cunene',
     }),
     denomination: 'province',
-    geonameId: 3349096,
+    // geonameId: 3349096,
   },
   {
     id: 122,
@@ -2317,7 +2317,7 @@ const divisions = [
       fr: 'Huambo',
     }),
     denomination: 'province',
-    geonameId: 3348310,
+    // geonameId: 3348310,
   },
   {
     id: 123,
@@ -2336,7 +2336,7 @@ const divisions = [
       fr: 'Huíla',
     }),
     denomination: 'province',
-    geonameId: 3348303,
+    // geonameId: 3348303,
   },
   {
     id: 124,
@@ -2355,7 +2355,7 @@ const divisions = [
       fr: 'Cuanza Sul',
     }),
     denomination: 'province',
-    geonameId: 3349234,
+    // geonameId: 3349234,
   },
   {
     id: 125,
@@ -2374,7 +2374,7 @@ const divisions = [
       fr: 'Luanda',
     }),
     denomination: 'province',
-    geonameId: 2240444,
+    // geonameId: 2240444,
   },
   {
     id: 126,
@@ -2393,7 +2393,7 @@ const divisions = [
       fr: 'Lunda Norte',
     }),
     denomination: 'province',
-    geonameId: 145702,
+    // geonameId: 145702,
   },
   {
     id: 127,
@@ -2412,7 +2412,7 @@ const divisions = [
       fr: 'Lunda Sul',
     }),
     denomination: 'province',
-    geonameId: 145701,
+    // geonameId: 145701,
   },
   {
     id: 128,
@@ -2431,7 +2431,7 @@ const divisions = [
       fr: 'Malanje',
     }),
     denomination: 'province',
-    geonameId: 2239858,
+    // geonameId: 2239858,
   },
   {
     id: 129,
@@ -2450,7 +2450,7 @@ const divisions = [
       fr: 'Moxico',
     }),
     denomination: 'province',
-    geonameId: 875996,
+    // geonameId: 875996,
   },
   {
     id: 130,
@@ -2469,7 +2469,7 @@ const divisions = [
       fr: 'Namibe',
     }),
     denomination: 'province',
-    geonameId: 3347016,
+    // geonameId: 3347016,
   },
   {
     id: 131,
@@ -2488,7 +2488,7 @@ const divisions = [
       fr: 'Uíge',
     }),
     denomination: 'province',
-    geonameId: 2236566,
+    // geonameId: 2236566,
   },
   {
     id: 132,
@@ -2507,7 +2507,7 @@ const divisions = [
       fr: 'Zaïre',
     }),
     denomination: 'province',
-    geonameId: 2236355,
+    // geonameId: 2236355,
   },
   {
     id: 133,
@@ -2526,7 +2526,7 @@ const divisions = [
       fr: 'Blowing Point',
     }),
     denomination: 'district',
-    geonameId: 11205389,
+    // geonameId: 11205389,
   },
   {
     id: 134,
@@ -2545,7 +2545,7 @@ const divisions = [
       fr: 'East End',
     }),
     denomination: 'district',
-    geonameId: 11205433,
+    // geonameId: 11205433,
   },
   {
     id: 135,
@@ -2564,7 +2564,7 @@ const divisions = [
       fr: 'George Hill',
     }),
     denomination: 'district',
-    geonameId: 11205442,
+    // geonameId: 11205442,
   },
   {
     id: 136,
@@ -2583,7 +2583,7 @@ const divisions = [
       fr: 'Island Harbour',
     }),
     denomination: 'district',
-    geonameId: 11205441,
+    // geonameId: 11205441,
   },
   {
     id: 137,
@@ -2602,7 +2602,7 @@ const divisions = [
       fr: 'North Hill',
     }),
     denomination: 'district',
-    geonameId: 11205436,
+    // geonameId: 11205436,
   },
   {
     id: 138,
@@ -2621,7 +2621,7 @@ const divisions = [
       fr: 'North Side',
     }),
     denomination: 'district',
-    geonameId: 11205440,
+    // geonameId: 11205440,
   },
   {
     id: 139,
@@ -2640,7 +2640,7 @@ const divisions = [
       fr: 'Sandy Ground',
     }),
     denomination: 'district',
-    geonameId: 11205392,
+    // geonameId: 11205392,
   },
   {
     id: 140,
@@ -2659,7 +2659,7 @@ const divisions = [
       fr: 'Sandy Hill',
     }),
     denomination: 'district',
-    geonameId: 11205393,
+    // geonameId: 11205393,
   },
   {
     id: 141,
@@ -2678,7 +2678,7 @@ const divisions = [
       fr: 'South Hill',
     }),
     denomination: 'district',
-    geonameId: 11205438,
+    // geonameId: 11205438,
   },
   {
     id: 142,
@@ -2697,7 +2697,7 @@ const divisions = [
       fr: 'Stoney Ground',
     }),
     denomination: 'district',
-    geonameId: 11205443,
+    // geonameId: 11205443,
   },
   {
     id: 143,
@@ -2716,7 +2716,7 @@ const divisions = [
       fr: 'The Farrington',
     }),
     denomination: 'district',
-    geonameId: 11205444,
+    // geonameId: 11205444,
   },
   {
     id: 144,
@@ -2735,7 +2735,7 @@ const divisions = [
       fr: 'The Quarter',
     }),
     denomination: 'district',
-    geonameId: 11205439,
+    // geonameId: 11205439,
   },
   {
     id: 145,
@@ -2754,7 +2754,7 @@ const divisions = [
       fr: 'The Valley',
     }),
     denomination: 'district',
-    geonameId: 11205396,
+    // geonameId: 11205396,
   },
   {
     id: 146,
@@ -2773,7 +2773,7 @@ const divisions = [
       fr: 'West End',
     }),
     denomination: 'district',
-    geonameId: 11205437,
+    // geonameId: 11205437,
   },
   {
     id: 147,
@@ -2792,7 +2792,7 @@ const divisions = [
       fr: 'Barbuda',
     }),
     denomination: 'dependency',
-    geonameId: 3576390,
+    // geonameId: 3576390,
   },
   {
     id: 148,
@@ -2811,7 +2811,7 @@ const divisions = [
       fr: 'Redonda',
     }),
     denomination: 'dependency',
-    geonameId: 3576037,
+    // geonameId: 3576037,
   },
   {
     id: 149,
@@ -2830,7 +2830,7 @@ const divisions = [
       fr: 'Saint George',
     }),
     denomination: 'parish',
-    geonameId: 3576024,
+    // geonameId: 3576024,
   },
   {
     id: 150,
@@ -2849,7 +2849,7 @@ const divisions = [
       fr: 'Saint John',
     }),
     denomination: 'parish',
-    geonameId: 3576023,
+    // geonameId: 3576023,
   },
   {
     id: 151,
@@ -2868,7 +2868,7 @@ const divisions = [
       fr: 'Saint Mary',
     }),
     denomination: 'parish',
-    geonameId: 3576018,
+    // geonameId: 3576018,
   },
   {
     id: 152,
@@ -2887,7 +2887,7 @@ const divisions = [
       fr: 'Saint Paul',
     }),
     denomination: 'parish',
-    geonameId: 3576017,
+    // geonameId: 3576017,
   },
   {
     id: 153,
@@ -2906,7 +2906,7 @@ const divisions = [
       fr: 'Saint Peter',
     }),
     denomination: 'parish',
-    geonameId: 3576016,
+    // geonameId: 3576016,
   },
   {
     id: 154,
@@ -2925,7 +2925,7 @@ const divisions = [
       fr: 'Saint Philip',
     }),
     denomination: 'parish',
-    geonameId: 3576015,
+    // geonameId: 3576015,
   },
   {
     id: 155,
@@ -2944,7 +2944,7 @@ const divisions = [
       fr: 'Buenos Aires',
     }),
     denomination: 'province',
-    geonameId: 3435907,
+    // geonameId: 3435907,
   },
   {
     id: 156,
@@ -2963,7 +2963,7 @@ const divisions = [
       fr: 'Buenos Aires',
     }),
     denomination: 'autonomous_city',
-    geonameId: 3433955,
+    // geonameId: 3433955,
   },
   {
     id: 157,
@@ -2982,7 +2982,7 @@ const divisions = [
       fr: 'Catamarca',
     }),
     denomination: 'province',
-    geonameId: 3862286,
+    // geonameId: 3862286,
   },
   {
     id: 158,
@@ -3001,7 +3001,7 @@ const divisions = [
       fr: 'Chaco',
     }),
     denomination: 'province',
-    geonameId: 3861887,
+    // geonameId: 3861887,
   },
   {
     id: 159,
@@ -3020,7 +3020,7 @@ const divisions = [
       fr: 'Chubut',
     }),
     denomination: 'province',
-    geonameId: 3861244,
+    // geonameId: 3861244,
   },
   {
     id: 160,
@@ -3039,7 +3039,7 @@ const divisions = [
       fr: 'Córdoba',
     }),
     denomination: 'province',
-    geonameId: 3860255,
+    // geonameId: 3860255,
   },
   {
     id: 161,
@@ -3058,7 +3058,7 @@ const divisions = [
       fr: 'Corrientes',
     }),
     denomination: 'province',
-    geonameId: 3435214,
+    // geonameId: 3435214,
   },
   {
     id: 162,
@@ -3077,7 +3077,7 @@ const divisions = [
       fr: 'Entre Ríos',
     }),
     denomination: 'province',
-    geonameId: 3434137,
+    // geonameId: 3434137,
   },
   {
     id: 163,
@@ -3096,7 +3096,7 @@ const divisions = [
       fr: 'Formosa',
     }),
     denomination: 'province',
-    geonameId: 3433896,
+    // geonameId: 3433896,
   },
   {
     id: 164,
@@ -3115,7 +3115,7 @@ const divisions = [
       fr: 'Jujuy',
     }),
     denomination: 'province',
-    geonameId: 3853404,
+    // geonameId: 3853404,
   },
   {
     id: 165,
@@ -3134,7 +3134,7 @@ const divisions = [
       fr: 'La Pampa',
     }),
     denomination: 'province',
-    geonameId: 3849574,
+    // geonameId: 3849574,
   },
   {
     id: 166,
@@ -3153,7 +3153,7 @@ const divisions = [
       fr: 'La Rioja',
     }),
     denomination: 'province',
-    geonameId: 3848949,
+    // geonameId: 3848949,
   },
   {
     id: 167,
@@ -3172,7 +3172,7 @@ const divisions = [
       fr: 'Mendoza',
     }),
     denomination: 'province',
-    geonameId: 3844419,
+    // geonameId: 3844419,
   },
   {
     id: 168,
@@ -3191,7 +3191,7 @@ const divisions = [
       fr: 'Misiones',
     }),
     denomination: 'province',
-    geonameId: 3430657,
+    // geonameId: 3430657,
   },
   {
     id: 169,
@@ -3210,7 +3210,7 @@ const divisions = [
       fr: 'Neuquén',
     }),
     denomination: 'province',
-    geonameId: 3843122,
+    // geonameId: 3843122,
   },
   {
     id: 170,
@@ -3229,7 +3229,7 @@ const divisions = [
       fr: 'Río Negro',
     }),
     denomination: 'province',
-    geonameId: 3838830,
+    // geonameId: 3838830,
   },
   {
     id: 171,
@@ -3248,7 +3248,7 @@ const divisions = [
       fr: 'Salta',
     }),
     denomination: 'province',
-    geonameId: 3838231,
+    // geonameId: 3838231,
   },
   {
     id: 172,
@@ -3267,7 +3267,7 @@ const divisions = [
       fr: 'San Juan',
     }),
     denomination: 'province',
-    geonameId: 3837152,
+    // geonameId: 3837152,
   },
   {
     id: 173,
@@ -3286,7 +3286,7 @@ const divisions = [
       fr: 'San Luis',
     }),
     denomination: 'province',
-    geonameId: 3837029,
+    // geonameId: 3837029,
   },
   {
     id: 174,
@@ -3305,7 +3305,7 @@ const divisions = [
       fr: 'Santa Cruz',
     }),
     denomination: 'province',
-    geonameId: 3836350,
+    // geonameId: 3836350,
   },
   {
     id: 175,
@@ -3324,7 +3324,7 @@ const divisions = [
       fr: 'Santa Fe',
     }),
     denomination: 'province',
-    geonameId: 3836276,
+    // geonameId: 3836276,
   },
   {
     id: 176,
@@ -3343,7 +3343,7 @@ const divisions = [
       fr: 'Santiago del Estero',
     }),
     denomination: 'province',
-    geonameId: 3835868,
+    // geonameId: 3835868,
   },
   {
     id: 177,
@@ -3362,7 +3362,7 @@ const divisions = [
       fr: 'Terre de Feu',
     }),
     denomination: 'province',
-    geonameId: 3834450,
+    // geonameId: 3834450,
   },
   {
     id: 178,
@@ -3381,7 +3381,7 @@ const divisions = [
       fr: 'Tucumán',
     }),
     denomination: 'province',
-    geonameId: 3833578,
+    // geonameId: 3833578,
   },
   {
     id: 179,
@@ -3400,7 +3400,7 @@ const divisions = [
       fr: 'Aragatsotn',
     }),
     denomination: 'province',
-    geonameId: 828259,
+    // geonameId: 828259,
   },
   {
     id: 180,
@@ -3419,7 +3419,7 @@ const divisions = [
       fr: 'Ararat',
     }),
     denomination: 'province',
-    geonameId: 409313,
+    // geonameId: 409313,
   },
   {
     id: 181,
@@ -3438,7 +3438,7 @@ const divisions = [
       fr: 'Armavir',
     }),
     denomination: 'province',
-    geonameId: 828260,
+    // geonameId: 828260,
   },
   {
     id: 182,
@@ -3457,7 +3457,7 @@ const divisions = [
       fr: 'Gegharkunik',
     }),
     denomination: 'province',
-    geonameId: 828261,
+    // geonameId: 828261,
   },
   {
     id: 183,
@@ -3476,7 +3476,7 @@ const divisions = [
       fr: 'Kotayk',
     }),
     denomination: 'province',
-    geonameId: 828262,
+    // geonameId: 828262,
   },
   {
     id: 184,
@@ -3495,7 +3495,7 @@ const divisions = [
       fr: 'Lori',
     }),
     denomination: 'province',
-    geonameId: 828263,
+    // geonameId: 828263,
   },
   {
     id: 185,
@@ -3514,7 +3514,7 @@ const divisions = [
       fr: 'Chirak',
     }),
     denomination: 'province',
-    geonameId: 828264,
+    // geonameId: 828264,
   },
   {
     id: 186,
@@ -3533,7 +3533,7 @@ const divisions = [
       fr: 'Syunik',
     }),
     denomination: 'province',
-    geonameId: 409314,
+    // geonameId: 409314,
   },
   {
     id: 187,
@@ -3552,7 +3552,7 @@ const divisions = [
       fr: 'Tavouch',
     }),
     denomination: 'province',
-    geonameId: 828265,
+    // geonameId: 828265,
   },
   {
     id: 188,
@@ -3571,7 +3571,7 @@ const divisions = [
       fr: 'Vayots Dzor',
     }),
     denomination: 'province',
-    geonameId: 409315,
+    // geonameId: 409315,
   },
   {
     id: 189,
@@ -3590,7 +3590,7 @@ const divisions = [
       fr: 'Erevan',
     }),
     denomination: 'city',
-    geonameId: 616051,
+    // geonameId: 616051,
   },
   {
     id: 190,
@@ -3609,7 +3609,7 @@ const divisions = [
       fr: 'Territoire de la capitale australienne',
     }),
     denomination: 'territory',
-    geonameId: 2177478,
+    // geonameId: 2177478,
   },
   {
     id: 191,
@@ -3628,7 +3628,7 @@ const divisions = [
       fr: 'Nouvelle-Galles du Sud',
     }),
     denomination: 'state',
-    geonameId: 2155400,
+    // geonameId: 2155400,
   },
   {
     id: 192,
@@ -3647,7 +3647,7 @@ const divisions = [
       fr: 'Territoire du Nord',
     }),
     denomination: 'territory',
-    geonameId: 2064513,
+    // geonameId: 2064513,
   },
   {
     id: 193,
@@ -3666,7 +3666,7 @@ const divisions = [
       fr: 'Queensland',
     }),
     denomination: 'state',
-    geonameId: 2152274,
+    // geonameId: 2152274,
   },
   {
     id: 194,
@@ -3685,7 +3685,7 @@ const divisions = [
       fr: 'Australie-Méridionale',
     }),
     denomination: 'state',
-    geonameId: 2061327,
+    // geonameId: 2061327,
   },
   {
     id: 195,
@@ -3704,7 +3704,7 @@ const divisions = [
       fr: 'Tasmanie',
     }),
     denomination: 'state',
-    geonameId: 2147291,
+    // geonameId: 2147291,
   },
   {
     id: 196,
@@ -3723,7 +3723,7 @@ const divisions = [
       fr: 'Victoria',
     }),
     denomination: 'state',
-    geonameId: 2145234,
+    // geonameId: 2145234,
   },
   {
     id: 197,
@@ -3742,7 +3742,7 @@ const divisions = [
       fr: 'Australie-Occidentale',
     }),
     denomination: 'state',
-    geonameId: 2058645,
+    // geonameId: 2058645,
   },
   {
     id: 198,
@@ -3761,7 +3761,7 @@ const divisions = [
       fr: 'Burgenland',
     }),
     denomination: 'state',
-    geonameId: 2781194,
+    // geonameId: 2781194,
   },
   {
     id: 199,
@@ -3780,7 +3780,7 @@ const divisions = [
       fr: 'Carinthie',
     }),
     denomination: 'state',
-    geonameId: 2774686,
+    // geonameId: 2774686,
   },
   {
     id: 200,
@@ -3799,7 +3799,7 @@ const divisions = [
       fr: 'Basse-Autriche',
     }),
     denomination: 'state',
-    geonameId: 2770542,
+    // geonameId: 2770542,
   },
   {
     id: 201,
@@ -3818,7 +3818,7 @@ const divisions = [
       fr: 'Salzbourg',
     }),
     denomination: 'state',
-    geonameId: 2766823,
+    // geonameId: 2766823,
   },
   {
     id: 202,
@@ -3837,7 +3837,7 @@ const divisions = [
       fr: 'Styrie',
     }),
     denomination: 'state',
-    geonameId: 2764581,
+    // geonameId: 2764581,
   },
   {
     id: 203,
@@ -3856,7 +3856,7 @@ const divisions = [
       fr: 'Tyrol',
     }),
     denomination: 'state',
-    geonameId: 2763586,
+    // geonameId: 2763586,
   },
   {
     id: 204,
@@ -3875,7 +3875,7 @@ const divisions = [
       fr: 'Haute-Autriche',
     }),
     denomination: 'state',
-    geonameId: 2769848,
+    // geonameId: 2769848,
   },
   {
     id: 205,
@@ -3894,7 +3894,7 @@ const divisions = [
       fr: 'Vienne',
     }),
     denomination: 'state',
-    geonameId: 2761367,
+    // geonameId: 2761367,
   },
   {
     id: 206,
@@ -3913,7 +3913,7 @@ const divisions = [
       fr: 'Vorarlberg',
     }),
     denomination: 'state',
-    geonameId: 2762300,
+    // geonameId: 2762300,
   },
   {
     id: 207,
@@ -3932,7 +3932,7 @@ const divisions = [
       fr: 'Abchéron',
     }),
     denomination: 'rayon',
-    geonameId: 587245,
+    // geonameId: 587245,
   },
   {
     id: 208,
@@ -3951,7 +3951,7 @@ const divisions = [
       fr: 'Agdam',
     }),
     denomination: 'rayon',
-    geonameId: 148617,
+    // geonameId: 148617,
   },
   {
     id: 209,
@@ -3970,7 +3970,7 @@ const divisions = [
       fr: 'Aghdach',
     }),
     denomination: 'rayon',
-    geonameId: 587376,
+    // geonameId: 587376,
   },
   {
     id: 210,
@@ -3989,7 +3989,7 @@ const divisions = [
       fr: 'Agdjabadi',
     }),
     denomination: 'rayon',
-    geonameId: 148615,
+    // geonameId: 148615,
   },
   {
     id: 211,
@@ -4008,7 +4008,7 @@ const divisions = [
       fr: 'Agstafa',
     }),
     denomination: 'rayon',
-    geonameId: 828297,
+    // geonameId: 828297,
   },
   {
     id: 212,
@@ -4027,7 +4027,7 @@ const divisions = [
       fr: 'Agsou',
     }),
     denomination: 'district',
-    geonameId: 587342,
+    // geonameId: 587342,
   },
   {
     id: 213,
@@ -4046,7 +4046,7 @@ const divisions = [
       fr: 'Astara',
     }),
     denomination: 'district',
-    geonameId: 148442,
+    // geonameId: 148442,
   },
   {
     id: 214,
@@ -4065,7 +4065,7 @@ const divisions = [
       fr: 'Bakou',
     }),
     denomination: 'city',
-    geonameId: 587081,
+    // geonameId: 587081,
   },
   {
     id: 215,
@@ -4084,7 +4084,7 @@ const divisions = [
       fr: 'Bələkən',
     }),
     denomination: 'district',
-    geonameId: 587010,
+    // geonameId: 587010,
   },
   {
     id: 216,
@@ -4103,7 +4103,7 @@ const divisions = [
       fr: 'Bərdə',
     }),
     denomination: 'district',
-    geonameId: 587056,
+    // geonameId: 587056,
   },
   {
     id: 217,
@@ -4122,7 +4122,7 @@ const divisions = [
       fr: 'Beylagan',
     }),
     denomination: 'rayon',
-    geonameId: 146879,
+    // geonameId: 146879,
   },
   {
     id: 218,
@@ -4141,7 +4141,7 @@ const divisions = [
       fr: 'Bilasuvar',
     }),
     denomination: 'district',
-    geonameId: 147310,
+    // geonameId: 147310,
   },
   {
     id: 219,
@@ -4160,7 +4160,7 @@ const divisions = [
       fr: 'Dachkésan',
     }),
     denomination: 'rayon',
-    geonameId: 586771,
+    // geonameId: 586771,
   },
   {
     id: 220,
@@ -4179,7 +4179,7 @@ const divisions = [
       fr: 'Fizouli',
     }),
     denomination: 'district',
-    geonameId: 148107,
+    // geonameId: 148107,
   },
   {
     id: 221,
@@ -4198,7 +4198,7 @@ const divisions = [
       fr: 'Gadabay',
     }),
     denomination: 'district',
-    geonameId: 627535,
+    // geonameId: 627535,
   },
   {
     id: 222,
@@ -4217,7 +4217,7 @@ const divisions = [
       fr: 'Gandja',
     }),
     denomination: 'city',
-    geonameId: 828298,
+    // geonameId: 828298,
   },
   {
     id: 223,
@@ -4236,7 +4236,7 @@ const divisions = [
       fr: 'Gobustan',
     }),
     denomination: 'rayon',
-    geonameId: 828301,
+    // geonameId: 828301,
   },
   {
     id: 224,
@@ -4255,7 +4255,7 @@ const divisions = [
       fr: 'Goranboy',
     }),
     denomination: 'district',
-    geonameId: 586112,
+    // geonameId: 586112,
   },
   {
     id: 225,
@@ -4274,7 +4274,7 @@ const divisions = [
       fr: 'Göychaï',
     }),
     denomination: 'rayon',
-    geonameId: 586482,
+    // geonameId: 586482,
   },
   {
     id: 226,
@@ -4293,7 +4293,7 @@ const divisions = [
       fr: 'Göygöl',
     }),
     denomination: 'rayon',
-    geonameId: 585967,
+    // geonameId: 585967,
   },
   {
     id: 227,
@@ -4312,7 +4312,7 @@ const divisions = [
       fr: 'Hadjigabul',
     }),
     denomination: 'rayon',
-    geonameId: 828315,
+    // geonameId: 828315,
   },
   {
     id: 228,
@@ -4331,7 +4331,7 @@ const divisions = [
       fr: 'Imichli',
     }),
     denomination: 'rayon',
-    geonameId: 147983,
+    // geonameId: 147983,
   },
   {
     id: 229,
@@ -4350,7 +4350,7 @@ const divisions = [
       fr: 'Ismailli',
     }),
     denomination: 'district',
-    geonameId: 586320,
+    // geonameId: 586320,
   },
   {
     id: 230,
@@ -4369,7 +4369,7 @@ const divisions = [
       fr: 'Djebrail',
     }),
     denomination: 'district',
-    geonameId: 148140,
+    // geonameId: 148140,
   },
   {
     id: 231,
@@ -4388,7 +4388,7 @@ const divisions = [
       fr: 'Djélilabad',
     }),
     denomination: 'district',
-    geonameId: 148155,
+    // geonameId: 148155,
   },
   {
     id: 232,
@@ -4407,7 +4407,7 @@ const divisions = [
       fr: 'Kalbajar',
     }),
     denomination: 'district',
-    geonameId: 586047,
+    // geonameId: 586047,
   },
   {
     id: 233,
@@ -4426,7 +4426,7 @@ const divisions = [
       fr: 'Khachmaz',
     }),
     denomination: 'rayon',
-    geonameId: 586001,
+    // geonameId: 586001,
   },
   {
     id: 234,
@@ -4445,7 +4445,7 @@ const divisions = [
       fr: 'Khizi',
     }),
     denomination: 'rayon',
-    geonameId: 828306,
+    // geonameId: 828306,
   },
   {
     id: 235,
@@ -4464,7 +4464,7 @@ const divisions = [
       fr: 'Khodjavend',
     }),
     denomination: 'district',
-    geonameId: 409423,
+    // geonameId: 409423,
   },
   {
     id: 236,
@@ -4483,7 +4483,7 @@ const divisions = [
       fr: 'Kourdémir',
     }),
     denomination: 'district',
-    geonameId: 585686,
+    // geonameId: 585686,
   },
   {
     id: 237,
@@ -4502,7 +4502,7 @@ const divisions = [
       fr: 'Latchine',
     }),
     denomination: 'rayon',
-    geonameId: 147626,
+    // geonameId: 147626,
   },
   {
     id: 238,
@@ -4521,7 +4521,7 @@ const divisions = [
       fr: 'Lenkoran',
     }),
     denomination: 'rayon',
-    geonameId: 147613,
+    // geonameId: 147613,
   },
   {
     id: 239,
@@ -4540,7 +4540,7 @@ const divisions = [
       fr: 'Lenkoran',
     }),
     denomination: 'city',
-    geonameId: 409418,
+    // geonameId: 409418,
   },
   {
     id: 240,
@@ -4559,7 +4559,7 @@ const divisions = [
       fr: 'Lerik',
     }),
     denomination: 'district',
-    geonameId: 147610,
+    // geonameId: 147610,
   },
   {
     id: 241,
@@ -4578,7 +4578,7 @@ const divisions = [
       fr: 'Massaly',
     }),
     denomination: 'district',
-    geonameId: 147551,
+    // geonameId: 147551,
   },
   {
     id: 242,
@@ -4597,7 +4597,7 @@ const divisions = [
       fr: 'Minguechevir',
     }),
     denomination: 'city',
-    geonameId: 828299,
+    // geonameId: 828299,
   },
   {
     id: 243,
@@ -4616,7 +4616,7 @@ const divisions = [
       fr: 'Naftalan',
     }),
     denomination: 'city',
-    geonameId: 828300,
+    // geonameId: 828300,
   },
   {
     id: 244,
@@ -4635,7 +4635,7 @@ const divisions = [
       fr: 'Nakhitchevan',
     }),
     denomination: 'autonomous_republic',
-    geonameId: 147435,
+    // geonameId: 147435,
   },
   {
     id: 245,
@@ -4654,7 +4654,7 @@ const divisions = [
       fr: 'Neftchala',
     }),
     denomination: 'rayon',
-    geonameId: 147422,
+    // geonameId: 147422,
   },
   {
     id: 246,
@@ -4673,7 +4673,7 @@ const divisions = [
       fr: 'Ogouz',
     }),
     denomination: 'rayon',
-    geonameId: 584742,
+    // geonameId: 584742,
   },
   {
     id: 247,
@@ -4692,7 +4692,7 @@ const divisions = [
       fr: 'Gabala',
     }),
     denomination: 'district',
-    geonameId: 585738,
+    // geonameId: 585738,
   },
   {
     id: 248,
@@ -4711,7 +4711,7 @@ const divisions = [
       fr: 'Kakh',
     }),
     denomination: 'rayon',
-    geonameId: 586290,
+    // geonameId: 586290,
   },
   {
     id: 249,
@@ -4730,7 +4730,7 @@ const divisions = [
       fr: 'Gazakh',
     }),
     denomination: 'rayon',
-    geonameId: 586087,
+    // geonameId: 586087,
   },
   {
     id: 250,
@@ -4749,7 +4749,7 @@ const divisions = [
       fr: 'Qouba',
     }),
     denomination: 'rayon',
-    geonameId: 585786,
+    // geonameId: 585786,
   },
   {
     id: 251,
@@ -4768,7 +4768,7 @@ const divisions = [
       fr: 'Koubadly',
     }),
     denomination: 'rayon',
-    geonameId: 147694,
+    // geonameId: 147694,
   },
   {
     id: 252,
@@ -4787,7 +4787,7 @@ const divisions = [
       fr: 'Koussar',
     }),
     denomination: 'district',
-    geonameId: 585749,
+    // geonameId: 585749,
   },
   {
     id: 253,
@@ -4806,7 +4806,7 @@ const divisions = [
       fr: 'Saâtly',
     }),
     denomination: 'rayon',
-    geonameId: 147287,
+    // geonameId: 147287,
   },
   {
     id: 254,
@@ -4825,7 +4825,7 @@ const divisions = [
       fr: 'Sabirabad',
     }),
     denomination: 'district',
-    geonameId: 147284,
+    // geonameId: 147284,
   },
   {
     id: 255,
@@ -4844,7 +4844,7 @@ const divisions = [
       fr: 'Salyan',
     }),
     denomination: 'district',
-    geonameId: 147269,
+    // geonameId: 147269,
   },
   {
     id: 256,
@@ -4863,7 +4863,7 @@ const divisions = [
       fr: 'Samoukh',
     }),
     denomination: 'rayon',
-    geonameId: 828302,
+    // geonameId: 828302,
   },
   {
     id: 257,
@@ -4882,7 +4882,7 @@ const divisions = [
       fr: 'Chabran',
     }),
     denomination: 'district',
-    geonameId: 586725,
+    // geonameId: 586725,
   },
   {
     id: 258,
@@ -4901,7 +4901,7 @@ const divisions = [
       fr: 'Cheki',
     }),
     denomination: 'district',
-    geonameId: 585031,
+    // geonameId: 585031,
   },
   {
     id: 259,
@@ -4920,7 +4920,7 @@ const divisions = [
       fr: 'Cheki',
     }),
     denomination: 'city',
-    geonameId: 828303,
+    // geonameId: 828303,
   },
   {
     id: 260,
@@ -4939,7 +4939,7 @@ const divisions = [
       fr: 'Chamakhi',
     }),
     denomination: 'rayon',
-    geonameId: 585030,
+    // geonameId: 585030,
   },
   {
     id: 261,
@@ -4958,7 +4958,7 @@ const divisions = [
       fr: 'Chemkir',
     }),
     denomination: 'rayon',
-    geonameId: 585059,
+    // geonameId: 585059,
   },
   {
     id: 262,
@@ -4977,7 +4977,7 @@ const divisions = [
       fr: 'Chirvan',
     }),
     denomination: 'city',
-    geonameId: 409417,
+    // geonameId: 409417,
   },
   {
     id: 263,
@@ -4996,7 +4996,7 @@ const divisions = [
       fr: 'Choucha',
     }),
     denomination: 'district',
-    geonameId: 147163,
+    // geonameId: 147163,
   },
   {
     id: 264,
@@ -5015,7 +5015,7 @@ const divisions = [
       fr: 'Choucha',
     }),
     denomination: 'city',
-    geonameId: 409419,
+    // geonameId: 409419,
   },
   {
     id: 265,
@@ -5034,7 +5034,7 @@ const divisions = [
       fr: 'Siazan',
     }),
     denomination: 'rayon',
-    geonameId: 828304,
+    // geonameId: 828304,
   },
   {
     id: 266,
@@ -5053,7 +5053,7 @@ const divisions = [
       fr: 'Sumgait',
     }),
     denomination: 'city',
-    geonameId: 828305,
+    // geonameId: 828305,
   },
   {
     id: 267,
@@ -5072,7 +5072,7 @@ const divisions = [
       fr: 'Terter',
     }),
     denomination: 'district',
-    geonameId: 409420,
+    // geonameId: 409420,
   },
   {
     id: 268,
@@ -5091,7 +5091,7 @@ const divisions = [
       fr: 'Tovouz',
     }),
     denomination: 'district',
-    geonameId: 584861,
+    // geonameId: 584861,
   },
   {
     id: 269,
@@ -5110,7 +5110,7 @@ const divisions = [
       fr: 'Oudjar',
     }),
     denomination: 'rayon',
-    geonameId: 584783,
+    // geonameId: 584783,
   },
   {
     id: 270,
@@ -5129,7 +5129,7 @@ const divisions = [
       fr: 'Khan Kendi',
     }),
     denomination: 'city',
-    geonameId: 409421,
+    // geonameId: 409421,
   },
   {
     id: 271,
@@ -5148,7 +5148,7 @@ const divisions = [
       fr: 'Khodjaly',
     }),
     denomination: 'rayon',
-    geonameId: 148449,
+    // geonameId: 148449,
   },
   {
     id: 272,
@@ -5167,7 +5167,7 @@ const divisions = [
       fr: 'Yardymly',
     }),
     denomination: 'district',
-    geonameId: 146962,
+    // geonameId: 146962,
   },
   {
     id: 273,
@@ -5186,7 +5186,7 @@ const divisions = [
       fr: 'Yevlakh',
     }),
     denomination: 'rayon',
-    geonameId: 584650,
+    // geonameId: 584650,
   },
   {
     id: 274,
@@ -5205,7 +5205,7 @@ const divisions = [
       fr: 'Yevlakh',
     }),
     denomination: 'city',
-    geonameId: 828307,
+    // geonameId: 828307,
   },
   {
     id: 275,
@@ -5224,7 +5224,7 @@ const divisions = [
       fr: 'Zanguilan',
     }),
     denomination: 'district',
-    geonameId: 146900,
+    // geonameId: 146900,
   },
   {
     id: 276,
@@ -5243,7 +5243,7 @@ const divisions = [
       fr: 'Zakatala',
     }),
     denomination: 'district',
-    geonameId: 584604,
+    // geonameId: 584604,
   },
   {
     id: 277,
@@ -5262,7 +5262,7 @@ const divisions = [
       fr: 'Zardab',
     }),
     denomination: 'rayon',
-    geonameId: 584583,
+    // geonameId: 584583,
   },
   {
     id: 278,
@@ -5281,7 +5281,7 @@ const divisions = [
       fr: 'Acklins',
     }),
     denomination: 'island_district',
-    geonameId: 3572937,
+    // geonameId: 3572937,
   },
   {
     id: 279,
@@ -5300,7 +5300,7 @@ const divisions = [
       fr: 'Îles Berry',
     }),
     denomination: 'islands',
-    geonameId: 3571809,
+    // geonameId: 3571809,
   },
   {
     id: 280,
@@ -5319,7 +5319,7 @@ const divisions = [
       fr: 'Bimini',
     }),
     denomination: 'district',
-    geonameId: 3572807,
+    // geonameId: 3572807,
   },
   {
     id: 281,
@@ -5338,7 +5338,7 @@ const divisions = [
       fr: 'Black Point',
     }),
     denomination: 'district',
-    geonameId: 8030541,
+    // geonameId: 8030541,
   },
   {
     id: 282,
@@ -5357,7 +5357,7 @@ const divisions = [
       fr: 'Île du Chat',
     }),
     denomination: 'island_district',
-    geonameId: 3572678,
+    // geonameId: 3572678,
   },
   {
     id: 283,
@@ -5376,7 +5376,7 @@ const divisions = [
       fr: 'Abaco central',
     }),
     denomination: 'district',
-    geonameId: 8030542,
+    // geonameId: 8030542,
   },
   {
     id: 284,
@@ -5395,7 +5395,7 @@ const divisions = [
       fr: 'Andros central',
     }),
     denomination: 'district',
-    geonameId: 8030543,
+    // geonameId: 8030543,
   },
   {
     id: 285,
@@ -5414,7 +5414,7 @@ const divisions = [
       fr: 'Eleuthera central',
     }),
     denomination: 'district',
-    geonameId: 8030544,
+    // geonameId: 8030544,
   },
   {
     id: 286,
@@ -5433,7 +5433,7 @@ const divisions = [
       fr: 'Crooked Island et Long Cay',
     }),
     denomination: 'island_district',
-    geonameId: 8030545,
+    // geonameId: 8030545,
   },
   {
     id: 287,
@@ -5452,7 +5452,7 @@ const divisions = [
       fr: 'Grand Bahama oriental',
     }),
     denomination: 'district',
-    geonameId: 8030546,
+    // geonameId: 8030546,
   },
   {
     id: 288,
@@ -5471,7 +5471,7 @@ const divisions = [
       fr: 'Exuma',
     }),
     denomination: 'district',
-    geonameId: 3572427,
+    // geonameId: 3572427,
   },
   {
     id: 289,
@@ -5490,7 +5490,7 @@ const divisions = [
       fr: 'Freeport',
     }),
     denomination: 'city',
-    geonameId: 3572374,
+    // geonameId: 3572374,
   },
   {
     id: 290,
@@ -5509,7 +5509,7 @@ const divisions = [
       fr: 'Grand Cay',
     }),
     denomination: 'district',
-    geonameId: 8030547,
+    // geonameId: 8030547,
   },
   {
     id: 291,
@@ -5528,7 +5528,7 @@ const divisions = [
       fr: 'Île Harbour',
     }),
     denomination: 'district',
-    geonameId: 3572238,
+    // geonameId: 3572238,
   },
   {
     id: 292,
@@ -5547,7 +5547,7 @@ const divisions = [
       fr: 'Hope Town',
     }),
     denomination: 'district',
-    geonameId: 8030548,
+    // geonameId: 8030548,
   },
   {
     id: 293,
@@ -5566,7 +5566,7 @@ const divisions = [
       fr: 'Inagua',
     }),
     denomination: 'district',
-    geonameId: 3572154,
+    // geonameId: 3572154,
   },
   {
     id: 294,
@@ -5585,7 +5585,7 @@ const divisions = [
       fr: 'Île Longue',
     }),
     denomination: 'district',
-    geonameId: 3572005,
+    // geonameId: 3572005,
   },
   {
     id: 295,
@@ -5604,7 +5604,7 @@ const divisions = [
       fr: 'Caye Mangrove',
     }),
     denomination: 'district',
-    geonameId: 8030549,
+    // geonameId: 8030549,
   },
   {
     id: 296,
@@ -5623,7 +5623,7 @@ const divisions = [
       fr: 'Mayaguana',
     }),
     denomination: 'island_district',
-    geonameId: 3571894,
+    // geonameId: 3571894,
   },
   {
     id: 297,
@@ -5642,7 +5642,7 @@ const divisions = [
       fr: 'Île Moore',
     }),
     denomination: 'island_district',
-    geonameId: 8030550,
+    // geonameId: 8030550,
   },
   {
     id: 298,
@@ -5661,7 +5661,7 @@ const divisions = [
       fr: 'New Providence',
     }),
     denomination: 'island_district',
-    geonameId: 3571815,
+    // geonameId: 3571815,
   },
   {
     id: 299,
@@ -5680,7 +5680,7 @@ const divisions = [
       fr: 'Abaco nord',
     }),
     denomination: 'district',
-    geonameId: 8030551,
+    // geonameId: 8030551,
   },
   {
     id: 300,
@@ -5699,7 +5699,7 @@ const divisions = [
       fr: 'Andros nord',
     }),
     denomination: 'district',
-    geonameId: 8030552,
+    // geonameId: 8030552,
   },
   {
     id: 301,
@@ -5718,7 +5718,7 @@ const divisions = [
       fr: 'Eleuthera nord',
     }),
     denomination: 'district',
-    geonameId: 8030553,
+    // geonameId: 8030553,
   },
   {
     id: 302,
@@ -5737,7 +5737,7 @@ const divisions = [
       fr: 'Île Ragged',
     }),
     denomination: 'district',
-    geonameId: 3571629,
+    // geonameId: 3571629,
   },
   {
     id: 303,
@@ -5756,7 +5756,7 @@ const divisions = [
       fr: 'Caye Rum',
     }),
     denomination: 'district',
-    geonameId: 8030554,
+    // geonameId: 8030554,
   },
   {
     id: 304,
@@ -5775,7 +5775,7 @@ const divisions = [
       fr: 'San Salvador',
     }),
     denomination: 'island_district',
-    geonameId: 3571493,
+    // geonameId: 3571493,
   },
   {
     id: 305,
@@ -5794,7 +5794,7 @@ const divisions = [
       fr: 'Abaco sud',
     }),
     denomination: 'district',
-    geonameId: 8030555,
+    // geonameId: 8030555,
   },
   {
     id: 306,
@@ -5813,7 +5813,7 @@ const divisions = [
       fr: 'Andros sud',
     }),
     denomination: 'district',
-    geonameId: 8030556,
+    // geonameId: 8030556,
   },
   {
     id: 307,
@@ -5832,7 +5832,7 @@ const divisions = [
       fr: 'Eleuthera sud',
     }),
     denomination: 'district',
-    geonameId: 8030557,
+    // geonameId: 8030557,
   },
   {
     id: 308,
@@ -5851,7 +5851,7 @@ const divisions = [
       fr: 'Spanish Wells',
     }),
     denomination: 'district',
-    geonameId: 8030558,
+    // geonameId: 8030558,
   },
   {
     id: 309,
@@ -5870,7 +5870,7 @@ const divisions = [
       fr: 'Grand Bahama occidental',
     }),
     denomination: 'district',
-    geonameId: 8030559,
+    // geonameId: 8030559,
   },
   {
     id: 310,
@@ -5889,7 +5889,7 @@ const divisions = [
       fr: 'Manama',
     }),
     denomination: 'governorate',
-    geonameId: 7090954,
+    // geonameId: 7090954,
   },
   {
     id: 311,
@@ -5908,7 +5908,7 @@ const divisions = [
       fr: 'Mouharraq',
     }),
     denomination: 'governorate',
-    geonameId: 290333,
+    // geonameId: 290333,
   },
   {
     id: 312,
@@ -5927,7 +5927,7 @@ const divisions = [
       fr: 'Gouvernorat du Nord',
     }),
     denomination: 'governorate',
-    geonameId: 7090974,
+    // geonameId: 7090974,
   },
   {
     id: 313,
@@ -5946,7 +5946,7 @@ const divisions = [
       fr: 'Gouvernorat du Sud',
     }),
     denomination: 'governorate',
-    geonameId: 7090972,
+    // geonameId: 7090972,
   },
   {
     id: 314,
@@ -5965,7 +5965,7 @@ const divisions = [
       fr: 'Barisal',
     }),
     denomination: 'division',
-    geonameId: 1337229,
+    // geonameId: 1337229,
   },
   {
     id: 315,
@@ -5984,7 +5984,7 @@ const divisions = [
       fr: 'Chittagong',
     }),
     denomination: 'division',
-    geonameId: 1337200,
+    // geonameId: 1337200,
   },
   {
     id: 316,
@@ -6003,7 +6003,7 @@ const divisions = [
       fr: 'Dacca',
     }),
     denomination: 'division',
-    geonameId: 1337179,
+    // geonameId: 1337179,
   },
   {
     id: 317,
@@ -6022,7 +6022,7 @@ const divisions = [
       fr: 'Khulna',
     }),
     denomination: 'division',
-    geonameId: 1337210,
+    // geonameId: 1337210,
   },
   {
     id: 318,
@@ -6041,7 +6041,7 @@ const divisions = [
       fr: 'Mymensingh',
     }),
     denomination: 'division',
-    geonameId: 11287936,
+    // geonameId: 11287936,
   },
   {
     id: 319,
@@ -6060,7 +6060,7 @@ const divisions = [
       fr: 'Rajshahi',
     }),
     denomination: 'division',
-    geonameId: 1337166,
+    // geonameId: 1337166,
   },
   {
     id: 320,
@@ -6079,7 +6079,7 @@ const divisions = [
       fr: 'Rangpur',
     }),
     denomination: 'division',
-    geonameId: 7671048,
+    // geonameId: 7671048,
   },
   {
     id: 321,
@@ -6098,7 +6098,7 @@ const divisions = [
       fr: 'Sylhet',
     }),
     denomination: 'division',
-    geonameId: 1477362,
+    // geonameId: 1477362,
   },
   {
     id: 322,
@@ -6117,7 +6117,7 @@ const divisions = [
       fr: 'Christ Church',
     }),
     denomination: 'parish',
-    geonameId: 3373988,
+    // geonameId: 3373988,
   },
   {
     id: 323,
@@ -6136,7 +6136,7 @@ const divisions = [
       fr: 'Saint Andrew',
     }),
     denomination: 'parish',
-    geonameId: 3373580,
+    // geonameId: 3373580,
   },
   {
     id: 324,
@@ -6155,7 +6155,7 @@ const divisions = [
       fr: 'Saint George',
     }),
     denomination: 'parish',
-    geonameId: 3373572,
+    // geonameId: 3373572,
   },
   {
     id: 325,
@@ -6174,7 +6174,7 @@ const divisions = [
       fr: 'Saint James',
     }),
     denomination: 'parish',
-    geonameId: 3373570,
+    // geonameId: 3373570,
   },
   {
     id: 326,
@@ -6193,7 +6193,7 @@ const divisions = [
       fr: 'Saint John',
     }),
     denomination: 'parish',
-    geonameId: 3373569,
+    // geonameId: 3373569,
   },
   {
     id: 327,
@@ -6212,7 +6212,7 @@ const divisions = [
       fr: 'Saint Joseph',
     }),
     denomination: 'parish',
-    geonameId: 3373568,
+    // geonameId: 3373568,
   },
   {
     id: 328,
@@ -6231,7 +6231,7 @@ const divisions = [
       fr: 'Sainte-Lucie',
     }),
     denomination: 'parish',
-    geonameId: 3373565,
+    // geonameId: 3373565,
   },
   {
     id: 329,
@@ -6250,7 +6250,7 @@ const divisions = [
       fr: 'Saint Michael',
     }),
     denomination: 'parish',
-    geonameId: 3373557,
+    // geonameId: 3373557,
   },
   {
     id: 330,
@@ -6269,7 +6269,7 @@ const divisions = [
       fr: 'Saint Pierre',
     }),
     denomination: 'parish',
-    geonameId: 3373554,
+    // geonameId: 3373554,
   },
   {
     id: 331,
@@ -6288,7 +6288,7 @@ const divisions = [
       fr: 'Saint Philippe',
     }),
     denomination: 'parish',
-    geonameId: 3373553,
+    // geonameId: 3373553,
   },
   {
     id: 332,
@@ -6307,7 +6307,7 @@ const divisions = [
       fr: 'Saint Thomas',
     }),
     denomination: 'parish',
-    geonameId: 3373551,
+    // geonameId: 3373551,
   },
   {
     id: 333,
@@ -6326,7 +6326,7 @@ const divisions = [
       fr: 'Brest',
     }),
     denomination: 'region',
-    geonameId: 629631,
+    // geonameId: 629631,
   },
   {
     id: 334,
@@ -6345,7 +6345,7 @@ const divisions = [
       fr: 'Hrodna',
     }),
     denomination: 'region',
-    geonameId: 628035,
+    // geonameId: 628035,
   },
   {
     id: 335,
@@ -6364,7 +6364,7 @@ const divisions = [
       fr: 'Gomel',
     }),
     denomination: 'region',
-    geonameId: 628281,
+    // geonameId: 628281,
   },
   {
     id: 336,
@@ -6383,7 +6383,7 @@ const divisions = [
       fr: 'Minsk',
     }),
     denomination: 'region',
-    geonameId: 625142,
+    // geonameId: 625142,
   },
   {
     id: 337,
@@ -6402,7 +6402,7 @@ const divisions = [
       fr: 'Minsk',
     }),
     denomination: 'city',
-    geonameId: 625143,
+    // geonameId: 625143,
   },
   {
     id: 338,
@@ -6421,7 +6421,7 @@ const divisions = [
       fr: 'Mogilev',
     }),
     denomination: 'region',
-    geonameId: 625073,
+    // geonameId: 625073,
   },
   {
     id: 339,
@@ -6440,7 +6440,7 @@ const divisions = [
       fr: 'Vitebsk',
     }),
     denomination: 'region',
-    geonameId: 620134,
+    // geonameId: 620134,
   },
   {
     id: 340,
@@ -6459,7 +6459,7 @@ const divisions = [
       fr: 'Région de Bruxelles-Capitale',
     }),
     denomination: 'region',
-    geonameId: 2800867,
+    // geonameId: 2800867,
   },
   {
     id: 341,
@@ -6478,7 +6478,7 @@ const divisions = [
       fr: 'Flandre',
     }),
     denomination: 'region',
-    geonameId: 3337388,
+    // geonameId: 3337388,
   },
   {
     id: 342,
@@ -6497,7 +6497,7 @@ const divisions = [
       fr: 'Wallonie',
     }),
     denomination: 'region',
-    geonameId: 3337387,
+    // geonameId: 3337387,
   },
   {
     id: 343,
@@ -6516,7 +6516,7 @@ const divisions = [
       fr: 'Belize',
     }),
     denomination: 'district',
-    geonameId: 3582676,
+    // geonameId: 3582676,
   },
   {
     id: 344,
@@ -6535,7 +6535,7 @@ const divisions = [
       fr: 'Cayo',
     }),
     denomination: 'district',
-    geonameId: 3582429,
+    // geonameId: 3582429,
   },
   {
     id: 345,
@@ -6554,7 +6554,7 @@ const divisions = [
       fr: 'Corozal',
     }),
     denomination: 'district',
-    geonameId: 3582302,
+    // geonameId: 3582302,
   },
   {
     id: 346,
@@ -6573,7 +6573,7 @@ const divisions = [
       fr: 'Orange Walk',
     }),
     denomination: 'district',
-    geonameId: 3581511,
+    // geonameId: 3581511,
   },
   {
     id: 347,
@@ -6592,7 +6592,7 @@ const divisions = [
       fr: 'Stann Creek',
     }),
     denomination: 'district',
-    geonameId: 3580975,
+    // geonameId: 3580975,
   },
   {
     id: 348,
@@ -6611,7 +6611,7 @@ const divisions = [
       fr: 'Toledo',
     }),
     denomination: 'district',
-    geonameId: 3580913,
+    // geonameId: 3580913,
   },
   {
     id: 349,
@@ -6630,7 +6630,7 @@ const divisions = [
       fr: 'Alibori',
     }),
     denomination: 'department',
-    geonameId: 2597271,
+    // geonameId: 2597271,
   },
   {
     id: 350,
@@ -6649,7 +6649,7 @@ const divisions = [
       fr: 'Atakora',
     }),
     denomination: 'department',
-    geonameId: 2395524,
+    // geonameId: 2395524,
   },
   {
     id: 351,
@@ -6668,7 +6668,7 @@ const divisions = [
       fr: 'Atlantique',
     }),
     denomination: 'department',
-    geonameId: 2395504,
+    // geonameId: 2395504,
   },
   {
     id: 352,
@@ -6687,7 +6687,7 @@ const divisions = [
       fr: 'Borgou',
     }),
     denomination: 'department',
-    geonameId: 2394992,
+    // geonameId: 2394992,
   },
   {
     id: 353,
@@ -6706,7 +6706,7 @@ const divisions = [
       fr: 'Collines',
     }),
     denomination: 'department',
-    geonameId: 2597272,
+    // geonameId: 2597272,
   },
   {
     id: 354,
@@ -6725,7 +6725,7 @@ const divisions = [
       fr: 'Donga',
     }),
     denomination: 'department',
-    geonameId: 2597274,
+    // geonameId: 2597274,
   },
   {
     id: 355,
@@ -6744,7 +6744,7 @@ const divisions = [
       fr: 'Couffo',
     }),
     denomination: 'department',
-    geonameId: 2597273,
+    // geonameId: 2597273,
   },
   {
     id: 356,
@@ -6763,7 +6763,7 @@ const divisions = [
       fr: 'Littoral',
     }),
     denomination: 'department',
-    geonameId: 2597275,
+    // geonameId: 2597275,
   },
   {
     id: 357,
@@ -6782,7 +6782,7 @@ const divisions = [
       fr: 'Mono',
     }),
     denomination: 'department',
-    geonameId: 2392716,
+    // geonameId: 2392716,
   },
   {
     id: 358,
@@ -6801,7 +6801,7 @@ const divisions = [
       fr: 'Ouémé',
     }),
     denomination: 'department',
-    geonameId: 2392325,
+    // geonameId: 2392325,
   },
   {
     id: 359,
@@ -6820,7 +6820,7 @@ const divisions = [
       fr: 'Plateau',
     }),
     denomination: 'department',
-    geonameId: 2597277,
+    // geonameId: 2597277,
   },
   {
     id: 360,
@@ -6839,7 +6839,7 @@ const divisions = [
       fr: 'Zou',
     }),
     denomination: 'department',
-    geonameId: 2390719,
+    // geonameId: 2390719,
   },
   {
     id: 361,
@@ -6858,7 +6858,7 @@ const divisions = [
       fr: 'Devonshire',
     }),
     denomination: 'parish',
-    geonameId: 3573251,
+    // geonameId: 3573251,
   },
   {
     id: 362,
@@ -6877,7 +6877,7 @@ const divisions = [
       fr: 'Hamilton',
     }),
     denomination: 'parish',
-    geonameId: 3573195,
+    // geonameId: 3573195,
   },
   {
     id: 363,
@@ -6896,7 +6896,7 @@ const divisions = [
       fr: 'Hamilton',
     }),
     denomination: 'city',
-    geonameId: 3573198,
+    // geonameId: 3573198,
   },
   {
     id: 364,
@@ -6915,7 +6915,7 @@ const divisions = [
       fr: 'Paget',
     }),
     denomination: 'parish',
-    geonameId: 3573103,
+    // geonameId: 3573103,
   },
   {
     id: 365,
@@ -6934,7 +6934,7 @@ const divisions = [
       fr: 'Pembroke',
     }),
     denomination: 'parish',
-    geonameId: 3573095,
+    // geonameId: 3573095,
   },
   {
     id: 366,
@@ -6953,7 +6953,7 @@ const divisions = [
       fr: 'Saint George',
     }),
     denomination: 'city',
-    geonameId: 3573062,
+    // geonameId: 3573062,
   },
   {
     id: 367,
@@ -6972,7 +6972,7 @@ const divisions = [
       fr: 'Saint George',
     }),
     denomination: 'parish',
-    geonameId: 3573057,
+    // geonameId: 3573057,
   },
   {
     id: 368,
@@ -6991,7 +6991,7 @@ const divisions = [
       fr: 'Sandys',
     }),
     denomination: 'parish',
-    geonameId: 3573050,
+    // geonameId: 3573050,
   },
   {
     id: 369,
@@ -7010,7 +7010,7 @@ const divisions = [
       fr: "Smith's",
     }),
     denomination: 'parish',
-    geonameId: 3573031,
+    // geonameId: 3573031,
   },
   {
     id: 370,
@@ -7029,7 +7029,7 @@ const divisions = [
       fr: 'Southampton',
     }),
     denomination: 'parish',
-    geonameId: 3573026,
+    // geonameId: 3573026,
   },
   {
     id: 371,
@@ -7048,7 +7048,7 @@ const divisions = [
       fr: 'Warwick',
     }),
     denomination: 'parish',
-    geonameId: 3572972,
+    // geonameId: 3572972,
   },
   {
     id: 372,
@@ -7067,7 +7067,7 @@ const divisions = [
       fr: 'Bumthang',
     }),
     denomination: 'district',
-    geonameId: 1337278,
+    // geonameId: 1337278,
   },
   {
     id: 373,
@@ -7086,7 +7086,7 @@ const divisions = [
       fr: 'Chukha',
     }),
     denomination: 'district',
-    geonameId: 1337279,
+    // geonameId: 1337279,
   },
   {
     id: 374,
@@ -7105,7 +7105,7 @@ const divisions = [
       fr: 'Dagana',
     }),
     denomination: 'district',
-    geonameId: 1337280,
+    // geonameId: 1337280,
   },
   {
     id: 375,
@@ -7124,7 +7124,7 @@ const divisions = [
       fr: 'Gasa',
     }),
     denomination: 'district',
-    geonameId: 7303651,
+    // geonameId: 7303651,
   },
   {
     id: 376,
@@ -7143,7 +7143,7 @@ const divisions = [
       fr: 'Haa',
     }),
     denomination: 'district',
-    geonameId: 1337283,
+    // geonameId: 1337283,
   },
   {
     id: 377,
@@ -7162,7 +7162,7 @@ const divisions = [
       fr: 'Lhuntse',
     }),
     denomination: 'district',
-    geonameId: 1337284,
+    // geonameId: 1337284,
   },
   {
     id: 378,
@@ -7181,7 +7181,7 @@ const divisions = [
       fr: 'Mongar',
     }),
     denomination: 'district',
-    geonameId: 1337285,
+    // geonameId: 1337285,
   },
   {
     id: 379,
@@ -7200,7 +7200,7 @@ const divisions = [
       fr: 'Paro',
     }),
     denomination: 'district',
-    geonameId: 1337286,
+    // geonameId: 1337286,
   },
   {
     id: 380,
@@ -7219,7 +7219,7 @@ const divisions = [
       fr: 'Pemagatshel',
     }),
     denomination: 'district',
-    geonameId: 1337287,
+    // geonameId: 1337287,
   },
   {
     id: 381,
@@ -7238,7 +7238,7 @@ const divisions = [
       fr: 'Punakha',
     }),
     denomination: 'dzongkhag',
-    geonameId: 1337288,
+    // geonameId: 1337288,
   },
   {
     id: 382,
@@ -7257,7 +7257,7 @@ const divisions = [
       fr: 'Samdrup Jongkhar',
     }),
     denomination: 'district',
-    geonameId: 1337290,
+    // geonameId: 1337290,
   },
   {
     id: 383,
@@ -7276,7 +7276,7 @@ const divisions = [
       fr: 'Samtse',
     }),
     denomination: 'district',
-    geonameId: 1337289,
+    // geonameId: 1337289,
   },
   {
     id: 384,
@@ -7295,7 +7295,7 @@ const divisions = [
       fr: 'Sarpang',
     }),
     denomination: 'district',
-    geonameId: 1337282,
+    // geonameId: 1337282,
   },
   {
     id: 385,
@@ -7314,7 +7314,7 @@ const divisions = [
       fr: 'Thimphou',
     }),
     denomination: 'district',
-    geonameId: 1337293,
+    // geonameId: 1337293,
   },
   {
     id: 386,
@@ -7333,7 +7333,7 @@ const divisions = [
       fr: 'Trashi Yangtse',
     }),
     denomination: 'district',
-    geonameId: 7303653,
+    // geonameId: 7303653,
   },
   {
     id: 387,
@@ -7352,7 +7352,7 @@ const divisions = [
       fr: 'Trashigang',
     }),
     denomination: 'district',
-    geonameId: 1337292,
+    // geonameId: 1337292,
   },
   {
     id: 388,
@@ -7371,7 +7371,7 @@ const divisions = [
       fr: 'Trongsa',
     }),
     denomination: 'dzongkhag',
-    geonameId: 1337294,
+    // geonameId: 1337294,
   },
   {
     id: 389,
@@ -7390,7 +7390,7 @@ const divisions = [
       fr: 'Tsirang',
     }),
     denomination: 'district',
-    geonameId: 1337281,
+    // geonameId: 1337281,
   },
   {
     id: 390,
@@ -7409,7 +7409,7 @@ const divisions = [
       fr: 'Wangdue Phodrang',
     }),
     denomination: 'dzongkhag',
-    geonameId: 1337295,
+    // geonameId: 1337295,
   },
   {
     id: 391,
@@ -7428,7 +7428,7 @@ const divisions = [
       fr: 'Zhemgang',
     }),
     denomination: 'district',
-    geonameId: 1337291,
+    // geonameId: 1337291,
   },
   {
     id: 392,
@@ -7447,7 +7447,7 @@ const divisions = [
       fr: 'Beni',
     }),
     denomination: 'department',
-    geonameId: 3923172,
+    // geonameId: 3923172,
   },
   {
     id: 393,
@@ -7466,7 +7466,7 @@ const divisions = [
       fr: 'Chuquisaca',
     }),
     denomination: 'department',
-    geonameId: 3920177,
+    // geonameId: 3920177,
   },
   {
     id: 394,
@@ -7485,7 +7485,7 @@ const divisions = [
       fr: 'Cochabamba',
     }),
     denomination: 'department',
-    geonameId: 3919966,
+    // geonameId: 3919966,
   },
   {
     id: 395,
@@ -7504,7 +7504,7 @@ const divisions = [
       fr: 'Pando',
     }),
     denomination: 'department',
-    geonameId: 3908600,
+    // geonameId: 3908600,
   },
   {
     id: 396,
@@ -7523,7 +7523,7 @@ const divisions = [
       fr: 'La Paz',
     }),
     denomination: 'department',
-    geonameId: 3911924,
+    // geonameId: 3911924,
   },
   {
     id: 397,
@@ -7542,7 +7542,7 @@ const divisions = [
       fr: 'Oruro',
     }),
     denomination: 'department',
-    geonameId: 3909233,
+    // geonameId: 3909233,
   },
   {
     id: 398,
@@ -7561,7 +7561,7 @@ const divisions = [
       fr: 'Potosí',
     }),
     denomination: 'department',
-    geonameId: 3907580,
+    // geonameId: 3907580,
   },
   {
     id: 399,
@@ -7580,7 +7580,7 @@ const divisions = [
       fr: 'Santa Cruz',
     }),
     denomination: 'department',
-    geonameId: 3904907,
+    // geonameId: 3904907,
   },
   {
     id: 400,
@@ -7599,7 +7599,7 @@ const divisions = [
       fr: 'Tarija',
     }),
     denomination: 'department',
-    geonameId: 3903319,
+    // geonameId: 3903319,
   },
   {
     id: 401,
@@ -7618,7 +7618,7 @@ const divisions = [
       fr: 'Bonaire',
     }),
     denomination: 'special_municipality',
-    geonameId: 7609816,
+    // geonameId: 7609816,
   },
   {
     id: 402,
@@ -7637,7 +7637,7 @@ const divisions = [
       fr: 'Saba',
     }),
     denomination: 'public_entity',
-    geonameId: 7610358,
+    // geonameId: 7610358,
   },
   {
     id: 403,
@@ -7656,7 +7656,7 @@ const divisions = [
       fr: 'Sint Eustatius',
     }),
     denomination: 'public_entity',
-    geonameId: 7610359,
+    // geonameId: 7610359,
   },
   {
     id: 404,
@@ -7675,7 +7675,7 @@ const divisions = [
       fr: 'Brčko',
     }),
     denomination: 'district',
-    geonameId: 3294903,
+    // geonameId: 3294903,
   },
   {
     id: 405,
@@ -7694,7 +7694,7 @@ const divisions = [
       fr: 'Fédération de Bosnie-et-Herzégovine',
     }),
     denomination: 'entity',
-    geonameId: 3229999,
+    // geonameId: 3229999,
   },
   {
     id: 406,
@@ -7713,7 +7713,7 @@ const divisions = [
       fr: 'République serbe de Bosnie',
     }),
     denomination: 'entity',
-    geonameId: 3230000,
+    // geonameId: 3230000,
   },
   {
     id: 407,
@@ -7732,7 +7732,7 @@ const divisions = [
       fr: 'Centrale',
     }),
     denomination: 'district',
-    geonameId: 933851,
+    // geonameId: 933851,
   },
   {
     id: 408,
@@ -7751,7 +7751,7 @@ const divisions = [
       fr: 'Chobe',
     }),
     denomination: 'district',
-    geonameId: 933840,
+    // geonameId: 933840,
   },
   {
     id: 409,
@@ -7770,7 +7770,7 @@ const divisions = [
       fr: 'Francistown',
     }),
     denomination: 'city',
-    geonameId: 11778168,
+    // geonameId: 11778168,
   },
   {
     id: 410,
@@ -7789,7 +7789,7 @@ const divisions = [
       fr: 'Gaborone',
     }),
     denomination: 'city',
-    geonameId: 11778169,
+    // geonameId: 11778169,
   },
   {
     id: 411,
@@ -7808,7 +7808,7 @@ const divisions = [
       fr: 'Ghanzi',
     }),
     denomination: 'district',
-    geonameId: 933758,
+    // geonameId: 933758,
   },
   {
     id: 412,
@@ -7827,7 +7827,7 @@ const divisions = [
       fr: 'Jwaneng',
     }),
     denomination: 'town',
-    geonameId: 11778170,
+    // geonameId: 11778170,
   },
   {
     id: 413,
@@ -7846,7 +7846,7 @@ const divisions = [
       fr: 'Kgalagadi',
     }),
     denomination: 'district',
-    geonameId: 933657,
+    // geonameId: 933657,
   },
   {
     id: 414,
@@ -7865,7 +7865,7 @@ const divisions = [
       fr: 'Kgatleng',
     }),
     denomination: 'district',
-    geonameId: 933654,
+    // geonameId: 933654,
   },
   {
     id: 415,
@@ -7884,7 +7884,7 @@ const divisions = [
       fr: 'Kweneng',
     }),
     denomination: 'district',
-    geonameId: 933562,
+    // geonameId: 933562,
   },
   {
     id: 416,
@@ -7903,7 +7903,7 @@ const divisions = [
       fr: 'Lobatse',
     }),
     denomination: 'town',
-    geonameId: 11778171,
+    // geonameId: 11778171,
   },
   {
     id: 417,
@@ -7922,7 +7922,7 @@ const divisions = [
       fr: 'Ngwaketse',
     }),
     denomination: 'district',
-    geonameId: 933043,
+    // geonameId: 933043,
   },
   {
     id: 418,
@@ -7941,7 +7941,7 @@ const divisions = [
       fr: 'Nord-Est',
     }),
     denomination: 'district',
-    geonameId: 933210,
+    // geonameId: 933210,
   },
   {
     id: 419,
@@ -7960,7 +7960,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'district',
-    geonameId: 933230,
+    // geonameId: 933230,
   },
   {
     id: 420,
@@ -7979,7 +7979,7 @@ const divisions = [
       fr: 'Selebi-Phikwe',
     }),
     denomination: 'town',
-    geonameId: 11778172,
+    // geonameId: 11778172,
   },
   {
     id: 421,
@@ -7998,7 +7998,7 @@ const divisions = [
       fr: 'Sud-Est',
     }),
     denomination: 'district',
-    geonameId: 933044,
+    // geonameId: 933044,
   },
   {
     id: 422,
@@ -8017,7 +8017,7 @@ const divisions = [
       fr: 'Sowa',
     }),
     denomination: 'town',
-    geonameId: 11778173,
+    // geonameId: 11778173,
   },
   {
     id: 423,
@@ -8036,7 +8036,7 @@ const divisions = [
       fr: 'Acre',
     }),
     denomination: 'state',
-    geonameId: 3665474,
+    // geonameId: 3665474,
   },
   {
     id: 424,
@@ -8055,7 +8055,7 @@ const divisions = [
       fr: 'Alagoas',
     }),
     denomination: 'state',
-    geonameId: 3408096,
+    // geonameId: 3408096,
   },
   {
     id: 425,
@@ -8074,7 +8074,7 @@ const divisions = [
       fr: 'Amapá',
     }),
     denomination: 'state',
-    geonameId: 3407762,
+    // geonameId: 3407762,
   },
   {
     id: 426,
@@ -8093,7 +8093,7 @@ const divisions = [
       fr: 'Amazonas',
     }),
     denomination: 'state',
-    geonameId: 3665361,
+    // geonameId: 3665361,
   },
   {
     id: 427,
@@ -8112,7 +8112,7 @@ const divisions = [
       fr: 'Bahia',
     }),
     denomination: 'state',
-    geonameId: 3471168,
+    // geonameId: 3471168,
   },
   {
     id: 428,
@@ -8131,7 +8131,7 @@ const divisions = [
       fr: 'Ceará',
     }),
     denomination: 'state',
-    geonameId: 3402362,
+    // geonameId: 3402362,
   },
   {
     id: 429,
@@ -8150,7 +8150,7 @@ const divisions = [
       fr: 'Espírito Santo',
     }),
     denomination: 'state',
-    geonameId: 3463930,
+    // geonameId: 3463930,
   },
   {
     id: 430,
@@ -8169,7 +8169,7 @@ const divisions = [
       fr: 'District fédéral',
     }),
     denomination: 'federal_district',
-    geonameId: 3463504,
+    // geonameId: 3463504,
   },
   {
     id: 431,
@@ -8188,7 +8188,7 @@ const divisions = [
       fr: 'Goiás',
     }),
     denomination: 'state',
-    geonameId: 3462372,
+    // geonameId: 3462372,
   },
   {
     id: 432,
@@ -8207,7 +8207,7 @@ const divisions = [
       fr: 'Maranhão',
     }),
     denomination: 'state',
-    geonameId: 3395443,
+    // geonameId: 3395443,
   },
   {
     id: 433,
@@ -8226,7 +8226,7 @@ const divisions = [
       fr: 'Mato Grosso',
     }),
     denomination: 'state',
-    geonameId: 3457419,
+    // geonameId: 3457419,
   },
   {
     id: 434,
@@ -8245,7 +8245,7 @@ const divisions = [
       fr: 'Mato Grosso do Sul',
     }),
     denomination: 'state',
-    geonameId: 3457415,
+    // geonameId: 3457415,
   },
   {
     id: 435,
@@ -8264,7 +8264,7 @@ const divisions = [
       fr: 'Minas Gerais',
     }),
     denomination: 'state',
-    geonameId: 3457153,
+    // geonameId: 3457153,
   },
   {
     id: 436,
@@ -8283,7 +8283,7 @@ const divisions = [
       fr: 'Pará',
     }),
     denomination: 'state',
-    geonameId: 3393129,
+    // geonameId: 3393129,
   },
   {
     id: 437,
@@ -8302,7 +8302,7 @@ const divisions = [
       fr: 'Paraíba',
     }),
     denomination: 'state',
-    geonameId: 3393098,
+    // geonameId: 3393098,
   },
   {
     id: 438,
@@ -8321,7 +8321,7 @@ const divisions = [
       fr: 'Paraná',
     }),
     denomination: 'state',
-    geonameId: 3455077,
+    // geonameId: 3455077,
   },
   {
     id: 439,
@@ -8340,7 +8340,7 @@ const divisions = [
       fr: 'Pernambuco',
     }),
     denomination: 'state',
-    geonameId: 3392268,
+    // geonameId: 3392268,
   },
   {
     id: 440,
@@ -8359,7 +8359,7 @@ const divisions = [
       fr: 'Piauí',
     }),
     denomination: 'state',
-    geonameId: 3392213,
+    // geonameId: 3392213,
   },
   {
     id: 441,
@@ -8378,7 +8378,7 @@ const divisions = [
       fr: 'Rio de Janeiro',
     }),
     denomination: 'state',
-    geonameId: 3451189,
+    // geonameId: 3451189,
   },
   {
     id: 442,
@@ -8397,7 +8397,7 @@ const divisions = [
       fr: 'Rio Grande do Norte',
     }),
     denomination: 'state',
-    geonameId: 3390290,
+    // geonameId: 3390290,
   },
   {
     id: 443,
@@ -8416,7 +8416,7 @@ const divisions = [
       fr: 'Rio Grande do Sul',
     }),
     denomination: 'state',
-    geonameId: 3451133,
+    // geonameId: 3451133,
   },
   {
     id: 444,
@@ -8435,7 +8435,7 @@ const divisions = [
       fr: 'Rondônia',
     }),
     denomination: 'state',
-    geonameId: 3924825,
+    // geonameId: 3924825,
   },
   {
     id: 445,
@@ -8454,7 +8454,7 @@ const divisions = [
       fr: 'Roraima',
     }),
     denomination: 'state',
-    geonameId: 3662560,
+    // geonameId: 3662560,
   },
   {
     id: 446,
@@ -8473,7 +8473,7 @@ const divisions = [
       fr: 'Santa Catarina',
     }),
     denomination: 'state',
-    geonameId: 3450387,
+    // geonameId: 3450387,
   },
   {
     id: 447,
@@ -8492,7 +8492,7 @@ const divisions = [
       fr: 'São Paulo',
     }),
     denomination: 'state',
-    geonameId: 3448433,
+    // geonameId: 3448433,
   },
   {
     id: 448,
@@ -8511,7 +8511,7 @@ const divisions = [
       fr: 'Sergipe',
     }),
     denomination: 'state',
-    geonameId: 3447799,
+    // geonameId: 3447799,
   },
   {
     id: 449,
@@ -8530,7 +8530,7 @@ const divisions = [
       fr: 'Tocantins',
     }),
     denomination: 'state',
-    geonameId: 3474575,
+    // geonameId: 3474575,
   },
   {
     id: 450,
@@ -8549,7 +8549,7 @@ const divisions = [
       fr: 'Belait',
     }),
     denomination: 'district',
-    geonameId: 1820869,
+    // geonameId: 1820869,
   },
   {
     id: 451,
@@ -8568,7 +8568,7 @@ const divisions = [
       fr: 'Brunei-Muara',
     }),
     denomination: 'district',
-    geonameId: 1820818,
+    // geonameId: 1820818,
   },
   {
     id: 452,
@@ -8587,7 +8587,7 @@ const divisions = [
       fr: 'Temburong',
     }),
     denomination: 'district',
-    geonameId: 1820106,
+    // geonameId: 1820106,
   },
   {
     id: 453,
@@ -8606,7 +8606,7 @@ const divisions = [
       fr: 'Tutong',
     }),
     denomination: 'district',
-    geonameId: 1820068,
+    // geonameId: 1820068,
   },
   {
     id: 454,
@@ -8625,7 +8625,7 @@ const divisions = [
       fr: 'Blagoevgrad',
     }),
     denomination: 'province',
-    geonameId: 733192,
+    // geonameId: 733192,
   },
   {
     id: 455,
@@ -8644,7 +8644,7 @@ const divisions = [
       fr: 'Bourgas',
     }),
     denomination: 'province',
-    geonameId: 732771,
+    // geonameId: 732771,
   },
   {
     id: 456,
@@ -8663,7 +8663,7 @@ const divisions = [
       fr: 'Dobritch',
     }),
     denomination: 'province',
-    geonameId: 726419,
+    // geonameId: 726419,
   },
   {
     id: 457,
@@ -8682,7 +8682,7 @@ const divisions = [
       fr: 'Gabrovo',
     }),
     denomination: 'province',
-    geonameId: 864552,
+    // geonameId: 864552,
   },
   {
     id: 458,
@@ -8701,7 +8701,7 @@ const divisions = [
       fr: 'Haskovo',
     }),
     denomination: 'province',
-    geonameId: 730436,
+    // geonameId: 730436,
   },
   {
     id: 459,
@@ -8720,7 +8720,7 @@ const divisions = [
       fr: 'Kardjali',
     }),
     denomination: 'province',
-    geonameId: 864553,
+    // geonameId: 864553,
   },
   {
     id: 460,
@@ -8739,7 +8739,7 @@ const divisions = [
       fr: 'Kyoustendil',
     }),
     denomination: 'province',
-    geonameId: 864554,
+    // geonameId: 864554,
   },
   {
     id: 461,
@@ -8758,7 +8758,7 @@ const divisions = [
       fr: 'Lovech',
     }),
     denomination: 'province',
-    geonameId: 729560,
+    // geonameId: 729560,
   },
   {
     id: 462,
@@ -8777,7 +8777,7 @@ const divisions = [
       fr: 'Montana',
     }),
     denomination: 'province',
-    geonameId: 453753,
+    // geonameId: 453753,
   },
   {
     id: 463,
@@ -8796,7 +8796,7 @@ const divisions = [
       fr: 'Pazardjik',
     }),
     denomination: 'province',
-    geonameId: 728379,
+    // geonameId: 728379,
   },
   {
     id: 464,
@@ -8815,7 +8815,7 @@ const divisions = [
       fr: 'Pernik',
     }),
     denomination: 'province',
-    geonameId: 728331,
+    // geonameId: 728331,
   },
   {
     id: 465,
@@ -8834,7 +8834,7 @@ const divisions = [
       fr: 'Pleven',
     }),
     denomination: 'province',
-    geonameId: 728204,
+    // geonameId: 728204,
   },
   {
     id: 466,
@@ -8853,7 +8853,7 @@ const divisions = [
       fr: 'Plovdiv',
     }),
     denomination: 'province',
-    geonameId: 728194,
+    // geonameId: 728194,
   },
   {
     id: 467,
@@ -8872,7 +8872,7 @@ const divisions = [
       fr: 'Razgrad',
     }),
     denomination: 'province',
-    geonameId: 453751,
+    // geonameId: 453751,
   },
   {
     id: 468,
@@ -8891,7 +8891,7 @@ const divisions = [
       fr: 'Roussé',
     }),
     denomination: 'province',
-    geonameId: 727524,
+    // geonameId: 727524,
   },
   {
     id: 469,
@@ -8910,7 +8910,7 @@ const divisions = [
       fr: 'Choumen',
     }),
     denomination: 'province',
-    geonameId: 864555,
+    // geonameId: 864555,
   },
   {
     id: 470,
@@ -8929,7 +8929,7 @@ const divisions = [
       fr: 'Silistra',
     }),
     denomination: 'province',
-    geonameId: 864556,
+    // geonameId: 864556,
   },
   {
     id: 471,
@@ -8948,7 +8948,7 @@ const divisions = [
       fr: 'Sliven',
     }),
     denomination: 'province',
-    geonameId: 864557,
+    // geonameId: 864557,
   },
   {
     id: 472,
@@ -8967,7 +8967,7 @@ const divisions = [
       fr: 'Smolian',
     }),
     denomination: 'province',
-    geonameId: 864558,
+    // geonameId: 864558,
   },
   {
     id: 473,
@@ -8986,7 +8986,7 @@ const divisions = [
       fr: 'Sofia',
     }),
     denomination: 'province',
-    geonameId: 727012,
+    // geonameId: 727012,
   },
   {
     id: 474,
@@ -9005,7 +9005,7 @@ const divisions = [
       fr: 'Sofia-Ville',
     }),
     denomination: 'capital',
-    geonameId: 731061,
+    // geonameId: 731061,
   },
   {
     id: 475,
@@ -9024,7 +9024,7 @@ const divisions = [
       fr: 'Stara Zagora',
     }),
     denomination: 'province',
-    geonameId: 864559,
+    // geonameId: 864559,
   },
   {
     id: 476,
@@ -9043,7 +9043,7 @@ const divisions = [
       fr: 'Targovichte',
     }),
     denomination: 'province',
-    geonameId: 864560,
+    // geonameId: 864560,
   },
   {
     id: 477,
@@ -9062,7 +9062,7 @@ const divisions = [
       fr: 'Varna',
     }),
     denomination: 'province',
-    geonameId: 726051,
+    // geonameId: 726051,
   },
   {
     id: 478,
@@ -9081,7 +9081,7 @@ const divisions = [
       fr: 'Veliko Tarnovo',
     }),
     denomination: 'province',
-    geonameId: 864561,
+    // geonameId: 864561,
   },
   {
     id: 479,
@@ -9100,7 +9100,7 @@ const divisions = [
       fr: 'Vidin',
     }),
     denomination: 'province',
-    geonameId: 864562,
+    // geonameId: 864562,
   },
   {
     id: 480,
@@ -9119,7 +9119,7 @@ const divisions = [
       fr: 'Vratsa',
     }),
     denomination: 'province',
-    geonameId: 725713,
+    // geonameId: 725713,
   },
   {
     id: 481,
@@ -9138,7 +9138,7 @@ const divisions = [
       fr: 'Yambol',
     }),
     denomination: 'province',
-    geonameId: 864563,
+    // geonameId: 864563,
   },
   {
     id: 482,
@@ -9157,7 +9157,7 @@ const divisions = [
       fr: 'Boucle du Mouhoun',
     }),
     denomination: 'region',
-    geonameId: 6930701,
+    // geonameId: 6930701,
   },
   {
     id: 483,
@@ -9176,7 +9176,7 @@ const divisions = [
       fr: 'Cascades',
     }),
     denomination: 'region',
-    geonameId: 6930703,
+    // geonameId: 6930703,
   },
   {
     id: 484,
@@ -9195,7 +9195,7 @@ const divisions = [
       fr: 'Centre',
     }),
     denomination: 'region',
-    geonameId: 6930704,
+    // geonameId: 6930704,
   },
   {
     id: 485,
@@ -9214,7 +9214,7 @@ const divisions = [
       fr: 'Centre-Est',
     }),
     denomination: 'region',
-    geonameId: 6930705,
+    // geonameId: 6930705,
   },
   {
     id: 486,
@@ -9233,7 +9233,7 @@ const divisions = [
       fr: 'Centre-Nord',
     }),
     denomination: 'region',
-    geonameId: 6930706,
+    // geonameId: 6930706,
   },
   {
     id: 487,
@@ -9252,7 +9252,7 @@ const divisions = [
       fr: 'Centre-Ouest',
     }),
     denomination: 'region',
-    geonameId: 6930707,
+    // geonameId: 6930707,
   },
   {
     id: 488,
@@ -9271,7 +9271,7 @@ const divisions = [
       fr: 'Centre-Sud',
     }),
     denomination: 'region',
-    geonameId: 6930708,
+    // geonameId: 6930708,
   },
   {
     id: 489,
@@ -9290,7 +9290,7 @@ const divisions = [
       fr: 'Est',
     }),
     denomination: 'region',
-    geonameId: 6930709,
+    // geonameId: 6930709,
   },
   {
     id: 490,
@@ -9309,7 +9309,7 @@ const divisions = [
       fr: 'Hauts-Bassins',
     }),
     denomination: 'region',
-    geonameId: 6930710,
+    // geonameId: 6930710,
   },
   {
     id: 491,
@@ -9328,7 +9328,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'region',
-    geonameId: 6930711,
+    // geonameId: 6930711,
   },
   {
     id: 492,
@@ -9347,7 +9347,7 @@ const divisions = [
       fr: 'Plateau-Central',
     }),
     denomination: 'region',
-    geonameId: 6930712,
+    // geonameId: 6930712,
   },
   {
     id: 493,
@@ -9366,7 +9366,7 @@ const divisions = [
       fr: 'Sahel',
     }),
     denomination: 'region',
-    geonameId: 6930713,
+    // geonameId: 6930713,
   },
   {
     id: 494,
@@ -9385,7 +9385,7 @@ const divisions = [
       fr: 'Sud-Ouest',
     }),
     denomination: 'region',
-    geonameId: 6930714,
+    // geonameId: 6930714,
   },
   {
     id: 495,
@@ -9404,7 +9404,7 @@ const divisions = [
       fr: 'Bubanza',
     }),
     denomination: 'province',
-    geonameId: 428514,
+    // geonameId: 428514,
   },
   {
     id: 496,
@@ -9423,7 +9423,7 @@ const divisions = [
       fr: 'Bujumbura Mairie',
     }),
     denomination: 'province',
-    geonameId: 7303939,
+    // geonameId: 7303939,
   },
   {
     id: 497,
@@ -9442,7 +9442,7 @@ const divisions = [
       fr: 'Bujumbura Rural',
     }),
     denomination: 'province',
-    geonameId: 7303940,
+    // geonameId: 7303940,
   },
   {
     id: 498,
@@ -9461,7 +9461,7 @@ const divisions = [
       fr: 'Bururi',
     }),
     denomination: 'province',
-    geonameId: 423327,
+    // geonameId: 423327,
   },
   {
     id: 499,
@@ -9480,7 +9480,7 @@ const divisions = [
       fr: 'Cankuzo',
     }),
     denomination: 'province',
-    geonameId: 427700,
+    // geonameId: 427700,
   },
   {
     id: 500,
@@ -9499,7 +9499,7 @@ const divisions = [
       fr: 'Cibitoke',
     }),
     denomination: 'province',
-    geonameId: 430020,
+    // geonameId: 430020,
   },
   {
     id: 501,
@@ -9518,7 +9518,7 @@ const divisions = [
       fr: 'Gitega',
     }),
     denomination: 'province',
-    geonameId: 426271,
+    // geonameId: 426271,
   },
   {
     id: 502,
@@ -9537,7 +9537,7 @@ const divisions = [
       fr: 'Karuzi',
     }),
     denomination: 'province',
-    geonameId: 428218,
+    // geonameId: 428218,
   },
   {
     id: 503,
@@ -9556,7 +9556,7 @@ const divisions = [
       fr: 'Kayanza',
     }),
     denomination: 'province',
-    geonameId: 430951,
+    // geonameId: 430951,
   },
   {
     id: 504,
@@ -9575,7 +9575,7 @@ const divisions = [
       fr: 'Kirundo',
     }),
     denomination: 'province',
-    geonameId: 432455,
+    // geonameId: 432455,
   },
   {
     id: 505,
@@ -9594,7 +9594,7 @@ const divisions = [
       fr: 'Makamba',
     }),
     denomination: 'province',
-    geonameId: 422233,
+    // geonameId: 422233,
   },
   {
     id: 506,
@@ -9613,7 +9613,7 @@ const divisions = [
       fr: 'Muramvya',
     }),
     denomination: 'province',
-    geonameId: 425550,
+    // geonameId: 425550,
   },
   {
     id: 507,
@@ -9632,7 +9632,7 @@ const divisions = [
       fr: 'Muyinga',
     }),
     denomination: 'province',
-    geonameId: 431747,
+    // geonameId: 431747,
   },
   {
     id: 508,
@@ -9651,7 +9651,7 @@ const divisions = [
       fr: 'Mwaro',
     }),
     denomination: 'province',
-    geonameId: 434386,
+    // geonameId: 434386,
   },
   {
     id: 509,
@@ -9670,7 +9670,7 @@ const divisions = [
       fr: 'Ngozi',
     }),
     denomination: 'province',
-    geonameId: 430567,
+    // geonameId: 430567,
   },
   {
     id: 510,
@@ -9689,7 +9689,7 @@ const divisions = [
       fr: 'Rumonge',
     }),
     denomination: 'province',
-    geonameId: 11184798,
+    // geonameId: 11184798,
   },
   {
     id: 511,
@@ -9708,7 +9708,7 @@ const divisions = [
       fr: 'Rutana',
     }),
     denomination: 'province',
-    geonameId: 434147,
+    // geonameId: 434147,
   },
   {
     id: 512,
@@ -9727,7 +9727,7 @@ const divisions = [
       fr: 'Ruyigi',
     }),
     denomination: 'province',
-    geonameId: 426699,
+    // geonameId: 426699,
   },
   {
     id: 513,
@@ -9746,7 +9746,7 @@ const divisions = [
       fr: 'Boa Vista',
     }),
     denomination: 'island',
-    geonameId: 3374855,
+    // geonameId: 3374855,
   },
   {
     id: 514,
@@ -9765,7 +9765,7 @@ const divisions = [
       fr: 'Brava',
     }),
     denomination: 'island',
-    geonameId: 3374832,
+    // geonameId: 3374832,
   },
   {
     id: 515,
@@ -9784,7 +9784,7 @@ const divisions = [
       fr: 'Maio',
     }),
     denomination: 'island',
-    geonameId: 3374487,
+    // geonameId: 3374487,
   },
   {
     id: 516,
@@ -9803,7 +9803,7 @@ const divisions = [
       fr: 'Mosteiros',
     }),
     denomination: 'municipality',
-    geonameId: 3411924,
+    // geonameId: 3411924,
   },
   {
     id: 517,
@@ -9822,7 +9822,7 @@ const divisions = [
       fr: 'Paul',
     }),
     denomination: 'municipality',
-    geonameId: 3374391,
+    // geonameId: 3374391,
   },
   {
     id: 518,
@@ -9841,7 +9841,7 @@ const divisions = [
       fr: 'Porto Novo',
     }),
     denomination: 'municipality',
-    geonameId: 7602868,
+    // geonameId: 7602868,
   },
   {
     id: 519,
@@ -9860,7 +9860,7 @@ const divisions = [
       fr: 'Praia',
     }),
     denomination: 'municipality',
-    geonameId: 3374332,
+    // geonameId: 3374332,
   },
   {
     id: 520,
@@ -9879,7 +9879,7 @@ const divisions = [
       fr: 'Ribeira Brava',
     }),
     denomination: 'municipality',
-    geonameId: 7602869,
+    // geonameId: 7602869,
   },
   {
     id: 521,
@@ -9898,7 +9898,7 @@ const divisions = [
       fr: 'Ribeira Grande',
     }),
     denomination: 'municipality',
-    geonameId: 3374274,
+    // geonameId: 3374274,
   },
   {
     id: 522,
@@ -9917,7 +9917,7 @@ const divisions = [
       fr: 'Ribeira Grande de Santiago',
     }),
     denomination: 'municipality',
-    geonameId: 7603281,
+    // geonameId: 7603281,
   },
   {
     id: 523,
@@ -9936,7 +9936,7 @@ const divisions = [
       fr: 'Sal',
     }),
     denomination: 'island',
-    geonameId: 3374249,
+    // geonameId: 3374249,
   },
   {
     id: 524,
@@ -9955,7 +9955,7 @@ const divisions = [
       fr: 'Santa Catarina',
     }),
     denomination: 'municipality',
-    geonameId: 3374226,
+    // geonameId: 3374226,
   },
   {
     id: 525,
@@ -9974,7 +9974,7 @@ const divisions = [
       fr: 'Santa Catarina do Fogo',
     }),
     denomination: 'municipality',
-    geonameId: 7602870,
+    // geonameId: 7602870,
   },
   {
     id: 526,
@@ -9993,7 +9993,7 @@ const divisions = [
       fr: 'Santa Cruz',
     }),
     denomination: 'municipality',
-    geonameId: 3411925,
+    // geonameId: 3411925,
   },
   {
     id: 527,
@@ -10012,7 +10012,7 @@ const divisions = [
       fr: 'São Domingos',
     }),
     denomination: 'municipality',
-    geonameId: 3411926,
+    // geonameId: 3411926,
   },
   {
     id: 528,
@@ -10031,7 +10031,7 @@ const divisions = [
       fr: 'São Filipe',
     }),
     denomination: 'municipality',
-    geonameId: 3411927,
+    // geonameId: 3411927,
   },
   {
     id: 529,
@@ -10050,7 +10050,7 @@ const divisions = [
       fr: 'São Lourenço dos Órgãos',
     }),
     denomination: 'municipality',
-    geonameId: 7602873,
+    // geonameId: 7602873,
   },
   {
     id: 530,
@@ -10069,7 +10069,7 @@ const divisions = [
       fr: 'São Miguel',
     }),
     denomination: 'municipality',
-    geonameId: 3411928,
+    // geonameId: 3411928,
   },
   {
     id: 531,
@@ -10088,7 +10088,7 @@ const divisions = [
       fr: 'São Salvador do Mundo',
     }),
     denomination: 'municipality',
-    geonameId: 7602871,
+    // geonameId: 7602871,
   },
   {
     id: 532,
@@ -10107,7 +10107,7 @@ const divisions = [
       fr: 'São Vicente',
     }),
     denomination: 'island',
-    geonameId: 3374198,
+    // geonameId: 3374198,
   },
   {
     id: 533,
@@ -10126,7 +10126,7 @@ const divisions = [
       fr: 'Tarrafal',
     }),
     denomination: 'municipality',
-    geonameId: 3374161,
+    // geonameId: 3374161,
   },
   {
     id: 534,
@@ -10145,7 +10145,7 @@ const divisions = [
       fr: 'Tarrafal de São Nicolau',
     }),
     denomination: 'municipality',
-    geonameId: 7602872,
+    // geonameId: 7602872,
   },
   {
     id: 535,
@@ -10164,7 +10164,7 @@ const divisions = [
       fr: 'Banteay Meanchey',
     }),
     denomination: 'province',
-    geonameId: 1899273,
+    // geonameId: 1899273,
   },
   {
     id: 536,
@@ -10183,7 +10183,7 @@ const divisions = [
       fr: 'Battambang',
     }),
     denomination: 'province',
-    geonameId: 1821310,
+    // geonameId: 1821310,
   },
   {
     id: 537,
@@ -10202,7 +10202,7 @@ const divisions = [
       fr: 'Kampong Cham',
     }),
     denomination: 'province',
-    geonameId: 1831172,
+    // geonameId: 1831172,
   },
   {
     id: 538,
@@ -10221,7 +10221,7 @@ const divisions = [
       fr: 'Kampong Chhnang',
     }),
     denomination: 'province',
-    geonameId: 1831166,
+    // geonameId: 1831166,
   },
   {
     id: 539,
@@ -10240,7 +10240,7 @@ const divisions = [
       fr: 'Kampong Speu',
     }),
     denomination: 'province',
-    geonameId: 1831132,
+    // geonameId: 1831132,
   },
   {
     id: 540,
@@ -10259,7 +10259,7 @@ const divisions = [
       fr: 'Kampong Thom',
     }),
     denomination: 'province',
-    geonameId: 1831124,
+    // geonameId: 1831124,
   },
   {
     id: 541,
@@ -10278,7 +10278,7 @@ const divisions = [
       fr: 'Kampot',
     }),
     denomination: 'province',
-    geonameId: 1831111,
+    // geonameId: 1831111,
   },
   {
     id: 542,
@@ -10297,7 +10297,7 @@ const divisions = [
       fr: 'Kandal',
     }),
     denomination: 'province',
-    geonameId: 1831095,
+    // geonameId: 1831095,
   },
   {
     id: 543,
@@ -10316,7 +10316,7 @@ const divisions = [
       fr: 'Kep',
     }),
     denomination: 'province',
-    geonameId: 1830937,
+    // geonameId: 1830937,
   },
   {
     id: 544,
@@ -10335,7 +10335,7 @@ const divisions = [
       fr: 'Koh Kong',
     }),
     denomination: 'province',
-    geonameId: 1831037,
+    // geonameId: 1831037,
   },
   {
     id: 545,
@@ -10354,7 +10354,7 @@ const divisions = [
       fr: 'Kratie',
     }),
     denomination: 'province',
-    geonameId: 1830563,
+    // geonameId: 1830563,
   },
   {
     id: 546,
@@ -10373,7 +10373,7 @@ const divisions = [
       fr: 'Mondolkiri',
     }),
     denomination: 'province',
-    geonameId: 1830306,
+    // geonameId: 1830306,
   },
   {
     id: 547,
@@ -10392,7 +10392,7 @@ const divisions = [
       fr: 'Otdar Meanchey',
     }),
     denomination: 'province',
-    geonameId: 1822210,
+    // geonameId: 1822210,
   },
   {
     id: 548,
@@ -10411,7 +10411,7 @@ const divisions = [
       fr: 'Pailin',
     }),
     denomination: 'province',
-    geonameId: 1830206,
+    // geonameId: 1830206,
   },
   {
     id: 549,
@@ -10430,7 +10430,7 @@ const divisions = [
       fr: 'Phnom Penh',
     }),
     denomination: 'autonomous_municipality',
-    geonameId: 1830103,
+    // geonameId: 1830103,
   },
   {
     id: 550,
@@ -10449,7 +10449,7 @@ const divisions = [
       fr: 'Preah Sihanouk',
     }),
     denomination: 'autonomous_municipality',
-    geonameId: 1899262,
+    // geonameId: 1899262,
   },
   {
     id: 551,
@@ -10468,7 +10468,7 @@ const divisions = [
       fr: 'Preah Vinear',
     }),
     denomination: 'province',
-    geonameId: 1822676,
+    // geonameId: 1822676,
   },
   {
     id: 552,
@@ -10487,7 +10487,7 @@ const divisions = [
       fr: 'Prey Veng',
     }),
     denomination: 'province',
-    geonameId: 1822609,
+    // geonameId: 1822609,
   },
   {
     id: 553,
@@ -10506,7 +10506,7 @@ const divisions = [
       fr: 'Pursat',
     }),
     denomination: 'province',
-    geonameId: 1821301,
+    // geonameId: 1821301,
   },
   {
     id: 554,
@@ -10525,7 +10525,7 @@ const divisions = [
       fr: 'Ratanakiri',
     }),
     denomination: 'province',
-    geonameId: 1822449,
+    // geonameId: 1822449,
   },
   {
     id: 555,
@@ -10544,7 +10544,7 @@ const divisions = [
       fr: 'Siem Reap',
     }),
     denomination: 'province',
-    geonameId: 1822213,
+    // geonameId: 1822213,
   },
   {
     id: 556,
@@ -10563,7 +10563,7 @@ const divisions = [
       fr: 'Stung Treng',
     }),
     denomination: 'province',
-    geonameId: 1822028,
+    // geonameId: 1822028,
   },
   {
     id: 557,
@@ -10582,7 +10582,7 @@ const divisions = [
       fr: 'Svay Rieng',
     }),
     denomination: 'province',
-    geonameId: 1821992,
+    // geonameId: 1821992,
   },
   {
     id: 558,
@@ -10601,7 +10601,7 @@ const divisions = [
       fr: 'Takeo',
     }),
     denomination: 'province',
-    geonameId: 1821939,
+    // geonameId: 1821939,
   },
   {
     id: 559,
@@ -10620,7 +10620,7 @@ const divisions = [
       fr: 'Tboung Khmum',
     }),
     denomination: 'province',
-    geonameId: 7647525,
+    // geonameId: 7647525,
   },
   {
     id: 560,
@@ -10639,7 +10639,7 @@ const divisions = [
       fr: 'Adamaoua',
     }),
     denomination: 'region',
-    geonameId: 2236015,
+    // geonameId: 2236015,
   },
   {
     id: 561,
@@ -10658,7 +10658,7 @@ const divisions = [
       fr: 'Centre',
     }),
     denomination: 'region',
-    geonameId: 2233376,
+    // geonameId: 2233376,
   },
   {
     id: 562,
@@ -10677,7 +10677,7 @@ const divisions = [
       fr: 'Est',
     }),
     denomination: 'region',
-    geonameId: 2231835,
+    // geonameId: 2231835,
   },
   {
     id: 563,
@@ -10696,7 +10696,7 @@ const divisions = [
       fr: 'Extrême-Nord',
     }),
     denomination: 'region',
-    geonameId: 2231755,
+    // geonameId: 2231755,
   },
   {
     id: 564,
@@ -10715,7 +10715,7 @@ const divisions = [
       fr: 'Littoral',
     }),
     denomination: 'region',
-    geonameId: 2229336,
+    // geonameId: 2229336,
   },
   {
     id: 565,
@@ -10734,7 +10734,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'region',
-    geonameId: 2223603,
+    // geonameId: 2223603,
   },
   {
     id: 566,
@@ -10753,7 +10753,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'region',
-    geonameId: 2223602,
+    // geonameId: 2223602,
   },
   {
     id: 567,
@@ -10772,7 +10772,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'region',
-    geonameId: 2221789,
+    // geonameId: 2221789,
   },
   {
     id: 568,
@@ -10791,7 +10791,7 @@ const divisions = [
       fr: 'Sud-Ouest',
     }),
     denomination: 'region',
-    geonameId: 2221788,
+    // geonameId: 2221788,
   },
   {
     id: 569,
@@ -10810,7 +10810,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'region',
-    geonameId: 2222934,
+    // geonameId: 2222934,
   },
   {
     id: 570,
@@ -10829,7 +10829,7 @@ const divisions = [
       fr: 'Alberta',
     }),
     denomination: 'province',
-    geonameId: 5883102,
+    // geonameId: 5883102,
   },
   {
     id: 571,
@@ -10848,7 +10848,7 @@ const divisions = [
       fr: 'Colombie-Britannique',
     }),
     denomination: 'province',
-    geonameId: 5909050,
+    // geonameId: 5909050,
   },
   {
     id: 572,
@@ -10867,7 +10867,7 @@ const divisions = [
       fr: 'Manitoba',
     }),
     denomination: 'province',
-    geonameId: 6065171,
+    // geonameId: 6065171,
   },
   {
     id: 573,
@@ -10886,7 +10886,7 @@ const divisions = [
       fr: 'Nouveau-Brunswick',
     }),
     denomination: 'province',
-    geonameId: 6087430,
+    // geonameId: 6087430,
   },
   {
     id: 574,
@@ -10905,7 +10905,7 @@ const divisions = [
       fr: 'Terre-Neuve-et-Labrador',
     }),
     denomination: 'province',
-    geonameId: 6354959,
+    // geonameId: 6354959,
   },
   {
     id: 575,
@@ -10924,7 +10924,7 @@ const divisions = [
       fr: 'Territoires du Nord-Ouest',
     }),
     denomination: 'territory',
-    geonameId: 6091069,
+    // geonameId: 6091069,
   },
   {
     id: 576,
@@ -10943,7 +10943,7 @@ const divisions = [
       fr: 'Nouvelle-Écosse',
     }),
     denomination: 'province',
-    geonameId: 6091530,
+    // geonameId: 6091530,
   },
   {
     id: 577,
@@ -10962,7 +10962,7 @@ const divisions = [
       fr: 'Nunavut',
     }),
     denomination: 'territory',
-    geonameId: 6091732,
+    // geonameId: 6091732,
   },
   {
     id: 578,
@@ -10981,7 +10981,7 @@ const divisions = [
       fr: 'Ontario',
     }),
     denomination: 'province',
-    geonameId: 6093943,
+    // geonameId: 6093943,
   },
   {
     id: 579,
@@ -11000,7 +11000,7 @@ const divisions = [
       fr: 'Île-du-Prince-Édouard',
     }),
     denomination: 'province',
-    geonameId: 6113358,
+    // geonameId: 6113358,
   },
   {
     id: 580,
@@ -11019,7 +11019,7 @@ const divisions = [
       fr: 'Québec',
     }),
     denomination: 'province',
-    geonameId: 6115047,
+    // geonameId: 6115047,
   },
   {
     id: 581,
@@ -11038,7 +11038,7 @@ const divisions = [
       fr: 'Saskatchewan',
     }),
     denomination: 'province',
-    geonameId: 6141242,
+    // geonameId: 6141242,
   },
   {
     id: 582,
@@ -11057,7 +11057,7 @@ const divisions = [
       fr: 'Yukon',
     }),
     denomination: 'territory',
-    geonameId: 6185811,
+    // geonameId: 6185811,
   },
   {
     id: 583,
@@ -11076,7 +11076,7 @@ const divisions = [
       fr: 'Bodden Town',
     }),
     denomination: 'district',
-    geonameId: 10375969,
+    // geonameId: 10375969,
   },
   {
     id: 584,
@@ -11095,7 +11095,7 @@ const divisions = [
       fr: 'East End',
     }),
     denomination: 'district',
-    geonameId: 10375971,
+    // geonameId: 10375971,
   },
   {
     id: 585,
@@ -11114,7 +11114,7 @@ const divisions = [
       fr: 'George Town',
     }),
     denomination: 'district',
-    geonameId: 10346796,
+    // geonameId: 10346796,
   },
   {
     id: 586,
@@ -11133,7 +11133,7 @@ const divisions = [
       fr: 'North Side',
     }),
     denomination: 'district',
-    geonameId: 10375970,
+    // geonameId: 10375970,
   },
   {
     id: 587,
@@ -11152,7 +11152,7 @@ const divisions = [
       fr: 'Sister Island',
     }),
     denomination: 'district',
-    geonameId: 10375972,
+    // geonameId: 10375972,
   },
   {
     id: 588,
@@ -11171,7 +11171,7 @@ const divisions = [
       fr: 'West Bay',
     }),
     denomination: 'district',
-    geonameId: 10375968,
+    // geonameId: 10375968,
   },
   {
     id: 589,
@@ -11190,7 +11190,7 @@ const divisions = [
       fr: 'Bamingui-Bangoran',
     }),
     denomination: 'prefecture',
-    geonameId: 240591,
+    // geonameId: 240591,
   },
   {
     id: 590,
@@ -11209,7 +11209,7 @@ const divisions = [
       fr: 'Bangui',
     }),
     denomination: 'autonomous_commune',
-    geonameId: 2596686,
+    // geonameId: 2596686,
   },
   {
     id: 591,
@@ -11228,7 +11228,7 @@ const divisions = [
       fr: 'Basse-Kotto',
     }),
     denomination: 'prefecture',
-    geonameId: 240396,
+    // geonameId: 240396,
   },
   {
     id: 592,
@@ -11247,7 +11247,7 @@ const divisions = [
       fr: 'Haut-Mbomou',
     }),
     denomination: 'prefecture',
-    geonameId: 238639,
+    // geonameId: 238639,
   },
   {
     id: 593,
@@ -11266,7 +11266,7 @@ const divisions = [
       fr: 'Haute-Kotto',
     }),
     denomination: 'prefecture',
-    geonameId: 238640,
+    // geonameId: 238640,
   },
   {
     id: 594,
@@ -11285,7 +11285,7 @@ const divisions = [
       fr: 'Kémo',
     }),
     denomination: 'prefecture',
-    geonameId: 2385836,
+    // geonameId: 2385836,
   },
   {
     id: 595,
@@ -11304,7 +11304,7 @@ const divisions = [
       fr: 'Lim-Pendé',
     }),
     denomination: 'prefecture',
-    geonameId: 12902747,
+    // geonameId: 12902747,
   },
   {
     id: 596,
@@ -11323,7 +11323,7 @@ const divisions = [
       fr: 'Lobaye',
     }),
     denomination: 'prefecture',
-    geonameId: 2385105,
+    // geonameId: 2385105,
   },
   {
     id: 597,
@@ -11342,7 +11342,7 @@ const divisions = [
       fr: 'Mambéré',
     }),
     denomination: 'prefecture',
-    geonameId: 12902745,
+    // geonameId: 12902745,
   },
   {
     id: 598,
@@ -11361,7 +11361,7 @@ const divisions = [
       fr: 'Mambéré-Kadéï',
     }),
     denomination: 'prefecture',
-    geonameId: 2386161,
+    // geonameId: 2386161,
   },
   {
     id: 599,
@@ -11380,7 +11380,7 @@ const divisions = [
       fr: 'Mbomou',
     }),
     denomination: 'prefecture',
-    geonameId: 237556,
+    // geonameId: 237556,
   },
   {
     id: 600,
@@ -11399,7 +11399,7 @@ const divisions = [
       fr: 'Nana-Grébizi',
     }),
     denomination: 'prefecture',
-    geonameId: 2386243,
+    // geonameId: 2386243,
   },
   {
     id: 601,
@@ -11418,7 +11418,7 @@ const divisions = [
       fr: 'Nana-Mambéré',
     }),
     denomination: 'prefecture',
-    geonameId: 2384205,
+    // geonameId: 2384205,
   },
   {
     id: 602,
@@ -11437,7 +11437,7 @@ const divisions = [
       fr: "Ombella-M'Poko",
     }),
     denomination: 'prefecture',
-    geonameId: 2383765,
+    // geonameId: 2383765,
   },
   {
     id: 603,
@@ -11456,7 +11456,7 @@ const divisions = [
       fr: 'Ouaka',
     }),
     denomination: 'prefecture',
-    geonameId: 236887,
+    // geonameId: 236887,
   },
   {
     id: 604,
@@ -11475,7 +11475,7 @@ const divisions = [
       fr: 'Ouham',
     }),
     denomination: 'prefecture',
-    geonameId: 2383653,
+    // geonameId: 2383653,
   },
   {
     id: 605,
@@ -11494,7 +11494,7 @@ const divisions = [
       fr: 'Ouham-Fafa',
     }),
     denomination: 'prefecture',
-    geonameId: 12902746,
+    // geonameId: 12902746,
   },
   {
     id: 606,
@@ -11513,7 +11513,7 @@ const divisions = [
       fr: 'Ouham-Pendé',
     }),
     denomination: 'prefecture',
-    geonameId: 2383650,
+    // geonameId: 2383650,
   },
   {
     id: 607,
@@ -11532,7 +11532,7 @@ const divisions = [
       fr: 'Sangha-Mbaéré',
     }),
     denomination: 'prefecture',
-    geonameId: 2383204,
+    // geonameId: 2383204,
   },
   {
     id: 608,
@@ -11551,7 +11551,7 @@ const divisions = [
       fr: 'Vakaga',
     }),
     denomination: 'prefecture',
-    geonameId: 236178,
+    // geonameId: 236178,
   },
   {
     id: 609,
@@ -11570,7 +11570,7 @@ const divisions = [
       fr: 'Barh el Gazel',
     }),
     denomination: 'region',
-    geonameId: 7603255,
+    // geonameId: 7603255,
   },
   {
     id: 610,
@@ -11589,7 +11589,7 @@ const divisions = [
       fr: 'Batha',
     }),
     denomination: 'region',
-    geonameId: 2435899,
+    // geonameId: 2435899,
   },
   {
     id: 611,
@@ -11608,7 +11608,7 @@ const divisions = [
       fr: 'Borkou',
     }),
     denomination: 'region',
-    geonameId: 7602866,
+    // geonameId: 7602866,
   },
   {
     id: 612,
@@ -11627,7 +11627,7 @@ const divisions = [
       fr: 'Chari-Baguirmi',
     }),
     denomination: 'region',
-    geonameId: 2434478,
+    // geonameId: 2434478,
   },
   {
     id: 613,
@@ -11646,7 +11646,7 @@ const divisions = [
       fr: 'Ennedi Est',
     }),
     denomination: 'region',
-    geonameId: 8604858,
+    // geonameId: 8604858,
   },
   {
     id: 614,
@@ -11665,7 +11665,7 @@ const divisions = [
       fr: 'Ennedi-Ouest',
     }),
     denomination: 'region',
-    geonameId: 8604857,
+    // geonameId: 8604857,
   },
   {
     id: 615,
@@ -11684,7 +11684,7 @@ const divisions = [
       fr: 'Guéra',
     }),
     denomination: 'region',
-    geonameId: 2431555,
+    // geonameId: 2431555,
   },
   {
     id: 616,
@@ -11703,7 +11703,7 @@ const divisions = [
       fr: 'Hadjer-Lamis',
     }),
     denomination: 'region',
-    geonameId: 7603251,
+    // geonameId: 7603251,
   },
   {
     id: 617,
@@ -11722,7 +11722,7 @@ const divisions = [
       fr: 'Kanem',
     }),
     denomination: 'region',
-    geonameId: 2430873,
+    // geonameId: 2430873,
   },
   {
     id: 618,
@@ -11741,7 +11741,7 @@ const divisions = [
       fr: 'Lac',
     }),
     denomination: 'region',
-    geonameId: 2429323,
+    // geonameId: 2429323,
   },
   {
     id: 619,
@@ -11760,7 +11760,7 @@ const divisions = [
       fr: 'Logone Occidental',
     }),
     denomination: 'region',
-    geonameId: 2429060,
+    // geonameId: 2429060,
   },
   {
     id: 620,
@@ -11779,7 +11779,7 @@ const divisions = [
       fr: 'Logone Oriental',
     }),
     denomination: 'region',
-    geonameId: 2429058,
+    // geonameId: 2429058,
   },
   {
     id: 621,
@@ -11798,7 +11798,7 @@ const divisions = [
       fr: 'Mandoul',
     }),
     denomination: 'region',
-    geonameId: 7603252,
+    // geonameId: 7603252,
   },
   {
     id: 622,
@@ -11817,7 +11817,7 @@ const divisions = [
       fr: 'Mayo-Kebbi Est',
     }),
     denomination: 'region',
-    geonameId: 2428132,
+    // geonameId: 2428132,
   },
   {
     id: 623,
@@ -11836,7 +11836,7 @@ const divisions = [
       fr: 'Mayo-Kebbi Ouest',
     }),
     denomination: 'region',
-    geonameId: 7603253,
+    // geonameId: 7603253,
   },
   {
     id: 624,
@@ -11855,7 +11855,7 @@ const divisions = [
       fr: 'Moyen-Chari',
     }),
     denomination: 'region',
-    geonameId: 2427315,
+    // geonameId: 2427315,
   },
   {
     id: 625,
@@ -11874,7 +11874,7 @@ const divisions = [
       fr: "N'Djamena",
     }),
     denomination: 'region',
-    geonameId: 7603254,
+    // geonameId: 7603254,
   },
   {
     id: 626,
@@ -11893,7 +11893,7 @@ const divisions = [
       fr: 'Ouaddaï',
     }),
     denomination: 'region',
-    geonameId: 242246,
+    // geonameId: 242246,
   },
   {
     id: 627,
@@ -11912,7 +11912,7 @@ const divisions = [
       fr: 'Salamat',
     }),
     denomination: 'region',
-    geonameId: 242048,
+    // geonameId: 242048,
   },
   {
     id: 628,
@@ -11931,7 +11931,7 @@ const divisions = [
       fr: 'Sila',
     }),
     denomination: 'region',
-    geonameId: 7603257,
+    // geonameId: 7603257,
   },
   {
     id: 629,
@@ -11950,7 +11950,7 @@ const divisions = [
       fr: 'Tandjilé',
     }),
     denomination: 'region',
-    geonameId: 2425287,
+    // geonameId: 2425287,
   },
   {
     id: 630,
@@ -11969,7 +11969,7 @@ const divisions = [
       fr: 'Tibesti',
     }),
     denomination: 'region',
-    geonameId: 7603258,
+    // geonameId: 7603258,
   },
   {
     id: 631,
@@ -11988,7 +11988,7 @@ const divisions = [
       fr: 'Wadi Fira',
     }),
     denomination: 'region',
-    geonameId: 244877,
+    // geonameId: 244877,
   },
   {
     id: 632,
@@ -12007,7 +12007,7 @@ const divisions = [
       fr: 'Antofagasta',
     }),
     denomination: 'region',
-    geonameId: 3899537,
+    // geonameId: 3899537,
   },
   {
     id: 633,
@@ -12026,7 +12026,7 @@ const divisions = [
       fr: 'Arica et Parinacota',
     }),
     denomination: 'region',
-    geonameId: 6693562,
+    // geonameId: 6693562,
   },
   {
     id: 634,
@@ -12045,7 +12045,7 @@ const divisions = [
       fr: 'Atacama',
     }),
     denomination: 'region',
-    geonameId: 3899191,
+    // geonameId: 3899191,
   },
   {
     id: 635,
@@ -12064,7 +12064,7 @@ const divisions = [
       fr: 'Aysén',
     }),
     denomination: 'region',
-    geonameId: 3900333,
+    // geonameId: 3900333,
   },
   {
     id: 636,
@@ -12083,7 +12083,7 @@ const divisions = [
       fr: 'Coquimbo',
     }),
     denomination: 'region',
-    geonameId: 3893623,
+    // geonameId: 3893623,
   },
   {
     id: 637,
@@ -12102,7 +12102,7 @@ const divisions = [
       fr: 'Los Lagos',
     }),
     denomination: 'region',
-    geonameId: 3881974,
+    // geonameId: 3881974,
   },
   {
     id: 638,
@@ -12121,7 +12121,7 @@ const divisions = [
       fr: 'Los Ríos',
     }),
     denomination: 'region',
-    geonameId: 6693563,
+    // geonameId: 6693563,
   },
   {
     id: 639,
@@ -12140,7 +12140,7 @@ const divisions = [
       fr: 'Maule',
     }),
     denomination: 'region',
-    geonameId: 3880306,
+    // geonameId: 3880306,
   },
   {
     id: 640,
@@ -12159,7 +12159,7 @@ const divisions = [
       fr: 'Ñuble',
     }),
     denomination: 'region',
-    geonameId: 11979367,
+    // geonameId: 11979367,
   },
   {
     id: 641,
@@ -12178,7 +12178,7 @@ const divisions = [
       fr: "O'Higgins",
     }),
     denomination: 'region',
-    geonameId: 3883281,
+    // geonameId: 3883281,
   },
   {
     id: 642,
@@ -12197,7 +12197,7 @@ const divisions = [
       fr: 'Araucanie',
     }),
     denomination: 'region',
-    geonameId: 3899463,
+    // geonameId: 3899463,
   },
   {
     id: 643,
@@ -12216,7 +12216,7 @@ const divisions = [
       fr: 'Valparaíso',
     }),
     denomination: 'region',
-    geonameId: 3868621,
+    // geonameId: 3868621,
   },
   {
     id: 644,
@@ -12235,7 +12235,7 @@ const divisions = [
       fr: 'Biobío',
     }),
     denomination: 'region',
-    geonameId: 3898380,
+    // geonameId: 3898380,
   },
   {
     id: 645,
@@ -12254,7 +12254,7 @@ const divisions = [
       fr: 'Magellan',
     }),
     denomination: 'region',
-    geonameId: 4036650,
+    // geonameId: 4036650,
   },
   {
     id: 646,
@@ -12273,7 +12273,7 @@ const divisions = [
       fr: 'Région métropolitaine de Santiago',
     }),
     denomination: 'region',
-    geonameId: 3873544,
+    // geonameId: 3873544,
   },
   {
     id: 647,
@@ -12292,7 +12292,7 @@ const divisions = [
       fr: 'Tarapacá',
     }),
     denomination: 'region',
-    geonameId: 3870116,
+    // geonameId: 3870116,
   },
   {
     id: 648,
@@ -12311,7 +12311,7 @@ const divisions = [
       fr: 'Anhui',
     }),
     denomination: 'province',
-    geonameId: 1818058,
+    // geonameId: 1818058,
   },
   {
     id: 649,
@@ -12330,7 +12330,7 @@ const divisions = [
       fr: 'Pékin',
     }),
     denomination: 'municipality',
-    geonameId: 2038349,
+    // geonameId: 2038349,
   },
   {
     id: 650,
@@ -12349,7 +12349,7 @@ const divisions = [
       fr: 'Chongqing',
     }),
     denomination: 'municipality',
-    geonameId: 1814905,
+    // geonameId: 1814905,
   },
   {
     id: 651,
@@ -12368,7 +12368,7 @@ const divisions = [
       fr: 'Fujian',
     }),
     denomination: 'province',
-    geonameId: 1811017,
+    // geonameId: 1811017,
   },
   {
     id: 652,
@@ -12387,7 +12387,7 @@ const divisions = [
       fr: 'Gansu',
     }),
     denomination: 'province',
-    geonameId: 1810676,
+    // geonameId: 1810676,
   },
   {
     id: 653,
@@ -12406,7 +12406,7 @@ const divisions = [
       fr: 'Guangdong',
     }),
     denomination: 'province',
-    geonameId: 1809935,
+    // geonameId: 1809935,
   },
   {
     id: 654,
@@ -12425,7 +12425,7 @@ const divisions = [
       fr: 'Guangxi',
     }),
     denomination: 'autonomous_region',
-    geonameId: 1809867,
+    // geonameId: 1809867,
   },
   {
     id: 655,
@@ -12444,7 +12444,7 @@ const divisions = [
       fr: 'Guizhou',
     }),
     denomination: 'province',
-    geonameId: 1809445,
+    // geonameId: 1809445,
   },
   {
     id: 656,
@@ -12463,7 +12463,7 @@ const divisions = [
       fr: 'Hainan',
     }),
     denomination: 'province',
-    geonameId: 1809054,
+    // geonameId: 1809054,
   },
   {
     id: 657,
@@ -12482,7 +12482,7 @@ const divisions = [
       fr: 'Hebei',
     }),
     denomination: 'province',
-    geonameId: 1808773,
+    // geonameId: 1808773,
   },
   {
     id: 658,
@@ -12501,7 +12501,7 @@ const divisions = [
       fr: 'Heilongjiang',
     }),
     denomination: 'province',
-    geonameId: 2036965,
+    // geonameId: 2036965,
   },
   {
     id: 659,
@@ -12520,7 +12520,7 @@ const divisions = [
       fr: 'Henan',
     }),
     denomination: 'province',
-    geonameId: 1808520,
+    // geonameId: 1808520,
   },
   {
     id: 660,
@@ -12539,7 +12539,7 @@ const divisions = [
       fr: 'Hubei',
     }),
     denomination: 'province',
-    geonameId: 1806949,
+    // geonameId: 1806949,
   },
   {
     id: 661,
@@ -12558,7 +12558,7 @@ const divisions = [
       fr: 'Hunan',
     }),
     denomination: 'province',
-    geonameId: 1806691,
+    // geonameId: 1806691,
   },
   {
     id: 662,
@@ -12577,7 +12577,7 @@ const divisions = [
       fr: 'Mongolie-Intérieure',
     }),
     denomination: 'autonomous_region',
-    geonameId: 2035607,
+    // geonameId: 2035607,
   },
   {
     id: 663,
@@ -12596,7 +12596,7 @@ const divisions = [
       fr: 'Jiangsu',
     }),
     denomination: 'province',
-    geonameId: 1806260,
+    // geonameId: 1806260,
   },
   {
     id: 664,
@@ -12615,7 +12615,7 @@ const divisions = [
       fr: 'Jiangxi',
     }),
     denomination: 'province',
-    geonameId: 1806222,
+    // geonameId: 1806222,
   },
   {
     id: 665,
@@ -12634,7 +12634,7 @@ const divisions = [
       fr: 'Jilin',
     }),
     denomination: 'province',
-    geonameId: 2036500,
+    // geonameId: 2036500,
   },
   {
     id: 666,
@@ -12653,7 +12653,7 @@ const divisions = [
       fr: 'Liaoning',
     }),
     denomination: 'province',
-    geonameId: 2036115,
+    // geonameId: 2036115,
   },
   {
     id: 667,
@@ -12672,7 +12672,7 @@ const divisions = [
       fr: 'Ningxia',
     }),
     denomination: 'autonomous_region',
-    geonameId: 1799355,
+    // geonameId: 1799355,
   },
   {
     id: 668,
@@ -12691,7 +12691,7 @@ const divisions = [
       fr: 'Qinghai',
     }),
     denomination: 'province',
-    geonameId: 1280239,
+    // geonameId: 1280239,
   },
   {
     id: 669,
@@ -12710,7 +12710,7 @@ const divisions = [
       fr: 'Shaanxi',
     }),
     denomination: 'province',
-    geonameId: 1796480,
+    // geonameId: 1796480,
   },
   {
     id: 670,
@@ -12729,7 +12729,7 @@ const divisions = [
       fr: 'Shandong',
     }),
     denomination: 'province',
-    geonameId: 1796328,
+    // geonameId: 1796328,
   },
   {
     id: 671,
@@ -12748,7 +12748,7 @@ const divisions = [
       fr: 'Shanghai',
     }),
     denomination: 'municipality',
-    geonameId: 1796231,
+    // geonameId: 1796231,
   },
   {
     id: 672,
@@ -12767,7 +12767,7 @@ const divisions = [
       fr: 'Shanxi',
     }),
     denomination: 'province',
-    geonameId: 1795912,
+    // geonameId: 1795912,
   },
   {
     id: 673,
@@ -12786,7 +12786,7 @@ const divisions = [
       fr: 'Sichuan',
     }),
     denomination: 'province',
-    geonameId: 1794299,
+    // geonameId: 1794299,
   },
   {
     id: 674,
@@ -12805,7 +12805,7 @@ const divisions = [
       fr: 'Tianjin',
     }),
     denomination: 'municipality',
-    geonameId: 1792943,
+    // geonameId: 1792943,
   },
   {
     id: 675,
@@ -12824,7 +12824,7 @@ const divisions = [
       fr: 'Tibet',
     }),
     denomination: 'autonomous_region',
-    geonameId: 1279685,
+    // geonameId: 1279685,
   },
   {
     id: 676,
@@ -12843,7 +12843,7 @@ const divisions = [
       fr: 'Xinjiang',
     }),
     denomination: 'autonomous_region',
-    geonameId: 1529047,
+    // geonameId: 1529047,
   },
   {
     id: 677,
@@ -12862,7 +12862,7 @@ const divisions = [
       fr: 'Yunnan',
     }),
     denomination: 'province',
-    geonameId: 1785694,
+    // geonameId: 1785694,
   },
   {
     id: 678,
@@ -12881,7 +12881,7 @@ const divisions = [
       fr: 'Zhejiang',
     }),
     denomination: 'province',
-    geonameId: 1784764,
+    // geonameId: 1784764,
   },
   {
     id: 679,
@@ -12900,7 +12900,7 @@ const divisions = [
       fr: 'Amazonas',
     }),
     denomination: 'department',
-    geonameId: 3689982,
+    // geonameId: 3689982,
   },
   {
     id: 680,
@@ -12919,7 +12919,7 @@ const divisions = [
       fr: 'Antioquia',
     }),
     denomination: 'department',
-    geonameId: 3689815,
+    // geonameId: 3689815,
   },
   {
     id: 681,
@@ -12938,7 +12938,7 @@ const divisions = [
       fr: 'Arauca',
     }),
     denomination: 'department',
-    geonameId: 3689717,
+    // geonameId: 3689717,
   },
   {
     id: 682,
@@ -12957,7 +12957,7 @@ const divisions = [
       fr: 'Atlántico',
     }),
     denomination: 'department',
-    geonameId: 3689436,
+    // geonameId: 3689436,
   },
   {
     id: 683,
@@ -12976,7 +12976,7 @@ const divisions = [
       fr: 'Bogota D.C.',
     }),
     denomination: 'capital_district',
-    geonameId: 3688685,
+    // geonameId: 3688685,
   },
   {
     id: 684,
@@ -12995,7 +12995,7 @@ const divisions = [
       fr: 'Caldas',
     }),
     denomination: 'department',
-    geonameId: 3687951,
+    // geonameId: 3687951,
   },
   {
     id: 685,
@@ -13014,7 +13014,7 @@ const divisions = [
       fr: 'Casanare',
     }),
     denomination: 'department',
-    geonameId: 3687173,
+    // geonameId: 3687173,
   },
   {
     id: 686,
@@ -13033,7 +13033,7 @@ const divisions = [
       fr: 'Cauca',
     }),
     denomination: 'department',
-    geonameId: 3687029,
+    // geonameId: 3687029,
   },
   {
     id: 687,
@@ -13052,7 +13052,7 @@ const divisions = [
       fr: 'Cesar',
     }),
     denomination: 'department',
-    geonameId: 3686880,
+    // geonameId: 3686880,
   },
   {
     id: 688,
@@ -13071,7 +13071,7 @@ const divisions = [
       fr: 'Cundinamarca',
     }),
     denomination: 'department',
-    geonameId: 3685413,
+    // geonameId: 3685413,
   },
   {
     id: 689,
@@ -13090,7 +13090,7 @@ const divisions = [
       fr: 'Bolívar',
     }),
     denomination: 'department',
-    geonameId: 3688650,
+    // geonameId: 3688650,
   },
   {
     id: 690,
@@ -13109,7 +13109,7 @@ const divisions = [
       fr: 'Boyacá',
     }),
     denomination: 'department',
-    geonameId: 3688536,
+    // geonameId: 3688536,
   },
   {
     id: 691,
@@ -13128,7 +13128,7 @@ const divisions = [
       fr: 'Córdoba',
     }),
     denomination: 'department',
-    geonameId: 3685889,
+    // geonameId: 3685889,
   },
   {
     id: 692,
@@ -13147,7 +13147,7 @@ const divisions = [
       fr: 'Caquetá',
     }),
     denomination: 'department',
-    geonameId: 3687479,
+    // geonameId: 3687479,
   },
   {
     id: 693,
@@ -13166,7 +13166,7 @@ const divisions = [
       fr: 'Chocó',
     }),
     denomination: 'department',
-    geonameId: 3686431,
+    // geonameId: 3686431,
   },
   {
     id: 694,
@@ -13185,7 +13185,7 @@ const divisions = [
       fr: 'Vaupés',
     }),
     denomination: 'department',
-    geonameId: 3666254,
+    // geonameId: 3666254,
   },
   {
     id: 695,
@@ -13204,7 +13204,7 @@ const divisions = [
       fr: 'Guainía',
     }),
     denomination: 'department',
-    geonameId: 3681652,
+    // geonameId: 3681652,
   },
   {
     id: 696,
@@ -13223,7 +13223,7 @@ const divisions = [
       fr: 'Guaviare',
     }),
     denomination: 'department',
-    geonameId: 3681344,
+    // geonameId: 3681344,
   },
   {
     id: 697,
@@ -13242,7 +13242,7 @@ const divisions = [
       fr: 'Huila',
     }),
     denomination: 'department',
-    geonameId: 3680692,
+    // geonameId: 3680692,
   },
   {
     id: 698,
@@ -13261,7 +13261,7 @@ const divisions = [
       fr: 'La Guajira',
     }),
     denomination: 'department',
-    geonameId: 3678847,
+    // geonameId: 3678847,
   },
   {
     id: 699,
@@ -13280,7 +13280,7 @@ const divisions = [
       fr: 'Magdalena',
     }),
     denomination: 'department',
-    geonameId: 3675686,
+    // geonameId: 3675686,
   },
   {
     id: 700,
@@ -13299,7 +13299,7 @@ const divisions = [
       fr: 'Meta',
     }),
     denomination: 'department',
-    geonameId: 3674810,
+    // geonameId: 3674810,
   },
   {
     id: 701,
@@ -13318,7 +13318,7 @@ const divisions = [
       fr: 'Nariño',
     }),
     denomination: 'department',
-    geonameId: 3674021,
+    // geonameId: 3674021,
   },
   {
     id: 702,
@@ -13337,7 +13337,7 @@ const divisions = [
       fr: 'Norte de Santander',
     }),
     denomination: 'department',
-    geonameId: 3673798,
+    // geonameId: 3673798,
   },
   {
     id: 703,
@@ -13356,7 +13356,7 @@ const divisions = [
       fr: 'Putumayo',
     }),
     denomination: 'department',
-    geonameId: 3671178,
+    // geonameId: 3671178,
   },
   {
     id: 704,
@@ -13375,7 +13375,7 @@ const divisions = [
       fr: 'Quindío',
     }),
     denomination: 'department',
-    geonameId: 3671087,
+    // geonameId: 3671087,
   },
   {
     id: 705,
@@ -13394,7 +13394,7 @@ const divisions = [
       fr: 'Risaralda',
     }),
     denomination: 'department',
-    geonameId: 3670698,
+    // geonameId: 3670698,
   },
   {
     id: 706,
@@ -13413,7 +13413,7 @@ const divisions = [
       fr: 'San Andrés et Providencia',
     }),
     denomination: 'department',
-    geonameId: 3670205,
+    // geonameId: 3670205,
   },
   {
     id: 707,
@@ -13432,7 +13432,7 @@ const divisions = [
       fr: 'Santander',
     }),
     denomination: 'department',
-    geonameId: 3668578,
+    // geonameId: 3668578,
   },
   {
     id: 708,
@@ -13451,7 +13451,7 @@ const divisions = [
       fr: 'Sucre',
     }),
     denomination: 'department',
-    geonameId: 3667725,
+    // geonameId: 3667725,
   },
   {
     id: 709,
@@ -13470,7 +13470,7 @@ const divisions = [
       fr: 'Tolima',
     }),
     denomination: 'department',
-    geonameId: 3666951,
+    // geonameId: 3666951,
   },
   {
     id: 710,
@@ -13489,7 +13489,7 @@ const divisions = [
       fr: 'Valle del Cauca',
     }),
     denomination: 'department',
-    geonameId: 3666313,
+    // geonameId: 3666313,
   },
   {
     id: 711,
@@ -13508,7 +13508,7 @@ const divisions = [
       fr: 'Vichada',
     }),
     denomination: 'department',
-    geonameId: 3666082,
+    // geonameId: 3666082,
   },
   {
     id: 712,
@@ -13527,7 +13527,7 @@ const divisions = [
       fr: 'Grande Comore',
     }),
     denomination: 'island',
-    geonameId: 921882,
+    // geonameId: 921882,
   },
   {
     id: 713,
@@ -13546,7 +13546,7 @@ const divisions = [
       fr: 'Mohéli',
     }),
     denomination: 'island',
-    geonameId: 921780,
+    // geonameId: 921780,
   },
   {
     id: 714,
@@ -13565,7 +13565,7 @@ const divisions = [
       fr: 'Anjouan',
     }),
     denomination: 'island',
-    geonameId: 922001,
+    // geonameId: 922001,
   },
   {
     id: 715,
@@ -13584,7 +13584,7 @@ const divisions = [
       fr: 'Bouenza',
     }),
     denomination: 'department',
-    geonameId: 2260668,
+    // geonameId: 2260668,
   },
   {
     id: 716,
@@ -13603,7 +13603,7 @@ const divisions = [
       fr: 'Brazzaville',
     }),
     denomination: 'department',
-    geonameId: 2572183,
+    // geonameId: 2572183,
   },
   {
     id: 717,
@@ -13622,7 +13622,7 @@ const divisions = [
       fr: 'Cuvette',
     }),
     denomination: 'department',
-    geonameId: 2260487,
+    // geonameId: 2260487,
   },
   {
     id: 718,
@@ -13641,7 +13641,7 @@ const divisions = [
       fr: 'Cuvette-Ouest',
     }),
     denomination: 'department',
-    geonameId: 2593118,
+    // geonameId: 2593118,
   },
   {
     id: 719,
@@ -13660,7 +13660,7 @@ const divisions = [
       fr: 'Kouilou',
     }),
     denomination: 'department',
-    geonameId: 2258738,
+    // geonameId: 2258738,
   },
   {
     id: 720,
@@ -13679,7 +13679,7 @@ const divisions = [
       fr: 'Lékoumou',
     }),
     denomination: 'department',
-    geonameId: 2258534,
+    // geonameId: 2258534,
   },
   {
     id: 721,
@@ -13698,7 +13698,7 @@ const divisions = [
       fr: 'Likouala',
     }),
     denomination: 'department',
-    geonameId: 2258431,
+    // geonameId: 2258431,
   },
   {
     id: 722,
@@ -13717,7 +13717,7 @@ const divisions = [
       fr: 'Niari',
     }),
     denomination: 'department',
-    geonameId: 2256175,
+    // geonameId: 2256175,
   },
   {
     id: 723,
@@ -13736,7 +13736,7 @@ const divisions = [
       fr: 'Plateaux',
     }),
     denomination: 'department',
-    geonameId: 2255422,
+    // geonameId: 2255422,
   },
   {
     id: 724,
@@ -13755,7 +13755,7 @@ const divisions = [
       fr: 'Pointe-Noire',
     }),
     denomination: 'department',
-    geonameId: 7280295,
+    // geonameId: 7280295,
   },
   {
     id: 725,
@@ -13774,7 +13774,7 @@ const divisions = [
       fr: 'Pool',
     }),
     denomination: 'department',
-    geonameId: 2255404,
+    // geonameId: 2255404,
   },
   {
     id: 726,
@@ -13793,7 +13793,7 @@ const divisions = [
       fr: 'Sangha',
     }),
     denomination: 'department',
-    geonameId: 2255329,
+    // geonameId: 2255329,
   },
   {
     id: 727,
@@ -13812,7 +13812,7 @@ const divisions = [
       fr: 'Aitutaki',
     }),
     denomination: 'island',
-    geonameId: 11695124,
+    // geonameId: 11695124,
   },
   {
     id: 728,
@@ -13831,7 +13831,7 @@ const divisions = [
       fr: 'Atiu',
     }),
     denomination: 'island',
-    geonameId: 11695126,
+    // geonameId: 11695126,
   },
   {
     id: 729,
@@ -13850,7 +13850,7 @@ const divisions = [
       fr: 'Mauke',
     }),
     denomination: 'island',
-    geonameId: 11695385,
+    // geonameId: 11695385,
   },
   {
     id: 730,
@@ -13869,7 +13869,7 @@ const divisions = [
       fr: 'Mangaia',
     }),
     denomination: 'island',
-    geonameId: 11695127,
+    // geonameId: 11695127,
   },
   {
     id: 731,
@@ -13888,7 +13888,7 @@ const divisions = [
       fr: 'Manihiki',
     }),
     denomination: 'island',
-    geonameId: 11695384,
+    // geonameId: 11695384,
   },
   {
     id: 732,
@@ -13907,7 +13907,7 @@ const divisions = [
       fr: 'Mitiaro',
     }),
     denomination: 'island',
-    geonameId: 11695386,
+    // geonameId: 11695386,
   },
   {
     id: 733,
@@ -13926,7 +13926,7 @@ const divisions = [
       fr: 'Palmerston',
     }),
     denomination: 'island',
-    geonameId: 11695387,
+    // geonameId: 11695387,
   },
   {
     id: 734,
@@ -13945,7 +13945,7 @@ const divisions = [
       fr: 'Penrhyn',
     }),
     denomination: 'island',
-    geonameId: 11695388,
+    // geonameId: 11695388,
   },
   {
     id: 735,
@@ -13964,7 +13964,7 @@ const divisions = [
       fr: 'Pukapuka',
     }),
     denomination: 'island',
-    geonameId: 11695389,
+    // geonameId: 11695389,
   },
   {
     id: 736,
@@ -13983,7 +13983,7 @@ const divisions = [
       fr: 'Rakahanga',
     }),
     denomination: 'island',
-    geonameId: 11695390,
+    // geonameId: 11695390,
   },
   {
     id: 737,
@@ -14002,7 +14002,7 @@ const divisions = [
       fr: 'Rarotonga',
     }),
     denomination: 'island',
-    geonameId: 11695425,
+    // geonameId: 11695425,
   },
   {
     id: 738,
@@ -14021,7 +14021,7 @@ const divisions = [
       fr: 'Alajuela',
     }),
     denomination: 'province',
-    geonameId: 3624953,
+    // geonameId: 3624953,
   },
   {
     id: 739,
@@ -14040,7 +14040,7 @@ const divisions = [
       fr: 'Cartago',
     }),
     denomination: 'province',
-    geonameId: 3624368,
+    // geonameId: 3624368,
   },
   {
     id: 740,
@@ -14059,7 +14059,7 @@ const divisions = [
       fr: 'Guanacaste',
     }),
     denomination: 'province',
-    geonameId: 3623582,
+    // geonameId: 3623582,
   },
   {
     id: 741,
@@ -14078,7 +14078,7 @@ const divisions = [
       fr: 'Heredia',
     }),
     denomination: 'province',
-    geonameId: 3623484,
+    // geonameId: 3623484,
   },
   {
     id: 742,
@@ -14097,7 +14097,7 @@ const divisions = [
       fr: 'Limón',
     }),
     denomination: 'province',
-    geonameId: 3623064,
+    // geonameId: 3623064,
   },
   {
     id: 743,
@@ -14116,7 +14116,7 @@ const divisions = [
       fr: 'San José',
     }),
     denomination: 'province',
-    geonameId: 3621837,
+    // geonameId: 3621837,
   },
   {
     id: 744,
@@ -14135,7 +14135,7 @@ const divisions = [
       fr: 'Puntarenas',
     }),
     denomination: 'province',
-    geonameId: 3622226,
+    // geonameId: 3622226,
   },
   {
     id: 745,
@@ -14154,7 +14154,7 @@ const divisions = [
       fr: 'Bjelovar-Bilogora',
     }),
     denomination: 'county',
-    geonameId: 3337511,
+    // geonameId: 3337511,
   },
   {
     id: 746,
@@ -14173,7 +14173,7 @@ const divisions = [
       fr: 'Brod-Posavina',
     }),
     denomination: 'county',
-    geonameId: 3337512,
+    // geonameId: 3337512,
   },
   {
     id: 747,
@@ -14192,7 +14192,7 @@ const divisions = [
       fr: 'Osijek-Baranja',
     }),
     denomination: 'county',
-    geonameId: 3337522,
+    // geonameId: 3337522,
   },
   {
     id: 748,
@@ -14211,7 +14211,7 @@ const divisions = [
       fr: 'Dubrovnik-Neretva',
     }),
     denomination: 'county',
-    geonameId: 3337513,
+    // geonameId: 3337513,
   },
   {
     id: 749,
@@ -14230,7 +14230,7 @@ const divisions = [
       fr: 'Istrie',
     }),
     denomination: 'county',
-    geonameId: 3337514,
+    // geonameId: 3337514,
   },
   {
     id: 750,
@@ -14249,7 +14249,7 @@ const divisions = [
       fr: 'Karlovac',
     }),
     denomination: 'county',
-    geonameId: 3337515,
+    // geonameId: 3337515,
   },
   {
     id: 751,
@@ -14268,7 +14268,7 @@ const divisions = [
       fr: 'Koprivnica-Križevci',
     }),
     denomination: 'county',
-    geonameId: 3337518,
+    // geonameId: 3337518,
   },
   {
     id: 752,
@@ -14287,7 +14287,7 @@ const divisions = [
       fr: 'Krapina-Zagorje',
     }),
     denomination: 'county',
-    geonameId: 3337519,
+    // geonameId: 3337519,
   },
   {
     id: 753,
@@ -14306,7 +14306,7 @@ const divisions = [
       fr: 'Lika-Senj',
     }),
     denomination: 'county',
-    geonameId: 3337520,
+    // geonameId: 3337520,
   },
   {
     id: 754,
@@ -14325,7 +14325,7 @@ const divisions = [
       fr: 'Međimurje',
     }),
     denomination: 'county',
-    geonameId: 3337521,
+    // geonameId: 3337521,
   },
   {
     id: 755,
@@ -14344,7 +14344,7 @@ const divisions = [
       fr: 'Požega-Slavonia',
     }),
     denomination: 'county',
-    geonameId: 3337523,
+    // geonameId: 3337523,
   },
   {
     id: 756,
@@ -14363,7 +14363,7 @@ const divisions = [
       fr: 'Primorje-Gorski Kotar',
     }),
     denomination: 'county',
-    geonameId: 3337524,
+    // geonameId: 3337524,
   },
   {
     id: 757,
@@ -14382,7 +14382,7 @@ const divisions = [
       fr: 'Šibenik-Knin',
     }),
     denomination: 'county',
-    geonameId: 3337525,
+    // geonameId: 3337525,
   },
   {
     id: 758,
@@ -14401,7 +14401,7 @@ const divisions = [
       fr: 'Sisak-Moslavina',
     }),
     denomination: 'county',
-    geonameId: 3337526,
+    // geonameId: 3337526,
   },
   {
     id: 759,
@@ -14420,7 +14420,7 @@ const divisions = [
       fr: 'Split-Dalmatie',
     }),
     denomination: 'county',
-    geonameId: 3337527,
+    // geonameId: 3337527,
   },
   {
     id: 760,
@@ -14439,7 +14439,7 @@ const divisions = [
       fr: 'Varaždin',
     }),
     denomination: 'county',
-    geonameId: 3337528,
+    // geonameId: 3337528,
   },
   {
     id: 761,
@@ -14458,7 +14458,7 @@ const divisions = [
       fr: 'Virovitica-Podravina',
     }),
     denomination: 'county',
-    geonameId: 3337533,
+    // geonameId: 3337533,
   },
   {
     id: 762,
@@ -14477,7 +14477,7 @@ const divisions = [
       fr: 'Vukovar-Syrmie',
     }),
     denomination: 'county',
-    geonameId: 3337529,
+    // geonameId: 3337529,
   },
   {
     id: 763,
@@ -14496,7 +14496,7 @@ const divisions = [
       fr: 'Zadar',
     }),
     denomination: 'county',
-    geonameId: 3337530,
+    // geonameId: 3337530,
   },
   {
     id: 764,
@@ -14515,7 +14515,7 @@ const divisions = [
       fr: 'Zagreb',
     }),
     denomination: 'county',
-    geonameId: 3337532,
+    // geonameId: 3337532,
   },
   {
     id: 765,
@@ -14534,7 +14534,7 @@ const divisions = [
       fr: 'Ville de Zagreb',
     }),
     denomination: 'city',
-    geonameId: 3337531,
+    // geonameId: 3337531,
   },
   {
     id: 766,
@@ -14553,7 +14553,7 @@ const divisions = [
       fr: 'Artemisa',
     }),
     denomination: 'province',
-    geonameId: 7668824,
+    // geonameId: 7668824,
   },
   {
     id: 767,
@@ -14572,7 +14572,7 @@ const divisions = [
       fr: 'Ciego de Ávila',
     }),
     denomination: 'province',
-    geonameId: 3564175,
+    // geonameId: 3564175,
   },
   {
     id: 768,
@@ -14591,7 +14591,7 @@ const divisions = [
       fr: 'Cienfuegos',
     }),
     denomination: 'province',
-    geonameId: 3564120,
+    // geonameId: 3564120,
   },
   {
     id: 769,
@@ -14610,7 +14610,7 @@ const divisions = [
       fr: 'Granma',
     }),
     denomination: 'province',
-    geonameId: 3558052,
+    // geonameId: 3558052,
   },
   {
     id: 770,
@@ -14629,7 +14629,7 @@ const divisions = [
       fr: 'Guantánamo',
     }),
     denomination: 'province',
-    geonameId: 3557685,
+    // geonameId: 3557685,
   },
   {
     id: 771,
@@ -14648,7 +14648,7 @@ const divisions = [
       fr: 'La Havane',
     }),
     denomination: 'province',
-    geonameId: 3564073,
+    // geonameId: 3564073,
   },
   {
     id: 772,
@@ -14667,7 +14667,7 @@ const divisions = [
       fr: 'Holguín',
     }),
     denomination: 'province',
-    geonameId: 3556965,
+    // geonameId: 3556965,
   },
   {
     id: 773,
@@ -14686,7 +14686,7 @@ const divisions = [
       fr: 'Las Tunas',
     }),
     denomination: 'province',
-    geonameId: 3550595,
+    // geonameId: 3550595,
   },
   {
     id: 774,
@@ -14705,7 +14705,7 @@ const divisions = [
       fr: 'Matanzas',
     }),
     denomination: 'province',
-    geonameId: 3547394,
+    // geonameId: 3547394,
   },
   {
     id: 775,
@@ -14724,7 +14724,7 @@ const divisions = [
       fr: 'Mayabeque',
     }),
     denomination: 'province',
-    geonameId: 7668827,
+    // geonameId: 7668827,
   },
   {
     id: 776,
@@ -14743,7 +14743,7 @@ const divisions = [
       fr: "Municipalité spéciale de l'Île de la Jeunesse",
     }),
     denomination: 'special_municipality',
-    geonameId: 3556608,
+    // geonameId: 3556608,
   },
   {
     id: 777,
@@ -14762,7 +14762,7 @@ const divisions = [
       fr: 'Camagüey',
     }),
     denomination: 'province',
-    geonameId: 3566062,
+    // geonameId: 3566062,
   },
   {
     id: 778,
@@ -14781,7 +14781,7 @@ const divisions = [
       fr: 'Pinar del Río',
     }),
     denomination: 'province',
-    geonameId: 3544088,
+    // geonameId: 3544088,
   },
   {
     id: 779,
@@ -14800,7 +14800,7 @@ const divisions = [
       fr: 'Sancti Spíritus',
     }),
     denomination: 'province',
-    geonameId: 3540665,
+    // geonameId: 3540665,
   },
   {
     id: 780,
@@ -14819,7 +14819,7 @@ const divisions = [
       fr: 'Santiago de Cuba',
     }),
     denomination: 'province',
-    geonameId: 3536725,
+    // geonameId: 3536725,
   },
   {
     id: 781,
@@ -14838,7 +14838,7 @@ const divisions = [
       fr: 'Villa Clara',
     }),
     denomination: 'province',
-    geonameId: 3534168,
+    // geonameId: 3534168,
   },
   {
     id: 782,
@@ -14857,7 +14857,7 @@ const divisions = [
       fr: 'Famagouste',
     }),
     denomination: 'district',
-    geonameId: 146615,
+    // geonameId: 146615,
   },
   {
     id: 783,
@@ -14876,7 +14876,7 @@ const divisions = [
       fr: 'Kyrenia',
     }),
     denomination: 'district',
-    geonameId: 146411,
+    // geonameId: 146411,
   },
   {
     id: 784,
@@ -14895,7 +14895,7 @@ const divisions = [
       fr: 'Larnaca',
     }),
     denomination: 'district',
-    geonameId: 146398,
+    // geonameId: 146398,
   },
   {
     id: 785,
@@ -14914,7 +14914,7 @@ const divisions = [
       fr: 'Limassol',
     }),
     denomination: 'district',
-    geonameId: 146383,
+    // geonameId: 146383,
   },
   {
     id: 786,
@@ -14933,7 +14933,7 @@ const divisions = [
       fr: 'Nicosie',
     }),
     denomination: 'district',
-    geonameId: 146267,
+    // geonameId: 146267,
   },
   {
     id: 787,
@@ -14952,7 +14952,7 @@ const divisions = [
       fr: 'Paphos',
     }),
     denomination: 'district',
-    geonameId: 146213,
+    // geonameId: 146213,
   },
   {
     id: 788,
@@ -14971,7 +14971,7 @@ const divisions = [
       fr: 'Bohême-Centrale',
     }),
     denomination: 'region',
-    geonameId: 3339576,
+    // geonameId: 3339576,
   },
   {
     id: 789,
@@ -14990,7 +14990,7 @@ const divisions = [
       fr: 'Bohême-du-Sud',
     }),
     denomination: 'region',
-    geonameId: 3339537,
+    // geonameId: 3339537,
   },
   {
     id: 790,
@@ -15009,7 +15009,7 @@ const divisions = [
       fr: 'Karlovy Vary',
     }),
     denomination: 'region',
-    geonameId: 3339539,
+    // geonameId: 3339539,
   },
   {
     id: 791,
@@ -15028,7 +15028,7 @@ const divisions = [
       fr: 'Vysočina',
     }),
     denomination: 'region',
-    geonameId: 3339538,
+    // geonameId: 3339538,
   },
   {
     id: 792,
@@ -15047,7 +15047,7 @@ const divisions = [
       fr: 'Hradec Králové',
     }),
     denomination: 'region',
-    geonameId: 3339540,
+    // geonameId: 3339540,
   },
   {
     id: 793,
@@ -15066,7 +15066,7 @@ const divisions = [
       fr: 'Liberec',
     }),
     denomination: 'region',
-    geonameId: 3339541,
+    // geonameId: 3339541,
   },
   {
     id: 794,
@@ -15085,7 +15085,7 @@ const divisions = [
       fr: 'Moravie-Silésie',
     }),
     denomination: 'region',
-    geonameId: 3339573,
+    // geonameId: 3339573,
   },
   {
     id: 795,
@@ -15104,7 +15104,7 @@ const divisions = [
       fr: 'Olomouc',
     }),
     denomination: 'region',
-    geonameId: 3339542,
+    // geonameId: 3339542,
   },
   {
     id: 796,
@@ -15123,7 +15123,7 @@ const divisions = [
       fr: 'Pardubice',
     }),
     denomination: 'region',
-    geonameId: 3339574,
+    // geonameId: 3339574,
   },
   {
     id: 797,
@@ -15142,7 +15142,7 @@ const divisions = [
       fr: 'Plzeň',
     }),
     denomination: 'region',
-    geonameId: 3339575,
+    // geonameId: 3339575,
   },
   {
     id: 798,
@@ -15161,7 +15161,7 @@ const divisions = [
       fr: 'Prague',
     }),
     denomination: 'capital_city',
-    geonameId: 3067695,
+    // geonameId: 3067695,
   },
   {
     id: 799,
@@ -15180,7 +15180,7 @@ const divisions = [
       fr: 'Moravie-du-Sud',
     }),
     denomination: 'region',
-    geonameId: 3339536,
+    // geonameId: 3339536,
   },
   {
     id: 800,
@@ -15199,7 +15199,7 @@ const divisions = [
       fr: 'Ústí nad Labem',
     }),
     denomination: 'region',
-    geonameId: 3339577,
+    // geonameId: 3339577,
   },
   {
     id: 801,
@@ -15218,7 +15218,7 @@ const divisions = [
       fr: 'Zlín',
     }),
     denomination: 'region',
-    geonameId: 3339578,
+    // geonameId: 3339578,
   },
   {
     id: 802,
@@ -15237,7 +15237,7 @@ const divisions = [
       fr: 'Région de la Capitale',
     }),
     denomination: 'region',
-    geonameId: 6418538,
+    // geonameId: 6418538,
   },
   {
     id: 803,
@@ -15256,7 +15256,7 @@ const divisions = [
       fr: 'Danemark central',
     }),
     denomination: 'region',
-    geonameId: 6418539,
+    // geonameId: 6418539,
   },
   {
     id: 804,
@@ -15275,7 +15275,7 @@ const divisions = [
       fr: 'Danemark du Nord',
     }),
     denomination: 'region',
-    geonameId: 6418540,
+    // geonameId: 6418540,
   },
   {
     id: 805,
@@ -15294,7 +15294,7 @@ const divisions = [
       fr: 'Danemark du Sud',
     }),
     denomination: 'region',
-    geonameId: 6418542,
+    // geonameId: 6418542,
   },
   {
     id: 806,
@@ -15313,7 +15313,7 @@ const divisions = [
       fr: 'Zélande',
     }),
     denomination: 'region',
-    geonameId: 6418541,
+    // geonameId: 6418541,
   },
   {
     id: 807,
@@ -15332,7 +15332,7 @@ const divisions = [
       fr: 'Ali Sabieh',
     }),
     denomination: 'region',
-    geonameId: 225282,
+    // geonameId: 225282,
   },
   {
     id: 808,
@@ -15351,7 +15351,7 @@ const divisions = [
       fr: 'Arta',
     }),
     denomination: 'region',
-    geonameId: 449265,
+    // geonameId: 449265,
   },
   {
     id: 809,
@@ -15370,7 +15370,7 @@ const divisions = [
       fr: 'Dikhil',
     }),
     denomination: 'region',
-    geonameId: 223889,
+    // geonameId: 223889,
   },
   {
     id: 810,
@@ -15389,7 +15389,7 @@ const divisions = [
       fr: 'Djibouti',
     }),
     denomination: 'region',
-    geonameId: 223818,
+    // geonameId: 223818,
   },
   {
     id: 811,
@@ -15408,7 +15408,7 @@ const divisions = [
       fr: 'Obock',
     }),
     denomination: 'region',
-    geonameId: 221525,
+    // geonameId: 221525,
   },
   {
     id: 812,
@@ -15427,7 +15427,7 @@ const divisions = [
       fr: 'Tadjourah',
     }),
     denomination: 'region',
-    geonameId: 220781,
+    // geonameId: 220781,
   },
   {
     id: 813,
@@ -15446,7 +15446,7 @@ const divisions = [
       fr: 'Saint Andrew',
     }),
     denomination: 'parish',
-    geonameId: 3575632,
+    // geonameId: 3575632,
   },
   {
     id: 814,
@@ -15465,7 +15465,7 @@ const divisions = [
       fr: 'Saint David',
     }),
     denomination: 'parish',
-    geonameId: 3575630,
+    // geonameId: 3575630,
   },
   {
     id: 815,
@@ -15484,7 +15484,7 @@ const divisions = [
       fr: 'Saint George',
     }),
     denomination: 'parish',
-    geonameId: 3575628,
+    // geonameId: 3575628,
   },
   {
     id: 816,
@@ -15503,7 +15503,7 @@ const divisions = [
       fr: 'Saint John',
     }),
     denomination: 'parish',
-    geonameId: 3575626,
+    // geonameId: 3575626,
   },
   {
     id: 817,
@@ -15522,7 +15522,7 @@ const divisions = [
       fr: 'Saint Joseph',
     }),
     denomination: 'parish',
-    geonameId: 3575625,
+    // geonameId: 3575625,
   },
   {
     id: 818,
@@ -15541,7 +15541,7 @@ const divisions = [
       fr: 'Saint Luc',
     }),
     denomination: 'parish',
-    geonameId: 3575622,
+    // geonameId: 3575622,
   },
   {
     id: 819,
@@ -15560,7 +15560,7 @@ const divisions = [
       fr: 'Saint Marc',
     }),
     denomination: 'parish',
-    geonameId: 3575621,
+    // geonameId: 3575621,
   },
   {
     id: 820,
@@ -15579,7 +15579,7 @@ const divisions = [
       fr: 'Saint Patrick',
     }),
     denomination: 'parish',
-    geonameId: 3575620,
+    // geonameId: 3575620,
   },
   {
     id: 821,
@@ -15598,7 +15598,7 @@ const divisions = [
       fr: 'Saint Paul',
     }),
     denomination: 'parish',
-    geonameId: 3575619,
+    // geonameId: 3575619,
   },
   {
     id: 822,
@@ -15617,7 +15617,7 @@ const divisions = [
       fr: 'Saint Pierre',
     }),
     denomination: 'parish',
-    geonameId: 3575618,
+    // geonameId: 3575618,
   },
   {
     id: 823,
@@ -15636,7 +15636,7 @@ const divisions = [
       fr: 'Azua',
     }),
     denomination: 'province',
-    geonameId: 3512209,
+    // geonameId: 3512209,
   },
   {
     id: 824,
@@ -15655,7 +15655,7 @@ const divisions = [
       fr: 'Baoruco',
     }),
     denomination: 'province',
-    geonameId: 3512050,
+    // geonameId: 3512050,
   },
   {
     id: 825,
@@ -15674,7 +15674,7 @@ const divisions = [
       fr: 'Barahona',
     }),
     denomination: 'province',
-    geonameId: 3512042,
+    // geonameId: 3512042,
   },
   {
     id: 826,
@@ -15693,7 +15693,7 @@ const divisions = [
       fr: 'Dajabón',
     }),
     denomination: 'province',
-    geonameId: 3508951,
+    // geonameId: 3508951,
   },
   {
     id: 827,
@@ -15712,7 +15712,7 @@ const divisions = [
       fr: 'Duarte',
     }),
     denomination: 'province',
-    geonameId: 3508718,
+    // geonameId: 3508718,
   },
   {
     id: 828,
@@ -15731,7 +15731,7 @@ const divisions = [
       fr: 'El Seibo',
     }),
     denomination: 'province',
-    geonameId: 3506189,
+    // geonameId: 3506189,
   },
   {
     id: 829,
@@ -15750,7 +15750,7 @@ const divisions = [
       fr: 'Elías Piña',
     }),
     denomination: 'province',
-    geonameId: 3507269,
+    // geonameId: 3507269,
   },
   {
     id: 830,
@@ -15769,7 +15769,7 @@ const divisions = [
       fr: 'Espaillat',
     }),
     denomination: 'province',
-    geonameId: 3505867,
+    // geonameId: 3505867,
   },
   {
     id: 831,
@@ -15788,7 +15788,7 @@ const divisions = [
       fr: 'Hato Mayor',
     }),
     denomination: 'province',
-    geonameId: 3504766,
+    // geonameId: 3504766,
   },
   {
     id: 832,
@@ -15807,7 +15807,7 @@ const divisions = [
       fr: 'Independencia',
     }),
     denomination: 'province',
-    geonameId: 3504326,
+    // geonameId: 3504326,
   },
   {
     id: 833,
@@ -15826,7 +15826,7 @@ const divisions = [
       fr: 'La Altagracia',
     }),
     denomination: 'province',
-    geonameId: 3503706,
+    // geonameId: 3503706,
   },
   {
     id: 834,
@@ -15845,7 +15845,7 @@ const divisions = [
       fr: 'La Romana',
     }),
     denomination: 'province',
-    geonameId: 3500955,
+    // geonameId: 3500955,
   },
   {
     id: 835,
@@ -15864,7 +15864,7 @@ const divisions = [
       fr: 'La Vega',
     }),
     denomination: 'province',
-    geonameId: 3499977,
+    // geonameId: 3499977,
   },
   {
     id: 836,
@@ -15883,7 +15883,7 @@ const divisions = [
       fr: 'Monseñor Nouel',
     }),
     denomination: 'province',
-    geonameId: 3496274,
+    // geonameId: 3496274,
   },
   {
     id: 837,
@@ -15902,7 +15902,7 @@ const divisions = [
       fr: 'Monte Cristi',
     }),
     denomination: 'province',
-    geonameId: 3496200,
+    // geonameId: 3496200,
   },
   {
     id: 838,
@@ -15921,7 +15921,7 @@ const divisions = [
       fr: 'Monte Plata',
     }),
     denomination: 'province',
-    geonameId: 3496132,
+    // geonameId: 3496132,
   },
   {
     id: 839,
@@ -15940,7 +15940,7 @@ const divisions = [
       fr: 'District national',
     }),
     denomination: 'district',
-    geonameId: 3496024,
+    // geonameId: 3496024,
   },
   {
     id: 840,
@@ -15959,7 +15959,7 @@ const divisions = [
       fr: 'Pedernales',
     }),
     denomination: 'province',
-    geonameId: 3495136,
+    // geonameId: 3495136,
   },
   {
     id: 841,
@@ -15978,7 +15978,7 @@ const divisions = [
       fr: 'Peravia',
     }),
     denomination: 'province',
-    geonameId: 3495015,
+    // geonameId: 3495015,
   },
   {
     id: 842,
@@ -15997,7 +15997,7 @@ const divisions = [
       fr: 'Hermanas Mirabal',
     }),
     denomination: 'province',
-    geonameId: 3493282,
+    // geonameId: 3493282,
   },
   {
     id: 843,
@@ -16016,7 +16016,7 @@ const divisions = [
       fr: 'San José de Ocoa',
     }),
     denomination: 'province',
-    geonameId: 6201372,
+    // geonameId: 6201372,
   },
   {
     id: 844,
@@ -16035,7 +16035,7 @@ const divisions = [
       fr: 'María Trinidad Sánchez',
     }),
     denomination: 'province',
-    geonameId: 3496772,
+    // geonameId: 3496772,
   },
   {
     id: 845,
@@ -16054,7 +16054,7 @@ const divisions = [
       fr: 'Sánchez Ramírez',
     }),
     denomination: 'province',
-    geonameId: 3493192,
+    // geonameId: 3493192,
   },
   {
     id: 846,
@@ -16073,7 +16073,7 @@ const divisions = [
       fr: 'Puerto Plata',
     }),
     denomination: 'province',
-    geonameId: 3494267,
+    // geonameId: 3494267,
   },
   {
     id: 847,
@@ -16092,7 +16092,7 @@ const divisions = [
       fr: 'Samaná',
     }),
     denomination: 'province',
-    geonameId: 3493232,
+    // geonameId: 3493232,
   },
   {
     id: 848,
@@ -16111,7 +16111,7 @@ const divisions = [
       fr: 'San Cristóbal',
     }),
     denomination: 'province',
-    geonameId: 3493186,
+    // geonameId: 3493186,
   },
   {
     id: 849,
@@ -16130,7 +16130,7 @@ const divisions = [
       fr: 'San Juan',
     }),
     denomination: 'province',
-    geonameId: 3493091,
+    // geonameId: 3493091,
   },
   {
     id: 850,
@@ -16149,7 +16149,7 @@ const divisions = [
       fr: 'San Pedro de Macorís',
     }),
     denomination: 'province',
-    geonameId: 3493031,
+    // geonameId: 3493031,
   },
   {
     id: 851,
@@ -16168,7 +16168,7 @@ const divisions = [
       fr: 'Santiago',
     }),
     denomination: 'province',
-    geonameId: 3492918,
+    // geonameId: 3492918,
   },
   {
     id: 852,
@@ -16187,7 +16187,7 @@ const divisions = [
       fr: 'Santiago Rodríguez',
     }),
     denomination: 'province',
-    geonameId: 3492912,
+    // geonameId: 3492912,
   },
   {
     id: 853,
@@ -16206,7 +16206,7 @@ const divisions = [
       fr: 'Santo Domingo',
     }),
     denomination: 'province',
-    geonameId: 6201373,
+    // geonameId: 6201373,
   },
   {
     id: 854,
@@ -16225,7 +16225,7 @@ const divisions = [
       fr: 'Valverde',
     }),
     denomination: 'province',
-    geonameId: 3492112,
+    // geonameId: 3492112,
   },
   {
     id: 855,
@@ -16244,7 +16244,7 @@ const divisions = [
       fr: 'Bas-Uele',
     }),
     denomination: 'province',
-    geonameId: 219402,
+    // geonameId: 219402,
   },
   {
     id: 856,
@@ -16263,7 +16263,7 @@ const divisions = [
       fr: 'Kasaï oriental',
     }),
     denomination: 'province',
-    geonameId: 214138,
+    // geonameId: 214138,
   },
   {
     id: 857,
@@ -16282,7 +16282,7 @@ const divisions = [
       fr: 'Équateur',
     }),
     denomination: 'province',
-    geonameId: 216661,
+    // geonameId: 216661,
   },
   {
     id: 858,
@@ -16301,7 +16301,7 @@ const divisions = [
       fr: 'Haut-Katanga',
     }),
     denomination: 'province',
-    geonameId: 11288213,
+    // geonameId: 11288213,
   },
   {
     id: 859,
@@ -16320,7 +16320,7 @@ const divisions = [
       fr: 'Haut-Lomami',
     }),
     denomination: 'province',
-    geonameId: 216141,
+    // geonameId: 216141,
   },
   {
     id: 860,
@@ -16339,7 +16339,7 @@ const divisions = [
       fr: 'Haut-Uele',
     }),
     denomination: 'province',
-    geonameId: 216140,
+    // geonameId: 216140,
   },
   {
     id: 861,
@@ -16358,7 +16358,7 @@ const divisions = [
       fr: 'Ituri',
     }),
     denomination: 'province',
-    geonameId: 215709,
+    // geonameId: 215709,
   },
   {
     id: 862,
@@ -16377,7 +16377,7 @@ const divisions = [
       fr: 'Kasaï',
     }),
     denomination: 'province',
-    geonameId: 214140,
+    // geonameId: 214140,
   },
   {
     id: 863,
@@ -16396,7 +16396,7 @@ const divisions = [
       fr: 'Kasaï central',
     }),
     denomination: 'province',
-    geonameId: 210596,
+    // geonameId: 210596,
   },
   {
     id: 864,
@@ -16415,7 +16415,7 @@ const divisions = [
       fr: 'Kinshasa',
     }),
     denomination: 'city',
-    geonameId: 2314300,
+    // geonameId: 2314300,
   },
   {
     id: 865,
@@ -16434,7 +16434,7 @@ const divisions = [
       fr: 'Kongo central',
     }),
     denomination: 'province',
-    geonameId: 2317277,
+    // geonameId: 2317277,
   },
   {
     id: 866,
@@ -16453,7 +16453,7 @@ const divisions = [
       fr: 'Kwango',
     }),
     denomination: 'province',
-    geonameId: 2313860,
+    // geonameId: 2313860,
   },
   {
     id: 867,
@@ -16472,7 +16472,7 @@ const divisions = [
       fr: 'Kwilu',
     }),
     denomination: 'province',
-    geonameId: 2313847,
+    // geonameId: 2313847,
   },
   {
     id: 868,
@@ -16491,7 +16491,7 @@ const divisions = [
       fr: 'Lomami',
     }),
     denomination: 'province',
-    geonameId: 11288214,
+    // geonameId: 11288214,
   },
   {
     id: 869,
@@ -16510,7 +16510,7 @@ const divisions = [
       fr: 'Lualaba',
     }),
     denomination: 'province',
-    geonameId: 922727,
+    // geonameId: 922727,
   },
   {
     id: 870,
@@ -16529,7 +16529,7 @@ const divisions = [
       fr: 'Mai-Ndombe',
     }),
     denomination: 'province',
-    geonameId: 2313191,
+    // geonameId: 2313191,
   },
   {
     id: 871,
@@ -16548,7 +16548,7 @@ const divisions = [
       fr: 'Maniema',
     }),
     denomination: 'province',
-    geonameId: 209610,
+    // geonameId: 209610,
   },
   {
     id: 872,
@@ -16567,7 +16567,7 @@ const divisions = [
       fr: 'Mongala',
     }),
     denomination: 'province',
-    geonameId: 208741,
+    // geonameId: 208741,
   },
   {
     id: 873,
@@ -16586,7 +16586,7 @@ const divisions = [
       fr: 'Nord-Kivu',
     }),
     denomination: 'province',
-    geonameId: 206938,
+    // geonameId: 206938,
   },
   {
     id: 874,
@@ -16605,7 +16605,7 @@ const divisions = [
       fr: 'Nord-Ubangi',
     }),
     denomination: 'province',
-    geonameId: 11288215,
+    // geonameId: 11288215,
   },
   {
     id: 875,
@@ -16624,7 +16624,7 @@ const divisions = [
       fr: 'Sankuru',
     }),
     denomination: 'province',
-    geonameId: 205828,
+    // geonameId: 205828,
   },
   {
     id: 876,
@@ -16643,7 +16643,7 @@ const divisions = [
       fr: 'Sud-Kivu',
     }),
     denomination: 'province',
-    geonameId: 205413,
+    // geonameId: 205413,
   },
   {
     id: 877,
@@ -16662,7 +16662,7 @@ const divisions = [
       fr: 'Sud-Ubangi',
     }),
     denomination: 'province',
-    geonameId: 11288216,
+    // geonameId: 11288216,
   },
   {
     id: 878,
@@ -16681,7 +16681,7 @@ const divisions = [
       fr: 'Tanganyika',
     }),
     denomination: 'province',
-    geonameId: 205253,
+    // geonameId: 205253,
   },
   {
     id: 879,
@@ -16700,7 +16700,7 @@ const divisions = [
       fr: 'Tshopo',
     }),
     denomination: 'province',
-    geonameId: 204704,
+    // geonameId: 204704,
   },
   {
     id: 880,
@@ -16719,7 +16719,7 @@ const divisions = [
       fr: 'Tshuapa',
     }),
     denomination: 'province',
-    geonameId: 204697,
+    // geonameId: 204697,
   },
   {
     id: 881,
@@ -16738,7 +16738,7 @@ const divisions = [
       fr: 'Azuay',
     }),
     denomination: 'province',
-    geonameId: 3660431,
+    // geonameId: 3660431,
   },
   {
     id: 882,
@@ -16757,7 +16757,7 @@ const divisions = [
       fr: 'Bolívar',
     }),
     denomination: 'province',
-    geonameId: 3660130,
+    // geonameId: 3660130,
   },
   {
     id: 883,
@@ -16776,7 +16776,7 @@ const divisions = [
       fr: 'Cañar',
     }),
     denomination: 'province',
-    geonameId: 3659849,
+    // geonameId: 3659849,
   },
   {
     id: 884,
@@ -16795,7 +16795,7 @@ const divisions = [
       fr: 'Carchi',
     }),
     denomination: 'province',
-    geonameId: 3659718,
+    // geonameId: 3659718,
   },
   {
     id: 885,
@@ -16814,7 +16814,7 @@ const divisions = [
       fr: 'Chimborazo',
     }),
     denomination: 'province',
-    geonameId: 3659237,
+    // geonameId: 3659237,
   },
   {
     id: 886,
@@ -16833,7 +16833,7 @@ const divisions = [
       fr: 'Cotopaxi',
     }),
     denomination: 'province',
-    geonameId: 3658766,
+    // geonameId: 3658766,
   },
   {
     id: 887,
@@ -16852,7 +16852,7 @@ const divisions = [
       fr: 'El Oro',
     }),
     denomination: 'province',
-    geonameId: 3658195,
+    // geonameId: 3658195,
   },
   {
     id: 888,
@@ -16871,7 +16871,7 @@ const divisions = [
       fr: 'Esmeraldas',
     }),
     denomination: 'province',
-    geonameId: 3657986,
+    // geonameId: 3657986,
   },
   {
     id: 889,
@@ -16890,7 +16890,7 @@ const divisions = [
       fr: 'Galápagos',
     }),
     denomination: 'province',
-    geonameId: 3657879,
+    // geonameId: 3657879,
   },
   {
     id: 890,
@@ -16909,7 +16909,7 @@ const divisions = [
       fr: 'Guayas',
     }),
     denomination: 'province',
-    geonameId: 3657505,
+    // geonameId: 3657505,
   },
   {
     id: 891,
@@ -16928,7 +16928,7 @@ const divisions = [
       fr: 'Imbabura',
     }),
     denomination: 'province',
-    geonameId: 3655635,
+    // geonameId: 3655635,
   },
   {
     id: 892,
@@ -16947,7 +16947,7 @@ const divisions = [
       fr: 'Loja',
     }),
     denomination: 'province',
-    geonameId: 3654665,
+    // geonameId: 3654665,
   },
   {
     id: 893,
@@ -16966,7 +16966,7 @@ const divisions = [
       fr: 'Los Ríos',
     }),
     denomination: 'province',
-    geonameId: 3654592,
+    // geonameId: 3654592,
   },
   {
     id: 894,
@@ -16985,7 +16985,7 @@ const divisions = [
       fr: 'Manabí',
     }),
     denomination: 'province',
-    geonameId: 3654451,
+    // geonameId: 3654451,
   },
   {
     id: 895,
@@ -17004,7 +17004,7 @@ const divisions = [
       fr: 'Morona-Santiago',
     }),
     denomination: 'province',
-    geonameId: 3654005,
+    // geonameId: 3654005,
   },
   {
     id: 896,
@@ -17023,7 +17023,7 @@ const divisions = [
       fr: 'Napo',
     }),
     denomination: 'province',
-    geonameId: 3653890,
+    // geonameId: 3653890,
   },
   {
     id: 897,
@@ -17042,7 +17042,7 @@ const divisions = [
       fr: 'Orellana',
     }),
     denomination: 'province',
-    geonameId: 3830306,
+    // geonameId: 3830306,
   },
   {
     id: 898,
@@ -17061,7 +17061,7 @@ const divisions = [
       fr: 'Pastaza',
     }),
     denomination: 'province',
-    geonameId: 3653392,
+    // geonameId: 3653392,
   },
   {
     id: 899,
@@ -17080,7 +17080,7 @@ const divisions = [
       fr: 'Pichincha',
     }),
     denomination: 'province',
-    geonameId: 3653224,
+    // geonameId: 3653224,
   },
   {
     id: 900,
@@ -17099,7 +17099,7 @@ const divisions = [
       fr: 'Santa Elena',
     }),
     denomination: 'province',
-    geonameId: 7062138,
+    // geonameId: 7062138,
   },
   {
     id: 901,
@@ -17118,7 +17118,7 @@ const divisions = [
       fr: 'Santo Domingo de los Tsáchilas',
     }),
     denomination: 'province',
-    geonameId: 7062136,
+    // geonameId: 7062136,
   },
   {
     id: 902,
@@ -17137,7 +17137,7 @@ const divisions = [
       fr: 'Sucumbíos',
     }),
     denomination: 'province',
-    geonameId: 3830305,
+    // geonameId: 3830305,
   },
   {
     id: 903,
@@ -17156,7 +17156,7 @@ const divisions = [
       fr: 'Tungurahua',
     }),
     denomination: 'province',
-    geonameId: 3650445,
+    // geonameId: 3650445,
   },
   {
     id: 904,
@@ -17175,7 +17175,7 @@ const divisions = [
       fr: 'Zamora Chinchipe',
     }),
     denomination: 'province',
-    geonameId: 3649953,
+    // geonameId: 3649953,
   },
   {
     id: 905,
@@ -17194,7 +17194,7 @@ const divisions = [
       fr: 'Alexandrie',
     }),
     denomination: 'governorate',
-    geonameId: 361059,
+    // geonameId: 361059,
   },
   {
     id: 906,
@@ -17213,7 +17213,7 @@ const divisions = [
       fr: 'Assouan',
     }),
     denomination: 'governorate',
-    geonameId: 359787,
+    // geonameId: 359787,
   },
   {
     id: 907,
@@ -17232,7 +17232,7 @@ const divisions = [
       fr: 'Assiout',
     }),
     denomination: 'governorate',
-    geonameId: 359781,
+    // geonameId: 359781,
   },
   {
     id: 908,
@@ -17251,7 +17251,7 @@ const divisions = [
       fr: 'Beheira',
     }),
     denomination: 'governorate',
-    geonameId: 361370,
+    // geonameId: 361370,
   },
   {
     id: 909,
@@ -17270,7 +17270,7 @@ const divisions = [
       fr: 'Beni Souef',
     }),
     denomination: 'governorate',
-    geonameId: 359171,
+    // geonameId: 359171,
   },
   {
     id: 910,
@@ -17289,7 +17289,7 @@ const divisions = [
       fr: 'Le Caire',
     }),
     denomination: 'governorate',
-    geonameId: 360631,
+    // geonameId: 360631,
   },
   {
     id: 911,
@@ -17308,7 +17308,7 @@ const divisions = [
       fr: 'Dakahlieh',
     }),
     denomination: 'governorate',
-    geonameId: 361849,
+    // geonameId: 361849,
   },
   {
     id: 912,
@@ -17327,7 +17327,7 @@ const divisions = [
       fr: 'Damiette',
     }),
     denomination: 'governorate',
-    geonameId: 358044,
+    // geonameId: 358044,
   },
   {
     id: 913,
@@ -17346,7 +17346,7 @@ const divisions = [
       fr: 'Fayoum',
     }),
     denomination: 'governorate',
-    geonameId: 361323,
+    // geonameId: 361323,
   },
   {
     id: 914,
@@ -17365,7 +17365,7 @@ const divisions = [
       fr: 'Gharbia',
     }),
     denomination: 'governorate',
-    geonameId: 361294,
+    // geonameId: 361294,
   },
   {
     id: 915,
@@ -17384,7 +17384,7 @@ const divisions = [
       fr: 'Gizeh',
     }),
     denomination: 'governorate',
-    geonameId: 360997,
+    // geonameId: 360997,
   },
   {
     id: 916,
@@ -17403,7 +17403,7 @@ const divisions = [
       fr: 'Ismaïlia',
     }),
     denomination: 'governorate',
-    geonameId: 361056,
+    // geonameId: 361056,
   },
   {
     id: 917,
@@ -17422,7 +17422,7 @@ const divisions = [
       fr: 'Kafr el-Cheikh',
     }),
     denomination: 'governorate',
-    geonameId: 354500,
+    // geonameId: 354500,
   },
   {
     id: 918,
@@ -17441,7 +17441,7 @@ const divisions = [
       fr: 'Louxor',
     }),
     denomination: 'governorate',
-    geonameId: 7603259,
+    // geonameId: 7603259,
   },
   {
     id: 919,
@@ -17460,7 +17460,7 @@ const divisions = [
       fr: 'Marsa-Matrouh',
     }),
     denomination: 'governorate',
-    geonameId: 352603,
+    // geonameId: 352603,
   },
   {
     id: 920,
@@ -17479,7 +17479,7 @@ const divisions = [
       fr: 'Minya',
     }),
     denomination: 'governorate',
-    geonameId: 360688,
+    // geonameId: 360688,
   },
   {
     id: 921,
@@ -17498,7 +17498,7 @@ const divisions = [
       fr: 'Menoufia',
     }),
     denomination: 'governorate',
-    geonameId: 360689,
+    // geonameId: 360689,
   },
   {
     id: 922,
@@ -17517,7 +17517,7 @@ const divisions = [
       fr: 'Nouvelle-Vallée',
     }),
     denomination: 'governorate',
-    geonameId: 360483,
+    // geonameId: 360483,
   },
   {
     id: 923,
@@ -17536,7 +17536,7 @@ const divisions = [
       fr: 'Sinaï du Nord',
     }),
     denomination: 'governorate',
-    geonameId: 349401,
+    // geonameId: 349401,
   },
   {
     id: 924,
@@ -17555,7 +17555,7 @@ const divisions = [
       fr: 'Port-Saïd',
     }),
     denomination: 'governorate',
-    geonameId: 358617,
+    // geonameId: 358617,
   },
   {
     id: 925,
@@ -17574,7 +17574,7 @@ const divisions = [
       fr: 'Qalyubia',
     }),
     denomination: 'governorate',
-    geonameId: 360621,
+    // geonameId: 360621,
   },
   {
     id: 926,
@@ -17593,7 +17593,7 @@ const divisions = [
       fr: 'Qena',
     }),
     denomination: 'governorate',
-    geonameId: 350546,
+    // geonameId: 350546,
   },
   {
     id: 927,
@@ -17612,7 +17612,7 @@ const divisions = [
       fr: 'Mer Rouge',
     }),
     denomination: 'governorate',
-    geonameId: 361468,
+    // geonameId: 361468,
   },
   {
     id: 928,
@@ -17631,7 +17631,7 @@ const divisions = [
       fr: 'Charqiya',
     }),
     denomination: 'governorate',
-    geonameId: 360016,
+    // geonameId: 360016,
   },
   {
     id: 929,
@@ -17650,7 +17650,7 @@ const divisions = [
       fr: 'Sohag',
     }),
     denomination: 'governorate',
-    geonameId: 347794,
+    // geonameId: 347794,
   },
   {
     id: 930,
@@ -17669,7 +17669,7 @@ const divisions = [
       fr: 'Sinaï du Sud',
     }),
     denomination: 'governorate',
-    geonameId: 355182,
+    // geonameId: 355182,
   },
   {
     id: 931,
@@ -17688,7 +17688,7 @@ const divisions = [
       fr: 'Suez',
     }),
     denomination: 'governorate',
-    geonameId: 359797,
+    // geonameId: 359797,
   },
   {
     id: 932,
@@ -17707,7 +17707,7 @@ const divisions = [
       fr: 'Chalatenango',
     }),
     denomination: 'department',
-    geonameId: 3587090,
+    // geonameId: 3587090,
   },
   {
     id: 933,
@@ -17726,7 +17726,7 @@ const divisions = [
       fr: 'Ahuachapán',
     }),
     denomination: 'department',
-    geonameId: 3587425,
+    // geonameId: 3587425,
   },
   {
     id: 934,
@@ -17745,7 +17745,7 @@ const divisions = [
       fr: 'Cabañas',
     }),
     denomination: 'department',
-    geonameId: 3587217,
+    // geonameId: 3587217,
   },
   {
     id: 935,
@@ -17764,7 +17764,7 @@ const divisions = [
       fr: 'Cuscatlán',
     }),
     denomination: 'department',
-    geonameId: 3586831,
+    // geonameId: 3586831,
   },
   {
     id: 936,
@@ -17783,7 +17783,7 @@ const divisions = [
       fr: 'La Unión',
     }),
     denomination: 'department',
-    geonameId: 3584767,
+    // geonameId: 3584767,
   },
   {
     id: 937,
@@ -17802,7 +17802,7 @@ const divisions = [
       fr: 'Morazán',
     }),
     denomination: 'department',
-    geonameId: 3584317,
+    // geonameId: 3584317,
   },
   {
     id: 938,
@@ -17821,7 +17821,7 @@ const divisions = [
       fr: 'Usulután',
     }),
     denomination: 'department',
-    geonameId: 3582882,
+    // geonameId: 3582882,
   },
   {
     id: 939,
@@ -17840,7 +17840,7 @@ const divisions = [
       fr: 'La Libertad',
     }),
     denomination: 'department',
-    geonameId: 3585155,
+    // geonameId: 3585155,
   },
   {
     id: 940,
@@ -17859,7 +17859,7 @@ const divisions = [
       fr: 'La Paz',
     }),
     denomination: 'department',
-    geonameId: 3585087,
+    // geonameId: 3585087,
   },
   {
     id: 941,
@@ -17878,7 +17878,7 @@ const divisions = [
       fr: 'San Miguel',
     }),
     denomination: 'department',
-    geonameId: 3583462,
+    // geonameId: 3583462,
   },
   {
     id: 942,
@@ -17897,7 +17897,7 @@ const divisions = [
       fr: 'San Salvador',
     }),
     denomination: 'department',
-    geonameId: 3583360,
+    // geonameId: 3583360,
   },
   {
     id: 943,
@@ -17916,7 +17916,7 @@ const divisions = [
       fr: 'San Vicente',
     }),
     denomination: 'department',
-    geonameId: 3583176,
+    // geonameId: 3583176,
   },
   {
     id: 944,
@@ -17935,7 +17935,7 @@ const divisions = [
       fr: 'Santa Ana',
     }),
     denomination: 'department',
-    geonameId: 3583332,
+    // geonameId: 3583332,
   },
   {
     id: 945,
@@ -17954,7 +17954,7 @@ const divisions = [
       fr: 'Sonsonate',
     }),
     denomination: 'department',
-    geonameId: 3583101,
+    // geonameId: 3583101,
   },
   {
     id: 946,
@@ -17973,7 +17973,7 @@ const divisions = [
       fr: 'Annobón',
     }),
     denomination: 'province',
-    geonameId: 2310307,
+    // geonameId: 2310307,
   },
   {
     id: 947,
@@ -17992,7 +17992,7 @@ const divisions = [
       fr: 'Bioko Nord',
     }),
     denomination: 'province',
-    geonameId: 2566978,
+    // geonameId: 2566978,
   },
   {
     id: 948,
@@ -18011,7 +18011,7 @@ const divisions = [
       fr: 'Bioko Sud',
     }),
     denomination: 'province',
-    geonameId: 2566979,
+    // geonameId: 2566979,
   },
   {
     id: 949,
@@ -18030,7 +18030,7 @@ const divisions = [
       fr: 'Centro Sur',
     }),
     denomination: 'province',
-    geonameId: 2566980,
+    // geonameId: 2566980,
   },
   {
     id: 950,
@@ -18049,7 +18049,7 @@ const divisions = [
       fr: 'Djibloho',
     }),
     denomination: 'province',
-    geonameId: 12168385,
+    // geonameId: 12168385,
   },
   {
     id: 951,
@@ -18068,7 +18068,7 @@ const divisions = [
       fr: 'Kié-Ntem',
     }),
     denomination: 'province',
-    geonameId: 2566981,
+    // geonameId: 2566981,
   },
   {
     id: 952,
@@ -18087,7 +18087,7 @@ const divisions = [
       fr: 'Litoral',
     }),
     denomination: 'province',
-    geonameId: 2566982,
+    // geonameId: 2566982,
   },
   {
     id: 953,
@@ -18106,7 +18106,7 @@ const divisions = [
       fr: 'Wele-Nzas',
     }),
     denomination: 'province',
-    geonameId: 2566983,
+    // geonameId: 2566983,
   },
   {
     id: 954,
@@ -18125,7 +18125,7 @@ const divisions = [
       fr: 'Anseba',
     }),
     denomination: 'region',
-    geonameId: 448497,
+    // geonameId: 448497,
   },
   {
     id: 955,
@@ -18144,7 +18144,7 @@ const divisions = [
       fr: 'Debub',
     }),
     denomination: 'region',
-    geonameId: 448498,
+    // geonameId: 448498,
   },
   {
     id: 956,
@@ -18163,7 +18163,7 @@ const divisions = [
       fr: 'Gash-Barka',
     }),
     denomination: 'region',
-    geonameId: 448500,
+    // geonameId: 448500,
   },
   {
     id: 957,
@@ -18182,7 +18182,7 @@ const divisions = [
       fr: 'Maekel',
     }),
     denomination: 'region',
-    geonameId: 448501,
+    // geonameId: 448501,
   },
   {
     id: 958,
@@ -18201,7 +18201,7 @@ const divisions = [
       fr: 'Mer Rouge septentrionale',
     }),
     denomination: 'region',
-    geonameId: 448502,
+    // geonameId: 448502,
   },
   {
     id: 959,
@@ -18220,7 +18220,7 @@ const divisions = [
       fr: 'Mer Rouge méridionale',
     }),
     denomination: 'region',
-    geonameId: 448499,
+    // geonameId: 448499,
   },
   {
     id: 960,
@@ -18239,7 +18239,7 @@ const divisions = [
       fr: 'Harjumaa',
     }),
     denomination: 'county',
-    geonameId: 592170,
+    // geonameId: 592170,
   },
   {
     id: 961,
@@ -18258,7 +18258,7 @@ const divisions = [
       fr: 'Hiiumaa',
     }),
     denomination: 'county',
-    geonameId: 592133,
+    // geonameId: 592133,
   },
   {
     id: 962,
@@ -18277,7 +18277,7 @@ const divisions = [
       fr: 'Ida-Virumaa',
     }),
     denomination: 'county',
-    geonameId: 592075,
+    // geonameId: 592075,
   },
   {
     id: 963,
@@ -18296,7 +18296,7 @@ const divisions = [
       fr: 'Järvamaa',
     }),
     denomination: 'county',
-    geonameId: 591961,
+    // geonameId: 591961,
   },
   {
     id: 964,
@@ -18315,7 +18315,7 @@ const divisions = [
       fr: 'Jõgevamaa',
     }),
     denomination: 'county',
-    geonameId: 591901,
+    // geonameId: 591901,
   },
   {
     id: 965,
@@ -18334,7 +18334,7 @@ const divisions = [
       fr: 'Lääne-Virumaa',
     }),
     denomination: 'county',
-    geonameId: 590856,
+    // geonameId: 590856,
   },
   {
     id: 966,
@@ -18353,7 +18353,7 @@ const divisions = [
       fr: 'Lääne-Virumaa',
     }),
     denomination: 'county',
-    geonameId: 590854,
+    // geonameId: 590854,
   },
   {
     id: 967,
@@ -18372,7 +18372,7 @@ const divisions = [
       fr: 'Pärnumaa',
     }),
     denomination: 'county',
-    geonameId: 589576,
+    // geonameId: 589576,
   },
   {
     id: 968,
@@ -18391,7 +18391,7 @@ const divisions = [
       fr: 'Põlvamaa',
     }),
     denomination: 'county',
-    geonameId: 589373,
+    // geonameId: 589373,
   },
   {
     id: 969,
@@ -18410,7 +18410,7 @@ const divisions = [
       fr: 'Raplamaa',
     }),
     denomination: 'county',
-    geonameId: 589115,
+    // geonameId: 589115,
   },
   {
     id: 970,
@@ -18429,7 +18429,7 @@ const divisions = [
       fr: 'Saaremaa',
     }),
     denomination: 'county',
-    geonameId: 588879,
+    // geonameId: 588879,
   },
   {
     id: 971,
@@ -18448,7 +18448,7 @@ const divisions = [
       fr: 'Tartumaa',
     }),
     denomination: 'county',
-    geonameId: 588334,
+    // geonameId: 588334,
   },
   {
     id: 972,
@@ -18467,7 +18467,7 @@ const divisions = [
       fr: 'Valgamaa',
     }),
     denomination: 'county',
-    geonameId: 587875,
+    // geonameId: 587875,
   },
   {
     id: 973,
@@ -18486,7 +18486,7 @@ const divisions = [
       fr: 'Viljandimaa',
     }),
     denomination: 'county',
-    geonameId: 587590,
+    // geonameId: 587590,
   },
   {
     id: 974,
@@ -18505,7 +18505,7 @@ const divisions = [
       fr: 'Võrumaa',
     }),
     denomination: 'county',
-    geonameId: 587448,
+    // geonameId: 587448,
   },
   {
     id: 975,
@@ -18524,7 +18524,7 @@ const divisions = [
       fr: 'Hhohho',
     }),
     denomination: 'region',
-    geonameId: 935085,
+    // geonameId: 935085,
   },
   {
     id: 976,
@@ -18543,7 +18543,7 @@ const divisions = [
       fr: 'Lubombo',
     }),
     denomination: 'region',
-    geonameId: 935042,
+    // geonameId: 935042,
   },
   {
     id: 977,
@@ -18562,7 +18562,7 @@ const divisions = [
       fr: 'Manzini',
     }),
     denomination: 'region',
-    geonameId: 934994,
+    // geonameId: 934994,
   },
   {
     id: 978,
@@ -18581,7 +18581,7 @@ const divisions = [
       fr: 'Shiselweni',
     }),
     denomination: 'district',
-    geonameId: 934867,
+    // geonameId: 934867,
   },
   {
     id: 979,
@@ -18600,7 +18600,7 @@ const divisions = [
       fr: 'Addis-Abeba',
     }),
     denomination: 'city',
-    geonameId: 444178,
+    // geonameId: 444178,
   },
   {
     id: 980,
@@ -18619,7 +18619,7 @@ const divisions = [
       fr: 'Afar',
     }),
     denomination: 'region',
-    geonameId: 444179,
+    // geonameId: 444179,
   },
   {
     id: 981,
@@ -18638,7 +18638,7 @@ const divisions = [
       fr: 'Amhara',
     }),
     denomination: 'region',
-    geonameId: 444180,
+    // geonameId: 444180,
   },
   {
     id: 982,
@@ -18657,7 +18657,7 @@ const divisions = [
       fr: 'Benishangul-Gumuz',
     }),
     denomination: 'region',
-    geonameId: 444181,
+    // geonameId: 444181,
   },
   {
     id: 983,
@@ -18676,7 +18676,7 @@ const divisions = [
       fr: 'Éthiopie centrale',
     }),
     denomination: 'regional_state',
-    geonameId: 12902749,
+    // geonameId: 12902749,
   },
   {
     id: 984,
@@ -18695,7 +18695,7 @@ const divisions = [
       fr: 'Dire-Dawa',
     }),
     denomination: 'city',
-    geonameId: 444182,
+    // geonameId: 444182,
   },
   {
     id: 985,
@@ -18714,7 +18714,7 @@ const divisions = [
       fr: 'Gambela',
     }),
     denomination: 'region',
-    geonameId: 444183,
+    // geonameId: 444183,
   },
   {
     id: 986,
@@ -18733,7 +18733,7 @@ const divisions = [
       fr: 'Harar',
     }),
     denomination: 'region',
-    geonameId: 444184,
+    // geonameId: 444184,
   },
   {
     id: 987,
@@ -18752,7 +18752,7 @@ const divisions = [
       fr: 'Oromia',
     }),
     denomination: 'region',
-    geonameId: 444185,
+    // geonameId: 444185,
   },
   {
     id: 988,
@@ -18771,7 +18771,7 @@ const divisions = [
       fr: 'Sidama',
     }),
     denomination: 'region',
-    geonameId: 8299784,
+    // geonameId: 8299784,
   },
   {
     id: 989,
@@ -18790,7 +18790,7 @@ const divisions = [
       fr: 'Somali',
     }),
     denomination: 'region',
-    geonameId: 444186,
+    // geonameId: 444186,
   },
   {
     id: 990,
@@ -18809,7 +18809,7 @@ const divisions = [
       fr: 'Éthiopie méridionale',
     }),
     denomination: 'regional_state',
-    geonameId: 12902766,
+    // geonameId: 12902766,
   },
   {
     id: 991,
@@ -18828,7 +18828,7 @@ const divisions = [
       fr: 'Éthiopie du Sud-Ouest',
     }),
     denomination: 'region',
-    geonameId: 12902784,
+    // geonameId: 12902784,
   },
   {
     id: 992,
@@ -18847,7 +18847,7 @@ const divisions = [
       fr: 'Tigré',
     }),
     denomination: 'region',
-    geonameId: 444187,
+    // geonameId: 444187,
   },
   {
     id: 993,
@@ -18866,7 +18866,7 @@ const divisions = [
       fr: 'Eysturoy',
     }),
     denomination: 'region',
-    geonameId: 2622387,
+    // geonameId: 2622387,
   },
   {
     id: 994,
@@ -18885,7 +18885,7 @@ const divisions = [
       fr: 'Norðoyar',
     }),
     denomination: 'region',
-    geonameId: 2616145,
+    // geonameId: 2616145,
   },
   {
     id: 995,
@@ -18904,7 +18904,7 @@ const divisions = [
       fr: 'Sandoy',
     }),
     denomination: 'region',
-    geonameId: 2614219,
+    // geonameId: 2614219,
   },
   {
     id: 996,
@@ -18923,7 +18923,7 @@ const divisions = [
       fr: 'Streymoy',
     }),
     denomination: 'region',
-    geonameId: 2612225,
+    // geonameId: 2612225,
   },
   {
     id: 997,
@@ -18942,7 +18942,7 @@ const divisions = [
       fr: 'Suðuroy',
     }),
     denomination: 'region',
-    geonameId: 2612137,
+    // geonameId: 2612137,
   },
   {
     id: 998,
@@ -18961,7 +18961,7 @@ const divisions = [
       fr: 'Vágar',
     }),
     denomination: 'region',
-    geonameId: 2610816,
+    // geonameId: 2610816,
   },
   {
     id: 999,
@@ -18980,7 +18980,7 @@ const divisions = [
       fr: 'Centrale',
     }),
     denomination: 'division',
-    geonameId: 2205272,
+    // geonameId: 2205272,
   },
   {
     id: 1000,
@@ -18999,7 +18999,7 @@ const divisions = [
       fr: 'Eastern',
     }),
     denomination: 'division',
-    geonameId: 4036647,
+    // geonameId: 4036647,
   },
   {
     id: 1001,
@@ -19018,7 +19018,7 @@ const divisions = [
       fr: 'Northern',
     }),
     denomination: 'division',
-    geonameId: 2199295,
+    // geonameId: 2199295,
   },
   {
     id: 1002,
@@ -19037,7 +19037,7 @@ const divisions = [
       fr: 'Rotuma',
     }),
     denomination: 'dependency',
-    geonameId: 6324593,
+    // geonameId: 6324593,
   },
   {
     id: 1003,
@@ -19056,7 +19056,7 @@ const divisions = [
       fr: 'Western',
     }),
     denomination: 'division',
-    geonameId: 2194371,
+    // geonameId: 2194371,
   },
   {
     id: 1004,
@@ -19075,7 +19075,7 @@ const divisions = [
       fr: 'Finlande-Centrale',
     }),
     denomination: 'region',
-    geonameId: 830685,
+    // geonameId: 830685,
   },
   {
     id: 1005,
@@ -19094,7 +19094,7 @@ const divisions = [
       fr: 'Ostrobotnie-Centrale',
     }),
     denomination: 'region',
-    geonameId: 830675,
+    // geonameId: 830675,
   },
   {
     id: 1006,
@@ -19113,7 +19113,7 @@ const divisions = [
       fr: 'Kainuu',
     }),
     denomination: 'region',
-    geonameId: 830664,
+    // geonameId: 830664,
   },
   {
     id: 1007,
@@ -19132,7 +19132,7 @@ const divisions = [
       fr: 'Kanta-Häme',
     }),
     denomination: 'region',
-    geonameId: 830705,
+    // geonameId: 830705,
   },
   {
     id: 1008,
@@ -19151,7 +19151,7 @@ const divisions = [
       fr: 'Kymenlaakso',
     }),
     denomination: 'region',
-    geonameId: 830703,
+    // geonameId: 830703,
   },
   {
     id: 1009,
@@ -19170,7 +19170,7 @@ const divisions = [
       fr: 'Laponie',
     }),
     denomination: 'region',
-    geonameId: 830603,
+    // geonameId: 830603,
   },
   {
     id: 1010,
@@ -19189,7 +19189,7 @@ const divisions = [
       fr: 'Carélie du Nord',
     }),
     denomination: 'region',
-    geonameId: 830686,
+    // geonameId: 830686,
   },
   {
     id: 1011,
@@ -19208,7 +19208,7 @@ const divisions = [
       fr: 'Ostrobotnie du Nord',
     }),
     denomination: 'region',
-    geonameId: 830667,
+    // geonameId: 830667,
   },
   {
     id: 1012,
@@ -19227,7 +19227,7 @@ const divisions = [
       fr: 'Savo du Nord',
     }),
     denomination: 'region',
-    geonameId: 830690,
+    // geonameId: 830690,
   },
   {
     id: 1013,
@@ -19246,7 +19246,7 @@ const divisions = [
       fr: 'Ostrobotnie',
     }),
     denomination: 'region',
-    geonameId: 830676,
+    // geonameId: 830676,
   },
   {
     id: 1014,
@@ -19265,7 +19265,7 @@ const divisions = [
       fr: 'Päijät-Häme',
     }),
     denomination: 'region',
-    geonameId: 831040,
+    // geonameId: 831040,
   },
   {
     id: 1015,
@@ -19284,7 +19284,7 @@ const divisions = [
       fr: 'Pirkanmaa',
     }),
     denomination: 'region',
-    geonameId: 830704,
+    // geonameId: 830704,
   },
   {
     id: 1016,
@@ -19303,7 +19303,7 @@ const divisions = [
       fr: 'Satakunta',
     }),
     denomination: 'region',
-    geonameId: 831041,
+    // geonameId: 831041,
   },
   {
     id: 1017,
@@ -19322,7 +19322,7 @@ const divisions = [
       fr: 'Carélie du Sud',
     }),
     denomination: 'region',
-    geonameId: 830699,
+    // geonameId: 830699,
   },
   {
     id: 1018,
@@ -19341,7 +19341,7 @@ const divisions = [
       fr: 'Ostrobotnie du Sud',
     }),
     denomination: 'region',
-    geonameId: 830682,
+    // geonameId: 830682,
   },
   {
     id: 1019,
@@ -19360,7 +19360,7 @@ const divisions = [
       fr: 'Savo du Sud',
     }),
     denomination: 'region',
-    geonameId: 830695,
+    // geonameId: 830695,
   },
   {
     id: 1020,
@@ -19379,7 +19379,7 @@ const divisions = [
       fr: 'Finlande du Sud-Ouest',
     }),
     denomination: 'region',
-    geonameId: 830708,
+    // geonameId: 830708,
   },
   {
     id: 1021,
@@ -19398,7 +19398,7 @@ const divisions = [
       fr: 'Uusimaa',
     }),
     denomination: 'region',
-    geonameId: 830709,
+    // geonameId: 830709,
   },
   {
     id: 1022,
@@ -19417,7 +19417,7 @@ const divisions = [
       fr: 'Auvergne-Rhône-Alpes',
     }),
     denomination: 'region',
-    geonameId: 11071625,
+    // geonameId: 11071625,
   },
   {
     id: 1023,
@@ -19436,7 +19436,7 @@ const divisions = [
       fr: 'Bourgogne-Franche-Comté',
     }),
     denomination: 'region',
-    geonameId: 11071619,
+    // geonameId: 11071619,
   },
   {
     id: 1024,
@@ -19455,7 +19455,7 @@ const divisions = [
       fr: 'Bretagne',
     }),
     denomination: 'region',
-    geonameId: 3030293,
+    // geonameId: 3030293,
   },
   {
     id: 1025,
@@ -19474,7 +19474,7 @@ const divisions = [
       fr: 'Centre-Val de Loire',
     }),
     denomination: 'region',
-    geonameId: 3027939,
+    // geonameId: 3027939,
   },
   {
     id: 1026,
@@ -19493,7 +19493,7 @@ const divisions = [
       fr: 'Corse',
     }),
     denomination: 'territorial_collectivity',
-    geonameId: 3023519,
+    // geonameId: 3023519,
   },
   {
     id: 1027,
@@ -19512,7 +19512,7 @@ const divisions = [
       fr: 'Grand Est',
     }),
     denomination: 'region',
-    geonameId: 11071622,
+    // geonameId: 11071622,
   },
   {
     id: 1028,
@@ -19531,7 +19531,7 @@ const divisions = [
       fr: 'Hauts-de-France',
     }),
     denomination: 'region',
-    geonameId: 11071624,
+    // geonameId: 11071624,
   },
   {
     id: 1029,
@@ -19550,7 +19550,7 @@ const divisions = [
       fr: 'Île-de-France',
     }),
     denomination: 'region',
-    geonameId: 3012874,
+    // geonameId: 3012874,
   },
   {
     id: 1030,
@@ -19569,7 +19569,7 @@ const divisions = [
       fr: 'Normandie',
     }),
     denomination: 'region',
-    geonameId: 11071621,
+    // geonameId: 11071621,
   },
   {
     id: 1031,
@@ -19588,7 +19588,7 @@ const divisions = [
       fr: 'Nouvelle-Aquitaine',
     }),
     denomination: 'region',
-    geonameId: 11071620,
+    // geonameId: 11071620,
   },
   {
     id: 1032,
@@ -19607,7 +19607,7 @@ const divisions = [
       fr: 'Occitanie',
     }),
     denomination: 'region',
-    geonameId: 11071623,
+    // geonameId: 11071623,
   },
   {
     id: 1033,
@@ -19626,7 +19626,7 @@ const divisions = [
       fr: 'Pays de la Loire',
     }),
     denomination: 'region',
-    geonameId: 2988289,
+    // geonameId: 2988289,
   },
   {
     id: 1034,
@@ -19645,7 +19645,7 @@ const divisions = [
       fr: "Provence-Alpes-Côte d'Azur",
     }),
     denomination: 'region',
-    geonameId: 2985244,
+    // geonameId: 2985244,
   },
   {
     id: 1035,
@@ -19664,7 +19664,7 @@ const divisions = [
       fr: 'Guyane',
     }),
     denomination: 'overseas_region',
-    geonameId: 6690605,
+    // geonameId: 6690605,
   },
   {
     id: 1036,
@@ -19683,7 +19683,7 @@ const divisions = [
       fr: 'Îles Australes',
     }),
     denomination: 'archipelago',
-    geonameId: 4034366,
+    // geonameId: 4034366,
   },
   {
     id: 1037,
@@ -19702,7 +19702,7 @@ const divisions = [
       fr: 'Îles du Vent',
     }),
     denomination: 'archipelago',
-    geonameId: 4034365,
+    // geonameId: 4034365,
   },
   {
     id: 1038,
@@ -19721,7 +19721,7 @@ const divisions = [
       fr: 'Îles Marquises',
     }),
     denomination: 'archipelago',
-    geonameId: 4019991,
+    // geonameId: 4019991,
   },
   {
     id: 1039,
@@ -19740,7 +19740,7 @@ const divisions = [
       fr: 'Îles Tuamotu-Gambier',
     }),
     denomination: 'archipelago',
-    geonameId: 4030621,
+    // geonameId: 4030621,
   },
   {
     id: 1040,
@@ -19759,7 +19759,7 @@ const divisions = [
       fr: 'Îles Sous-le-Vent',
     }),
     denomination: 'archipelago',
-    geonameId: 4034364,
+    // geonameId: 4034364,
   },
   {
     id: 1041,
@@ -19778,7 +19778,7 @@ const divisions = [
       fr: 'Archipel des Crozet',
     }),
     denomination: 'archipelago',
-    geonameId: 936339,
+    // geonameId: 936339,
   },
   {
     id: 1042,
@@ -19797,7 +19797,7 @@ const divisions = [
       fr: 'Archipel des Kerguelen',
     }),
     denomination: 'archipelago',
-    geonameId: 1546558,
+    // geonameId: 1546558,
   },
   {
     id: 1043,
@@ -19816,7 +19816,7 @@ const divisions = [
       fr: "Îles Éparses de l'océan Indien",
     }),
     denomination: 'islands',
-    geonameId: 6690916,
+    // geonameId: 6690916,
   },
   {
     id: 1044,
@@ -19835,7 +19835,7 @@ const divisions = [
       fr: 'Îles Saint-Paul et Nouvelle-Amsterdam',
     }),
     denomination: 'islands',
-    geonameId: 1547221,
+    // geonameId: 1547221,
   },
   {
     id: 1045,
@@ -19854,7 +19854,7 @@ const divisions = [
       fr: 'La Terre-Adélie',
     }),
     denomination: 'territory',
-    geonameId: 6690917,
+    // geonameId: 6690917,
   },
   {
     id: 1046,
@@ -19873,7 +19873,7 @@ const divisions = [
       fr: 'Estuaire',
     }),
     denomination: 'province',
-    geonameId: 2400682,
+    // geonameId: 2400682,
   },
   {
     id: 1047,
@@ -19892,7 +19892,7 @@ const divisions = [
       fr: 'Haut-Ogooué',
     }),
     denomination: 'province',
-    geonameId: 2400454,
+    // geonameId: 2400454,
   },
   {
     id: 1048,
@@ -19911,7 +19911,7 @@ const divisions = [
       fr: 'Moyen-Ogooué',
     }),
     denomination: 'province',
-    geonameId: 2397842,
+    // geonameId: 2397842,
   },
   {
     id: 1049,
@@ -19930,7 +19930,7 @@ const divisions = [
       fr: 'Ngouni',
     }),
     denomination: 'province',
-    geonameId: 2397466,
+    // geonameId: 2397466,
   },
   {
     id: 1050,
@@ -19949,7 +19949,7 @@ const divisions = [
       fr: 'Nyanga',
     }),
     denomination: 'province',
-    geonameId: 2397141,
+    // geonameId: 2397141,
   },
   {
     id: 1051,
@@ -19968,7 +19968,7 @@ const divisions = [
       fr: 'Ogooué-Ivindo',
     }),
     denomination: 'province',
-    geonameId: 2396926,
+    // geonameId: 2396926,
   },
   {
     id: 1052,
@@ -19987,7 +19987,7 @@ const divisions = [
       fr: 'Ogooué-Lolo',
     }),
     denomination: 'province',
-    geonameId: 2396925,
+    // geonameId: 2396925,
   },
   {
     id: 1053,
@@ -20006,7 +20006,7 @@ const divisions = [
       fr: 'Ogooué-Maritime',
     }),
     denomination: 'province',
-    geonameId: 2396924,
+    // geonameId: 2396924,
   },
   {
     id: 1054,
@@ -20025,7 +20025,7 @@ const divisions = [
       fr: 'Woleu-Ntem',
     }),
     denomination: 'province',
-    geonameId: 2396076,
+    // geonameId: 2396076,
   },
   {
     id: 1055,
@@ -20044,7 +20044,7 @@ const divisions = [
       fr: 'Abkhazie',
     }),
     denomination: 'autonomous_republic',
-    geonameId: 6643410,
+    // geonameId: 6643410,
   },
   {
     id: 1056,
@@ -20063,7 +20063,7 @@ const divisions = [
       fr: 'Adjarie',
     }),
     denomination: 'autonomous_republic',
-    geonameId: 615929,
+    // geonameId: 615929,
   },
   {
     id: 1057,
@@ -20082,7 +20082,7 @@ const divisions = [
       fr: 'Gourie',
     }),
     denomination: 'region',
-    geonameId: 865538,
+    // geonameId: 865538,
   },
   {
     id: 1058,
@@ -20101,7 +20101,7 @@ const divisions = [
       fr: 'Iméréthie',
     }),
     denomination: 'region',
-    geonameId: 865539,
+    // geonameId: 865539,
   },
   {
     id: 1059,
@@ -20120,7 +20120,7 @@ const divisions = [
       fr: 'Kakhétie',
     }),
     denomination: 'region',
-    geonameId: 865537,
+    // geonameId: 865537,
   },
   {
     id: 1060,
@@ -20139,7 +20139,7 @@ const divisions = [
       fr: 'Kvémo Kartli',
     }),
     denomination: 'region',
-    geonameId: 865536,
+    // geonameId: 865536,
   },
   {
     id: 1061,
@@ -20158,7 +20158,7 @@ const divisions = [
       fr: 'Mtskheta-Mtianeti',
     }),
     denomination: 'region',
-    geonameId: 865541,
+    // geonameId: 865541,
   },
   {
     id: 1062,
@@ -20177,7 +20177,7 @@ const divisions = [
       fr: 'Ratcha-Letchkhoumi et Basse Svanétie',
     }),
     denomination: 'region',
-    geonameId: 865542,
+    // geonameId: 865542,
   },
   {
     id: 1063,
@@ -20196,7 +20196,7 @@ const divisions = [
       fr: 'Samegrelo-Zemo Svanétie',
     }),
     denomination: 'region',
-    geonameId: 865543,
+    // geonameId: 865543,
   },
   {
     id: 1064,
@@ -20215,7 +20215,7 @@ const divisions = [
       fr: 'Samtskhé-Djavakhétie',
     }),
     denomination: 'region',
-    geonameId: 865544,
+    // geonameId: 865544,
   },
   {
     id: 1065,
@@ -20234,7 +20234,7 @@ const divisions = [
       fr: 'Chida Kartli',
     }),
     denomination: 'region',
-    geonameId: 865540,
+    // geonameId: 865540,
   },
   {
     id: 1066,
@@ -20253,7 +20253,7 @@ const divisions = [
       fr: 'Tbilissi',
     }),
     denomination: 'city',
-    geonameId: 611716,
+    // geonameId: 611716,
   },
   {
     id: 1067,
@@ -20272,7 +20272,7 @@ const divisions = [
       fr: 'Bade-Wurtemberg',
     }),
     denomination: 'state',
-    geonameId: 2953481,
+    // geonameId: 2953481,
   },
   {
     id: 1068,
@@ -20291,7 +20291,7 @@ const divisions = [
       fr: 'Bavière',
     }),
     denomination: 'state',
-    geonameId: 2951839,
+    // geonameId: 2951839,
   },
   {
     id: 1069,
@@ -20310,7 +20310,7 @@ const divisions = [
       fr: 'Brandebourg',
     }),
     denomination: 'state',
-    geonameId: 2945356,
+    // geonameId: 2945356,
   },
   {
     id: 1070,
@@ -20329,7 +20329,7 @@ const divisions = [
       fr: 'Brême',
     }),
     denomination: 'city_state',
-    geonameId: 2944387,
+    // geonameId: 2944387,
   },
   {
     id: 1071,
@@ -20348,7 +20348,7 @@ const divisions = [
       fr: 'Hambourg',
     }),
     denomination: 'city_state',
-    geonameId: 2911297,
+    // geonameId: 2911297,
   },
   {
     id: 1072,
@@ -20367,7 +20367,7 @@ const divisions = [
       fr: 'Hesse',
     }),
     denomination: 'state',
-    geonameId: 2905330,
+    // geonameId: 2905330,
   },
   {
     id: 1073,
@@ -20386,7 +20386,7 @@ const divisions = [
       fr: 'Basse-Saxe',
     }),
     denomination: 'state',
-    geonameId: 2862926,
+    // geonameId: 2862926,
   },
   {
     id: 1074,
@@ -20405,7 +20405,7 @@ const divisions = [
       fr: 'Mecklembourg-Poméranie-Occidentale',
     }),
     denomination: 'state',
-    geonameId: 2872567,
+    // geonameId: 2872567,
   },
   {
     id: 1075,
@@ -20424,7 +20424,7 @@ const divisions = [
       fr: 'Rhénanie-du-Nord-Westphalie',
     }),
     denomination: 'state',
-    geonameId: 2861876,
+    // geonameId: 2861876,
   },
   {
     id: 1076,
@@ -20443,7 +20443,7 @@ const divisions = [
       fr: 'Rhénanie-Palatinat',
     }),
     denomination: 'state',
-    geonameId: 2847618,
+    // geonameId: 2847618,
   },
   {
     id: 1077,
@@ -20462,7 +20462,7 @@ const divisions = [
       fr: 'Sarre',
     }),
     denomination: 'state',
-    geonameId: 2842635,
+    // geonameId: 2842635,
   },
   {
     id: 1078,
@@ -20481,7 +20481,7 @@ const divisions = [
       fr: 'Saxe',
     }),
     denomination: 'state',
-    geonameId: 2842566,
+    // geonameId: 2842566,
   },
   {
     id: 1079,
@@ -20500,7 +20500,7 @@ const divisions = [
       fr: 'Saxe-Anhalt',
     }),
     denomination: 'state',
-    geonameId: 2842565,
+    // geonameId: 2842565,
   },
   {
     id: 1080,
@@ -20519,7 +20519,7 @@ const divisions = [
       fr: 'Schleswig-Holstein',
     }),
     denomination: 'state',
-    geonameId: 2838632,
+    // geonameId: 2838632,
   },
   {
     id: 1081,
@@ -20538,7 +20538,7 @@ const divisions = [
       fr: 'Berlin',
     }),
     denomination: 'city_state',
-    geonameId: 2950157,
+    // geonameId: 2950157,
   },
   {
     id: 1082,
@@ -20557,7 +20557,7 @@ const divisions = [
       fr: 'Thuringe',
     }),
     denomination: 'state',
-    geonameId: 2822542,
+    // geonameId: 2822542,
   },
   {
     id: 1083,
@@ -20576,7 +20576,7 @@ const divisions = [
       fr: 'Ahafo',
     }),
     denomination: 'region',
-    geonameId: 12105072,
+    // geonameId: 12105072,
   },
   {
     id: 1084,
@@ -20595,7 +20595,7 @@ const divisions = [
       fr: 'Région Ashanti',
     }),
     denomination: 'region',
-    geonameId: 2304116,
+    // geonameId: 2304116,
   },
   {
     id: 1085,
@@ -20614,7 +20614,7 @@ const divisions = [
       fr: 'Bono',
     }),
     denomination: 'region',
-    geonameId: 12105069,
+    // geonameId: 12105069,
   },
   {
     id: 1086,
@@ -20633,7 +20633,7 @@ const divisions = [
       fr: 'Bono Est',
     }),
     denomination: 'region',
-    geonameId: 12105073,
+    // geonameId: 12105073,
   },
   {
     id: 1087,
@@ -20652,7 +20652,7 @@ const divisions = [
       fr: 'Région Centrale',
     }),
     denomination: 'region',
-    geonameId: 2302353,
+    // geonameId: 2302353,
   },
   {
     id: 1088,
@@ -20671,7 +20671,7 @@ const divisions = [
       fr: 'Région Orientale',
     }),
     denomination: 'region',
-    geonameId: 2301360,
+    // geonameId: 2301360,
   },
   {
     id: 1089,
@@ -20690,7 +20690,7 @@ const divisions = [
       fr: 'Région du Grand Accra',
     }),
     denomination: 'region',
-    geonameId: 2300569,
+    // geonameId: 2300569,
   },
   {
     id: 1090,
@@ -20709,7 +20709,7 @@ const divisions = [
       fr: 'Nord-Est',
     }),
     denomination: 'region',
-    geonameId: 12105071,
+    // geonameId: 12105071,
   },
   {
     id: 1091,
@@ -20728,7 +20728,7 @@ const divisions = [
       fr: 'Région du Nord',
     }),
     denomination: 'region',
-    geonameId: 2297169,
+    // geonameId: 2297169,
   },
   {
     id: 1092,
@@ -20747,7 +20747,7 @@ const divisions = [
       fr: 'Oti',
     }),
     denomination: 'region',
-    geonameId: 12105070,
+    // geonameId: 12105070,
   },
   {
     id: 1093,
@@ -20766,7 +20766,7 @@ const divisions = [
       fr: 'Savane',
     }),
     denomination: 'region',
-    geonameId: 12105074,
+    // geonameId: 12105074,
   },
   {
     id: 1094,
@@ -20785,7 +20785,7 @@ const divisions = [
       fr: 'Région du Haut-Est',
     }),
     denomination: 'region',
-    geonameId: 2294291,
+    // geonameId: 2294291,
   },
   {
     id: 1095,
@@ -20804,7 +20804,7 @@ const divisions = [
       fr: 'Région du Haut-Ouest',
     }),
     denomination: 'region',
-    geonameId: 2294286,
+    // geonameId: 2294286,
   },
   {
     id: 1096,
@@ -20823,7 +20823,7 @@ const divisions = [
       fr: 'Région de la Volta',
     }),
     denomination: 'region',
-    geonameId: 2294234,
+    // geonameId: 2294234,
   },
   {
     id: 1097,
@@ -20842,7 +20842,7 @@ const divisions = [
       fr: 'Ouest Nord',
     }),
     denomination: 'region',
-    geonameId: 12105075,
+    // geonameId: 12105075,
   },
   {
     id: 1098,
@@ -20861,7 +20861,7 @@ const divisions = [
       fr: 'Région Occidentale',
     }),
     denomination: 'region',
-    geonameId: 2294076,
+    // geonameId: 2294076,
   },
   {
     id: 1099,
@@ -20880,7 +20880,7 @@ const divisions = [
       fr: 'Attique',
     }),
     denomination: 'region',
-    geonameId: 6692632,
+    // geonameId: 6692632,
   },
   {
     id: 1100,
@@ -20899,7 +20899,7 @@ const divisions = [
       fr: 'Grèce-Centrale',
     }),
     denomination: 'region',
-    geonameId: 6697800,
+    // geonameId: 6697800,
   },
   {
     id: 1101,
@@ -20918,7 +20918,7 @@ const divisions = [
       fr: 'Macédoine-Centrale',
     }),
     denomination: 'region',
-    geonameId: 6697801,
+    // geonameId: 6697801,
   },
   {
     id: 1102,
@@ -20937,7 +20937,7 @@ const divisions = [
       fr: 'Crète',
     }),
     denomination: 'region',
-    geonameId: 6697802,
+    // geonameId: 6697802,
   },
   {
     id: 1103,
@@ -20956,7 +20956,7 @@ const divisions = [
       fr: 'Macédoine-Orientale-et-Thrace',
     }),
     denomination: 'region',
-    geonameId: 6697803,
+    // geonameId: 6697803,
   },
   {
     id: 1104,
@@ -20975,7 +20975,7 @@ const divisions = [
       fr: 'Épire',
     }),
     denomination: 'region',
-    geonameId: 6697804,
+    // geonameId: 6697804,
   },
   {
     id: 1105,
@@ -20994,7 +20994,7 @@ const divisions = [
       fr: 'Îles Ioniennes',
     }),
     denomination: 'region',
-    geonameId: 6697805,
+    // geonameId: 6697805,
   },
   {
     id: 1106,
@@ -21013,7 +21013,7 @@ const divisions = [
       fr: 'Mont Athos',
     }),
     denomination: 'autonomous_region',
-    geonameId: 736572,
+    // geonameId: 736572,
   },
   {
     id: 1107,
@@ -21032,7 +21032,7 @@ const divisions = [
       fr: 'Égée-Septentrionale',
     }),
     denomination: 'region',
-    geonameId: 6697806,
+    // geonameId: 6697806,
   },
   {
     id: 1108,
@@ -21051,7 +21051,7 @@ const divisions = [
       fr: 'Péloponnèse',
     }),
     denomination: 'region',
-    geonameId: 6697807,
+    // geonameId: 6697807,
   },
   {
     id: 1109,
@@ -21070,7 +21070,7 @@ const divisions = [
       fr: 'Égée-Méridionale',
     }),
     denomination: 'region',
-    geonameId: 6697808,
+    // geonameId: 6697808,
   },
   {
     id: 1110,
@@ -21089,7 +21089,7 @@ const divisions = [
       fr: 'Thessalie',
     }),
     denomination: 'region',
-    geonameId: 6697809,
+    // geonameId: 6697809,
   },
   {
     id: 1111,
@@ -21108,7 +21108,7 @@ const divisions = [
       fr: 'Grèce-Occidentale',
     }),
     denomination: 'region',
-    geonameId: 6697810,
+    // geonameId: 6697810,
   },
   {
     id: 1112,
@@ -21127,7 +21127,7 @@ const divisions = [
       fr: 'Macédoine-Occidentale',
     }),
     denomination: 'region',
-    geonameId: 6697811,
+    // geonameId: 6697811,
   },
   {
     id: 1113,
@@ -21146,7 +21146,7 @@ const divisions = [
       fr: 'Avannaata',
     }),
     denomination: 'municipality',
-    geonameId: 11839537,
+    // geonameId: 11839537,
   },
   {
     id: 1114,
@@ -21165,7 +21165,7 @@ const divisions = [
       fr: 'Kujalleq',
     }),
     denomination: 'municipality',
-    geonameId: 7602005,
+    // geonameId: 7602005,
   },
   {
     id: 1115,
@@ -21184,7 +21184,7 @@ const divisions = [
       fr: 'Qeqertalik',
     }),
     denomination: 'municipality',
-    geonameId: 11839534,
+    // geonameId: 11839534,
   },
   {
     id: 1116,
@@ -21203,7 +21203,7 @@ const divisions = [
       fr: 'Qeqqata',
     }),
     denomination: 'municipality',
-    geonameId: 7602006,
+    // geonameId: 7602006,
   },
   {
     id: 1117,
@@ -21222,7 +21222,7 @@ const divisions = [
       fr: 'Sermersooq',
     }),
     denomination: 'municipality',
-    geonameId: 7602007,
+    // geonameId: 7602007,
   },
   {
     id: 1118,
@@ -21241,7 +21241,7 @@ const divisions = [
       fr: 'Carriacou et Petite Martinique',
     }),
     denomination: 'dependency',
-    geonameId: 7303836,
+    // geonameId: 7303836,
   },
   {
     id: 1119,
@@ -21260,7 +21260,7 @@ const divisions = [
       fr: 'Saint-André',
     }),
     denomination: 'parish',
-    geonameId: 3579938,
+    // geonameId: 3579938,
   },
   {
     id: 1120,
@@ -21279,7 +21279,7 @@ const divisions = [
       fr: 'Saint-David',
     }),
     denomination: 'parish',
-    geonameId: 3579932,
+    // geonameId: 3579932,
   },
   {
     id: 1121,
@@ -21298,7 +21298,7 @@ const divisions = [
       fr: 'Saint-Georges',
     }),
     denomination: 'parish',
-    geonameId: 3579926,
+    // geonameId: 3579926,
   },
   {
     id: 1122,
@@ -21317,7 +21317,7 @@ const divisions = [
       fr: 'Saint-Jean',
     }),
     denomination: 'parish',
-    geonameId: 3579919,
+    // geonameId: 3579919,
   },
   {
     id: 1123,
@@ -21336,7 +21336,7 @@ const divisions = [
       fr: 'Saint-Marc',
     }),
     denomination: 'parish',
-    geonameId: 3579913,
+    // geonameId: 3579913,
   },
   {
     id: 1124,
@@ -21355,7 +21355,7 @@ const divisions = [
       fr: 'Saint-Patrick',
     }),
     denomination: 'parish',
-    geonameId: 3579907,
+    // geonameId: 3579907,
   },
   {
     id: 1125,
@@ -21374,7 +21374,7 @@ const divisions = [
       fr: 'Guadeloupe',
     }),
     denomination: 'region',
-    geonameId: 6690363,
+    // geonameId: 6690363,
   },
   {
     id: 1126,
@@ -21393,7 +21393,7 @@ const divisions = [
       fr: 'Agana Heights',
     }),
     denomination: 'municipality',
-    geonameId: 4043524,
+    // geonameId: 4043524,
   },
   {
     id: 1127,
@@ -21412,7 +21412,7 @@ const divisions = [
       fr: 'Agat',
     }),
     denomination: 'municipality',
-    geonameId: 4043725,
+    // geonameId: 4043725,
   },
   {
     id: 1128,
@@ -21431,7 +21431,7 @@ const divisions = [
       fr: 'Asan',
     }),
     denomination: 'municipality',
-    geonameId: 4043691,
+    // geonameId: 4043691,
   },
   {
     id: 1129,
@@ -21450,7 +21450,7 @@ const divisions = [
       fr: 'Barrigada',
     }),
     denomination: 'municipality',
-    geonameId: 4043885,
+    // geonameId: 4043885,
   },
   {
     id: 1130,
@@ -21469,7 +21469,7 @@ const divisions = [
       fr: 'Chalan Pago-Ordot',
     }),
     denomination: 'municipality',
-    geonameId: 4043614,
+    // geonameId: 4043614,
   },
   {
     id: 1131,
@@ -21488,7 +21488,7 @@ const divisions = [
       fr: 'Dededo',
     }),
     denomination: 'municipality',
-    geonameId: 4043877,
+    // geonameId: 4043877,
   },
   {
     id: 1132,
@@ -21507,7 +21507,7 @@ const divisions = [
       fr: 'Hagåtña',
     }),
     denomination: 'municipality',
-    geonameId: 4044019,
+    // geonameId: 4044019,
   },
   {
     id: 1133,
@@ -21526,7 +21526,7 @@ const divisions = [
       fr: 'Inarajan',
     }),
     denomination: 'municipality',
-    geonameId: 4044041,
+    // geonameId: 4044041,
   },
   {
     id: 1134,
@@ -21545,7 +21545,7 @@ const divisions = [
       fr: 'Mangilao',
     }),
     denomination: 'municipality',
-    geonameId: 4043416,
+    // geonameId: 4043416,
   },
   {
     id: 1135,
@@ -21564,7 +21564,7 @@ const divisions = [
       fr: 'Merizo',
     }),
     denomination: 'municipality',
-    geonameId: 4043396,
+    // geonameId: 4043396,
   },
   {
     id: 1136,
@@ -21583,7 +21583,7 @@ const divisions = [
       fr: 'Mongmong-Toto-Maite',
     }),
     denomination: 'municipality',
-    geonameId: 4044148,
+    // geonameId: 4044148,
   },
   {
     id: 1137,
@@ -21602,7 +21602,7 @@ const divisions = [
       fr: 'Piti',
     }),
     denomination: 'municipality',
-    geonameId: 4038478,
+    // geonameId: 4038478,
   },
   {
     id: 1138,
@@ -21621,7 +21621,7 @@ const divisions = [
       fr: 'Sainte-Rita',
     }),
     denomination: 'municipality',
-    geonameId: 4038555,
+    // geonameId: 4038555,
   },
   {
     id: 1139,
@@ -21640,7 +21640,7 @@ const divisions = [
       fr: 'Sinajana',
     }),
     denomination: 'municipality',
-    geonameId: 4038590,
+    // geonameId: 4038590,
   },
   {
     id: 1140,
@@ -21659,7 +21659,7 @@ const divisions = [
       fr: 'Talofofo',
     }),
     denomination: 'municipality',
-    geonameId: 4038652,
+    // geonameId: 4038652,
   },
   {
     id: 1141,
@@ -21678,7 +21678,7 @@ const divisions = [
       fr: 'Tamuning',
     }),
     denomination: 'municipality',
-    geonameId: 4038661,
+    // geonameId: 4038661,
   },
   {
     id: 1142,
@@ -21697,7 +21697,7 @@ const divisions = [
       fr: 'Umatac',
     }),
     denomination: 'municipality',
-    geonameId: 4038739,
+    // geonameId: 4038739,
   },
   {
     id: 1143,
@@ -21716,7 +21716,7 @@ const divisions = [
       fr: 'Yigo',
     }),
     denomination: 'municipality',
-    geonameId: 4038796,
+    // geonameId: 4038796,
   },
   {
     id: 1144,
@@ -21735,7 +21735,7 @@ const divisions = [
       fr: 'Yona',
     }),
     denomination: 'municipality',
-    geonameId: 4038811,
+    // geonameId: 4038811,
   },
   {
     id: 1145,
@@ -21754,7 +21754,7 @@ const divisions = [
       fr: 'Alta Verapaz',
     }),
     denomination: 'department',
-    geonameId: 3599773,
+    // geonameId: 3599773,
   },
   {
     id: 1146,
@@ -21773,7 +21773,7 @@ const divisions = [
       fr: 'Baja Verapaz',
     }),
     denomination: 'department',
-    geonameId: 3599602,
+    // geonameId: 3599602,
   },
   {
     id: 1147,
@@ -21792,7 +21792,7 @@ const divisions = [
       fr: 'Chimaltenango',
     }),
     denomination: 'department',
-    geonameId: 3598571,
+    // geonameId: 3598571,
   },
   {
     id: 1148,
@@ -21811,7 +21811,7 @@ const divisions = [
       fr: 'Chiquimula',
     }),
     denomination: 'department',
-    geonameId: 3598464,
+    // geonameId: 3598464,
   },
   {
     id: 1149,
@@ -21830,7 +21830,7 @@ const divisions = [
       fr: 'Escuintla',
     }),
     denomination: 'department',
-    geonameId: 3595802,
+    // geonameId: 3595802,
   },
   {
     id: 1150,
@@ -21849,7 +21849,7 @@ const divisions = [
       fr: 'Huehuetenango',
     }),
     denomination: 'department',
-    geonameId: 3595415,
+    // geonameId: 3595415,
   },
   {
     id: 1151,
@@ -21868,7 +21868,7 @@ const divisions = [
       fr: 'Jutiapa',
     }),
     denomination: 'department',
-    geonameId: 3595067,
+    // geonameId: 3595067,
   },
   {
     id: 1152,
@@ -21887,7 +21887,7 @@ const divisions = [
       fr: 'Retalhuleu',
     }),
     denomination: 'department',
-    geonameId: 3590857,
+    // geonameId: 3590857,
   },
   {
     id: 1153,
@@ -21906,7 +21906,7 @@ const divisions = [
       fr: 'El Progreso',
     }),
     denomination: 'department',
-    geonameId: 3596416,
+    // geonameId: 3596416,
   },
   {
     id: 1154,
@@ -21925,7 +21925,7 @@ const divisions = [
       fr: 'Guatemala',
     }),
     denomination: 'department',
-    geonameId: 3595530,
+    // geonameId: 3595530,
   },
   {
     id: 1155,
@@ -21944,7 +21944,7 @@ const divisions = [
       fr: 'Izabal',
     }),
     denomination: 'department',
-    geonameId: 3595259,
+    // geonameId: 3595259,
   },
   {
     id: 1156,
@@ -21963,7 +21963,7 @@ const divisions = [
       fr: 'Jalapa',
     }),
     denomination: 'department',
-    geonameId: 3595236,
+    // geonameId: 3595236,
   },
   {
     id: 1157,
@@ -21982,7 +21982,7 @@ const divisions = [
       fr: 'Petén',
     }),
     denomination: 'department',
-    geonameId: 3591410,
+    // geonameId: 3591410,
   },
   {
     id: 1158,
@@ -22001,7 +22001,7 @@ const divisions = [
       fr: 'Quetzaltenango',
     }),
     denomination: 'department',
-    geonameId: 3590978,
+    // geonameId: 3590978,
   },
   {
     id: 1159,
@@ -22020,7 +22020,7 @@ const divisions = [
       fr: 'Quiché',
     }),
     denomination: 'department',
-    geonameId: 3590964,
+    // geonameId: 3590964,
   },
   {
     id: 1160,
@@ -22039,7 +22039,7 @@ const divisions = [
       fr: 'Sacatepéquez',
     }),
     denomination: 'department',
-    geonameId: 3590686,
+    // geonameId: 3590686,
   },
   {
     id: 1161,
@@ -22058,7 +22058,7 @@ const divisions = [
       fr: 'San Marcos',
     }),
     denomination: 'department',
-    geonameId: 3589801,
+    // geonameId: 3589801,
   },
   {
     id: 1162,
@@ -22077,7 +22077,7 @@ const divisions = [
       fr: 'Sainte-Rose',
     }),
     denomination: 'department',
-    geonameId: 3589172,
+    // geonameId: 3589172,
   },
   {
     id: 1163,
@@ -22096,7 +22096,7 @@ const divisions = [
       fr: 'Sololá',
     }),
     denomination: 'department',
-    geonameId: 3588697,
+    // geonameId: 3588697,
   },
   {
     id: 1164,
@@ -22115,7 +22115,7 @@ const divisions = [
       fr: 'Suchitepeque',
     }),
     denomination: 'department',
-    geonameId: 3588668,
+    // geonameId: 3588668,
   },
   {
     id: 1165,
@@ -22134,7 +22134,7 @@ const divisions = [
       fr: 'Totonicapán',
     }),
     denomination: 'department',
-    geonameId: 3588257,
+    // geonameId: 3588257,
   },
   {
     id: 1166,
@@ -22153,7 +22153,7 @@ const divisions = [
       fr: 'Zacapa',
     }),
     denomination: 'department',
-    geonameId: 3587586,
+    // geonameId: 3587586,
   },
   {
     id: 1167,
@@ -22172,7 +22172,7 @@ const divisions = [
       fr: 'Boké',
     }),
     denomination: 'region',
-    geonameId: 8335085,
+    // geonameId: 8335085,
   },
   {
     id: 1168,
@@ -22191,7 +22191,7 @@ const divisions = [
       fr: 'Conakry',
     }),
     denomination: 'region',
-    geonameId: 2422464,
+    // geonameId: 2422464,
   },
   {
     id: 1169,
@@ -22210,7 +22210,7 @@ const divisions = [
       fr: 'Faranah',
     }),
     denomination: 'region',
-    geonameId: 8335086,
+    // geonameId: 8335086,
   },
   {
     id: 1170,
@@ -22229,7 +22229,7 @@ const divisions = [
       fr: 'Kankan',
     }),
     denomination: 'region',
-    geonameId: 8335087,
+    // geonameId: 8335087,
   },
   {
     id: 1171,
@@ -22248,7 +22248,7 @@ const divisions = [
       fr: 'Kindia',
     }),
     denomination: 'region',
-    geonameId: 8335088,
+    // geonameId: 8335088,
   },
   {
     id: 1172,
@@ -22267,7 +22267,7 @@ const divisions = [
       fr: 'Labé',
     }),
     denomination: 'region',
-    geonameId: 8335089,
+    // geonameId: 8335089,
   },
   {
     id: 1173,
@@ -22286,7 +22286,7 @@ const divisions = [
       fr: 'Mamou',
     }),
     denomination: 'region',
-    geonameId: 8335090,
+    // geonameId: 8335090,
   },
   {
     id: 1174,
@@ -22305,7 +22305,7 @@ const divisions = [
       fr: 'Nzérékoré',
     }),
     denomination: 'region',
-    geonameId: 8335091,
+    // geonameId: 8335091,
   },
   {
     id: 1175,
@@ -22324,7 +22324,7 @@ const divisions = [
       fr: 'Bafatá',
     }),
     denomination: 'region',
-    geonameId: 2375255,
+    // geonameId: 2375255,
   },
   {
     id: 1176,
@@ -22343,7 +22343,7 @@ const divisions = [
       fr: 'Biombo',
     }),
     denomination: 'region',
-    geonameId: 2374820,
+    // geonameId: 2374820,
   },
   {
     id: 1177,
@@ -22362,7 +22362,7 @@ const divisions = [
       fr: 'Bissau',
     }),
     denomination: 'region',
-    geonameId: 2374776,
+    // geonameId: 2374776,
   },
   {
     id: 1178,
@@ -22381,7 +22381,7 @@ const divisions = [
       fr: 'Bolama',
     }),
     denomination: 'region',
-    geonameId: 2374689,
+    // geonameId: 2374689,
   },
   {
     id: 1179,
@@ -22400,7 +22400,7 @@ const divisions = [
       fr: 'Cacheu',
     }),
     denomination: 'region',
-    geonameId: 2374312,
+    // geonameId: 2374312,
   },
   {
     id: 1180,
@@ -22419,7 +22419,7 @@ const divisions = [
       fr: 'Gabú',
     }),
     denomination: 'region',
-    geonameId: 2372533,
+    // geonameId: 2372533,
   },
   {
     id: 1181,
@@ -22438,7 +22438,7 @@ const divisions = [
       fr: 'Oio',
     }),
     denomination: 'region',
-    geonameId: 2371071,
+    // geonameId: 2371071,
   },
   {
     id: 1182,
@@ -22457,7 +22457,7 @@ const divisions = [
       fr: 'Quinara',
     }),
     denomination: 'region',
-    geonameId: 2370360,
+    // geonameId: 2370360,
   },
   {
     id: 1183,
@@ -22476,7 +22476,7 @@ const divisions = [
       fr: 'Tombali',
     }),
     denomination: 'region',
-    geonameId: 2368955,
+    // geonameId: 2368955,
   },
   {
     id: 1184,
@@ -22495,7 +22495,7 @@ const divisions = [
       fr: 'Barima-Waini',
     }),
     denomination: 'region',
-    geonameId: 3379515,
+    // geonameId: 3379515,
   },
   {
     id: 1185,
@@ -22514,7 +22514,7 @@ const divisions = [
       fr: 'Cuyuni-Mazaruni',
     }),
     denomination: 'region',
-    geonameId: 3379023,
+    // geonameId: 3379023,
   },
   {
     id: 1186,
@@ -22533,7 +22533,7 @@ const divisions = [
       fr: 'Demerara-Mahaica',
     }),
     denomination: 'region',
-    geonameId: 3378950,
+    // geonameId: 3378950,
   },
   {
     id: 1187,
@@ -22552,7 +22552,7 @@ const divisions = [
       fr: 'Berbice oriental-Corentyne',
     }),
     denomination: 'region',
-    geonameId: 3378840,
+    // geonameId: 3378840,
   },
   {
     id: 1188,
@@ -22571,7 +22571,7 @@ const divisions = [
       fr: 'Îles Essequibo-Demerara occidental',
     }),
     denomination: 'region',
-    geonameId: 3378741,
+    // geonameId: 3378741,
   },
   {
     id: 1189,
@@ -22590,7 +22590,7 @@ const divisions = [
       fr: 'Mahaica-Berbice',
     }),
     denomination: 'region',
-    geonameId: 3377274,
+    // geonameId: 3377274,
   },
   {
     id: 1190,
@@ -22609,7 +22609,7 @@ const divisions = [
       fr: 'Pomeroon-Supenaam',
     }),
     denomination: 'region',
-    geonameId: 3376407,
+    // geonameId: 3376407,
   },
   {
     id: 1191,
@@ -22628,7 +22628,7 @@ const divisions = [
       fr: 'Potaro-Siparuni',
     }),
     denomination: 'region',
-    geonameId: 3376386,
+    // geonameId: 3376386,
   },
   {
     id: 1192,
@@ -22647,7 +22647,7 @@ const divisions = [
       fr: 'Haut-Demerara-Berbice',
     }),
     denomination: 'region',
-    geonameId: 3375469,
+    // geonameId: 3375469,
   },
   {
     id: 1193,
@@ -22666,7 +22666,7 @@ const divisions = [
       fr: 'Haut-Takutu-Haut-Essequibo',
     }),
     denomination: 'region',
-    geonameId: 3375463,
+    // geonameId: 3375463,
   },
   {
     id: 1194,
@@ -22685,7 +22685,7 @@ const divisions = [
       fr: 'Artibonite',
     }),
     denomination: 'department',
-    geonameId: 3731053,
+    // geonameId: 3731053,
   },
   {
     id: 1195,
@@ -22704,7 +22704,7 @@ const divisions = [
       fr: 'Centre',
     }),
     denomination: 'department',
-    geonameId: 3728069,
+    // geonameId: 3728069,
   },
   {
     id: 1196,
@@ -22723,7 +22723,7 @@ const divisions = [
       fr: 'Grand’Anse',
     }),
     denomination: 'department',
-    geonameId: 3724613,
+    // geonameId: 3724613,
   },
   {
     id: 1197,
@@ -22742,7 +22742,7 @@ const divisions = [
       fr: 'Nippes',
     }),
     denomination: 'department',
-    geonameId: 7115999,
+    // geonameId: 7115999,
   },
   {
     id: 1198,
@@ -22761,7 +22761,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'department',
-    geonameId: 3719543,
+    // geonameId: 3719543,
   },
   {
     id: 1199,
@@ -22780,7 +22780,7 @@ const divisions = [
       fr: 'Nord-Est',
     }),
     denomination: 'department',
-    geonameId: 3719540,
+    // geonameId: 3719540,
   },
   {
     id: 1200,
@@ -22799,7 +22799,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'department',
-    geonameId: 3719536,
+    // geonameId: 3719536,
   },
   {
     id: 1201,
@@ -22818,7 +22818,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'department',
-    geonameId: 3719432,
+    // geonameId: 3719432,
   },
   {
     id: 1202,
@@ -22837,7 +22837,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'department',
-    geonameId: 3716952,
+    // geonameId: 3716952,
   },
   {
     id: 1203,
@@ -22856,7 +22856,7 @@ const divisions = [
       fr: 'Sud-Est',
     }),
     denomination: 'department',
-    geonameId: 3716950,
+    // geonameId: 3716950,
   },
   {
     id: 1204,
@@ -22875,7 +22875,7 @@ const divisions = [
       fr: 'Atlántida',
     }),
     denomination: 'department',
-    geonameId: 3615027,
+    // geonameId: 3615027,
   },
   {
     id: 1205,
@@ -22894,7 +22894,7 @@ const divisions = [
       fr: 'Îles de la Baie',
     }),
     denomination: 'department',
-    geonameId: 3608814,
+    // geonameId: 3608814,
   },
   {
     id: 1206,
@@ -22913,7 +22913,7 @@ const divisions = [
       fr: 'Choluteca',
     }),
     denomination: 'department',
-    geonameId: 3613527,
+    // geonameId: 3613527,
   },
   {
     id: 1207,
@@ -22932,7 +22932,7 @@ const divisions = [
       fr: 'Colón',
     }),
     denomination: 'department',
-    geonameId: 3613358,
+    // geonameId: 3613358,
   },
   {
     id: 1208,
@@ -22951,7 +22951,7 @@ const divisions = [
       fr: 'Comayagua',
     }),
     denomination: 'department',
-    geonameId: 3613319,
+    // geonameId: 3613319,
   },
   {
     id: 1209,
@@ -22970,7 +22970,7 @@ const divisions = [
       fr: 'Copán',
     }),
     denomination: 'department',
-    geonameId: 3613229,
+    // geonameId: 3613229,
   },
   {
     id: 1210,
@@ -22989,7 +22989,7 @@ const divisions = [
       fr: 'Cortés',
     }),
     denomination: 'department',
-    geonameId: 3613140,
+    // geonameId: 3613140,
   },
   {
     id: 1211,
@@ -23008,7 +23008,7 @@ const divisions = [
       fr: 'El Paraíso',
     }),
     denomination: 'department',
-    geonameId: 3610942,
+    // geonameId: 3610942,
   },
   {
     id: 1212,
@@ -23027,7 +23027,7 @@ const divisions = [
       fr: 'Francisco Morazán',
     }),
     denomination: 'department',
-    geonameId: 3609672,
+    // geonameId: 3609672,
   },
   {
     id: 1213,
@@ -23046,7 +23046,7 @@ const divisions = [
       fr: 'Gracias a Dios',
     }),
     denomination: 'department',
-    geonameId: 3609583,
+    // geonameId: 3609583,
   },
   {
     id: 1214,
@@ -23065,7 +23065,7 @@ const divisions = [
       fr: 'Intibucá',
     }),
     denomination: 'department',
-    geonameId: 3608833,
+    // geonameId: 3608833,
   },
   {
     id: 1215,
@@ -23084,7 +23084,7 @@ const divisions = [
       fr: 'La Paz',
     }),
     denomination: 'department',
-    geonameId: 3607251,
+    // geonameId: 3607251,
   },
   {
     id: 1216,
@@ -23103,7 +23103,7 @@ const divisions = [
       fr: 'Lempira',
     }),
     denomination: 'department',
-    geonameId: 3606066,
+    // geonameId: 3606066,
   },
   {
     id: 1217,
@@ -23122,7 +23122,7 @@ const divisions = [
       fr: 'Ocotepeque',
     }),
     denomination: 'department',
-    geonameId: 3604318,
+    // geonameId: 3604318,
   },
   {
     id: 1218,
@@ -23141,7 +23141,7 @@ const divisions = [
       fr: 'Olancho',
     }),
     denomination: 'department',
-    geonameId: 3604249,
+    // geonameId: 3604249,
   },
   {
     id: 1219,
@@ -23160,7 +23160,7 @@ const divisions = [
       fr: 'Sainte-Barbe',
     }),
     denomination: 'department',
-    geonameId: 3601689,
+    // geonameId: 3601689,
   },
   {
     id: 1220,
@@ -23179,7 +23179,7 @@ const divisions = [
       fr: 'Vallée',
     }),
     denomination: 'department',
-    geonameId: 3600456,
+    // geonameId: 3600456,
   },
   {
     id: 1221,
@@ -23198,7 +23198,7 @@ const divisions = [
       fr: 'Yoro',
     }),
     denomination: 'department',
-    geonameId: 3600193,
+    // geonameId: 3600193,
   },
   {
     id: 1222,
@@ -23217,7 +23217,7 @@ const divisions = [
       fr: 'Central et occidental',
     }),
     denomination: 'district',
-    geonameId: 7533598,
+    // geonameId: 7533598,
   },
   {
     id: 1223,
@@ -23236,7 +23236,7 @@ const divisions = [
       fr: 'Oriental',
     }),
     denomination: 'district',
-    geonameId: 7533608,
+    // geonameId: 7533608,
   },
   {
     id: 1224,
@@ -23255,7 +23255,7 @@ const divisions = [
       fr: 'Îles',
     }),
     denomination: 'district',
-    geonameId: 1819708,
+    // geonameId: 1819708,
   },
   {
     id: 1225,
@@ -23274,7 +23274,7 @@ const divisions = [
       fr: 'Kowloon City',
     }),
     denomination: 'district',
-    geonameId: 7533612,
+    // geonameId: 7533612,
   },
   {
     id: 1226,
@@ -23293,7 +23293,7 @@ const divisions = [
       fr: 'Kwai Tsing',
     }),
     denomination: 'district',
-    geonameId: 7533615,
+    // geonameId: 7533615,
   },
   {
     id: 1227,
@@ -23312,7 +23312,7 @@ const divisions = [
       fr: 'Kwun Tong',
     }),
     denomination: 'district',
-    geonameId: 7533614,
+    // geonameId: 7533614,
   },
   {
     id: 1228,
@@ -23331,7 +23331,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'district',
-    geonameId: 7533617,
+    // geonameId: 7533617,
   },
   {
     id: 1229,
@@ -23350,7 +23350,7 @@ const divisions = [
       fr: 'Sai Kung',
     }),
     denomination: 'district',
-    geonameId: 1819049,
+    // geonameId: 1819049,
   },
   {
     id: 1230,
@@ -23369,7 +23369,7 @@ const divisions = [
       fr: 'Sha Tin',
     }),
     denomination: 'district',
-    geonameId: 7533618,
+    // geonameId: 7533618,
   },
   {
     id: 1231,
@@ -23388,7 +23388,7 @@ const divisions = [
       fr: 'Sham Shui Po',
     }),
     denomination: 'district',
-    geonameId: 7533611,
+    // geonameId: 7533611,
   },
   {
     id: 1232,
@@ -23407,7 +23407,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'district',
-    geonameId: 7533609,
+    // geonameId: 7533609,
   },
   {
     id: 1233,
@@ -23426,7 +23426,7 @@ const divisions = [
       fr: 'Tai Po',
     }),
     denomination: 'district',
-    geonameId: 1818672,
+    // geonameId: 1818672,
   },
   {
     id: 1234,
@@ -23445,7 +23445,7 @@ const divisions = [
       fr: 'Tsuen Wan',
     }),
     denomination: 'district',
-    geonameId: 1818458,
+    // geonameId: 1818458,
   },
   {
     id: 1235,
@@ -23464,7 +23464,7 @@ const divisions = [
       fr: 'Tuen Mun',
     }),
     denomination: 'district',
-    geonameId: 7533616,
+    // geonameId: 7533616,
   },
   {
     id: 1236,
@@ -23483,7 +23483,7 @@ const divisions = [
       fr: 'Wan Chai',
     }),
     denomination: 'district',
-    geonameId: 7533607,
+    // geonameId: 7533607,
   },
   {
     id: 1237,
@@ -23502,7 +23502,7 @@ const divisions = [
       fr: 'Wong Tai Sin',
     }),
     denomination: 'district',
-    geonameId: 7533613,
+    // geonameId: 7533613,
   },
   {
     id: 1238,
@@ -23521,7 +23521,7 @@ const divisions = [
       fr: 'Yau Tsim Mong',
     }),
     denomination: 'district',
-    geonameId: 7533610,
+    // geonameId: 7533610,
   },
   {
     id: 1239,
@@ -23540,7 +23540,7 @@ const divisions = [
       fr: 'Yuen Long',
     }),
     denomination: 'district',
-    geonameId: 1818224,
+    // geonameId: 1818224,
   },
   {
     id: 1240,
@@ -23559,7 +23559,7 @@ const divisions = [
       fr: 'Yuen Long',
     }),
     denomination: 'district',
-    geonameId: 1818224,
+    // geonameId: 1818224,
   },
   {
     id: 1241,
@@ -23578,7 +23578,7 @@ const divisions = [
       fr: 'Bács-Kiskun',
     }),
     denomination: 'county',
-    geonameId: 3055744,
+    // geonameId: 3055744,
   },
   {
     id: 1242,
@@ -23597,7 +23597,7 @@ const divisions = [
       fr: 'Baranya',
     }),
     denomination: 'county',
-    geonameId: 3055399,
+    // geonameId: 3055399,
   },
   {
     id: 1243,
@@ -23616,7 +23616,7 @@ const divisions = [
       fr: 'Békés',
     }),
     denomination: 'county',
-    geonameId: 722433,
+    // geonameId: 722433,
   },
   {
     id: 1244,
@@ -23635,7 +23635,7 @@ const divisions = [
       fr: 'Borsod-Abaúj-Zemplén',
     }),
     denomination: 'county',
-    geonameId: 722064,
+    // geonameId: 722064,
   },
   {
     id: 1245,
@@ -23654,7 +23654,7 @@ const divisions = [
       fr: 'Budapest',
     }),
     denomination: 'city',
-    geonameId: 3054638,
+    // geonameId: 3054638,
   },
   {
     id: 1246,
@@ -23673,7 +23673,7 @@ const divisions = [
       fr: 'Csongrád',
     }),
     denomination: 'county',
-    geonameId: 721589,
+    // geonameId: 721589,
   },
   {
     id: 1247,
@@ -23692,7 +23692,7 @@ const divisions = [
       fr: 'Fejér',
     }),
     denomination: 'county',
-    geonameId: 3053028,
+    // geonameId: 3053028,
   },
   {
     id: 1248,
@@ -23711,7 +23711,7 @@ const divisions = [
       fr: 'Győr-Moson-Sopron',
     }),
     denomination: 'county',
-    geonameId: 3051977,
+    // geonameId: 3051977,
   },
   {
     id: 1249,
@@ -23730,7 +23730,7 @@ const divisions = [
       fr: 'Hajdú-Bihar',
     }),
     denomination: 'county',
-    geonameId: 720293,
+    // geonameId: 720293,
   },
   {
     id: 1250,
@@ -23749,7 +23749,7 @@ const divisions = [
       fr: 'Heves',
     }),
     denomination: 'county',
-    geonameId: 720002,
+    // geonameId: 720002,
   },
   {
     id: 1251,
@@ -23768,7 +23768,7 @@ const divisions = [
       fr: 'Jász-Nagykun-Szolnok',
     }),
     denomination: 'county',
-    geonameId: 719637,
+    // geonameId: 719637,
   },
   {
     id: 1252,
@@ -23787,7 +23787,7 @@ const divisions = [
       fr: 'Komárom-Esztergom',
     }),
     denomination: 'county',
-    geonameId: 3049518,
+    // geonameId: 3049518,
   },
   {
     id: 1253,
@@ -23806,7 +23806,7 @@ const divisions = [
       fr: 'Nógrád',
     }),
     denomination: 'county',
-    geonameId: 3047348,
+    // geonameId: 3047348,
   },
   {
     id: 1254,
@@ -23825,7 +23825,7 @@ const divisions = [
       fr: 'Pest',
     }),
     denomination: 'county',
-    geonameId: 3046431,
+    // geonameId: 3046431,
   },
   {
     id: 1255,
@@ -23844,7 +23844,7 @@ const divisions = [
       fr: 'Somogy',
     }),
     denomination: 'county',
-    geonameId: 3045226,
+    // geonameId: 3045226,
   },
   {
     id: 1256,
@@ -23863,7 +23863,7 @@ const divisions = [
       fr: 'Szabolcs-Szatmár-Bereg',
     }),
     denomination: 'county',
-    geonameId: 715593,
+    // geonameId: 715593,
   },
   {
     id: 1257,
@@ -23882,7 +23882,7 @@ const divisions = [
       fr: 'Tolna',
     }),
     denomination: 'county',
-    geonameId: 3043845,
+    // geonameId: 3043845,
   },
   {
     id: 1258,
@@ -23901,7 +23901,7 @@ const divisions = [
       fr: 'Vas',
     }),
     denomination: 'county',
-    geonameId: 3043047,
+    // geonameId: 3043047,
   },
   {
     id: 1259,
@@ -23920,7 +23920,7 @@ const divisions = [
       fr: 'Veszprém',
     }),
     denomination: 'county',
-    geonameId: 3042925,
+    // geonameId: 3042925,
   },
   {
     id: 1260,
@@ -23939,7 +23939,7 @@ const divisions = [
       fr: 'Zala',
     }),
     denomination: 'county',
-    geonameId: 3042613,
+    // geonameId: 3042613,
   },
   {
     id: 1261,
@@ -23958,7 +23958,7 @@ const divisions = [
       fr: 'Région Capitale',
     }),
     denomination: 'region',
-    geonameId: 3426182,
+    // geonameId: 3426182,
   },
   {
     id: 1262,
@@ -23977,7 +23977,7 @@ const divisions = [
       fr: 'Est',
     }),
     denomination: 'region',
-    geonameId: 3337405,
+    // geonameId: 3337405,
   },
   {
     id: 1263,
@@ -23996,7 +23996,7 @@ const divisions = [
       fr: 'Nord-Est',
     }),
     denomination: 'region',
-    geonameId: 3337404,
+    // geonameId: 3337404,
   },
   {
     id: 1264,
@@ -24015,7 +24015,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'region',
-    geonameId: 3337403,
+    // geonameId: 3337403,
   },
   {
     id: 1265,
@@ -24034,7 +24034,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'region',
-    geonameId: 3337406,
+    // geonameId: 3337406,
   },
   {
     id: 1266,
@@ -24053,7 +24053,7 @@ const divisions = [
       fr: 'Péninsule Sud',
     }),
     denomination: 'region',
-    geonameId: 3426183,
+    // geonameId: 3426183,
   },
   {
     id: 1267,
@@ -24072,7 +24072,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'region',
-    geonameId: 3426184,
+    // geonameId: 3426184,
   },
   {
     id: 1268,
@@ -24091,7 +24091,7 @@ const divisions = [
       fr: 'Fjords de l’Ouest',
     }),
     denomination: 'region',
-    geonameId: 3426185,
+    // geonameId: 3426185,
   },
   {
     id: 1269,
@@ -24110,7 +24110,7 @@ const divisions = [
       fr: 'Andaman-et-Nicobar',
     }),
     denomination: 'territory',
-    geonameId: 1278647,
+    // geonameId: 1278647,
   },
   {
     id: 1270,
@@ -24129,7 +24129,7 @@ const divisions = [
       fr: 'Andhra Pradesh',
     }),
     denomination: 'state',
-    geonameId: 1278629,
+    // geonameId: 1278629,
   },
   {
     id: 1271,
@@ -24148,7 +24148,7 @@ const divisions = [
       fr: 'Arunachal Pradesh',
     }),
     denomination: 'state',
-    geonameId: 1278341,
+    // geonameId: 1278341,
   },
   {
     id: 1272,
@@ -24167,7 +24167,7 @@ const divisions = [
       fr: 'Assam',
     }),
     denomination: 'state',
-    geonameId: 1278253,
+    // geonameId: 1278253,
   },
   {
     id: 1273,
@@ -24186,7 +24186,7 @@ const divisions = [
       fr: 'Bihar',
     }),
     denomination: 'state',
-    geonameId: 1275715,
+    // geonameId: 1275715,
   },
   {
     id: 1274,
@@ -24205,7 +24205,7 @@ const divisions = [
       fr: 'Chandigarh',
     }),
     denomination: 'territory',
-    geonameId: 1274744,
+    // geonameId: 1274744,
   },
   {
     id: 1275,
@@ -24224,7 +24224,7 @@ const divisions = [
       fr: 'Chhattisgarh',
     }),
     denomination: 'state',
-    geonameId: 1444364,
+    // geonameId: 1444364,
   },
   {
     id: 1276,
@@ -24243,7 +24243,7 @@ const divisions = [
       fr: 'Dadra et Nagar Haveli et Daman et Diu',
     }),
     denomination: 'territory',
-    geonameId: 12165662,
+    // geonameId: 12165662,
   },
   {
     id: 1277,
@@ -24262,7 +24262,7 @@ const divisions = [
       fr: 'Delhi',
     }),
     denomination: 'territory',
-    geonameId: 1273293,
+    // geonameId: 1273293,
   },
   {
     id: 1278,
@@ -24281,7 +24281,7 @@ const divisions = [
       fr: 'Goa',
     }),
     denomination: 'state',
-    geonameId: 1271157,
+    // geonameId: 1271157,
   },
   {
     id: 1279,
@@ -24300,7 +24300,7 @@ const divisions = [
       fr: 'Gujarat',
     }),
     denomination: 'state',
-    geonameId: 1270770,
+    // geonameId: 1270770,
   },
   {
     id: 1280,
@@ -24319,7 +24319,7 @@ const divisions = [
       fr: 'Haryana',
     }),
     denomination: 'state',
-    geonameId: 1270260,
+    // geonameId: 1270260,
   },
   {
     id: 1281,
@@ -24338,7 +24338,7 @@ const divisions = [
       fr: 'Himachal Pradesh',
     }),
     denomination: 'state',
-    geonameId: 1270101,
+    // geonameId: 1270101,
   },
   {
     id: 1282,
@@ -24357,7 +24357,7 @@ const divisions = [
       fr: 'Jammu-et-Cachemire',
     }),
     denomination: 'territory',
-    geonameId: 1269320,
+    // geonameId: 1269320,
   },
   {
     id: 1283,
@@ -24376,7 +24376,7 @@ const divisions = [
       fr: 'Jharkhand',
     }),
     denomination: 'state',
-    geonameId: 1444365,
+    // geonameId: 1444365,
   },
   {
     id: 1284,
@@ -24395,7 +24395,7 @@ const divisions = [
       fr: 'Karnataka',
     }),
     denomination: 'state',
-    geonameId: 1267701,
+    // geonameId: 1267701,
   },
   {
     id: 1285,
@@ -24414,7 +24414,7 @@ const divisions = [
       fr: 'Kerala',
     }),
     denomination: 'state',
-    geonameId: 1267254,
+    // geonameId: 1267254,
   },
   {
     id: 1286,
@@ -24433,7 +24433,7 @@ const divisions = [
       fr: 'Ladakh',
     }),
     denomination: 'territory',
-    geonameId: 12096464,
+    // geonameId: 12096464,
   },
   {
     id: 1287,
@@ -24452,7 +24452,7 @@ const divisions = [
       fr: 'Lakshadweep',
     }),
     denomination: 'territory',
-    geonameId: 1265206,
+    // geonameId: 1265206,
   },
   {
     id: 1288,
@@ -24471,7 +24471,7 @@ const divisions = [
       fr: 'Madhya Pradesh',
     }),
     denomination: 'state',
-    geonameId: 1264542,
+    // geonameId: 1264542,
   },
   {
     id: 1289,
@@ -24490,7 +24490,7 @@ const divisions = [
       fr: 'Maharashtra',
     }),
     denomination: 'state',
-    geonameId: 1264418,
+    // geonameId: 1264418,
   },
   {
     id: 1290,
@@ -24509,7 +24509,7 @@ const divisions = [
       fr: 'Manipur',
     }),
     denomination: 'state',
-    geonameId: 1263706,
+    // geonameId: 1263706,
   },
   {
     id: 1291,
@@ -24528,7 +24528,7 @@ const divisions = [
       fr: 'Meghalaya',
     }),
     denomination: 'state',
-    geonameId: 1263207,
+    // geonameId: 1263207,
   },
   {
     id: 1292,
@@ -24547,7 +24547,7 @@ const divisions = [
       fr: 'Mizoram',
     }),
     denomination: 'state',
-    geonameId: 1262963,
+    // geonameId: 1262963,
   },
   {
     id: 1293,
@@ -24566,7 +24566,7 @@ const divisions = [
       fr: 'Nagaland',
     }),
     denomination: 'state',
-    geonameId: 1262271,
+    // geonameId: 1262271,
   },
   {
     id: 1294,
@@ -24585,7 +24585,7 @@ const divisions = [
       fr: 'Odisha',
     }),
     denomination: 'state',
-    geonameId: 1261029,
+    // geonameId: 1261029,
   },
   {
     id: 1295,
@@ -24604,7 +24604,7 @@ const divisions = [
       fr: 'Puducherry',
     }),
     denomination: 'territory',
-    geonameId: 1259424,
+    // geonameId: 1259424,
   },
   {
     id: 1296,
@@ -24623,7 +24623,7 @@ const divisions = [
       fr: 'Pendjab',
     }),
     denomination: 'state',
-    geonameId: 1259223,
+    // geonameId: 1259223,
   },
   {
     id: 1297,
@@ -24642,7 +24642,7 @@ const divisions = [
       fr: 'Rajasthan',
     }),
     denomination: 'state',
-    geonameId: 1258899,
+    // geonameId: 1258899,
   },
   {
     id: 1298,
@@ -24661,7 +24661,7 @@ const divisions = [
       fr: 'Sikkim',
     }),
     denomination: 'state',
-    geonameId: 1256312,
+    // geonameId: 1256312,
   },
   {
     id: 1299,
@@ -24680,7 +24680,7 @@ const divisions = [
       fr: 'Tamil Nadu',
     }),
     denomination: 'state',
-    geonameId: 1255053,
+    // geonameId: 1255053,
   },
   {
     id: 1300,
@@ -24699,7 +24699,7 @@ const divisions = [
       fr: 'Telangana',
     }),
     denomination: 'state',
-    geonameId: 1254788,
+    // geonameId: 1254788,
   },
   {
     id: 1301,
@@ -24718,7 +24718,7 @@ const divisions = [
       fr: 'Tripura',
     }),
     denomination: 'state',
-    geonameId: 1254169,
+    // geonameId: 1254169,
   },
   {
     id: 1302,
@@ -24737,7 +24737,7 @@ const divisions = [
       fr: 'Uttar Pradesh',
     }),
     denomination: 'state',
-    geonameId: 1253626,
+    // geonameId: 1253626,
   },
   {
     id: 1303,
@@ -24756,7 +24756,7 @@ const divisions = [
       fr: 'Uttarakhand',
     }),
     denomination: 'state',
-    geonameId: 1444366,
+    // geonameId: 1444366,
   },
   {
     id: 1304,
@@ -24775,7 +24775,7 @@ const divisions = [
       fr: 'Bengale-Occidental',
     }),
     denomination: 'state',
-    geonameId: 1252881,
+    // geonameId: 1252881,
   },
   {
     id: 1305,
@@ -24794,7 +24794,7 @@ const divisions = [
       fr: 'Aceh',
     }),
     denomination: 'province',
-    geonameId: 1215638,
+    // geonameId: 1215638,
   },
   {
     id: 1306,
@@ -24813,7 +24813,7 @@ const divisions = [
       fr: 'Bali',
     }),
     denomination: 'province',
-    geonameId: 1650535,
+    // geonameId: 1650535,
   },
   {
     id: 1307,
@@ -24832,7 +24832,7 @@ const divisions = [
       fr: 'Bangka-Belitung',
     }),
     denomination: 'province',
-    geonameId: 1923047,
+    // geonameId: 1923047,
   },
   {
     id: 1308,
@@ -24851,7 +24851,7 @@ const divisions = [
       fr: 'Banten',
     }),
     denomination: 'province',
-    geonameId: 1923045,
+    // geonameId: 1923045,
   },
   {
     id: 1309,
@@ -24870,7 +24870,7 @@ const divisions = [
       fr: 'Bengkulu',
     }),
     denomination: 'province',
-    geonameId: 1649147,
+    // geonameId: 1649147,
   },
   {
     id: 1310,
@@ -24889,7 +24889,7 @@ const divisions = [
       fr: 'Java central',
     }),
     denomination: 'province',
-    geonameId: 1642669,
+    // geonameId: 1642669,
   },
   {
     id: 1311,
@@ -24908,7 +24908,7 @@ const divisions = [
       fr: 'Kalimantan central',
     }),
     denomination: 'province',
-    geonameId: 1641898,
+    // geonameId: 1641898,
   },
   {
     id: 1312,
@@ -24927,7 +24927,7 @@ const divisions = [
       fr: 'Papouasie centrale',
     }),
     denomination: 'province',
-    geonameId: 12503511,
+    // geonameId: 12503511,
   },
   {
     id: 1313,
@@ -24946,7 +24946,7 @@ const divisions = [
       fr: 'Sulawesi central',
     }),
     denomination: 'province',
-    geonameId: 1626231,
+    // geonameId: 1626231,
   },
   {
     id: 1314,
@@ -24965,7 +24965,7 @@ const divisions = [
       fr: 'Java oriental',
     }),
     denomination: 'province',
-    geonameId: 1642668,
+    // geonameId: 1642668,
   },
   {
     id: 1315,
@@ -24984,7 +24984,7 @@ const divisions = [
       fr: 'Kalimantan oriental',
     }),
     denomination: 'province',
-    geonameId: 1641897,
+    // geonameId: 1641897,
   },
   {
     id: 1316,
@@ -25003,7 +25003,7 @@ const divisions = [
       fr: 'Nusa Tenggara oriental',
     }),
     denomination: 'province',
-    geonameId: 1633791,
+    // geonameId: 1633791,
   },
   {
     id: 1317,
@@ -25022,7 +25022,7 @@ const divisions = [
       fr: 'Gorontalo',
     }),
     denomination: 'province',
-    geonameId: 1923046,
+    // geonameId: 1923046,
   },
   {
     id: 1318,
@@ -25041,7 +25041,7 @@ const divisions = [
       fr: 'Papouasie des Hautes Terres',
     }),
     denomination: 'province',
-    geonameId: 12503512,
+    // geonameId: 12503512,
   },
   {
     id: 1319,
@@ -25060,7 +25060,7 @@ const divisions = [
       fr: 'Jakarta',
     }),
     denomination: 'capital_region',
-    geonameId: 1642907,
+    // geonameId: 1642907,
   },
   {
     id: 1320,
@@ -25079,7 +25079,7 @@ const divisions = [
       fr: 'Jambi',
     }),
     denomination: 'province',
-    geonameId: 1642856,
+    // geonameId: 1642856,
   },
   {
     id: 1321,
@@ -25098,7 +25098,7 @@ const divisions = [
       fr: 'Lampung',
     }),
     denomination: 'province',
-    geonameId: 1638535,
+    // geonameId: 1638535,
   },
   {
     id: 1322,
@@ -25117,7 +25117,7 @@ const divisions = [
       fr: 'Moluques',
     }),
     denomination: 'province',
-    geonameId: 1636627,
+    // geonameId: 1636627,
   },
   {
     id: 1323,
@@ -25136,7 +25136,7 @@ const divisions = [
       fr: 'Kalimantan du Nord',
     }),
     denomination: 'province',
-    geonameId: 8604684,
+    // geonameId: 8604684,
   },
   {
     id: 1324,
@@ -25155,7 +25155,7 @@ const divisions = [
       fr: 'Moluques du Nord',
     }),
     denomination: 'province',
-    geonameId: 1958070,
+    // geonameId: 1958070,
   },
   {
     id: 1325,
@@ -25174,7 +25174,7 @@ const divisions = [
       fr: 'Sulawesi du Nord',
     }),
     denomination: 'province',
-    geonameId: 1626229,
+    // geonameId: 1626229,
   },
   {
     id: 1326,
@@ -25193,7 +25193,7 @@ const divisions = [
       fr: 'Sumatra du Nord',
     }),
     denomination: 'province',
-    geonameId: 1213642,
+    // geonameId: 1213642,
   },
   {
     id: 1327,
@@ -25212,7 +25212,7 @@ const divisions = [
       fr: 'Papouasie',
     }),
     denomination: 'province',
-    geonameId: 1643012,
+    // geonameId: 1643012,
   },
   {
     id: 1328,
@@ -25231,7 +25231,7 @@ const divisions = [
       fr: 'Riau',
     }),
     denomination: 'province',
-    geonameId: 1629652,
+    // geonameId: 1629652,
   },
   {
     id: 1329,
@@ -25250,7 +25250,7 @@ const divisions = [
       fr: 'Îles Riau',
     }),
     denomination: 'province',
-    geonameId: 1996551,
+    // geonameId: 1996551,
   },
   {
     id: 1330,
@@ -25269,7 +25269,7 @@ const divisions = [
       fr: 'Kalimantan du Sud',
     }),
     denomination: 'province',
-    geonameId: 1641899,
+    // geonameId: 1641899,
   },
   {
     id: 1331,
@@ -25288,7 +25288,7 @@ const divisions = [
       fr: 'Papouasie du Sud',
     }),
     denomination: 'province',
-    geonameId: 12503513,
+    // geonameId: 12503513,
   },
   {
     id: 1332,
@@ -25307,7 +25307,7 @@ const divisions = [
       fr: 'Sulawesi du Sud',
     }),
     denomination: 'province',
-    geonameId: 1626232,
+    // geonameId: 1626232,
   },
   {
     id: 1333,
@@ -25326,7 +25326,7 @@ const divisions = [
       fr: 'Sumatra du Sud',
     }),
     denomination: 'province',
-    geonameId: 1626196,
+    // geonameId: 1626196,
   },
   {
     id: 1334,
@@ -25345,7 +25345,7 @@ const divisions = [
       fr: 'Sulawesi du Sud-Est',
     }),
     denomination: 'province',
-    geonameId: 1626230,
+    // geonameId: 1626230,
   },
   {
     id: 1335,
@@ -25364,7 +25364,7 @@ const divisions = [
       fr: 'Papouasie du Sud-Ouest',
     }),
     denomination: 'province',
-    geonameId: 12503510,
+    // geonameId: 12503510,
   },
   {
     id: 1336,
@@ -25383,7 +25383,7 @@ const divisions = [
       fr: 'Java occidental',
     }),
     denomination: 'province',
-    geonameId: 1642672,
+    // geonameId: 1642672,
   },
   {
     id: 1337,
@@ -25402,7 +25402,7 @@ const divisions = [
       fr: 'Kalimantan occidental',
     }),
     denomination: 'province',
-    geonameId: 1641900,
+    // geonameId: 1641900,
   },
   {
     id: 1338,
@@ -25421,7 +25421,7 @@ const divisions = [
       fr: 'Nusa Tenggara occidental',
     }),
     denomination: 'province',
-    geonameId: 1633792,
+    // geonameId: 1633792,
   },
   {
     id: 1339,
@@ -25440,7 +25440,7 @@ const divisions = [
       fr: 'Papouasie occidentale',
     }),
     denomination: 'province',
-    geonameId: 1996549,
+    // geonameId: 1996549,
   },
   {
     id: 1340,
@@ -25459,7 +25459,7 @@ const divisions = [
       fr: 'Sulawesi occidental',
     }),
     denomination: 'province',
-    geonameId: 1996550,
+    // geonameId: 1996550,
   },
   {
     id: 1341,
@@ -25478,7 +25478,7 @@ const divisions = [
       fr: 'Sumatra occidentale',
     }),
     denomination: 'province',
-    geonameId: 1626197,
+    // geonameId: 1626197,
   },
   {
     id: 1342,
@@ -25497,7 +25497,7 @@ const divisions = [
       fr: 'Yogyakarta',
     }),
     denomination: 'special_region',
-    geonameId: 1621176,
+    // geonameId: 1621176,
   },
   {
     id: 1343,
@@ -25516,7 +25516,7 @@ const divisions = [
       fr: 'Alborz',
     }),
     denomination: 'province',
-    geonameId: 7648907,
+    // geonameId: 7648907,
   },
   {
     id: 1344,
@@ -25535,7 +25535,7 @@ const divisions = [
       fr: 'Ardabil',
     }),
     denomination: 'province',
-    geonameId: 413931,
+    // geonameId: 413931,
   },
   {
     id: 1345,
@@ -25554,7 +25554,7 @@ const divisions = [
       fr: 'Bushehr',
     }),
     denomination: 'province',
-    geonameId: 139816,
+    // geonameId: 139816,
   },
   {
     id: 1346,
@@ -25573,7 +25573,7 @@ const divisions = [
       fr: 'Chaharmahal-et-Bakhtiari',
     }),
     denomination: 'province',
-    geonameId: 139677,
+    // geonameId: 139677,
   },
   {
     id: 1347,
@@ -25592,7 +25592,7 @@ const divisions = [
       fr: 'Azerbaïdjan oriental',
     }),
     denomination: 'province',
-    geonameId: 142549,
+    // geonameId: 142549,
   },
   {
     id: 1348,
@@ -25611,7 +25611,7 @@ const divisions = [
       fr: 'Fars',
     }),
     denomination: 'province',
-    geonameId: 134766,
+    // geonameId: 134766,
   },
   {
     id: 1349,
@@ -25630,7 +25630,7 @@ const divisions = [
       fr: 'Gilan',
     }),
     denomination: 'province',
-    geonameId: 133349,
+    // geonameId: 133349,
   },
   {
     id: 1350,
@@ -25649,7 +25649,7 @@ const divisions = [
       fr: 'Golestan',
     }),
     denomination: 'province',
-    geonameId: 443792,
+    // geonameId: 443792,
   },
   {
     id: 1351,
@@ -25668,7 +25668,7 @@ const divisions = [
       fr: 'Hamadan',
     }),
     denomination: 'province',
-    geonameId: 132142,
+    // geonameId: 132142,
   },
   {
     id: 1352,
@@ -25687,7 +25687,7 @@ const divisions = [
       fr: 'Hormozgan',
     }),
     denomination: 'province',
-    geonameId: 131222,
+    // geonameId: 131222,
   },
   {
     id: 1353,
@@ -25706,7 +25706,7 @@ const divisions = [
       fr: 'Ilam',
     }),
     denomination: 'province',
-    geonameId: 130801,
+    // geonameId: 130801,
   },
   {
     id: 1354,
@@ -25725,7 +25725,7 @@ const divisions = [
       fr: 'Ispahan',
     }),
     denomination: 'province',
-    geonameId: 418862,
+    // geonameId: 418862,
   },
   {
     id: 1355,
@@ -25744,7 +25744,7 @@ const divisions = [
       fr: 'Kerman',
     }),
     denomination: 'province',
-    geonameId: 128231,
+    // geonameId: 128231,
   },
   {
     id: 1356,
@@ -25763,7 +25763,7 @@ const divisions = [
       fr: 'Kermanshah',
     }),
     denomination: 'province',
-    geonameId: 128222,
+    // geonameId: 128222,
   },
   {
     id: 1357,
@@ -25782,7 +25782,7 @@ const divisions = [
       fr: 'Khuzestan',
     }),
     denomination: 'province',
-    geonameId: 127082,
+    // geonameId: 127082,
   },
   {
     id: 1358,
@@ -25801,7 +25801,7 @@ const divisions = [
       fr: 'Kohgiluyeh-et-Boyer-Ahmad',
     }),
     denomination: 'province',
-    geonameId: 126878,
+    // geonameId: 126878,
   },
   {
     id: 1359,
@@ -25820,7 +25820,7 @@ const divisions = [
       fr: 'Kurdistan',
     }),
     denomination: 'province',
-    geonameId: 126584,
+    // geonameId: 126584,
   },
   {
     id: 1360,
@@ -25839,7 +25839,7 @@ const divisions = [
       fr: 'Lorestan',
     }),
     denomination: 'province',
-    geonameId: 125605,
+    // geonameId: 125605,
   },
   {
     id: 1361,
@@ -25858,7 +25858,7 @@ const divisions = [
       fr: 'Markazi',
     }),
     denomination: 'province',
-    geonameId: 124763,
+    // geonameId: 124763,
   },
   {
     id: 1362,
@@ -25877,7 +25877,7 @@ const divisions = [
       fr: 'Mazandaran',
     }),
     denomination: 'province',
-    geonameId: 124544,
+    // geonameId: 124544,
   },
   {
     id: 1363,
@@ -25896,7 +25896,7 @@ const divisions = [
       fr: 'Khorasan du Nord',
     }),
     denomination: 'province',
-    geonameId: 6201376,
+    // geonameId: 6201376,
   },
   {
     id: 1364,
@@ -25915,7 +25915,7 @@ const divisions = [
       fr: 'Qazvin',
     }),
     denomination: 'province',
-    geonameId: 443793,
+    // geonameId: 443793,
   },
   {
     id: 1365,
@@ -25934,7 +25934,7 @@ const divisions = [
       fr: 'Qom',
     }),
     denomination: 'province',
-    geonameId: 443794,
+    // geonameId: 443794,
   },
   {
     id: 1366,
@@ -25953,7 +25953,7 @@ const divisions = [
       fr: 'Khorasan-e Razavi',
     }),
     denomination: 'province',
-    geonameId: 6201375,
+    // geonameId: 6201375,
   },
   {
     id: 1367,
@@ -25972,7 +25972,7 @@ const divisions = [
       fr: 'Semnan',
     }),
     denomination: 'province',
-    geonameId: 116401,
+    // geonameId: 116401,
   },
   {
     id: 1368,
@@ -25991,7 +25991,7 @@ const divisions = [
       fr: 'Sistan-et-Baloutchistan',
     }),
     denomination: 'province',
-    geonameId: 1159456,
+    // geonameId: 1159456,
   },
   {
     id: 1369,
@@ -26010,7 +26010,7 @@ const divisions = [
       fr: 'Khorasan du Sud',
     }),
     denomination: 'province',
-    geonameId: 6201374,
+    // geonameId: 6201374,
   },
   {
     id: 1370,
@@ -26029,7 +26029,7 @@ const divisions = [
       fr: 'Téhéran',
     }),
     denomination: 'province',
-    geonameId: 110791,
+    // geonameId: 110791,
   },
   {
     id: 1371,
@@ -26048,7 +26048,7 @@ const divisions = [
       fr: 'Azerbaïdjan occidental',
     }),
     denomination: 'province',
-    geonameId: 142550,
+    // geonameId: 142550,
   },
   {
     id: 1372,
@@ -26067,7 +26067,7 @@ const divisions = [
       fr: 'Yazd',
     }),
     denomination: 'province',
-    geonameId: 111821,
+    // geonameId: 111821,
   },
   {
     id: 1373,
@@ -26086,7 +26086,7 @@ const divisions = [
       fr: 'Zanjan',
     }),
     denomination: 'province',
-    geonameId: 111452,
+    // geonameId: 111452,
   },
   {
     id: 1374,
@@ -26105,7 +26105,7 @@ const divisions = [
       fr: 'Al-Anbar',
     }),
     denomination: 'governorate',
-    geonameId: 99592,
+    // geonameId: 99592,
   },
   {
     id: 1375,
@@ -26124,7 +26124,7 @@ const divisions = [
       fr: 'Al-Muthanna',
     }),
     denomination: 'governorate',
-    geonameId: 99032,
+    // geonameId: 99032,
   },
   {
     id: 1376,
@@ -26143,7 +26143,7 @@ const divisions = [
       fr: 'An-Najaf',
     }),
     denomination: 'governorate',
-    geonameId: 98862,
+    // geonameId: 98862,
   },
   {
     id: 1377,
@@ -26162,7 +26162,7 @@ const divisions = [
       fr: 'Bagdad',
     }),
     denomination: 'governorate',
-    geonameId: 98180,
+    // geonameId: 98180,
   },
   {
     id: 1378,
@@ -26181,7 +26181,7 @@ const divisions = [
       fr: 'Bassora',
     }),
     denomination: 'governorate',
-    geonameId: 89341,
+    // geonameId: 89341,
   },
   {
     id: 1379,
@@ -26200,7 +26200,7 @@ const divisions = [
       fr: 'Dhi Qar',
     }),
     denomination: 'governorate',
-    geonameId: 97019,
+    // geonameId: 97019,
   },
   {
     id: 1380,
@@ -26219,7 +26219,7 @@ const divisions = [
       fr: 'Diyala',
     }),
     denomination: 'governorate',
-    geonameId: 96965,
+    // geonameId: 96965,
   },
   {
     id: 1381,
@@ -26238,7 +26238,7 @@ const divisions = [
       fr: 'Duhok',
     }),
     denomination: 'governorate',
-    geonameId: 97270,
+    // geonameId: 97270,
   },
   {
     id: 1382,
@@ -26257,7 +26257,7 @@ const divisions = [
       fr: 'Erbil',
     }),
     denomination: 'governorate',
-    geonameId: 95445,
+    // geonameId: 95445,
   },
   {
     id: 1383,
@@ -26276,7 +26276,7 @@ const divisions = [
       fr: 'Halabja',
     }),
     denomination: 'governorate',
-    geonameId: 12218240,
+    // geonameId: 12218240,
   },
   {
     id: 1384,
@@ -26295,7 +26295,7 @@ const divisions = [
       fr: 'Kirkouk',
     }),
     denomination: 'governorate',
-    geonameId: 98410,
+    // geonameId: 98410,
   },
   {
     id: 1385,
@@ -26314,7 +26314,7 @@ const divisions = [
       fr: 'Maysan',
     }),
     denomination: 'governorate',
-    geonameId: 93540,
+    // geonameId: 93540,
   },
   {
     id: 1386,
@@ -26333,7 +26333,7 @@ const divisions = [
       fr: 'Al-Qadisiyya',
     }),
     denomination: 'governorate',
-    geonameId: 99022,
+    // geonameId: 99022,
   },
   {
     id: 1387,
@@ -26352,7 +26352,7 @@ const divisions = [
       fr: 'Babylone',
     }),
     denomination: 'governorate',
-    geonameId: 98227,
+    // geonameId: 98227,
   },
   {
     id: 1388,
@@ -26371,7 +26371,7 @@ const divisions = [
       fr: 'Karbala',
     }),
     denomination: 'governorate',
-    geonameId: 94823,
+    // geonameId: 94823,
   },
   {
     id: 1389,
@@ -26390,7 +26390,7 @@ const divisions = [
       fr: 'Wasit',
     }),
     denomination: 'governorate',
-    geonameId: 89693,
+    // geonameId: 89693,
   },
   {
     id: 1390,
@@ -26409,7 +26409,7 @@ const divisions = [
       fr: 'Ninive',
     }),
     denomination: 'governorate',
-    geonameId: 92877,
+    // geonameId: 92877,
   },
   {
     id: 1391,
@@ -26428,7 +26428,7 @@ const divisions = [
       fr: 'Salah ad-Din',
     }),
     denomination: 'governorate',
-    geonameId: 91695,
+    // geonameId: 91695,
   },
   {
     id: 1392,
@@ -26447,7 +26447,7 @@ const divisions = [
       fr: 'Souleimaniye',
     }),
     denomination: 'governorate',
-    geonameId: 98465,
+    // geonameId: 98465,
   },
   {
     id: 1393,
@@ -26466,7 +26466,7 @@ const divisions = [
       fr: 'Connacht',
     }),
     denomination: 'province',
-    geonameId: 7521313,
+    // geonameId: 7521313,
   },
   {
     id: 1394,
@@ -26485,7 +26485,7 @@ const divisions = [
       fr: 'Leinster',
     }),
     denomination: 'province',
-    geonameId: 7521314,
+    // geonameId: 7521314,
   },
   {
     id: 1395,
@@ -26504,7 +26504,7 @@ const divisions = [
       fr: 'Munster',
     }),
     denomination: 'province',
-    geonameId: 7521315,
+    // geonameId: 7521315,
   },
   {
     id: 1396,
@@ -26523,7 +26523,7 @@ const divisions = [
       fr: 'Ulster',
     }),
     denomination: 'province',
-    geonameId: 7521316,
+    // geonameId: 7521316,
   },
   {
     id: 1397,
@@ -26542,7 +26542,7 @@ const divisions = [
       fr: 'Andreas',
     }),
     denomination: 'parish',
-    geonameId: 9782164,
+    // geonameId: 9782164,
   },
   {
     id: 1398,
@@ -26561,7 +26561,7 @@ const divisions = [
       fr: 'Arbory',
     }),
     denomination: 'parish',
-    geonameId: 9782165,
+    // geonameId: 9782165,
   },
   {
     id: 1399,
@@ -26580,7 +26580,7 @@ const divisions = [
       fr: 'Ballaugh',
     }),
     denomination: 'parish',
-    geonameId: 9782166,
+    // geonameId: 9782166,
   },
   {
     id: 1400,
@@ -26599,7 +26599,7 @@ const divisions = [
       fr: 'Braddan',
     }),
     denomination: 'parish',
-    geonameId: 9782167,
+    // geonameId: 9782167,
   },
   {
     id: 1401,
@@ -26618,7 +26618,7 @@ const divisions = [
       fr: 'Bride',
     }),
     denomination: 'parish',
-    geonameId: 9782168,
+    // geonameId: 9782168,
   },
   {
     id: 1402,
@@ -26637,7 +26637,7 @@ const divisions = [
       fr: 'Castletown',
     }),
     denomination: 'parish',
-    geonameId: 9782169,
+    // geonameId: 9782169,
   },
   {
     id: 1403,
@@ -26656,7 +26656,7 @@ const divisions = [
       fr: 'Douglas',
     }),
     denomination: 'parish',
-    geonameId: 9782170,
+    // geonameId: 9782170,
   },
   {
     id: 1404,
@@ -26675,7 +26675,7 @@ const divisions = [
       fr: 'German',
     }),
     denomination: 'parish',
-    geonameId: 9782171,
+    // geonameId: 9782171,
   },
   {
     id: 1405,
@@ -26694,7 +26694,7 @@ const divisions = [
       fr: 'Jurby',
     }),
     denomination: 'parish',
-    geonameId: 9782172,
+    // geonameId: 9782172,
   },
   {
     id: 1406,
@@ -26713,7 +26713,7 @@ const divisions = [
       fr: 'Laxey',
     }),
     denomination: 'parish',
-    geonameId: 9782173,
+    // geonameId: 9782173,
   },
   {
     id: 1407,
@@ -26732,7 +26732,7 @@ const divisions = [
       fr: 'Lezayre',
     }),
     denomination: 'parish',
-    geonameId: 9782176,
+    // geonameId: 9782176,
   },
   {
     id: 1408,
@@ -26751,7 +26751,7 @@ const divisions = [
       fr: 'Lonan',
     }),
     denomination: 'parish',
-    geonameId: 9782180,
+    // geonameId: 9782180,
   },
   {
     id: 1409,
@@ -26770,7 +26770,7 @@ const divisions = [
       fr: 'Malew',
     }),
     denomination: 'parish',
-    geonameId: 9782182,
+    // geonameId: 9782182,
   },
   {
     id: 1410,
@@ -26789,7 +26789,7 @@ const divisions = [
       fr: 'Marown',
     }),
     denomination: 'parish',
-    geonameId: 9782183,
+    // geonameId: 9782183,
   },
   {
     id: 1411,
@@ -26808,7 +26808,7 @@ const divisions = [
       fr: 'Maughold',
     }),
     denomination: 'parish',
-    geonameId: 9782184,
+    // geonameId: 9782184,
   },
   {
     id: 1412,
@@ -26827,7 +26827,7 @@ const divisions = [
       fr: 'Michael',
     }),
     denomination: 'parish',
-    geonameId: 9782185,
+    // geonameId: 9782185,
   },
   {
     id: 1413,
@@ -26846,7 +26846,7 @@ const divisions = [
       fr: 'Onchan',
     }),
     denomination: 'parish',
-    geonameId: 9782186,
+    // geonameId: 9782186,
   },
   {
     id: 1414,
@@ -26865,7 +26865,7 @@ const divisions = [
       fr: 'Patrick',
     }),
     denomination: 'parish',
-    geonameId: 9782187,
+    // geonameId: 9782187,
   },
   {
     id: 1415,
@@ -26884,7 +26884,7 @@ const divisions = [
       fr: 'Peel',
     }),
     denomination: 'parish',
-    geonameId: 9782188,
+    // geonameId: 9782188,
   },
   {
     id: 1416,
@@ -26903,7 +26903,7 @@ const divisions = [
       fr: 'Port Erin',
     }),
     denomination: 'parish',
-    geonameId: 9782189,
+    // geonameId: 9782189,
   },
   {
     id: 1417,
@@ -26922,7 +26922,7 @@ const divisions = [
       fr: 'Port St Mary',
     }),
     denomination: 'parish',
-    geonameId: 9782190,
+    // geonameId: 9782190,
   },
   {
     id: 1418,
@@ -26941,7 +26941,7 @@ const divisions = [
       fr: 'Ramsey',
     }),
     denomination: 'parish',
-    geonameId: 9782191,
+    // geonameId: 9782191,
   },
   {
     id: 1419,
@@ -26960,7 +26960,7 @@ const divisions = [
       fr: 'Rushen',
     }),
     denomination: 'parish',
-    geonameId: 9782192,
+    // geonameId: 9782192,
   },
   {
     id: 1420,
@@ -26979,7 +26979,7 @@ const divisions = [
       fr: 'Santon',
     }),
     denomination: 'parish',
-    geonameId: 9782193,
+    // geonameId: 9782193,
   },
   {
     id: 1421,
@@ -26998,7 +26998,7 @@ const divisions = [
       fr: 'District central',
     }),
     denomination: 'district',
-    geonameId: 294904,
+    // geonameId: 294904,
   },
   {
     id: 1422,
@@ -27017,7 +27017,7 @@ const divisions = [
       fr: 'Haïfa',
     }),
     denomination: 'district',
-    geonameId: 294800,
+    // geonameId: 294800,
   },
   {
     id: 1423,
@@ -27036,7 +27036,7 @@ const divisions = [
       fr: 'Jérusalem',
     }),
     denomination: 'district',
-    geonameId: 293198,
+    // geonameId: 293198,
   },
   {
     id: 1424,
@@ -27055,7 +27055,7 @@ const divisions = [
       fr: 'Judée-Samarie',
     }),
     denomination: 'area',
-    geonameId: 11821181,
+    // geonameId: 11821181,
   },
   {
     id: 1425,
@@ -27074,7 +27074,7 @@ const divisions = [
       fr: 'District nord',
     }),
     denomination: 'district',
-    geonameId: 294824,
+    // geonameId: 294824,
   },
   {
     id: 1426,
@@ -27093,7 +27093,7 @@ const divisions = [
       fr: 'District sud',
     }),
     denomination: 'district',
-    geonameId: 294952,
+    // geonameId: 294952,
   },
   {
     id: 1427,
@@ -27112,7 +27112,7 @@ const divisions = [
       fr: 'Tel-Aviv',
     }),
     denomination: 'district',
-    geonameId: 293396,
+    // geonameId: 293396,
   },
   {
     id: 1428,
@@ -27131,7 +27131,7 @@ const divisions = [
       fr: 'Abidjan',
     }),
     denomination: 'autonomous_district',
-    geonameId: 11153151,
+    // geonameId: 11153151,
   },
   {
     id: 1429,
@@ -27150,7 +27150,7 @@ const divisions = [
       fr: 'Bas-Sassandra',
     }),
     denomination: 'district',
-    geonameId: 11153052,
+    // geonameId: 11153052,
   },
   {
     id: 1430,
@@ -27169,7 +27169,7 @@ const divisions = [
       fr: 'Comoé',
     }),
     denomination: 'district',
-    geonameId: 11153053,
+    // geonameId: 11153053,
   },
   {
     id: 1431,
@@ -27188,7 +27188,7 @@ const divisions = [
       fr: 'Denguélé',
     }),
     denomination: 'district',
-    geonameId: 11153054,
+    // geonameId: 11153054,
   },
   {
     id: 1432,
@@ -27207,7 +27207,7 @@ const divisions = [
       fr: 'Gôh-Djiboua',
     }),
     denomination: 'district',
-    geonameId: 11153055,
+    // geonameId: 11153055,
   },
   {
     id: 1433,
@@ -27226,7 +27226,7 @@ const divisions = [
       fr: 'Lacs',
     }),
     denomination: 'district',
-    geonameId: 11153056,
+    // geonameId: 11153056,
   },
   {
     id: 1434,
@@ -27245,7 +27245,7 @@ const divisions = [
       fr: 'Lagunes',
     }),
     denomination: 'district',
-    geonameId: 11153057,
+    // geonameId: 11153057,
   },
   {
     id: 1435,
@@ -27264,7 +27264,7 @@ const divisions = [
       fr: 'Montagnes',
     }),
     denomination: 'district',
-    geonameId: 11153058,
+    // geonameId: 11153058,
   },
   {
     id: 1436,
@@ -27283,7 +27283,7 @@ const divisions = [
       fr: 'Sassandra-Marahoué',
     }),
     denomination: 'district',
-    geonameId: 11153059,
+    // geonameId: 11153059,
   },
   {
     id: 1437,
@@ -27302,7 +27302,7 @@ const divisions = [
       fr: 'Savanes',
     }),
     denomination: 'district',
-    geonameId: 11153060,
+    // geonameId: 11153060,
   },
   {
     id: 1438,
@@ -27321,7 +27321,7 @@ const divisions = [
       fr: 'Vallée du Bandama',
     }),
     denomination: 'district',
-    geonameId: 11153061,
+    // geonameId: 11153061,
   },
   {
     id: 1439,
@@ -27340,7 +27340,7 @@ const divisions = [
       fr: 'Woroba',
     }),
     denomination: 'district',
-    geonameId: 11153062,
+    // geonameId: 11153062,
   },
   {
     id: 1440,
@@ -27359,7 +27359,7 @@ const divisions = [
       fr: 'Yamoussoukro',
     }),
     denomination: 'district',
-    geonameId: 10629377,
+    // geonameId: 10629377,
   },
   {
     id: 1441,
@@ -27378,7 +27378,7 @@ const divisions = [
       fr: 'Zanzan',
     }),
     denomination: 'district',
-    geonameId: 11153063,
+    // geonameId: 11153063,
   },
   {
     id: 1442,
@@ -27397,7 +27397,7 @@ const divisions = [
       fr: 'Clarendon',
     }),
     denomination: 'parish',
-    geonameId: 3490952,
+    // geonameId: 3490952,
   },
   {
     id: 1443,
@@ -27416,7 +27416,7 @@ const divisions = [
       fr: 'Hanover',
     }),
     denomination: 'parish',
-    geonameId: 3490145,
+    // geonameId: 3490145,
   },
   {
     id: 1444,
@@ -27435,7 +27435,7 @@ const divisions = [
       fr: 'Kingston',
     }),
     denomination: 'parish',
-    geonameId: 3489853,
+    // geonameId: 3489853,
   },
   {
     id: 1445,
@@ -27454,7 +27454,7 @@ const divisions = [
       fr: 'Manchester',
     }),
     denomination: 'parish',
-    geonameId: 3489586,
+    // geonameId: 3489586,
   },
   {
     id: 1446,
@@ -27473,7 +27473,7 @@ const divisions = [
       fr: 'Portland',
     }),
     denomination: 'parish',
-    geonameId: 3488997,
+    // geonameId: 3488997,
   },
   {
     id: 1447,
@@ -27492,7 +27492,7 @@ const divisions = [
       fr: 'Saint-André',
     }),
     denomination: 'parish',
-    geonameId: 3488716,
+    // geonameId: 3488716,
   },
   {
     id: 1448,
@@ -27511,7 +27511,7 @@ const divisions = [
       fr: 'Sainte-Anne',
     }),
     denomination: 'parish',
-    geonameId: 3488715,
+    // geonameId: 3488715,
   },
   {
     id: 1449,
@@ -27530,7 +27530,7 @@ const divisions = [
       fr: 'Sainte-Catherine',
     }),
     denomination: 'parish',
-    geonameId: 3488711,
+    // geonameId: 3488711,
   },
   {
     id: 1450,
@@ -27549,7 +27549,7 @@ const divisions = [
       fr: 'Saint-Jacques',
     }),
     denomination: 'parish',
-    geonameId: 3488700,
+    // geonameId: 3488700,
   },
   {
     id: 1451,
@@ -27568,7 +27568,7 @@ const divisions = [
       fr: 'Sainte-Marie',
     }),
     denomination: 'parish',
-    geonameId: 3488693,
+    // geonameId: 3488693,
   },
   {
     id: 1452,
@@ -27587,7 +27587,7 @@ const divisions = [
       fr: 'Saint-Thomas',
     }),
     denomination: 'parish',
-    geonameId: 3488688,
+    // geonameId: 3488688,
   },
   {
     id: 1453,
@@ -27606,7 +27606,7 @@ const divisions = [
       fr: 'Élisabeth',
     }),
     denomination: 'parish',
-    geonameId: 3488708,
+    // geonameId: 3488708,
   },
   {
     id: 1454,
@@ -27625,7 +27625,7 @@ const divisions = [
       fr: 'Trelawny',
     }),
     denomination: 'parish',
-    geonameId: 3488222,
+    // geonameId: 3488222,
   },
   {
     id: 1455,
@@ -27644,7 +27644,7 @@ const divisions = [
       fr: 'Westmoreland',
     }),
     denomination: 'parish',
-    geonameId: 3488081,
+    // geonameId: 3488081,
   },
   {
     id: 1456,
@@ -27663,7 +27663,7 @@ const divisions = [
       fr: 'Aichi',
     }),
     denomination: 'prefecture',
-    geonameId: 1865694,
+    // geonameId: 1865694,
   },
   {
     id: 1457,
@@ -27682,7 +27682,7 @@ const divisions = [
       fr: 'Akita',
     }),
     denomination: 'prefecture',
-    geonameId: 2113124,
+    // geonameId: 2113124,
   },
   {
     id: 1458,
@@ -27701,7 +27701,7 @@ const divisions = [
       fr: 'Aomori',
     }),
     denomination: 'prefecture',
-    geonameId: 2130656,
+    // geonameId: 2130656,
   },
   {
     id: 1459,
@@ -27720,7 +27720,7 @@ const divisions = [
       fr: 'Chiba',
     }),
     denomination: 'prefecture',
-    geonameId: 2113014,
+    // geonameId: 2113014,
   },
   {
     id: 1460,
@@ -27739,7 +27739,7 @@ const divisions = [
       fr: 'Ehime',
     }),
     denomination: 'prefecture',
-    geonameId: 1864226,
+    // geonameId: 1864226,
   },
   {
     id: 1461,
@@ -27758,7 +27758,7 @@ const divisions = [
       fr: 'Fukui',
     }),
     denomination: 'prefecture',
-    geonameId: 1863983,
+    // geonameId: 1863983,
   },
   {
     id: 1462,
@@ -27777,7 +27777,7 @@ const divisions = [
       fr: 'Fukuoka',
     }),
     denomination: 'prefecture',
-    geonameId: 1863958,
+    // geonameId: 1863958,
   },
   {
     id: 1463,
@@ -27796,7 +27796,7 @@ const divisions = [
       fr: 'Fukushima',
     }),
     denomination: 'prefecture',
-    geonameId: 2112922,
+    // geonameId: 2112922,
   },
   {
     id: 1464,
@@ -27815,7 +27815,7 @@ const divisions = [
       fr: 'Gifu',
     }),
     denomination: 'prefecture',
-    geonameId: 1863640,
+    // geonameId: 1863640,
   },
   {
     id: 1465,
@@ -27834,7 +27834,7 @@ const divisions = [
       fr: 'Gunma',
     }),
     denomination: 'prefecture',
-    geonameId: 1863501,
+    // geonameId: 1863501,
   },
   {
     id: 1466,
@@ -27853,7 +27853,7 @@ const divisions = [
       fr: 'Hiroshima',
     }),
     denomination: 'prefecture',
-    geonameId: 1862413,
+    // geonameId: 1862413,
   },
   {
     id: 1467,
@@ -27872,7 +27872,7 @@ const divisions = [
       fr: 'Hokkaidō',
     }),
     denomination: 'prefecture',
-    geonameId: 2130037,
+    // geonameId: 2130037,
   },
   {
     id: 1468,
@@ -27891,7 +27891,7 @@ const divisions = [
       fr: 'Hyōgo',
     }),
     denomination: 'prefecture',
-    geonameId: 1862047,
+    // geonameId: 1862047,
   },
   {
     id: 1469,
@@ -27910,7 +27910,7 @@ const divisions = [
       fr: 'Ibaraki',
     }),
     denomination: 'prefecture',
-    geonameId: 2112669,
+    // geonameId: 2112669,
   },
   {
     id: 1470,
@@ -27929,7 +27929,7 @@ const divisions = [
       fr: 'Ishikawa',
     }),
     denomination: 'prefecture',
-    geonameId: 1861387,
+    // geonameId: 1861387,
   },
   {
     id: 1471,
@@ -27948,7 +27948,7 @@ const divisions = [
       fr: 'Iwate',
     }),
     denomination: 'prefecture',
-    geonameId: 2112518,
+    // geonameId: 2112518,
   },
   {
     id: 1472,
@@ -27967,7 +27967,7 @@ const divisions = [
       fr: 'Kagawa',
     }),
     denomination: 'prefecture',
-    geonameId: 1860834,
+    // geonameId: 1860834,
   },
   {
     id: 1473,
@@ -27986,7 +27986,7 @@ const divisions = [
       fr: 'Kagoshima',
     }),
     denomination: 'prefecture',
-    geonameId: 1860825,
+    // geonameId: 1860825,
   },
   {
     id: 1474,
@@ -28005,7 +28005,7 @@ const divisions = [
       fr: 'Kanagawa',
     }),
     denomination: 'prefecture',
-    geonameId: 1860291,
+    // geonameId: 1860291,
   },
   {
     id: 1475,
@@ -28024,7 +28024,7 @@ const divisions = [
       fr: 'Kōchi',
     }),
     denomination: 'prefecture',
-    geonameId: 1859133,
+    // geonameId: 1859133,
   },
   {
     id: 1476,
@@ -28043,7 +28043,7 @@ const divisions = [
       fr: 'Kumamoto',
     }),
     denomination: 'prefecture',
-    geonameId: 1858419,
+    // geonameId: 1858419,
   },
   {
     id: 1477,
@@ -28062,7 +28062,7 @@ const divisions = [
       fr: 'Kyōto',
     }),
     denomination: 'prefecture',
-    geonameId: 1857907,
+    // geonameId: 1857907,
   },
   {
     id: 1478,
@@ -28081,7 +28081,7 @@ const divisions = [
       fr: 'Mie',
     }),
     denomination: 'prefecture',
-    geonameId: 1857352,
+    // geonameId: 1857352,
   },
   {
     id: 1479,
@@ -28100,7 +28100,7 @@ const divisions = [
       fr: 'Miyagi',
     }),
     denomination: 'prefecture',
-    geonameId: 2111888,
+    // geonameId: 2111888,
   },
   {
     id: 1480,
@@ -28119,7 +28119,7 @@ const divisions = [
       fr: 'Miyazaki',
     }),
     denomination: 'prefecture',
-    geonameId: 1856710,
+    // geonameId: 1856710,
   },
   {
     id: 1481,
@@ -28138,7 +28138,7 @@ const divisions = [
       fr: 'Nagano',
     }),
     denomination: 'prefecture',
-    geonameId: 1856210,
+    // geonameId: 1856210,
   },
   {
     id: 1482,
@@ -28157,7 +28157,7 @@ const divisions = [
       fr: 'Nagasaki',
     }),
     denomination: 'prefecture',
-    geonameId: 1856156,
+    // geonameId: 1856156,
   },
   {
     id: 1483,
@@ -28176,7 +28176,7 @@ const divisions = [
       fr: 'Nara',
     }),
     denomination: 'prefecture',
-    geonameId: 1855608,
+    // geonameId: 1855608,
   },
   {
     id: 1484,
@@ -28195,7 +28195,7 @@ const divisions = [
       fr: 'Niigata',
     }),
     denomination: 'prefecture',
-    geonameId: 1855429,
+    // geonameId: 1855429,
   },
   {
     id: 1485,
@@ -28214,7 +28214,7 @@ const divisions = [
       fr: 'Ōita',
     }),
     denomination: 'prefecture',
-    geonameId: 1854484,
+    // geonameId: 1854484,
   },
   {
     id: 1486,
@@ -28233,7 +28233,7 @@ const divisions = [
       fr: 'Okayama',
     }),
     denomination: 'prefecture',
-    geonameId: 1854381,
+    // geonameId: 1854381,
   },
   {
     id: 1487,
@@ -28252,7 +28252,7 @@ const divisions = [
       fr: 'Okinawa',
     }),
     denomination: 'prefecture',
-    geonameId: 1854345,
+    // geonameId: 1854345,
   },
   {
     id: 1488,
@@ -28271,7 +28271,7 @@ const divisions = [
       fr: 'Ōsaka',
     }),
     denomination: 'prefecture',
-    geonameId: 1853904,
+    // geonameId: 1853904,
   },
   {
     id: 1489,
@@ -28290,7 +28290,7 @@ const divisions = [
       fr: 'Saga',
     }),
     denomination: 'prefecture',
-    geonameId: 1853299,
+    // geonameId: 1853299,
   },
   {
     id: 1490,
@@ -28309,7 +28309,7 @@ const divisions = [
       fr: 'Saitama',
     }),
     denomination: 'prefecture',
-    geonameId: 1853226,
+    // geonameId: 1853226,
   },
   {
     id: 1491,
@@ -28328,7 +28328,7 @@ const divisions = [
       fr: 'Shiga',
     }),
     denomination: 'prefecture',
-    geonameId: 1852553,
+    // geonameId: 1852553,
   },
   {
     id: 1492,
@@ -28347,7 +28347,7 @@ const divisions = [
       fr: 'Shimane',
     }),
     denomination: 'prefecture',
-    geonameId: 1852442,
+    // geonameId: 1852442,
   },
   {
     id: 1493,
@@ -28366,7 +28366,7 @@ const divisions = [
       fr: 'Shizuoka',
     }),
     denomination: 'prefecture',
-    geonameId: 1851715,
+    // geonameId: 1851715,
   },
   {
     id: 1494,
@@ -28385,7 +28385,7 @@ const divisions = [
       fr: 'Tochigi',
     }),
     denomination: 'prefecture',
-    geonameId: 1850310,
+    // geonameId: 1850310,
   },
   {
     id: 1495,
@@ -28404,7 +28404,7 @@ const divisions = [
       fr: 'Tokushima',
     }),
     denomination: 'prefecture',
-    geonameId: 1850157,
+    // geonameId: 1850157,
   },
   {
     id: 1496,
@@ -28423,7 +28423,7 @@ const divisions = [
       fr: 'Tokyo',
     }),
     denomination: 'prefecture',
-    geonameId: 1850144,
+    // geonameId: 1850144,
   },
   {
     id: 1497,
@@ -28442,7 +28442,7 @@ const divisions = [
       fr: 'Tottori',
     }),
     denomination: 'prefecture',
-    geonameId: 1849890,
+    // geonameId: 1849890,
   },
   {
     id: 1498,
@@ -28461,7 +28461,7 @@ const divisions = [
       fr: 'Toyama',
     }),
     denomination: 'prefecture',
-    geonameId: 1849872,
+    // geonameId: 1849872,
   },
   {
     id: 1499,
@@ -28480,7 +28480,7 @@ const divisions = [
       fr: 'Wakayama',
     }),
     denomination: 'prefecture',
-    geonameId: 1848938,
+    // geonameId: 1848938,
   },
   {
     id: 1500,
@@ -28499,7 +28499,7 @@ const divisions = [
       fr: 'Yamagata',
     }),
     denomination: 'prefecture',
-    geonameId: 2110554,
+    // geonameId: 2110554,
   },
   {
     id: 1501,
@@ -28518,7 +28518,7 @@ const divisions = [
       fr: 'Yamaguchi',
     }),
     denomination: 'prefecture',
-    geonameId: 1848681,
+    // geonameId: 1848681,
   },
   {
     id: 1502,
@@ -28537,7 +28537,7 @@ const divisions = [
       fr: 'Yamanashi',
     }),
     denomination: 'prefecture',
-    geonameId: 1848649,
+    // geonameId: 1848649,
   },
   {
     id: 1503,
@@ -28556,7 +28556,7 @@ const divisions = [
       fr: 'Grouville',
     }),
     denomination: 'parish',
-    geonameId: 3237203,
+    // geonameId: 3237203,
   },
   {
     id: 1504,
@@ -28575,7 +28575,7 @@ const divisions = [
       fr: 'Clément',
     }),
     denomination: 'parish',
-    geonameId: 3237072,
+    // geonameId: 3237072,
   },
   {
     id: 1505,
@@ -28594,7 +28594,7 @@ const divisions = [
       fr: 'Hélier',
     }),
     denomination: 'parish',
-    geonameId: 3237864,
+    // geonameId: 3237864,
   },
   {
     id: 1506,
@@ -28613,7 +28613,7 @@ const divisions = [
       fr: 'Jean',
     }),
     denomination: 'parish',
-    geonameId: 3237497,
+    // geonameId: 3237497,
   },
   {
     id: 1507,
@@ -28632,7 +28632,7 @@ const divisions = [
       fr: 'Laurent',
     }),
     denomination: 'parish',
-    geonameId: 3237214,
+    // geonameId: 3237214,
   },
   {
     id: 1508,
@@ -28651,7 +28651,7 @@ const divisions = [
       fr: 'Martin',
     }),
     denomination: 'parish',
-    geonameId: 3237716,
+    // geonameId: 3237716,
   },
   {
     id: 1509,
@@ -28670,7 +28670,7 @@ const divisions = [
       fr: 'Marie',
     }),
     denomination: 'parish',
-    geonameId: 3237212,
+    // geonameId: 3237212,
   },
   {
     id: 1510,
@@ -28689,7 +28689,7 @@ const divisions = [
       fr: 'Ouen',
     }),
     denomination: 'parish',
-    geonameId: 3237229,
+    // geonameId: 3237229,
   },
   {
     id: 1511,
@@ -28708,7 +28708,7 @@ const divisions = [
       fr: 'Pierre',
     }),
     denomination: 'parish',
-    geonameId: 3237221,
+    // geonameId: 3237221,
   },
   {
     id: 1512,
@@ -28727,7 +28727,7 @@ const divisions = [
       fr: 'Sauveur',
     }),
     denomination: 'parish',
-    geonameId: 3237073,
+    // geonameId: 3237073,
   },
   {
     id: 1513,
@@ -28746,7 +28746,7 @@ const divisions = [
       fr: 'Brelade',
     }),
     denomination: 'parish',
-    geonameId: 3237200,
+    // geonameId: 3237200,
   },
   {
     id: 1514,
@@ -28765,7 +28765,7 @@ const divisions = [
       fr: 'Trinité',
     }),
     denomination: 'parish',
-    geonameId: 3237530,
+    // geonameId: 3237530,
   },
   {
     id: 1515,
@@ -28784,7 +28784,7 @@ const divisions = [
       fr: 'Ajloun',
     }),
     denomination: 'governorate',
-    geonameId: 443120,
+    // geonameId: 443120,
   },
   {
     id: 1516,
@@ -28803,7 +28803,7 @@ const divisions = [
       fr: 'Amman',
     }),
     denomination: 'governorate',
-    geonameId: 250439,
+    // geonameId: 250439,
   },
   {
     id: 1517,
@@ -28822,7 +28822,7 @@ const divisions = [
       fr: 'Aqaba',
     }),
     denomination: 'governorate',
-    geonameId: 443122,
+    // geonameId: 443122,
   },
   {
     id: 1518,
@@ -28841,7 +28841,7 @@ const divisions = [
       fr: 'Balqa',
     }),
     denomination: 'governorate',
-    geonameId: 250751,
+    // geonameId: 250751,
   },
   {
     id: 1519,
@@ -28860,7 +28860,7 @@ const divisions = [
       fr: 'Irbid',
     }),
     denomination: 'governorate',
-    geonameId: 248944,
+    // geonameId: 248944,
   },
   {
     id: 1520,
@@ -28879,7 +28879,7 @@ const divisions = [
       fr: 'Jerash',
     }),
     denomination: 'governorate',
-    geonameId: 443121,
+    // geonameId: 443121,
   },
   {
     id: 1521,
@@ -28898,7 +28898,7 @@ const divisions = [
       fr: 'Karak',
     }),
     denomination: 'governorate',
-    geonameId: 250625,
+    // geonameId: 250625,
   },
   {
     id: 1522,
@@ -28917,7 +28917,7 @@ const divisions = [
       fr: "Ma'an",
     }),
     denomination: 'governorate',
-    geonameId: 248380,
+    // geonameId: 248380,
   },
   {
     id: 1523,
@@ -28936,7 +28936,7 @@ const divisions = [
       fr: 'Madaba',
     }),
     denomination: 'governorate',
-    geonameId: 443123,
+    // geonameId: 443123,
   },
   {
     id: 1524,
@@ -28955,7 +28955,7 @@ const divisions = [
       fr: 'Mafraq',
     }),
     denomination: 'governorate',
-    geonameId: 250583,
+    // geonameId: 250583,
   },
   {
     id: 1525,
@@ -28974,7 +28974,7 @@ const divisions = [
       fr: 'Tafileh',
     }),
     denomination: 'governorate',
-    geonameId: 250199,
+    // geonameId: 250199,
   },
   {
     id: 1526,
@@ -28993,7 +28993,7 @@ const divisions = [
       fr: 'Zarqa',
     }),
     denomination: 'governorate',
-    geonameId: 250092,
+    // geonameId: 250092,
   },
   {
     id: 1527,
@@ -29012,7 +29012,7 @@ const divisions = [
       fr: 'Abai',
     }),
     denomination: 'region',
-    geonameId: 12510143,
+    // geonameId: 12510143,
   },
   {
     id: 1528,
@@ -29031,7 +29031,7 @@ const divisions = [
       fr: 'Aqtöbé',
     }),
     denomination: 'oblast',
-    geonameId: 610688,
+    // geonameId: 610688,
   },
   {
     id: 1529,
@@ -29050,7 +29050,7 @@ const divisions = [
       fr: 'Almaty',
     }),
     denomination: 'city',
-    geonameId: 1526395,
+    // geonameId: 1526395,
   },
   {
     id: 1530,
@@ -29069,7 +29069,7 @@ const divisions = [
       fr: 'Almaty',
     }),
     denomination: 'region',
-    geonameId: 1537162,
+    // geonameId: 1537162,
   },
   {
     id: 1531,
@@ -29088,7 +29088,7 @@ const divisions = [
       fr: 'Akmola',
     }),
     denomination: 'region',
-    geonameId: 1518003,
+    // geonameId: 1518003,
   },
   {
     id: 1532,
@@ -29107,7 +29107,7 @@ const divisions = [
       fr: 'Astana',
     }),
     denomination: 'city',
-    geonameId: 1538317,
+    // geonameId: 1538317,
   },
   {
     id: 1533,
@@ -29126,7 +29126,7 @@ const divisions = [
       fr: 'Atyraou',
     }),
     denomination: 'region',
-    geonameId: 609862,
+    // geonameId: 609862,
   },
   {
     id: 1534,
@@ -29145,7 +29145,7 @@ const divisions = [
       fr: 'Baïkonour',
     }),
     denomination: 'city',
-    geonameId: 1538316,
+    // geonameId: 1538316,
   },
   {
     id: 1535,
@@ -29164,7 +29164,7 @@ const divisions = [
       fr: 'Kazakhstan-Oriental',
     }),
     denomination: 'region',
-    geonameId: 1517381,
+    // geonameId: 1517381,
   },
   {
     id: 1536,
@@ -29183,7 +29183,7 @@ const divisions = [
       fr: 'Jétissou',
     }),
     denomination: 'region',
-    geonameId: 12510144,
+    // geonameId: 12510144,
   },
   {
     id: 1537,
@@ -29202,7 +29202,7 @@ const divisions = [
       fr: 'Karaganda',
     }),
     denomination: 'region',
-    geonameId: 1523401,
+    // geonameId: 1523401,
   },
   {
     id: 1538,
@@ -29221,7 +29221,7 @@ const divisions = [
       fr: 'Mangystaou',
     }),
     denomination: 'oblast',
-    geonameId: 608879,
+    // geonameId: 608879,
   },
   {
     id: 1539,
@@ -29240,7 +29240,7 @@ const divisions = [
       fr: 'Kazakhstan-Septentrional',
     }),
     denomination: 'region',
-    geonameId: 1519367,
+    // geonameId: 1519367,
   },
   {
     id: 1540,
@@ -29259,7 +29259,7 @@ const divisions = [
       fr: 'Pavlodar',
     }),
     denomination: 'region',
-    geonameId: 1520239,
+    // geonameId: 1520239,
   },
   {
     id: 1541,
@@ -29278,7 +29278,7 @@ const divisions = [
       fr: 'Kostanaï',
     }),
     denomination: 'region',
-    geonameId: 1521671,
+    // geonameId: 1521671,
   },
   {
     id: 1542,
@@ -29297,7 +29297,7 @@ const divisions = [
       fr: 'Kyzylorda',
     }),
     denomination: 'region',
-    geonameId: 1521406,
+    // geonameId: 1521406,
   },
   {
     id: 1543,
@@ -29316,7 +29316,7 @@ const divisions = [
       fr: 'Chymkent',
     }),
     denomination: 'city',
-    geonameId: 1537272,
+    // geonameId: 1537272,
   },
   {
     id: 1544,
@@ -29335,7 +29335,7 @@ const divisions = [
       fr: 'Turkestan',
     }),
     denomination: 'region',
-    geonameId: 1524787,
+    // geonameId: 1524787,
   },
   {
     id: 1545,
@@ -29354,7 +29354,7 @@ const divisions = [
       fr: 'Oulitaou',
     }),
     denomination: 'region',
-    geonameId: 12510145,
+    // geonameId: 12510145,
   },
   {
     id: 1546,
@@ -29373,7 +29373,7 @@ const divisions = [
       fr: 'Kazakhstan-Occidental',
     }),
     denomination: 'region',
-    geonameId: 607847,
+    // geonameId: 607847,
   },
   {
     id: 1547,
@@ -29392,7 +29392,7 @@ const divisions = [
       fr: 'Jambyl',
     }),
     denomination: 'region',
-    geonameId: 1524444,
+    // geonameId: 1524444,
   },
   {
     id: 1548,
@@ -29411,7 +29411,7 @@ const divisions = [
       fr: 'Baringo',
     }),
     denomination: 'county',
-    geonameId: 200573,
+    // geonameId: 200573,
   },
   {
     id: 1549,
@@ -29430,7 +29430,7 @@ const divisions = [
       fr: 'Bomet',
     }),
     denomination: 'county',
-    geonameId: 7667666,
+    // geonameId: 7667666,
   },
   {
     id: 1550,
@@ -29449,7 +29449,7 @@ const divisions = [
       fr: 'Bungoma',
     }),
     denomination: 'county',
-    geonameId: 200066,
+    // geonameId: 200066,
   },
   {
     id: 1551,
@@ -29468,7 +29468,7 @@ const divisions = [
       fr: 'Busia',
     }),
     denomination: 'county',
-    geonameId: 199987,
+    // geonameId: 199987,
   },
   {
     id: 1552,
@@ -29487,7 +29487,7 @@ const divisions = [
       fr: 'Elgeyo-Marakwet',
     }),
     denomination: 'county',
-    geonameId: 7667646,
+    // geonameId: 7667646,
   },
   {
     id: 1553,
@@ -29506,7 +29506,7 @@ const divisions = [
       fr: 'Embu',
     }),
     denomination: 'county',
-    geonameId: 198474,
+    // geonameId: 198474,
   },
   {
     id: 1554,
@@ -29525,7 +29525,7 @@ const divisions = [
       fr: 'Garissa',
     }),
     denomination: 'county',
-    geonameId: 197744,
+    // geonameId: 197744,
   },
   {
     id: 1555,
@@ -29544,7 +29544,7 @@ const divisions = [
       fr: 'Homa Bay',
     }),
     denomination: 'county',
-    geonameId: 7667665,
+    // geonameId: 7667665,
   },
   {
     id: 1556,
@@ -29563,7 +29563,7 @@ const divisions = [
       fr: 'Isiolo',
     }),
     denomination: 'county',
-    geonameId: 196228,
+    // geonameId: 196228,
   },
   {
     id: 1557,
@@ -29582,7 +29582,7 @@ const divisions = [
       fr: 'Kajiado',
     }),
     denomination: 'county',
-    geonameId: 7667657,
+    // geonameId: 7667657,
   },
   {
     id: 1558,
@@ -29601,7 +29601,7 @@ const divisions = [
       fr: 'Kakamega',
     }),
     denomination: 'county',
-    geonameId: 195271,
+    // geonameId: 195271,
   },
   {
     id: 1559,
@@ -29620,7 +29620,7 @@ const divisions = [
       fr: 'Kericho',
     }),
     denomination: 'county',
-    geonameId: 192898,
+    // geonameId: 192898,
   },
   {
     id: 1560,
@@ -29639,7 +29639,7 @@ const divisions = [
       fr: 'Kiambu',
     }),
     denomination: 'county',
-    geonameId: 192709,
+    // geonameId: 192709,
   },
   {
     id: 1561,
@@ -29658,7 +29658,7 @@ const divisions = [
       fr: 'Kilifi',
     }),
     denomination: 'county',
-    geonameId: 192064,
+    // geonameId: 192064,
   },
   {
     id: 1562,
@@ -29677,7 +29677,7 @@ const divisions = [
       fr: 'Kirinyaga',
     }),
     denomination: 'county',
-    geonameId: 191420,
+    // geonameId: 191420,
   },
   {
     id: 1563,
@@ -29696,7 +29696,7 @@ const divisions = [
       fr: 'Kisii',
     }),
     denomination: 'county',
-    geonameId: 191298,
+    // geonameId: 191298,
   },
   {
     id: 1564,
@@ -29715,7 +29715,7 @@ const divisions = [
       fr: 'Kisumu',
     }),
     denomination: 'county',
-    geonameId: 191242,
+    // geonameId: 191242,
   },
   {
     id: 1565,
@@ -29734,7 +29734,7 @@ const divisions = [
       fr: 'Kitui',
     }),
     denomination: 'county',
-    geonameId: 191037,
+    // geonameId: 191037,
   },
   {
     id: 1566,
@@ -29753,7 +29753,7 @@ const divisions = [
       fr: 'Kwale',
     }),
     denomination: 'county',
-    geonameId: 190106,
+    // geonameId: 190106,
   },
   {
     id: 1567,
@@ -29772,7 +29772,7 @@ const divisions = [
       fr: 'Laikipia',
     }),
     denomination: 'county',
-    geonameId: 189794,
+    // geonameId: 189794,
   },
   {
     id: 1568,
@@ -29791,7 +29791,7 @@ const divisions = [
       fr: 'Lamu',
     }),
     denomination: 'county',
-    geonameId: 7667643,
+    // geonameId: 7667643,
   },
   {
     id: 1569,
@@ -29810,7 +29810,7 @@ const divisions = [
       fr: 'Machakos',
     }),
     denomination: 'county',
-    geonameId: 7667644,
+    // geonameId: 7667644,
   },
   {
     id: 1570,
@@ -29829,7 +29829,7 @@ const divisions = [
       fr: 'Makueni',
     }),
     denomination: 'county',
-    geonameId: 7667645,
+    // geonameId: 7667645,
   },
   {
     id: 1571,
@@ -29848,7 +29848,7 @@ const divisions = [
       fr: 'Mandera',
     }),
     denomination: 'county',
-    geonameId: 187895,
+    // geonameId: 187895,
   },
   {
     id: 1572,
@@ -29867,7 +29867,7 @@ const divisions = [
       fr: 'Marsabit',
     }),
     denomination: 'county',
-    geonameId: 187583,
+    // geonameId: 187583,
   },
   {
     id: 1573,
@@ -29886,7 +29886,7 @@ const divisions = [
       fr: 'Meru',
     }),
     denomination: 'county',
-    geonameId: 186824,
+    // geonameId: 186824,
   },
   {
     id: 1574,
@@ -29905,7 +29905,7 @@ const divisions = [
       fr: 'Migori',
     }),
     denomination: 'county',
-    geonameId: 7667678,
+    // geonameId: 7667678,
   },
   {
     id: 1575,
@@ -29924,7 +29924,7 @@ const divisions = [
       fr: 'Mombasa',
     }),
     denomination: 'county',
-    geonameId: 186298,
+    // geonameId: 186298,
   },
   {
     id: 1576,
@@ -29943,7 +29943,7 @@ const divisions = [
       fr: "Murang'a",
     }),
     denomination: 'county',
-    geonameId: 185578,
+    // geonameId: 185578,
   },
   {
     id: 1577,
@@ -29962,7 +29962,7 @@ const divisions = [
       fr: 'Nairobi',
     }),
     denomination: 'county',
-    geonameId: 184742,
+    // geonameId: 184742,
   },
   {
     id: 1578,
@@ -29981,7 +29981,7 @@ const divisions = [
       fr: 'Nakuru',
     }),
     denomination: 'county',
-    geonameId: 7668902,
+    // geonameId: 7668902,
   },
   {
     id: 1579,
@@ -30000,7 +30000,7 @@ const divisions = [
       fr: 'Nandi',
     }),
     denomination: 'county',
-    geonameId: 8051212,
+    // geonameId: 8051212,
   },
   {
     id: 1580,
@@ -30019,7 +30019,7 @@ const divisions = [
       fr: 'Narok',
     }),
     denomination: 'county',
-    geonameId: 7668904,
+    // geonameId: 7668904,
   },
   {
     id: 1581,
@@ -30038,7 +30038,7 @@ const divisions = [
       fr: 'Nyamira',
     }),
     denomination: 'county',
-    geonameId: 7806857,
+    // geonameId: 7806857,
   },
   {
     id: 1582,
@@ -30057,7 +30057,7 @@ const divisions = [
       fr: 'Nyandarua',
     }),
     denomination: 'county',
-    geonameId: 7603036,
+    // geonameId: 7603036,
   },
   {
     id: 1583,
@@ -30076,7 +30076,7 @@ const divisions = [
       fr: 'Nyeri',
     }),
     denomination: 'county',
-    geonameId: 7667661,
+    // geonameId: 7667661,
   },
   {
     id: 1584,
@@ -30095,7 +30095,7 @@ const divisions = [
       fr: 'Samburu',
     }),
     denomination: 'county',
-    geonameId: 180782,
+    // geonameId: 180782,
   },
   {
     id: 1585,
@@ -30114,7 +30114,7 @@ const divisions = [
       fr: 'Siaya',
     }),
     denomination: 'county',
-    geonameId: 180320,
+    // geonameId: 180320,
   },
   {
     id: 1586,
@@ -30133,7 +30133,7 @@ const divisions = [
       fr: 'Taita-Taveta',
     }),
     denomination: 'county',
-    geonameId: 7667652,
+    // geonameId: 7667652,
   },
   {
     id: 1587,
@@ -30152,7 +30152,7 @@ const divisions = [
       fr: 'Rivière Tana',
     }),
     denomination: 'county',
-    geonameId: 179585,
+    // geonameId: 179585,
   },
   {
     id: 1588,
@@ -30171,7 +30171,7 @@ const divisions = [
       fr: 'Tharaka-Nithi',
     }),
     denomination: 'county',
-    geonameId: 179380,
+    // geonameId: 179380,
   },
   {
     id: 1589,
@@ -30190,7 +30190,7 @@ const divisions = [
       fr: 'Trans-Nzoia',
     }),
     denomination: 'county',
-    geonameId: 179068,
+    // geonameId: 179068,
   },
   {
     id: 1590,
@@ -30209,7 +30209,7 @@ const divisions = [
       fr: 'Turkana',
     }),
     denomination: 'county',
-    geonameId: 178914,
+    // geonameId: 178914,
   },
   {
     id: 1591,
@@ -30228,7 +30228,7 @@ const divisions = [
       fr: 'Uasin-Gishu',
     }),
     denomination: 'county',
-    geonameId: 178837,
+    // geonameId: 178837,
   },
   {
     id: 1592,
@@ -30247,7 +30247,7 @@ const divisions = [
       fr: 'Vihiga',
     }),
     denomination: 'county',
-    geonameId: 7667638,
+    // geonameId: 7667638,
   },
   {
     id: 1593,
@@ -30266,7 +30266,7 @@ const divisions = [
       fr: 'Wajir',
     }),
     denomination: 'county',
-    geonameId: 178440,
+    // geonameId: 178440,
   },
   {
     id: 1594,
@@ -30285,7 +30285,7 @@ const divisions = [
       fr: 'West Pokot',
     }),
     denomination: 'county',
-    geonameId: 178145,
+    // geonameId: 178145,
   },
   {
     id: 1595,
@@ -30304,7 +30304,7 @@ const divisions = [
       fr: 'Îles Gilbert',
     }),
     denomination: 'islands',
-    geonameId: 2110215,
+    // geonameId: 2110215,
   },
   {
     id: 1596,
@@ -30323,7 +30323,7 @@ const divisions = [
       fr: 'Îles de la Ligne',
     }),
     denomination: 'islands',
-    geonameId: 4030940,
+    // geonameId: 4030940,
   },
   {
     id: 1597,
@@ -30342,7 +30342,7 @@ const divisions = [
       fr: 'Îles Phoenix',
     }),
     denomination: 'islands',
-    geonameId: 7521379,
+    // geonameId: 7521379,
   },
   {
     id: 1598,
@@ -30361,7 +30361,7 @@ const divisions = [
       fr: 'Ferizaj',
     }),
     denomination: 'municipality',
-    geonameId: 10096138,
+    // geonameId: 10096138,
   },
   {
     id: 1599,
@@ -30380,7 +30380,7 @@ const divisions = [
       fr: 'Gjakova',
     }),
     denomination: 'municipality',
-    geonameId: 10096859,
+    // geonameId: 10096859,
   },
   {
     id: 1600,
@@ -30399,7 +30399,7 @@ const divisions = [
       fr: 'Gjilan',
     }),
     denomination: 'municipality',
-    geonameId: 10097357,
+    // geonameId: 10097357,
   },
   {
     id: 1601,
@@ -30418,7 +30418,7 @@ const divisions = [
       fr: 'Mitrovica',
     }),
     denomination: 'municipality',
-    geonameId: 10097358,
+    // geonameId: 10097358,
   },
   {
     id: 1602,
@@ -30437,7 +30437,7 @@ const divisions = [
       fr: 'Peć',
     }),
     denomination: 'municipality',
-    geonameId: 10097359,
+    // geonameId: 10097359,
   },
   {
     id: 1603,
@@ -30456,7 +30456,7 @@ const divisions = [
       fr: 'Pristina',
     }),
     denomination: 'municipality',
-    geonameId: 10097360,
+    // geonameId: 10097360,
   },
   {
     id: 1604,
@@ -30475,7 +30475,7 @@ const divisions = [
       fr: 'Prizren',
     }),
     denomination: 'municipality',
-    geonameId: 10097361,
+    // geonameId: 10097361,
   },
   {
     id: 1605,
@@ -30494,7 +30494,7 @@ const divisions = [
       fr: 'Al Ahmadi',
     }),
     denomination: 'governorate',
-    geonameId: 285841,
+    // geonameId: 285841,
   },
   {
     id: 1606,
@@ -30513,7 +30513,7 @@ const divisions = [
       fr: 'Al Asimah',
     }),
     denomination: 'governorate',
-    geonameId: 285788,
+    // geonameId: 285788,
   },
   {
     id: 1607,
@@ -30532,7 +30532,7 @@ const divisions = [
       fr: 'Al Farwaniyah',
     }),
     denomination: 'governorate',
-    geonameId: 285816,
+    // geonameId: 285816,
   },
   {
     id: 1608,
@@ -30551,7 +30551,7 @@ const divisions = [
       fr: 'Al Jahra',
     }),
     denomination: 'governorate',
-    geonameId: 285798,
+    // geonameId: 285798,
   },
   {
     id: 1609,
@@ -30570,7 +30570,7 @@ const divisions = [
       fr: 'Hawalli',
     }),
     denomination: 'governorate',
-    geonameId: 285628,
+    // geonameId: 285628,
   },
   {
     id: 1610,
@@ -30589,7 +30589,7 @@ const divisions = [
       fr: 'Mubarak al-Kabir',
     }),
     denomination: 'governorate',
-    geonameId: 7733358,
+    // geonameId: 7733358,
   },
   {
     id: 1611,
@@ -30608,7 +30608,7 @@ const divisions = [
       fr: 'Batken',
     }),
     denomination: 'region',
-    geonameId: 1463580,
+    // geonameId: 1463580,
   },
   {
     id: 1612,
@@ -30627,7 +30627,7 @@ const divisions = [
       fr: 'Chuy',
     }),
     denomination: 'region',
-    geonameId: 1538652,
+    // geonameId: 1538652,
   },
   {
     id: 1613,
@@ -30646,7 +30646,7 @@ const divisions = [
       fr: 'Bichkek',
     }),
     denomination: 'city',
-    geonameId: 1528334,
+    // geonameId: 1528334,
   },
   {
     id: 1614,
@@ -30665,7 +30665,7 @@ const divisions = [
       fr: 'Issyk-Koul',
     }),
     denomination: 'region',
-    geonameId: 1528260,
+    // geonameId: 1528260,
   },
   {
     id: 1615,
@@ -30684,7 +30684,7 @@ const divisions = [
       fr: 'Jalal-Abad',
     }),
     denomination: 'region',
-    geonameId: 1529778,
+    // geonameId: 1529778,
   },
   {
     id: 1616,
@@ -30703,7 +30703,7 @@ const divisions = [
       fr: 'Naryn',
     }),
     denomination: 'region',
-    geonameId: 1527590,
+    // geonameId: 1527590,
   },
   {
     id: 1617,
@@ -30722,7 +30722,7 @@ const divisions = [
       fr: 'Och',
     }),
     denomination: 'city',
-    geonameId: 10300944,
+    // geonameId: 10300944,
   },
   {
     id: 1618,
@@ -30741,7 +30741,7 @@ const divisions = [
       fr: 'Och',
     }),
     denomination: 'region',
-    geonameId: 1346798,
+    // geonameId: 1346798,
   },
   {
     id: 1619,
@@ -30760,7 +30760,7 @@ const divisions = [
       fr: 'Talas',
     }),
     denomination: 'region',
-    geonameId: 1527297,
+    // geonameId: 1527297,
   },
   {
     id: 1620,
@@ -30779,7 +30779,7 @@ const divisions = [
       fr: 'Attapu',
     }),
     denomination: 'province',
-    geonameId: 1665045,
+    // geonameId: 1665045,
   },
   {
     id: 1621,
@@ -30798,7 +30798,7 @@ const divisions = [
       fr: 'Bokeo',
     }),
     denomination: 'province',
-    geonameId: 1904616,
+    // geonameId: 1904616,
   },
   {
     id: 1622,
@@ -30817,7 +30817,7 @@ const divisions = [
       fr: 'Bolikhamsai',
     }),
     denomination: 'province',
-    geonameId: 1904617,
+    // geonameId: 1904617,
   },
   {
     id: 1623,
@@ -30836,7 +30836,7 @@ const divisions = [
       fr: 'Champassak',
     }),
     denomination: 'province',
-    geonameId: 1657818,
+    // geonameId: 1657818,
   },
   {
     id: 1624,
@@ -30855,7 +30855,7 @@ const divisions = [
       fr: 'Houaphan',
     }),
     denomination: 'province',
-    geonameId: 1657114,
+    // geonameId: 1657114,
   },
   {
     id: 1625,
@@ -30874,7 +30874,7 @@ const divisions = [
       fr: 'Khammouane',
     }),
     denomination: 'province',
-    geonameId: 1656538,
+    // geonameId: 1656538,
   },
   {
     id: 1626,
@@ -30893,7 +30893,7 @@ const divisions = [
       fr: 'Oudomxai',
     }),
     denomination: 'province',
-    geonameId: 1654491,
+    // geonameId: 1654491,
   },
   {
     id: 1627,
@@ -30912,7 +30912,7 @@ const divisions = [
       fr: 'Phongsaly',
     }),
     denomination: 'province',
-    geonameId: 1653893,
+    // geonameId: 1653893,
   },
   {
     id: 1628,
@@ -30931,7 +30931,7 @@ const divisions = [
       fr: 'Sékong',
     }),
     denomination: 'province',
-    geonameId: 1904615,
+    // geonameId: 1904615,
   },
   {
     id: 1629,
@@ -30950,7 +30950,7 @@ const divisions = [
       fr: 'Louang Namtha',
     }),
     denomination: 'province',
-    geonameId: 1655561,
+    // geonameId: 1655561,
   },
   {
     id: 1630,
@@ -30969,7 +30969,7 @@ const divisions = [
       fr: 'Louang Prabang',
     }),
     denomination: 'province',
-    geonameId: 1655558,
+    // geonameId: 1655558,
   },
   {
     id: 1631,
@@ -30988,7 +30988,7 @@ const divisions = [
       fr: 'Salavan',
     }),
     denomination: 'province',
-    geonameId: 1653333,
+    // geonameId: 1653333,
   },
   {
     id: 1632,
@@ -31007,7 +31007,7 @@ const divisions = [
       fr: 'Savannakhet',
     }),
     denomination: 'province',
-    geonameId: 1653315,
+    // geonameId: 1653315,
   },
   {
     id: 1633,
@@ -31026,7 +31026,7 @@ const divisions = [
       fr: 'Vientiane',
     }),
     denomination: 'province',
-    geonameId: 1652238,
+    // geonameId: 1652238,
   },
   {
     id: 1634,
@@ -31045,7 +31045,7 @@ const divisions = [
       fr: 'Vientiane',
     }),
     denomination: 'prefecture',
-    geonameId: 1904618,
+    // geonameId: 1904618,
   },
   {
     id: 1635,
@@ -31064,7 +31064,7 @@ const divisions = [
       fr: 'Xaignabouli',
     }),
     denomination: 'province',
-    geonameId: 1652210,
+    // geonameId: 1652210,
   },
   {
     id: 1636,
@@ -31083,7 +31083,7 @@ const divisions = [
       fr: 'Xaisomboun',
     }),
     denomination: 'province',
-    geonameId: 11395958,
+    // geonameId: 11395958,
   },
   {
     id: 1637,
@@ -31102,7 +31102,7 @@ const divisions = [
       fr: 'Xiangkhouang',
     }),
     denomination: 'province',
-    geonameId: 1652077,
+    // geonameId: 1652077,
   },
   {
     id: 1638,
@@ -31121,7 +31121,7 @@ const divisions = [
       fr: 'Ādaži',
     }),
     denomination: 'municipality',
-    geonameId: 7628327,
+    // geonameId: 7628327,
   },
   {
     id: 1639,
@@ -31140,7 +31140,7 @@ const divisions = [
       fr: 'Aizkraukle',
     }),
     denomination: 'municipality',
-    geonameId: 461613,
+    // geonameId: 461613,
   },
   {
     id: 1640,
@@ -31159,7 +31159,7 @@ const divisions = [
       fr: 'Alūksne',
     }),
     denomination: 'municipality',
-    geonameId: 461525,
+    // geonameId: 461525,
   },
   {
     id: 1641,
@@ -31178,7 +31178,7 @@ const divisions = [
       fr: 'Augšdaugava',
     }),
     denomination: 'municipality',
-    geonameId: 12276858,
+    // geonameId: 12276858,
   },
   {
     id: 1642,
@@ -31197,7 +31197,7 @@ const divisions = [
       fr: 'Balvi',
     }),
     denomination: 'municipality',
-    geonameId: 461160,
+    // geonameId: 461160,
   },
   {
     id: 1643,
@@ -31216,7 +31216,7 @@ const divisions = [
       fr: 'Bauska',
     }),
     denomination: 'municipality',
-    geonameId: 461112,
+    // geonameId: 461112,
   },
   {
     id: 1644,
@@ -31235,7 +31235,7 @@ const divisions = [
       fr: 'Cēsis',
     }),
     denomination: 'municipality',
-    geonameId: 460569,
+    // geonameId: 460569,
   },
   {
     id: 1645,
@@ -31254,7 +31254,7 @@ const divisions = [
       fr: 'Daugavpils',
     }),
     denomination: 'city',
-    geonameId: 460414,
+    // geonameId: 460414,
   },
   {
     id: 1646,
@@ -31273,7 +31273,7 @@ const divisions = [
       fr: 'Dobele',
     }),
     denomination: 'municipality',
-    geonameId: 460311,
+    // geonameId: 460311,
   },
   {
     id: 1647,
@@ -31292,7 +31292,7 @@ const divisions = [
       fr: 'Gulbene',
     }),
     denomination: 'municipality',
-    geonameId: 459664,
+    // geonameId: 459664,
   },
   {
     id: 1648,
@@ -31311,7 +31311,7 @@ const divisions = [
       fr: 'Jēkabpils',
     }),
     denomination: 'municipality',
-    geonameId: 459282,
+    // geonameId: 459282,
   },
   {
     id: 1649,
@@ -31330,7 +31330,7 @@ const divisions = [
       fr: 'Jelgava',
     }),
     denomination: 'city',
-    geonameId: 459281,
+    // geonameId: 459281,
   },
   {
     id: 1650,
@@ -31349,7 +31349,7 @@ const divisions = [
       fr: 'Jelgava',
     }),
     denomination: 'municipality',
-    geonameId: 459278,
+    // geonameId: 459278,
   },
   {
     id: 1651,
@@ -31368,7 +31368,7 @@ const divisions = [
       fr: 'Jūrmala',
     }),
     denomination: 'city',
-    geonameId: 459202,
+    // geonameId: 459202,
   },
   {
     id: 1652,
@@ -31387,7 +31387,7 @@ const divisions = [
       fr: 'Ķekava',
     }),
     denomination: 'municipality',
-    geonameId: 7628322,
+    // geonameId: 7628322,
   },
   {
     id: 1653,
@@ -31406,7 +31406,7 @@ const divisions = [
       fr: 'Krāslava',
     }),
     denomination: 'municipality',
-    geonameId: 458621,
+    // geonameId: 458621,
   },
   {
     id: 1654,
@@ -31425,7 +31425,7 @@ const divisions = [
       fr: 'Kuldīga',
     }),
     denomination: 'municipality',
-    geonameId: 458459,
+    // geonameId: 458459,
   },
   {
     id: 1655,
@@ -31444,7 +31444,7 @@ const divisions = [
       fr: 'Liepāja',
     }),
     denomination: 'city',
-    geonameId: 457955,
+    // geonameId: 457955,
   },
   {
     id: 1656,
@@ -31463,7 +31463,7 @@ const divisions = [
       fr: 'Limbaži',
     }),
     denomination: 'municipality',
-    geonameId: 457889,
+    // geonameId: 457889,
   },
   {
     id: 1657,
@@ -31482,7 +31482,7 @@ const divisions = [
       fr: 'Līvāni',
     }),
     denomination: 'city',
-    geonameId: 7628341,
+    // geonameId: 7628341,
   },
   {
     id: 1658,
@@ -31501,7 +31501,7 @@ const divisions = [
       fr: 'Ludza',
     }),
     denomination: 'municipality',
-    geonameId: 457773,
+    // geonameId: 457773,
   },
   {
     id: 1659,
@@ -31520,7 +31520,7 @@ const divisions = [
       fr: 'Madona',
     }),
     denomination: 'municipality',
-    geonameId: 457712,
+    // geonameId: 457712,
   },
   {
     id: 1660,
@@ -31539,7 +31539,7 @@ const divisions = [
       fr: 'Mārupe',
     }),
     denomination: 'municipality',
-    geonameId: 7628319,
+    // geonameId: 7628319,
   },
   {
     id: 1661,
@@ -31558,7 +31558,7 @@ const divisions = [
       fr: 'Ogre',
     }),
     denomination: 'city',
-    geonameId: 457061,
+    // geonameId: 457061,
   },
   {
     id: 1662,
@@ -31577,7 +31577,7 @@ const divisions = [
       fr: 'Olaine',
     }),
     denomination: 'city',
-    geonameId: 7628320,
+    // geonameId: 7628320,
   },
   {
     id: 1663,
@@ -31596,7 +31596,7 @@ const divisions = [
       fr: 'Preiļi',
     }),
     denomination: 'municipality',
-    geonameId: 456528,
+    // geonameId: 456528,
   },
   {
     id: 1664,
@@ -31615,7 +31615,7 @@ const divisions = [
       fr: 'Rēzekne',
     }),
     denomination: 'city',
-    geonameId: 456203,
+    // geonameId: 456203,
   },
   {
     id: 1665,
@@ -31634,7 +31634,7 @@ const divisions = [
       fr: 'Rēzekne',
     }),
     denomination: 'municipality',
-    geonameId: 456197,
+    // geonameId: 456197,
   },
   {
     id: 1666,
@@ -31653,7 +31653,7 @@ const divisions = [
       fr: 'Riga',
     }),
     denomination: 'city',
-    geonameId: 456173,
+    // geonameId: 456173,
   },
   {
     id: 1667,
@@ -31672,7 +31672,7 @@ const divisions = [
       fr: 'Ropaži',
     }),
     denomination: 'municipality',
-    geonameId: 7628359,
+    // geonameId: 7628359,
   },
   {
     id: 1668,
@@ -31691,7 +31691,7 @@ const divisions = [
       fr: 'Salaspils',
     }),
     denomination: 'municipality',
-    geonameId: 7628323,
+    // geonameId: 7628323,
   },
   {
     id: 1669,
@@ -31710,7 +31710,7 @@ const divisions = [
       fr: 'Saldus',
     }),
     denomination: 'municipality',
-    geonameId: 455888,
+    // geonameId: 455888,
   },
   {
     id: 1670,
@@ -31729,7 +31729,7 @@ const divisions = [
       fr: 'Saulkrasti',
     }),
     denomination: 'municipality',
-    geonameId: 7628366,
+    // geonameId: 7628366,
   },
   {
     id: 1671,
@@ -31748,7 +31748,7 @@ const divisions = [
       fr: 'Sigulda',
     }),
     denomination: 'municipality',
-    geonameId: 7628362,
+    // geonameId: 7628362,
   },
   {
     id: 1672,
@@ -31767,7 +31767,7 @@ const divisions = [
       fr: 'Smiltene',
     }),
     denomination: 'municipality',
-    geonameId: 7628380,
+    // geonameId: 7628380,
   },
   {
     id: 1673,
@@ -31786,7 +31786,7 @@ const divisions = [
       fr: 'Sud Kurzeme',
     }),
     denomination: 'municipality',
-    geonameId: 12276857,
+    // geonameId: 12276857,
   },
   {
     id: 1674,
@@ -31805,7 +31805,7 @@ const divisions = [
       fr: 'Talsi',
     }),
     denomination: 'municipality',
-    geonameId: 454968,
+    // geonameId: 454968,
   },
   {
     id: 1675,
@@ -31824,7 +31824,7 @@ const divisions = [
       fr: 'Tukums',
     }),
     denomination: 'municipality',
-    geonameId: 454771,
+    // geonameId: 454771,
   },
   {
     id: 1676,
@@ -31843,7 +31843,7 @@ const divisions = [
       fr: 'Valka',
     }),
     denomination: 'city',
-    geonameId: 454571,
+    // geonameId: 454571,
   },
   {
     id: 1677,
@@ -31862,7 +31862,7 @@ const divisions = [
       fr: 'Valmiera',
     }),
     denomination: 'municipality',
-    geonameId: 454564,
+    // geonameId: 454564,
   },
   {
     id: 1678,
@@ -31881,7 +31881,7 @@ const divisions = [
       fr: 'Varakļāni',
     }),
     denomination: 'municipality',
-    geonameId: 7628342,
+    // geonameId: 7628342,
   },
   {
     id: 1679,
@@ -31900,7 +31900,7 @@ const divisions = [
       fr: 'Ventspils',
     }),
     denomination: 'city',
-    geonameId: 454311,
+    // geonameId: 454311,
   },
   {
     id: 1680,
@@ -31919,7 +31919,7 @@ const divisions = [
       fr: 'Ventspils',
     }),
     denomination: 'municipality',
-    geonameId: 454307,
+    // geonameId: 454307,
   },
   {
     id: 1681,
@@ -31938,7 +31938,7 @@ const divisions = [
       fr: 'Baalbek-Hermel',
     }),
     denomination: 'governorate',
-    geonameId: 6201371,
+    // geonameId: 6201371,
   },
   {
     id: 1682,
@@ -31957,7 +31957,7 @@ const divisions = [
       fr: 'Beyrouth',
     }),
     denomination: 'governorate',
-    geonameId: 276780,
+    // geonameId: 276780,
   },
   {
     id: 1683,
@@ -31976,7 +31976,7 @@ const divisions = [
       fr: 'Akkar',
     }),
     denomination: 'governorate',
-    geonameId: 6201370,
+    // geonameId: 6201370,
   },
   {
     id: 1684,
@@ -31995,7 +31995,7 @@ const divisions = [
       fr: 'Békaa',
     }),
     denomination: 'governorate',
-    geonameId: 280282,
+    // geonameId: 280282,
   },
   {
     id: 1685,
@@ -32014,7 +32014,7 @@ const divisions = [
       fr: 'Liban-Nord',
     }),
     denomination: 'governorate',
-    geonameId: 278297,
+    // geonameId: 278297,
   },
   {
     id: 1686,
@@ -32033,7 +32033,7 @@ const divisions = [
       fr: 'Mont-Liban',
     }),
     denomination: 'governorate',
-    geonameId: 273607,
+    // geonameId: 273607,
   },
   {
     id: 1687,
@@ -32052,7 +32052,7 @@ const divisions = [
       fr: 'Nabatiyé',
     }),
     denomination: 'governorate',
-    geonameId: 444191,
+    // geonameId: 444191,
   },
   {
     id: 1688,
@@ -32071,7 +32071,7 @@ const divisions = [
       fr: 'Liban-Sud',
     }),
     denomination: 'governorate',
-    geonameId: 279894,
+    // geonameId: 279894,
   },
   {
     id: 1689,
@@ -32090,7 +32090,7 @@ const divisions = [
       fr: 'Berea',
     }),
     denomination: 'district',
-    geonameId: 932932,
+    // geonameId: 932932,
   },
   {
     id: 1690,
@@ -32109,7 +32109,7 @@ const divisions = [
       fr: 'Butha-Buthe',
     }),
     denomination: 'district',
-    geonameId: 932888,
+    // geonameId: 932888,
   },
   {
     id: 1691,
@@ -32128,7 +32128,7 @@ const divisions = [
       fr: 'Leribe',
     }),
     denomination: 'district',
-    geonameId: 932700,
+    // geonameId: 932700,
   },
   {
     id: 1692,
@@ -32147,7 +32147,7 @@ const divisions = [
       fr: 'Mafeteng',
     }),
     denomination: 'district',
-    geonameId: 932615,
+    // geonameId: 932615,
   },
   {
     id: 1693,
@@ -32166,7 +32166,7 @@ const divisions = [
       fr: 'Maseru',
     }),
     denomination: 'district',
-    geonameId: 932506,
+    // geonameId: 932506,
   },
   {
     id: 1694,
@@ -32185,7 +32185,7 @@ const divisions = [
       fr: 'Mohale’s Hoek',
     }),
     denomination: 'district',
-    geonameId: 932439,
+    // geonameId: 932439,
   },
   {
     id: 1695,
@@ -32204,7 +32204,7 @@ const divisions = [
       fr: 'Mokhotlong',
     }),
     denomination: 'district',
-    geonameId: 932418,
+    // geonameId: 932418,
   },
   {
     id: 1696,
@@ -32223,7 +32223,7 @@ const divisions = [
       fr: 'Qacha’s Nek',
     }),
     denomination: 'district',
-    geonameId: 932219,
+    // geonameId: 932219,
   },
   {
     id: 1697,
@@ -32242,7 +32242,7 @@ const divisions = [
       fr: 'Quthing',
     }),
     denomination: 'district',
-    geonameId: 932184,
+    // geonameId: 932184,
   },
   {
     id: 1698,
@@ -32261,7 +32261,7 @@ const divisions = [
       fr: 'Thaba-Tseka',
     }),
     denomination: 'district',
-    geonameId: 932011,
+    // geonameId: 932011,
   },
   {
     id: 1699,
@@ -32280,7 +32280,7 @@ const divisions = [
       fr: 'Bomi',
     }),
     denomination: 'county',
-    geonameId: 2278324,
+    // geonameId: 2278324,
   },
   {
     id: 1700,
@@ -32299,7 +32299,7 @@ const divisions = [
       fr: 'Bong',
     }),
     denomination: 'county',
-    geonameId: 2278292,
+    // geonameId: 2278292,
   },
   {
     id: 1701,
@@ -32318,7 +32318,7 @@ const divisions = [
       fr: 'Gbarpolu',
     }),
     denomination: 'county',
-    geonameId: 2593119,
+    // geonameId: 2593119,
   },
   {
     id: 1702,
@@ -32337,7 +32337,7 @@ const divisions = [
       fr: 'Grand Bassa',
     }),
     denomination: 'county',
-    geonameId: 2276630,
+    // geonameId: 2276630,
   },
   {
     id: 1703,
@@ -32356,7 +32356,7 @@ const divisions = [
       fr: 'Grand Cap Mount',
     }),
     denomination: 'county',
-    geonameId: 2276627,
+    // geonameId: 2276627,
   },
   {
     id: 1704,
@@ -32375,7 +32375,7 @@ const divisions = [
       fr: 'Grand Gedeh',
     }),
     denomination: 'county',
-    geonameId: 2276622,
+    // geonameId: 2276622,
   },
   {
     id: 1705,
@@ -32394,7 +32394,7 @@ const divisions = [
       fr: 'Grand Kru',
     }),
     denomination: 'county',
-    geonameId: 2588490,
+    // geonameId: 2588490,
   },
   {
     id: 1706,
@@ -32413,7 +32413,7 @@ const divisions = [
       fr: 'Lofa',
     }),
     denomination: 'county',
-    geonameId: 2275344,
+    // geonameId: 2275344,
   },
   {
     id: 1707,
@@ -32432,7 +32432,7 @@ const divisions = [
       fr: 'Margibi',
     }),
     denomination: 'county',
-    geonameId: 2588491,
+    // geonameId: 2588491,
   },
   {
     id: 1708,
@@ -32451,7 +32451,7 @@ const divisions = [
       fr: 'Maryland',
     }),
     denomination: 'county',
-    geonameId: 2275099,
+    // geonameId: 2275099,
   },
   {
     id: 1709,
@@ -32470,7 +32470,7 @@ const divisions = [
       fr: 'Montserrado',
     }),
     denomination: 'county',
-    geonameId: 2274890,
+    // geonameId: 2274890,
   },
   {
     id: 1710,
@@ -32489,7 +32489,7 @@ const divisions = [
       fr: 'Nimba',
     }),
     denomination: 'county',
-    geonameId: 2274688,
+    // geonameId: 2274688,
   },
   {
     id: 1711,
@@ -32508,7 +32508,7 @@ const divisions = [
       fr: 'River Cess',
     }),
     denomination: 'county',
-    geonameId: 2588492,
+    // geonameId: 2588492,
   },
   {
     id: 1712,
@@ -32527,7 +32527,7 @@ const divisions = [
       fr: 'River Gee',
     }),
     denomination: 'county',
-    geonameId: 2593120,
+    // geonameId: 2593120,
   },
   {
     id: 1713,
@@ -32546,7 +32546,7 @@ const divisions = [
       fr: 'Sinoe',
     }),
     denomination: 'county',
-    geonameId: 2273898,
+    // geonameId: 2273898,
   },
   {
     id: 1714,
@@ -32565,7 +32565,7 @@ const divisions = [
       fr: 'Al Butnan',
     }),
     denomination: 'district',
-    geonameId: 7602688,
+    // geonameId: 7602688,
   },
   {
     id: 1715,
@@ -32584,7 +32584,7 @@ const divisions = [
       fr: 'Al Jabal al Akhdar',
     }),
     denomination: 'district',
-    geonameId: 443289,
+    // geonameId: 443289,
   },
   {
     id: 1716,
@@ -32603,7 +32603,7 @@ const divisions = [
       fr: 'Al Jafarah',
     }),
     denomination: 'district',
-    geonameId: 7602690,
+    // geonameId: 7602690,
   },
   {
     id: 1717,
@@ -32622,7 +32622,7 @@ const divisions = [
       fr: 'Al Jufrah',
     }),
     denomination: 'district',
-    geonameId: 2219944,
+    // geonameId: 2219944,
   },
   {
     id: 1718,
@@ -32641,7 +32641,7 @@ const divisions = [
       fr: 'Al Kufrah',
     }),
     denomination: 'district',
-    geonameId: 88932,
+    // geonameId: 88932,
   },
   {
     id: 1719,
@@ -32660,7 +32660,7 @@ const divisions = [
       fr: 'Al Marj',
     }),
     denomination: 'district',
-    geonameId: 88904,
+    // geonameId: 88904,
   },
   {
     id: 1720,
@@ -32679,7 +32679,7 @@ const divisions = [
       fr: 'Al Marqab',
     }),
     denomination: 'district',
-    geonameId: 7602691,
+    // geonameId: 7602691,
   },
   {
     id: 1721,
@@ -32698,7 +32698,7 @@ const divisions = [
       fr: 'Al Wahat',
     }),
     denomination: 'district',
-    geonameId: 7602692,
+    // geonameId: 7602692,
   },
   {
     id: 1722,
@@ -32717,7 +32717,7 @@ const divisions = [
       fr: 'An Nuqat al Khams',
     }),
     denomination: 'district',
-    geonameId: 2593778,
+    // geonameId: 2593778,
   },
   {
     id: 1723,
@@ -32736,7 +32736,7 @@ const divisions = [
       fr: 'Az Zawiyah',
     }),
     denomination: 'district',
-    geonameId: 2218972,
+    // geonameId: 2218972,
   },
   {
     id: 1724,
@@ -32755,7 +32755,7 @@ const divisions = [
       fr: 'Derna',
     }),
     denomination: 'district',
-    geonameId: 87204,
+    // geonameId: 87204,
   },
   {
     id: 1725,
@@ -32774,7 +32774,7 @@ const divisions = [
       fr: 'Ghat',
     }),
     denomination: 'district',
-    geonameId: 2217350,
+    // geonameId: 2217350,
   },
   {
     id: 1726,
@@ -32793,7 +32793,7 @@ const divisions = [
       fr: 'Jabal al Gharbi',
     }),
     denomination: 'district',
-    geonameId: 7602689,
+    // geonameId: 7602689,
   },
   {
     id: 1727,
@@ -32812,7 +32812,7 @@ const divisions = [
       fr: 'Murzuq',
     }),
     denomination: 'district',
-    geonameId: 2214602,
+    // geonameId: 2214602,
   },
   {
     id: 1728,
@@ -32831,7 +32831,7 @@ const divisions = [
       fr: 'Nalut',
     }),
     denomination: 'district',
-    geonameId: 2214432,
+    // geonameId: 2214432,
   },
   {
     id: 1729,
@@ -32850,7 +32850,7 @@ const divisions = [
       fr: 'Sabha',
     }),
     denomination: 'district',
-    geonameId: 2212774,
+    // geonameId: 2212774,
   },
   {
     id: 1730,
@@ -32869,7 +32869,7 @@ const divisions = [
       fr: 'Benghazi',
     }),
     denomination: 'district',
-    geonameId: 88318,
+    // geonameId: 88318,
   },
   {
     id: 1731,
@@ -32888,7 +32888,7 @@ const divisions = [
       fr: 'Misrata',
     }),
     denomination: 'district',
-    geonameId: 2214845,
+    // geonameId: 2214845,
   },
   {
     id: 1732,
@@ -32907,7 +32907,7 @@ const divisions = [
       fr: 'Syrte',
     }),
     denomination: 'district',
-    geonameId: 2210553,
+    // geonameId: 2210553,
   },
   {
     id: 1733,
@@ -32926,7 +32926,7 @@ const divisions = [
       fr: 'Tripoli',
     }),
     denomination: 'district',
-    geonameId: 2210245,
+    // geonameId: 2210245,
   },
   {
     id: 1734,
@@ -32945,7 +32945,7 @@ const divisions = [
       fr: 'Wadi al Hayat',
     }),
     denomination: 'district',
-    geonameId: 7602693,
+    // geonameId: 7602693,
   },
   {
     id: 1735,
@@ -32964,7 +32964,7 @@ const divisions = [
       fr: 'Wadi ash Shati',
     }),
     denomination: 'district',
-    geonameId: 2219413,
+    // geonameId: 2219413,
   },
   {
     id: 1736,
@@ -32983,7 +32983,7 @@ const divisions = [
       fr: 'Balzers',
     }),
     denomination: 'municipality',
-    geonameId: 3042074,
+    // geonameId: 3042074,
   },
   {
     id: 1737,
@@ -33002,7 +33002,7 @@ const divisions = [
       fr: 'Eschen',
     }),
     denomination: 'municipality',
-    geonameId: 3042069,
+    // geonameId: 3042069,
   },
   {
     id: 1738,
@@ -33021,7 +33021,7 @@ const divisions = [
       fr: 'Gamprin',
     }),
     denomination: 'municipality',
-    geonameId: 3042063,
+    // geonameId: 3042063,
   },
   {
     id: 1739,
@@ -33040,7 +33040,7 @@ const divisions = [
       fr: 'Mauren',
     }),
     denomination: 'municipality',
-    geonameId: 3042056,
+    // geonameId: 3042056,
   },
   {
     id: 1740,
@@ -33059,7 +33059,7 @@ const divisions = [
       fr: 'Planken',
     }),
     denomination: 'municipality',
-    geonameId: 3042050,
+    // geonameId: 3042050,
   },
   {
     id: 1741,
@@ -33078,7 +33078,7 @@ const divisions = [
       fr: 'Ruggell',
     }),
     denomination: 'municipality',
-    geonameId: 3042047,
+    // geonameId: 3042047,
   },
   {
     id: 1742,
@@ -33097,7 +33097,7 @@ const divisions = [
       fr: 'Schaan',
     }),
     denomination: 'municipality',
-    geonameId: 3042042,
+    // geonameId: 3042042,
   },
   {
     id: 1743,
@@ -33116,7 +33116,7 @@ const divisions = [
       fr: 'Schellenberg',
     }),
     denomination: 'municipality',
-    geonameId: 3042038,
+    // geonameId: 3042038,
   },
   {
     id: 1744,
@@ -33135,7 +33135,7 @@ const divisions = [
       fr: 'Triesen',
     }),
     denomination: 'municipality',
-    geonameId: 3042036,
+    // geonameId: 3042036,
   },
   {
     id: 1745,
@@ -33154,7 +33154,7 @@ const divisions = [
       fr: 'Triesenberg',
     }),
     denomination: 'municipality',
-    geonameId: 3042034,
+    // geonameId: 3042034,
   },
   {
     id: 1746,
@@ -33173,7 +33173,7 @@ const divisions = [
       fr: 'Vaduz',
     }),
     denomination: 'municipality',
-    geonameId: 3042031,
+    // geonameId: 3042031,
   },
   {
     id: 1747,
@@ -33192,7 +33192,7 @@ const divisions = [
       fr: 'Alytus',
     }),
     denomination: 'county',
-    geonameId: 864389,
+    // geonameId: 864389,
   },
   {
     id: 1748,
@@ -33211,7 +33211,7 @@ const divisions = [
       fr: 'Kaunas',
     }),
     denomination: 'county',
-    geonameId: 864477,
+    // geonameId: 864477,
   },
   {
     id: 1749,
@@ -33230,7 +33230,7 @@ const divisions = [
       fr: 'Klaipėda',
     }),
     denomination: 'county',
-    geonameId: 864478,
+    // geonameId: 864478,
   },
   {
     id: 1750,
@@ -33249,7 +33249,7 @@ const divisions = [
       fr: 'Marijampolė',
     }),
     denomination: 'county',
-    geonameId: 864479,
+    // geonameId: 864479,
   },
   {
     id: 1751,
@@ -33268,7 +33268,7 @@ const divisions = [
       fr: 'Panevėžys',
     }),
     denomination: 'county',
-    geonameId: 864480,
+    // geonameId: 864480,
   },
   {
     id: 1752,
@@ -33287,7 +33287,7 @@ const divisions = [
       fr: 'Šiauliai',
     }),
     denomination: 'county',
-    geonameId: 864481,
+    // geonameId: 864481,
   },
   {
     id: 1753,
@@ -33306,7 +33306,7 @@ const divisions = [
       fr: 'Tauragė',
     }),
     denomination: 'county',
-    geonameId: 864482,
+    // geonameId: 864482,
   },
   {
     id: 1754,
@@ -33325,7 +33325,7 @@ const divisions = [
       fr: 'Telšiai',
     }),
     denomination: 'county',
-    geonameId: 864483,
+    // geonameId: 864483,
   },
   {
     id: 1755,
@@ -33344,7 +33344,7 @@ const divisions = [
       fr: 'Utena',
     }),
     denomination: 'county',
-    geonameId: 864484,
+    // geonameId: 864484,
   },
   {
     id: 1756,
@@ -33363,7 +33363,7 @@ const divisions = [
       fr: 'Vilnius',
     }),
     denomination: 'county',
-    geonameId: 864485,
+    // geonameId: 864485,
   },
   {
     id: 1757,
@@ -33382,7 +33382,7 @@ const divisions = [
       fr: 'Capellen',
     }),
     denomination: 'canton',
-    geonameId: 2960696,
+    // geonameId: 2960696,
   },
   {
     id: 1758,
@@ -33401,7 +33401,7 @@ const divisions = [
       fr: 'Clervaux',
     }),
     denomination: 'canton',
-    geonameId: 2960683,
+    // geonameId: 2960683,
   },
   {
     id: 1759,
@@ -33420,7 +33420,7 @@ const divisions = [
       fr: 'Diekirch',
     }),
     denomination: 'canton',
-    geonameId: 2960656,
+    // geonameId: 2960656,
   },
   {
     id: 1760,
@@ -33439,7 +33439,7 @@ const divisions = [
       fr: 'Echternach',
     }),
     denomination: 'canton',
-    geonameId: 2960629,
+    // geonameId: 2960629,
   },
   {
     id: 1761,
@@ -33458,7 +33458,7 @@ const divisions = [
       fr: 'Esch-sur-Alzette',
     }),
     denomination: 'canton',
-    geonameId: 2960599,
+    // geonameId: 2960599,
   },
   {
     id: 1762,
@@ -33477,7 +33477,7 @@ const divisions = [
       fr: 'Grevenmacher',
     }),
     denomination: 'canton',
-    geonameId: 2960514,
+    // geonameId: 2960514,
   },
   {
     id: 1763,
@@ -33496,7 +33496,7 @@ const divisions = [
       fr: 'Luxembourg',
     }),
     denomination: 'canton',
-    geonameId: 2960315,
+    // geonameId: 2960315,
   },
   {
     id: 1764,
@@ -33515,7 +33515,7 @@ const divisions = [
       fr: 'Mersch',
     }),
     denomination: 'canton',
-    geonameId: 2960275,
+    // geonameId: 2960275,
   },
   {
     id: 1765,
@@ -33534,7 +33534,7 @@ const divisions = [
       fr: 'Redange',
     }),
     denomination: 'canton',
-    geonameId: 2960161,
+    // geonameId: 2960161,
   },
   {
     id: 1766,
@@ -33553,7 +33553,7 @@ const divisions = [
       fr: 'Remich',
     }),
     denomination: 'canton',
-    geonameId: 2960152,
+    // geonameId: 2960152,
   },
   {
     id: 1767,
@@ -33572,7 +33572,7 @@ const divisions = [
       fr: 'Vianden',
     }),
     denomination: 'canton',
-    geonameId: 2960020,
+    // geonameId: 2960020,
   },
   {
     id: 1768,
@@ -33591,7 +33591,7 @@ const divisions = [
       fr: 'Wiltz',
     }),
     denomination: 'canton',
-    geonameId: 2959975,
+    // geonameId: 2959975,
   },
   {
     id: 1769,
@@ -33610,7 +33610,7 @@ const divisions = [
       fr: 'Cotai',
     }),
     denomination: 'parish',
-    geonameId: 11875160,
+    // geonameId: 11875160,
   },
   {
     id: 1770,
@@ -33629,7 +33629,7 @@ const divisions = [
       fr: 'Notre-Dame de Fatima',
     }),
     denomination: 'parish',
-    geonameId: 11875154,
+    // geonameId: 11875154,
   },
   {
     id: 1771,
@@ -33648,7 +33648,7 @@ const divisions = [
       fr: 'Notre-Dame du Carmel',
     }),
     denomination: 'parish',
-    geonameId: 11875159,
+    // geonameId: 11875159,
   },
   {
     id: 1772,
@@ -33667,7 +33667,7 @@ const divisions = [
       fr: 'Saint-Antoine',
     }),
     denomination: 'parish',
-    geonameId: 11875155,
+    // geonameId: 11875155,
   },
   {
     id: 1773,
@@ -33686,7 +33686,7 @@ const divisions = [
       fr: 'Saint François Xavier',
     }),
     denomination: 'parish',
-    geonameId: 11875161,
+    // geonameId: 11875161,
   },
   {
     id: 1774,
@@ -33705,7 +33705,7 @@ const divisions = [
       fr: 'Saint-Lazare',
     }),
     denomination: 'parish',
-    geonameId: 11875156,
+    // geonameId: 11875156,
   },
   {
     id: 1775,
@@ -33724,7 +33724,7 @@ const divisions = [
       fr: 'Saint-Laurent',
     }),
     denomination: 'parish',
-    geonameId: 11875158,
+    // geonameId: 11875158,
   },
   {
     id: 1776,
@@ -33743,7 +33743,7 @@ const divisions = [
       fr: 'Cathédrale',
     }),
     denomination: 'parish',
-    geonameId: 11875157,
+    // geonameId: 11875157,
   },
   {
     id: 1777,
@@ -33762,7 +33762,7 @@ const divisions = [
       fr: 'Alaotra Mangoro',
     }),
     denomination: 'région',
-    geonameId: 7670851,
+    // geonameId: 7670851,
   },
   {
     id: 1778,
@@ -33781,7 +33781,7 @@ const divisions = [
       fr: "Amoron'i Mania",
     }),
     denomination: 'région',
-    geonameId: 7670904,
+    // geonameId: 7670904,
   },
   {
     id: 1779,
@@ -33800,7 +33800,7 @@ const divisions = [
       fr: 'Analamanga',
     }),
     denomination: 'région',
-    geonameId: 7670856,
+    // geonameId: 7670856,
   },
   {
     id: 1780,
@@ -33819,7 +33819,7 @@ const divisions = [
       fr: 'Analanjirofo',
     }),
     denomination: 'région',
-    geonameId: 7670848,
+    // geonameId: 7670848,
   },
   {
     id: 1781,
@@ -33838,7 +33838,7 @@ const divisions = [
       fr: 'Androy',
     }),
     denomination: 'région',
-    geonameId: 7670911,
+    // geonameId: 7670911,
   },
   {
     id: 1782,
@@ -33857,7 +33857,7 @@ const divisions = [
       fr: 'Anosy',
     }),
     denomination: 'région',
-    geonameId: 7670910,
+    // geonameId: 7670910,
   },
   {
     id: 1783,
@@ -33876,7 +33876,7 @@ const divisions = [
       fr: 'Atsimo-Andrefana',
     }),
     denomination: 'région',
-    geonameId: 7670913,
+    // geonameId: 7670913,
   },
   {
     id: 1784,
@@ -33895,7 +33895,7 @@ const divisions = [
       fr: 'Atsimo-Atsinanana',
     }),
     denomination: 'région',
-    geonameId: 7670908,
+    // geonameId: 7670908,
   },
   {
     id: 1785,
@@ -33914,7 +33914,7 @@ const divisions = [
       fr: 'Atsinanana',
     }),
     denomination: 'région',
-    geonameId: 7670857,
+    // geonameId: 7670857,
   },
   {
     id: 1786,
@@ -33933,7 +33933,7 @@ const divisions = [
       fr: 'Betsiboka',
     }),
     denomination: 'région',
-    geonameId: 7670850,
+    // geonameId: 7670850,
   },
   {
     id: 1787,
@@ -33952,7 +33952,7 @@ const divisions = [
       fr: 'Boeny',
     }),
     denomination: 'région',
-    geonameId: 7670849,
+    // geonameId: 7670849,
   },
   {
     id: 1788,
@@ -33971,7 +33971,7 @@ const divisions = [
       fr: 'Bongolava',
     }),
     denomination: 'région',
-    geonameId: 7670853,
+    // geonameId: 7670853,
   },
   {
     id: 1789,
@@ -33990,7 +33990,7 @@ const divisions = [
       fr: 'Diana',
     }),
     denomination: 'région',
-    geonameId: 7670842,
+    // geonameId: 7670842,
   },
   {
     id: 1790,
@@ -34009,7 +34009,7 @@ const divisions = [
       fr: 'Fitovinany',
     }),
     denomination: 'région',
-    geonameId: 12494965,
+    // geonameId: 12494965,
   },
   {
     id: 1791,
@@ -34028,7 +34028,7 @@ const divisions = [
       fr: 'Ihorombe',
     }),
     denomination: 'région',
-    geonameId: 7670907,
+    // geonameId: 7670907,
   },
   {
     id: 1792,
@@ -34047,7 +34047,7 @@ const divisions = [
       fr: 'Itasy',
     }),
     denomination: 'région',
-    geonameId: 7670855,
+    // geonameId: 7670855,
   },
   {
     id: 1793,
@@ -34066,7 +34066,7 @@ const divisions = [
       fr: 'Melaky',
     }),
     denomination: 'région',
-    geonameId: 7670852,
+    // geonameId: 7670852,
   },
   {
     id: 1794,
@@ -34085,7 +34085,7 @@ const divisions = [
       fr: 'Menabe',
     }),
     denomination: 'région',
-    geonameId: 7670902,
+    // geonameId: 7670902,
   },
   {
     id: 1795,
@@ -34104,7 +34104,7 @@ const divisions = [
       fr: 'Sava',
     }),
     denomination: 'région',
-    geonameId: 7670846,
+    // geonameId: 7670846,
   },
   {
     id: 1796,
@@ -34123,7 +34123,7 @@ const divisions = [
       fr: 'Sofia',
     }),
     denomination: 'région',
-    geonameId: 7670847,
+    // geonameId: 7670847,
   },
   {
     id: 1797,
@@ -34142,7 +34142,7 @@ const divisions = [
       fr: 'Haute Matsiatra',
     }),
     denomination: 'région',
-    geonameId: 7670905,
+    // geonameId: 7670905,
   },
   {
     id: 1798,
@@ -34161,7 +34161,7 @@ const divisions = [
       fr: 'Vakinankaratra',
     }),
     denomination: 'région',
-    geonameId: 7670854,
+    // geonameId: 7670854,
   },
   {
     id: 1799,
@@ -34180,7 +34180,7 @@ const divisions = [
       fr: 'Vatovavy',
     }),
     denomination: 'région',
-    geonameId: 12494968,
+    // geonameId: 12494968,
   },
   {
     id: 1800,
@@ -34199,7 +34199,7 @@ const divisions = [
       fr: 'Centrale',
     }),
     denomination: 'region',
-    geonameId: 931597,
+    // geonameId: 931597,
   },
   {
     id: 1801,
@@ -34218,7 +34218,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'region',
-    geonameId: 924591,
+    // geonameId: 924591,
   },
   {
     id: 1802,
@@ -34237,7 +34237,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'region',
-    geonameId: 923817,
+    // geonameId: 923817,
   },
   {
     id: 1803,
@@ -34256,7 +34256,7 @@ const divisions = [
       fr: 'Johor',
     }),
     denomination: 'state',
-    geonameId: 1733049,
+    // geonameId: 1733049,
   },
   {
     id: 1804,
@@ -34275,7 +34275,7 @@ const divisions = [
       fr: 'Kedah',
     }),
     denomination: 'state',
-    geonameId: 1733048,
+    // geonameId: 1733048,
   },
   {
     id: 1805,
@@ -34294,7 +34294,7 @@ const divisions = [
       fr: 'Kelantan',
     }),
     denomination: 'state',
-    geonameId: 1733044,
+    // geonameId: 1733044,
   },
   {
     id: 1806,
@@ -34313,7 +34313,7 @@ const divisions = [
       fr: 'Kuala Lumpur',
     }),
     denomination: 'federal_territory',
-    geonameId: 1733046,
+    // geonameId: 1733046,
   },
   {
     id: 1807,
@@ -34332,7 +34332,7 @@ const divisions = [
       fr: 'Labuan',
     }),
     denomination: 'federal_territory',
-    geonameId: 1734240,
+    // geonameId: 1734240,
   },
   {
     id: 1808,
@@ -34351,7 +34351,7 @@ const divisions = [
       fr: 'Malacca',
     }),
     denomination: 'state',
-    geonameId: 1733035,
+    // geonameId: 1733035,
   },
   {
     id: 1809,
@@ -34370,7 +34370,7 @@ const divisions = [
       fr: 'Negeri Sembilan',
     }),
     denomination: 'state',
-    geonameId: 1733043,
+    // geonameId: 1733043,
   },
   {
     id: 1810,
@@ -34389,7 +34389,7 @@ const divisions = [
       fr: 'Pahang',
     }),
     denomination: 'state',
-    geonameId: 1733042,
+    // geonameId: 1733042,
   },
   {
     id: 1811,
@@ -34408,7 +34408,7 @@ const divisions = [
       fr: 'Penang',
     }),
     denomination: 'state',
-    geonameId: 1733047,
+    // geonameId: 1733047,
   },
   {
     id: 1812,
@@ -34427,7 +34427,7 @@ const divisions = [
       fr: 'Perak',
     }),
     denomination: 'state',
-    geonameId: 1733041,
+    // geonameId: 1733041,
   },
   {
     id: 1813,
@@ -34446,7 +34446,7 @@ const divisions = [
       fr: 'Perlis',
     }),
     denomination: 'state',
-    geonameId: 1733040,
+    // geonameId: 1733040,
   },
   {
     id: 1814,
@@ -34465,7 +34465,7 @@ const divisions = [
       fr: 'Putrajaya',
     }),
     denomination: 'federal_territory',
-    geonameId: 1996552,
+    // geonameId: 1996552,
   },
   {
     id: 1815,
@@ -34484,7 +34484,7 @@ const divisions = [
       fr: 'Sabah',
     }),
     denomination: 'state',
-    geonameId: 1733039,
+    // geonameId: 1733039,
   },
   {
     id: 1816,
@@ -34503,7 +34503,7 @@ const divisions = [
       fr: 'Sarawak',
     }),
     denomination: 'state',
-    geonameId: 1733038,
+    // geonameId: 1733038,
   },
   {
     id: 1817,
@@ -34522,7 +34522,7 @@ const divisions = [
       fr: 'Selangor',
     }),
     denomination: 'state',
-    geonameId: 1733037,
+    // geonameId: 1733037,
   },
   {
     id: 1818,
@@ -34541,7 +34541,7 @@ const divisions = [
       fr: 'Terengganu',
     }),
     denomination: 'state',
-    geonameId: 1733036,
+    // geonameId: 1733036,
   },
   {
     id: 1819,
@@ -34560,7 +34560,7 @@ const divisions = [
       fr: 'Addu',
     }),
     denomination: 'atoll',
-    geonameId: 1281893,
+    // geonameId: 1281893,
   },
   {
     id: 1820,
@@ -34579,7 +34579,7 @@ const divisions = [
       fr: 'Baa',
     }),
     denomination: 'atoll',
-    geonameId: 1282478,
+    // geonameId: 1282478,
   },
   {
     id: 1821,
@@ -34598,7 +34598,7 @@ const divisions = [
       fr: 'Dhaalu',
     }),
     denomination: 'atoll',
-    geonameId: 1282447,
+    // geonameId: 1282447,
   },
   {
     id: 1822,
@@ -34617,7 +34617,7 @@ const divisions = [
       fr: 'Faadhippolhu',
     }),
     denomination: 'atoll',
-    geonameId: 1282096,
+    // geonameId: 1282096,
   },
   {
     id: 1823,
@@ -34636,7 +34636,7 @@ const divisions = [
       fr: 'Faafu',
     }),
     denomination: 'atoll',
-    geonameId: 1282393,
+    // geonameId: 1282393,
   },
   {
     id: 1824,
@@ -34655,7 +34655,7 @@ const divisions = [
       fr: 'Gaafu Alif',
     }),
     denomination: 'atoll',
-    geonameId: 1282329,
+    // geonameId: 1282329,
   },
   {
     id: 1825,
@@ -34674,7 +34674,7 @@ const divisions = [
       fr: 'Gaafu Dhaalu',
     }),
     denomination: 'atoll',
-    geonameId: 1282328,
+    // geonameId: 1282328,
   },
   {
     id: 1826,
@@ -34693,7 +34693,7 @@ const divisions = [
       fr: 'Gnyaviyani',
     }),
     denomination: 'atoll',
-    geonameId: 1281945,
+    // geonameId: 1281945,
   },
   {
     id: 1827,
@@ -34712,7 +34712,7 @@ const divisions = [
       fr: 'Haa Alifu',
     }),
     denomination: 'atoll',
-    geonameId: 1282294,
+    // geonameId: 1282294,
   },
   {
     id: 1828,
@@ -34731,7 +34731,7 @@ const divisions = [
       fr: 'Haa Dhaalu',
     }),
     denomination: 'atoll',
-    geonameId: 1282293,
+    // geonameId: 1282293,
   },
   {
     id: 1829,
@@ -34750,7 +34750,7 @@ const divisions = [
       fr: 'Kaafu',
     }),
     denomination: 'atoll',
-    geonameId: 1282208,
+    // geonameId: 1282208,
   },
   {
     id: 1830,
@@ -34769,7 +34769,7 @@ const divisions = [
       fr: 'Laamu',
     }),
     denomination: 'atoll',
-    geonameId: 1282101,
+    // geonameId: 1282101,
   },
   {
     id: 1831,
@@ -34788,7 +34788,7 @@ const divisions = [
       fr: 'Malé',
     }),
     denomination: 'city',
-    geonameId: 1337624,
+    // geonameId: 1337624,
   },
   {
     id: 1832,
@@ -34807,7 +34807,7 @@ const divisions = [
       fr: 'Meemu',
     }),
     denomination: 'atoll',
-    geonameId: 1281985,
+    // geonameId: 1281985,
   },
   {
     id: 1833,
@@ -34826,7 +34826,7 @@ const divisions = [
       fr: 'Noonu',
     }),
     denomination: 'atoll',
-    geonameId: 1281937,
+    // geonameId: 1281937,
   },
   {
     id: 1834,
@@ -34845,7 +34845,7 @@ const divisions = [
       fr: 'Ari Nord',
     }),
     denomination: 'atoll',
-    geonameId: 1282497,
+    // geonameId: 1282497,
   },
   {
     id: 1835,
@@ -34864,7 +34864,7 @@ const divisions = [
       fr: 'Raa',
     }),
     denomination: 'atoll',
-    geonameId: 1281918,
+    // geonameId: 1281918,
   },
   {
     id: 1836,
@@ -34883,7 +34883,7 @@ const divisions = [
       fr: 'Shaviyani',
     }),
     denomination: 'atoll',
-    geonameId: 1281892,
+    // geonameId: 1281892,
   },
   {
     id: 1837,
@@ -34902,7 +34902,7 @@ const divisions = [
       fr: 'Ari Sud',
     }),
     denomination: 'atoll',
-    geonameId: 10346475,
+    // geonameId: 10346475,
   },
   {
     id: 1838,
@@ -34921,7 +34921,7 @@ const divisions = [
       fr: 'Thaa',
     }),
     denomination: 'atoll',
-    geonameId: 1281881,
+    // geonameId: 1281881,
   },
   {
     id: 1839,
@@ -34940,7 +34940,7 @@ const divisions = [
       fr: 'Vaavu',
     }),
     denomination: 'atoll',
-    geonameId: 1281843,
+    // geonameId: 1281843,
   },
   {
     id: 1840,
@@ -34959,7 +34959,7 @@ const divisions = [
       fr: 'Bamako',
     }),
     denomination: 'region',
-    geonameId: 2460594,
+    // geonameId: 2460594,
   },
   {
     id: 1841,
@@ -34978,7 +34978,7 @@ const divisions = [
       fr: 'Gao',
     }),
     denomination: 'region',
-    geonameId: 2457161,
+    // geonameId: 2457161,
   },
   {
     id: 1842,
@@ -34997,7 +34997,7 @@ const divisions = [
       fr: 'Kayes',
     }),
     denomination: 'region',
-    geonameId: 2455517,
+    // geonameId: 2455517,
   },
   {
     id: 1843,
@@ -35016,7 +35016,7 @@ const divisions = [
       fr: 'Kidal',
     }),
     denomination: 'region',
-    geonameId: 2597449,
+    // geonameId: 2597449,
   },
   {
     id: 1844,
@@ -35035,7 +35035,7 @@ const divisions = [
       fr: 'Koulikoro',
     }),
     denomination: 'region',
-    geonameId: 2454532,
+    // geonameId: 2454532,
   },
   {
     id: 1845,
@@ -35054,7 +35054,7 @@ const divisions = [
       fr: 'Ménaka',
     }),
     denomination: 'region',
-    geonameId: 12070577,
+    // geonameId: 12070577,
   },
   {
     id: 1846,
@@ -35073,7 +35073,7 @@ const divisions = [
       fr: 'Mopti',
     }),
     denomination: 'region',
-    geonameId: 2453347,
+    // geonameId: 2453347,
   },
   {
     id: 1847,
@@ -35092,7 +35092,7 @@ const divisions = [
       fr: 'Ségou',
     }),
     denomination: 'region',
-    geonameId: 2451477,
+    // geonameId: 2451477,
   },
   {
     id: 1848,
@@ -35111,7 +35111,7 @@ const divisions = [
       fr: 'Sikasso',
     }),
     denomination: 'region',
-    geonameId: 2451184,
+    // geonameId: 2451184,
   },
   {
     id: 1849,
@@ -35130,7 +35130,7 @@ const divisions = [
       fr: 'Taoudénit',
     }),
     denomination: 'region',
-    geonameId: 12070575,
+    // geonameId: 12070575,
   },
   {
     id: 1850,
@@ -35149,7 +35149,7 @@ const divisions = [
       fr: 'Tombouctou',
     }),
     denomination: 'region',
-    geonameId: 2449066,
+    // geonameId: 2449066,
   },
   {
     id: 1851,
@@ -35168,7 +35168,7 @@ const divisions = [
       fr: 'Attard',
     }),
     denomination: 'local_council',
-    geonameId: 8299700,
+    // geonameId: 8299700,
   },
   {
     id: 1852,
@@ -35187,7 +35187,7 @@ const divisions = [
       fr: 'Balzan',
     }),
     denomination: 'local_council',
-    geonameId: 8299701,
+    // geonameId: 8299701,
   },
   {
     id: 1853,
@@ -35206,7 +35206,7 @@ const divisions = [
       fr: 'Birkirkara',
     }),
     denomination: 'local_council',
-    geonameId: 8299703,
+    // geonameId: 8299703,
   },
   {
     id: 1854,
@@ -35225,7 +35225,7 @@ const divisions = [
       fr: 'Birżebbuġa',
     }),
     denomination: 'local_council',
-    geonameId: 8299704,
+    // geonameId: 8299704,
   },
   {
     id: 1855,
@@ -35244,7 +35244,7 @@ const divisions = [
       fr: 'Bormla',
     }),
     denomination: 'local_council',
-    geonameId: 8299705,
+    // geonameId: 8299705,
   },
   {
     id: 1856,
@@ -35263,7 +35263,7 @@ const divisions = [
       fr: 'Dingli',
     }),
     denomination: 'local_council',
-    geonameId: 8299706,
+    // geonameId: 8299706,
   },
   {
     id: 1857,
@@ -35282,7 +35282,7 @@ const divisions = [
       fr: 'Floriana',
     }),
     denomination: 'local_council',
-    geonameId: 8299708,
+    // geonameId: 8299708,
   },
   {
     id: 1858,
@@ -35301,7 +35301,7 @@ const divisions = [
       fr: 'Għajnsielem',
     }),
     denomination: 'local_council',
-    geonameId: 8299710,
+    // geonameId: 8299710,
   },
   {
     id: 1859,
@@ -35320,7 +35320,7 @@ const divisions = [
       fr: 'Ħal Għargħur',
     }),
     denomination: 'local_council',
-    geonameId: 8299712,
+    // geonameId: 8299712,
   },
   {
     id: 1860,
@@ -35339,7 +35339,7 @@ const divisions = [
       fr: 'Ħal Għaxaq',
     }),
     denomination: 'local_council',
-    geonameId: 8299714,
+    // geonameId: 8299714,
   },
   {
     id: 1861,
@@ -35358,7 +35358,7 @@ const divisions = [
       fr: 'Ħaż-Żabbar',
     }),
     denomination: 'local_council',
-    geonameId: 8299762,
+    // geonameId: 8299762,
   },
   {
     id: 1862,
@@ -35377,7 +35377,7 @@ const divisions = [
       fr: 'Ħaż-Żebbuġ',
     }),
     denomination: 'local_council',
-    geonameId: 8299763,
+    // geonameId: 8299763,
   },
   {
     id: 1863,
@@ -35396,7 +35396,7 @@ const divisions = [
       fr: 'Birgu',
     }),
     denomination: 'local_council',
-    geonameId: 8299702,
+    // geonameId: 8299702,
   },
   {
     id: 1864,
@@ -35415,7 +35415,7 @@ const divisions = [
       fr: 'Fgura',
     }),
     denomination: 'local_council',
-    geonameId: 8299707,
+    // geonameId: 8299707,
   },
   {
     id: 1865,
@@ -35434,7 +35434,7 @@ const divisions = [
       fr: 'Fontana',
     }),
     denomination: 'local_council',
-    geonameId: 8299709,
+    // geonameId: 8299709,
   },
   {
     id: 1866,
@@ -35453,7 +35453,7 @@ const divisions = [
       fr: 'Gudja',
     }),
     denomination: 'local_council',
-    geonameId: 8299715,
+    // geonameId: 8299715,
   },
   {
     id: 1867,
@@ -35472,7 +35472,7 @@ const divisions = [
       fr: 'Gżira',
     }),
     denomination: 'local_council',
-    geonameId: 8299716,
+    // geonameId: 8299716,
   },
   {
     id: 1868,
@@ -35491,7 +35491,7 @@ const divisions = [
       fr: 'Ħamrun',
     }),
     denomination: 'local_council',
-    geonameId: 8299717,
+    // geonameId: 8299717,
   },
   {
     id: 1869,
@@ -35510,7 +35510,7 @@ const divisions = [
       fr: 'Kalkara',
     }),
     denomination: 'local_council',
-    geonameId: 8299725,
+    // geonameId: 8299725,
   },
   {
     id: 1870,
@@ -35529,7 +35529,7 @@ const divisions = [
       fr: 'Marsa',
     }),
     denomination: 'local_council',
-    geonameId: 8299730,
+    // geonameId: 8299730,
   },
   {
     id: 1871,
@@ -35548,7 +35548,7 @@ const divisions = [
       fr: 'Mellieħa',
     }),
     denomination: 'local_council',
-    geonameId: 8299733,
+    // geonameId: 8299733,
   },
   {
     id: 1872,
@@ -35567,7 +35567,7 @@ const divisions = [
       fr: 'Mosta',
     }),
     denomination: 'local_council',
-    geonameId: 8299734,
+    // geonameId: 8299734,
   },
   {
     id: 1873,
@@ -35586,7 +35586,7 @@ const divisions = [
       fr: 'Munxar',
     }),
     denomination: 'local_council',
-    geonameId: 8299735,
+    // geonameId: 8299735,
   },
   {
     id: 1874,
@@ -35605,7 +35605,7 @@ const divisions = [
       fr: 'Qala',
     }),
     denomination: 'local_council',
-    geonameId: 8299741,
+    // geonameId: 8299741,
   },
   {
     id: 1875,
@@ -35624,7 +35624,7 @@ const divisions = [
       fr: 'Qrendi',
     }),
     denomination: 'local_council',
-    geonameId: 8299743,
+    // geonameId: 8299743,
   },
   {
     id: 1876,
@@ -35643,7 +35643,7 @@ const divisions = [
       fr: 'Nadur',
     }),
     denomination: 'local_council',
-    geonameId: 8299736,
+    // geonameId: 8299736,
   },
   {
     id: 1877,
@@ -35662,7 +35662,7 @@ const divisions = [
       fr: 'Naxxar',
     }),
     denomination: 'local_council',
-    geonameId: 8299737,
+    // geonameId: 8299737,
   },
   {
     id: 1878,
@@ -35681,7 +35681,7 @@ const divisions = [
       fr: 'Rabat',
     }),
     denomination: 'local_council',
-    geonameId: 8299744,
+    // geonameId: 8299744,
   },
   {
     id: 1879,
@@ -35700,7 +35700,7 @@ const divisions = [
       fr: 'Siġġiewi',
     }),
     denomination: 'local_council',
-    geonameId: 8299754,
+    // geonameId: 8299754,
   },
   {
     id: 1880,
@@ -35719,7 +35719,7 @@ const divisions = [
       fr: 'Swieqi',
     }),
     denomination: 'local_council',
-    geonameId: 8299756,
+    // geonameId: 8299756,
   },
   {
     id: 1881,
@@ -35738,7 +35738,7 @@ const divisions = [
       fr: 'Xagħra',
     }),
     denomination: 'local_council',
-    geonameId: 8299759,
+    // geonameId: 8299759,
   },
   {
     id: 1882,
@@ -35757,7 +35757,7 @@ const divisions = [
       fr: 'Xewkija',
     }),
     denomination: 'local_council',
-    geonameId: 8299760,
+    // geonameId: 8299760,
   },
   {
     id: 1883,
@@ -35776,7 +35776,7 @@ const divisions = [
       fr: 'Xgħajra',
     }),
     denomination: 'local_council',
-    geonameId: 8299761,
+    // geonameId: 8299761,
   },
   {
     id: 1884,
@@ -35795,7 +35795,7 @@ const divisions = [
       fr: 'Żebbuġ',
     }),
     denomination: 'local_council',
-    geonameId: 8299764,
+    // geonameId: 8299764,
   },
   {
     id: 1885,
@@ -35814,7 +35814,7 @@ const divisions = [
       fr: 'Żejtun',
     }),
     denomination: 'local_council',
-    geonameId: 8299765,
+    // geonameId: 8299765,
   },
   {
     id: 1886,
@@ -35833,7 +35833,7 @@ const divisions = [
       fr: 'Żurrieq',
     }),
     denomination: 'local_council',
-    geonameId: 8299766,
+    // geonameId: 8299766,
   },
   {
     id: 1887,
@@ -35852,7 +35852,7 @@ const divisions = [
       fr: 'Kirkop',
     }),
     denomination: 'local_council',
-    geonameId: 8299727,
+    // geonameId: 8299727,
   },
   {
     id: 1888,
@@ -35871,7 +35871,7 @@ const divisions = [
       fr: 'Għarb',
     }),
     denomination: 'local_council',
-    geonameId: 8299711,
+    // geonameId: 8299711,
   },
   {
     id: 1889,
@@ -35890,7 +35890,7 @@ const divisions = [
       fr: 'Għasri',
     }),
     denomination: 'local_council',
-    geonameId: 8299713,
+    // geonameId: 8299713,
   },
   {
     id: 1890,
@@ -35909,7 +35909,7 @@ const divisions = [
       fr: 'Iklin',
     }),
     denomination: 'local_council',
-    geonameId: 8299718,
+    // geonameId: 8299718,
   },
   {
     id: 1891,
@@ -35928,7 +35928,7 @@ const divisions = [
       fr: 'Mdina',
     }),
     denomination: 'local_council',
-    geonameId: 8299719,
+    // geonameId: 8299719,
   },
   {
     id: 1892,
@@ -35947,7 +35947,7 @@ const divisions = [
       fr: 'Mġarr',
     }),
     denomination: 'local_council',
-    geonameId: 8299720,
+    // geonameId: 8299720,
   },
   {
     id: 1893,
@@ -35966,7 +35966,7 @@ const divisions = [
       fr: 'Mqabba',
     }),
     denomination: 'local_council',
-    geonameId: 8299721,
+    // geonameId: 8299721,
   },
   {
     id: 1894,
@@ -35985,7 +35985,7 @@ const divisions = [
       fr: 'Msida',
     }),
     denomination: 'local_council',
-    geonameId: 8299722,
+    // geonameId: 8299722,
   },
   {
     id: 1895,
@@ -36004,7 +36004,7 @@ const divisions = [
       fr: 'Lija',
     }),
     denomination: 'local_council',
-    geonameId: 8299728,
+    // geonameId: 8299728,
   },
   {
     id: 1896,
@@ -36023,7 +36023,7 @@ const divisions = [
       fr: 'Luqa',
     }),
     denomination: 'local_council',
-    geonameId: 8299729,
+    // geonameId: 8299729,
   },
   {
     id: 1897,
@@ -36042,7 +36042,7 @@ const divisions = [
       fr: 'Marsaskala',
     }),
     denomination: 'local_council',
-    geonameId: 8299731,
+    // geonameId: 8299731,
   },
   {
     id: 1898,
@@ -36061,7 +36061,7 @@ const divisions = [
       fr: 'Marsaxlokk',
     }),
     denomination: 'local_council',
-    geonameId: 8299732,
+    // geonameId: 8299732,
   },
   {
     id: 1899,
@@ -36080,7 +36080,7 @@ const divisions = [
       fr: 'Mtarfa',
     }),
     denomination: 'local_council',
-    geonameId: 8299723,
+    // geonameId: 8299723,
   },
   {
     id: 1900,
@@ -36099,7 +36099,7 @@ const divisions = [
       fr: 'Paola',
     }),
     denomination: 'local_council',
-    geonameId: 8299738,
+    // geonameId: 8299738,
   },
   {
     id: 1901,
@@ -36118,7 +36118,7 @@ const divisions = [
       fr: 'Pembroke',
     }),
     denomination: 'local_council',
-    geonameId: 8299739,
+    // geonameId: 8299739,
   },
   {
     id: 1902,
@@ -36137,7 +36137,7 @@ const divisions = [
       fr: 'Qormi',
     }),
     denomination: 'local_council',
-    geonameId: 8299742,
+    // geonameId: 8299742,
   },
   {
     id: 1903,
@@ -36156,7 +36156,7 @@ const divisions = [
       fr: 'Safi',
     }),
     denomination: 'local_council',
-    geonameId: 8299746,
+    // geonameId: 8299746,
   },
   {
     id: 1904,
@@ -36175,7 +36175,7 @@ const divisions = [
       fr: 'Saint-Jean',
     }),
     denomination: 'local_council',
-    geonameId: 8299747,
+    // geonameId: 8299747,
   },
   {
     id: 1905,
@@ -36194,7 +36194,7 @@ const divisions = [
       fr: 'Sainte-Lucie',
     }),
     denomination: 'local_council',
-    geonameId: 8299750,
+    // geonameId: 8299750,
   },
   {
     id: 1906,
@@ -36213,7 +36213,7 @@ const divisions = [
       fr: 'Sainte-Vénère',
     }),
     denomination: 'local_council',
-    geonameId: 8299752,
+    // geonameId: 8299752,
   },
   {
     id: 1907,
@@ -36232,7 +36232,7 @@ const divisions = [
       fr: 'Sannat',
     }),
     denomination: 'local_council',
-    geonameId: 8299753,
+    // geonameId: 8299753,
   },
   {
     id: 1908,
@@ -36251,7 +36251,7 @@ const divisions = [
       fr: 'Senglea',
     }),
     denomination: 'local_council',
-    geonameId: 8299724,
+    // geonameId: 8299724,
   },
   {
     id: 1909,
@@ -36270,7 +36270,7 @@ const divisions = [
       fr: 'Saint-Laurent',
     }),
     denomination: 'local_council',
-    geonameId: 8299749,
+    // geonameId: 8299749,
   },
   {
     id: 1910,
@@ -36289,7 +36289,7 @@ const divisions = [
       fr: 'Saint-Julien',
     }),
     denomination: 'local_council',
-    geonameId: 8299748,
+    // geonameId: 8299748,
   },
   {
     id: 1911,
@@ -36308,7 +36308,7 @@ const divisions = [
       fr: 'Baie de Saint-Paul',
     }),
     denomination: 'local_council',
-    geonameId: 8299751,
+    // geonameId: 8299751,
   },
   {
     id: 1912,
@@ -36327,7 +36327,7 @@ const divisions = [
       fr: 'Ta’ Kerċem',
     }),
     denomination: 'local_council',
-    geonameId: 8299726,
+    // geonameId: 8299726,
   },
   {
     id: 1913,
@@ -36346,7 +36346,7 @@ const divisions = [
       fr: 'Ta’ Xbiex',
     }),
     denomination: 'local_council',
-    geonameId: 8299758,
+    // geonameId: 8299758,
   },
   {
     id: 1914,
@@ -36365,7 +36365,7 @@ const divisions = [
       fr: 'Tal-Pietà',
     }),
     denomination: 'local_council',
-    geonameId: 8299740,
+    // geonameId: 8299740,
   },
   {
     id: 1915,
@@ -36384,7 +36384,7 @@ const divisions = [
       fr: 'Tarxien',
     }),
     denomination: 'local_council',
-    geonameId: 8299757,
+    // geonameId: 8299757,
   },
   {
     id: 1916,
@@ -36403,7 +36403,7 @@ const divisions = [
       fr: 'Sliema',
     }),
     denomination: 'local_council',
-    geonameId: 8299755,
+    // geonameId: 8299755,
   },
   {
     id: 1917,
@@ -36422,7 +36422,7 @@ const divisions = [
       fr: 'La Valette',
     }),
     denomination: 'local_council',
-    geonameId: 8334638,
+    // geonameId: 8334638,
   },
   {
     id: 1918,
@@ -36441,7 +36441,7 @@ const divisions = [
       fr: 'Victoria',
     }),
     denomination: 'local_council',
-    geonameId: 8299745,
+    // geonameId: 8299745,
   },
   {
     id: 1919,
@@ -36460,7 +36460,7 @@ const divisions = [
       fr: 'Ailinginae',
     }),
     denomination: 'atoll',
-    geonameId: 7303491,
+    // geonameId: 7303491,
   },
   {
     id: 1920,
@@ -36479,7 +36479,7 @@ const divisions = [
       fr: 'Ailinglaplap',
     }),
     denomination: 'atoll',
-    geonameId: 7303492,
+    // geonameId: 7303492,
   },
   {
     id: 1921,
@@ -36498,7 +36498,7 @@ const divisions = [
       fr: 'Ailuk',
     }),
     denomination: 'atoll',
-    geonameId: 7303493,
+    // geonameId: 7303493,
   },
   {
     id: 1922,
@@ -36517,7 +36517,7 @@ const divisions = [
       fr: 'Arno',
     }),
     denomination: 'atoll',
-    geonameId: 7303494,
+    // geonameId: 7303494,
   },
   {
     id: 1923,
@@ -36536,7 +36536,7 @@ const divisions = [
       fr: 'Aur',
     }),
     denomination: 'atoll',
-    geonameId: 7303495,
+    // geonameId: 7303495,
   },
   {
     id: 1924,
@@ -36555,7 +36555,7 @@ const divisions = [
       fr: 'Bikar',
     }),
     denomination: 'atoll',
-    geonameId: 7303496,
+    // geonameId: 7303496,
   },
   {
     id: 1925,
@@ -36574,7 +36574,7 @@ const divisions = [
       fr: 'Bikini',
     }),
     denomination: 'atoll',
-    geonameId: 7303497,
+    // geonameId: 7303497,
   },
   {
     id: 1926,
@@ -36593,7 +36593,7 @@ const divisions = [
       fr: 'Bokak',
     }),
     denomination: 'atoll',
-    geonameId: 7303513,
+    // geonameId: 7303513,
   },
   {
     id: 1927,
@@ -36612,7 +36612,7 @@ const divisions = [
       fr: 'Ebon',
     }),
     denomination: 'atoll',
-    geonameId: 7303498,
+    // geonameId: 7303498,
   },
   {
     id: 1928,
@@ -36631,7 +36631,7 @@ const divisions = [
       fr: 'Enewetak',
     }),
     denomination: 'atoll',
-    geonameId: 7303499,
+    // geonameId: 7303499,
   },
   {
     id: 1929,
@@ -36650,7 +36650,7 @@ const divisions = [
       fr: 'Erikub',
     }),
     denomination: 'atoll',
-    geonameId: 7303500,
+    // geonameId: 7303500,
   },
   {
     id: 1930,
@@ -36669,7 +36669,7 @@ const divisions = [
       fr: 'Jabat',
     }),
     denomination: 'island',
-    geonameId: 7303519,
+    // geonameId: 7303519,
   },
   {
     id: 1931,
@@ -36688,7 +36688,7 @@ const divisions = [
       fr: 'Jaluit',
     }),
     denomination: 'atoll',
-    geonameId: 7303501,
+    // geonameId: 7303501,
   },
   {
     id: 1932,
@@ -36707,7 +36707,7 @@ const divisions = [
       fr: 'Jemo',
     }),
     denomination: 'island',
-    geonameId: 7303520,
+    // geonameId: 7303520,
   },
   {
     id: 1933,
@@ -36726,7 +36726,7 @@ const divisions = [
       fr: 'Kili',
     }),
     denomination: 'island',
-    geonameId: 7303521,
+    // geonameId: 7303521,
   },
   {
     id: 1934,
@@ -36745,7 +36745,7 @@ const divisions = [
       fr: 'Kwajalein',
     }),
     denomination: 'atoll',
-    geonameId: 7303502,
+    // geonameId: 7303502,
   },
   {
     id: 1935,
@@ -36764,7 +36764,7 @@ const divisions = [
       fr: 'Lae',
     }),
     denomination: 'atoll',
-    geonameId: 7303503,
+    // geonameId: 7303503,
   },
   {
     id: 1936,
@@ -36783,7 +36783,7 @@ const divisions = [
       fr: 'Lib',
     }),
     denomination: 'island',
-    geonameId: 7303522,
+    // geonameId: 7303522,
   },
   {
     id: 1937,
@@ -36802,7 +36802,7 @@ const divisions = [
       fr: 'Likiep',
     }),
     denomination: 'atoll',
-    geonameId: 7303504,
+    // geonameId: 7303504,
   },
   {
     id: 1938,
@@ -36821,7 +36821,7 @@ const divisions = [
       fr: 'Majuro',
     }),
     denomination: 'atoll',
-    geonameId: 7303505,
+    // geonameId: 7303505,
   },
   {
     id: 1939,
@@ -36840,7 +36840,7 @@ const divisions = [
       fr: 'Maloelap',
     }),
     denomination: 'atoll',
-    geonameId: 7303506,
+    // geonameId: 7303506,
   },
   {
     id: 1940,
@@ -36859,7 +36859,7 @@ const divisions = [
       fr: 'Mejit',
     }),
     denomination: 'island',
-    geonameId: 7303523,
+    // geonameId: 7303523,
   },
   {
     id: 1941,
@@ -36878,7 +36878,7 @@ const divisions = [
       fr: 'Mili',
     }),
     denomination: 'atoll',
-    geonameId: 7303507,
+    // geonameId: 7303507,
   },
   {
     id: 1942,
@@ -36897,7 +36897,7 @@ const divisions = [
       fr: 'Namdrik',
     }),
     denomination: 'atoll',
-    geonameId: 7303508,
+    // geonameId: 7303508,
   },
   {
     id: 1943,
@@ -36916,7 +36916,7 @@ const divisions = [
       fr: 'Namu',
     }),
     denomination: 'atoll',
-    geonameId: 7303509,
+    // geonameId: 7303509,
   },
   {
     id: 1944,
@@ -36935,7 +36935,7 @@ const divisions = [
       fr: 'Rongelap',
     }),
     denomination: 'atoll',
-    geonameId: 7303510,
+    // geonameId: 7303510,
   },
   {
     id: 1945,
@@ -36954,7 +36954,7 @@ const divisions = [
       fr: 'Rongrik',
     }),
     denomination: 'atoll',
-    geonameId: 7303511,
+    // geonameId: 7303511,
   },
   {
     id: 1946,
@@ -36973,7 +36973,7 @@ const divisions = [
       fr: 'Taka',
     }),
     denomination: 'atoll',
-    geonameId: 7303512,
+    // geonameId: 7303512,
   },
   {
     id: 1947,
@@ -36992,7 +36992,7 @@ const divisions = [
       fr: 'Ujae',
     }),
     denomination: 'atoll',
-    geonameId: 7303514,
+    // geonameId: 7303514,
   },
   {
     id: 1948,
@@ -37011,7 +37011,7 @@ const divisions = [
       fr: 'Ujelang',
     }),
     denomination: 'atoll',
-    geonameId: 7303515,
+    // geonameId: 7303515,
   },
   {
     id: 1949,
@@ -37030,7 +37030,7 @@ const divisions = [
       fr: 'Utrik',
     }),
     denomination: 'atoll',
-    geonameId: 7303516,
+    // geonameId: 7303516,
   },
   {
     id: 1950,
@@ -37049,7 +37049,7 @@ const divisions = [
       fr: 'Wotho',
     }),
     denomination: 'atoll',
-    geonameId: 7303517,
+    // geonameId: 7303517,
   },
   {
     id: 1951,
@@ -37068,7 +37068,7 @@ const divisions = [
       fr: 'Wotje',
     }),
     denomination: 'atoll',
-    geonameId: 7303518,
+    // geonameId: 7303518,
   },
   {
     id: 1952,
@@ -37087,7 +37087,7 @@ const divisions = [
       fr: 'Martinique',
     }),
     denomination: 'region',
-    geonameId: 6690603,
+    // geonameId: 6690603,
   },
   {
     id: 1953,
@@ -37106,7 +37106,7 @@ const divisions = [
       fr: 'Adrar',
     }),
     denomination: 'region',
-    geonameId: 2381972,
+    // geonameId: 2381972,
   },
   {
     id: 1954,
@@ -37125,7 +37125,7 @@ const divisions = [
       fr: 'Assaba',
     }),
     denomination: 'region',
-    geonameId: 2381344,
+    // geonameId: 2381344,
   },
   {
     id: 1955,
@@ -37144,7 +37144,7 @@ const divisions = [
       fr: 'Brakna',
     }),
     denomination: 'region',
-    geonameId: 2380635,
+    // geonameId: 2380635,
   },
   {
     id: 1956,
@@ -37163,7 +37163,7 @@ const divisions = [
       fr: 'Dakhlet Nouadhibou',
     }),
     denomination: 'region',
-    geonameId: 2380426,
+    // geonameId: 2380426,
   },
   {
     id: 1957,
@@ -37182,7 +37182,7 @@ const divisions = [
       fr: 'Gorgol',
     }),
     denomination: 'region',
-    geonameId: 2379384,
+    // geonameId: 2379384,
   },
   {
     id: 1958,
@@ -37201,7 +37201,7 @@ const divisions = [
       fr: 'Guidimaka',
     }),
     denomination: 'region',
-    geonameId: 2379216,
+    // geonameId: 2379216,
   },
   {
     id: 1959,
@@ -37220,7 +37220,7 @@ const divisions = [
       fr: 'Hodh Ech Chargui',
     }),
     denomination: 'region',
-    geonameId: 2379025,
+    // geonameId: 2379025,
   },
   {
     id: 1960,
@@ -37239,7 +37239,7 @@ const divisions = [
       fr: 'Hodh El Gharbi',
     }),
     denomination: 'region',
-    geonameId: 2379024,
+    // geonameId: 2379024,
   },
   {
     id: 1961,
@@ -37258,7 +37258,7 @@ const divisions = [
       fr: 'Inchiri',
     }),
     denomination: 'region',
-    geonameId: 2378903,
+    // geonameId: 2378903,
   },
   {
     id: 1962,
@@ -37277,7 +37277,7 @@ const divisions = [
       fr: 'Nouakchott Nord',
     }),
     denomination: 'region',
-    geonameId: 11496392,
+    // geonameId: 11496392,
   },
   {
     id: 1963,
@@ -37296,7 +37296,7 @@ const divisions = [
       fr: 'Nouakchott Ouest',
     }),
     denomination: 'region',
-    geonameId: 11496391,
+    // geonameId: 11496391,
   },
   {
     id: 1964,
@@ -37315,7 +37315,7 @@ const divisions = [
       fr: 'Nouakchott Sud',
     }),
     denomination: 'region',
-    geonameId: 11496393,
+    // geonameId: 11496393,
   },
   {
     id: 1965,
@@ -37334,7 +37334,7 @@ const divisions = [
       fr: 'Tagant',
     }),
     denomination: 'region',
-    geonameId: 2376551,
+    // geonameId: 2376551,
   },
   {
     id: 1966,
@@ -37353,7 +37353,7 @@ const divisions = [
       fr: 'Tiris Zemmour',
     }),
     denomination: 'region',
-    geonameId: 2375989,
+    // geonameId: 2375989,
   },
   {
     id: 1967,
@@ -37372,7 +37372,7 @@ const divisions = [
       fr: 'Trarza',
     }),
     denomination: 'region',
-    geonameId: 2375742,
+    // geonameId: 2375742,
   },
   {
     id: 1968,
@@ -37391,7 +37391,7 @@ const divisions = [
       fr: 'Agalega',
     }),
     denomination: 'islands',
-    geonameId: 448254,
+    // geonameId: 448254,
   },
   {
     id: 1969,
@@ -37410,7 +37410,7 @@ const divisions = [
       fr: 'Rivière Noire',
     }),
     denomination: 'district',
-    geonameId: 934718,
+    // geonameId: 934718,
   },
   {
     id: 1970,
@@ -37429,7 +37429,7 @@ const divisions = [
       fr: 'Cargados Carajos',
     }),
     denomination: 'archipelago',
-    geonameId: 1106583,
+    // geonameId: 1106583,
   },
   {
     id: 1971,
@@ -37448,7 +37448,7 @@ const divisions = [
       fr: 'Flacq',
     }),
     denomination: 'district',
-    geonameId: 934522,
+    // geonameId: 934522,
   },
   {
     id: 1972,
@@ -37467,7 +37467,7 @@ const divisions = [
       fr: 'Grand Port',
     }),
     denomination: 'district',
-    geonameId: 934466,
+    // geonameId: 934466,
   },
   {
     id: 1973,
@@ -37486,7 +37486,7 @@ const divisions = [
       fr: 'Moka',
     }),
     denomination: 'district',
-    geonameId: 934275,
+    // geonameId: 934275,
   },
   {
     id: 1974,
@@ -37505,7 +37505,7 @@ const divisions = [
       fr: 'Pamplemousses',
     }),
     denomination: 'district',
-    geonameId: 934212,
+    // geonameId: 934212,
   },
   {
     id: 1975,
@@ -37524,7 +37524,7 @@ const divisions = [
       fr: 'Plaines Wilhems',
     }),
     denomination: 'district',
-    geonameId: 934166,
+    // geonameId: 934166,
   },
   {
     id: 1976,
@@ -37543,7 +37543,7 @@ const divisions = [
       fr: 'Port Louis',
     }),
     denomination: 'district',
-    geonameId: 934153,
+    // geonameId: 934153,
   },
   {
     id: 1977,
@@ -37562,7 +37562,7 @@ const divisions = [
       fr: 'Rivière du Rempart',
     }),
     denomination: 'district',
-    geonameId: 934090,
+    // geonameId: 934090,
   },
   {
     id: 1978,
@@ -37581,7 +37581,7 @@ const divisions = [
       fr: 'Rodrigues',
     }),
     denomination: 'island',
-    geonameId: 1547449,
+    // geonameId: 1547449,
   },
   {
     id: 1979,
@@ -37600,7 +37600,7 @@ const divisions = [
       fr: 'Savanne',
     }),
     denomination: 'district',
-    geonameId: 934017,
+    // geonameId: 934017,
   },
   {
     id: 1980,
@@ -37619,7 +37619,7 @@ const divisions = [
       fr: 'Acoua',
     }),
     denomination: 'commune',
-    geonameId: 7521421,
+    // geonameId: 7521421,
   },
   {
     id: 1981,
@@ -37638,7 +37638,7 @@ const divisions = [
       fr: 'Bandraboua',
     }),
     denomination: 'commune',
-    geonameId: 7521422,
+    // geonameId: 7521422,
   },
   {
     id: 1982,
@@ -37657,7 +37657,7 @@ const divisions = [
       fr: 'Bandrele',
     }),
     denomination: 'commune',
-    geonameId: 7521423,
+    // geonameId: 7521423,
   },
   {
     id: 1983,
@@ -37676,7 +37676,7 @@ const divisions = [
       fr: 'Bouéni',
     }),
     denomination: 'commune',
-    geonameId: 7521424,
+    // geonameId: 7521424,
   },
   {
     id: 1984,
@@ -37695,7 +37695,7 @@ const divisions = [
       fr: 'Chiconi',
     }),
     denomination: 'commune',
-    geonameId: 7521425,
+    // geonameId: 7521425,
   },
   {
     id: 1985,
@@ -37714,7 +37714,7 @@ const divisions = [
       fr: 'Chirongui',
     }),
     denomination: 'commune',
-    geonameId: 7521426,
+    // geonameId: 7521426,
   },
   {
     id: 1986,
@@ -37733,7 +37733,7 @@ const divisions = [
       fr: 'Dembeni',
     }),
     denomination: 'commune',
-    geonameId: 7521427,
+    // geonameId: 7521427,
   },
   {
     id: 1987,
@@ -37752,7 +37752,7 @@ const divisions = [
       fr: 'Dzaoudzi',
     }),
     denomination: 'commune',
-    geonameId: 7521428,
+    // geonameId: 7521428,
   },
   {
     id: 1988,
@@ -37771,7 +37771,7 @@ const divisions = [
       fr: 'Kani-Kéli',
     }),
     denomination: 'commune',
-    geonameId: 7521429,
+    // geonameId: 7521429,
   },
   {
     id: 1989,
@@ -37790,7 +37790,7 @@ const divisions = [
       fr: 'Koungou',
     }),
     denomination: 'commune',
-    geonameId: 7521430,
+    // geonameId: 7521430,
   },
   {
     id: 1990,
@@ -37809,7 +37809,7 @@ const divisions = [
       fr: "M'Tsangamouji",
     }),
     denomination: 'commune',
-    geonameId: 7521433,
+    // geonameId: 7521433,
   },
   {
     id: 1991,
@@ -37828,7 +37828,7 @@ const divisions = [
       fr: 'Mamoudzou',
     }),
     denomination: 'commune',
-    geonameId: 7521431,
+    // geonameId: 7521431,
   },
   {
     id: 1992,
@@ -37847,7 +37847,7 @@ const divisions = [
       fr: 'Mtsamboro',
     }),
     denomination: 'commune',
-    geonameId: 7521432,
+    // geonameId: 7521432,
   },
   {
     id: 1993,
@@ -37866,7 +37866,7 @@ const divisions = [
       fr: 'Ouangani',
     }),
     denomination: 'commune',
-    geonameId: 7521434,
+    // geonameId: 7521434,
   },
   {
     id: 1994,
@@ -37885,7 +37885,7 @@ const divisions = [
       fr: 'Pamandzi',
     }),
     denomination: 'commune',
-    geonameId: 7521435,
+    // geonameId: 7521435,
   },
   {
     id: 1995,
@@ -37904,7 +37904,7 @@ const divisions = [
       fr: 'Sada',
     }),
     denomination: 'commune',
-    geonameId: 7521436,
+    // geonameId: 7521436,
   },
   {
     id: 1996,
@@ -37923,7 +37923,7 @@ const divisions = [
       fr: 'Tsingoni',
     }),
     denomination: 'commune',
-    geonameId: 7521437,
+    // geonameId: 7521437,
   },
   {
     id: 1997,
@@ -37942,7 +37942,7 @@ const divisions = [
       fr: 'Aguascalientes',
     }),
     denomination: 'state',
-    geonameId: 4019231,
+    // geonameId: 4019231,
   },
   {
     id: 1998,
@@ -37961,7 +37961,7 @@ const divisions = [
       fr: 'Basse-Californie',
     }),
     denomination: 'state',
-    geonameId: 4017700,
+    // geonameId: 4017700,
   },
   {
     id: 1999,
@@ -37980,7 +37980,7 @@ const divisions = [
       fr: 'Basse-Californie du Sud',
     }),
     denomination: 'state',
-    geonameId: 4017698,
+    // geonameId: 4017698,
   },
   {
     id: 2000,
@@ -37999,7 +37999,7 @@ const divisions = [
       fr: 'Campeche',
     }),
     denomination: 'state',
-    geonameId: 3531730,
+    // geonameId: 3531730,
   },
   {
     id: 2001,
@@ -38018,7 +38018,7 @@ const divisions = [
       fr: 'Chiapas',
     }),
     denomination: 'state',
-    geonameId: 3531011,
+    // geonameId: 3531011,
   },
   {
     id: 2002,
@@ -38037,7 +38037,7 @@ const divisions = [
       fr: 'Chihuahua',
     }),
     denomination: 'state',
-    geonameId: 4014336,
+    // geonameId: 4014336,
   },
   {
     id: 2003,
@@ -38056,7 +38056,7 @@ const divisions = [
       fr: 'Coahuila',
     }),
     denomination: 'state',
-    geonameId: 4013674,
+    // geonameId: 4013674,
   },
   {
     id: 2004,
@@ -38075,7 +38075,7 @@ const divisions = [
       fr: 'Colima',
     }),
     denomination: 'state',
-    geonameId: 4013513,
+    // geonameId: 4013513,
   },
   {
     id: 2005,
@@ -38094,7 +38094,7 @@ const divisions = [
       fr: 'Durango',
     }),
     denomination: 'state',
-    geonameId: 4011741,
+    // geonameId: 4011741,
   },
   {
     id: 2006,
@@ -38113,7 +38113,7 @@ const divisions = [
       fr: 'Guanajuato',
     }),
     denomination: 'state',
-    geonameId: 4005267,
+    // geonameId: 4005267,
   },
   {
     id: 2007,
@@ -38132,7 +38132,7 @@ const divisions = [
       fr: 'Guerrero',
     }),
     denomination: 'state',
-    geonameId: 3527213,
+    // geonameId: 3527213,
   },
   {
     id: 2008,
@@ -38151,7 +38151,7 @@ const divisions = [
       fr: 'Hidalgo',
     }),
     denomination: 'state',
-    geonameId: 3527115,
+    // geonameId: 3527115,
   },
   {
     id: 2009,
@@ -38170,7 +38170,7 @@ const divisions = [
       fr: 'Jalisco',
     }),
     denomination: 'state',
-    geonameId: 4004156,
+    // geonameId: 4004156,
   },
   {
     id: 2010,
@@ -38189,7 +38189,7 @@ const divisions = [
       fr: 'Mexique',
     }),
     denomination: 'state',
-    geonameId: 3523272,
+    // geonameId: 3523272,
   },
   {
     id: 2011,
@@ -38208,7 +38208,7 @@ const divisions = [
       fr: 'Mexico',
     }),
     denomination: 'federal_entity',
-    geonameId: 3527646,
+    // geonameId: 3527646,
   },
   {
     id: 2012,
@@ -38227,7 +38227,7 @@ const divisions = [
       fr: 'Michoacán',
     }),
     denomination: 'state',
-    geonameId: 3995955,
+    // geonameId: 3995955,
   },
   {
     id: 2013,
@@ -38246,7 +38246,7 @@ const divisions = [
       fr: 'Morelos',
     }),
     denomination: 'state',
-    geonameId: 3522961,
+    // geonameId: 3522961,
   },
   {
     id: 2014,
@@ -38265,7 +38265,7 @@ const divisions = [
       fr: 'Nayarit',
     }),
     denomination: 'state',
-    geonameId: 3995012,
+    // geonameId: 3995012,
   },
   {
     id: 2015,
@@ -38284,7 +38284,7 @@ const divisions = [
       fr: 'Nuevo León',
     }),
     denomination: 'state',
-    geonameId: 3522542,
+    // geonameId: 3522542,
   },
   {
     id: 2016,
@@ -38303,7 +38303,7 @@ const divisions = [
       fr: 'Oaxaca',
     }),
     denomination: 'state',
-    geonameId: 3522509,
+    // geonameId: 3522509,
   },
   {
     id: 2017,
@@ -38322,7 +38322,7 @@ const divisions = [
       fr: 'Puebla',
     }),
     denomination: 'state',
-    geonameId: 3521082,
+    // geonameId: 3521082,
   },
   {
     id: 2018,
@@ -38341,7 +38341,7 @@ const divisions = [
       fr: 'Querétaro',
     }),
     denomination: 'state',
-    geonameId: 3520914,
+    // geonameId: 3520914,
   },
   {
     id: 2019,
@@ -38360,7 +38360,7 @@ const divisions = [
       fr: 'Quintana Roo',
     }),
     denomination: 'state',
-    geonameId: 3520887,
+    // geonameId: 3520887,
   },
   {
     id: 2020,
@@ -38379,7 +38379,7 @@ const divisions = [
       fr: 'San Luis Potosí',
     }),
     denomination: 'state',
-    geonameId: 3985605,
+    // geonameId: 3985605,
   },
   {
     id: 2021,
@@ -38398,7 +38398,7 @@ const divisions = [
       fr: 'Sinaloa',
     }),
     denomination: 'state',
-    geonameId: 3983035,
+    // geonameId: 3983035,
   },
   {
     id: 2022,
@@ -38417,7 +38417,7 @@ const divisions = [
       fr: 'Sonora',
     }),
     denomination: 'state',
-    geonameId: 3982846,
+    // geonameId: 3982846,
   },
   {
     id: 2023,
@@ -38436,7 +38436,7 @@ const divisions = [
       fr: 'Tabasco',
     }),
     denomination: 'state',
-    geonameId: 3516458,
+    // geonameId: 3516458,
   },
   {
     id: 2024,
@@ -38455,7 +38455,7 @@ const divisions = [
       fr: 'Tamaulipas',
     }),
     denomination: 'state',
-    geonameId: 3516391,
+    // geonameId: 3516391,
   },
   {
     id: 2025,
@@ -38474,7 +38474,7 @@ const divisions = [
       fr: 'Tlaxcala',
     }),
     denomination: 'state',
-    geonameId: 3515359,
+    // geonameId: 3515359,
   },
   {
     id: 2026,
@@ -38493,7 +38493,7 @@ const divisions = [
       fr: 'Veracruz',
     }),
     denomination: 'state',
-    geonameId: 3514780,
+    // geonameId: 3514780,
   },
   {
     id: 2027,
@@ -38512,7 +38512,7 @@ const divisions = [
       fr: 'Yucatán',
     }),
     denomination: 'state',
-    geonameId: 3514211,
+    // geonameId: 3514211,
   },
   {
     id: 2028,
@@ -38531,7 +38531,7 @@ const divisions = [
       fr: 'Zacatecas',
     }),
     denomination: 'state',
-    geonameId: 3979840,
+    // geonameId: 3979840,
   },
   {
     id: 2029,
@@ -38550,7 +38550,7 @@ const divisions = [
       fr: 'Chuuk',
     }),
     denomination: 'state',
-    geonameId: 2082282,
+    // geonameId: 2082282,
   },
   {
     id: 2030,
@@ -38569,7 +38569,7 @@ const divisions = [
       fr: 'Pohnpei',
     }),
     denomination: 'state',
-    geonameId: 2081550,
+    // geonameId: 2081550,
   },
   {
     id: 2031,
@@ -38588,7 +38588,7 @@ const divisions = [
       fr: 'Kosrae',
     }),
     denomination: 'state',
-    geonameId: 2082036,
+    // geonameId: 2082036,
   },
   {
     id: 2032,
@@ -38607,7 +38607,7 @@ const divisions = [
       fr: 'Yap',
     }),
     denomination: 'state',
-    geonameId: 2081175,
+    // geonameId: 2081175,
   },
   {
     id: 2033,
@@ -38626,7 +38626,7 @@ const divisions = [
       fr: 'Anenii Noi',
     }),
     denomination: 'district',
-    geonameId: 617715,
+    // geonameId: 617715,
   },
   {
     id: 2034,
@@ -38645,7 +38645,7 @@ const divisions = [
       fr: 'Basarabeasca',
     }),
     denomination: 'district',
-    geonameId: 618565,
+    // geonameId: 618565,
   },
   {
     id: 2035,
@@ -38664,7 +38664,7 @@ const divisions = [
       fr: 'Bender',
     }),
     denomination: 'municipality',
-    geonameId: 861487,
+    // geonameId: 861487,
   },
   {
     id: 2036,
@@ -38683,7 +38683,7 @@ const divisions = [
       fr: 'Briceni',
     }),
     denomination: 'district',
-    geonameId: 618511,
+    // geonameId: 618511,
   },
   {
     id: 2037,
@@ -38702,7 +38702,7 @@ const divisions = [
       fr: 'Cahul',
     }),
     denomination: 'district',
-    geonameId: 618164,
+    // geonameId: 618164,
   },
   {
     id: 2038,
@@ -38721,7 +38721,7 @@ const divisions = [
       fr: 'Cantemir',
     }),
     denomination: 'district',
-    geonameId: 618142,
+    // geonameId: 618142,
   },
   {
     id: 2039,
@@ -38740,7 +38740,7 @@ const divisions = [
       fr: 'Chișinău',
     }),
     denomination: 'municipality',
-    geonameId: 618069,
+    // geonameId: 618069,
   },
   {
     id: 2040,
@@ -38759,7 +38759,7 @@ const divisions = [
       fr: 'Cimișlia',
     }),
     denomination: 'district',
-    geonameId: 618430,
+    // geonameId: 618430,
   },
   {
     id: 2041,
@@ -38778,7 +38778,7 @@ const divisions = [
       fr: 'Criuleni',
     }),
     denomination: 'district',
-    geonameId: 617962,
+    // geonameId: 617962,
   },
   {
     id: 2042,
@@ -38797,7 +38797,7 @@ const divisions = [
       fr: 'Dondușeni',
     }),
     denomination: 'district',
-    geonameId: 618381,
+    // geonameId: 618381,
   },
   {
     id: 2043,
@@ -38816,7 +38816,7 @@ const divisions = [
       fr: 'Drochia',
     }),
     denomination: 'district',
-    geonameId: 618369,
+    // geonameId: 618369,
   },
   {
     id: 2044,
@@ -38835,7 +38835,7 @@ const divisions = [
       fr: 'Dubăsari',
     }),
     denomination: 'district',
-    geonameId: 618363,
+    // geonameId: 618363,
   },
   {
     id: 2045,
@@ -38854,7 +38854,7 @@ const divisions = [
       fr: 'Fălești',
     }),
     denomination: 'district',
-    geonameId: 618345,
+    // geonameId: 618345,
   },
   {
     id: 2046,
@@ -38873,7 +38873,7 @@ const divisions = [
       fr: 'Florești',
     }),
     denomination: 'district',
-    geonameId: 618331,
+    // geonameId: 618331,
   },
   {
     id: 2047,
@@ -38892,7 +38892,7 @@ const divisions = [
       fr: 'Gagaouzie',
     }),
     denomination: 'autonomous_region',
-    geonameId: 858895,
+    // geonameId: 858895,
   },
   {
     id: 2048,
@@ -38911,7 +38911,7 @@ const divisions = [
       fr: 'Glodeni',
     }),
     denomination: 'district',
-    geonameId: 618260,
+    // geonameId: 618260,
   },
   {
     id: 2049,
@@ -38930,7 +38930,7 @@ const divisions = [
       fr: 'Hîncești',
     }),
     denomination: 'district',
-    geonameId: 858803,
+    // geonameId: 858803,
   },
   {
     id: 2050,
@@ -38949,7 +38949,7 @@ const divisions = [
       fr: 'Ialoveni',
     }),
     denomination: 'district',
-    geonameId: 617991,
+    // geonameId: 617991,
   },
   {
     id: 2051,
@@ -38968,7 +38968,7 @@ const divisions = [
       fr: 'Leova',
     }),
     denomination: 'district',
-    geonameId: 617903,
+    // geonameId: 617903,
   },
   {
     id: 2052,
@@ -38987,7 +38987,7 @@ const divisions = [
       fr: 'Bălți',
     }),
     denomination: 'municipality',
-    geonameId: 873909,
+    // geonameId: 873909,
   },
   {
     id: 2053,
@@ -39006,7 +39006,7 @@ const divisions = [
       fr: 'Nisporeni',
     }),
     denomination: 'district',
-    geonameId: 617754,
+    // geonameId: 617754,
   },
   {
     id: 2054,
@@ -39025,7 +39025,7 @@ const divisions = [
       fr: 'Orhei',
     }),
     denomination: 'district',
-    geonameId: 617639,
+    // geonameId: 617639,
   },
   {
     id: 2055,
@@ -39044,7 +39044,7 @@ const divisions = [
       fr: 'Călărași',
     }),
     denomination: 'district',
-    geonameId: 618162,
+    // geonameId: 618162,
   },
   {
     id: 2056,
@@ -39063,7 +39063,7 @@ const divisions = [
       fr: 'Căușeni',
     }),
     denomination: 'district',
-    geonameId: 618119,
+    // geonameId: 618119,
   },
   {
     id: 2057,
@@ -39082,7 +39082,7 @@ const divisions = [
       fr: 'Edineț',
     }),
     denomination: 'district',
-    geonameId: 617077,
+    // geonameId: 617077,
   },
   {
     id: 2058,
@@ -39101,7 +39101,7 @@ const divisions = [
       fr: 'Ocnița',
     }),
     denomination: 'district',
-    geonameId: 617656,
+    // geonameId: 617656,
   },
   {
     id: 2059,
@@ -39120,7 +39120,7 @@ const divisions = [
       fr: 'Ștefan Vodă',
     }),
     denomination: 'district',
-    geonameId: 617283,
+    // geonameId: 617283,
   },
   {
     id: 2060,
@@ -39139,7 +39139,7 @@ const divisions = [
       fr: 'Rezina',
     }),
     denomination: 'district',
-    geonameId: 617501,
+    // geonameId: 617501,
   },
   {
     id: 2061,
@@ -39158,7 +39158,7 @@ const divisions = [
       fr: 'Rîșcani',
     }),
     denomination: 'district',
-    geonameId: 617483,
+    // geonameId: 617483,
   },
   {
     id: 2062,
@@ -39177,7 +39177,7 @@ const divisions = [
       fr: 'Sîngerei',
     }),
     denomination: 'district',
-    geonameId: 617913,
+    // geonameId: 617913,
   },
   {
     id: 2063,
@@ -39196,7 +39196,7 @@ const divisions = [
       fr: 'Șoldănești',
     }),
     denomination: 'district',
-    geonameId: 858808,
+    // geonameId: 858808,
   },
   {
     id: 2064,
@@ -39215,7 +39215,7 @@ const divisions = [
       fr: 'Soroca',
     }),
     denomination: 'district',
-    geonameId: 617366,
+    // geonameId: 617366,
   },
   {
     id: 2065,
@@ -39234,7 +39234,7 @@ const divisions = [
       fr: 'Strășeni',
     }),
     denomination: 'district',
-    geonameId: 617301,
+    // geonameId: 617301,
   },
   {
     id: 2066,
@@ -39253,7 +39253,7 @@ const divisions = [
       fr: 'Taraclia',
     }),
     denomination: 'district',
-    geonameId: 617264,
+    // geonameId: 617264,
   },
   {
     id: 2067,
@@ -39272,7 +39272,7 @@ const divisions = [
       fr: 'Telenești',
     }),
     denomination: 'district',
-    geonameId: 617255,
+    // geonameId: 617255,
   },
   {
     id: 2068,
@@ -39291,7 +39291,7 @@ const divisions = [
       fr: 'Transnistrie',
     }),
     denomination: 'region',
-    geonameId: 858889,
+    // geonameId: 858889,
   },
   {
     id: 2069,
@@ -39310,7 +39310,7 @@ const divisions = [
       fr: 'Ungheni',
     }),
     denomination: 'district',
-    geonameId: 617181,
+    // geonameId: 617181,
   },
   {
     id: 2070,
@@ -39329,7 +39329,7 @@ const divisions = [
       fr: 'Monaco',
     }),
     denomination: 'municipality',
-    geonameId: 3319178,
+    // geonameId: 3319178,
   },
   {
     id: 2071,
@@ -39348,7 +39348,7 @@ const divisions = [
       fr: 'Arkhangai',
     }),
     denomination: 'province',
-    geonameId: 2032855,
+    // geonameId: 2032855,
   },
   {
     id: 2072,
@@ -39367,7 +39367,7 @@ const divisions = [
       fr: 'Bayan-Ölgii',
     }),
     denomination: 'province',
-    geonameId: 1516278,
+    // geonameId: 1516278,
   },
   {
     id: 2073,
@@ -39386,7 +39386,7 @@ const divisions = [
       fr: 'Bayanhongor',
     }),
     denomination: 'aymag',
-    geonameId: 1516290,
+    // geonameId: 1516290,
   },
   {
     id: 2074,
@@ -39405,7 +39405,7 @@ const divisions = [
       fr: 'Bulgan',
     }),
     denomination: 'province',
-    geonameId: 2032199,
+    // geonameId: 2032199,
   },
   {
     id: 2075,
@@ -39424,7 +39424,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'province',
-    geonameId: 2028849,
+    // geonameId: 2028849,
   },
   {
     id: 2076,
@@ -39443,7 +39443,7 @@ const divisions = [
       fr: 'Darhan-Uul',
     }),
     denomination: 'aymag',
-    geonameId: 2055111,
+    // geonameId: 2055111,
   },
   {
     id: 2077,
@@ -39462,7 +39462,7 @@ const divisions = [
       fr: 'Dornogovi',
     }),
     denomination: 'province',
-    geonameId: 2031798,
+    // geonameId: 2031798,
   },
   {
     id: 2078,
@@ -39481,7 +39481,7 @@ const divisions = [
       fr: 'Dzavhan',
     }),
     denomination: 'aymag',
-    geonameId: 1516012,
+    // geonameId: 1516012,
   },
   {
     id: 2079,
@@ -39500,7 +39500,7 @@ const divisions = [
       fr: 'Eastern',
     }),
     denomination: 'aymag',
-    geonameId: 2031799,
+    // geonameId: 2031799,
   },
   {
     id: 2080,
@@ -39519,7 +39519,7 @@ const divisions = [
       fr: 'Govi-Altai',
     }),
     denomination: 'province',
-    geonameId: 1515917,
+    // geonameId: 1515917,
   },
   {
     id: 2081,
@@ -39538,7 +39538,7 @@ const divisions = [
       fr: 'Govĭ-Sumber',
     }),
     denomination: 'province',
-    geonameId: 2055112,
+    // geonameId: 2055112,
   },
   {
     id: 2082,
@@ -39557,7 +39557,7 @@ const divisions = [
       fr: 'Hentiy',
     }),
     denomination: 'aymag',
-    geonameId: 2030783,
+    // geonameId: 2030783,
   },
   {
     id: 2083,
@@ -39576,7 +39576,7 @@ const divisions = [
       fr: 'Hovd',
     }),
     denomination: 'province',
-    geonameId: 1515696,
+    // geonameId: 1515696,
   },
   {
     id: 2084,
@@ -39595,7 +39595,7 @@ const divisions = [
       fr: 'Khövsgöl',
     }),
     denomination: 'province',
-    geonameId: 2030469,
+    // geonameId: 2030469,
   },
   {
     id: 2085,
@@ -39614,7 +39614,7 @@ const divisions = [
       fr: 'Middle Govĭ',
     }),
     denomination: 'province',
-    geonameId: 2031740,
+    // geonameId: 2031740,
   },
   {
     id: 2086,
@@ -39633,7 +39633,7 @@ const divisions = [
       fr: 'Ömnögovĭ',
     }),
     denomination: 'province',
-    geonameId: 2029669,
+    // geonameId: 2029669,
   },
   {
     id: 2087,
@@ -39652,7 +39652,7 @@ const divisions = [
       fr: 'Orhon',
     }),
     denomination: 'aymag',
-    geonameId: 2055113,
+    // geonameId: 2055113,
   },
   {
     id: 2088,
@@ -39671,7 +39671,7 @@ const divisions = [
       fr: 'Övörhangay',
     }),
     denomination: 'province',
-    geonameId: 2029546,
+    // geonameId: 2029546,
   },
   {
     id: 2089,
@@ -39690,7 +39690,7 @@ const divisions = [
       fr: 'Selenge',
     }),
     denomination: 'province',
-    geonameId: 2029432,
+    // geonameId: 2029432,
   },
   {
     id: 2090,
@@ -39709,7 +39709,7 @@ const divisions = [
       fr: 'Sühbaatar',
     }),
     denomination: 'aymag',
-    geonameId: 2029155,
+    // geonameId: 2029155,
   },
   {
     id: 2091,
@@ -39728,7 +39728,7 @@ const divisions = [
       fr: 'Oulan-Bator',
     }),
     denomination: 'municipality',
-    geonameId: 2028461,
+    // geonameId: 2028461,
   },
   {
     id: 2092,
@@ -39747,7 +39747,7 @@ const divisions = [
       fr: 'Uvs',
     }),
     denomination: 'province',
-    geonameId: 1514967,
+    // geonameId: 1514967,
   },
   {
     id: 2093,
@@ -39766,7 +39766,7 @@ const divisions = [
       fr: 'Andrijevica',
     }),
     denomination: 'municipality',
-    geonameId: 3343959,
+    // geonameId: 3343959,
   },
   {
     id: 2094,
@@ -39785,7 +39785,7 @@ const divisions = [
       fr: 'Bar',
     }),
     denomination: 'municipality',
-    geonameId: 3204508,
+    // geonameId: 3204508,
   },
   {
     id: 2095,
@@ -39804,7 +39804,7 @@ const divisions = [
       fr: 'Berane',
     }),
     denomination: 'municipality',
-    geonameId: 3199070,
+    // geonameId: 3199070,
   },
   {
     id: 2096,
@@ -39823,7 +39823,7 @@ const divisions = [
       fr: 'Bijelo Polje',
     }),
     denomination: 'municipality',
-    geonameId: 3204173,
+    // geonameId: 3204173,
   },
   {
     id: 2097,
@@ -39842,7 +39842,7 @@ const divisions = [
       fr: 'Budva',
     }),
     denomination: 'municipality',
-    geonameId: 3203104,
+    // geonameId: 3203104,
   },
   {
     id: 2098,
@@ -39861,7 +39861,7 @@ const divisions = [
       fr: 'Cetinje',
     }),
     denomination: 'municipality',
-    geonameId: 3202640,
+    // geonameId: 3202640,
   },
   {
     id: 2099,
@@ -39880,7 +39880,7 @@ const divisions = [
       fr: 'Danilovgrad',
     }),
     denomination: 'municipality',
-    geonameId: 3202193,
+    // geonameId: 3202193,
   },
   {
     id: 2100,
@@ -39899,7 +39899,7 @@ const divisions = [
       fr: 'Gusinje',
     }),
     denomination: 'municipality',
-    geonameId: 11497642,
+    // geonameId: 11497642,
   },
   {
     id: 2101,
@@ -39918,7 +39918,7 @@ const divisions = [
       fr: 'Herceg Novi',
     }),
     denomination: 'municipality',
-    geonameId: 3199393,
+    // geonameId: 3199393,
   },
   {
     id: 2102,
@@ -39937,7 +39937,7 @@ const divisions = [
       fr: 'Kotor',
     }),
     denomination: 'municipality',
-    geonameId: 3197537,
+    // geonameId: 3197537,
   },
   {
     id: 2103,
@@ -39956,7 +39956,7 @@ const divisions = [
       fr: 'Mojkovac',
     }),
     denomination: 'municipality',
-    geonameId: 3194925,
+    // geonameId: 3194925,
   },
   {
     id: 2104,
@@ -39975,7 +39975,7 @@ const divisions = [
       fr: 'Kolašin',
     }),
     denomination: 'municipality',
-    geonameId: 3197895,
+    // geonameId: 3197895,
   },
   {
     id: 2105,
@@ -39994,7 +39994,7 @@ const divisions = [
       fr: 'Nikšić',
     }),
     denomination: 'municipality',
-    geonameId: 3194493,
+    // geonameId: 3194493,
   },
   {
     id: 2106,
@@ -40013,7 +40013,7 @@ const divisions = [
       fr: 'Plav',
     }),
     denomination: 'municipality',
-    geonameId: 3193227,
+    // geonameId: 3193227,
   },
   {
     id: 2107,
@@ -40032,7 +40032,7 @@ const divisions = [
       fr: 'Plužine',
     }),
     denomination: 'municipality',
-    geonameId: 3193129,
+    // geonameId: 3193129,
   },
   {
     id: 2108,
@@ -40051,7 +40051,7 @@ const divisions = [
       fr: 'Šavnik',
     }),
     denomination: 'municipality',
-    geonameId: 3191221,
+    // geonameId: 3191221,
   },
   {
     id: 2109,
@@ -40070,7 +40070,7 @@ const divisions = [
       fr: 'Žabljak',
     }),
     denomination: 'municipality',
-    geonameId: 3186995,
+    // geonameId: 3186995,
   },
   {
     id: 2110,
@@ -40089,7 +40089,7 @@ const divisions = [
       fr: 'Petnjica',
     }),
     denomination: 'municipality',
-    geonameId: 11497643,
+    // geonameId: 11497643,
   },
   {
     id: 2111,
@@ -40108,7 +40108,7 @@ const divisions = [
       fr: 'Pljevlja',
     }),
     denomination: 'municipality',
-    geonameId: 3193160,
+    // geonameId: 3193160,
   },
   {
     id: 2112,
@@ -40127,7 +40127,7 @@ const divisions = [
       fr: 'Podgorica',
     }),
     denomination: 'municipality',
-    geonameId: 3189077,
+    // geonameId: 3189077,
   },
   {
     id: 2113,
@@ -40146,7 +40146,7 @@ const divisions = [
       fr: 'Rožaje',
     }),
     denomination: 'municipality',
-    geonameId: 786233,
+    // geonameId: 786233,
   },
   {
     id: 2114,
@@ -40165,7 +40165,7 @@ const divisions = [
       fr: 'Tivat',
     }),
     denomination: 'municipality',
-    geonameId: 3189071,
+    // geonameId: 3189071,
   },
   {
     id: 2115,
@@ -40184,7 +40184,7 @@ const divisions = [
       fr: 'Tuzi',
     }),
     denomination: 'municipality',
-    geonameId: 12104729,
+    // geonameId: 12104729,
   },
   {
     id: 2116,
@@ -40203,7 +40203,7 @@ const divisions = [
       fr: 'Ulcinj',
     }),
     denomination: 'municipality',
-    geonameId: 3188514,
+    // geonameId: 3188514,
   },
   {
     id: 2117,
@@ -40222,7 +40222,7 @@ const divisions = [
       fr: 'Zeta',
     }),
     denomination: 'municipality',
-    geonameId: 12640530,
+    // geonameId: 12640530,
   },
   {
     id: 2118,
@@ -40241,7 +40241,7 @@ const divisions = [
       fr: 'Saint-Antoine',
     }),
     denomination: 'parish',
-    geonameId: 3578045,
+    // geonameId: 3578045,
   },
   {
     id: 2119,
@@ -40260,7 +40260,7 @@ const divisions = [
       fr: 'Saint-Georges',
     }),
     denomination: 'parish',
-    geonameId: 3578044,
+    // geonameId: 3578044,
   },
   {
     id: 2120,
@@ -40279,7 +40279,7 @@ const divisions = [
       fr: 'Saint-Pierre',
     }),
     denomination: 'parish',
-    geonameId: 3578039,
+    // geonameId: 3578039,
   },
   {
     id: 2121,
@@ -40298,7 +40298,7 @@ const divisions = [
       fr: 'Béni Mellal-Khénifra',
     }),
     denomination: 'region',
-    geonameId: 11281878,
+    // geonameId: 11281878,
   },
   {
     id: 2122,
@@ -40317,7 +40317,7 @@ const divisions = [
       fr: 'Casablanca-Settat',
     }),
     denomination: 'region',
-    geonameId: 11281879,
+    // geonameId: 11281879,
   },
   {
     id: 2123,
@@ -40336,7 +40336,7 @@ const divisions = [
       fr: 'Dakhla-Oued Ed-Dahab',
     }),
     denomination: 'region',
-    geonameId: 11281886,
+    // geonameId: 11281886,
   },
   {
     id: 2124,
@@ -40355,7 +40355,7 @@ const divisions = [
       fr: 'Drâa-Tafilalet',
     }),
     denomination: 'region',
-    geonameId: 11281881,
+    // geonameId: 11281881,
   },
   {
     id: 2125,
@@ -40374,7 +40374,7 @@ const divisions = [
       fr: 'Fès-Meknès',
     }),
     denomination: 'region',
-    geonameId: 11281876,
+    // geonameId: 11281876,
   },
   {
     id: 2126,
@@ -40393,7 +40393,7 @@ const divisions = [
       fr: 'Guelmim-Oued Noun',
     }),
     denomination: 'region',
-    geonameId: 11281884,
+    // geonameId: 11281884,
   },
   {
     id: 2127,
@@ -40412,7 +40412,7 @@ const divisions = [
       fr: 'Laâyoune-Sakia El Hamra',
     }),
     denomination: 'region',
-    geonameId: 11281885,
+    // geonameId: 11281885,
   },
   {
     id: 2128,
@@ -40431,7 +40431,7 @@ const divisions = [
       fr: 'Marrakesh-Safi',
     }),
     denomination: 'region',
-    geonameId: 11281880,
+    // geonameId: 11281880,
   },
   {
     id: 2129,
@@ -40450,7 +40450,7 @@ const divisions = [
       fr: 'Oriental',
     }),
     denomination: 'region',
-    geonameId: 11281875,
+    // geonameId: 11281875,
   },
   {
     id: 2130,
@@ -40469,7 +40469,7 @@ const divisions = [
       fr: 'Rabat-Salé-Kénitra',
     }),
     denomination: 'region',
-    geonameId: 11281877,
+    // geonameId: 11281877,
   },
   {
     id: 2131,
@@ -40488,7 +40488,7 @@ const divisions = [
       fr: 'Souss-Massa',
     }),
     denomination: 'region',
-    geonameId: 11281882,
+    // geonameId: 11281882,
   },
   {
     id: 2132,
@@ -40507,7 +40507,7 @@ const divisions = [
       fr: 'Tanger-Tétouan-Al Hoceïma',
     }),
     denomination: 'region',
-    geonameId: 11281874,
+    // geonameId: 11281874,
   },
   {
     id: 2133,
@@ -40526,7 +40526,7 @@ const divisions = [
       fr: 'Cabo Delgado',
     }),
     denomination: 'province',
-    geonameId: 1051823,
+    // geonameId: 1051823,
   },
   {
     id: 2134,
@@ -40545,7 +40545,7 @@ const divisions = [
       fr: 'Maputo',
     }),
     denomination: 'city',
-    geonameId: 1105845,
+    // geonameId: 1105845,
   },
   {
     id: 2135,
@@ -40564,7 +40564,7 @@ const divisions = [
       fr: 'Gaza',
     }),
     denomination: 'province',
-    geonameId: 1046058,
+    // geonameId: 1046058,
   },
   {
     id: 2136,
@@ -40583,7 +40583,7 @@ const divisions = [
       fr: 'Inhambane',
     }),
     denomination: 'province',
-    geonameId: 1045110,
+    // geonameId: 1045110,
   },
   {
     id: 2137,
@@ -40602,7 +40602,7 @@ const divisions = [
       fr: 'Manica',
     }),
     denomination: 'province',
-    geonameId: 1040947,
+    // geonameId: 1040947,
   },
   {
     id: 2138,
@@ -40621,7 +40621,7 @@ const divisions = [
       fr: 'Maputo',
     }),
     denomination: 'province',
-    geonameId: 1040649,
+    // geonameId: 1040649,
   },
   {
     id: 2139,
@@ -40640,7 +40640,7 @@ const divisions = [
       fr: 'Nampula',
     }),
     denomination: 'province',
-    geonameId: 1033354,
+    // geonameId: 1033354,
   },
   {
     id: 2140,
@@ -40659,7 +40659,7 @@ const divisions = [
       fr: 'Niassa',
     }),
     denomination: 'province',
-    geonameId: 1030006,
+    // geonameId: 1030006,
   },
   {
     id: 2141,
@@ -40678,7 +40678,7 @@ const divisions = [
       fr: 'Sofala',
     }),
     denomination: 'province',
-    geonameId: 1026804,
+    // geonameId: 1026804,
   },
   {
     id: 2142,
@@ -40697,7 +40697,7 @@ const divisions = [
       fr: 'Tete',
     }),
     denomination: 'province',
-    geonameId: 1026010,
+    // geonameId: 1026010,
   },
   {
     id: 2143,
@@ -40716,7 +40716,7 @@ const divisions = [
       fr: 'Zambézie',
     }),
     denomination: 'province',
-    geonameId: 1024312,
+    // geonameId: 1024312,
   },
   {
     id: 2144,
@@ -40735,7 +40735,7 @@ const divisions = [
       fr: 'Ayeyarwady',
     }),
     denomination: 'region',
-    geonameId: 1321850,
+    // geonameId: 1321850,
   },
   {
     id: 2145,
@@ -40754,7 +40754,7 @@ const divisions = [
       fr: 'Bago',
     }),
     denomination: 'region',
-    geonameId: 1300463,
+    // geonameId: 1300463,
   },
   {
     id: 2146,
@@ -40773,7 +40773,7 @@ const divisions = [
       fr: 'Chin',
     }),
     denomination: 'state',
-    geonameId: 1327132,
+    // geonameId: 1327132,
   },
   {
     id: 2147,
@@ -40792,7 +40792,7 @@ const divisions = [
       fr: 'Kachin',
     }),
     denomination: 'state',
-    geonameId: 1321702,
+    // geonameId: 1321702,
   },
   {
     id: 2148,
@@ -40811,7 +40811,7 @@ const divisions = [
       fr: 'Kayah',
     }),
     denomination: 'state',
-    geonameId: 1319539,
+    // geonameId: 1319539,
   },
   {
     id: 2149,
@@ -40830,7 +40830,7 @@ const divisions = [
       fr: 'Kayin',
     }),
     denomination: 'state',
-    geonameId: 1320233,
+    // geonameId: 1320233,
   },
   {
     id: 2150,
@@ -40849,7 +40849,7 @@ const divisions = [
       fr: 'Magway',
     }),
     denomination: 'region',
-    geonameId: 1312604,
+    // geonameId: 1312604,
   },
   {
     id: 2151,
@@ -40868,7 +40868,7 @@ const divisions = [
       fr: 'Mandalay',
     }),
     denomination: 'region',
-    geonameId: 1311871,
+    // geonameId: 1311871,
   },
   {
     id: 2152,
@@ -40887,7 +40887,7 @@ const divisions = [
       fr: 'Mon',
     }),
     denomination: 'state',
-    geonameId: 1308528,
+    // geonameId: 1308528,
   },
   {
     id: 2153,
@@ -40906,7 +40906,7 @@ const divisions = [
       fr: 'Naypyidaw',
     }),
     denomination: 'territory',
-    geonameId: 8239588,
+    // geonameId: 8239588,
   },
   {
     id: 2154,
@@ -40925,7 +40925,7 @@ const divisions = [
       fr: 'Rakhine',
     }),
     denomination: 'state',
-    geonameId: 1298852,
+    // geonameId: 1298852,
   },
   {
     id: 2155,
@@ -40944,7 +40944,7 @@ const divisions = [
       fr: 'Sagaing',
     }),
     denomination: 'region',
-    geonameId: 1298480,
+    // geonameId: 1298480,
   },
   {
     id: 2156,
@@ -40963,7 +40963,7 @@ const divisions = [
       fr: 'Shan',
     }),
     denomination: 'state',
-    geonameId: 1297099,
+    // geonameId: 1297099,
   },
   {
     id: 2157,
@@ -40982,7 +40982,7 @@ const divisions = [
       fr: 'Tanintharyi',
     }),
     denomination: 'region',
-    geonameId: 1293118,
+    // geonameId: 1293118,
   },
   {
     id: 2158,
@@ -41001,7 +41001,7 @@ const divisions = [
       fr: 'Rangoun',
     }),
     denomination: 'region',
-    geonameId: 1298822,
+    // geonameId: 1298822,
   },
   {
     id: 2159,
@@ -41020,7 +41020,7 @@ const divisions = [
       fr: 'Erongo',
     }),
     denomination: 'region',
-    geonameId: 3371199,
+    // geonameId: 3371199,
   },
   {
     id: 2160,
@@ -41039,7 +41039,7 @@ const divisions = [
       fr: 'Hardap',
     }),
     denomination: 'region',
-    geonameId: 3371200,
+    // geonameId: 3371200,
   },
   {
     id: 2161,
@@ -41058,7 +41058,7 @@ const divisions = [
       fr: 'Karas',
     }),
     denomination: 'region',
-    geonameId: 3371201,
+    // geonameId: 3371201,
   },
   {
     id: 2162,
@@ -41077,7 +41077,7 @@ const divisions = [
       fr: 'Kavango Est',
     }),
     denomination: 'region',
-    geonameId: 8693188,
+    // geonameId: 8693188,
   },
   {
     id: 2163,
@@ -41096,7 +41096,7 @@ const divisions = [
       fr: 'Kavango Ouest',
     }),
     denomination: 'region',
-    geonameId: 8693189,
+    // geonameId: 8693189,
   },
   {
     id: 2164,
@@ -41115,7 +41115,7 @@ const divisions = [
       fr: 'Khomas',
     }),
     denomination: 'region',
-    geonameId: 3352137,
+    // geonameId: 3352137,
   },
   {
     id: 2165,
@@ -41134,7 +41134,7 @@ const divisions = [
       fr: 'Kunene',
     }),
     denomination: 'region',
-    geonameId: 3371202,
+    // geonameId: 3371202,
   },
   {
     id: 2166,
@@ -41153,7 +41153,7 @@ const divisions = [
       fr: 'Ohangwena',
     }),
     denomination: 'region',
-    geonameId: 3371203,
+    // geonameId: 3371203,
   },
   {
     id: 2167,
@@ -41172,7 +41172,7 @@ const divisions = [
       fr: 'Omaheke',
     }),
     denomination: 'region',
-    geonameId: 3371205,
+    // geonameId: 3371205,
   },
   {
     id: 2168,
@@ -41191,7 +41191,7 @@ const divisions = [
       fr: 'Omusati',
     }),
     denomination: 'region',
-    geonameId: 3371206,
+    // geonameId: 3371206,
   },
   {
     id: 2169,
@@ -41210,7 +41210,7 @@ const divisions = [
       fr: 'Oshana',
     }),
     denomination: 'region',
-    geonameId: 3371207,
+    // geonameId: 3371207,
   },
   {
     id: 2170,
@@ -41229,7 +41229,7 @@ const divisions = [
       fr: 'Oshikoto',
     }),
     denomination: 'region',
-    geonameId: 3371208,
+    // geonameId: 3371208,
   },
   {
     id: 2171,
@@ -41248,7 +41248,7 @@ const divisions = [
       fr: 'Otjozondjupa',
     }),
     denomination: 'region',
-    geonameId: 3371209,
+    // geonameId: 3371209,
   },
   {
     id: 2172,
@@ -41267,7 +41267,7 @@ const divisions = [
       fr: 'Zambèze',
     }),
     denomination: 'region',
-    geonameId: 1090052,
+    // geonameId: 1090052,
   },
   {
     id: 2173,
@@ -41286,7 +41286,7 @@ const divisions = [
       fr: 'Aiwo',
     }),
     denomination: 'district',
-    geonameId: 2110451,
+    // geonameId: 2110451,
   },
   {
     id: 2174,
@@ -41305,7 +41305,7 @@ const divisions = [
       fr: 'Anabar',
     }),
     denomination: 'district',
-    geonameId: 2110449,
+    // geonameId: 2110449,
   },
   {
     id: 2175,
@@ -41324,7 +41324,7 @@ const divisions = [
       fr: 'Anetan',
     }),
     denomination: 'district',
-    geonameId: 2110448,
+    // geonameId: 2110448,
   },
   {
     id: 2176,
@@ -41343,7 +41343,7 @@ const divisions = [
       fr: 'Anibare',
     }),
     denomination: 'district',
-    geonameId: 2110445,
+    // geonameId: 2110445,
   },
   {
     id: 2177,
@@ -41362,7 +41362,7 @@ const divisions = [
       fr: 'Baiti',
     }),
     denomination: 'district',
-    geonameId: 2110442,
+    // geonameId: 2110442,
   },
   {
     id: 2178,
@@ -41381,7 +41381,7 @@ const divisions = [
       fr: 'Boe',
     }),
     denomination: 'district',
-    geonameId: 2110441,
+    // geonameId: 2110441,
   },
   {
     id: 2179,
@@ -41400,7 +41400,7 @@ const divisions = [
       fr: 'Buada',
     }),
     denomination: 'district',
-    geonameId: 2110440,
+    // geonameId: 2110440,
   },
   {
     id: 2180,
@@ -41419,7 +41419,7 @@ const divisions = [
       fr: 'Denigomodu',
     }),
     denomination: 'district',
-    geonameId: 2110437,
+    // geonameId: 2110437,
   },
   {
     id: 2181,
@@ -41438,7 +41438,7 @@ const divisions = [
       fr: 'Ewa',
     }),
     denomination: 'district',
-    geonameId: 2110435,
+    // geonameId: 2110435,
   },
   {
     id: 2182,
@@ -41457,7 +41457,7 @@ const divisions = [
       fr: 'Ijuw',
     }),
     denomination: 'district',
-    geonameId: 2110432,
+    // geonameId: 2110432,
   },
   {
     id: 2183,
@@ -41476,7 +41476,7 @@ const divisions = [
       fr: 'Meneng',
     }),
     denomination: 'district',
-    geonameId: 2110431,
+    // geonameId: 2110431,
   },
   {
     id: 2184,
@@ -41495,7 +41495,7 @@ const divisions = [
       fr: 'Nibok',
     }),
     denomination: 'district',
-    geonameId: 2110423,
+    // geonameId: 2110423,
   },
   {
     id: 2185,
@@ -41514,7 +41514,7 @@ const divisions = [
       fr: 'Uaboe',
     }),
     denomination: 'district',
-    geonameId: 2110420,
+    // geonameId: 2110420,
   },
   {
     id: 2186,
@@ -41533,7 +41533,7 @@ const divisions = [
       fr: 'Yaren',
     }),
     denomination: 'district',
-    geonameId: 2110418,
+    // geonameId: 2110418,
   },
   {
     id: 2187,
@@ -41552,7 +41552,7 @@ const divisions = [
       fr: 'Bagmati',
     }),
     denomination: 'province',
-    geonameId: 12095449,
+    // geonameId: 12095449,
   },
   {
     id: 2188,
@@ -41571,7 +41571,7 @@ const divisions = [
       fr: 'Gandaki',
     }),
     denomination: 'province',
-    geonameId: 12095450,
+    // geonameId: 12095450,
   },
   {
     id: 2189,
@@ -41590,7 +41590,7 @@ const divisions = [
       fr: 'Karnali',
     }),
     denomination: 'province',
-    geonameId: 12095452,
+    // geonameId: 12095452,
   },
   {
     id: 2190,
@@ -41609,7 +41609,7 @@ const divisions = [
       fr: 'Koshi',
     }),
     denomination: 'province',
-    geonameId: 12095447,
+    // geonameId: 12095447,
   },
   {
     id: 2191,
@@ -41628,7 +41628,7 @@ const divisions = [
       fr: 'Lumbini',
     }),
     denomination: 'province',
-    geonameId: 12095451,
+    // geonameId: 12095451,
   },
   {
     id: 2192,
@@ -41647,7 +41647,7 @@ const divisions = [
       fr: 'Madhesh',
     }),
     denomination: 'province',
-    geonameId: 12095448,
+    // geonameId: 12095448,
   },
   {
     id: 2193,
@@ -41666,7 +41666,7 @@ const divisions = [
       fr: 'Sudurpashchim',
     }),
     denomination: 'province',
-    geonameId: 12095453,
+    // geonameId: 12095453,
   },
   {
     id: 2194,
@@ -41685,7 +41685,7 @@ const divisions = [
       fr: 'Îles Loyauté',
     }),
     denomination: 'islands',
-    geonameId: 7521415,
+    // geonameId: 7521415,
   },
   {
     id: 2195,
@@ -41704,7 +41704,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'province',
-    geonameId: 2140685,
+    // geonameId: 2140685,
   },
   {
     id: 2196,
@@ -41723,7 +41723,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'province',
-    geonameId: 2140464,
+    // geonameId: 2140464,
   },
   {
     id: 2197,
@@ -41742,7 +41742,7 @@ const divisions = [
       fr: 'Auckland',
     }),
     denomination: 'region',
-    geonameId: 2193734,
+    // geonameId: 2193734,
   },
   {
     id: 2198,
@@ -41761,7 +41761,7 @@ const divisions = [
       fr: "Baie de l'Abondance",
     }),
     denomination: 'region',
-    geonameId: 2182560,
+    // geonameId: 2182560,
   },
   {
     id: 2199,
@@ -41780,7 +41780,7 @@ const divisions = [
       fr: 'Canterbury',
     }),
     denomination: 'region',
-    geonameId: 2192628,
+    // geonameId: 2192628,
   },
   {
     id: 2200,
@@ -41799,7 +41799,7 @@ const divisions = [
       fr: 'Îles Chatham',
     }),
     denomination: 'islands',
-    geonameId: 4033013,
+    // geonameId: 4033013,
   },
   {
     id: 2201,
@@ -41818,7 +41818,7 @@ const divisions = [
       fr: 'Gisborne',
     }),
     denomination: 'region',
-    geonameId: 2190767,
+    // geonameId: 2190767,
   },
   {
     id: 2202,
@@ -41837,7 +41837,7 @@ const divisions = [
       fr: 'Baie de Hawke',
     }),
     denomination: 'region',
-    geonameId: 2190146,
+    // geonameId: 2190146,
   },
   {
     id: 2203,
@@ -41856,7 +41856,7 @@ const divisions = [
       fr: 'Manawatu-Wanganui',
     }),
     denomination: 'region',
-    geonameId: 2179671,
+    // geonameId: 2179671,
   },
   {
     id: 2204,
@@ -41875,7 +41875,7 @@ const divisions = [
       fr: 'Marlborough',
     }),
     denomination: 'region',
-    geonameId: 2187304,
+    // geonameId: 2187304,
   },
   {
     id: 2205,
@@ -41894,7 +41894,7 @@ const divisions = [
       fr: 'Nelson',
     }),
     denomination: 'region',
-    geonameId: 6612108,
+    // geonameId: 6612108,
   },
   {
     id: 2206,
@@ -41913,7 +41913,7 @@ const divisions = [
       fr: 'Northland',
     }),
     denomination: 'region',
-    geonameId: 2185978,
+    // geonameId: 2185978,
   },
   {
     id: 2207,
@@ -41932,7 +41932,7 @@ const divisions = [
       fr: 'Otago',
     }),
     denomination: 'region',
-    geonameId: 6612109,
+    // geonameId: 6612109,
   },
   {
     id: 2208,
@@ -41951,7 +41951,7 @@ const divisions = [
       fr: 'Southland',
     }),
     denomination: 'region',
-    geonameId: 2182501,
+    // geonameId: 2182501,
   },
   {
     id: 2209,
@@ -41970,7 +41970,7 @@ const divisions = [
       fr: 'Taranaki',
     }),
     denomination: 'region',
-    geonameId: 2181872,
+    // geonameId: 2181872,
   },
   {
     id: 2210,
@@ -41989,7 +41989,7 @@ const divisions = [
       fr: 'Tasman',
     }),
     denomination: 'district',
-    geonameId: 2181818,
+    // geonameId: 2181818,
   },
   {
     id: 2211,
@@ -42008,7 +42008,7 @@ const divisions = [
       fr: 'Waikato',
     }),
     denomination: 'region',
-    geonameId: 2180293,
+    // geonameId: 2180293,
   },
   {
     id: 2212,
@@ -42027,7 +42027,7 @@ const divisions = [
       fr: 'Wellington',
     }),
     denomination: 'region',
-    geonameId: 2179538,
+    // geonameId: 2179538,
   },
   {
     id: 2213,
@@ -42046,7 +42046,7 @@ const divisions = [
       fr: 'Côte Ouest',
     }),
     denomination: 'region',
-    geonameId: 6612113,
+    // geonameId: 6612113,
   },
   {
     id: 2214,
@@ -42065,7 +42065,7 @@ const divisions = [
       fr: 'Boaco',
     }),
     denomination: 'department',
-    geonameId: 3620673,
+    // geonameId: 3620673,
   },
   {
     id: 2215,
@@ -42084,7 +42084,7 @@ const divisions = [
       fr: 'Carazo',
     }),
     denomination: 'department',
-    geonameId: 3620481,
+    // geonameId: 3620481,
   },
   {
     id: 2216,
@@ -42103,7 +42103,7 @@ const divisions = [
       fr: 'Chinandega',
     }),
     denomination: 'department',
-    geonameId: 3620380,
+    // geonameId: 3620380,
   },
   {
     id: 2217,
@@ -42122,7 +42122,7 @@ const divisions = [
       fr: 'Chontales',
     }),
     denomination: 'department',
-    geonameId: 3620368,
+    // geonameId: 3620368,
   },
   {
     id: 2218,
@@ -42141,7 +42141,7 @@ const divisions = [
       fr: 'Estelí',
     }),
     denomination: 'department',
-    geonameId: 3619193,
+    // geonameId: 3619193,
   },
   {
     id: 2219,
@@ -42160,7 +42160,7 @@ const divisions = [
       fr: 'Grenade',
     }),
     denomination: 'department',
-    geonameId: 3619135,
+    // geonameId: 3619135,
   },
   {
     id: 2220,
@@ -42179,7 +42179,7 @@ const divisions = [
       fr: 'Jinotega',
     }),
     denomination: 'department',
-    geonameId: 3618928,
+    // geonameId: 3618928,
   },
   {
     id: 2221,
@@ -42198,7 +42198,7 @@ const divisions = [
       fr: 'Léon',
     }),
     denomination: 'department',
-    geonameId: 3618029,
+    // geonameId: 3618029,
   },
   {
     id: 2222,
@@ -42217,7 +42217,7 @@ const divisions = [
       fr: 'Madriz',
     }),
     denomination: 'department',
-    geonameId: 3617796,
+    // geonameId: 3617796,
   },
   {
     id: 2223,
@@ -42236,7 +42236,7 @@ const divisions = [
       fr: 'Managua',
     }),
     denomination: 'department',
-    geonameId: 3617762,
+    // geonameId: 3617762,
   },
   {
     id: 2224,
@@ -42255,7 +42255,7 @@ const divisions = [
       fr: 'Masaya',
     }),
     denomination: 'department',
-    geonameId: 3617722,
+    // geonameId: 3617722,
   },
   {
     id: 2225,
@@ -42274,7 +42274,7 @@ const divisions = [
       fr: 'Matagalpa',
     }),
     denomination: 'department',
-    geonameId: 3617707,
+    // geonameId: 3617707,
   },
   {
     id: 2226,
@@ -42293,7 +42293,7 @@ const divisions = [
       fr: 'Côte Caraïbe Nord',
     }),
     denomination: 'region',
-    geonameId: 3830307,
+    // geonameId: 3830307,
   },
   {
     id: 2227,
@@ -42312,7 +42312,7 @@ const divisions = [
       fr: 'Nueva Segovia',
     }),
     denomination: 'department',
-    geonameId: 3617458,
+    // geonameId: 3617458,
   },
   {
     id: 2228,
@@ -42331,7 +42331,7 @@ const divisions = [
       fr: 'Río San Juan',
     }),
     denomination: 'department',
-    geonameId: 3617056,
+    // geonameId: 3617056,
   },
   {
     id: 2229,
@@ -42350,7 +42350,7 @@ const divisions = [
       fr: 'Rivas',
     }),
     denomination: 'department',
-    geonameId: 3617051,
+    // geonameId: 3617051,
   },
   {
     id: 2230,
@@ -42369,7 +42369,7 @@ const divisions = [
       fr: 'Côte Caraïbe Sud',
     }),
     denomination: 'region',
-    geonameId: 3830308,
+    // geonameId: 3830308,
   },
   {
     id: 2231,
@@ -42388,7 +42388,7 @@ const divisions = [
       fr: 'Agadez',
     }),
     denomination: 'region',
-    geonameId: 2448083,
+    // geonameId: 2448083,
   },
   {
     id: 2232,
@@ -42407,7 +42407,7 @@ const divisions = [
       fr: 'Diffa',
     }),
     denomination: 'region',
-    geonameId: 2445702,
+    // geonameId: 2445702,
   },
   {
     id: 2233,
@@ -42426,7 +42426,7 @@ const divisions = [
       fr: 'Dosso',
     }),
     denomination: 'region',
-    geonameId: 2445486,
+    // geonameId: 2445486,
   },
   {
     id: 2234,
@@ -42445,7 +42445,7 @@ const divisions = [
       fr: 'Maradi',
     }),
     denomination: 'region',
-    geonameId: 2441289,
+    // geonameId: 2441289,
   },
   {
     id: 2235,
@@ -42464,7 +42464,7 @@ const divisions = [
       fr: 'Niamey',
     }),
     denomination: 'region',
-    geonameId: 2595294,
+    // geonameId: 2595294,
   },
   {
     id: 2236,
@@ -42483,7 +42483,7 @@ const divisions = [
       fr: 'Tahoua',
     }),
     denomination: 'region',
-    geonameId: 2439374,
+    // geonameId: 2439374,
   },
   {
     id: 2237,
@@ -42502,7 +42502,7 @@ const divisions = [
       fr: 'Tillabéri',
     }),
     denomination: 'region',
-    geonameId: 2595293,
+    // geonameId: 2595293,
   },
   {
     id: 2238,
@@ -42521,7 +42521,7 @@ const divisions = [
       fr: 'Zinder',
     }),
     denomination: 'region',
-    geonameId: 2437797,
+    // geonameId: 2437797,
   },
   {
     id: 2239,
@@ -42540,7 +42540,7 @@ const divisions = [
       fr: 'Abia',
     }),
     denomination: 'state',
-    geonameId: 2565340,
+    // geonameId: 2565340,
   },
   {
     id: 2240,
@@ -42559,7 +42559,7 @@ const divisions = [
       fr: 'Adamawa',
     }),
     denomination: 'state',
-    geonameId: 2565342,
+    // geonameId: 2565342,
   },
   {
     id: 2241,
@@ -42578,7 +42578,7 @@ const divisions = [
       fr: 'Akwa Ibom',
     }),
     denomination: 'state',
-    geonameId: 2350813,
+    // geonameId: 2350813,
   },
   {
     id: 2242,
@@ -42597,7 +42597,7 @@ const divisions = [
       fr: 'Anambra',
     }),
     denomination: 'state',
-    geonameId: 2349961,
+    // geonameId: 2349961,
   },
   {
     id: 2243,
@@ -42616,7 +42616,7 @@ const divisions = [
       fr: 'Bauchi',
     }),
     denomination: 'state',
-    geonameId: 2347468,
+    // geonameId: 2347468,
   },
   {
     id: 2244,
@@ -42635,7 +42635,7 @@ const divisions = [
       fr: 'Bayelsa',
     }),
     denomination: 'state',
-    geonameId: 2595344,
+    // geonameId: 2595344,
   },
   {
     id: 2245,
@@ -42654,7 +42654,7 @@ const divisions = [
       fr: 'Bénoué',
     }),
     denomination: 'state',
-    geonameId: 2347266,
+    // geonameId: 2347266,
   },
   {
     id: 2246,
@@ -42673,7 +42673,7 @@ const divisions = [
       fr: 'Borno',
     }),
     denomination: 'state',
-    geonameId: 2346794,
+    // geonameId: 2346794,
   },
   {
     id: 2247,
@@ -42692,7 +42692,7 @@ const divisions = [
       fr: 'Cross River',
     }),
     denomination: 'state',
-    geonameId: 2345891,
+    // geonameId: 2345891,
   },
   {
     id: 2248,
@@ -42711,7 +42711,7 @@ const divisions = [
       fr: 'Delta',
     }),
     denomination: 'state',
-    geonameId: 2565341,
+    // geonameId: 2565341,
   },
   {
     id: 2249,
@@ -42730,7 +42730,7 @@ const divisions = [
       fr: 'Ebonyi',
     }),
     denomination: 'state',
-    geonameId: 2595345,
+    // geonameId: 2595345,
   },
   {
     id: 2250,
@@ -42749,7 +42749,7 @@ const divisions = [
       fr: 'Edo',
     }),
     denomination: 'state',
-    geonameId: 2565343,
+    // geonameId: 2565343,
   },
   {
     id: 2251,
@@ -42768,7 +42768,7 @@ const divisions = [
       fr: 'Ekiti',
     }),
     denomination: 'state',
-    geonameId: 2595346,
+    // geonameId: 2595346,
   },
   {
     id: 2252,
@@ -42787,7 +42787,7 @@ const divisions = [
       fr: 'Enugu',
     }),
     denomination: 'state',
-    geonameId: 2565344,
+    // geonameId: 2565344,
   },
   {
     id: 2253,
@@ -42806,7 +42806,7 @@ const divisions = [
       fr: 'Territoire de la capitale fédérale',
     }),
     denomination: 'territory',
-    geonameId: 2352776,
+    // geonameId: 2352776,
   },
   {
     id: 2254,
@@ -42825,7 +42825,7 @@ const divisions = [
       fr: 'Gombe',
     }),
     denomination: 'state',
-    geonameId: 2595347,
+    // geonameId: 2595347,
   },
   {
     id: 2255,
@@ -42844,7 +42844,7 @@ const divisions = [
       fr: 'Imo',
     }),
     denomination: 'state',
-    geonameId: 2337542,
+    // geonameId: 2337542,
   },
   {
     id: 2256,
@@ -42863,7 +42863,7 @@ const divisions = [
       fr: 'Jigawa',
     }),
     denomination: 'state',
-    geonameId: 2565345,
+    // geonameId: 2565345,
   },
   {
     id: 2257,
@@ -42882,7 +42882,7 @@ const divisions = [
       fr: 'Kaduna',
     }),
     denomination: 'state',
-    geonameId: 2335722,
+    // geonameId: 2335722,
   },
   {
     id: 2258,
@@ -42901,7 +42901,7 @@ const divisions = [
       fr: 'Kano',
     }),
     denomination: 'state',
-    geonameId: 2335196,
+    // geonameId: 2335196,
   },
   {
     id: 2259,
@@ -42920,7 +42920,7 @@ const divisions = [
       fr: 'Katsina',
     }),
     denomination: 'state',
-    geonameId: 2334797,
+    // geonameId: 2334797,
   },
   {
     id: 2260,
@@ -42939,7 +42939,7 @@ const divisions = [
       fr: 'Kebbi',
     }),
     denomination: 'state',
-    geonameId: 2597363,
+    // geonameId: 2597363,
   },
   {
     id: 2261,
@@ -42958,7 +42958,7 @@ const divisions = [
       fr: 'Kogi',
     }),
     denomination: 'state',
-    geonameId: 2597364,
+    // geonameId: 2597364,
   },
   {
     id: 2262,
@@ -42977,7 +42977,7 @@ const divisions = [
       fr: 'Kwara',
     }),
     denomination: 'state',
-    geonameId: 2332785,
+    // geonameId: 2332785,
   },
   {
     id: 2263,
@@ -42996,7 +42996,7 @@ const divisions = [
       fr: 'Lagos',
     }),
     denomination: 'state',
-    geonameId: 2332453,
+    // geonameId: 2332453,
   },
   {
     id: 2264,
@@ -43015,7 +43015,7 @@ const divisions = [
       fr: 'Nasarawa',
     }),
     denomination: 'state',
-    geonameId: 2595348,
+    // geonameId: 2595348,
   },
   {
     id: 2265,
@@ -43034,7 +43034,7 @@ const divisions = [
       fr: 'Niger',
     }),
     denomination: 'state',
-    geonameId: 2328925,
+    // geonameId: 2328925,
   },
   {
     id: 2266,
@@ -43053,7 +43053,7 @@ const divisions = [
       fr: 'Ogun',
     }),
     denomination: 'state',
-    geonameId: 2327546,
+    // geonameId: 2327546,
   },
   {
     id: 2267,
@@ -43072,7 +43072,7 @@ const divisions = [
       fr: 'Ondo',
     }),
     denomination: 'state',
-    geonameId: 2326168,
+    // geonameId: 2326168,
   },
   {
     id: 2268,
@@ -43091,7 +43091,7 @@ const divisions = [
       fr: 'Osun',
     }),
     denomination: 'state',
-    geonameId: 2597365,
+    // geonameId: 2597365,
   },
   {
     id: 2269,
@@ -43110,7 +43110,7 @@ const divisions = [
       fr: 'Oyo',
     }),
     denomination: 'state',
-    geonameId: 2325190,
+    // geonameId: 2325190,
   },
   {
     id: 2270,
@@ -43129,7 +43129,7 @@ const divisions = [
       fr: 'Plateau',
     }),
     denomination: 'state',
-    geonameId: 2324828,
+    // geonameId: 2324828,
   },
   {
     id: 2271,
@@ -43148,7 +43148,7 @@ const divisions = [
       fr: 'Rivers',
     }),
     denomination: 'state',
-    geonameId: 2324433,
+    // geonameId: 2324433,
   },
   {
     id: 2272,
@@ -43167,7 +43167,7 @@ const divisions = [
       fr: 'Sokoto',
     }),
     denomination: 'state',
-    geonameId: 2322907,
+    // geonameId: 2322907,
   },
   {
     id: 2273,
@@ -43186,7 +43186,7 @@ const divisions = [
       fr: 'Taraba',
     }),
     denomination: 'state',
-    geonameId: 2597366,
+    // geonameId: 2597366,
   },
   {
     id: 2274,
@@ -43205,7 +43205,7 @@ const divisions = [
       fr: 'Yobe',
     }),
     denomination: 'state',
-    geonameId: 2597367,
+    // geonameId: 2597367,
   },
   {
     id: 2275,
@@ -43224,7 +43224,7 @@ const divisions = [
       fr: 'Zamfara',
     }),
     denomination: 'state',
-    geonameId: 2595349,
+    // geonameId: 2595349,
   },
   {
     id: 2276,
@@ -43243,7 +43243,7 @@ const divisions = [
       fr: 'Chagang',
     }),
     denomination: 'province',
-    geonameId: 2045265,
+    // geonameId: 2045265,
   },
   {
     id: 2277,
@@ -43262,7 +43262,7 @@ const divisions = [
       fr: 'Kaesong',
     }),
     denomination: 'city',
-    geonameId: 12902703,
+    // geonameId: 12902703,
   },
   {
     id: 2278,
@@ -43281,7 +43281,7 @@ const divisions = [
       fr: 'Kangwon',
     }),
     denomination: 'province',
-    geonameId: 1876101,
+    // geonameId: 1876101,
   },
   {
     id: 2279,
@@ -43300,7 +43300,7 @@ const divisions = [
       fr: 'Nampo',
     }),
     denomination: 'city',
-    geonameId: 12902702,
+    // geonameId: 12902702,
   },
   {
     id: 2280,
@@ -43319,7 +43319,7 @@ const divisions = [
       fr: 'Hamgyŏng du Nord',
     }),
     denomination: 'province',
-    geonameId: 2044245,
+    // geonameId: 2044245,
   },
   {
     id: 2281,
@@ -43338,7 +43338,7 @@ const divisions = [
       fr: 'Hwanghae du Nord',
     }),
     denomination: 'province',
-    geonameId: 1876888,
+    // geonameId: 1876888,
   },
   {
     id: 2282,
@@ -43357,7 +43357,7 @@ const divisions = [
       fr: 'Pyongan du Nord',
     }),
     denomination: 'province',
-    geonameId: 1871954,
+    // geonameId: 1871954,
   },
   {
     id: 2283,
@@ -43376,7 +43376,7 @@ const divisions = [
       fr: 'Pyongyang',
     }),
     denomination: 'city',
-    geonameId: 1871856,
+    // geonameId: 1871856,
   },
   {
     id: 2284,
@@ -43395,7 +43395,7 @@ const divisions = [
       fr: 'Rason',
     }),
     denomination: 'city',
-    geonameId: 2054927,
+    // geonameId: 2054927,
   },
   {
     id: 2285,
@@ -43414,7 +43414,7 @@ const divisions = [
       fr: 'Ryanggang',
     }),
     denomination: 'province',
-    geonameId: 2039332,
+    // geonameId: 2039332,
   },
   {
     id: 2286,
@@ -43433,7 +43433,7 @@ const divisions = [
       fr: 'Hamgyŏng du Sud',
     }),
     denomination: 'province',
-    geonameId: 1877450,
+    // geonameId: 1877450,
   },
   {
     id: 2287,
@@ -43452,7 +43452,7 @@ const divisions = [
       fr: 'Hwanghae du Sud',
     }),
     denomination: 'province',
-    geonameId: 1876884,
+    // geonameId: 1876884,
   },
   {
     id: 2288,
@@ -43471,7 +43471,7 @@ const divisions = [
       fr: 'Pyongan du Sud',
     }),
     denomination: 'province',
-    geonameId: 1871952,
+    // geonameId: 1871952,
   },
   {
     id: 2289,
@@ -43490,7 +43490,7 @@ const divisions = [
       fr: 'Arachinovo',
     }),
     denomination: 'municipality',
-    geonameId: 863831,
+    // geonameId: 863831,
   },
   {
     id: 2290,
@@ -43509,7 +43509,7 @@ const divisions = [
       fr: 'Berovo',
     }),
     denomination: 'municipality',
-    geonameId: 863485,
+    // geonameId: 863485,
   },
   {
     id: 2291,
@@ -43528,7 +43528,7 @@ const divisions = [
       fr: 'Bitola',
     }),
     denomination: 'municipality',
-    geonameId: 863486,
+    // geonameId: 863486,
   },
   {
     id: 2292,
@@ -43547,7 +43547,7 @@ const divisions = [
       fr: 'Bogdanci',
     }),
     denomination: 'municipality',
-    geonameId: 862950,
+    // geonameId: 862950,
   },
   {
     id: 2293,
@@ -43566,7 +43566,7 @@ const divisions = [
       fr: 'Bogovinje',
     }),
     denomination: 'municipality',
-    geonameId: 863834,
+    // geonameId: 863834,
   },
   {
     id: 2294,
@@ -43585,7 +43585,7 @@ const divisions = [
       fr: 'Bosilovo',
     }),
     denomination: 'municipality',
-    geonameId: 862946,
+    // geonameId: 862946,
   },
   {
     id: 2295,
@@ -43604,7 +43604,7 @@ const divisions = [
       fr: 'Brvenica',
     }),
     denomination: 'municipality',
-    geonameId: 863835,
+    // geonameId: 863835,
   },
   {
     id: 2296,
@@ -43623,7 +43623,7 @@ const divisions = [
       fr: 'Centar Župa',
     }),
     denomination: 'municipality',
-    geonameId: 863841,
+    // geonameId: 863841,
   },
   {
     id: 2297,
@@ -43642,7 +43642,7 @@ const divisions = [
       fr: 'Čaška',
     }),
     denomination: 'municipality',
-    geonameId: 863838,
+    // geonameId: 863838,
   },
   {
     id: 2298,
@@ -43661,7 +43661,7 @@ const divisions = [
       fr: 'Češinovo-Obleševo',
     }),
     denomination: 'municipality',
-    geonameId: 862977,
+    // geonameId: 862977,
   },
   {
     id: 2299,
@@ -43680,7 +43680,7 @@ const divisions = [
       fr: 'Čučer-Sandevo',
     }),
     denomination: 'municipality',
-    geonameId: 863842,
+    // geonameId: 863842,
   },
   {
     id: 2300,
@@ -43699,7 +43699,7 @@ const divisions = [
       fr: 'Debar',
     }),
     denomination: 'municipality',
-    geonameId: 863843,
+    // geonameId: 863843,
   },
   {
     id: 2301,
@@ -43718,7 +43718,7 @@ const divisions = [
       fr: 'Debarca',
     }),
     denomination: 'municipality',
-    geonameId: 7056271,
+    // geonameId: 7056271,
   },
   {
     id: 2302,
@@ -43737,7 +43737,7 @@ const divisions = [
       fr: 'Delčevo',
     }),
     denomination: 'municipality',
-    geonameId: 863844,
+    // geonameId: 863844,
   },
   {
     id: 2303,
@@ -43756,7 +43756,7 @@ const divisions = [
       fr: 'Demir Hisar',
     }),
     denomination: 'municipality',
-    geonameId: 863846,
+    // geonameId: 863846,
   },
   {
     id: 2304,
@@ -43775,7 +43775,7 @@ const divisions = [
       fr: 'Demir Kapija',
     }),
     denomination: 'municipality',
-    geonameId: 862961,
+    // geonameId: 862961,
   },
   {
     id: 2305,
@@ -43794,7 +43794,7 @@ const divisions = [
       fr: 'Dojran',
     }),
     denomination: 'municipality',
-    geonameId: 862949,
+    // geonameId: 862949,
   },
   {
     id: 2306,
@@ -43813,7 +43813,7 @@ const divisions = [
       fr: 'Dolneni',
     }),
     denomination: 'municipality',
-    geonameId: 863849,
+    // geonameId: 863849,
   },
   {
     id: 2307,
@@ -43832,7 +43832,7 @@ const divisions = [
       fr: 'Gevgelija',
     }),
     denomination: 'municipality',
-    geonameId: 863854,
+    // geonameId: 863854,
   },
   {
     id: 2308,
@@ -43851,7 +43851,7 @@ const divisions = [
       fr: 'Gostivar',
     }),
     denomination: 'municipality',
-    geonameId: 863855,
+    // geonameId: 863855,
   },
   {
     id: 2309,
@@ -43870,7 +43870,7 @@ const divisions = [
       fr: 'Skopje',
     }),
     denomination: 'city',
-    geonameId: 11398357,
+    // geonameId: 11398357,
   },
   {
     id: 2310,
@@ -43889,7 +43889,7 @@ const divisions = [
       fr: 'Gradsko',
     }),
     denomination: 'municipality',
-    geonameId: 862974,
+    // geonameId: 862974,
   },
   {
     id: 2311,
@@ -43908,7 +43908,7 @@ const divisions = [
       fr: 'Ilinden',
     }),
     denomination: 'municipality',
-    geonameId: 863856,
+    // geonameId: 863856,
   },
   {
     id: 2312,
@@ -43927,7 +43927,7 @@ const divisions = [
       fr: 'Jegunovce',
     }),
     denomination: 'municipality',
-    geonameId: 863858,
+    // geonameId: 863858,
   },
   {
     id: 2313,
@@ -43946,7 +43946,7 @@ const divisions = [
       fr: 'Karbinci',
     }),
     denomination: 'municipality',
-    geonameId: 862960,
+    // geonameId: 862960,
   },
   {
     id: 2314,
@@ -43965,7 +43965,7 @@ const divisions = [
       fr: 'Kavadarci',
     }),
     denomination: 'municipality',
-    geonameId: 863861,
+    // geonameId: 863861,
   },
   {
     id: 2315,
@@ -43984,7 +43984,7 @@ const divisions = [
       fr: 'Kičevo',
     }),
     denomination: 'municipality',
-    geonameId: 863862,
+    // geonameId: 863862,
   },
   {
     id: 2316,
@@ -44003,7 +44003,7 @@ const divisions = [
       fr: 'Kočani',
     }),
     denomination: 'municipality',
-    geonameId: 863865,
+    // geonameId: 863865,
   },
   {
     id: 2317,
@@ -44022,7 +44022,7 @@ const divisions = [
       fr: 'Konče',
     }),
     denomination: 'municipality',
-    geonameId: 862953,
+    // geonameId: 862953,
   },
   {
     id: 2318,
@@ -44041,7 +44041,7 @@ const divisions = [
       fr: 'Kratovo',
     }),
     denomination: 'municipality',
-    geonameId: 789090,
+    // geonameId: 789090,
   },
   {
     id: 2319,
@@ -44060,7 +44060,7 @@ const divisions = [
       fr: 'Kriva Palanka',
     }),
     denomination: 'municipality',
-    geonameId: 863869,
+    // geonameId: 863869,
   },
   {
     id: 2320,
@@ -44079,7 +44079,7 @@ const divisions = [
       fr: 'Krivogaštani',
     }),
     denomination: 'municipality',
-    geonameId: 863870,
+    // geonameId: 863870,
   },
   {
     id: 2321,
@@ -44098,7 +44098,7 @@ const divisions = [
       fr: 'Kruševo',
     }),
     denomination: 'municipality',
-    geonameId: 863871,
+    // geonameId: 863871,
   },
   {
     id: 2322,
@@ -44117,7 +44117,7 @@ const divisions = [
       fr: 'Kumanovo',
     }),
     denomination: 'municipality',
-    geonameId: 863873,
+    // geonameId: 863873,
   },
   {
     id: 2323,
@@ -44136,7 +44136,7 @@ const divisions = [
       fr: 'Lipkovo',
     }),
     denomination: 'municipality',
-    geonameId: 863875,
+    // geonameId: 863875,
   },
   {
     id: 2324,
@@ -44155,7 +44155,7 @@ const divisions = [
       fr: 'Lozovo',
     }),
     denomination: 'municipality',
-    geonameId: 862975,
+    // geonameId: 862975,
   },
   {
     id: 2325,
@@ -44174,7 +44174,7 @@ const divisions = [
       fr: 'Makedonska Kamenica',
     }),
     denomination: 'municipality',
-    geonameId: 862956,
+    // geonameId: 862956,
   },
   {
     id: 2326,
@@ -44193,7 +44193,7 @@ const divisions = [
       fr: 'Makedonski Brod',
     }),
     denomination: 'municipality',
-    geonameId: 863877,
+    // geonameId: 863877,
   },
   {
     id: 2327,
@@ -44212,7 +44212,7 @@ const divisions = [
       fr: 'Mavrovo et Rostuša',
     }),
     denomination: 'municipality',
-    geonameId: 863892,
+    // geonameId: 863892,
   },
   {
     id: 2328,
@@ -44231,7 +44231,7 @@ const divisions = [
       fr: 'Mogila',
     }),
     denomination: 'municipality',
-    geonameId: 863488,
+    // geonameId: 863488,
   },
   {
     id: 2329,
@@ -44250,7 +44250,7 @@ const divisions = [
       fr: 'Negotino',
     }),
     denomination: 'municipality',
-    geonameId: 863881,
+    // geonameId: 863881,
   },
   {
     id: 2330,
@@ -44269,7 +44269,7 @@ const divisions = [
       fr: 'Novaci',
     }),
     denomination: 'municipality',
-    geonameId: 863468,
+    // geonameId: 863468,
   },
   {
     id: 2331,
@@ -44288,7 +44288,7 @@ const divisions = [
       fr: 'Novo Selo',
     }),
     denomination: 'municipality',
-    geonameId: 862945,
+    // geonameId: 862945,
   },
   {
     id: 2332,
@@ -44307,7 +44307,7 @@ const divisions = [
       fr: 'Ohrid',
     }),
     denomination: 'municipality',
-    geonameId: 863883,
+    // geonameId: 863883,
   },
   {
     id: 2333,
@@ -44326,7 +44326,7 @@ const divisions = [
       fr: 'Sopište',
     }),
     denomination: 'municipality',
-    geonameId: 863896,
+    // geonameId: 863896,
   },
   {
     id: 2334,
@@ -44345,7 +44345,7 @@ const divisions = [
       fr: 'Pehčevo',
     }),
     denomination: 'municipality',
-    geonameId: 862938,
+    // geonameId: 862938,
   },
   {
     id: 2335,
@@ -44364,7 +44364,7 @@ const divisions = [
       fr: 'Petrovec',
     }),
     denomination: 'municipality',
-    geonameId: 863886,
+    // geonameId: 863886,
   },
   {
     id: 2336,
@@ -44383,7 +44383,7 @@ const divisions = [
       fr: 'Plasnica',
     }),
     denomination: 'municipality',
-    geonameId: 863887,
+    // geonameId: 863887,
   },
   {
     id: 2337,
@@ -44402,7 +44402,7 @@ const divisions = [
       fr: 'Prilep',
     }),
     denomination: 'municipality',
-    geonameId: 863888,
+    // geonameId: 863888,
   },
   {
     id: 2338,
@@ -44421,7 +44421,7 @@ const divisions = [
       fr: 'Probištip',
     }),
     denomination: 'municipality',
-    geonameId: 863889,
+    // geonameId: 863889,
   },
   {
     id: 2339,
@@ -44440,7 +44440,7 @@ const divisions = [
       fr: 'Radoviš',
     }),
     denomination: 'municipality',
-    geonameId: 863890,
+    // geonameId: 863890,
   },
   {
     id: 2340,
@@ -44459,7 +44459,7 @@ const divisions = [
       fr: 'Rankovce',
     }),
     denomination: 'municipality',
-    geonameId: 863891,
+    // geonameId: 863891,
   },
   {
     id: 2341,
@@ -44478,7 +44478,7 @@ const divisions = [
       fr: 'Resen',
     }),
     denomination: 'municipality',
-    geonameId: 786339,
+    // geonameId: 786339,
   },
   {
     id: 2342,
@@ -44497,7 +44497,7 @@ const divisions = [
       fr: 'Rosoman',
     }),
     denomination: 'municipality',
-    geonameId: 862973,
+    // geonameId: 862973,
   },
   {
     id: 2343,
@@ -44516,7 +44516,7 @@ const divisions = [
       fr: 'Štip',
     }),
     denomination: 'municipality',
-    geonameId: 863900,
+    // geonameId: 863900,
   },
   {
     id: 2344,
@@ -44535,7 +44535,7 @@ const divisions = [
       fr: 'Staro Nagoričane',
     }),
     denomination: 'municipality',
-    geonameId: 863899,
+    // geonameId: 863899,
   },
   {
     id: 2345,
@@ -44554,7 +44554,7 @@ const divisions = [
       fr: 'Struga',
     }),
     denomination: 'municipality',
-    geonameId: 863901,
+    // geonameId: 863901,
   },
   {
     id: 2346,
@@ -44573,7 +44573,7 @@ const divisions = [
       fr: 'Strumica',
     }),
     denomination: 'municipality',
-    geonameId: 863902,
+    // geonameId: 863902,
   },
   {
     id: 2347,
@@ -44592,7 +44592,7 @@ const divisions = [
       fr: 'Studeničani',
     }),
     denomination: 'municipality',
-    geonameId: 863903,
+    // geonameId: 863903,
   },
   {
     id: 2348,
@@ -44611,7 +44611,7 @@ const divisions = [
       fr: 'Sveti Nikole',
     }),
     denomination: 'municipality',
-    geonameId: 863905,
+    // geonameId: 863905,
   },
   {
     id: 2349,
@@ -44630,7 +44630,7 @@ const divisions = [
       fr: 'Tearce',
     }),
     denomination: 'municipality',
-    geonameId: 863906,
+    // geonameId: 863906,
   },
   {
     id: 2350,
@@ -44649,7 +44649,7 @@ const divisions = [
       fr: 'Tetovo',
     }),
     denomination: 'municipality',
-    geonameId: 863907,
+    // geonameId: 863907,
   },
   {
     id: 2351,
@@ -44668,7 +44668,7 @@ const divisions = [
       fr: 'Valandovo',
     }),
     denomination: 'municipality',
-    geonameId: 784732,
+    // geonameId: 784732,
   },
   {
     id: 2352,
@@ -44687,7 +44687,7 @@ const divisions = [
       fr: 'Vasilevo',
     }),
     denomination: 'municipality',
-    geonameId: 862947,
+    // geonameId: 862947,
   },
   {
     id: 2353,
@@ -44706,7 +44706,7 @@ const divisions = [
       fr: 'Vélès',
     }),
     denomination: 'municipality',
-    geonameId: 863909,
+    // geonameId: 863909,
   },
   {
     id: 2354,
@@ -44725,7 +44725,7 @@ const divisions = [
       fr: 'Vevčani',
     }),
     denomination: 'municipality',
-    geonameId: 863911,
+    // geonameId: 863911,
   },
   {
     id: 2355,
@@ -44744,7 +44744,7 @@ const divisions = [
       fr: 'Vinica',
     }),
     denomination: 'municipality',
-    geonameId: 863912,
+    // geonameId: 863912,
   },
   {
     id: 2356,
@@ -44763,7 +44763,7 @@ const divisions = [
       fr: 'Vrapčište',
     }),
     denomination: 'municipality',
-    geonameId: 863914,
+    // geonameId: 863914,
   },
   {
     id: 2357,
@@ -44782,7 +44782,7 @@ const divisions = [
       fr: 'Zelenikovo',
     }),
     denomination: 'municipality',
-    geonameId: 863918,
+    // geonameId: 863918,
   },
   {
     id: 2358,
@@ -44801,7 +44801,7 @@ const divisions = [
       fr: 'Želino',
     }),
     denomination: 'municipality',
-    geonameId: 863919,
+    // geonameId: 863919,
   },
   {
     id: 2359,
@@ -44820,7 +44820,7 @@ const divisions = [
       fr: 'Zrnovci',
     }),
     denomination: 'municipality',
-    geonameId: 862958,
+    // geonameId: 862958,
   },
   {
     id: 2360,
@@ -44839,7 +44839,7 @@ const divisions = [
       fr: 'Îles du Nord',
     }),
     denomination: 'islands',
-    geonameId: 7733156,
+    // geonameId: 7733156,
   },
   {
     id: 2361,
@@ -44858,7 +44858,7 @@ const divisions = [
       fr: 'Rota',
     }),
     denomination: 'island',
-    geonameId: 4041530,
+    // geonameId: 4041530,
   },
   {
     id: 2362,
@@ -44877,7 +44877,7 @@ const divisions = [
       fr: 'Saipan',
     }),
     denomination: 'island',
-    geonameId: 4041552,
+    // geonameId: 4041552,
   },
   {
     id: 2363,
@@ -44896,7 +44896,7 @@ const divisions = [
       fr: 'Tinian',
     }),
     denomination: 'island',
-    geonameId: 4041650,
+    // geonameId: 4041650,
   },
   {
     id: 2364,
@@ -44915,7 +44915,7 @@ const divisions = [
       fr: 'Agder',
     }),
     denomination: 'county',
-    geonameId: 12110596,
+    // geonameId: 12110596,
   },
   {
     id: 2365,
@@ -44934,7 +44934,7 @@ const divisions = [
       fr: 'Akershus',
     }),
     denomination: 'county',
-    geonameId: 3163480,
+    // geonameId: 3163480,
   },
   {
     id: 2366,
@@ -44953,7 +44953,7 @@ const divisions = [
       fr: 'Buskerud',
     }),
     denomination: 'county',
-    geonameId: 3159665,
+    // geonameId: 3159665,
   },
   {
     id: 2367,
@@ -44972,7 +44972,7 @@ const divisions = [
       fr: 'Finnmark',
     }),
     denomination: 'county',
-    geonameId: 780166,
+    // geonameId: 780166,
   },
   {
     id: 2368,
@@ -44991,7 +44991,7 @@ const divisions = [
       fr: 'Innlandet',
     }),
     denomination: 'county',
-    geonameId: 12110598,
+    // geonameId: 12110598,
   },
   {
     id: 2369,
@@ -45010,7 +45010,7 @@ const divisions = [
       fr: 'Møre og Romsdal',
     }),
     denomination: 'county',
-    geonameId: 3145495,
+    // geonameId: 3145495,
   },
   {
     id: 2370,
@@ -45029,7 +45029,7 @@ const divisions = [
       fr: 'Nordland',
     }),
     denomination: 'county',
-    geonameId: 3144301,
+    // geonameId: 3144301,
   },
   {
     id: 2371,
@@ -45048,7 +45048,7 @@ const divisions = [
       fr: 'Oslo',
     }),
     denomination: 'county',
-    geonameId: 3143242,
+    // geonameId: 3143242,
   },
   {
     id: 2372,
@@ -45067,7 +45067,7 @@ const divisions = [
       fr: 'Østfold',
     }),
     denomination: 'county',
-    geonameId: 3143188,
+    // geonameId: 3143188,
   },
   {
     id: 2373,
@@ -45086,7 +45086,7 @@ const divisions = [
       fr: 'Rogaland',
     }),
     denomination: 'county',
-    geonameId: 3141558,
+    // geonameId: 3141558,
   },
   {
     id: 2374,
@@ -45105,7 +45105,7 @@ const divisions = [
       fr: 'Telemark',
     }),
     denomination: 'county',
-    geonameId: 3134723,
+    // geonameId: 3134723,
   },
   {
     id: 2375,
@@ -45124,7 +45124,7 @@ const divisions = [
       fr: 'Troms',
     }),
     denomination: 'county',
-    geonameId: 3133897,
+    // geonameId: 3133897,
   },
   {
     id: 2376,
@@ -45143,7 +45143,7 @@ const divisions = [
       fr: 'Trøndelag',
     }),
     denomination: 'county',
-    geonameId: 11862827,
+    // geonameId: 11862827,
   },
   {
     id: 2377,
@@ -45162,7 +45162,7 @@ const divisions = [
       fr: 'Vestfold',
     }),
     denomination: 'county',
-    geonameId: 3132015,
+    // geonameId: 3132015,
   },
   {
     id: 2378,
@@ -45181,7 +45181,7 @@ const divisions = [
       fr: 'Vestland',
     }),
     denomination: 'county',
-    geonameId: 12110600,
+    // geonameId: 12110600,
   },
   {
     id: 2379,
@@ -45200,7 +45200,7 @@ const divisions = [
       fr: 'Ad Dakhiliyah',
     }),
     denomination: 'governorate',
-    geonameId: 411735,
+    // geonameId: 411735,
   },
   {
     id: 2380,
@@ -45219,7 +45219,7 @@ const divisions = [
       fr: 'Ad Dhahirah',
     }),
     denomination: 'governorate',
-    geonameId: 411739,
+    // geonameId: 411739,
   },
   {
     id: 2381,
@@ -45238,7 +45238,7 @@ const divisions = [
       fr: 'Al Batinah Nord',
     }),
     denomination: 'governorate',
-    geonameId: 8394434,
+    // geonameId: 8394434,
   },
   {
     id: 2382,
@@ -45257,7 +45257,7 @@ const divisions = [
       fr: 'Al Batinah Sud',
     }),
     denomination: 'governorate',
-    geonameId: 411736,
+    // geonameId: 411736,
   },
   {
     id: 2383,
@@ -45276,7 +45276,7 @@ const divisions = [
       fr: 'Al Buraimi',
     }),
     denomination: 'governorate',
-    geonameId: 7110710,
+    // geonameId: 7110710,
   },
   {
     id: 2384,
@@ -45295,7 +45295,7 @@ const divisions = [
       fr: 'Al Wusta',
     }),
     denomination: 'governorate',
-    geonameId: 411737,
+    // geonameId: 411737,
   },
   {
     id: 2385,
@@ -45314,7 +45314,7 @@ const divisions = [
       fr: 'Dhofar',
     }),
     denomination: 'governorate',
-    geonameId: 411742,
+    // geonameId: 411742,
   },
   {
     id: 2386,
@@ -45333,7 +45333,7 @@ const divisions = [
       fr: 'Musandam',
     }),
     denomination: 'governorate',
-    geonameId: 411741,
+    // geonameId: 411741,
   },
   {
     id: 2387,
@@ -45352,7 +45352,7 @@ const divisions = [
       fr: 'Mascate',
     }),
     denomination: 'governorate',
-    geonameId: 411740,
+    // geonameId: 411740,
   },
   {
     id: 2388,
@@ -45371,7 +45371,7 @@ const divisions = [
       fr: 'Nord-Est',
     }),
     denomination: 'governorate',
-    geonameId: 8394433,
+    // geonameId: 8394433,
   },
   {
     id: 2389,
@@ -45390,7 +45390,7 @@ const divisions = [
       fr: 'Sud-Est',
     }),
     denomination: 'governorate',
-    geonameId: 411738,
+    // geonameId: 411738,
   },
   {
     id: 2390,
@@ -45409,7 +45409,7 @@ const divisions = [
       fr: 'Azad Cachemire',
     }),
     denomination: 'region',
-    geonameId: 1184196,
+    // geonameId: 1184196,
   },
   {
     id: 2391,
@@ -45428,7 +45428,7 @@ const divisions = [
       fr: 'Baloutchistan',
     }),
     denomination: 'province',
-    geonameId: 1183606,
+    // geonameId: 1183606,
   },
   {
     id: 2392,
@@ -45447,7 +45447,7 @@ const divisions = [
       fr: 'Gilgit-Baltistan',
     }),
     denomination: 'region',
-    geonameId: 1168878,
+    // geonameId: 1168878,
   },
   {
     id: 2393,
@@ -45466,7 +45466,7 @@ const divisions = [
       fr: 'Islamabad',
     }),
     denomination: 'capital',
-    geonameId: 1162015,
+    // geonameId: 1162015,
   },
   {
     id: 2394,
@@ -45485,7 +45485,7 @@ const divisions = [
       fr: 'Khyber Pakhtunkhwa',
     }),
     denomination: 'province',
-    geonameId: 1168873,
+    // geonameId: 1168873,
   },
   {
     id: 2395,
@@ -45504,7 +45504,7 @@ const divisions = [
       fr: 'Pendjab',
     }),
     denomination: 'province',
-    geonameId: 1167710,
+    // geonameId: 1167710,
   },
   {
     id: 2396,
@@ -45523,7 +45523,7 @@ const divisions = [
       fr: 'Sind',
     }),
     denomination: 'province',
-    geonameId: 1164807,
+    // geonameId: 1164807,
   },
   {
     id: 2397,
@@ -45542,7 +45542,7 @@ const divisions = [
       fr: 'Aimeliik',
     }),
     denomination: 'state',
-    geonameId: 1559964,
+    // geonameId: 1559964,
   },
   {
     id: 2398,
@@ -45561,7 +45561,7 @@ const divisions = [
       fr: 'Airai',
     }),
     denomination: 'state',
-    geonameId: 4037645,
+    // geonameId: 4037645,
   },
   {
     id: 2399,
@@ -45580,7 +45580,7 @@ const divisions = [
       fr: 'Angaur',
     }),
     denomination: 'state',
-    geonameId: 4037653,
+    // geonameId: 4037653,
   },
   {
     id: 2400,
@@ -45599,7 +45599,7 @@ const divisions = [
       fr: 'Hatohobei',
     }),
     denomination: 'state',
-    geonameId: 1559776,
+    // geonameId: 1559776,
   },
   {
     id: 2401,
@@ -45618,7 +45618,7 @@ const divisions = [
       fr: 'Kayangel',
     }),
     denomination: 'state',
-    geonameId: 1559774,
+    // geonameId: 1559774,
   },
   {
     id: 2402,
@@ -45637,7 +45637,7 @@ const divisions = [
       fr: 'Koror',
     }),
     denomination: 'state',
-    geonameId: 4037892,
+    // geonameId: 4037892,
   },
   {
     id: 2403,
@@ -45656,7 +45656,7 @@ const divisions = [
       fr: 'Melekeok',
     }),
     denomination: 'state',
-    geonameId: 4037930,
+    // geonameId: 4037930,
   },
   {
     id: 2404,
@@ -45675,7 +45675,7 @@ const divisions = [
       fr: 'Ngaraard',
     }),
     denomination: 'state',
-    geonameId: 4037962,
+    // geonameId: 4037962,
   },
   {
     id: 2405,
@@ -45694,7 +45694,7 @@ const divisions = [
       fr: 'Ngarchelong',
     }),
     denomination: 'state',
-    geonameId: 4038037,
+    // geonameId: 4038037,
   },
   {
     id: 2406,
@@ -45713,7 +45713,7 @@ const divisions = [
       fr: 'Ngardmau',
     }),
     denomination: 'state',
-    geonameId: 4038043,
+    // geonameId: 4038043,
   },
   {
     id: 2407,
@@ -45732,7 +45732,7 @@ const divisions = [
       fr: 'Ngatpang',
     }),
     denomination: 'state',
-    geonameId: 1559532,
+    // geonameId: 1559532,
   },
   {
     id: 2408,
@@ -45751,7 +45751,7 @@ const divisions = [
       fr: 'Ngchesar',
     }),
     denomination: 'state',
-    geonameId: 4037976,
+    // geonameId: 4037976,
   },
   {
     id: 2409,
@@ -45770,7 +45770,7 @@ const divisions = [
       fr: 'Ngeremlengui',
     }),
     denomination: 'state',
-    geonameId: 4038068,
+    // geonameId: 4038068,
   },
   {
     id: 2410,
@@ -45789,7 +45789,7 @@ const divisions = [
       fr: 'Ngiwal',
     }),
     denomination: 'state',
-    geonameId: 4038179,
+    // geonameId: 4038179,
   },
   {
     id: 2411,
@@ -45808,7 +45808,7 @@ const divisions = [
       fr: 'Peleliu',
     }),
     denomination: 'state',
-    geonameId: 4038261,
+    // geonameId: 4038261,
   },
   {
     id: 2412,
@@ -45827,7 +45827,7 @@ const divisions = [
       fr: 'Sonsorol',
     }),
     denomination: 'state',
-    geonameId: 1559630,
+    // geonameId: 1559630,
   },
   {
     id: 2413,
@@ -45846,7 +45846,7 @@ const divisions = [
       fr: 'Gaza',
     }),
     denomination: 'strip',
-    geonameId: 281132,
+    // geonameId: 281132,
   },
   {
     id: 2414,
@@ -45865,7 +45865,7 @@ const divisions = [
       fr: 'Cisjordanie',
     }),
     denomination: 'territory',
-    geonameId: 285153,
+    // geonameId: 285153,
   },
   {
     id: 2415,
@@ -45884,7 +45884,7 @@ const divisions = [
       fr: 'Bocas del Toro',
     }),
     denomination: 'province',
-    geonameId: 3713954,
+    // geonameId: 3713954,
   },
   {
     id: 2416,
@@ -45903,7 +45903,7 @@ const divisions = [
       fr: 'Chiriquí',
     }),
     denomination: 'province',
-    geonameId: 3712410,
+    // geonameId: 3712410,
   },
   {
     id: 2417,
@@ -45922,7 +45922,7 @@ const divisions = [
       fr: 'Emberá-Wounaan',
     }),
     denomination: 'comarca',
-    geonameId: 7303686,
+    // geonameId: 7303686,
   },
   {
     id: 2418,
@@ -45941,7 +45941,7 @@ const divisions = [
       fr: 'Guna Yala',
     }),
     denomination: 'comarca',
-    geonameId: 3701537,
+    // geonameId: 3701537,
   },
   {
     id: 2419,
@@ -45960,7 +45960,7 @@ const divisions = [
       fr: 'Herrera',
     }),
     denomination: 'province',
-    geonameId: 3708710,
+    // geonameId: 3708710,
   },
   {
     id: 2420,
@@ -45979,7 +45979,7 @@ const divisions = [
       fr: 'Los Santos',
     }),
     denomination: 'province',
-    geonameId: 3704961,
+    // geonameId: 3704961,
   },
   {
     id: 2421,
@@ -45998,7 +45998,7 @@ const divisions = [
       fr: 'Naso Tjër Di',
     }),
     denomination: 'comarca',
-    geonameId: 12508964,
+    // geonameId: 12508964,
   },
   {
     id: 2422,
@@ -46017,7 +46017,7 @@ const divisions = [
       fr: 'Ngöbe-Buglé',
     }),
     denomination: 'comarca',
-    geonameId: 7303688,
+    // geonameId: 7303688,
   },
   {
     id: 2423,
@@ -46036,7 +46036,7 @@ const divisions = [
       fr: 'Panamá Ouest',
     }),
     denomination: 'province',
-    geonameId: 11353126,
+    // geonameId: 11353126,
   },
   {
     id: 2424,
@@ -46055,7 +46055,7 @@ const divisions = [
       fr: 'Coclé',
     }),
     denomination: 'province',
-    geonameId: 3712162,
+    // geonameId: 3712162,
   },
   {
     id: 2425,
@@ -46074,7 +46074,7 @@ const divisions = [
       fr: 'Colón',
     }),
     denomination: 'province',
-    geonameId: 3712073,
+    // geonameId: 3712073,
   },
   {
     id: 2426,
@@ -46093,7 +46093,7 @@ const divisions = [
       fr: 'Panamá',
     }),
     denomination: 'province',
-    geonameId: 3703433,
+    // geonameId: 3703433,
   },
   {
     id: 2427,
@@ -46112,7 +46112,7 @@ const divisions = [
       fr: 'Darién',
     }),
     denomination: 'province',
-    geonameId: 3711671,
+    // geonameId: 3711671,
   },
   {
     id: 2428,
@@ -46131,7 +46131,7 @@ const divisions = [
       fr: 'Veraguas',
     }),
     denomination: 'province',
-    geonameId: 3700159,
+    // geonameId: 3700159,
   },
   {
     id: 2429,
@@ -46150,7 +46150,7 @@ const divisions = [
       fr: 'Bougainville',
     }),
     denomination: 'region',
-    geonameId: 2089470,
+    // geonameId: 2089470,
   },
   {
     id: 2430,
@@ -46169,7 +46169,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'province',
-    geonameId: 2133763,
+    // geonameId: 2133763,
   },
   {
     id: 2431,
@@ -46188,7 +46188,7 @@ const divisions = [
       fr: 'Chimbu',
     }),
     denomination: 'province',
-    geonameId: 2098593,
+    // geonameId: 2098593,
   },
   {
     id: 2432,
@@ -46207,7 +46207,7 @@ const divisions = [
       fr: 'Nouvelle-Bretagne orientale',
     }),
     denomination: 'province',
-    geonameId: 2097853,
+    // geonameId: 2097853,
   },
   {
     id: 2433,
@@ -46226,7 +46226,7 @@ const divisions = [
       fr: 'Sepik oriental',
     }),
     denomination: 'province',
-    geonameId: 2097846,
+    // geonameId: 2097846,
   },
   {
     id: 2434,
@@ -46245,7 +46245,7 @@ const divisions = [
       fr: 'Hautes-Terres orientales',
     }),
     denomination: 'province',
-    geonameId: 2097855,
+    // geonameId: 2097855,
   },
   {
     id: 2435,
@@ -46264,7 +46264,7 @@ const divisions = [
       fr: 'Enga',
     }),
     denomination: 'province',
-    geonameId: 2097655,
+    // geonameId: 2097655,
   },
   {
     id: 2436,
@@ -46283,7 +46283,7 @@ const divisions = [
       fr: 'Golfe',
     }),
     denomination: 'province',
-    geonameId: 2096633,
+    // geonameId: 2096633,
   },
   {
     id: 2437,
@@ -46302,7 +46302,7 @@ const divisions = [
       fr: 'Hela',
     }),
     denomination: 'province',
-    geonameId: 8521658,
+    // geonameId: 8521658,
   },
   {
     id: 2438,
@@ -46321,7 +46321,7 @@ const divisions = [
       fr: 'Jiwaka',
     }),
     denomination: 'province',
-    geonameId: 8521660,
+    // geonameId: 8521660,
   },
   {
     id: 2439,
@@ -46340,7 +46340,7 @@ const divisions = [
       fr: 'Madang',
     }),
     denomination: 'province',
-    geonameId: 2091993,
+    // geonameId: 2091993,
   },
   {
     id: 2440,
@@ -46359,7 +46359,7 @@ const divisions = [
       fr: 'Manus',
     }),
     denomination: 'province',
-    geonameId: 2091495,
+    // geonameId: 2091495,
   },
   {
     id: 2441,
@@ -46378,7 +46378,7 @@ const divisions = [
       fr: 'Baie de Milne',
     }),
     denomination: 'province',
-    geonameId: 2132895,
+    // geonameId: 2132895,
   },
   {
     id: 2442,
@@ -46397,7 +46397,7 @@ const divisions = [
       fr: 'Morobe',
     }),
     denomination: 'province',
-    geonameId: 2090468,
+    // geonameId: 2090468,
   },
   {
     id: 2443,
@@ -46416,7 +46416,7 @@ const divisions = [
       fr: 'Capitale nationale',
     }),
     denomination: 'district',
-    geonameId: 2089856,
+    // geonameId: 2089856,
   },
   {
     id: 2444,
@@ -46435,7 +46435,7 @@ const divisions = [
       fr: 'Nouvelle-Irlande',
     }),
     denomination: 'province',
-    geonameId: 2089693,
+    // geonameId: 2089693,
   },
   {
     id: 2445,
@@ -46454,7 +46454,7 @@ const divisions = [
       fr: 'Oro',
     }),
     denomination: 'province',
-    geonameId: 2089478,
+    // geonameId: 2089478,
   },
   {
     id: 2446,
@@ -46473,7 +46473,7 @@ const divisions = [
       fr: 'Sandaun',
     }),
     denomination: 'province',
-    geonameId: 2087246,
+    // geonameId: 2087246,
   },
   {
     id: 2447,
@@ -46492,7 +46492,7 @@ const divisions = [
       fr: 'Hautes-Terres du Sud',
     }),
     denomination: 'province',
-    geonameId: 2086331,
+    // geonameId: 2086331,
   },
   {
     id: 2448,
@@ -46511,7 +46511,7 @@ const divisions = [
       fr: 'Nouvelle-Bretagne occidentale',
     }),
     denomination: 'province',
-    geonameId: 2083546,
+    // geonameId: 2083546,
   },
   {
     id: 2449,
@@ -46530,7 +46530,7 @@ const divisions = [
       fr: 'Hautes-Terres occidentales',
     }),
     denomination: 'province',
-    geonameId: 2083551,
+    // geonameId: 2083551,
   },
   {
     id: 2450,
@@ -46549,7 +46549,7 @@ const divisions = [
       fr: 'Occidentale',
     }),
     denomination: 'province',
-    geonameId: 2083549,
+    // geonameId: 2083549,
   },
   {
     id: 2451,
@@ -46568,7 +46568,7 @@ const divisions = [
       fr: 'Alto Paraguay',
     }),
     denomination: 'department',
-    geonameId: 3439441,
+    // geonameId: 3439441,
   },
   {
     id: 2452,
@@ -46587,7 +46587,7 @@ const divisions = [
       fr: 'Alto Paraná',
     }),
     denomination: 'department',
-    geonameId: 3439440,
+    // geonameId: 3439440,
   },
   {
     id: 2453,
@@ -46606,7 +46606,7 @@ const divisions = [
       fr: 'Amambay',
     }),
     denomination: 'department',
-    geonameId: 3439433,
+    // geonameId: 3439433,
   },
   {
     id: 2454,
@@ -46625,7 +46625,7 @@ const divisions = [
       fr: 'Asunción',
     }),
     denomination: 'capital',
-    geonameId: 3474570,
+    // geonameId: 3474570,
   },
   {
     id: 2455,
@@ -46644,7 +46644,7 @@ const divisions = [
       fr: 'Boquerón',
     }),
     denomination: 'department',
-    geonameId: 3867442,
+    // geonameId: 3867442,
   },
   {
     id: 2456,
@@ -46663,7 +46663,7 @@ const divisions = [
       fr: 'Caaguazú',
     }),
     denomination: 'department',
-    geonameId: 3439312,
+    // geonameId: 3439312,
   },
   {
     id: 2457,
@@ -46682,7 +46682,7 @@ const divisions = [
       fr: 'Caazapá',
     }),
     denomination: 'department',
-    geonameId: 3439296,
+    // geonameId: 3439296,
   },
   {
     id: 2458,
@@ -46701,7 +46701,7 @@ const divisions = [
       fr: 'Canindeyú',
     }),
     denomination: 'department',
-    geonameId: 3439216,
+    // geonameId: 3439216,
   },
   {
     id: 2459,
@@ -46720,7 +46720,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'department',
-    geonameId: 3439137,
+    // geonameId: 3439137,
   },
   {
     id: 2460,
@@ -46739,7 +46739,7 @@ const divisions = [
       fr: 'Cordillère',
     }),
     denomination: 'department',
-    geonameId: 3438827,
+    // geonameId: 3438827,
   },
   {
     id: 2461,
@@ -46758,7 +46758,7 @@ const divisions = [
       fr: 'Concepción',
     }),
     denomination: 'department',
-    geonameId: 3438833,
+    // geonameId: 3438833,
   },
   {
     id: 2462,
@@ -46777,7 +46777,7 @@ const divisions = [
       fr: 'Paraguarí',
     }),
     denomination: 'department',
-    geonameId: 3437599,
+    // geonameId: 3437599,
   },
   {
     id: 2463,
@@ -46796,7 +46796,7 @@ const divisions = [
       fr: 'Guairá',
     }),
     denomination: 'department',
-    geonameId: 3438049,
+    // geonameId: 3438049,
   },
   {
     id: 2464,
@@ -46815,7 +46815,7 @@ const divisions = [
       fr: 'Itapúa',
     }),
     denomination: 'department',
-    geonameId: 3437923,
+    // geonameId: 3437923,
   },
   {
     id: 2465,
@@ -46834,7 +46834,7 @@ const divisions = [
       fr: 'Misiones',
     }),
     denomination: 'department',
-    geonameId: 3437727,
+    // geonameId: 3437727,
   },
   {
     id: 2466,
@@ -46853,7 +46853,7 @@ const divisions = [
       fr: 'Ñeembucú',
     }),
     denomination: 'department',
-    geonameId: 3437677,
+    // geonameId: 3437677,
   },
   {
     id: 2467,
@@ -46872,7 +46872,7 @@ const divisions = [
       fr: 'Presidente Hayes',
     }),
     denomination: 'department',
-    geonameId: 3437443,
+    // geonameId: 3437443,
   },
   {
     id: 2468,
@@ -46891,7 +46891,7 @@ const divisions = [
       fr: 'San Pedro',
     }),
     denomination: 'department',
-    geonameId: 3437027,
+    // geonameId: 3437027,
   },
   {
     id: 2469,
@@ -46910,7 +46910,7 @@ const divisions = [
       fr: 'Amazonas',
     }),
     denomination: 'region',
-    geonameId: 3699699,
+    // geonameId: 3699699,
   },
   {
     id: 2470,
@@ -46929,7 +46929,7 @@ const divisions = [
       fr: 'Ancash',
     }),
     denomination: 'region',
-    geonameId: 3699674,
+    // geonameId: 3699674,
   },
   {
     id: 2471,
@@ -46948,7 +46948,7 @@ const divisions = [
       fr: 'Apurímac',
     }),
     denomination: 'department',
-    geonameId: 3947421,
+    // geonameId: 3947421,
   },
   {
     id: 2472,
@@ -46967,7 +46967,7 @@ const divisions = [
       fr: 'Arequipa',
     }),
     denomination: 'region',
-    geonameId: 3947319,
+    // geonameId: 3947319,
   },
   {
     id: 2473,
@@ -46986,7 +46986,7 @@ const divisions = [
       fr: 'Ayacucho',
     }),
     denomination: 'region',
-    geonameId: 3947018,
+    // geonameId: 3947018,
   },
   {
     id: 2474,
@@ -47005,7 +47005,7 @@ const divisions = [
       fr: 'Cajamarca',
     }),
     denomination: 'department',
-    geonameId: 3699087,
+    // geonameId: 3699087,
   },
   {
     id: 2475,
@@ -47024,7 +47024,7 @@ const divisions = [
       fr: 'Cusco',
     }),
     denomination: 'department',
-    geonameId: 3941583,
+    // geonameId: 3941583,
   },
   {
     id: 2476,
@@ -47043,7 +47043,7 @@ const divisions = [
       fr: 'Huancavelica',
     }),
     denomination: 'region',
-    geonameId: 3939467,
+    // geonameId: 3939467,
   },
   {
     id: 2477,
@@ -47062,7 +47062,7 @@ const divisions = [
       fr: 'Huánuco',
     }),
     denomination: 'department',
-    geonameId: 3696416,
+    // geonameId: 3696416,
   },
   {
     id: 2478,
@@ -47081,7 +47081,7 @@ const divisions = [
       fr: 'Ica',
     }),
     denomination: 'region',
-    geonameId: 3938526,
+    // geonameId: 3938526,
   },
   {
     id: 2479,
@@ -47100,7 +47100,7 @@ const divisions = [
       fr: 'Junín',
     }),
     denomination: 'region',
-    geonameId: 3937485,
+    // geonameId: 3937485,
   },
   {
     id: 2480,
@@ -47119,7 +47119,7 @@ const divisions = [
       fr: 'La Libertad',
     }),
     denomination: 'region',
-    geonameId: 3695781,
+    // geonameId: 3695781,
   },
   {
     id: 2481,
@@ -47138,7 +47138,7 @@ const divisions = [
       fr: 'Lambayeque',
     }),
     denomination: 'region',
-    geonameId: 3695753,
+    // geonameId: 3695753,
   },
   {
     id: 2482,
@@ -47157,7 +47157,7 @@ const divisions = [
       fr: 'Lima',
     }),
     denomination: 'province',
-    geonameId: 3936451,
+    // geonameId: 3936451,
   },
   {
     id: 2483,
@@ -47176,7 +47176,7 @@ const divisions = [
       fr: 'Lima',
     }),
     denomination: 'region',
-    geonameId: 3936452,
+    // geonameId: 3936452,
   },
   {
     id: 2484,
@@ -47195,7 +47195,7 @@ const divisions = [
       fr: 'Loreto',
     }),
     denomination: 'region',
-    geonameId: 3695238,
+    // geonameId: 3695238,
   },
   {
     id: 2485,
@@ -47214,7 +47214,7 @@ const divisions = [
       fr: 'Madre de Dios',
     }),
     denomination: 'region',
-    geonameId: 3935619,
+    // geonameId: 3935619,
   },
   {
     id: 2486,
@@ -47233,7 +47233,7 @@ const divisions = [
       fr: 'Moquegua',
     }),
     denomination: 'department',
-    geonameId: 3934607,
+    // geonameId: 3934607,
   },
   {
     id: 2487,
@@ -47252,7 +47252,7 @@ const divisions = [
       fr: 'Pasco',
     }),
     denomination: 'region',
-    geonameId: 3932834,
+    // geonameId: 3932834,
   },
   {
     id: 2488,
@@ -47271,7 +47271,7 @@ const divisions = [
       fr: 'Piura',
     }),
     denomination: 'region',
-    geonameId: 3693525,
+    // geonameId: 3693525,
   },
   {
     id: 2489,
@@ -47290,7 +47290,7 @@ const divisions = [
       fr: 'Callao',
     }),
     denomination: 'constitutional_province',
-    geonameId: 3946080,
+    // geonameId: 3946080,
   },
   {
     id: 2490,
@@ -47309,7 +47309,7 @@ const divisions = [
       fr: 'Puno',
     }),
     denomination: 'region',
-    geonameId: 3931275,
+    // geonameId: 3931275,
   },
   {
     id: 2491,
@@ -47328,7 +47328,7 @@ const divisions = [
       fr: 'San Martín',
     }),
     denomination: 'department',
-    geonameId: 3692385,
+    // geonameId: 3692385,
   },
   {
     id: 2492,
@@ -47347,7 +47347,7 @@ const divisions = [
       fr: 'Tacna',
     }),
     denomination: 'region',
-    geonameId: 3928127,
+    // geonameId: 3928127,
   },
   {
     id: 2493,
@@ -47366,7 +47366,7 @@ const divisions = [
       fr: 'Tumbes',
     }),
     denomination: 'region',
-    geonameId: 3691146,
+    // geonameId: 3691146,
   },
   {
     id: 2494,
@@ -47385,7 +47385,7 @@ const divisions = [
       fr: 'Ucayali',
     }),
     denomination: 'region',
-    geonameId: 3691099,
+    // geonameId: 3691099,
   },
   {
     id: 2495,
@@ -47404,7 +47404,7 @@ const divisions = [
       fr: 'Mindanao musulman',
     }),
     denomination: 'region',
-    geonameId: 7115989,
+    // geonameId: 7115989,
   },
   {
     id: 2496,
@@ -47423,7 +47423,7 @@ const divisions = [
       fr: 'Bicol',
     }),
     denomination: 'region',
-    geonameId: 7521310,
+    // geonameId: 7521310,
   },
   {
     id: 2497,
@@ -47442,7 +47442,7 @@ const divisions = [
       fr: 'Vallée de Cagayan',
     }),
     denomination: 'region',
-    geonameId: 7521297,
+    // geonameId: 7521297,
   },
   {
     id: 2498,
@@ -47461,7 +47461,7 @@ const divisions = [
       fr: 'Calabarzon',
     }),
     denomination: 'region',
-    geonameId: 7521303,
+    // geonameId: 7521303,
   },
   {
     id: 2499,
@@ -47480,7 +47480,7 @@ const divisions = [
       fr: 'Caraga',
     }),
     denomination: 'region',
-    geonameId: 7521299,
+    // geonameId: 7521299,
   },
   {
     id: 2500,
@@ -47499,7 +47499,7 @@ const divisions = [
       fr: 'Luzon central',
     }),
     denomination: 'region',
-    geonameId: 7521305,
+    // geonameId: 7521305,
   },
   {
     id: 2501,
@@ -47518,7 +47518,7 @@ const divisions = [
       fr: 'Visayas centrales',
     }),
     denomination: 'region',
-    geonameId: 7521306,
+    // geonameId: 7521306,
   },
   {
     id: 2502,
@@ -47537,7 +47537,7 @@ const divisions = [
       fr: 'Cordillère',
     }),
     denomination: 'region',
-    geonameId: 7521300,
+    // geonameId: 7521300,
   },
   {
     id: 2503,
@@ -47556,7 +47556,7 @@ const divisions = [
       fr: 'Davao',
     }),
     denomination: 'region',
-    geonameId: 7521309,
+    // geonameId: 7521309,
   },
   {
     id: 2504,
@@ -47575,7 +47575,7 @@ const divisions = [
       fr: 'Visayas orientales',
     }),
     denomination: 'region',
-    geonameId: 7521307,
+    // geonameId: 7521307,
   },
   {
     id: 2505,
@@ -47594,7 +47594,7 @@ const divisions = [
       fr: 'Ilocos',
     }),
     denomination: 'region',
-    geonameId: 7521301,
+    // geonameId: 7521301,
   },
   {
     id: 2506,
@@ -47613,7 +47613,7 @@ const divisions = [
       fr: 'Mimaropa',
     }),
     denomination: 'region',
-    geonameId: 7521296,
+    // geonameId: 7521296,
   },
   {
     id: 2507,
@@ -47632,7 +47632,7 @@ const divisions = [
       fr: 'Région capitale',
     }),
     denomination: 'region',
-    geonameId: 7521311,
+    // geonameId: 7521311,
   },
   {
     id: 2508,
@@ -47651,7 +47651,7 @@ const divisions = [
       fr: 'Mindanao du Nord',
     }),
     denomination: 'region',
-    geonameId: 7521295,
+    // geonameId: 7521295,
   },
   {
     id: 2509,
@@ -47670,7 +47670,7 @@ const divisions = [
       fr: 'Soccsksargen',
     }),
     denomination: 'region',
-    geonameId: 7521298,
+    // geonameId: 7521298,
   },
   {
     id: 2510,
@@ -47689,7 +47689,7 @@ const divisions = [
       fr: 'Visayas occidentales',
     }),
     denomination: 'region',
-    geonameId: 7521304,
+    // geonameId: 7521304,
   },
   {
     id: 2511,
@@ -47708,7 +47708,7 @@ const divisions = [
       fr: 'Péninsule de Zamboanga',
     }),
     denomination: 'region',
-    geonameId: 7521308,
+    // geonameId: 7521308,
   },
   {
     id: 2512,
@@ -47727,7 +47727,7 @@ const divisions = [
       fr: 'Grande-Pologne',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337498,
+    // geonameId: 3337498,
   },
   {
     id: 2513,
@@ -47746,7 +47746,7 @@ const divisions = [
       fr: 'Cujavie-Poméranie',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337500,
+    // geonameId: 3337500,
   },
   {
     id: 2514,
@@ -47765,7 +47765,7 @@ const divisions = [
       fr: 'Petite-Pologne',
     }),
     denomination: 'voivodeship',
-    geonameId: 858786,
+    // geonameId: 858786,
   },
   {
     id: 2515,
@@ -47784,7 +47784,7 @@ const divisions = [
       fr: 'Łódź',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337493,
+    // geonameId: 3337493,
   },
   {
     id: 2516,
@@ -47803,7 +47803,7 @@ const divisions = [
       fr: 'Basse-Silésie',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337492,
+    // geonameId: 3337492,
   },
   {
     id: 2517,
@@ -47822,7 +47822,7 @@ const divisions = [
       fr: 'Lublin',
     }),
     denomination: 'voivodeship',
-    geonameId: 858785,
+    // geonameId: 858785,
   },
   {
     id: 2518,
@@ -47841,7 +47841,7 @@ const divisions = [
       fr: 'Lubusz',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337494,
+    // geonameId: 3337494,
   },
   {
     id: 2519,
@@ -47860,7 +47860,7 @@ const divisions = [
       fr: 'Mazovie',
     }),
     denomination: 'voivodeship',
-    geonameId: 858787,
+    // geonameId: 858787,
   },
   {
     id: 2520,
@@ -47879,7 +47879,7 @@ const divisions = [
       fr: 'Opole',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337495,
+    // geonameId: 3337495,
   },
   {
     id: 2521,
@@ -47898,7 +47898,7 @@ const divisions = [
       fr: 'Podlachie',
     }),
     denomination: 'voivodeship',
-    geonameId: 858789,
+    // geonameId: 858789,
   },
   {
     id: 2522,
@@ -47917,7 +47917,7 @@ const divisions = [
       fr: 'Poméranie',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337496,
+    // geonameId: 3337496,
   },
   {
     id: 2523,
@@ -47936,7 +47936,7 @@ const divisions = [
       fr: 'Silésie',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337497,
+    // geonameId: 3337497,
   },
   {
     id: 2524,
@@ -47955,7 +47955,7 @@ const divisions = [
       fr: 'Subcarpatie',
     }),
     denomination: 'voivodeship',
-    geonameId: 858788,
+    // geonameId: 858788,
   },
   {
     id: 2525,
@@ -47974,7 +47974,7 @@ const divisions = [
       fr: 'Świętokrzyskie',
     }),
     denomination: 'voivodeship',
-    geonameId: 858790,
+    // geonameId: 858790,
   },
   {
     id: 2526,
@@ -47993,7 +47993,7 @@ const divisions = [
       fr: 'Warmie-Mazurie',
     }),
     denomination: 'voivodeship',
-    geonameId: 858791,
+    // geonameId: 858791,
   },
   {
     id: 2527,
@@ -48012,7 +48012,7 @@ const divisions = [
       fr: 'Poméranie occidentale',
     }),
     denomination: 'voivodeship',
-    geonameId: 3337499,
+    // geonameId: 3337499,
   },
   {
     id: 2528,
@@ -48031,7 +48031,7 @@ const divisions = [
       fr: 'Aveiro',
     }),
     denomination: 'district',
-    geonameId: 2742610,
+    // geonameId: 2742610,
   },
   {
     id: 2529,
@@ -48050,7 +48050,7 @@ const divisions = [
       fr: 'Açores',
     }),
     denomination: 'autonomous_region',
-    geonameId: 3411865,
+    // geonameId: 3411865,
   },
   {
     id: 2530,
@@ -48069,7 +48069,7 @@ const divisions = [
       fr: 'Beja',
     }),
     denomination: 'district',
-    geonameId: 2270984,
+    // geonameId: 2270984,
   },
   {
     id: 2531,
@@ -48088,7 +48088,7 @@ const divisions = [
       fr: 'Braga',
     }),
     denomination: 'district',
-    geonameId: 2742031,
+    // geonameId: 2742031,
   },
   {
     id: 2532,
@@ -48107,7 +48107,7 @@ const divisions = [
       fr: 'Bragance',
     }),
     denomination: 'district',
-    geonameId: 2742026,
+    // geonameId: 2742026,
   },
   {
     id: 2533,
@@ -48126,7 +48126,7 @@ const divisions = [
       fr: 'Castelo Branco',
     }),
     denomination: 'district',
-    geonameId: 2269513,
+    // geonameId: 2269513,
   },
   {
     id: 2534,
@@ -48145,7 +48145,7 @@ const divisions = [
       fr: 'Coimbra',
     }),
     denomination: 'district',
-    geonameId: 2740636,
+    // geonameId: 2740636,
   },
   {
     id: 2535,
@@ -48164,7 +48164,7 @@ const divisions = [
       fr: 'Évora',
     }),
     denomination: 'district',
-    geonameId: 2268404,
+    // geonameId: 2268404,
   },
   {
     id: 2536,
@@ -48183,7 +48183,7 @@ const divisions = [
       fr: 'Faro',
     }),
     denomination: 'district',
-    geonameId: 2268337,
+    // geonameId: 2268337,
   },
   {
     id: 2537,
@@ -48202,7 +48202,7 @@ const divisions = [
       fr: 'Guarda',
     }),
     denomination: 'district',
-    geonameId: 2738782,
+    // geonameId: 2738782,
   },
   {
     id: 2538,
@@ -48221,7 +48221,7 @@ const divisions = [
       fr: 'Leiria',
     }),
     denomination: 'district',
-    geonameId: 2267094,
+    // geonameId: 2267094,
   },
   {
     id: 2539,
@@ -48240,7 +48240,7 @@ const divisions = [
       fr: 'Lisbonne',
     }),
     denomination: 'district',
-    geonameId: 2267056,
+    // geonameId: 2267056,
   },
   {
     id: 2540,
@@ -48259,7 +48259,7 @@ const divisions = [
       fr: 'Madère',
     }),
     denomination: 'autonomous_region',
-    geonameId: 2593105,
+    // geonameId: 2593105,
   },
   {
     id: 2541,
@@ -48278,7 +48278,7 @@ const divisions = [
       fr: 'Portalegre',
     }),
     denomination: 'district',
-    geonameId: 2264507,
+    // geonameId: 2264507,
   },
   {
     id: 2542,
@@ -48297,7 +48297,7 @@ const divisions = [
       fr: 'Porto',
     }),
     denomination: 'district',
-    geonameId: 2735941,
+    // geonameId: 2735941,
   },
   {
     id: 2543,
@@ -48316,7 +48316,7 @@ const divisions = [
       fr: 'Santarém',
     }),
     denomination: 'district',
-    geonameId: 2263478,
+    // geonameId: 2263478,
   },
   {
     id: 2544,
@@ -48335,7 +48335,7 @@ const divisions = [
       fr: 'Setúbal',
     }),
     denomination: 'district',
-    geonameId: 2262961,
+    // geonameId: 2262961,
   },
   {
     id: 2545,
@@ -48354,7 +48354,7 @@ const divisions = [
       fr: 'Viana do Castelo',
     }),
     denomination: 'district',
-    geonameId: 2732772,
+    // geonameId: 2732772,
   },
   {
     id: 2546,
@@ -48373,7 +48373,7 @@ const divisions = [
       fr: 'Vila Real',
     }),
     denomination: 'district',
-    geonameId: 2732437,
+    // geonameId: 2732437,
   },
   {
     id: 2547,
@@ -48392,7 +48392,7 @@ const divisions = [
       fr: 'Viseu',
     }),
     denomination: 'district',
-    geonameId: 2732264,
+    // geonameId: 2732264,
   },
   {
     id: 2548,
@@ -48411,7 +48411,7 @@ const divisions = [
       fr: 'Adjuntas',
     }),
     denomination: 'municipality',
-    geonameId: 4562487,
+    // geonameId: 4562487,
   },
   {
     id: 2549,
@@ -48430,7 +48430,7 @@ const divisions = [
       fr: 'Aguada',
     }),
     denomination: 'municipality',
-    geonameId: 4562503,
+    // geonameId: 4562503,
   },
   {
     id: 2550,
@@ -48449,7 +48449,7 @@ const divisions = [
       fr: 'Aguadilla',
     }),
     denomination: 'municipality',
-    geonameId: 4562512,
+    // geonameId: 4562512,
   },
   {
     id: 2551,
@@ -48468,7 +48468,7 @@ const divisions = [
       fr: 'Aguas Buenas',
     }),
     denomination: 'municipality',
-    geonameId: 4562516,
+    // geonameId: 4562516,
   },
   {
     id: 2552,
@@ -48487,7 +48487,7 @@ const divisions = [
       fr: 'Aibonito',
     }),
     denomination: 'municipality',
-    geonameId: 4562531,
+    // geonameId: 4562531,
   },
   {
     id: 2553,
@@ -48506,7 +48506,7 @@ const divisions = [
       fr: 'Añasco',
     }),
     denomination: 'municipality',
-    geonameId: 4562605,
+    // geonameId: 4562605,
   },
   {
     id: 2554,
@@ -48525,7 +48525,7 @@ const divisions = [
       fr: 'Arecibo',
     }),
     denomination: 'municipality',
-    geonameId: 4562640,
+    // geonameId: 4562640,
   },
   {
     id: 2555,
@@ -48544,7 +48544,7 @@ const divisions = [
       fr: 'Arroyo',
     }),
     denomination: 'municipality',
-    geonameId: 4562682,
+    // geonameId: 4562682,
   },
   {
     id: 2556,
@@ -48563,7 +48563,7 @@ const divisions = [
       fr: 'Barceloneta',
     }),
     denomination: 'municipality',
-    geonameId: 4562771,
+    // geonameId: 4562771,
   },
   {
     id: 2557,
@@ -48582,7 +48582,7 @@ const divisions = [
       fr: 'Barranquitas',
     }),
     denomination: 'municipality',
-    geonameId: 4562779,
+    // geonameId: 4562779,
   },
   {
     id: 2558,
@@ -48601,7 +48601,7 @@ const divisions = [
       fr: 'Bayamón',
     }),
     denomination: 'municipality',
-    geonameId: 4562837,
+    // geonameId: 4562837,
   },
   {
     id: 2559,
@@ -48620,7 +48620,7 @@ const divisions = [
       fr: 'Cabo Rojo',
     }),
     denomination: 'municipality',
-    geonameId: 4562997,
+    // geonameId: 4562997,
   },
   {
     id: 2560,
@@ -48639,7 +48639,7 @@ const divisions = [
       fr: 'Caguas',
     }),
     denomination: 'municipality',
-    geonameId: 4563011,
+    // geonameId: 4563011,
   },
   {
     id: 2561,
@@ -48658,7 +48658,7 @@ const divisions = [
       fr: 'Camuy',
     }),
     denomination: 'municipality',
-    geonameId: 4563065,
+    // geonameId: 4563065,
   },
   {
     id: 2562,
@@ -48677,7 +48677,7 @@ const divisions = [
       fr: 'Canóvanas',
     }),
     denomination: 'municipality',
-    geonameId: 4563169,
+    // geonameId: 4563169,
   },
   {
     id: 2563,
@@ -48696,7 +48696,7 @@ const divisions = [
       fr: 'Caroline',
     }),
     denomination: 'municipality',
-    geonameId: 4563244,
+    // geonameId: 4563244,
   },
   {
     id: 2564,
@@ -48715,7 +48715,7 @@ const divisions = [
       fr: 'Cataño',
     }),
     denomination: 'municipality',
-    geonameId: 4563299,
+    // geonameId: 4563299,
   },
   {
     id: 2565,
@@ -48734,7 +48734,7 @@ const divisions = [
       fr: 'Cayey',
     }),
     denomination: 'municipality',
-    geonameId: 4563309,
+    // geonameId: 4563309,
   },
   {
     id: 2566,
@@ -48753,7 +48753,7 @@ const divisions = [
       fr: 'Ceiba',
     }),
     denomination: 'municipality',
-    geonameId: 4563380,
+    // geonameId: 4563380,
   },
   {
     id: 2567,
@@ -48772,7 +48772,7 @@ const divisions = [
       fr: 'Ciales',
     }),
     denomination: 'municipality',
-    geonameId: 4563774,
+    // geonameId: 4563774,
   },
   {
     id: 2568,
@@ -48791,7 +48791,7 @@ const divisions = [
       fr: 'Cidra',
     }),
     denomination: 'municipality',
-    geonameId: 4563778,
+    // geonameId: 4563778,
   },
   {
     id: 2569,
@@ -48810,7 +48810,7 @@ const divisions = [
       fr: 'Coamo',
     }),
     denomination: 'municipality',
-    geonameId: 4563812,
+    // geonameId: 4563812,
   },
   {
     id: 2570,
@@ -48829,7 +48829,7 @@ const divisions = [
       fr: 'Comerío',
     }),
     denomination: 'municipality',
-    geonameId: 4563921,
+    // geonameId: 4563921,
   },
   {
     id: 2571,
@@ -48848,7 +48848,7 @@ const divisions = [
       fr: 'Corozal',
     }),
     denomination: 'municipality',
-    geonameId: 4564004,
+    // geonameId: 4564004,
   },
   {
     id: 2572,
@@ -48867,7 +48867,7 @@ const divisions = [
       fr: 'Culebra',
     }),
     denomination: 'municipality',
-    geonameId: 4564071,
+    // geonameId: 4564071,
   },
   {
     id: 2573,
@@ -48886,7 +48886,7 @@ const divisions = [
       fr: 'Dorado',
     }),
     denomination: 'municipality',
-    geonameId: 4564134,
+    // geonameId: 4564134,
   },
   {
     id: 2574,
@@ -48905,7 +48905,7 @@ const divisions = [
       fr: 'Fajardo',
     }),
     denomination: 'municipality',
-    geonameId: 4564949,
+    // geonameId: 4564949,
   },
   {
     id: 2575,
@@ -48924,7 +48924,7 @@ const divisions = [
       fr: 'Florida',
     }),
     denomination: 'municipality',
-    geonameId: 4564993,
+    // geonameId: 4564993,
   },
   {
     id: 2576,
@@ -48943,7 +48943,7 @@ const divisions = [
       fr: 'Guánica',
     }),
     denomination: 'municipality',
-    geonameId: 4565091,
+    // geonameId: 4565091,
   },
   {
     id: 2577,
@@ -48962,7 +48962,7 @@ const divisions = [
       fr: 'Guayama',
     }),
     denomination: 'municipality',
-    geonameId: 4565107,
+    // geonameId: 4565107,
   },
   {
     id: 2578,
@@ -48981,7 +48981,7 @@ const divisions = [
       fr: 'Guayanilla',
     }),
     denomination: 'municipality',
-    geonameId: 4565112,
+    // geonameId: 4565112,
   },
   {
     id: 2579,
@@ -49000,7 +49000,7 @@ const divisions = [
       fr: 'Guaynabo',
     }),
     denomination: 'municipality',
-    geonameId: 4565120,
+    // geonameId: 4565120,
   },
   {
     id: 2580,
@@ -49019,7 +49019,7 @@ const divisions = [
       fr: 'Gurabo',
     }),
     denomination: 'municipality',
-    geonameId: 4565126,
+    // geonameId: 4565126,
   },
   {
     id: 2581,
@@ -49038,7 +49038,7 @@ const divisions = [
       fr: 'Hatillo',
     }),
     denomination: 'municipality',
-    geonameId: 4565348,
+    // geonameId: 4565348,
   },
   {
     id: 2582,
@@ -49057,7 +49057,7 @@ const divisions = [
       fr: 'Hormigueros',
     }),
     denomination: 'municipality',
-    geonameId: 4565381,
+    // geonameId: 4565381,
   },
   {
     id: 2583,
@@ -49076,7 +49076,7 @@ const divisions = [
       fr: 'Humacao',
     }),
     denomination: 'municipality',
-    geonameId: 4565449,
+    // geonameId: 4565449,
   },
   {
     id: 2584,
@@ -49095,7 +49095,7 @@ const divisions = [
       fr: 'Isabela',
     }),
     denomination: 'municipality',
-    geonameId: 4565581,
+    // geonameId: 4565581,
   },
   {
     id: 2585,
@@ -49114,7 +49114,7 @@ const divisions = [
       fr: 'Jayuya',
     }),
     denomination: 'municipality',
-    geonameId: 4565684,
+    // geonameId: 4565684,
   },
   {
     id: 2586,
@@ -49133,7 +49133,7 @@ const divisions = [
       fr: 'Juana Díaz',
     }),
     denomination: 'municipality',
-    geonameId: 4565713,
+    // geonameId: 4565713,
   },
   {
     id: 2587,
@@ -49152,7 +49152,7 @@ const divisions = [
       fr: 'Juncos',
     }),
     denomination: 'municipality',
-    geonameId: 4565720,
+    // geonameId: 4565720,
   },
   {
     id: 2588,
@@ -49171,7 +49171,7 @@ const divisions = [
       fr: 'Lajas',
     }),
     denomination: 'municipality',
-    geonameId: 4565900,
+    // geonameId: 4565900,
   },
   {
     id: 2589,
@@ -49190,7 +49190,7 @@ const divisions = [
       fr: 'Lares',
     }),
     denomination: 'municipality',
-    geonameId: 4565910,
+    // geonameId: 4565910,
   },
   {
     id: 2590,
@@ -49209,7 +49209,7 @@ const divisions = [
       fr: 'Las Marías',
     }),
     denomination: 'municipality',
-    geonameId: 4565961,
+    // geonameId: 4565961,
   },
   {
     id: 2591,
@@ -49228,7 +49228,7 @@ const divisions = [
       fr: 'Las Piedras',
     }),
     denomination: 'municipality',
-    geonameId: 4565981,
+    // geonameId: 4565981,
   },
   {
     id: 2592,
@@ -49247,7 +49247,7 @@ const divisions = [
       fr: 'Loíza',
     }),
     denomination: 'municipality',
-    geonameId: 4566025,
+    // geonameId: 4566025,
   },
   {
     id: 2593,
@@ -49266,7 +49266,7 @@ const divisions = [
       fr: 'Luquillo',
     }),
     denomination: 'municipality',
-    geonameId: 4566106,
+    // geonameId: 4566106,
   },
   {
     id: 2594,
@@ -49285,7 +49285,7 @@ const divisions = [
       fr: 'Manatí',
     }),
     denomination: 'municipality',
-    geonameId: 4566138,
+    // geonameId: 4566138,
   },
   {
     id: 2595,
@@ -49304,7 +49304,7 @@ const divisions = [
       fr: 'Maricao',
     }),
     denomination: 'municipality',
-    geonameId: 4566180,
+    // geonameId: 4566180,
   },
   {
     id: 2596,
@@ -49323,7 +49323,7 @@ const divisions = [
       fr: 'Maunabo',
     }),
     denomination: 'municipality',
-    geonameId: 4566209,
+    // geonameId: 4566209,
   },
   {
     id: 2597,
@@ -49342,7 +49342,7 @@ const divisions = [
       fr: 'Mayagüez',
     }),
     denomination: 'municipality',
-    geonameId: 4566217,
+    // geonameId: 4566217,
   },
   {
     id: 2598,
@@ -49361,7 +49361,7 @@ const divisions = [
       fr: 'Moca',
     }),
     denomination: 'municipality',
-    geonameId: 4566272,
+    // geonameId: 4566272,
   },
   {
     id: 2599,
@@ -49380,7 +49380,7 @@ const divisions = [
       fr: 'Morovis',
     }),
     denomination: 'municipality',
-    geonameId: 4566334,
+    // geonameId: 4566334,
   },
   {
     id: 2600,
@@ -49399,7 +49399,7 @@ const divisions = [
       fr: 'Naguabo',
     }),
     denomination: 'municipality',
-    geonameId: 4566397,
+    // geonameId: 4566397,
   },
   {
     id: 2601,
@@ -49418,7 +49418,7 @@ const divisions = [
       fr: 'Naranjito',
     }),
     denomination: 'municipality',
-    geonameId: 4566403,
+    // geonameId: 4566403,
   },
   {
     id: 2602,
@@ -49437,7 +49437,7 @@ const divisions = [
       fr: 'Orocovis',
     }),
     denomination: 'municipality',
-    geonameId: 4566456,
+    // geonameId: 4566456,
   },
   {
     id: 2603,
@@ -49456,7 +49456,7 @@ const divisions = [
       fr: 'Patillas',
     }),
     denomination: 'municipality',
-    geonameId: 4566654,
+    // geonameId: 4566654,
   },
   {
     id: 2604,
@@ -49475,7 +49475,7 @@ const divisions = [
       fr: 'Peñuelas',
     }),
     denomination: 'municipality',
-    geonameId: 4566689,
+    // geonameId: 4566689,
   },
   {
     id: 2605,
@@ -49494,7 +49494,7 @@ const divisions = [
       fr: 'Ponce',
     }),
     denomination: 'municipality',
-    geonameId: 4566886,
+    // geonameId: 4566886,
   },
   {
     id: 2606,
@@ -49513,7 +49513,7 @@ const divisions = [
       fr: 'Quebradillas',
     }),
     denomination: 'municipality',
-    geonameId: 4567734,
+    // geonameId: 4567734,
   },
   {
     id: 2607,
@@ -49532,7 +49532,7 @@ const divisions = [
       fr: 'Rincón',
     }),
     denomination: 'municipality',
-    geonameId: 4567727,
+    // geonameId: 4567727,
   },
   {
     id: 2608,
@@ -49551,7 +49551,7 @@ const divisions = [
       fr: 'Río Grande',
     }),
     denomination: 'municipality',
-    geonameId: 4567823,
+    // geonameId: 4567823,
   },
   {
     id: 2609,
@@ -49570,7 +49570,7 @@ const divisions = [
       fr: 'Sabana Grande',
     }),
     denomination: 'municipality',
-    geonameId: 4568015,
+    // geonameId: 4568015,
   },
   {
     id: 2610,
@@ -49589,7 +49589,7 @@ const divisions = [
       fr: 'Salinas',
     }),
     denomination: 'municipality',
-    geonameId: 4568043,
+    // geonameId: 4568043,
   },
   {
     id: 2611,
@@ -49608,7 +49608,7 @@ const divisions = [
       fr: 'San Germán',
     }),
     denomination: 'municipality',
-    geonameId: 4568105,
+    // geonameId: 4568105,
   },
   {
     id: 2612,
@@ -49627,7 +49627,7 @@ const divisions = [
       fr: 'San Juan',
     }),
     denomination: 'municipality',
-    geonameId: 4568138,
+    // geonameId: 4568138,
   },
   {
     id: 2613,
@@ -49646,7 +49646,7 @@ const divisions = [
       fr: 'San Lorenzo',
     }),
     denomination: 'municipality',
-    geonameId: 4568150,
+    // geonameId: 4568150,
   },
   {
     id: 2614,
@@ -49665,7 +49665,7 @@ const divisions = [
       fr: 'San Sebastián',
     }),
     denomination: 'municipality',
-    geonameId: 4568177,
+    // geonameId: 4568177,
   },
   {
     id: 2615,
@@ -49684,7 +49684,7 @@ const divisions = [
       fr: 'Santa Isabel',
     }),
     denomination: 'municipality',
-    geonameId: 4568213,
+    // geonameId: 4568213,
   },
   {
     id: 2616,
@@ -49703,7 +49703,7 @@ const divisions = [
       fr: 'Toa Alta',
     }),
     denomination: 'municipality',
-    geonameId: 4568404,
+    // geonameId: 4568404,
   },
   {
     id: 2617,
@@ -49722,7 +49722,7 @@ const divisions = [
       fr: 'Toa Baja',
     }),
     denomination: 'municipality',
-    geonameId: 4568408,
+    // geonameId: 4568408,
   },
   {
     id: 2618,
@@ -49741,7 +49741,7 @@ const divisions = [
       fr: 'Trujillo Alto',
     }),
     denomination: 'municipality',
-    geonameId: 4568452,
+    // geonameId: 4568452,
   },
   {
     id: 2619,
@@ -49760,7 +49760,7 @@ const divisions = [
       fr: 'Utuado',
     }),
     denomination: 'municipality',
-    geonameId: 4568491,
+    // geonameId: 4568491,
   },
   {
     id: 2620,
@@ -49779,7 +49779,7 @@ const divisions = [
       fr: 'Vega Alta',
     }),
     denomination: 'municipality',
-    geonameId: 4568529,
+    // geonameId: 4568529,
   },
   {
     id: 2621,
@@ -49798,7 +49798,7 @@ const divisions = [
       fr: 'Vega Baja',
     }),
     denomination: 'municipality',
-    geonameId: 4568534,
+    // geonameId: 4568534,
   },
   {
     id: 2622,
@@ -49817,7 +49817,7 @@ const divisions = [
       fr: 'Vieques',
     }),
     denomination: 'municipality',
-    geonameId: 4568924,
+    // geonameId: 4568924,
   },
   {
     id: 2623,
@@ -49836,7 +49836,7 @@ const divisions = [
       fr: 'Villalba',
     }),
     denomination: 'municipality',
-    geonameId: 4568684,
+    // geonameId: 4568684,
   },
   {
     id: 2624,
@@ -49855,7 +49855,7 @@ const divisions = [
       fr: 'Yabucoa',
     }),
     denomination: 'municipality',
-    geonameId: 4568909,
+    // geonameId: 4568909,
   },
   {
     id: 2625,
@@ -49874,7 +49874,7 @@ const divisions = [
       fr: 'Yauco',
     }),
     denomination: 'municipality',
-    geonameId: 4568918,
+    // geonameId: 4568918,
   },
   {
     id: 2626,
@@ -49893,7 +49893,7 @@ const divisions = [
       fr: 'Al Daayen',
     }),
     denomination: 'municipality',
-    geonameId: 8030540,
+    // geonameId: 8030540,
   },
   {
     id: 2627,
@@ -49912,7 +49912,7 @@ const divisions = [
       fr: 'Al Khor',
     }),
     denomination: 'municipality',
-    geonameId: 389465,
+    // geonameId: 389465,
   },
   {
     id: 2628,
@@ -49931,7 +49931,7 @@ const divisions = [
       fr: 'Al Wakrah',
     }),
     denomination: 'municipality',
-    geonameId: 389472,
+    // geonameId: 389472,
   },
   {
     id: 2629,
@@ -49950,7 +49950,7 @@ const divisions = [
       fr: 'Al-Shahaniya',
     }),
     denomination: 'municipality',
-    geonameId: 11777514,
+    // geonameId: 11777514,
   },
   {
     id: 2630,
@@ -49969,7 +49969,7 @@ const divisions = [
       fr: 'Doha',
     }),
     denomination: 'municipality',
-    geonameId: 389470,
+    // geonameId: 389470,
   },
   {
     id: 2631,
@@ -49988,7 +49988,7 @@ const divisions = [
       fr: 'Al Rayyan',
     }),
     denomination: 'municipality',
-    geonameId: 389469,
+    // geonameId: 389469,
   },
   {
     id: 2632,
@@ -50007,7 +50007,7 @@ const divisions = [
       fr: 'Al Shamal',
     }),
     denomination: 'municipality',
-    geonameId: 389462,
+    // geonameId: 389462,
   },
   {
     id: 2633,
@@ -50026,7 +50026,7 @@ const divisions = [
       fr: 'Umm Salal',
     }),
     denomination: 'municipality',
-    geonameId: 389467,
+    // geonameId: 389467,
   },
   {
     id: 2634,
@@ -50045,7 +50045,7 @@ const divisions = [
       fr: 'Réunion',
     }),
     denomination: 'department',
-    geonameId: 6690283,
+    // geonameId: 6690283,
   },
   {
     id: 2635,
@@ -50064,7 +50064,7 @@ const divisions = [
       fr: 'Alba',
     }),
     denomination: 'county',
-    geonameId: 686581,
+    // geonameId: 686581,
   },
   {
     id: 2636,
@@ -50083,7 +50083,7 @@ const divisions = [
       fr: 'Arad',
     }),
     denomination: 'county',
-    geonameId: 686253,
+    // geonameId: 686253,
   },
   {
     id: 2637,
@@ -50102,7 +50102,7 @@ const divisions = [
       fr: 'Argeș',
     }),
     denomination: 'county',
-    geonameId: 686192,
+    // geonameId: 686192,
   },
   {
     id: 2638,
@@ -50121,7 +50121,7 @@ const divisions = [
       fr: 'Bacău',
     }),
     denomination: 'county',
-    geonameId: 685947,
+    // geonameId: 685947,
   },
   {
     id: 2639,
@@ -50140,7 +50140,7 @@ const divisions = [
       fr: 'Bihor',
     }),
     denomination: 'county',
-    geonameId: 684878,
+    // geonameId: 684878,
   },
   {
     id: 2640,
@@ -50159,7 +50159,7 @@ const divisions = [
       fr: 'Bistrița-Năsăud',
     }),
     denomination: 'county',
-    geonameId: 684647,
+    // geonameId: 684647,
   },
   {
     id: 2641,
@@ -50178,7 +50178,7 @@ const divisions = [
       fr: 'Botoșani',
     }),
     denomination: 'county',
-    geonameId: 684038,
+    // geonameId: 684038,
   },
   {
     id: 2642,
@@ -50197,7 +50197,7 @@ const divisions = [
       fr: 'Brăila',
     }),
     denomination: 'county',
-    geonameId: 683901,
+    // geonameId: 683901,
   },
   {
     id: 2643,
@@ -50216,7 +50216,7 @@ const divisions = [
       fr: 'Brașov',
     }),
     denomination: 'county',
-    geonameId: 683843,
+    // geonameId: 683843,
   },
   {
     id: 2644,
@@ -50235,7 +50235,7 @@ const divisions = [
       fr: 'Bucarest',
     }),
     denomination: 'municipality',
-    geonameId: 683504,
+    // geonameId: 683504,
   },
   {
     id: 2645,
@@ -50254,7 +50254,7 @@ const divisions = [
       fr: 'Buzău',
     }),
     denomination: 'county',
-    geonameId: 683121,
+    // geonameId: 683121,
   },
   {
     id: 2646,
@@ -50273,7 +50273,7 @@ const divisions = [
       fr: 'Călărași',
     }),
     denomination: 'county',
-    geonameId: 683016,
+    // geonameId: 683016,
   },
   {
     id: 2647,
@@ -50292,7 +50292,7 @@ const divisions = [
       fr: 'Caraș-Severin',
     }),
     denomination: 'county',
-    geonameId: 682714,
+    // geonameId: 682714,
   },
   {
     id: 2648,
@@ -50311,7 +50311,7 @@ const divisions = [
       fr: 'Cluj',
     }),
     denomination: 'county',
-    geonameId: 681291,
+    // geonameId: 681291,
   },
   {
     id: 2649,
@@ -50330,7 +50330,7 @@ const divisions = [
       fr: 'Constanța',
     }),
     denomination: 'county',
-    geonameId: 680962,
+    // geonameId: 680962,
   },
   {
     id: 2650,
@@ -50349,7 +50349,7 @@ const divisions = [
       fr: 'Covasna',
     }),
     denomination: 'county',
-    geonameId: 680428,
+    // geonameId: 680428,
   },
   {
     id: 2651,
@@ -50368,7 +50368,7 @@ const divisions = [
       fr: 'Dâmbovița',
     }),
     denomination: 'county',
-    geonameId: 679385,
+    // geonameId: 679385,
   },
   {
     id: 2652,
@@ -50387,7 +50387,7 @@ const divisions = [
       fr: 'Dolj',
     }),
     denomination: 'county',
-    geonameId: 679134,
+    // geonameId: 679134,
   },
   {
     id: 2653,
@@ -50406,7 +50406,7 @@ const divisions = [
       fr: 'Galați',
     }),
     denomination: 'county',
-    geonameId: 677692,
+    // geonameId: 677692,
   },
   {
     id: 2654,
@@ -50425,7 +50425,7 @@ const divisions = [
       fr: 'Giurgiu',
     }),
     denomination: 'county',
-    geonameId: 677104,
+    // geonameId: 677104,
   },
   {
     id: 2655,
@@ -50444,7 +50444,7 @@ const divisions = [
       fr: 'Gorj',
     }),
     denomination: 'county',
-    geonameId: 676898,
+    // geonameId: 676898,
   },
   {
     id: 2656,
@@ -50463,7 +50463,7 @@ const divisions = [
       fr: 'Harghita',
     }),
     denomination: 'county',
-    geonameId: 676309,
+    // geonameId: 676309,
   },
   {
     id: 2657,
@@ -50482,7 +50482,7 @@ const divisions = [
       fr: 'Hunedoara',
     }),
     denomination: 'county',
-    geonameId: 675917,
+    // geonameId: 675917,
   },
   {
     id: 2658,
@@ -50501,7 +50501,7 @@ const divisions = [
       fr: 'Ialomița',
     }),
     denomination: 'county',
-    geonameId: 675848,
+    // geonameId: 675848,
   },
   {
     id: 2659,
@@ -50520,7 +50520,7 @@ const divisions = [
       fr: 'Iași',
     }),
     denomination: 'county',
-    geonameId: 675809,
+    // geonameId: 675809,
   },
   {
     id: 2660,
@@ -50539,7 +50539,7 @@ const divisions = [
       fr: 'Ilfov',
     }),
     denomination: 'county',
-    geonameId: 865518,
+    // geonameId: 865518,
   },
   {
     id: 2661,
@@ -50558,7 +50558,7 @@ const divisions = [
       fr: 'Maramureș',
     }),
     denomination: 'county',
-    geonameId: 673887,
+    // geonameId: 673887,
   },
   {
     id: 2662,
@@ -50577,7 +50577,7 @@ const divisions = [
       fr: 'Mehedinți',
     }),
     denomination: 'county',
-    geonameId: 673612,
+    // geonameId: 673612,
   },
   {
     id: 2663,
@@ -50596,7 +50596,7 @@ const divisions = [
       fr: 'Mureș',
     }),
     denomination: 'county',
-    geonameId: 672628,
+    // geonameId: 672628,
   },
   {
     id: 2664,
@@ -50615,7 +50615,7 @@ const divisions = [
       fr: 'Neamț',
     }),
     denomination: 'county',
-    geonameId: 672460,
+    // geonameId: 672460,
   },
   {
     id: 2665,
@@ -50634,7 +50634,7 @@ const divisions = [
       fr: 'Olt',
     }),
     denomination: 'county',
-    geonameId: 671857,
+    // geonameId: 671857,
   },
   {
     id: 2666,
@@ -50653,7 +50653,7 @@ const divisions = [
       fr: 'Prahova',
     }),
     denomination: 'county',
-    geonameId: 669737,
+    // geonameId: 669737,
   },
   {
     id: 2667,
@@ -50672,7 +50672,7 @@ const divisions = [
       fr: 'Sălaj',
     }),
     denomination: 'county',
-    geonameId: 668248,
+    // geonameId: 668248,
   },
   {
     id: 2668,
@@ -50691,7 +50691,7 @@ const divisions = [
       fr: 'Satu Mare',
     }),
     denomination: 'county',
-    geonameId: 667869,
+    // geonameId: 667869,
   },
   {
     id: 2669,
@@ -50710,7 +50710,7 @@ const divisions = [
       fr: 'Sibiu',
     }),
     denomination: 'county',
-    geonameId: 667267,
+    // geonameId: 667267,
   },
   {
     id: 2670,
@@ -50729,7 +50729,7 @@ const divisions = [
       fr: 'Suceava',
     }),
     denomination: 'county',
-    geonameId: 665849,
+    // geonameId: 665849,
   },
   {
     id: 2671,
@@ -50748,7 +50748,7 @@ const divisions = [
       fr: 'Teleorman',
     }),
     denomination: 'county',
-    geonameId: 665283,
+    // geonameId: 665283,
   },
   {
     id: 2672,
@@ -50767,7 +50767,7 @@ const divisions = [
       fr: 'Timiș',
     }),
     denomination: 'county',
-    geonameId: 665091,
+    // geonameId: 665091,
   },
   {
     id: 2673,
@@ -50786,7 +50786,7 @@ const divisions = [
       fr: 'Tulcea',
     }),
     denomination: 'county',
-    geonameId: 664517,
+    // geonameId: 664517,
   },
   {
     id: 2674,
@@ -50805,7 +50805,7 @@ const divisions = [
       fr: 'Vâlcea',
     }),
     denomination: 'county',
-    geonameId: 662892,
+    // geonameId: 662892,
   },
   {
     id: 2675,
@@ -50824,7 +50824,7 @@ const divisions = [
       fr: 'Vaslui',
     }),
     denomination: 'county',
-    geonameId: 663116,
+    // geonameId: 663116,
   },
   {
     id: 2676,
@@ -50843,7 +50843,7 @@ const divisions = [
       fr: 'Vrancea',
     }),
     denomination: 'county',
-    geonameId: 662447,
+    // geonameId: 662447,
   },
   {
     id: 2677,
@@ -50862,7 +50862,7 @@ const divisions = [
       fr: 'Adyguée',
     }),
     denomination: 'republic',
-    geonameId: 584222,
+    // geonameId: 584222,
   },
   {
     id: 2678,
@@ -50881,7 +50881,7 @@ const divisions = [
       fr: 'Altaï',
     }),
     denomination: 'republic',
-    geonameId: 1506272,
+    // geonameId: 1506272,
   },
   {
     id: 2679,
@@ -50900,7 +50900,7 @@ const divisions = [
       fr: 'Altaï',
     }),
     denomination: 'krai',
-    geonameId: 1511732,
+    // geonameId: 1511732,
   },
   {
     id: 2680,
@@ -50919,7 +50919,7 @@ const divisions = [
       fr: 'Amour',
     }),
     denomination: 'oblast',
-    geonameId: 2027748,
+    // geonameId: 2027748,
   },
   {
     id: 2681,
@@ -50938,7 +50938,7 @@ const divisions = [
       fr: 'Arkhangelsk',
     }),
     denomination: 'oblast',
-    geonameId: 581043,
+    // geonameId: 581043,
   },
   {
     id: 2682,
@@ -50957,7 +50957,7 @@ const divisions = [
       fr: 'Astrakhan',
     }),
     denomination: 'oblast',
-    geonameId: 580491,
+    // geonameId: 580491,
   },
   {
     id: 2683,
@@ -50976,7 +50976,7 @@ const divisions = [
       fr: 'Bachkirie',
     }),
     denomination: 'republic',
-    geonameId: 578853,
+    // geonameId: 578853,
   },
   {
     id: 2684,
@@ -50995,7 +50995,7 @@ const divisions = [
       fr: 'Belgorod',
     }),
     denomination: 'oblast',
-    geonameId: 578071,
+    // geonameId: 578071,
   },
   {
     id: 2685,
@@ -51014,7 +51014,7 @@ const divisions = [
       fr: 'Bryansk',
     }),
     denomination: 'oblast',
-    geonameId: 571473,
+    // geonameId: 571473,
   },
   {
     id: 2686,
@@ -51033,7 +51033,7 @@ const divisions = [
       fr: 'Bouriatie',
     }),
     denomination: 'republic',
-    geonameId: 2050915,
+    // geonameId: 2050915,
   },
   {
     id: 2687,
@@ -51052,7 +51052,7 @@ const divisions = [
       fr: 'Tchétchénie',
     }),
     denomination: 'republic',
-    geonameId: 569665,
+    // geonameId: 569665,
   },
   {
     id: 2688,
@@ -51071,7 +51071,7 @@ const divisions = [
       fr: 'Tcheliabinsk',
     }),
     denomination: 'oblast',
-    geonameId: 1508290,
+    // geonameId: 1508290,
   },
   {
     id: 2689,
@@ -51090,7 +51090,7 @@ const divisions = [
       fr: 'Tchoukotka',
     }),
     denomination: 'autonomous_okrug',
-    geonameId: 2126099,
+    // geonameId: 2126099,
   },
   {
     id: 2690,
@@ -51109,7 +51109,7 @@ const divisions = [
       fr: 'Tchouvachie',
     }),
     denomination: 'republic',
-    geonameId: 567395,
+    // geonameId: 567395,
   },
   {
     id: 2691,
@@ -51128,7 +51128,7 @@ const divisions = [
       fr: 'Daghestan',
     }),
     denomination: 'republic',
-    geonameId: 567293,
+    // geonameId: 567293,
   },
   {
     id: 2692,
@@ -51147,7 +51147,7 @@ const divisions = [
       fr: 'Ingouchie',
     }),
     denomination: 'republic',
-    geonameId: 556349,
+    // geonameId: 556349,
   },
   {
     id: 2693,
@@ -51166,7 +51166,7 @@ const divisions = [
       fr: 'Irkoutsk',
     }),
     denomination: 'oblast',
-    geonameId: 2023468,
+    // geonameId: 2023468,
   },
   {
     id: 2694,
@@ -51185,7 +51185,7 @@ const divisions = [
       fr: 'Ivanovo',
     }),
     denomination: 'oblast',
-    geonameId: 555235,
+    // geonameId: 555235,
   },
   {
     id: 2695,
@@ -51204,7 +51204,7 @@ const divisions = [
       fr: 'Kabardino-Balkarie',
     }),
     denomination: 'republic',
-    geonameId: 554667,
+    // geonameId: 554667,
   },
   {
     id: 2696,
@@ -51223,7 +51223,7 @@ const divisions = [
       fr: 'Kaliningrad',
     }),
     denomination: 'oblast',
-    geonameId: 554230,
+    // geonameId: 554230,
   },
   {
     id: 2697,
@@ -51242,7 +51242,7 @@ const divisions = [
       fr: 'Kalmoukie',
     }),
     denomination: 'republic',
-    geonameId: 553972,
+    // geonameId: 553972,
   },
   {
     id: 2698,
@@ -51261,7 +51261,7 @@ const divisions = [
       fr: 'Kalouga',
     }),
     denomination: 'oblast',
-    geonameId: 553899,
+    // geonameId: 553899,
   },
   {
     id: 2699,
@@ -51280,7 +51280,7 @@ const divisions = [
       fr: 'Kamtchatka',
     }),
     denomination: 'krai',
-    geonameId: 2125072,
+    // geonameId: 2125072,
   },
   {
     id: 2700,
@@ -51299,7 +51299,7 @@ const divisions = [
       fr: 'Karatchaïévo-Tcherkessie',
     }),
     denomination: 'republic',
-    geonameId: 552927,
+    // geonameId: 552927,
   },
   {
     id: 2701,
@@ -51318,7 +51318,7 @@ const divisions = [
       fr: 'Carélie',
     }),
     denomination: 'republic',
-    geonameId: 552548,
+    // geonameId: 552548,
   },
   {
     id: 2702,
@@ -51337,7 +51337,7 @@ const divisions = [
       fr: 'Khabarovsk',
     }),
     denomination: 'krai',
-    geonameId: 2022888,
+    // geonameId: 2022888,
   },
   {
     id: 2703,
@@ -51356,7 +51356,7 @@ const divisions = [
       fr: 'Khakassie',
     }),
     denomination: 'republic',
-    geonameId: 1503834,
+    // geonameId: 1503834,
   },
   {
     id: 2704,
@@ -51375,7 +51375,7 @@ const divisions = [
       fr: 'Khantys-Mansis',
     }),
     denomination: 'autonomous_okrug',
-    geonameId: 1503773,
+    // geonameId: 1503773,
   },
   {
     id: 2705,
@@ -51394,7 +51394,7 @@ const divisions = [
       fr: 'Kirov',
     }),
     denomination: 'oblast',
-    geonameId: 548389,
+    // geonameId: 548389,
   },
   {
     id: 2706,
@@ -51413,7 +51413,7 @@ const divisions = [
       fr: 'Komi',
     }),
     denomination: 'republic',
-    geonameId: 545854,
+    // geonameId: 545854,
   },
   {
     id: 2707,
@@ -51432,7 +51432,7 @@ const divisions = [
       fr: 'Kostroma',
     }),
     denomination: 'oblast',
-    geonameId: 543871,
+    // geonameId: 543871,
   },
   {
     id: 2708,
@@ -51451,7 +51451,7 @@ const divisions = [
       fr: 'Krasnodar',
     }),
     denomination: 'krai',
-    geonameId: 542415,
+    // geonameId: 542415,
   },
   {
     id: 2709,
@@ -51470,7 +51470,7 @@ const divisions = [
       fr: 'Krasnoïarsk',
     }),
     denomination: 'krai',
-    geonameId: 1502020,
+    // geonameId: 1502020,
   },
   {
     id: 2710,
@@ -51489,7 +51489,7 @@ const divisions = [
       fr: 'Kourgan',
     }),
     denomination: 'oblast',
-    geonameId: 1501312,
+    // geonameId: 1501312,
   },
   {
     id: 2711,
@@ -51508,7 +51508,7 @@ const divisions = [
       fr: 'Koursk',
     }),
     denomination: 'oblast',
-    geonameId: 538555,
+    // geonameId: 538555,
   },
   {
     id: 2712,
@@ -51527,7 +51527,7 @@ const divisions = [
       fr: 'Kouzbass',
     }),
     denomination: 'oblast',
-    geonameId: 1503900,
+    // geonameId: 1503900,
   },
   {
     id: 2713,
@@ -51546,7 +51546,7 @@ const divisions = [
       fr: 'Leningrad',
     }),
     denomination: 'oblast',
-    geonameId: 536199,
+    // geonameId: 536199,
   },
   {
     id: 2714,
@@ -51565,7 +51565,7 @@ const divisions = [
       fr: 'Lipetsk',
     }),
     denomination: 'oblast',
-    geonameId: 535120,
+    // geonameId: 535120,
   },
   {
     id: 2715,
@@ -51584,7 +51584,7 @@ const divisions = [
       fr: 'Magadan',
     }),
     denomination: 'oblast',
-    geonameId: 2123627,
+    // geonameId: 2123627,
   },
   {
     id: 2716,
@@ -51603,7 +51603,7 @@ const divisions = [
       fr: 'Mari El',
     }),
     denomination: 'republic',
-    geonameId: 529352,
+    // geonameId: 529352,
   },
   {
     id: 2717,
@@ -51622,7 +51622,7 @@ const divisions = [
       fr: 'Mordovie',
     }),
     denomination: 'republic',
-    geonameId: 525369,
+    // geonameId: 525369,
   },
   {
     id: 2718,
@@ -51641,7 +51641,7 @@ const divisions = [
       fr: 'Moscou',
     }),
     denomination: 'city',
-    geonameId: 524894,
+    // geonameId: 524894,
   },
   {
     id: 2719,
@@ -51660,7 +51660,7 @@ const divisions = [
       fr: 'Moscou',
     }),
     denomination: 'oblast',
-    geonameId: 524925,
+    // geonameId: 524925,
   },
   {
     id: 2720,
@@ -51679,7 +51679,7 @@ const divisions = [
       fr: 'Mourmansk',
     }),
     denomination: 'oblast',
-    geonameId: 524304,
+    // geonameId: 524304,
   },
   {
     id: 2721,
@@ -51698,7 +51698,7 @@ const divisions = [
       fr: 'Nenets',
     }),
     denomination: 'autonomous_okrug',
-    geonameId: 522652,
+    // geonameId: 522652,
   },
   {
     id: 2722,
@@ -51717,7 +51717,7 @@ const divisions = [
       fr: 'Nijni Novgorod',
     }),
     denomination: 'oblast',
-    geonameId: 559838,
+    // geonameId: 559838,
   },
   {
     id: 2723,
@@ -51736,7 +51736,7 @@ const divisions = [
       fr: 'Novgorod',
     }),
     denomination: 'oblast',
-    geonameId: 519324,
+    // geonameId: 519324,
   },
   {
     id: 2724,
@@ -51755,7 +51755,7 @@ const divisions = [
       fr: 'Novossibirsk',
     }),
     denomination: 'oblast',
-    geonameId: 1496745,
+    // geonameId: 1496745,
   },
   {
     id: 2725,
@@ -51774,7 +51774,7 @@ const divisions = [
       fr: 'Omsk',
     }),
     denomination: 'oblast',
-    geonameId: 1496152,
+    // geonameId: 1496152,
   },
   {
     id: 2726,
@@ -51793,7 +51793,7 @@ const divisions = [
       fr: 'Orenbourg',
     }),
     denomination: 'oblast',
-    geonameId: 515001,
+    // geonameId: 515001,
   },
   {
     id: 2727,
@@ -51812,7 +51812,7 @@ const divisions = [
       fr: 'Orel',
     }),
     denomination: 'oblast',
-    geonameId: 514801,
+    // geonameId: 514801,
   },
   {
     id: 2728,
@@ -51831,7 +51831,7 @@ const divisions = [
       fr: 'Penza',
     }),
     denomination: 'oblast',
-    geonameId: 511555,
+    // geonameId: 511555,
   },
   {
     id: 2729,
@@ -51850,7 +51850,7 @@ const divisions = [
       fr: 'Perm',
     }),
     denomination: 'krai',
-    geonameId: 511180,
+    // geonameId: 511180,
   },
   {
     id: 2730,
@@ -51869,7 +51869,7 @@ const divisions = [
       fr: 'Primorié',
     }),
     denomination: 'krai',
-    geonameId: 2017623,
+    // geonameId: 2017623,
   },
   {
     id: 2731,
@@ -51888,7 +51888,7 @@ const divisions = [
       fr: 'Pskov',
     }),
     denomination: 'oblast',
-    geonameId: 504338,
+    // geonameId: 504338,
   },
   {
     id: 2732,
@@ -51907,7 +51907,7 @@ const divisions = [
       fr: 'Ossétie du Nord',
     }),
     denomination: 'republic',
-    geonameId: 519969,
+    // geonameId: 519969,
   },
   {
     id: 2733,
@@ -51926,7 +51926,7 @@ const divisions = [
       fr: 'Touva',
     }),
     denomination: 'republic',
-    geonameId: 1488873,
+    // geonameId: 1488873,
   },
   {
     id: 2734,
@@ -51945,7 +51945,7 @@ const divisions = [
       fr: 'Rostov',
     }),
     denomination: 'oblast',
-    geonameId: 501165,
+    // geonameId: 501165,
   },
   {
     id: 2735,
@@ -51964,7 +51964,7 @@ const divisions = [
       fr: 'Riazan',
     }),
     denomination: 'oblast',
-    geonameId: 500059,
+    // geonameId: 500059,
   },
   {
     id: 2736,
@@ -51983,7 +51983,7 @@ const divisions = [
       fr: 'Sakha',
     }),
     denomination: 'republic',
-    geonameId: 2013162,
+    // geonameId: 2013162,
   },
   {
     id: 2737,
@@ -52002,7 +52002,7 @@ const divisions = [
       fr: 'Sakhaline',
     }),
     denomination: 'oblast',
-    geonameId: 2121529,
+    // geonameId: 2121529,
   },
   {
     id: 2738,
@@ -52021,7 +52021,7 @@ const divisions = [
       fr: 'Samara',
     }),
     denomination: 'oblast',
-    geonameId: 499068,
+    // geonameId: 499068,
   },
   {
     id: 2739,
@@ -52040,7 +52040,7 @@ const divisions = [
       fr: 'Saratov',
     }),
     denomination: 'oblast',
-    geonameId: 498671,
+    // geonameId: 498671,
   },
   {
     id: 2740,
@@ -52059,7 +52059,7 @@ const divisions = [
       fr: 'Smolensk',
     }),
     denomination: 'oblast',
-    geonameId: 491684,
+    // geonameId: 491684,
   },
   {
     id: 2741,
@@ -52078,7 +52078,7 @@ const divisions = [
       fr: 'Saint-Pétersbourg',
     }),
     denomination: 'city',
-    geonameId: 536203,
+    // geonameId: 536203,
   },
   {
     id: 2742,
@@ -52097,7 +52097,7 @@ const divisions = [
       fr: 'Stavropol',
     }),
     denomination: 'krai',
-    geonameId: 487839,
+    // geonameId: 487839,
   },
   {
     id: 2743,
@@ -52116,7 +52116,7 @@ const divisions = [
       fr: 'Sverdlovsk',
     }),
     denomination: 'oblast',
-    geonameId: 1490542,
+    // geonameId: 1490542,
   },
   {
     id: 2744,
@@ -52135,7 +52135,7 @@ const divisions = [
       fr: 'Tambov',
     }),
     denomination: 'oblast',
-    geonameId: 484638,
+    // geonameId: 484638,
   },
   {
     id: 2745,
@@ -52154,7 +52154,7 @@ const divisions = [
       fr: 'Tatarstan',
     }),
     denomination: 'republic',
-    geonameId: 484048,
+    // geonameId: 484048,
   },
   {
     id: 2746,
@@ -52173,7 +52173,7 @@ const divisions = [
       fr: 'Tomsk',
     }),
     denomination: 'oblast',
-    geonameId: 1489421,
+    // geonameId: 1489421,
   },
   {
     id: 2747,
@@ -52192,7 +52192,7 @@ const divisions = [
       fr: 'Toula',
     }),
     denomination: 'oblast',
-    geonameId: 480508,
+    // geonameId: 480508,
   },
   {
     id: 2748,
@@ -52211,7 +52211,7 @@ const divisions = [
       fr: 'Tver',
     }),
     denomination: 'oblast',
-    geonameId: 480041,
+    // geonameId: 480041,
   },
   {
     id: 2749,
@@ -52230,7 +52230,7 @@ const divisions = [
       fr: 'Tioumen',
     }),
     denomination: 'oblast',
-    geonameId: 1488747,
+    // geonameId: 1488747,
   },
   {
     id: 2750,
@@ -52249,7 +52249,7 @@ const divisions = [
       fr: 'Oudmourtie',
     }),
     denomination: 'republic',
-    geonameId: 479613,
+    // geonameId: 479613,
   },
   {
     id: 2751,
@@ -52268,7 +52268,7 @@ const divisions = [
       fr: 'Oulianovsk',
     }),
     denomination: 'oblast',
-    geonameId: 479119,
+    // geonameId: 479119,
   },
   {
     id: 2752,
@@ -52287,7 +52287,7 @@ const divisions = [
       fr: 'Vladimir',
     }),
     denomination: 'oblast',
-    geonameId: 826294,
+    // geonameId: 826294,
   },
   {
     id: 2753,
@@ -52306,7 +52306,7 @@ const divisions = [
       fr: 'Volgograd',
     }),
     denomination: 'oblast',
-    geonameId: 472755,
+    // geonameId: 472755,
   },
   {
     id: 2754,
@@ -52325,7 +52325,7 @@ const divisions = [
       fr: 'Vologda',
     }),
     denomination: 'oblast',
-    geonameId: 472454,
+    // geonameId: 472454,
   },
   {
     id: 2755,
@@ -52344,7 +52344,7 @@ const divisions = [
       fr: 'Voronej',
     }),
     denomination: 'oblast',
-    geonameId: 472039,
+    // geonameId: 472039,
   },
   {
     id: 2756,
@@ -52363,7 +52363,7 @@ const divisions = [
       fr: 'Iamalo-Nénets',
     }),
     denomination: 'autonomous_okrug',
-    geonameId: 1486462,
+    // geonameId: 1486462,
   },
   {
     id: 2757,
@@ -52382,7 +52382,7 @@ const divisions = [
       fr: 'Iaroslavl',
     }),
     denomination: 'oblast',
-    geonameId: 468898,
+    // geonameId: 468898,
   },
   {
     id: 2758,
@@ -52401,7 +52401,7 @@ const divisions = [
       fr: 'Juive',
     }),
     denomination: 'autonomous_oblast',
-    geonameId: 2026639,
+    // geonameId: 2026639,
   },
   {
     id: 2759,
@@ -52420,7 +52420,7 @@ const divisions = [
       fr: 'Transbaïkal',
     }),
     denomination: 'krai',
-    geonameId: 7779061,
+    // geonameId: 7779061,
   },
   {
     id: 2760,
@@ -52439,7 +52439,7 @@ const divisions = [
       fr: 'Orientale',
     }),
     denomination: 'province',
-    geonameId: 6413337,
+    // geonameId: 6413337,
   },
   {
     id: 2761,
@@ -52458,7 +52458,7 @@ const divisions = [
       fr: 'Kigali',
     }),
     denomination: 'city',
-    geonameId: 6413338,
+    // geonameId: 6413338,
   },
   {
     id: 2762,
@@ -52477,7 +52477,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'province',
-    geonameId: 6413339,
+    // geonameId: 6413339,
   },
   {
     id: 2763,
@@ -52496,7 +52496,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'province',
-    geonameId: 6413341,
+    // geonameId: 6413341,
   },
   {
     id: 2764,
@@ -52515,7 +52515,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'province',
-    geonameId: 6413340,
+    // geonameId: 6413340,
   },
   {
     id: 2765,
@@ -52534,7 +52534,7 @@ const divisions = [
       fr: 'Ascension',
     }),
     denomination: 'island',
-    geonameId: 2411430,
+    // geonameId: 2411430,
   },
   {
     id: 2766,
@@ -52553,7 +52553,7 @@ const divisions = [
       fr: 'Sainte-Hélène',
     }),
     denomination: 'island',
-    geonameId: 6930057,
+    // geonameId: 6930057,
   },
   {
     id: 2767,
@@ -52572,7 +52572,7 @@ const divisions = [
       fr: 'Tristan da Cunha',
     }),
     denomination: 'island',
-    geonameId: 3370684,
+    // geonameId: 3370684,
   },
   {
     id: 2768,
@@ -52591,7 +52591,7 @@ const divisions = [
       fr: 'Anse-la-Raye',
     }),
     denomination: 'district',
-    geonameId: 3576891,
+    // geonameId: 3576891,
   },
   {
     id: 2769,
@@ -52610,7 +52610,7 @@ const divisions = [
       fr: 'Canaries',
     }),
     denomination: 'district',
-    geonameId: 11351387,
+    // geonameId: 11351387,
   },
   {
     id: 2770,
@@ -52629,7 +52629,7 @@ const divisions = [
       fr: 'Castries',
     }),
     denomination: 'district',
-    geonameId: 3576810,
+    // geonameId: 3576810,
   },
   {
     id: 2771,
@@ -52648,7 +52648,7 @@ const divisions = [
       fr: 'Choiseul',
     }),
     denomination: 'district',
-    geonameId: 3576794,
+    // geonameId: 3576794,
   },
   {
     id: 2772,
@@ -52667,7 +52667,7 @@ const divisions = [
       fr: 'Dennery',
     }),
     denomination: 'district',
-    geonameId: 3576764,
+    // geonameId: 3576764,
   },
   {
     id: 2773,
@@ -52686,7 +52686,7 @@ const divisions = [
       fr: 'Gros-Islet',
     }),
     denomination: 'district',
-    geonameId: 3576685,
+    // geonameId: 3576685,
   },
   {
     id: 2774,
@@ -52705,7 +52705,7 @@ const divisions = [
       fr: 'Laborie',
     }),
     denomination: 'district',
-    geonameId: 3576662,
+    // geonameId: 3576662,
   },
   {
     id: 2775,
@@ -52724,7 +52724,7 @@ const divisions = [
       fr: 'Micoud',
     }),
     denomination: 'district',
-    geonameId: 3576567,
+    // geonameId: 3576567,
   },
   {
     id: 2776,
@@ -52743,7 +52743,7 @@ const divisions = [
       fr: 'Soufrière',
     }),
     denomination: 'district',
-    geonameId: 3576441,
+    // geonameId: 3576441,
   },
   {
     id: 2777,
@@ -52762,7 +52762,7 @@ const divisions = [
       fr: 'Vieux-Fort',
     }),
     denomination: 'district',
-    geonameId: 3576413,
+    // geonameId: 3576413,
   },
   {
     id: 2778,
@@ -52781,7 +52781,7 @@ const divisions = [
       fr: 'Saint-Pierre',
     }),
     denomination: 'commune',
-    geonameId: 3424935,
+    // geonameId: 3424935,
   },
   {
     id: 2779,
@@ -52800,7 +52800,7 @@ const divisions = [
       fr: 'Miquelon-Langlade',
     }),
     denomination: 'commune',
-    geonameId: 3424938,
+    // geonameId: 3424938,
   },
   {
     id: 2780,
@@ -52819,7 +52819,7 @@ const divisions = [
       fr: 'Aana',
     }),
     denomination: 'district',
-    geonameId: 4035434,
+    // geonameId: 4035434,
   },
   {
     id: 2781,
@@ -52838,7 +52838,7 @@ const divisions = [
       fr: 'Aiga-i-le-Tai',
     }),
     denomination: 'district',
-    geonameId: 4035425,
+    // geonameId: 4035425,
   },
   {
     id: 2782,
@@ -52857,7 +52857,7 @@ const divisions = [
       fr: 'Atua',
     }),
     denomination: 'district',
-    geonameId: 4035402,
+    // geonameId: 4035402,
   },
   {
     id: 2783,
@@ -52876,7 +52876,7 @@ const divisions = [
       fr: 'Faasaleleaga',
     }),
     denomination: 'district',
-    geonameId: 4035383,
+    // geonameId: 4035383,
   },
   {
     id: 2784,
@@ -52895,7 +52895,7 @@ const divisions = [
       fr: 'Gagaemauga',
     }),
     denomination: 'district',
-    geonameId: 4035314,
+    // geonameId: 4035314,
   },
   {
     id: 2785,
@@ -52914,7 +52914,7 @@ const divisions = [
       fr: 'Gagaifomauga',
     }),
     denomination: 'district',
-    geonameId: 4035313,
+    // geonameId: 4035313,
   },
   {
     id: 2786,
@@ -52933,7 +52933,7 @@ const divisions = [
       fr: 'Palauli',
     }),
     denomination: 'district',
-    geonameId: 4035154,
+    // geonameId: 4035154,
   },
   {
     id: 2787,
@@ -52952,7 +52952,7 @@ const divisions = [
       fr: 'Satupaitea',
     }),
     denomination: 'district',
-    geonameId: 4035046,
+    // geonameId: 4035046,
   },
   {
     id: 2788,
@@ -52971,7 +52971,7 @@ const divisions = [
       fr: 'Tuamasaga',
     }),
     denomination: 'district',
-    geonameId: 4034977,
+    // geonameId: 4034977,
   },
   {
     id: 2789,
@@ -52990,7 +52990,7 @@ const divisions = [
       fr: 'Vaa-o-Fonoti',
     }),
     denomination: 'district',
-    geonameId: 4034943,
+    // geonameId: 4034943,
   },
   {
     id: 2790,
@@ -53009,7 +53009,7 @@ const divisions = [
       fr: 'Vaisigano',
     }),
     denomination: 'district',
-    geonameId: 4034910,
+    // geonameId: 4034910,
   },
   {
     id: 2791,
@@ -53028,7 +53028,7 @@ const divisions = [
       fr: 'Acquaviva',
     }),
     denomination: 'municipality',
-    geonameId: 3345303,
+    // geonameId: 3345303,
   },
   {
     id: 2792,
@@ -53047,7 +53047,7 @@ const divisions = [
       fr: 'Borgo Maggiore',
     }),
     denomination: 'municipality',
-    geonameId: 3345304,
+    // geonameId: 3345304,
   },
   {
     id: 2793,
@@ -53066,7 +53066,7 @@ const divisions = [
       fr: 'Domagnano',
     }),
     denomination: 'municipality',
-    geonameId: 3345305,
+    // geonameId: 3345305,
   },
   {
     id: 2794,
@@ -53085,7 +53085,7 @@ const divisions = [
       fr: 'Saint-Marin',
     }),
     denomination: 'municipality',
-    geonameId: 3345302,
+    // geonameId: 3345302,
   },
   {
     id: 2795,
@@ -53104,7 +53104,7 @@ const divisions = [
       fr: 'Chiesanuova',
     }),
     denomination: 'municipality',
-    geonameId: 3178807,
+    // geonameId: 3178807,
   },
   {
     id: 2796,
@@ -53123,7 +53123,7 @@ const divisions = [
       fr: 'Faetano',
     }),
     denomination: 'municipality',
-    geonameId: 3345306,
+    // geonameId: 3345306,
   },
   {
     id: 2797,
@@ -53142,7 +53142,7 @@ const divisions = [
       fr: 'Fiorentino',
     }),
     denomination: 'municipality',
-    geonameId: 3345307,
+    // geonameId: 3345307,
   },
   {
     id: 2798,
@@ -53161,7 +53161,7 @@ const divisions = [
       fr: 'Montegiardino',
     }),
     denomination: 'municipality',
-    geonameId: 3345308,
+    // geonameId: 3345308,
   },
   {
     id: 2799,
@@ -53180,7 +53180,7 @@ const divisions = [
       fr: 'Serravalle',
     }),
     denomination: 'municipality',
-    geonameId: 3166650,
+    // geonameId: 3166650,
   },
   {
     id: 2800,
@@ -53199,7 +53199,7 @@ const divisions = [
       fr: 'Príncipe',
     }),
     denomination: 'province',
-    geonameId: 2410878,
+    // geonameId: 2410878,
   },
   {
     id: 2801,
@@ -53218,7 +53218,7 @@ const divisions = [
       fr: 'São Tomé',
     }),
     denomination: 'island',
-    geonameId: 2410764,
+    // geonameId: 2410764,
   },
   {
     id: 2802,
@@ -53237,7 +53237,7 @@ const divisions = [
       fr: 'Asir',
     }),
     denomination: 'region',
-    geonameId: 108179,
+    // geonameId: 108179,
   },
   {
     id: 2803,
@@ -53256,7 +53256,7 @@ const divisions = [
       fr: 'Al Bahah',
     }),
     denomination: 'region',
-    geonameId: 109954,
+    // geonameId: 109954,
   },
   {
     id: 2804,
@@ -53275,7 +53275,7 @@ const divisions = [
       fr: 'Al Jawf',
     }),
     denomination: 'region',
-    geonameId: 109470,
+    // geonameId: 109470,
   },
   {
     id: 2805,
@@ -53294,7 +53294,7 @@ const divisions = [
       fr: 'Al Qassim',
     }),
     denomination: 'region',
-    geonameId: 108933,
+    // geonameId: 108933,
   },
   {
     id: 2806,
@@ -53313,7 +53313,7 @@ const divisions = [
       fr: 'Orientale',
     }),
     denomination: 'province',
-    geonameId: 108241,
+    // geonameId: 108241,
   },
   {
     id: 2807,
@@ -53332,7 +53332,7 @@ const divisions = [
       fr: 'Hail',
     }),
     denomination: 'region',
-    geonameId: 106280,
+    // geonameId: 106280,
   },
   {
     id: 2808,
@@ -53351,7 +53351,7 @@ const divisions = [
       fr: 'Jazan',
     }),
     denomination: 'region',
-    geonameId: 105298,
+    // geonameId: 105298,
   },
   {
     id: 2809,
@@ -53370,7 +53370,7 @@ const divisions = [
       fr: 'La Mecque',
     }),
     denomination: 'region',
-    geonameId: 104514,
+    // geonameId: 104514,
   },
   {
     id: 2810,
@@ -53389,7 +53389,7 @@ const divisions = [
       fr: 'Médine',
     }),
     denomination: 'region',
-    geonameId: 109224,
+    // geonameId: 109224,
   },
   {
     id: 2811,
@@ -53408,7 +53408,7 @@ const divisions = [
       fr: 'Najran',
     }),
     denomination: 'region',
-    geonameId: 103628,
+    // geonameId: 103628,
   },
   {
     id: 2812,
@@ -53427,7 +53427,7 @@ const divisions = [
       fr: 'Frontières du Nord',
     }),
     denomination: 'region',
-    geonameId: 109579,
+    // geonameId: 109579,
   },
   {
     id: 2813,
@@ -53446,7 +53446,7 @@ const divisions = [
       fr: 'Riyad',
     }),
     denomination: 'region',
-    geonameId: 108411,
+    // geonameId: 108411,
   },
   {
     id: 2814,
@@ -53465,7 +53465,7 @@ const divisions = [
       fr: 'Tabouk',
     }),
     denomination: 'region',
-    geonameId: 101627,
+    // geonameId: 101627,
   },
   {
     id: 2815,
@@ -53484,7 +53484,7 @@ const divisions = [
       fr: 'Dakar',
     }),
     denomination: 'region',
-    geonameId: 2253350,
+    // geonameId: 2253350,
   },
   {
     id: 2816,
@@ -53503,7 +53503,7 @@ const divisions = [
       fr: 'Diourbel',
     }),
     denomination: 'region',
-    geonameId: 2252308,
+    // geonameId: 2252308,
   },
   {
     id: 2817,
@@ -53522,7 +53522,7 @@ const divisions = [
       fr: 'Fatick',
     }),
     denomination: 'region',
-    geonameId: 2251910,
+    // geonameId: 2251910,
   },
   {
     id: 2818,
@@ -53541,7 +53541,7 @@ const divisions = [
       fr: 'Kaffrine',
     }),
     denomination: 'region',
-    geonameId: 7303935,
+    // geonameId: 7303935,
   },
   {
     id: 2819,
@@ -53560,7 +53560,7 @@ const divisions = [
       fr: 'Kaolack',
     }),
     denomination: 'region',
-    geonameId: 2250804,
+    // geonameId: 2250804,
   },
   {
     id: 2820,
@@ -53579,7 +53579,7 @@ const divisions = [
       fr: 'Kolda',
     }),
     denomination: 'region',
-    geonameId: 2249781,
+    // geonameId: 2249781,
   },
   {
     id: 2821,
@@ -53598,7 +53598,7 @@ const divisions = [
       fr: 'Louga',
     }),
     denomination: 'region',
-    geonameId: 2249221,
+    // geonameId: 2249221,
   },
   {
     id: 2822,
@@ -53617,7 +53617,7 @@ const divisions = [
       fr: 'Matam',
     }),
     denomination: 'region',
-    geonameId: 2248753,
+    // geonameId: 2248753,
   },
   {
     id: 2823,
@@ -53636,7 +53636,7 @@ const divisions = [
       fr: 'Kédougou',
     }),
     denomination: 'region',
-    geonameId: 7303936,
+    // geonameId: 7303936,
   },
   {
     id: 2824,
@@ -53655,7 +53655,7 @@ const divisions = [
       fr: 'Thiès',
     }),
     denomination: 'region',
-    geonameId: 2244800,
+    // geonameId: 2244800,
   },
   {
     id: 2825,
@@ -53674,7 +53674,7 @@ const divisions = [
       fr: 'Saint-Louis',
     }),
     denomination: 'region',
-    geonameId: 2246451,
+    // geonameId: 2246451,
   },
   {
     id: 2826,
@@ -53693,7 +53693,7 @@ const divisions = [
       fr: 'Sédhiou',
     }),
     denomination: 'region',
-    geonameId: 7303937,
+    // geonameId: 7303937,
   },
   {
     id: 2827,
@@ -53712,7 +53712,7 @@ const divisions = [
       fr: 'Tambacounda',
     }),
     denomination: 'region',
-    geonameId: 2244990,
+    // geonameId: 2244990,
   },
   {
     id: 2828,
@@ -53731,7 +53731,7 @@ const divisions = [
       fr: 'Ziguinchor',
     }),
     denomination: 'region',
-    geonameId: 2243939,
+    // geonameId: 2243939,
   },
   {
     id: 2829,
@@ -53750,7 +53750,7 @@ const divisions = [
       fr: 'Serbie centrale',
     }),
     denomination: 'region',
-    geonameId: 785958,
+    // geonameId: 785958,
   },
   {
     id: 2830,
@@ -53769,7 +53769,7 @@ const divisions = [
       fr: 'Voïvodine',
     }),
     denomination: 'province',
-    geonameId: 784272,
+    // geonameId: 784272,
   },
   {
     id: 2831,
@@ -53788,7 +53788,7 @@ const divisions = [
       fr: 'Anse Boileau',
     }),
     denomination: 'district',
-    geonameId: 241449,
+    // geonameId: 241449,
   },
   {
     id: 2832,
@@ -53807,7 +53807,7 @@ const divisions = [
       fr: 'Anse Étoile',
     }),
     denomination: 'district',
-    geonameId: 241447,
+    // geonameId: 241447,
   },
   {
     id: 2833,
@@ -53826,7 +53826,7 @@ const divisions = [
       fr: 'Anse Royale',
     }),
     denomination: 'district',
-    geonameId: 241444,
+    // geonameId: 241444,
   },
   {
     id: 2834,
@@ -53845,7 +53845,7 @@ const divisions = [
       fr: 'Anse aux Pins',
     }),
     denomination: 'district',
-    geonameId: 241450,
+    // geonameId: 241450,
   },
   {
     id: 2835,
@@ -53864,7 +53864,7 @@ const divisions = [
       fr: 'Au Cap',
     }),
     denomination: 'district',
-    geonameId: 448410,
+    // geonameId: 448410,
   },
   {
     id: 2836,
@@ -53883,7 +53883,7 @@ const divisions = [
       fr: 'Baie Lazare',
     }),
     denomination: 'district',
-    geonameId: 241439,
+    // geonameId: 241439,
   },
   {
     id: 2837,
@@ -53902,7 +53902,7 @@ const divisions = [
       fr: 'Baie Sainte Anne',
     }),
     denomination: 'district',
-    geonameId: 241438,
+    // geonameId: 241438,
   },
   {
     id: 2838,
@@ -53921,7 +53921,7 @@ const divisions = [
       fr: 'Beau Vallon',
     }),
     denomination: 'district',
-    geonameId: 241428,
+    // geonameId: 241428,
   },
   {
     id: 2839,
@@ -53940,7 +53940,7 @@ const divisions = [
       fr: 'Bel Air',
     }),
     denomination: 'district',
-    geonameId: 241426,
+    // geonameId: 241426,
   },
   {
     id: 2840,
@@ -53959,7 +53959,7 @@ const divisions = [
       fr: 'Bel Ombre',
     }),
     denomination: 'district',
-    geonameId: 241424,
+    // geonameId: 241424,
   },
   {
     id: 2841,
@@ -53978,7 +53978,7 @@ const divisions = [
       fr: 'Cascade',
     }),
     denomination: 'district',
-    geonameId: 241396,
+    // geonameId: 241396,
   },
   {
     id: 2842,
@@ -53997,7 +53997,7 @@ const divisions = [
       fr: 'Glacis',
     }),
     denomination: 'district',
-    geonameId: 241336,
+    // geonameId: 241336,
   },
   {
     id: 2843,
@@ -54016,7 +54016,7 @@ const divisions = [
       fr: 'Grand Anse',
     }),
     denomination: 'district',
-    geonameId: 241330,
+    // geonameId: 241330,
   },
   {
     id: 2844,
@@ -54035,7 +54035,7 @@ const divisions = [
       fr: 'Grand Anse',
     }),
     denomination: 'district',
-    geonameId: 241331,
+    // geonameId: 241331,
   },
   {
     id: 2845,
@@ -54054,7 +54054,7 @@ const divisions = [
       fr: 'Persévérance',
     }),
     denomination: 'district',
-    geonameId: 12200079,
+    // geonameId: 12200079,
   },
   {
     id: 2846,
@@ -54073,7 +54073,7 @@ const divisions = [
       fr: 'Persévérance',
     }),
     denomination: 'district',
-    geonameId: 12200080,
+    // geonameId: 12200080,
   },
   {
     id: 2847,
@@ -54092,7 +54092,7 @@ const divisions = [
       fr: 'La Digue',
     }),
     denomination: 'district',
-    geonameId: 241311,
+    // geonameId: 241311,
   },
   {
     id: 2848,
@@ -54111,7 +54111,7 @@ const divisions = [
       fr: 'Rivière Anglaise',
     }),
     denomination: 'district',
-    geonameId: 241302,
+    // geonameId: 241302,
   },
   {
     id: 2849,
@@ -54130,7 +54130,7 @@ const divisions = [
       fr: 'Les Mamelles',
     }),
     denomination: 'district',
-    geonameId: 448408,
+    // geonameId: 448408,
   },
   {
     id: 2850,
@@ -54149,7 +54149,7 @@ const divisions = [
       fr: 'Mont Buxton',
     }),
     denomination: 'district',
-    geonameId: 241252,
+    // geonameId: 241252,
   },
   {
     id: 2851,
@@ -54168,7 +54168,7 @@ const divisions = [
       fr: 'Mont Fleuri',
     }),
     denomination: 'district',
-    geonameId: 241251,
+    // geonameId: 241251,
   },
   {
     id: 2852,
@@ -54187,7 +54187,7 @@ const divisions = [
       fr: 'Îles extérieures',
     }),
     denomination: 'district',
-    geonameId: 11876017,
+    // geonameId: 11876017,
   },
   {
     id: 2853,
@@ -54206,7 +54206,7 @@ const divisions = [
       fr: 'Plaisance',
     }),
     denomination: 'district',
-    geonameId: 241224,
+    // geonameId: 241224,
   },
   {
     id: 2854,
@@ -54225,7 +54225,7 @@ const divisions = [
       fr: 'Pointe La Rue',
     }),
     denomination: 'district',
-    geonameId: 241221,
+    // geonameId: 241221,
   },
   {
     id: 2855,
@@ -54244,7 +54244,7 @@ const divisions = [
       fr: 'Port Glaud',
     }),
     denomination: 'district',
-    geonameId: 241215,
+    // geonameId: 241215,
   },
   {
     id: 2856,
@@ -54263,7 +54263,7 @@ const divisions = [
       fr: 'Roche Caiman',
     }),
     denomination: 'district',
-    geonameId: 448409,
+    // geonameId: 448409,
   },
   {
     id: 2857,
@@ -54282,7 +54282,7 @@ const divisions = [
       fr: 'Saint-Louis',
     }),
     denomination: 'district',
-    geonameId: 241181,
+    // geonameId: 241181,
   },
   {
     id: 2858,
@@ -54301,7 +54301,7 @@ const divisions = [
       fr: 'Takamaka',
     }),
     denomination: 'district',
-    geonameId: 241151,
+    // geonameId: 241151,
   },
   {
     id: 2859,
@@ -54320,7 +54320,7 @@ const divisions = [
       fr: 'Orientale',
     }),
     denomination: 'province',
-    geonameId: 2409543,
+    // geonameId: 2409543,
   },
   {
     id: 2860,
@@ -54339,7 +54339,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'province',
-    geonameId: 11919533,
+    // geonameId: 11919533,
   },
   {
     id: 2861,
@@ -54358,7 +54358,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'province',
-    geonameId: 2404798,
+    // geonameId: 2404798,
   },
   {
     id: 2862,
@@ -54377,7 +54377,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'province',
-    geonameId: 2403745,
+    // geonameId: 2403745,
   },
   {
     id: 2863,
@@ -54396,7 +54396,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'area',
-    geonameId: 2403068,
+    // geonameId: 2403068,
   },
   {
     id: 2864,
@@ -54415,7 +54415,7 @@ const divisions = [
       fr: 'Banská Bystrica',
     }),
     denomination: 'region',
-    geonameId: 3343954,
+    // geonameId: 3343954,
   },
   {
     id: 2865,
@@ -54434,7 +54434,7 @@ const divisions = [
       fr: 'Bratislava',
     }),
     denomination: 'region',
-    geonameId: 3343955,
+    // geonameId: 3343955,
   },
   {
     id: 2866,
@@ -54453,7 +54453,7 @@ const divisions = [
       fr: 'Košice',
     }),
     denomination: 'region',
-    geonameId: 865084,
+    // geonameId: 865084,
   },
   {
     id: 2867,
@@ -54472,7 +54472,7 @@ const divisions = [
       fr: 'Nitra',
     }),
     denomination: 'region',
-    geonameId: 3343956,
+    // geonameId: 3343956,
   },
   {
     id: 2868,
@@ -54491,7 +54491,7 @@ const divisions = [
       fr: 'Prešov',
     }),
     denomination: 'region',
-    geonameId: 865085,
+    // geonameId: 865085,
   },
   {
     id: 2869,
@@ -54510,7 +54510,7 @@ const divisions = [
       fr: 'Trenčín',
     }),
     denomination: 'region',
-    geonameId: 3343957,
+    // geonameId: 3343957,
   },
   {
     id: 2870,
@@ -54529,7 +54529,7 @@ const divisions = [
       fr: 'Trnava',
     }),
     denomination: 'region',
-    geonameId: 3343958,
+    // geonameId: 3343958,
   },
   {
     id: 2871,
@@ -54548,7 +54548,7 @@ const divisions = [
       fr: 'Žilina',
     }),
     denomination: 'region',
-    geonameId: 3056506,
+    // geonameId: 3056506,
   },
   {
     id: 2872,
@@ -54567,7 +54567,7 @@ const divisions = [
       fr: 'Ajdovščina',
     }),
     denomination: 'municipality',
-    geonameId: 3204853,
+    // geonameId: 3204853,
   },
   {
     id: 2873,
@@ -54586,7 +54586,7 @@ const divisions = [
       fr: 'Beltinci',
     }),
     denomination: 'municipality',
-    geonameId: 3239282,
+    // geonameId: 3239282,
   },
   {
     id: 2874,
@@ -54605,7 +54605,7 @@ const divisions = [
       fr: 'Benedikt',
     }),
     denomination: 'municipality',
-    geonameId: 3344930,
+    // geonameId: 3344930,
   },
   {
     id: 2875,
@@ -54624,7 +54624,7 @@ const divisions = [
       fr: 'Bistrica ob Sotli',
     }),
     denomination: 'municipality',
-    geonameId: 3344912,
+    // geonameId: 3344912,
   },
   {
     id: 2876,
@@ -54643,7 +54643,7 @@ const divisions = [
       fr: 'Bloke',
     }),
     denomination: 'municipality',
-    geonameId: 3344899,
+    // geonameId: 3344899,
   },
   {
     id: 2877,
@@ -54662,7 +54662,7 @@ const divisions = [
       fr: 'Bohinj',
     }),
     denomination: 'municipality',
-    geonameId: 3239101,
+    // geonameId: 3239101,
   },
   {
     id: 2878,
@@ -54681,7 +54681,7 @@ const divisions = [
       fr: 'Borovnica',
     }),
     denomination: 'municipality',
-    geonameId: 3239073,
+    // geonameId: 3239073,
   },
   {
     id: 2879,
@@ -54700,7 +54700,7 @@ const divisions = [
       fr: 'Brda',
     }),
     denomination: 'municipality',
-    geonameId: 3239083,
+    // geonameId: 3239083,
   },
   {
     id: 2880,
@@ -54719,7 +54719,7 @@ const divisions = [
       fr: 'Brezovica',
     }),
     denomination: 'municipality',
-    geonameId: 3239071,
+    // geonameId: 3239071,
   },
   {
     id: 2881,
@@ -54738,7 +54738,7 @@ const divisions = [
       fr: 'Cankova',
     }),
     denomination: 'municipality',
-    geonameId: 3344938,
+    // geonameId: 3344938,
   },
   {
     id: 2882,
@@ -54757,7 +54757,7 @@ const divisions = [
       fr: 'Celje',
     }),
     denomination: 'municipality',
-    geonameId: 3202780,
+    // geonameId: 3202780,
   },
   {
     id: 2883,
@@ -54776,7 +54776,7 @@ const divisions = [
       fr: 'Cerklje na Gorenjskem',
     }),
     denomination: 'municipality',
-    geonameId: 3239110,
+    // geonameId: 3239110,
   },
   {
     id: 2884,
@@ -54795,7 +54795,7 @@ const divisions = [
       fr: 'Cerkno',
     }),
     denomination: 'municipality',
-    geonameId: 3239091,
+    // geonameId: 3239091,
   },
   {
     id: 2885,
@@ -54814,7 +54814,7 @@ const divisions = [
       fr: 'Cerkvenjak',
     }),
     denomination: 'municipality',
-    geonameId: 3344929,
+    // geonameId: 3344929,
   },
   {
     id: 2886,
@@ -54833,7 +54833,7 @@ const divisions = [
       fr: 'Cirkulane',
     }),
     denomination: 'municipality',
-    geonameId: 8133580,
+    // geonameId: 8133580,
   },
   {
     id: 2887,
@@ -54852,7 +54852,7 @@ const divisions = [
       fr: 'Črna na Koroškem',
     }),
     denomination: 'municipality',
-    geonameId: 3239181,
+    // geonameId: 3239181,
   },
   {
     id: 2888,
@@ -54871,7 +54871,7 @@ const divisions = [
       fr: 'Črnomelj',
     }),
     denomination: 'municipality',
-    geonameId: 3202332,
+    // geonameId: 3202332,
   },
   {
     id: 2889,
@@ -54890,7 +54890,7 @@ const divisions = [
       fr: 'Destrnik',
     }),
     denomination: 'municipality',
-    geonameId: 3344926,
+    // geonameId: 3344926,
   },
   {
     id: 2890,
@@ -54909,7 +54909,7 @@ const divisions = [
       fr: 'Dobje',
     }),
     denomination: 'municipality',
-    geonameId: 3344913,
+    // geonameId: 3344913,
   },
   {
     id: 2891,
@@ -54928,7 +54928,7 @@ const divisions = [
       fr: 'Dobrepolje',
     }),
     denomination: 'municipality',
-    geonameId: 3239193,
+    // geonameId: 3239193,
   },
   {
     id: 2892,
@@ -54947,7 +54947,7 @@ const divisions = [
       fr: 'Dobrna',
     }),
     denomination: 'municipality',
-    geonameId: 3344914,
+    // geonameId: 3344914,
   },
   {
     id: 2893,
@@ -54966,7 +54966,7 @@ const divisions = [
       fr: 'Dobrova-Polhov Gradec',
     }),
     denomination: 'municipality',
-    geonameId: 3239096,
+    // geonameId: 3239096,
   },
   {
     id: 2894,
@@ -54985,7 +54985,7 @@ const divisions = [
       fr: 'Dobrovnik',
     }),
     denomination: 'municipality',
-    geonameId: 3344936,
+    // geonameId: 3344936,
   },
   {
     id: 2895,
@@ -55004,7 +55004,7 @@ const divisions = [
       fr: 'Dol pri Ljubljani',
     }),
     denomination: 'municipality',
-    geonameId: 3239115,
+    // geonameId: 3239115,
   },
   {
     id: 2896,
@@ -55023,7 +55023,7 @@ const divisions = [
       fr: 'Dolenjske Toplice',
     }),
     denomination: 'municipality',
-    geonameId: 3344910,
+    // geonameId: 3344910,
   },
   {
     id: 2897,
@@ -55042,7 +55042,7 @@ const divisions = [
       fr: 'Dornava',
     }),
     denomination: 'municipality',
-    geonameId: 3239248,
+    // geonameId: 3239248,
   },
   {
     id: 2898,
@@ -55061,7 +55061,7 @@ const divisions = [
       fr: 'Dravograd',
     }),
     denomination: 'municipality',
-    geonameId: 3201252,
+    // geonameId: 3201252,
   },
   {
     id: 2899,
@@ -55080,7 +55080,7 @@ const divisions = [
       fr: 'Duplek',
     }),
     denomination: 'municipality',
-    geonameId: 3239216,
+    // geonameId: 3239216,
   },
   {
     id: 2900,
@@ -55099,7 +55099,7 @@ const divisions = [
       fr: 'Gornja Radgona',
     }),
     denomination: 'municipality',
-    geonameId: 3200196,
+    // geonameId: 3200196,
   },
   {
     id: 2901,
@@ -55118,7 +55118,7 @@ const divisions = [
       fr: 'Gornji Grad',
     }),
     denomination: 'municipality',
-    geonameId: 3239133,
+    // geonameId: 3239133,
   },
   {
     id: 2902,
@@ -55137,7 +55137,7 @@ const divisions = [
       fr: 'Gornji Petrovci',
     }),
     denomination: 'municipality',
-    geonameId: 3239275,
+    // geonameId: 3239275,
   },
   {
     id: 2903,
@@ -55156,7 +55156,7 @@ const divisions = [
       fr: 'Grad',
     }),
     denomination: 'municipality',
-    geonameId: 3344939,
+    // geonameId: 3344939,
   },
   {
     id: 2904,
@@ -55175,7 +55175,7 @@ const divisions = [
       fr: 'Grosuplje',
     }),
     denomination: 'municipality',
-    geonameId: 3199522,
+    // geonameId: 3199522,
   },
   {
     id: 2905,
@@ -55194,7 +55194,7 @@ const divisions = [
       fr: 'Hajdina',
     }),
     denomination: 'municipality',
-    geonameId: 3344922,
+    // geonameId: 3344922,
   },
   {
     id: 2906,
@@ -55213,7 +55213,7 @@ const divisions = [
       fr: 'Hodos',
     }),
     denomination: 'municipality',
-    geonameId: 3344940,
+    // geonameId: 3344940,
   },
   {
     id: 2907,
@@ -55232,7 +55232,7 @@ const divisions = [
       fr: 'Horjul',
     }),
     denomination: 'municipality',
-    geonameId: 3344897,
+    // geonameId: 3344897,
   },
   {
     id: 2908,
@@ -55251,7 +55251,7 @@ const divisions = [
       fr: 'Hrastnik',
     }),
     denomination: 'municipality',
-    geonameId: 3199296,
+    // geonameId: 3199296,
   },
   {
     id: 2909,
@@ -55270,7 +55270,7 @@ const divisions = [
       fr: 'Hrpelje-Kozina',
     }),
     denomination: 'municipality',
-    geonameId: 3239050,
+    // geonameId: 3239050,
   },
   {
     id: 2910,
@@ -55289,7 +55289,7 @@ const divisions = [
       fr: 'Idrija',
     }),
     denomination: 'municipality',
-    geonameId: 3199169,
+    // geonameId: 3199169,
   },
   {
     id: 2911,
@@ -55308,7 +55308,7 @@ const divisions = [
       fr: 'Ig',
     }),
     denomination: 'municipality',
-    geonameId: 3239069,
+    // geonameId: 3239069,
   },
   {
     id: 2912,
@@ -55327,7 +55327,7 @@ const divisions = [
       fr: 'Ilirska Bistrica',
     }),
     denomination: 'municipality',
-    geonameId: 3199130,
+    // geonameId: 3199130,
   },
   {
     id: 2913,
@@ -55346,7 +55346,7 @@ const divisions = [
       fr: 'Izola',
     }),
     denomination: 'municipality',
-    geonameId: 3199016,
+    // geonameId: 3199016,
   },
   {
     id: 2914,
@@ -55365,7 +55365,7 @@ const divisions = [
       fr: 'Jesenice',
     }),
     denomination: 'municipality',
-    geonameId: 3198646,
+    // geonameId: 3198646,
   },
   {
     id: 2915,
@@ -55384,7 +55384,7 @@ const divisions = [
       fr: 'Jezersko',
     }),
     denomination: 'municipality',
-    geonameId: 3344894,
+    // geonameId: 3344894,
   },
   {
     id: 2916,
@@ -55403,7 +55403,7 @@ const divisions = [
       fr: 'Kamnik',
     }),
     denomination: 'municipality',
-    geonameId: 3198364,
+    // geonameId: 3198364,
   },
   {
     id: 2917,
@@ -55422,7 +55422,7 @@ const divisions = [
       fr: 'Kanal ob Soči',
     }),
     denomination: 'municipality',
-    geonameId: 3239086,
+    // geonameId: 3239086,
   },
   {
     id: 2918,
@@ -55441,7 +55441,7 @@ const divisions = [
       fr: 'Kobarid',
     }),
     denomination: 'municipality',
-    geonameId: 3239098,
+    // geonameId: 3239098,
   },
   {
     id: 2919,
@@ -55460,7 +55460,7 @@ const divisions = [
       fr: 'Kobilje',
     }),
     denomination: 'municipality',
-    geonameId: 3239280,
+    // geonameId: 3239280,
   },
   {
     id: 2920,
@@ -55479,7 +55479,7 @@ const divisions = [
       fr: 'Komen',
     }),
     denomination: 'municipality',
-    geonameId: 3239078,
+    // geonameId: 3239078,
   },
   {
     id: 2921,
@@ -55498,7 +55498,7 @@ const divisions = [
       fr: 'Komenda',
     }),
     denomination: 'municipality',
-    geonameId: 3344896,
+    // geonameId: 3344896,
   },
   {
     id: 2922,
@@ -55517,7 +55517,7 @@ const divisions = [
       fr: 'Koper',
     }),
     denomination: 'municipality',
-    geonameId: 3197752,
+    // geonameId: 3197752,
   },
   {
     id: 2923,
@@ -55536,7 +55536,7 @@ const divisions = [
       fr: 'Kostanjevica na Krki',
     }),
     denomination: 'municipality',
-    geonameId: 8133581,
+    // geonameId: 8133581,
   },
   {
     id: 2924,
@@ -55555,7 +55555,7 @@ const divisions = [
       fr: 'Kostel',
     }),
     denomination: 'municipality',
-    geonameId: 3344908,
+    // geonameId: 3344908,
   },
   {
     id: 2925,
@@ -55574,7 +55574,7 @@ const divisions = [
       fr: 'Kozje',
     }),
     denomination: 'municipality',
-    geonameId: 3239243,
+    // geonameId: 3239243,
   },
   {
     id: 2926,
@@ -55593,7 +55593,7 @@ const divisions = [
       fr: 'Kranjska Gora',
     }),
     denomination: 'municipality',
-    geonameId: 3239105,
+    // geonameId: 3239105,
   },
   {
     id: 2927,
@@ -55612,7 +55612,7 @@ const divisions = [
       fr: 'Krško',
     }),
     denomination: 'municipality',
-    geonameId: 3197146,
+    // geonameId: 3197146,
   },
   {
     id: 2928,
@@ -55631,7 +55631,7 @@ const divisions = [
       fr: 'Kungota',
     }),
     denomination: 'municipality',
-    geonameId: 3239213,
+    // geonameId: 3239213,
   },
   {
     id: 2929,
@@ -55650,7 +55650,7 @@ const divisions = [
       fr: 'Kuzma',
     }),
     denomination: 'municipality',
-    geonameId: 3239272,
+    // geonameId: 3239272,
   },
   {
     id: 2930,
@@ -55669,7 +55669,7 @@ const divisions = [
       fr: 'Laško',
     }),
     denomination: 'municipality',
-    geonameId: 3196759,
+    // geonameId: 3196759,
   },
   {
     id: 2931,
@@ -55688,7 +55688,7 @@ const divisions = [
       fr: 'Lenart',
     }),
     denomination: 'municipality',
-    geonameId: 3196684,
+    // geonameId: 3196684,
   },
   {
     id: 2932,
@@ -55707,7 +55707,7 @@ const divisions = [
       fr: 'Lendava',
     }),
     denomination: 'municipality',
-    geonameId: 3344935,
+    // geonameId: 3344935,
   },
   {
     id: 2933,
@@ -55726,7 +55726,7 @@ const divisions = [
       fr: 'Litija',
     }),
     denomination: 'municipality',
-    geonameId: 3196424,
+    // geonameId: 3196424,
   },
   {
     id: 2934,
@@ -55745,7 +55745,7 @@ const divisions = [
       fr: 'Ljubljana',
     }),
     denomination: 'municipality',
-    geonameId: 3239318,
+    // geonameId: 3239318,
   },
   {
     id: 2935,
@@ -55764,7 +55764,7 @@ const divisions = [
       fr: 'Ljubno',
     }),
     denomination: 'municipality',
-    geonameId: 3239184,
+    // geonameId: 3239184,
   },
   {
     id: 2936,
@@ -55783,7 +55783,7 @@ const divisions = [
       fr: 'Ljutomer',
     }),
     denomination: 'municipality',
-    geonameId: 3196306,
+    // geonameId: 3196306,
   },
   {
     id: 2937,
@@ -55802,7 +55802,7 @@ const divisions = [
       fr: 'Log-Dragomer',
     }),
     denomination: 'municipality',
-    geonameId: 8133582,
+    // geonameId: 8133582,
   },
   {
     id: 2938,
@@ -55821,7 +55821,7 @@ const divisions = [
       fr: 'Logatec',
     }),
     denomination: 'municipality',
-    geonameId: 3196288,
+    // geonameId: 3196288,
   },
   {
     id: 2939,
@@ -55840,7 +55840,7 @@ const divisions = [
       fr: 'Loška Dolina',
     }),
     denomination: 'municipality',
-    geonameId: 3239056,
+    // geonameId: 3239056,
   },
   {
     id: 2940,
@@ -55859,7 +55859,7 @@ const divisions = [
       fr: 'Lovrenc na Pohorju',
     }),
     denomination: 'municipality',
-    geonameId: 3344918,
+    // geonameId: 3344918,
   },
   {
     id: 2941,
@@ -55878,7 +55878,7 @@ const divisions = [
       fr: 'Lukovica',
     }),
     denomination: 'municipality',
-    geonameId: 3239188,
+    // geonameId: 3239188,
   },
   {
     id: 2942,
@@ -55897,7 +55897,7 @@ const divisions = [
       fr: 'Makole',
     }),
     denomination: 'municipality',
-    geonameId: 8133583,
+    // geonameId: 8133583,
   },
   {
     id: 2943,
@@ -55916,7 +55916,7 @@ const divisions = [
       fr: 'Maribor',
     }),
     denomination: 'municipality',
-    geonameId: 3195505,
+    // geonameId: 3195505,
   },
   {
     id: 2944,
@@ -55935,7 +55935,7 @@ const divisions = [
       fr: 'Markovci',
     }),
     denomination: 'municipality',
-    geonameId: 3344925,
+    // geonameId: 3344925,
   },
   {
     id: 2945,
@@ -55954,7 +55954,7 @@ const divisions = [
       fr: 'Medvode',
     }),
     denomination: 'municipality',
-    geonameId: 3239113,
+    // geonameId: 3239113,
   },
   {
     id: 2946,
@@ -55973,7 +55973,7 @@ const divisions = [
       fr: 'Nouveau Mesto',
     }),
     denomination: 'municipality',
-    geonameId: 3194350,
+    // geonameId: 3194350,
   },
   {
     id: 2947,
@@ -55992,7 +55992,7 @@ const divisions = [
       fr: 'Metlika',
     }),
     denomination: 'municipality',
-    geonameId: 3195213,
+    // geonameId: 3195213,
   },
   {
     id: 2948,
@@ -56011,7 +56011,7 @@ const divisions = [
       fr: 'Miren-Kostanjevica',
     }),
     denomination: 'municipality',
-    geonameId: 3239080,
+    // geonameId: 3239080,
   },
   {
     id: 2949,
@@ -56030,7 +56030,7 @@ const divisions = [
       fr: 'Mirna Peč',
     }),
     denomination: 'municipality',
-    geonameId: 3344911,
+    // geonameId: 3344911,
   },
   {
     id: 2950,
@@ -56049,7 +56049,7 @@ const divisions = [
       fr: 'Mislinja',
     }),
     denomination: 'municipality',
-    geonameId: 3239207,
+    // geonameId: 3239207,
   },
   {
     id: 2951,
@@ -56068,7 +56068,7 @@ const divisions = [
       fr: 'Mokronog-Trebelno',
     }),
     denomination: 'municipality',
-    geonameId: 8133584,
+    // geonameId: 8133584,
   },
   {
     id: 2952,
@@ -56087,7 +56087,7 @@ const divisions = [
       fr: 'Moravske Toplice',
     }),
     denomination: 'municipality',
-    geonameId: 3239279,
+    // geonameId: 3239279,
   },
   {
     id: 2953,
@@ -56106,7 +56106,7 @@ const divisions = [
       fr: 'Mozirje',
     }),
     denomination: 'municipality',
-    geonameId: 3194791,
+    // geonameId: 3194791,
   },
   {
     id: 2954,
@@ -56125,7 +56125,7 @@ const divisions = [
       fr: 'Murska Sobota',
     }),
     denomination: 'municipality',
-    geonameId: 3194647,
+    // geonameId: 3194647,
   },
   {
     id: 2955,
@@ -56144,7 +56144,7 @@ const divisions = [
       fr: 'Muta',
     }),
     denomination: 'municipality',
-    geonameId: 3239179,
+    // geonameId: 3239179,
   },
   {
     id: 2956,
@@ -56163,7 +56163,7 @@ const divisions = [
       fr: 'Naklo',
     }),
     denomination: 'municipality',
-    geonameId: 3239104,
+    // geonameId: 3239104,
   },
   {
     id: 2957,
@@ -56182,7 +56182,7 @@ const divisions = [
       fr: 'Nazarje',
     }),
     denomination: 'municipality',
-    geonameId: 3239294,
+    // geonameId: 3239294,
   },
   {
     id: 2958,
@@ -56201,7 +56201,7 @@ const divisions = [
       fr: 'Nova Gorica',
     }),
     denomination: 'municipality',
-    geonameId: 3194451,
+    // geonameId: 3194451,
   },
   {
     id: 2959,
@@ -56220,7 +56220,7 @@ const divisions = [
       fr: 'Apače',
     }),
     denomination: 'municipality',
-    geonameId: 8133579,
+    // geonameId: 8133579,
   },
   {
     id: 2960,
@@ -56239,7 +56239,7 @@ const divisions = [
       fr: 'Bled',
     }),
     denomination: 'municipality',
-    geonameId: 3239103,
+    // geonameId: 3239103,
   },
   {
     id: 2961,
@@ -56258,7 +56258,7 @@ const divisions = [
       fr: 'Bovec',
     }),
     denomination: 'municipality',
-    geonameId: 3239100,
+    // geonameId: 3239100,
   },
   {
     id: 2962,
@@ -56277,7 +56277,7 @@ const divisions = [
       fr: 'Braslovče',
     }),
     denomination: 'municipality',
-    geonameId: 3344905,
+    // geonameId: 3344905,
   },
   {
     id: 2963,
@@ -56296,7 +56296,7 @@ const divisions = [
       fr: 'Brežice',
     }),
     denomination: 'municipality',
-    geonameId: 3203411,
+    // geonameId: 3203411,
   },
   {
     id: 2964,
@@ -56315,7 +56315,7 @@ const divisions = [
       fr: 'Črenšovci',
     }),
     denomination: 'municipality',
-    geonameId: 3239286,
+    // geonameId: 3239286,
   },
   {
     id: 2965,
@@ -56334,7 +56334,7 @@ const divisions = [
       fr: 'Divača',
     }),
     denomination: 'municipality',
-    geonameId: 3239051,
+    // geonameId: 3239051,
   },
   {
     id: 2966,
@@ -56353,7 +56353,7 @@ const divisions = [
       fr: 'Domžale',
     }),
     denomination: 'municipality',
-    geonameId: 3201729,
+    // geonameId: 3201729,
   },
   {
     id: 2967,
@@ -56372,7 +56372,7 @@ const divisions = [
       fr: 'Gorenja vas-Poljane',
     }),
     denomination: 'municipality',
-    geonameId: 3239095,
+    // geonameId: 3239095,
   },
   {
     id: 2968,
@@ -56391,7 +56391,7 @@ const divisions = [
       fr: 'Gorišnica',
     }),
     denomination: 'municipality',
-    geonameId: 3239245,
+    // geonameId: 3239245,
   },
   {
     id: 2969,
@@ -56410,7 +56410,7 @@ const divisions = [
       fr: 'Hoče-Slivnica',
     }),
     denomination: 'municipality',
-    geonameId: 3344920,
+    // geonameId: 3344920,
   },
   {
     id: 2970,
@@ -56429,7 +56429,7 @@ const divisions = [
       fr: 'Ivančna Gorica',
     }),
     denomination: 'municipality',
-    geonameId: 3239191,
+    // geonameId: 3239191,
   },
   {
     id: 2971,
@@ -56448,7 +56448,7 @@ const divisions = [
       fr: 'Juršinci',
     }),
     denomination: 'municipality',
-    geonameId: 3239251,
+    // geonameId: 3239251,
   },
   {
     id: 2972,
@@ -56467,7 +56467,7 @@ const divisions = [
       fr: 'Kidričevo',
     }),
     denomination: 'municipality',
-    geonameId: 3239227,
+    // geonameId: 3239227,
   },
   {
     id: 2973,
@@ -56486,7 +56486,7 @@ const divisions = [
       fr: 'Kočevje',
     }),
     denomination: 'municipality',
-    geonameId: 3197942,
+    // geonameId: 3197942,
   },
   {
     id: 2974,
@@ -56505,7 +56505,7 @@ const divisions = [
       fr: 'Križevci',
     }),
     denomination: 'municipality',
-    geonameId: 3344932,
+    // geonameId: 3344932,
   },
   {
     id: 2975,
@@ -56524,7 +56524,7 @@ const divisions = [
       fr: 'Loški Potok',
     }),
     denomination: 'municipality',
-    geonameId: 3239059,
+    // geonameId: 3239059,
   },
   {
     id: 2976,
@@ -56543,7 +56543,7 @@ const divisions = [
       fr: 'Luče',
     }),
     denomination: 'municipality',
-    geonameId: 3239134,
+    // geonameId: 3239134,
   },
   {
     id: 2977,
@@ -56562,7 +56562,7 @@ const divisions = [
       fr: 'Majšperk',
     }),
     denomination: 'municipality',
-    geonameId: 3239229,
+    // geonameId: 3239229,
   },
   {
     id: 2978,
@@ -56581,7 +56581,7 @@ const divisions = [
       fr: 'Mengeš',
     }),
     denomination: 'municipality',
-    geonameId: 3239114,
+    // geonameId: 3239114,
   },
   {
     id: 2979,
@@ -56600,7 +56600,7 @@ const divisions = [
       fr: 'Mežica',
     }),
     denomination: 'municipality',
-    geonameId: 3239177,
+    // geonameId: 3239177,
   },
   {
     id: 2980,
@@ -56619,7 +56619,7 @@ const divisions = [
       fr: 'Miklavž na Dravskem Polju',
     }),
     denomination: 'municipality',
-    geonameId: 3344921,
+    // geonameId: 3344921,
   },
   {
     id: 2981,
@@ -56638,7 +56638,7 @@ const divisions = [
       fr: 'Moravče',
     }),
     denomination: 'municipality',
-    geonameId: 3239132,
+    // geonameId: 3239132,
   },
   {
     id: 2982,
@@ -56657,7 +56657,7 @@ const divisions = [
       fr: 'Ormož',
     }),
     denomination: 'municipality',
-    geonameId: 3193964,
+    // geonameId: 3193964,
   },
   {
     id: 2983,
@@ -56676,7 +56676,7 @@ const divisions = [
       fr: 'Podčetrtek',
     }),
     denomination: 'municipality',
-    geonameId: 3239241,
+    // geonameId: 3239241,
   },
   {
     id: 2984,
@@ -56695,7 +56695,7 @@ const divisions = [
       fr: 'Poljčane',
     }),
     denomination: 'municipality',
-    geonameId: 8133585,
+    // geonameId: 8133585,
   },
   {
     id: 2985,
@@ -56714,7 +56714,7 @@ const divisions = [
       fr: 'Rače-Fram',
     }),
     denomination: 'municipality',
-    geonameId: 3239224,
+    // geonameId: 3239224,
   },
   {
     id: 2986,
@@ -56733,7 +56733,7 @@ const divisions = [
       fr: 'Ravne na Koroškem',
     }),
     denomination: 'municipality',
-    geonameId: 3239175,
+    // geonameId: 3239175,
   },
   {
     id: 2987,
@@ -56752,7 +56752,7 @@ const divisions = [
       fr: 'Razkrižje',
     }),
     denomination: 'municipality',
-    geonameId: 3344941,
+    // geonameId: 3344941,
   },
   {
     id: 2988,
@@ -56771,7 +56771,7 @@ const divisions = [
       fr: 'Rečica ob Savinji',
     }),
     denomination: 'municipality',
-    geonameId: 8133586,
+    // geonameId: 8133586,
   },
   {
     id: 2989,
@@ -56790,7 +56790,7 @@ const divisions = [
       fr: 'Renče-Vogrsko',
     }),
     denomination: 'municipality',
-    geonameId: 8133587,
+    // geonameId: 8133587,
   },
   {
     id: 2990,
@@ -56809,7 +56809,7 @@ const divisions = [
       fr: 'Rogaška Slatina',
     }),
     denomination: 'municipality',
-    geonameId: 3239234,
+    // geonameId: 3239234,
   },
   {
     id: 2991,
@@ -56828,7 +56828,7 @@ const divisions = [
       fr: 'Rogašovci',
     }),
     denomination: 'municipality',
-    geonameId: 3239270,
+    // geonameId: 3239270,
   },
   {
     id: 2992,
@@ -56847,7 +56847,7 @@ const divisions = [
       fr: 'Šalovci',
     }),
     denomination: 'municipality',
-    geonameId: 3344943,
+    // geonameId: 3344943,
   },
   {
     id: 2993,
@@ -56866,7 +56866,7 @@ const divisions = [
       fr: 'Semič',
     }),
     denomination: 'municipality',
-    geonameId: 3239195,
+    // geonameId: 3239195,
   },
   {
     id: 2994,
@@ -56885,7 +56885,7 @@ const divisions = [
       fr: 'Šempeter-Vrtojba',
     }),
     denomination: 'municipality',
-    geonameId: 3344898,
+    // geonameId: 3344898,
   },
   {
     id: 2995,
@@ -56904,7 +56904,7 @@ const divisions = [
       fr: 'Šenčur',
     }),
     denomination: 'municipality',
-    geonameId: 3239111,
+    // geonameId: 3239111,
   },
   {
     id: 2996,
@@ -56923,7 +56923,7 @@ const divisions = [
       fr: 'Šentilj',
     }),
     denomination: 'municipality',
-    geonameId: 3239214,
+    // geonameId: 3239214,
   },
   {
     id: 2997,
@@ -56942,7 +56942,7 @@ const divisions = [
       fr: 'Šentjernej',
     }),
     denomination: 'municipality',
-    geonameId: 3239197,
+    // geonameId: 3239197,
   },
   {
     id: 2998,
@@ -56961,7 +56961,7 @@ const divisions = [
       fr: 'Sežana',
     }),
     denomination: 'municipality',
-    geonameId: 3190944,
+    // geonameId: 3190944,
   },
   {
     id: 2999,
@@ -56980,7 +56980,7 @@ const divisions = [
       fr: 'Škocjan',
     }),
     denomination: 'municipality',
-    geonameId: 3239199,
+    // geonameId: 3239199,
   },
   {
     id: 3000,
@@ -56999,7 +56999,7 @@ const divisions = [
       fr: 'Škofljica',
     }),
     denomination: 'municipality',
-    geonameId: 3239066,
+    // geonameId: 3239066,
   },
   {
     id: 3001,
@@ -57018,7 +57018,7 @@ const divisions = [
       fr: 'Šmarje pri Jelšah',
     }),
     denomination: 'municipality',
-    geonameId: 3190509,
+    // geonameId: 3190509,
   },
   {
     id: 3002,
@@ -57037,7 +57037,7 @@ const divisions = [
       fr: 'Šmartno ob Paki',
     }),
     denomination: 'municipality',
-    geonameId: 3239187,
+    // geonameId: 3239187,
   },
   {
     id: 3003,
@@ -57056,7 +57056,7 @@ const divisions = [
       fr: 'Šmartno pri Litiji',
     }),
     denomination: 'municipality',
-    geonameId: 3344942,
+    // geonameId: 3344942,
   },
   {
     id: 3004,
@@ -57075,7 +57075,7 @@ const divisions = [
       fr: 'Sodražica',
     }),
     denomination: 'municipality',
-    geonameId: 3344900,
+    // geonameId: 3344900,
   },
   {
     id: 3005,
@@ -57094,7 +57094,7 @@ const divisions = [
       fr: 'Šoštanj',
     }),
     denomination: 'municipality',
-    geonameId: 3239185,
+    // geonameId: 3239185,
   },
   {
     id: 3006,
@@ -57113,7 +57113,7 @@ const divisions = [
       fr: 'Starše',
     }),
     denomination: 'municipality',
-    geonameId: 3239226,
+    // geonameId: 3239226,
   },
   {
     id: 3007,
@@ -57132,7 +57132,7 @@ const divisions = [
       fr: 'Štore',
     }),
     denomination: 'municipality',
-    geonameId: 3239200,
+    // geonameId: 3239200,
   },
   {
     id: 3008,
@@ -57151,7 +57151,7 @@ const divisions = [
       fr: 'Sveti Andraž v Slovenskih Goricah',
     }),
     denomination: 'municipality',
-    geonameId: 3344928,
+    // geonameId: 3344928,
   },
   {
     id: 3009,
@@ -57170,7 +57170,7 @@ const divisions = [
       fr: 'Sveti Jurij ob Ščavnici',
     }),
     denomination: 'municipality',
-    geonameId: 3239259,
+    // geonameId: 3239259,
   },
   {
     id: 3010,
@@ -57189,7 +57189,7 @@ const divisions = [
       fr: 'Tišina',
     }),
     denomination: 'municipality',
-    geonameId: 3344937,
+    // geonameId: 3344937,
   },
   {
     id: 3011,
@@ -57208,7 +57208,7 @@ const divisions = [
       fr: 'Tolmin',
     }),
     denomination: 'municipality',
-    geonameId: 3189037,
+    // geonameId: 3189037,
   },
   {
     id: 3012,
@@ -57227,7 +57227,7 @@ const divisions = [
       fr: 'Trnovska vas',
     }),
     denomination: 'municipality',
-    geonameId: 3344927,
+    // geonameId: 3344927,
   },
   {
     id: 3013,
@@ -57246,7 +57246,7 @@ const divisions = [
       fr: 'Tržič',
     }),
     denomination: 'municipality',
-    geonameId: 3188687,
+    // geonameId: 3188687,
   },
   {
     id: 3014,
@@ -57265,7 +57265,7 @@ const divisions = [
       fr: 'Turnišče',
     }),
     denomination: 'municipality',
-    geonameId: 3239283,
+    // geonameId: 3239283,
   },
   {
     id: 3015,
@@ -57284,7 +57284,7 @@ const divisions = [
       fr: 'Velike Lašče',
     }),
     denomination: 'municipality',
-    geonameId: 3239062,
+    // geonameId: 3239062,
   },
   {
     id: 3016,
@@ -57303,7 +57303,7 @@ const divisions = [
       fr: 'Veržej',
     }),
     denomination: 'municipality',
-    geonameId: 3344933,
+    // geonameId: 3344933,
   },
   {
     id: 3017,
@@ -57322,7 +57322,7 @@ const divisions = [
       fr: 'Žalec',
     }),
     denomination: 'municipality',
-    geonameId: 3186843,
+    // geonameId: 3186843,
   },
   {
     id: 3018,
@@ -57341,7 +57341,7 @@ const divisions = [
       fr: 'Zavrč',
     }),
     denomination: 'municipality',
-    geonameId: 3239247,
+    // geonameId: 3239247,
   },
   {
     id: 3019,
@@ -57360,7 +57360,7 @@ const divisions = [
       fr: 'Žetale',
     }),
     denomination: 'municipality',
-    geonameId: 3344923,
+    // geonameId: 3344923,
   },
   {
     id: 3020,
@@ -57379,7 +57379,7 @@ const divisions = [
       fr: 'Žiri',
     }),
     denomination: 'municipality',
-    geonameId: 3239087,
+    // geonameId: 3239087,
   },
   {
     id: 3021,
@@ -57398,7 +57398,7 @@ const divisions = [
       fr: 'Žirovnica',
     }),
     denomination: 'municipality',
-    geonameId: 3344893,
+    // geonameId: 3344893,
   },
   {
     id: 3022,
@@ -57417,7 +57417,7 @@ const divisions = [
       fr: 'Žužemberk',
     }),
     denomination: 'municipality',
-    geonameId: 3344909,
+    // geonameId: 3344909,
   },
   {
     id: 3023,
@@ -57436,7 +57436,7 @@ const divisions = [
       fr: 'Odranci',
     }),
     denomination: 'municipality',
-    geonameId: 3239285,
+    // geonameId: 3239285,
   },
   {
     id: 3024,
@@ -57455,7 +57455,7 @@ const divisions = [
       fr: 'Oplotnica',
     }),
     denomination: 'municipality',
-    geonameId: 3344915,
+    // geonameId: 3344915,
   },
   {
     id: 3025,
@@ -57474,7 +57474,7 @@ const divisions = [
       fr: 'Osilnica',
     }),
     denomination: 'municipality',
-    geonameId: 3239061,
+    // geonameId: 3239061,
   },
   {
     id: 3026,
@@ -57493,7 +57493,7 @@ const divisions = [
       fr: 'Pesnica',
     }),
     denomination: 'municipality',
-    geonameId: 3239215,
+    // geonameId: 3239215,
   },
   {
     id: 3027,
@@ -57512,7 +57512,7 @@ const divisions = [
       fr: 'Piran',
     }),
     denomination: 'municipality',
-    geonameId: 3193340,
+    // geonameId: 3193340,
   },
   {
     id: 3028,
@@ -57531,7 +57531,7 @@ const divisions = [
       fr: 'Pivka',
     }),
     denomination: 'municipality',
-    geonameId: 3239054,
+    // geonameId: 3239054,
   },
   {
     id: 3029,
@@ -57550,7 +57550,7 @@ const divisions = [
       fr: 'Podlehnik',
     }),
     denomination: 'municipality',
-    geonameId: 3344924,
+    // geonameId: 3344924,
   },
   {
     id: 3030,
@@ -57569,7 +57569,7 @@ const divisions = [
       fr: 'Podvelka',
     }),
     denomination: 'municipality',
-    geonameId: 3344916,
+    // geonameId: 3344916,
   },
   {
     id: 3031,
@@ -57588,7 +57588,7 @@ const divisions = [
       fr: 'Polzela',
     }),
     denomination: 'municipality',
-    geonameId: 3344906,
+    // geonameId: 3344906,
   },
   {
     id: 3032,
@@ -57607,7 +57607,7 @@ const divisions = [
       fr: 'Postojna',
     }),
     denomination: 'municipality',
-    geonameId: 3192672,
+    // geonameId: 3192672,
   },
   {
     id: 3033,
@@ -57626,7 +57626,7 @@ const divisions = [
       fr: 'Prebold',
     }),
     denomination: 'municipality',
-    geonameId: 3344907,
+    // geonameId: 3344907,
   },
   {
     id: 3034,
@@ -57645,7 +57645,7 @@ const divisions = [
       fr: 'Preddvor',
     }),
     denomination: 'municipality',
-    geonameId: 3239107,
+    // geonameId: 3239107,
   },
   {
     id: 3035,
@@ -57664,7 +57664,7 @@ const divisions = [
       fr: 'Prevalje',
     }),
     denomination: 'municipality',
-    geonameId: 3344902,
+    // geonameId: 3344902,
   },
   {
     id: 3036,
@@ -57683,7 +57683,7 @@ const divisions = [
       fr: 'Ptuj',
     }),
     denomination: 'municipality',
-    geonameId: 3192240,
+    // geonameId: 3192240,
   },
   {
     id: 3037,
@@ -57702,7 +57702,7 @@ const divisions = [
       fr: 'Puconci',
     }),
     denomination: 'municipality',
-    geonameId: 3239268,
+    // geonameId: 3239268,
   },
   {
     id: 3038,
@@ -57721,7 +57721,7 @@ const divisions = [
       fr: 'Radeče',
     }),
     denomination: 'municipality',
-    geonameId: 3239189,
+    // geonameId: 3239189,
   },
   {
     id: 3039,
@@ -57740,7 +57740,7 @@ const divisions = [
       fr: 'Radenci',
     }),
     denomination: 'municipality',
-    geonameId: 3239262,
+    // geonameId: 3239262,
   },
   {
     id: 3040,
@@ -57759,7 +57759,7 @@ const divisions = [
       fr: 'Radlje ob Dravi',
     }),
     denomination: 'municipality',
-    geonameId: 3192120,
+    // geonameId: 3192120,
   },
   {
     id: 3041,
@@ -57778,7 +57778,7 @@ const divisions = [
       fr: 'Radovljica',
     }),
     denomination: 'municipality',
-    geonameId: 3192062,
+    // geonameId: 3192062,
   },
   {
     id: 3042,
@@ -57797,7 +57797,7 @@ const divisions = [
       fr: 'Ribnica',
     }),
     denomination: 'municipality',
-    geonameId: 3191679,
+    // geonameId: 3191679,
   },
   {
     id: 3043,
@@ -57816,7 +57816,7 @@ const divisions = [
       fr: 'Ribnica na Pohorju',
     }),
     denomination: 'municipality',
-    geonameId: 3344917,
+    // geonameId: 3344917,
   },
   {
     id: 3044,
@@ -57835,7 +57835,7 @@ const divisions = [
       fr: 'Rogatec',
     }),
     denomination: 'municipality',
-    geonameId: 3239237,
+    // geonameId: 3239237,
   },
   {
     id: 3045,
@@ -57854,7 +57854,7 @@ const divisions = [
       fr: 'Ruše',
     }),
     denomination: 'municipality',
-    geonameId: 3239211,
+    // geonameId: 3239211,
   },
   {
     id: 3046,
@@ -57873,7 +57873,7 @@ const divisions = [
       fr: 'Selnica ob Dravi',
     }),
     denomination: 'municipality',
-    geonameId: 3344919,
+    // geonameId: 3344919,
   },
   {
     id: 3047,
@@ -57892,7 +57892,7 @@ const divisions = [
       fr: 'Šentjur',
     }),
     denomination: 'municipality',
-    geonameId: 3191028,
+    // geonameId: 3191028,
   },
   {
     id: 3048,
@@ -57911,7 +57911,7 @@ const divisions = [
       fr: 'Sevnica',
     }),
     denomination: 'municipality',
-    geonameId: 3190949,
+    // geonameId: 3190949,
   },
   {
     id: 3049,
@@ -57930,7 +57930,7 @@ const divisions = [
       fr: 'Škofja Loka',
     }),
     denomination: 'municipality',
-    geonameId: 3190716,
+    // geonameId: 3190716,
   },
   {
     id: 3050,
@@ -57949,7 +57949,7 @@ const divisions = [
       fr: 'Slovenj Gradec',
     }),
     denomination: 'municipality',
-    geonameId: 3190535,
+    // geonameId: 3190535,
   },
   {
     id: 3051,
@@ -57968,7 +57968,7 @@ const divisions = [
       fr: 'Slovenska Bistrica',
     }),
     denomination: 'municipality',
-    geonameId: 3190533,
+    // geonameId: 3190533,
   },
   {
     id: 3052,
@@ -57987,7 +57987,7 @@ const divisions = [
       fr: 'Slovenske Konjice',
     }),
     denomination: 'municipality',
-    geonameId: 3190529,
+    // geonameId: 3190529,
   },
   {
     id: 3053,
@@ -58006,7 +58006,7 @@ const divisions = [
       fr: 'Solčava',
     }),
     denomination: 'municipality',
-    geonameId: 3344895,
+    // geonameId: 3344895,
   },
   {
     id: 3054,
@@ -58025,7 +58025,7 @@ const divisions = [
       fr: 'Sveta Ana',
     }),
     denomination: 'municipality',
-    geonameId: 3344931,
+    // geonameId: 3344931,
   },
   {
     id: 3055,
@@ -58044,7 +58044,7 @@ const divisions = [
       fr: 'Tabor',
     }),
     denomination: 'municipality',
-    geonameId: 3344904,
+    // geonameId: 3344904,
   },
   {
     id: 3056,
@@ -58063,7 +58063,7 @@ const divisions = [
       fr: 'Trbovlje',
     }),
     denomination: 'municipality',
-    geonameId: 3188914,
+    // geonameId: 3188914,
   },
   {
     id: 3057,
@@ -58082,7 +58082,7 @@ const divisions = [
       fr: 'Trebnje',
     }),
     denomination: 'municipality',
-    geonameId: 3188885,
+    // geonameId: 3188885,
   },
   {
     id: 3058,
@@ -58101,7 +58101,7 @@ const divisions = [
       fr: 'Trzin',
     }),
     denomination: 'municipality',
-    geonameId: 3344901,
+    // geonameId: 3344901,
   },
   {
     id: 3059,
@@ -58120,7 +58120,7 @@ const divisions = [
       fr: 'Velenje',
     }),
     denomination: 'municipality',
-    geonameId: 3189074,
+    // geonameId: 3189074,
   },
   {
     id: 3060,
@@ -58139,7 +58139,7 @@ const divisions = [
       fr: 'Velika Polana',
     }),
     denomination: 'municipality',
-    geonameId: 3344934,
+    // geonameId: 3344934,
   },
   {
     id: 3061,
@@ -58158,7 +58158,7 @@ const divisions = [
       fr: 'Videm',
     }),
     denomination: 'municipality',
-    geonameId: 3239231,
+    // geonameId: 3239231,
   },
   {
     id: 3062,
@@ -58177,7 +58177,7 @@ const divisions = [
       fr: 'Vipava',
     }),
     denomination: 'municipality',
-    geonameId: 3239075,
+    // geonameId: 3239075,
   },
   {
     id: 3063,
@@ -58196,7 +58196,7 @@ const divisions = [
       fr: 'Vitanje',
     }),
     denomination: 'municipality',
-    geonameId: 3239204,
+    // geonameId: 3239204,
   },
   {
     id: 3064,
@@ -58215,7 +58215,7 @@ const divisions = [
       fr: 'Vodice',
     }),
     denomination: 'municipality',
-    geonameId: 3239112,
+    // geonameId: 3239112,
   },
   {
     id: 3065,
@@ -58234,7 +58234,7 @@ const divisions = [
       fr: 'Vojnik',
     }),
     denomination: 'municipality',
-    geonameId: 3239202,
+    // geonameId: 3239202,
   },
   {
     id: 3066,
@@ -58253,7 +58253,7 @@ const divisions = [
       fr: 'Vransko',
     }),
     denomination: 'municipality',
-    geonameId: 3344903,
+    // geonameId: 3344903,
   },
   {
     id: 3067,
@@ -58272,7 +58272,7 @@ const divisions = [
       fr: 'Vrhnika',
     }),
     denomination: 'municipality',
-    geonameId: 3187213,
+    // geonameId: 3187213,
   },
   {
     id: 3068,
@@ -58291,7 +58291,7 @@ const divisions = [
       fr: 'Vuzenica',
     }),
     denomination: 'municipality',
-    geonameId: 3239180,
+    // geonameId: 3239180,
   },
   {
     id: 3069,
@@ -58310,7 +58310,7 @@ const divisions = [
       fr: 'Zagorje ob Savi',
     }),
     denomination: 'municipality',
-    geonameId: 3186905,
+    // geonameId: 3186905,
   },
   {
     id: 3070,
@@ -58329,7 +58329,7 @@ const divisions = [
       fr: 'Železniki',
     }),
     denomination: 'municipality',
-    geonameId: 3239093,
+    // geonameId: 3239093,
   },
   {
     id: 3071,
@@ -58348,7 +58348,7 @@ const divisions = [
       fr: 'Zreče',
     }),
     denomination: 'municipality',
-    geonameId: 3239205,
+    // geonameId: 3239205,
   },
   {
     id: 3072,
@@ -58367,7 +58367,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'province',
-    geonameId: 2109495,
+    // geonameId: 2109495,
   },
   {
     id: 3073,
@@ -58386,7 +58386,7 @@ const divisions = [
       fr: 'Choiseul',
     }),
     denomination: 'province',
-    geonameId: 7280292,
+    // geonameId: 7280292,
   },
   {
     id: 3074,
@@ -58405,7 +58405,7 @@ const divisions = [
       fr: 'Guadalcanal',
     }),
     denomination: 'province',
-    geonameId: 2108831,
+    // geonameId: 2108831,
   },
   {
     id: 3075,
@@ -58424,7 +58424,7 @@ const divisions = [
       fr: 'Honiara',
     }),
     denomination: 'capital',
-    geonameId: 9259067,
+    // geonameId: 9259067,
   },
   {
     id: 3076,
@@ -58443,7 +58443,7 @@ const divisions = [
       fr: 'Isabel',
     }),
     denomination: 'province',
-    geonameId: 2108262,
+    // geonameId: 2108262,
   },
   {
     id: 3077,
@@ -58462,7 +58462,7 @@ const divisions = [
       fr: 'Makira-Ulawa',
     }),
     denomination: 'province',
-    geonameId: 2178730,
+    // geonameId: 2178730,
   },
   {
     id: 3078,
@@ -58481,7 +58481,7 @@ const divisions = [
       fr: 'Malaita',
     }),
     denomination: 'province',
-    geonameId: 2106552,
+    // geonameId: 2106552,
   },
   {
     id: 3079,
@@ -58500,7 +58500,7 @@ const divisions = [
       fr: 'Rennell et Bellona',
     }),
     denomination: 'province',
-    geonameId: 7280293,
+    // geonameId: 7280293,
   },
   {
     id: 3080,
@@ -58519,7 +58519,7 @@ const divisions = [
       fr: 'Temotu',
     }),
     denomination: 'province',
-    geonameId: 2178472,
+    // geonameId: 2178472,
   },
   {
     id: 3081,
@@ -58538,7 +58538,7 @@ const divisions = [
       fr: 'Western',
     }),
     denomination: 'province',
-    geonameId: 2101556,
+    // geonameId: 2101556,
   },
   {
     id: 3082,
@@ -58557,7 +58557,7 @@ const divisions = [
       fr: 'Awdal',
     }),
     denomination: 'region',
-    geonameId: 6268943,
+    // geonameId: 6268943,
   },
   {
     id: 3083,
@@ -58576,7 +58576,7 @@ const divisions = [
       fr: 'Bakool',
     }),
     denomination: 'region',
-    geonameId: 64982,
+    // geonameId: 64982,
   },
   {
     id: 3084,
@@ -58595,7 +58595,7 @@ const divisions = [
       fr: 'Banaadir',
     }),
     denomination: 'region',
-    geonameId: 64833,
+    // geonameId: 64833,
   },
   {
     id: 3085,
@@ -58614,7 +58614,7 @@ const divisions = [
       fr: 'Bari',
     }),
     denomination: 'region',
-    geonameId: 64661,
+    // geonameId: 64661,
   },
   {
     id: 3086,
@@ -58633,7 +58633,7 @@ const divisions = [
       fr: 'Bay',
     }),
     denomination: 'region',
-    geonameId: 64538,
+    // geonameId: 64538,
   },
   {
     id: 3087,
@@ -58652,7 +58652,7 @@ const divisions = [
       fr: 'Galguduud',
     }),
     denomination: 'region',
-    geonameId: 59362,
+    // geonameId: 59362,
   },
   {
     id: 3088,
@@ -58671,7 +58671,7 @@ const divisions = [
       fr: 'Gedo',
     }),
     denomination: 'region',
-    geonameId: 58802,
+    // geonameId: 58802,
   },
   {
     id: 3089,
@@ -58690,7 +58690,7 @@ const divisions = [
       fr: 'Hiiraan',
     }),
     denomination: 'region',
-    geonameId: 57060,
+    // geonameId: 57060,
   },
   {
     id: 3090,
@@ -58709,7 +58709,7 @@ const divisions = [
       fr: 'Jubbada Dhexe',
     }),
     denomination: 'region',
-    geonameId: 56084,
+    // geonameId: 56084,
   },
   {
     id: 3091,
@@ -58728,7 +58728,7 @@ const divisions = [
       fr: 'Basse-Juba',
     }),
     denomination: 'region',
-    geonameId: 56083,
+    // geonameId: 56083,
   },
   {
     id: 3092,
@@ -58747,7 +58747,7 @@ const divisions = [
       fr: 'Basse-Shabelle',
     }),
     denomination: 'region',
-    geonameId: 51966,
+    // geonameId: 51966,
   },
   {
     id: 3093,
@@ -58766,7 +58766,7 @@ const divisions = [
       fr: 'Shabelle Moyenne',
     }),
     denomination: 'region',
-    geonameId: 51967,
+    // geonameId: 51967,
   },
   {
     id: 3094,
@@ -58785,7 +58785,7 @@ const divisions = [
       fr: 'Mudug',
     }),
     denomination: 'region',
-    geonameId: 53707,
+    // geonameId: 53707,
   },
   {
     id: 3095,
@@ -58804,7 +58804,7 @@ const divisions = [
       fr: 'Nugaal',
     }),
     denomination: 'region',
-    geonameId: 53477,
+    // geonameId: 53477,
   },
   {
     id: 3096,
@@ -58823,7 +58823,7 @@ const divisions = [
       fr: 'Sanaag',
     }),
     denomination: 'region',
-    geonameId: 52187,
+    // geonameId: 52187,
   },
   {
     id: 3097,
@@ -58842,7 +58842,7 @@ const divisions = [
       fr: 'Sool',
     }),
     denomination: 'region',
-    geonameId: 6268947,
+    // geonameId: 6268947,
   },
   {
     id: 3098,
@@ -58861,7 +58861,7 @@ const divisions = [
       fr: 'Togdheer',
     }),
     denomination: 'region',
-    geonameId: 51230,
+    // geonameId: 51230,
   },
   {
     id: 3099,
@@ -58880,7 +58880,7 @@ const divisions = [
       fr: 'Woqooyi Galbeed',
     }),
     denomination: 'region',
-    geonameId: 50360,
+    // geonameId: 50360,
   },
   {
     id: 3100,
@@ -58899,7 +58899,7 @@ const divisions = [
       fr: 'Cap-Oriental',
     }),
     denomination: 'province',
-    geonameId: 1085593,
+    // geonameId: 1085593,
   },
   {
     id: 3101,
@@ -58918,7 +58918,7 @@ const divisions = [
       fr: 'État libre',
     }),
     denomination: 'province',
-    geonameId: 967573,
+    // geonameId: 967573,
   },
   {
     id: 3102,
@@ -58937,7 +58937,7 @@ const divisions = [
       fr: 'Gauteng',
     }),
     denomination: 'province',
-    geonameId: 1085594,
+    // geonameId: 1085594,
   },
   {
     id: 3103,
@@ -58956,7 +58956,7 @@ const divisions = [
       fr: 'KwaZulu-Natal',
     }),
     denomination: 'province',
-    geonameId: 972062,
+    // geonameId: 972062,
   },
   {
     id: 3104,
@@ -58975,7 +58975,7 @@ const divisions = [
       fr: 'Limpopo',
     }),
     denomination: 'province',
-    geonameId: 1085597,
+    // geonameId: 1085597,
   },
   {
     id: 3105,
@@ -58994,7 +58994,7 @@ const divisions = [
       fr: 'Mpumalanga',
     }),
     denomination: 'province',
-    geonameId: 1085595,
+    // geonameId: 1085595,
   },
   {
     id: 3106,
@@ -59013,7 +59013,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'province',
-    geonameId: 1085598,
+    // geonameId: 1085598,
   },
   {
     id: 3107,
@@ -59032,7 +59032,7 @@ const divisions = [
       fr: 'Cap-du-Nord',
     }),
     denomination: 'province',
-    geonameId: 1085596,
+    // geonameId: 1085596,
   },
   {
     id: 3108,
@@ -59051,7 +59051,7 @@ const divisions = [
       fr: 'Cap-Occidental',
     }),
     denomination: 'province',
-    geonameId: 1085599,
+    // geonameId: 1085599,
   },
   {
     id: 3109,
@@ -59070,7 +59070,7 @@ const divisions = [
       fr: 'Busan',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1838519,
+    // geonameId: 1838519,
   },
   {
     id: 3110,
@@ -59089,7 +59089,7 @@ const divisions = [
       fr: 'Chungcheongnam',
     }),
     denomination: 'province',
-    geonameId: 1845105,
+    // geonameId: 1845105,
   },
   {
     id: 3111,
@@ -59108,7 +59108,7 @@ const divisions = [
       fr: 'Daegu',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1835327,
+    // geonameId: 1835327,
   },
   {
     id: 3112,
@@ -59127,7 +59127,7 @@ const divisions = [
       fr: 'Daejeon',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1835224,
+    // geonameId: 1835224,
   },
   {
     id: 3113,
@@ -59146,7 +59146,7 @@ const divisions = [
       fr: 'Gangwon',
     }),
     denomination: 'province',
-    geonameId: 1843125,
+    // geonameId: 1843125,
   },
   {
     id: 3114,
@@ -59165,7 +59165,7 @@ const divisions = [
       fr: 'Gwangju',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1841808,
+    // geonameId: 1841808,
   },
   {
     id: 3115,
@@ -59184,7 +59184,7 @@ const divisions = [
       fr: 'Gyeonggi',
     }),
     denomination: 'province',
-    geonameId: 1841610,
+    // geonameId: 1841610,
   },
   {
     id: 3116,
@@ -59203,7 +59203,7 @@ const divisions = [
       fr: 'Gyeongsangbuk',
     }),
     denomination: 'province',
-    geonameId: 1841597,
+    // geonameId: 1841597,
   },
   {
     id: 3117,
@@ -59222,7 +59222,7 @@ const divisions = [
       fr: 'Gyeongsangnam',
     }),
     denomination: 'province',
-    geonameId: 1902028,
+    // geonameId: 1902028,
   },
   {
     id: 3118,
@@ -59241,7 +59241,7 @@ const divisions = [
       fr: 'Incheon',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1843561,
+    // geonameId: 1843561,
   },
   {
     id: 3119,
@@ -59260,7 +59260,7 @@ const divisions = [
       fr: 'Jeju',
     }),
     denomination: 'province',
-    geonameId: 1846265,
+    // geonameId: 1846265,
   },
   {
     id: 3120,
@@ -59279,7 +59279,7 @@ const divisions = [
       fr: 'Jeollabuk',
     }),
     denomination: 'province',
-    geonameId: 1845789,
+    // geonameId: 1845789,
   },
   {
     id: 3121,
@@ -59298,7 +59298,7 @@ const divisions = [
       fr: 'Jeolla-du-Sud',
     }),
     denomination: 'province',
-    geonameId: 1845788,
+    // geonameId: 1845788,
   },
   {
     id: 3122,
@@ -59317,7 +59317,7 @@ const divisions = [
       fr: 'Chungcheong-du-Nord',
     }),
     denomination: 'province',
-    geonameId: 1845106,
+    // geonameId: 1845106,
   },
   {
     id: 3123,
@@ -59336,7 +59336,7 @@ const divisions = [
       fr: 'Sejong',
     }),
     denomination: 'special_city',
-    geonameId: 8394437,
+    // geonameId: 8394437,
   },
   {
     id: 3124,
@@ -59355,7 +59355,7 @@ const divisions = [
       fr: 'Séoul',
     }),
     denomination: 'capital_city',
-    geonameId: 1835847,
+    // geonameId: 1835847,
   },
   {
     id: 3125,
@@ -59374,7 +59374,7 @@ const divisions = [
       fr: 'Ulsan',
     }),
     denomination: 'metropolitan_city',
-    geonameId: 1833742,
+    // geonameId: 1833742,
   },
   {
     id: 3126,
@@ -59393,7 +59393,7 @@ const divisions = [
       fr: 'Équatoria centrale',
     }),
     denomination: 'state',
-    geonameId: 408655,
+    // geonameId: 408655,
   },
   {
     id: 3127,
@@ -59412,7 +59412,7 @@ const divisions = [
       fr: 'Équatoria orientale',
     }),
     denomination: 'state',
-    geonameId: 408668,
+    // geonameId: 408668,
   },
   {
     id: 3128,
@@ -59431,7 +59431,7 @@ const divisions = [
       fr: 'Jonglei',
     }),
     denomination: 'state',
-    geonameId: 408662,
+    // geonameId: 408662,
   },
   {
     id: 3129,
@@ -59450,7 +59450,7 @@ const divisions = [
       fr: 'Lacs',
     }),
     denomination: 'state',
-    geonameId: 408647,
+    // geonameId: 408647,
   },
   {
     id: 3130,
@@ -59469,7 +59469,7 @@ const divisions = [
       fr: 'Bahr el-Ghazal du Nord',
     }),
     denomination: 'state',
-    geonameId: 408665,
+    // geonameId: 408665,
   },
   {
     id: 3131,
@@ -59488,7 +59488,7 @@ const divisions = [
       fr: 'Unité',
     }),
     denomination: 'state',
-    geonameId: 408650,
+    // geonameId: 408650,
   },
   {
     id: 3132,
@@ -59507,7 +59507,7 @@ const divisions = [
       fr: 'Haut-Nil',
     }),
     denomination: 'state',
-    geonameId: 381229,
+    // geonameId: 381229,
   },
   {
     id: 3133,
@@ -59526,7 +59526,7 @@ const divisions = [
       fr: 'Warrap',
     }),
     denomination: 'state',
-    geonameId: 408670,
+    // geonameId: 408670,
   },
   {
     id: 3134,
@@ -59545,7 +59545,7 @@ const divisions = [
       fr: 'Bahr el-Ghazal occidental',
     }),
     denomination: 'state',
-    geonameId: 408657,
+    // geonameId: 408657,
   },
   {
     id: 3135,
@@ -59564,7 +59564,7 @@ const divisions = [
       fr: 'Équatoria occidentale',
     }),
     denomination: 'state',
-    geonameId: 408656,
+    // geonameId: 408656,
   },
   {
     id: 3136,
@@ -59583,7 +59583,7 @@ const divisions = [
       fr: 'Andalousie',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2593109,
+    // geonameId: 2593109,
   },
   {
     id: 3137,
@@ -59602,7 +59602,7 @@ const divisions = [
       fr: 'Aragon',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336899,
+    // geonameId: 3336899,
   },
   {
     id: 3138,
@@ -59621,7 +59621,7 @@ const divisions = [
       fr: 'Asturies',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3114710,
+    // geonameId: 3114710,
   },
   {
     id: 3139,
@@ -59640,7 +59640,7 @@ const divisions = [
       fr: 'Îles Baléares',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2521383,
+    // geonameId: 2521383,
   },
   {
     id: 3140,
@@ -59659,7 +59659,7 @@ const divisions = [
       fr: 'Pays basque',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336903,
+    // geonameId: 3336903,
   },
   {
     id: 3141,
@@ -59678,7 +59678,7 @@ const divisions = [
       fr: 'Îles Canaries',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2593110,
+    // geonameId: 2593110,
   },
   {
     id: 3142,
@@ -59697,7 +59697,7 @@ const divisions = [
       fr: 'Cantabrie',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336898,
+    // geonameId: 3336898,
   },
   {
     id: 3143,
@@ -59716,7 +59716,7 @@ const divisions = [
       fr: 'Castille-et-León',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336900,
+    // geonameId: 3336900,
   },
   {
     id: 3144,
@@ -59735,7 +59735,7 @@ const divisions = [
       fr: 'Castille-La Manche',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2593111,
+    // geonameId: 2593111,
   },
   {
     id: 3145,
@@ -59754,7 +59754,7 @@ const divisions = [
       fr: 'Catalogne',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336901,
+    // geonameId: 3336901,
   },
   {
     id: 3146,
@@ -59773,7 +59773,7 @@ const divisions = [
       fr: 'Ceuta',
     }),
     denomination: 'autonomous_city',
-    geonameId: 2519582,
+    // geonameId: 2519582,
   },
   {
     id: 3147,
@@ -59792,7 +59792,7 @@ const divisions = [
       fr: 'Estrémadure',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2593112,
+    // geonameId: 2593112,
   },
   {
     id: 3148,
@@ -59811,7 +59811,7 @@ const divisions = [
       fr: 'Galice',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336902,
+    // geonameId: 3336902,
   },
   {
     id: 3149,
@@ -59830,7 +59830,7 @@ const divisions = [
       fr: 'La Rioja',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3336897,
+    // geonameId: 3336897,
   },
   {
     id: 3150,
@@ -59849,7 +59849,7 @@ const divisions = [
       fr: 'Madrid',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3117732,
+    // geonameId: 3117732,
   },
   {
     id: 3151,
@@ -59868,7 +59868,7 @@ const divisions = [
       fr: 'Melilla',
     }),
     denomination: 'autonomous_city',
-    geonameId: 6362988,
+    // geonameId: 6362988,
   },
   {
     id: 3152,
@@ -59887,7 +59887,7 @@ const divisions = [
       fr: 'Murcie',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2513413,
+    // geonameId: 2513413,
   },
   {
     id: 3153,
@@ -59906,7 +59906,7 @@ const divisions = [
       fr: 'Navarre',
     }),
     denomination: 'autonomous_community',
-    geonameId: 3115609,
+    // geonameId: 3115609,
   },
   {
     id: 3154,
@@ -59925,7 +59925,7 @@ const divisions = [
       fr: 'Valence',
     }),
     denomination: 'autonomous_community',
-    geonameId: 2593113,
+    // geonameId: 2593113,
   },
   {
     id: 3155,
@@ -59944,7 +59944,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'province',
-    geonameId: 1249296,
+    // geonameId: 1249296,
   },
   {
     id: 3156,
@@ -59963,7 +59963,7 @@ const divisions = [
       fr: 'Orientale',
     }),
     denomination: 'province',
-    geonameId: 8133521,
+    // geonameId: 8133521,
   },
   {
     id: 3157,
@@ -59982,7 +59982,7 @@ const divisions = [
       fr: 'Centre-Nord',
     }),
     denomination: 'province',
-    geonameId: 1232870,
+    // geonameId: 1232870,
   },
   {
     id: 3158,
@@ -60001,7 +60001,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'province',
-    geonameId: 1232860,
+    // geonameId: 1232860,
   },
   {
     id: 3159,
@@ -60020,7 +60020,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'province',
-    geonameId: 7671049,
+    // geonameId: 7671049,
   },
   {
     id: 3160,
@@ -60039,7 +60039,7 @@ const divisions = [
       fr: 'Sabaragamuwa',
     }),
     denomination: 'province',
-    geonameId: 1228435,
+    // geonameId: 1228435,
   },
   {
     id: 3161,
@@ -60058,7 +60058,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'province',
-    geonameId: 1227618,
+    // geonameId: 1227618,
   },
   {
     id: 3162,
@@ -60077,7 +60077,7 @@ const divisions = [
       fr: 'Uva',
     }),
     denomination: 'province',
-    geonameId: 1225265,
+    // geonameId: 1225265,
   },
   {
     id: 3163,
@@ -60096,7 +60096,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'province',
-    geonameId: 1223421,
+    // geonameId: 1223421,
   },
   {
     id: 3164,
@@ -60115,7 +60115,7 @@ const divisions = [
       fr: 'Christ Church Nichola Town',
     }),
     denomination: 'parish',
-    geonameId: 3575476,
+    // geonameId: 3575476,
   },
   {
     id: 3165,
@@ -60134,7 +60134,7 @@ const divisions = [
       fr: 'Île Centrale',
     }),
     denomination: 'parish',
-    geonameId: 3575164,
+    // geonameId: 3575164,
   },
   {
     id: 3166,
@@ -60153,7 +60153,7 @@ const divisions = [
       fr: 'Sainte-Anne Sandy Point',
     }),
     denomination: 'parish',
-    geonameId: 3575183,
+    // geonameId: 3575183,
   },
   {
     id: 3167,
@@ -60172,7 +60172,7 @@ const divisions = [
       fr: 'Saint-Georges Basseterre',
     }),
     denomination: 'parish',
-    geonameId: 3575180,
+    // geonameId: 3575180,
   },
   {
     id: 3168,
@@ -60191,7 +60191,7 @@ const divisions = [
       fr: 'Saint-Georges Gingerland',
     }),
     denomination: 'parish',
-    geonameId: 3575179,
+    // geonameId: 3575179,
   },
   {
     id: 3169,
@@ -60210,7 +60210,7 @@ const divisions = [
       fr: 'Saint-Jacques Windward',
     }),
     denomination: 'parish',
-    geonameId: 3575177,
+    // geonameId: 3575177,
   },
   {
     id: 3170,
@@ -60229,7 +60229,7 @@ const divisions = [
       fr: 'Saint-Jean Capesterre',
     }),
     denomination: 'parish',
-    geonameId: 3575176,
+    // geonameId: 3575176,
   },
   {
     id: 3171,
@@ -60248,7 +60248,7 @@ const divisions = [
       fr: 'Saint-Jean Figtree',
     }),
     denomination: 'parish',
-    geonameId: 3575175,
+    // geonameId: 3575175,
   },
   {
     id: 3172,
@@ -60267,7 +60267,7 @@ const divisions = [
       fr: 'Sainte-Marie Cayon',
     }),
     denomination: 'parish',
-    geonameId: 3575173,
+    // geonameId: 3575173,
   },
   {
     id: 3173,
@@ -60286,7 +60286,7 @@ const divisions = [
       fr: 'Saint-Paul Capesterre',
     }),
     denomination: 'parish',
-    geonameId: 3575172,
+    // geonameId: 3575172,
   },
   {
     id: 3174,
@@ -60305,7 +60305,7 @@ const divisions = [
       fr: 'Saint-Paul Charlestown',
     }),
     denomination: 'parish',
-    geonameId: 3575171,
+    // geonameId: 3575171,
   },
   {
     id: 3175,
@@ -60324,7 +60324,7 @@ const divisions = [
       fr: 'Saint-Pierre Basseterre',
     }),
     denomination: 'parish',
-    geonameId: 3575168,
+    // geonameId: 3575168,
   },
   {
     id: 3176,
@@ -60343,7 +60343,7 @@ const divisions = [
       fr: 'Saint-Thomas Lowland',
     }),
     denomination: 'parish',
-    geonameId: 3575165,
+    // geonameId: 3575165,
   },
   {
     id: 3177,
@@ -60362,7 +60362,7 @@ const divisions = [
       fr: 'Trinité Palmetto Point',
     }),
     denomination: 'parish',
-    geonameId: 3575114,
+    // geonameId: 3575114,
   },
   {
     id: 3178,
@@ -60381,7 +60381,7 @@ const divisions = [
       fr: 'Charlotte',
     }),
     denomination: 'parish',
-    geonameId: 3577934,
+    // geonameId: 3577934,
   },
   {
     id: 3179,
@@ -60400,7 +60400,7 @@ const divisions = [
       fr: 'Grenadines',
     }),
     denomination: 'parish',
-    geonameId: 3577892,
+    // geonameId: 3577892,
   },
   {
     id: 3180,
@@ -60419,7 +60419,7 @@ const divisions = [
       fr: 'Saint-André',
     }),
     denomination: 'parish',
-    geonameId: 3577822,
+    // geonameId: 3577822,
   },
   {
     id: 3181,
@@ -60438,7 +60438,7 @@ const divisions = [
       fr: 'Saint-David',
     }),
     denomination: 'parish',
-    geonameId: 3577821,
+    // geonameId: 3577821,
   },
   {
     id: 3182,
@@ -60457,7 +60457,7 @@ const divisions = [
       fr: 'Saint-Georges',
     }),
     denomination: 'parish',
-    geonameId: 3577819,
+    // geonameId: 3577819,
   },
   {
     id: 3183,
@@ -60476,7 +60476,7 @@ const divisions = [
       fr: 'Saint-Patrick',
     }),
     denomination: 'parish',
-    geonameId: 3577818,
+    // geonameId: 3577818,
   },
   {
     id: 3184,
@@ -60495,7 +60495,7 @@ const divisions = [
       fr: 'Al Jazira',
     }),
     denomination: 'state',
-    geonameId: 408648,
+    // geonameId: 408648,
   },
   {
     id: 3185,
@@ -60514,7 +60514,7 @@ const divisions = [
       fr: 'Al Qadarif',
     }),
     denomination: 'state',
-    geonameId: 408649,
+    // geonameId: 408649,
   },
   {
     id: 3186,
@@ -60533,7 +60533,7 @@ const divisions = [
       fr: 'Nil Bleu',
     }),
     denomination: 'state',
-    geonameId: 408654,
+    // geonameId: 408654,
   },
   {
     id: 3187,
@@ -60552,7 +60552,7 @@ const divisions = [
       fr: 'Darfour Central',
     }),
     denomination: 'state',
-    geonameId: 8394436,
+    // geonameId: 8394436,
   },
   {
     id: 3188,
@@ -60571,7 +60571,7 @@ const divisions = [
       fr: 'Darfour Oriental',
     }),
     denomination: 'state',
-    geonameId: 8394435,
+    // geonameId: 8394435,
   },
   {
     id: 3189,
@@ -60590,7 +60590,7 @@ const divisions = [
       fr: 'Kassala',
     }),
     denomination: 'state',
-    geonameId: 408663,
+    // geonameId: 408663,
   },
   {
     id: 3190,
@@ -60609,7 +60609,7 @@ const divisions = [
       fr: 'Khartoum',
     }),
     denomination: 'state',
-    geonameId: 379253,
+    // geonameId: 379253,
   },
   {
     id: 3191,
@@ -60628,7 +60628,7 @@ const divisions = [
       fr: 'Kordofan du Nord',
     }),
     denomination: 'state',
-    geonameId: 408667,
+    // geonameId: 408667,
   },
   {
     id: 3192,
@@ -60647,7 +60647,7 @@ const divisions = [
       fr: 'Darfur du Nord',
     }),
     denomination: 'state',
-    geonameId: 408666,
+    // geonameId: 408666,
   },
   {
     id: 3193,
@@ -60666,7 +60666,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'state',
-    geonameId: 378389,
+    // geonameId: 378389,
   },
   {
     id: 3194,
@@ -60685,7 +60685,7 @@ const divisions = [
       fr: 'Mer Rouge',
     }),
     denomination: 'state',
-    geonameId: 408646,
+    // geonameId: 408646,
   },
   {
     id: 3195,
@@ -60704,7 +60704,7 @@ const divisions = [
       fr: 'Fleuve Nil',
     }),
     denomination: 'state',
-    geonameId: 408664,
+    // geonameId: 408664,
   },
   {
     id: 3196,
@@ -60723,7 +60723,7 @@ const divisions = [
       fr: 'Sennar',
     }),
     denomination: 'state',
-    geonameId: 408669,
+    // geonameId: 408669,
   },
   {
     id: 3197,
@@ -60742,7 +60742,7 @@ const divisions = [
       fr: 'Darfur du Sud',
     }),
     denomination: 'state',
-    geonameId: 408660,
+    // geonameId: 408660,
   },
   {
     id: 3198,
@@ -60761,7 +60761,7 @@ const divisions = [
       fr: 'Kordofan du Sud',
     }),
     denomination: 'state',
-    geonameId: 408661,
+    // geonameId: 408661,
   },
   {
     id: 3199,
@@ -60780,7 +60780,7 @@ const divisions = [
       fr: 'Darfur Occidental',
     }),
     denomination: 'state',
-    geonameId: 408658,
+    // geonameId: 408658,
   },
   {
     id: 3200,
@@ -60799,7 +60799,7 @@ const divisions = [
       fr: 'Kordofan Occidental',
     }),
     denomination: 'state',
-    geonameId: 408659,
+    // geonameId: 408659,
   },
   {
     id: 3201,
@@ -60818,7 +60818,7 @@ const divisions = [
       fr: 'Nil Blanc',
     }),
     denomination: 'state',
-    geonameId: 408653,
+    // geonameId: 408653,
   },
   {
     id: 3202,
@@ -60837,7 +60837,7 @@ const divisions = [
       fr: 'Brokopondo',
     }),
     denomination: 'district',
-    geonameId: 3384481,
+    // geonameId: 3384481,
   },
   {
     id: 3203,
@@ -60856,7 +60856,7 @@ const divisions = [
       fr: 'Commewijne',
     }),
     denomination: 'district',
-    geonameId: 3384418,
+    // geonameId: 3384418,
   },
   {
     id: 3204,
@@ -60875,7 +60875,7 @@ const divisions = [
       fr: 'Coronie',
     }),
     denomination: 'district',
-    geonameId: 3384397,
+    // geonameId: 3384397,
   },
   {
     id: 3205,
@@ -60894,7 +60894,7 @@ const divisions = [
       fr: 'Marowijne',
     }),
     denomination: 'district',
-    geonameId: 3383560,
+    // geonameId: 3383560,
   },
   {
     id: 3206,
@@ -60913,7 +60913,7 @@ const divisions = [
       fr: 'Nickerie',
     }),
     denomination: 'district',
-    geonameId: 3383438,
+    // geonameId: 3383438,
   },
   {
     id: 3207,
@@ -60932,7 +60932,7 @@ const divisions = [
       fr: 'Para',
     }),
     denomination: 'district',
-    geonameId: 3383337,
+    // geonameId: 3383337,
   },
   {
     id: 3208,
@@ -60951,7 +60951,7 @@ const divisions = [
       fr: 'Paramaribo',
     }),
     denomination: 'district',
-    geonameId: 3383329,
+    // geonameId: 3383329,
   },
   {
     id: 3209,
@@ -60970,7 +60970,7 @@ const divisions = [
       fr: 'Saramacca',
     }),
     denomination: 'district',
-    geonameId: 3383110,
+    // geonameId: 3383110,
   },
   {
     id: 3210,
@@ -60989,7 +60989,7 @@ const divisions = [
       fr: 'Sipaliwini',
     }),
     denomination: 'district',
-    geonameId: 3383062,
+    // geonameId: 3383062,
   },
   {
     id: 3211,
@@ -61008,7 +61008,7 @@ const divisions = [
       fr: 'Wanica',
     }),
     denomination: 'district',
-    geonameId: 3382761,
+    // geonameId: 3382761,
   },
   {
     id: 3212,
@@ -61027,7 +61027,7 @@ const divisions = [
       fr: 'Blekinge',
     }),
     denomination: 'county',
-    geonameId: 2721357,
+    // geonameId: 2721357,
   },
   {
     id: 3213,
@@ -61046,7 +61046,7 @@ const divisions = [
       fr: 'Dalécarlie',
     }),
     denomination: 'county',
-    geonameId: 2699767,
+    // geonameId: 2699767,
   },
   {
     id: 3214,
@@ -61065,7 +61065,7 @@ const divisions = [
       fr: 'Gävleborg',
     }),
     denomination: 'county',
-    geonameId: 2712411,
+    // geonameId: 2712411,
   },
   {
     id: 3215,
@@ -61084,7 +61084,7 @@ const divisions = [
       fr: 'Gotland',
     }),
     denomination: 'county',
-    geonameId: 2711508,
+    // geonameId: 2711508,
   },
   {
     id: 3216,
@@ -61103,7 +61103,7 @@ const divisions = [
       fr: 'Halland',
     }),
     denomination: 'county',
-    geonameId: 2708794,
+    // geonameId: 2708794,
   },
   {
     id: 3217,
@@ -61122,7 +61122,7 @@ const divisions = [
       fr: 'Jämtland',
     }),
     denomination: 'county',
-    geonameId: 2703330,
+    // geonameId: 2703330,
   },
   {
     id: 3218,
@@ -61141,7 +61141,7 @@ const divisions = [
       fr: 'Jönköping',
     }),
     denomination: 'county',
-    geonameId: 2702976,
+    // geonameId: 2702976,
   },
   {
     id: 3219,
@@ -61160,7 +61160,7 @@ const divisions = [
       fr: 'Kalmar',
     }),
     denomination: 'county',
-    geonameId: 2702259,
+    // geonameId: 2702259,
   },
   {
     id: 3220,
@@ -61179,7 +61179,7 @@ const divisions = [
       fr: 'Kronoberg',
     }),
     denomination: 'county',
-    geonameId: 2699050,
+    // geonameId: 2699050,
   },
   {
     id: 3221,
@@ -61198,7 +61198,7 @@ const divisions = [
       fr: 'Norrbotten',
     }),
     denomination: 'county',
-    geonameId: 604010,
+    // geonameId: 604010,
   },
   {
     id: 3222,
@@ -61217,7 +61217,7 @@ const divisions = [
       fr: 'Örebro',
     }),
     denomination: 'county',
-    geonameId: 2686655,
+    // geonameId: 2686655,
   },
   {
     id: 3223,
@@ -61236,7 +61236,7 @@ const divisions = [
       fr: 'Östergötland',
     }),
     denomination: 'county',
-    geonameId: 2685867,
+    // geonameId: 2685867,
   },
   {
     id: 3224,
@@ -61255,7 +61255,7 @@ const divisions = [
       fr: 'Scanie',
     }),
     denomination: 'county',
-    geonameId: 3337385,
+    // geonameId: 3337385,
   },
   {
     id: 3225,
@@ -61274,7 +61274,7 @@ const divisions = [
       fr: 'Södermanland',
     }),
     denomination: 'county',
-    geonameId: 2676207,
+    // geonameId: 2676207,
   },
   {
     id: 3226,
@@ -61293,7 +61293,7 @@ const divisions = [
       fr: 'Stockholm',
     }),
     denomination: 'county',
-    geonameId: 2673722,
+    // geonameId: 2673722,
   },
   {
     id: 3227,
@@ -61312,7 +61312,7 @@ const divisions = [
       fr: 'Uppsala',
     }),
     denomination: 'county',
-    geonameId: 2666218,
+    // geonameId: 2666218,
   },
   {
     id: 3228,
@@ -61331,7 +61331,7 @@ const divisions = [
       fr: 'Värmland',
     }),
     denomination: 'county',
-    geonameId: 2664870,
+    // geonameId: 2664870,
   },
   {
     id: 3229,
@@ -61350,7 +61350,7 @@ const divisions = [
       fr: 'Västerbotten',
     }),
     denomination: 'county',
-    geonameId: 2664415,
+    // geonameId: 2664415,
   },
   {
     id: 3230,
@@ -61369,7 +61369,7 @@ const divisions = [
       fr: 'Västernorrland',
     }),
     denomination: 'county',
-    geonameId: 2664292,
+    // geonameId: 2664292,
   },
   {
     id: 3231,
@@ -61388,7 +61388,7 @@ const divisions = [
       fr: 'Västmanland',
     }),
     denomination: 'county',
-    geonameId: 2664179,
+    // geonameId: 2664179,
   },
   {
     id: 3232,
@@ -61407,7 +61407,7 @@ const divisions = [
       fr: 'Västra Götaland',
     }),
     denomination: 'county',
-    geonameId: 3337386,
+    // geonameId: 3337386,
   },
   {
     id: 3233,
@@ -61426,7 +61426,7 @@ const divisions = [
       fr: 'Argovie',
     }),
     denomination: 'canton',
-    geonameId: 2661876,
+    // geonameId: 2661876,
   },
   {
     id: 3234,
@@ -61445,7 +61445,7 @@ const divisions = [
       fr: 'Appenzell Rhodes-Extérieures',
     }),
     denomination: 'canton',
-    geonameId: 2661739,
+    // geonameId: 2661739,
   },
   {
     id: 3235,
@@ -61464,7 +61464,7 @@ const divisions = [
       fr: 'Appenzell Rhodes-Intérieures',
     }),
     denomination: 'canton',
-    geonameId: 2661741,
+    // geonameId: 2661741,
   },
   {
     id: 3236,
@@ -61483,7 +61483,7 @@ const divisions = [
       fr: 'Bâle-Ville',
     }),
     denomination: 'canton',
-    geonameId: 2661602,
+    // geonameId: 2661602,
   },
   {
     id: 3237,
@@ -61502,7 +61502,7 @@ const divisions = [
       fr: 'Bâle-Campagne',
     }),
     denomination: 'canton',
-    geonameId: 2661603,
+    // geonameId: 2661603,
   },
   {
     id: 3238,
@@ -61521,7 +61521,7 @@ const divisions = [
       fr: 'Berne',
     }),
     denomination: 'canton',
-    geonameId: 2661551,
+    // geonameId: 2661551,
   },
   {
     id: 3239,
@@ -61540,7 +61540,7 @@ const divisions = [
       fr: 'Fribourg',
     }),
     denomination: 'canton',
-    geonameId: 2660717,
+    // geonameId: 2660717,
   },
   {
     id: 3240,
@@ -61559,7 +61559,7 @@ const divisions = [
       fr: 'Genève',
     }),
     denomination: 'canton',
-    geonameId: 2660645,
+    // geonameId: 2660645,
   },
   {
     id: 3241,
@@ -61578,7 +61578,7 @@ const divisions = [
       fr: 'Glaris',
     }),
     denomination: 'canton',
-    geonameId: 2660593,
+    // geonameId: 2660593,
   },
   {
     id: 3242,
@@ -61597,7 +61597,7 @@ const divisions = [
       fr: 'Grisons',
     }),
     denomination: 'canton',
-    geonameId: 2660522,
+    // geonameId: 2660522,
   },
   {
     id: 3243,
@@ -61616,7 +61616,7 @@ const divisions = [
       fr: 'Jura',
     }),
     denomination: 'canton',
-    geonameId: 2660207,
+    // geonameId: 2660207,
   },
   {
     id: 3244,
@@ -61635,7 +61635,7 @@ const divisions = [
       fr: 'Lucerne',
     }),
     denomination: 'canton',
-    geonameId: 2659810,
+    // geonameId: 2659810,
   },
   {
     id: 3245,
@@ -61654,7 +61654,7 @@ const divisions = [
       fr: 'Neuchâtel',
     }),
     denomination: 'canton',
-    geonameId: 2659495,
+    // geonameId: 2659495,
   },
   {
     id: 3246,
@@ -61673,7 +61673,7 @@ const divisions = [
       fr: 'Nidwald',
     }),
     denomination: 'canton',
-    geonameId: 2659471,
+    // geonameId: 2659471,
   },
   {
     id: 3247,
@@ -61692,7 +61692,7 @@ const divisions = [
       fr: 'Obwald',
     }),
     denomination: 'canton',
-    geonameId: 2659315,
+    // geonameId: 2659315,
   },
   {
     id: 3248,
@@ -61711,7 +61711,7 @@ const divisions = [
       fr: 'Saint-Gall',
     }),
     denomination: 'canton',
-    geonameId: 2658821,
+    // geonameId: 2658821,
   },
   {
     id: 3249,
@@ -61730,7 +61730,7 @@ const divisions = [
       fr: 'Schaffhouse',
     }),
     denomination: 'canton',
-    geonameId: 2658760,
+    // geonameId: 2658760,
   },
   {
     id: 3250,
@@ -61749,7 +61749,7 @@ const divisions = [
       fr: 'Schwyz',
     }),
     denomination: 'canton',
-    geonameId: 2658664,
+    // geonameId: 2658664,
   },
   {
     id: 3251,
@@ -61768,7 +61768,7 @@ const divisions = [
       fr: 'Soleure',
     }),
     denomination: 'canton',
-    geonameId: 2658563,
+    // geonameId: 2658563,
   },
   {
     id: 3252,
@@ -61787,7 +61787,7 @@ const divisions = [
       fr: 'Thurgovie',
     }),
     denomination: 'canton',
-    geonameId: 2658372,
+    // geonameId: 2658372,
   },
   {
     id: 3253,
@@ -61806,7 +61806,7 @@ const divisions = [
       fr: 'Tessin',
     }),
     denomination: 'canton',
-    geonameId: 2658370,
+    // geonameId: 2658370,
   },
   {
     id: 3254,
@@ -61825,7 +61825,7 @@ const divisions = [
       fr: 'Uri',
     }),
     denomination: 'canton',
-    geonameId: 2658226,
+    // geonameId: 2658226,
   },
   {
     id: 3255,
@@ -61844,7 +61844,7 @@ const divisions = [
       fr: 'Valais',
     }),
     denomination: 'canton',
-    geonameId: 2658205,
+    // geonameId: 2658205,
   },
   {
     id: 3256,
@@ -61863,7 +61863,7 @@ const divisions = [
       fr: 'Vaud',
     }),
     denomination: 'canton',
-    geonameId: 2658182,
+    // geonameId: 2658182,
   },
   {
     id: 3257,
@@ -61882,7 +61882,7 @@ const divisions = [
       fr: 'Zoug',
     }),
     denomination: 'canton',
-    geonameId: 2657907,
+    // geonameId: 2657907,
   },
   {
     id: 3258,
@@ -61901,7 +61901,7 @@ const divisions = [
       fr: 'Zurich',
     }),
     denomination: 'canton',
-    geonameId: 2657895,
+    // geonameId: 2657895,
   },
   {
     id: 3259,
@@ -61920,7 +61920,7 @@ const divisions = [
       fr: 'Al-Hasakah',
     }),
     denomination: 'governorate',
-    geonameId: 173813,
+    // geonameId: 173813,
   },
   {
     id: 3260,
@@ -61939,7 +61939,7 @@ const divisions = [
       fr: 'Alep',
     }),
     denomination: 'governorate',
-    geonameId: 170062,
+    // geonameId: 170062,
   },
   {
     id: 3261,
@@ -61958,7 +61958,7 @@ const divisions = [
       fr: 'Raqqa',
     }),
     denomination: 'governorate',
-    geonameId: 172957,
+    // geonameId: 172957,
   },
   {
     id: 3262,
@@ -61977,7 +61977,7 @@ const divisions = [
       fr: 'As-Souweïda',
     }),
     denomination: 'governorate',
-    geonameId: 172410,
+    // geonameId: 172410,
   },
   {
     id: 3263,
@@ -61996,7 +61996,7 @@ const divisions = [
       fr: 'Deraa',
     }),
     denomination: 'governorate',
-    geonameId: 170903,
+    // geonameId: 170903,
   },
   {
     id: 3264,
@@ -62015,7 +62015,7 @@ const divisions = [
       fr: 'Deir ez-Zor',
     }),
     denomination: 'governorate',
-    geonameId: 170792,
+    // geonameId: 170792,
   },
   {
     id: 3265,
@@ -62034,7 +62034,7 @@ const divisions = [
       fr: 'Damas',
     }),
     denomination: 'governorate',
-    geonameId: 167541,
+    // geonameId: 167541,
   },
   {
     id: 3266,
@@ -62053,7 +62053,7 @@ const divisions = [
       fr: 'Hama',
     }),
     denomination: 'governorate',
-    geonameId: 170015,
+    // geonameId: 170015,
   },
   {
     id: 3267,
@@ -62072,7 +62072,7 @@ const divisions = [
       fr: 'Homs',
     }),
     denomination: 'governorate',
-    geonameId: 169575,
+    // geonameId: 169575,
   },
   {
     id: 3268,
@@ -62091,7 +62091,7 @@ const divisions = [
       fr: 'Idleb',
     }),
     denomination: 'governorate',
-    geonameId: 169387,
+    // geonameId: 169387,
   },
   {
     id: 3269,
@@ -62110,7 +62110,7 @@ const divisions = [
       fr: 'Lattaquié',
     }),
     denomination: 'governorate',
-    geonameId: 173578,
+    // geonameId: 173578,
   },
   {
     id: 3270,
@@ -62129,7 +62129,7 @@ const divisions = [
       fr: 'Qouneitra',
     }),
     denomination: 'governorate',
-    geonameId: 173336,
+    // geonameId: 173336,
   },
   {
     id: 3271,
@@ -62148,7 +62148,7 @@ const divisions = [
       fr: 'Rif Dimashq',
     }),
     denomination: 'province',
-    geonameId: 170652,
+    // geonameId: 170652,
   },
   {
     id: 3272,
@@ -62167,7 +62167,7 @@ const divisions = [
       fr: 'Tartous',
     }),
     denomination: 'province',
-    geonameId: 163342,
+    // geonameId: 163342,
   },
   {
     id: 3273,
@@ -62186,7 +62186,7 @@ const divisions = [
       fr: 'Fujian',
     }),
     denomination: 'province',
-    geonameId: 7280288,
+    // geonameId: 7280288,
   },
   {
     id: 3274,
@@ -62205,7 +62205,7 @@ const divisions = [
       fr: 'Kaohsiung',
     }),
     denomination: 'city',
-    geonameId: 7280289,
+    // geonameId: 7280289,
   },
   {
     id: 3275,
@@ -62224,7 +62224,7 @@ const divisions = [
       fr: 'Taipei',
     }),
     denomination: 'city',
-    geonameId: 7280290,
+    // geonameId: 7280290,
   },
   {
     id: 3276,
@@ -62243,7 +62243,7 @@ const divisions = [
       fr: 'Taïwan',
     }),
     denomination: 'country',
-    geonameId: 7280291,
+    // geonameId: 7280291,
   },
   {
     id: 3277,
@@ -62262,7 +62262,7 @@ const divisions = [
       fr: 'Douchanbé',
     }),
     denomination: 'capital',
-    geonameId: 7280679,
+    // geonameId: 7280679,
   },
   {
     id: 3278,
@@ -62281,7 +62281,7 @@ const divisions = [
       fr: 'Gorno-Badakhchan',
     }),
     denomination: 'autonomous_region',
-    geonameId: 1221692,
+    // geonameId: 1221692,
   },
   {
     id: 3279,
@@ -62300,7 +62300,7 @@ const divisions = [
       fr: 'Khatlon',
     }),
     denomination: 'province',
-    geonameId: 1347488,
+    // geonameId: 1347488,
   },
   {
     id: 3280,
@@ -62319,7 +62319,7 @@ const divisions = [
       fr: 'Subordination républicaine',
     }),
     denomination: 'region',
-    geonameId: 6452615,
+    // geonameId: 6452615,
   },
   {
     id: 3281,
@@ -62338,7 +62338,7 @@ const divisions = [
       fr: 'Sughd',
     }),
     denomination: 'province',
-    geonameId: 1221092,
+    // geonameId: 1221092,
   },
   {
     id: 3282,
@@ -62357,7 +62357,7 @@ const divisions = [
       fr: 'Arusha',
     }),
     denomination: 'region',
-    geonameId: 161322,
+    // geonameId: 161322,
   },
   {
     id: 3283,
@@ -62376,7 +62376,7 @@ const divisions = [
       fr: 'Dar es Salam',
     }),
     denomination: 'region',
-    geonameId: 160260,
+    // geonameId: 160260,
   },
   {
     id: 3284,
@@ -62395,7 +62395,7 @@ const divisions = [
       fr: 'Dodoma',
     }),
     denomination: 'region',
-    geonameId: 160192,
+    // geonameId: 160192,
   },
   {
     id: 3285,
@@ -62414,7 +62414,7 @@ const divisions = [
       fr: 'Geita',
     }),
     denomination: 'region',
-    geonameId: 8469239,
+    // geonameId: 8469239,
   },
   {
     id: 3286,
@@ -62433,7 +62433,7 @@ const divisions = [
       fr: 'Iringa',
     }),
     denomination: 'region',
-    geonameId: 159067,
+    // geonameId: 159067,
   },
   {
     id: 3287,
@@ -62452,7 +62452,7 @@ const divisions = [
       fr: 'Kagera',
     }),
     denomination: 'region',
-    geonameId: 148679,
+    // geonameId: 148679,
   },
   {
     id: 3288,
@@ -62471,7 +62471,7 @@ const divisions = [
       fr: 'Katavi',
     }),
     denomination: 'region',
-    geonameId: 8469240,
+    // geonameId: 8469240,
   },
   {
     id: 3289,
@@ -62490,7 +62490,7 @@ const divisions = [
       fr: 'Kigoma',
     }),
     denomination: 'region',
-    geonameId: 157732,
+    // geonameId: 157732,
   },
   {
     id: 3290,
@@ -62509,7 +62509,7 @@ const divisions = [
       fr: 'Kilimandjaro',
     }),
     denomination: 'region',
-    geonameId: 157449,
+    // geonameId: 157449,
   },
   {
     id: 3291,
@@ -62528,7 +62528,7 @@ const divisions = [
       fr: 'Lindi',
     }),
     denomination: 'region',
-    geonameId: 155946,
+    // geonameId: 155946,
   },
   {
     id: 3292,
@@ -62547,7 +62547,7 @@ const divisions = [
       fr: 'Manyara',
     }),
     denomination: 'region',
-    geonameId: 435764,
+    // geonameId: 435764,
   },
   {
     id: 3293,
@@ -62566,7 +62566,7 @@ const divisions = [
       fr: 'Mara',
     }),
     denomination: 'region',
-    geonameId: 154775,
+    // geonameId: 154775,
   },
   {
     id: 3294,
@@ -62585,7 +62585,7 @@ const divisions = [
       fr: 'Mbeya',
     }),
     denomination: 'region',
-    geonameId: 154375,
+    // geonameId: 154375,
   },
   {
     id: 3295,
@@ -62604,7 +62604,7 @@ const divisions = [
       fr: 'Morogoro',
     }),
     denomination: 'region',
-    geonameId: 153214,
+    // geonameId: 153214,
   },
   {
     id: 3296,
@@ -62623,7 +62623,7 @@ const divisions = [
       fr: 'Mtwara',
     }),
     denomination: 'region',
-    geonameId: 877744,
+    // geonameId: 877744,
   },
   {
     id: 3297,
@@ -62642,7 +62642,7 @@ const divisions = [
       fr: 'Mwanza',
     }),
     denomination: 'region',
-    geonameId: 152219,
+    // geonameId: 152219,
   },
   {
     id: 3298,
@@ -62661,7 +62661,7 @@ const divisions = [
       fr: 'Njombe',
     }),
     denomination: 'region',
-    geonameId: 8469241,
+    // geonameId: 8469241,
   },
   {
     id: 3299,
@@ -62680,7 +62680,7 @@ const divisions = [
       fr: 'Pemba Nord',
     }),
     denomination: 'region',
-    geonameId: 150733,
+    // geonameId: 150733,
   },
   {
     id: 3300,
@@ -62699,7 +62699,7 @@ const divisions = [
       fr: 'Pemba Sud',
     }),
     denomination: 'region',
-    geonameId: 150732,
+    // geonameId: 150732,
   },
   {
     id: 3301,
@@ -62718,7 +62718,7 @@ const divisions = [
       fr: 'Pwani',
     }),
     denomination: 'region',
-    geonameId: 150602,
+    // geonameId: 150602,
   },
   {
     id: 3302,
@@ -62737,7 +62737,7 @@ const divisions = [
       fr: 'Rukwa',
     }),
     denomination: 'region',
-    geonameId: 150442,
+    // geonameId: 150442,
   },
   {
     id: 3303,
@@ -62756,7 +62756,7 @@ const divisions = [
       fr: 'Ruvuma',
     }),
     denomination: 'region',
-    geonameId: 877416,
+    // geonameId: 877416,
   },
   {
     id: 3304,
@@ -62775,7 +62775,7 @@ const divisions = [
       fr: 'Shinyanga',
     }),
     denomination: 'region',
-    geonameId: 150004,
+    // geonameId: 150004,
   },
   {
     id: 3305,
@@ -62794,7 +62794,7 @@ const divisions = [
       fr: 'Simiyu',
     }),
     denomination: 'region',
-    geonameId: 8469238,
+    // geonameId: 8469238,
   },
   {
     id: 3306,
@@ -62813,7 +62813,7 @@ const divisions = [
       fr: 'Singida',
     }),
     denomination: 'region',
-    geonameId: 149876,
+    // geonameId: 149876,
   },
   {
     id: 3307,
@@ -62832,7 +62832,7 @@ const divisions = [
       fr: 'Songwe',
     }),
     denomination: 'region',
-    geonameId: 11124984,
+    // geonameId: 11124984,
   },
   {
     id: 3308,
@@ -62851,7 +62851,7 @@ const divisions = [
       fr: 'Tabora',
     }),
     denomination: 'region',
-    geonameId: 149653,
+    // geonameId: 149653,
   },
   {
     id: 3309,
@@ -62870,7 +62870,7 @@ const divisions = [
       fr: 'Tanga',
     }),
     denomination: 'region',
-    geonameId: 149595,
+    // geonameId: 149595,
   },
   {
     id: 3310,
@@ -62889,7 +62889,7 @@ const divisions = [
       fr: 'Zanzibar Centre/Sud',
     }),
     denomination: 'region',
-    geonameId: 148728,
+    // geonameId: 148728,
   },
   {
     id: 3311,
@@ -62908,7 +62908,7 @@ const divisions = [
       fr: 'Zanzibar Nord',
     }),
     denomination: 'region',
-    geonameId: 148725,
+    // geonameId: 148725,
   },
   {
     id: 3312,
@@ -62927,7 +62927,7 @@ const divisions = [
       fr: 'Zanzibar Urbain/Ouest',
     }),
     denomination: 'region',
-    geonameId: 148724,
+    // geonameId: 148724,
   },
   {
     id: 3313,
@@ -62946,7 +62946,7 @@ const divisions = [
       fr: 'Amnat Charoen',
     }),
     denomination: 'province',
-    geonameId: 1906689,
+    // geonameId: 1906689,
   },
   {
     id: 3314,
@@ -62965,7 +62965,7 @@ const divisions = [
       fr: 'Ang Thong',
     }),
     denomination: 'province',
-    geonameId: 1621034,
+    // geonameId: 1621034,
   },
   {
     id: 3315,
@@ -62984,7 +62984,7 @@ const divisions = [
       fr: 'Bangkok',
     }),
     denomination: 'special_administrative_area',
-    geonameId: 1609348,
+    // geonameId: 1609348,
   },
   {
     id: 3316,
@@ -63003,7 +63003,7 @@ const divisions = [
       fr: 'Bueng Kan',
     }),
     denomination: 'province',
-    geonameId: 8133594,
+    // geonameId: 8133594,
   },
   {
     id: 3317,
@@ -63022,7 +63022,7 @@ const divisions = [
       fr: 'Buriram',
     }),
     denomination: 'province',
-    geonameId: 1611452,
+    // geonameId: 1611452,
   },
   {
     id: 3318,
@@ -63041,7 +63041,7 @@ const divisions = [
       fr: 'Chachoengsao',
     }),
     denomination: 'province',
-    geonameId: 1611438,
+    // geonameId: 1611438,
   },
   {
     id: 3319,
@@ -63060,7 +63060,7 @@ const divisions = [
       fr: 'Chai Nat',
     }),
     denomination: 'province',
-    geonameId: 1611415,
+    // geonameId: 1611415,
   },
   {
     id: 3320,
@@ -63079,7 +63079,7 @@ const divisions = [
       fr: 'Chaiyaphum',
     }),
     denomination: 'province',
-    geonameId: 1611406,
+    // geonameId: 1611406,
   },
   {
     id: 3321,
@@ -63098,7 +63098,7 @@ const divisions = [
       fr: 'Chanthaburi',
     }),
     denomination: 'province',
-    geonameId: 1611268,
+    // geonameId: 1611268,
   },
   {
     id: 3322,
@@ -63117,7 +63117,7 @@ const divisions = [
       fr: 'Chiang Mai',
     }),
     denomination: 'province',
-    geonameId: 1153670,
+    // geonameId: 1153670,
   },
   {
     id: 3323,
@@ -63136,7 +63136,7 @@ const divisions = [
       fr: 'Chiang Rai',
     }),
     denomination: 'province',
-    geonameId: 1153668,
+    // geonameId: 1153668,
   },
   {
     id: 3324,
@@ -63155,7 +63155,7 @@ const divisions = [
       fr: 'Chon Buri',
     }),
     denomination: 'province',
-    geonameId: 1611108,
+    // geonameId: 1611108,
   },
   {
     id: 3325,
@@ -63174,7 +63174,7 @@ const divisions = [
       fr: 'Chumphon',
     }),
     denomination: 'province',
-    geonameId: 1153555,
+    // geonameId: 1153555,
   },
   {
     id: 3326,
@@ -63193,7 +63193,7 @@ const divisions = [
       fr: 'Kalasin',
     }),
     denomination: 'province',
-    geonameId: 1610468,
+    // geonameId: 1610468,
   },
   {
     id: 3327,
@@ -63212,7 +63212,7 @@ const divisions = [
       fr: 'Kamphaeng Phet',
     }),
     denomination: 'province',
-    geonameId: 1153089,
+    // geonameId: 1153089,
   },
   {
     id: 3328,
@@ -63231,7 +63231,7 @@ const divisions = [
       fr: 'Kanchanaburi',
     }),
     denomination: 'province',
-    geonameId: 1153080,
+    // geonameId: 1153080,
   },
   {
     id: 3329,
@@ -63250,7 +63250,7 @@ const divisions = [
       fr: 'Khon Kaen',
     }),
     denomination: 'province',
-    geonameId: 1609775,
+    // geonameId: 1609775,
   },
   {
     id: 3330,
@@ -63269,7 +63269,7 @@ const divisions = [
       fr: 'Krabi',
     }),
     denomination: 'province',
-    geonameId: 1152631,
+    // geonameId: 1152631,
   },
   {
     id: 3331,
@@ -63288,7 +63288,7 @@ const divisions = [
       fr: 'Lampang',
     }),
     denomination: 'province',
-    geonameId: 1152472,
+    // geonameId: 1152472,
   },
   {
     id: 3332,
@@ -63307,7 +63307,7 @@ const divisions = [
       fr: 'Lamphun',
     }),
     denomination: 'province',
-    geonameId: 1152467,
+    // geonameId: 1152467,
   },
   {
     id: 3333,
@@ -63326,7 +63326,7 @@ const divisions = [
       fr: 'Loei',
     }),
     denomination: 'province',
-    geonameId: 1609070,
+    // geonameId: 1609070,
   },
   {
     id: 3334,
@@ -63345,7 +63345,7 @@ const divisions = [
       fr: 'Lopburi',
     }),
     denomination: 'province',
-    geonameId: 1609031,
+    // geonameId: 1609031,
   },
   {
     id: 3335,
@@ -63364,7 +63364,7 @@ const divisions = [
       fr: 'Mae Hong Son',
     }),
     denomination: 'province',
-    geonameId: 1152221,
+    // geonameId: 1152221,
   },
   {
     id: 3336,
@@ -63383,7 +63383,7 @@ const divisions = [
       fr: 'Maha Sarakham',
     }),
     denomination: 'province',
-    geonameId: 1608899,
+    // geonameId: 1608899,
   },
   {
     id: 3337,
@@ -63402,7 +63402,7 @@ const divisions = [
       fr: 'Mukdahan',
     }),
     denomination: 'province',
-    geonameId: 1608595,
+    // geonameId: 1608595,
   },
   {
     id: 3338,
@@ -63421,7 +63421,7 @@ const divisions = [
       fr: 'Nakhon Nayok',
     }),
     denomination: 'province',
-    geonameId: 1608538,
+    // geonameId: 1608538,
   },
   {
     id: 3339,
@@ -63440,7 +63440,7 @@ const divisions = [
       fr: 'Nakhon Pathom',
     }),
     denomination: 'province',
-    geonameId: 1608533,
+    // geonameId: 1608533,
   },
   {
     id: 3340,
@@ -63459,7 +63459,7 @@ const divisions = [
       fr: 'Nakhon Phanom',
     }),
     denomination: 'province',
-    geonameId: 1608530,
+    // geonameId: 1608530,
   },
   {
     id: 3341,
@@ -63478,7 +63478,7 @@ const divisions = [
       fr: 'Nakhon Ratchasima',
     }),
     denomination: 'province',
-    geonameId: 1608528,
+    // geonameId: 1608528,
   },
   {
     id: 3342,
@@ -63497,7 +63497,7 @@ const divisions = [
       fr: 'Nakhon Sawan',
     }),
     denomination: 'province',
-    geonameId: 1608526,
+    // geonameId: 1608526,
   },
   {
     id: 3343,
@@ -63516,7 +63516,7 @@ const divisions = [
       fr: 'Nakhon Si Thammarat',
     }),
     denomination: 'province',
-    geonameId: 1608525,
+    // geonameId: 1608525,
   },
   {
     id: 3344,
@@ -63535,7 +63535,7 @@ const divisions = [
       fr: 'Nan',
     }),
     denomination: 'province',
-    geonameId: 1608451,
+    // geonameId: 1608451,
   },
   {
     id: 3345,
@@ -63554,7 +63554,7 @@ const divisions = [
       fr: 'Narathiwat',
     }),
     denomination: 'province',
-    geonameId: 1608408,
+    // geonameId: 1608408,
   },
   {
     id: 3346,
@@ -63573,7 +63573,7 @@ const divisions = [
       fr: 'Nong Bua Lamphu',
     }),
     denomination: 'province',
-    geonameId: 1906690,
+    // geonameId: 1906690,
   },
   {
     id: 3347,
@@ -63592,7 +63592,7 @@ const divisions = [
       fr: 'Nong Khai',
     }),
     denomination: 'province',
-    geonameId: 1608231,
+    // geonameId: 1608231,
   },
   {
     id: 3348,
@@ -63611,7 +63611,7 @@ const divisions = [
       fr: 'Nonthaburi',
     }),
     denomination: 'province',
-    geonameId: 1608132,
+    // geonameId: 1608132,
   },
   {
     id: 3349,
@@ -63630,7 +63630,7 @@ const divisions = [
       fr: 'Pathum Thani',
     }),
     denomination: 'province',
-    geonameId: 1607982,
+    // geonameId: 1607982,
   },
   {
     id: 3350,
@@ -63649,7 +63649,7 @@ const divisions = [
       fr: 'Pattani',
     }),
     denomination: 'province',
-    geonameId: 1607976,
+    // geonameId: 1607976,
   },
   {
     id: 3351,
@@ -63668,7 +63668,7 @@ const divisions = [
       fr: 'Phang Nga',
     }),
     denomination: 'province',
-    geonameId: 1151462,
+    // geonameId: 1151462,
   },
   {
     id: 3352,
@@ -63687,7 +63687,7 @@ const divisions = [
       fr: 'Phatthalung',
     }),
     denomination: 'province',
-    geonameId: 1607778,
+    // geonameId: 1607778,
   },
   {
     id: 3353,
@@ -63706,7 +63706,7 @@ const divisions = [
       fr: 'Phayao',
     }),
     denomination: 'province',
-    geonameId: 1607758,
+    // geonameId: 1607758,
   },
   {
     id: 3354,
@@ -63725,7 +63725,7 @@ const divisions = [
       fr: 'Phetchabun',
     }),
     denomination: 'province',
-    geonameId: 1607736,
+    // geonameId: 1607736,
   },
   {
     id: 3355,
@@ -63744,7 +63744,7 @@ const divisions = [
       fr: 'Phetchaburi',
     }),
     denomination: 'province',
-    geonameId: 1151416,
+    // geonameId: 1151416,
   },
   {
     id: 3356,
@@ -63763,7 +63763,7 @@ const divisions = [
       fr: 'Phichit',
     }),
     denomination: 'province',
-    geonameId: 1607724,
+    // geonameId: 1607724,
   },
   {
     id: 3357,
@@ -63782,7 +63782,7 @@ const divisions = [
       fr: 'Phitsanulok',
     }),
     denomination: 'province',
-    geonameId: 1607707,
+    // geonameId: 1607707,
   },
   {
     id: 3358,
@@ -63801,7 +63801,7 @@ const divisions = [
       fr: 'Ayutthaya',
     }),
     denomination: 'province',
-    geonameId: 1607530,
+    // geonameId: 1607530,
   },
   {
     id: 3359,
@@ -63820,7 +63820,7 @@ const divisions = [
       fr: 'Phrae',
     }),
     denomination: 'province',
-    geonameId: 1607551,
+    // geonameId: 1607551,
   },
   {
     id: 3360,
@@ -63839,7 +63839,7 @@ const divisions = [
       fr: 'Phuket',
     }),
     denomination: 'province',
-    geonameId: 1151253,
+    // geonameId: 1151253,
   },
   {
     id: 3361,
@@ -63858,7 +63858,7 @@ const divisions = [
       fr: 'Prachin Buri',
     }),
     denomination: 'province',
-    geonameId: 1906687,
+    // geonameId: 1906687,
   },
   {
     id: 3362,
@@ -63877,7 +63877,7 @@ const divisions = [
       fr: 'Prachuap Khiri Khan',
     }),
     denomination: 'province',
-    geonameId: 1151073,
+    // geonameId: 1151073,
   },
   {
     id: 3363,
@@ -63896,7 +63896,7 @@ const divisions = [
       fr: 'Ranong',
     }),
     denomination: 'province',
-    geonameId: 1150964,
+    // geonameId: 1150964,
   },
   {
     id: 3364,
@@ -63915,7 +63915,7 @@ const divisions = [
       fr: 'Ratchaburi',
     }),
     denomination: 'province',
-    geonameId: 1150953,
+    // geonameId: 1150953,
   },
   {
     id: 3365,
@@ -63934,7 +63934,7 @@ const divisions = [
       fr: 'Rayong',
     }),
     denomination: 'province',
-    geonameId: 1607016,
+    // geonameId: 1607016,
   },
   {
     id: 3366,
@@ -63953,7 +63953,7 @@ const divisions = [
       fr: 'Roi Et',
     }),
     denomination: 'province',
-    geonameId: 1607000,
+    // geonameId: 1607000,
   },
   {
     id: 3367,
@@ -63972,7 +63972,7 @@ const divisions = [
       fr: 'Sa Kaeo',
     }),
     denomination: 'province',
-    geonameId: 1906691,
+    // geonameId: 1906691,
   },
   {
     id: 3368,
@@ -63991,7 +63991,7 @@ const divisions = [
       fr: 'Sakon Nakhon',
     }),
     denomination: 'province',
-    geonameId: 1606789,
+    // geonameId: 1606789,
   },
   {
     id: 3369,
@@ -64010,7 +64010,7 @@ const divisions = [
       fr: 'Samut Prakan',
     }),
     denomination: 'province',
-    geonameId: 1606589,
+    // geonameId: 1606589,
   },
   {
     id: 3370,
@@ -64029,7 +64029,7 @@ const divisions = [
       fr: 'Samut Sakhon',
     }),
     denomination: 'province',
-    geonameId: 1606587,
+    // geonameId: 1606587,
   },
   {
     id: 3371,
@@ -64048,7 +64048,7 @@ const divisions = [
       fr: 'Samut Songkhram',
     }),
     denomination: 'province',
-    geonameId: 1606585,
+    // geonameId: 1606585,
   },
   {
     id: 3372,
@@ -64067,7 +64067,7 @@ const divisions = [
       fr: 'Saraburi',
     }),
     denomination: 'province',
-    geonameId: 1606417,
+    // geonameId: 1606417,
   },
   {
     id: 3373,
@@ -64086,7 +64086,7 @@ const divisions = [
       fr: 'Satun',
     }),
     denomination: 'province',
-    geonameId: 1606375,
+    // geonameId: 1606375,
   },
   {
     id: 3374,
@@ -64105,7 +64105,7 @@ const divisions = [
       fr: 'Si Sa Ket',
     }),
     denomination: 'province',
-    geonameId: 1606238,
+    // geonameId: 1606238,
   },
   {
     id: 3375,
@@ -64124,7 +64124,7 @@ const divisions = [
       fr: 'Sing Buri',
     }),
     denomination: 'province',
-    geonameId: 1606269,
+    // geonameId: 1606269,
   },
   {
     id: 3376,
@@ -64143,7 +64143,7 @@ const divisions = [
       fr: 'Songkhla',
     }),
     denomination: 'province',
-    geonameId: 1606146,
+    // geonameId: 1606146,
   },
   {
     id: 3377,
@@ -64162,7 +64162,7 @@ const divisions = [
       fr: 'Sukhothai',
     }),
     denomination: 'province',
-    geonameId: 1150532,
+    // geonameId: 1150532,
   },
   {
     id: 3378,
@@ -64181,7 +64181,7 @@ const divisions = [
       fr: 'Suphan Buri',
     }),
     denomination: 'province',
-    geonameId: 1606032,
+    // geonameId: 1606032,
   },
   {
     id: 3379,
@@ -64200,7 +64200,7 @@ const divisions = [
       fr: 'Surat Thani',
     }),
     denomination: 'province',
-    geonameId: 1150514,
+    // geonameId: 1150514,
   },
   {
     id: 3380,
@@ -64219,7 +64219,7 @@ const divisions = [
       fr: 'Surin',
     }),
     denomination: 'province',
-    geonameId: 1606029,
+    // geonameId: 1606029,
   },
   {
     id: 3381,
@@ -64238,7 +64238,7 @@ const divisions = [
       fr: 'Tak',
     }),
     denomination: 'province',
-    geonameId: 1150489,
+    // geonameId: 1150489,
   },
   {
     id: 3382,
@@ -64257,7 +64257,7 @@ const divisions = [
       fr: 'Trang',
     }),
     denomination: 'province',
-    geonameId: 1150006,
+    // geonameId: 1150006,
   },
   {
     id: 3383,
@@ -64276,7 +64276,7 @@ const divisions = [
       fr: 'Trat',
     }),
     denomination: 'province',
-    geonameId: 1605277,
+    // geonameId: 1605277,
   },
   {
     id: 3384,
@@ -64295,7 +64295,7 @@ const divisions = [
       fr: 'Ubon Ratchathani',
     }),
     denomination: 'province',
-    geonameId: 1906688,
+    // geonameId: 1906688,
   },
   {
     id: 3385,
@@ -64314,7 +64314,7 @@ const divisions = [
       fr: 'Udon Thani',
     }),
     denomination: 'province',
-    geonameId: 1906686,
+    // geonameId: 1906686,
   },
   {
     id: 3386,
@@ -64333,7 +64333,7 @@ const divisions = [
       fr: 'Uthai Thani',
     }),
     denomination: 'province',
-    geonameId: 1149965,
+    // geonameId: 1149965,
   },
   {
     id: 3387,
@@ -64352,7 +64352,7 @@ const divisions = [
       fr: 'Uttaradit',
     }),
     denomination: 'province',
-    geonameId: 1605214,
+    // geonameId: 1605214,
   },
   {
     id: 3388,
@@ -64371,7 +64371,7 @@ const divisions = [
       fr: 'Yala',
     }),
     denomination: 'province',
-    geonameId: 1604869,
+    // geonameId: 1604869,
   },
   {
     id: 3389,
@@ -64390,7 +64390,7 @@ const divisions = [
       fr: 'Yasothon',
     }),
     denomination: 'province',
-    geonameId: 1604767,
+    // geonameId: 1604767,
   },
   {
     id: 3390,
@@ -64409,7 +64409,7 @@ const divisions = [
       fr: 'Banjul',
     }),
     denomination: 'region',
-    geonameId: 2413875,
+    // geonameId: 2413875,
   },
   {
     id: 3391,
@@ -64428,7 +64428,7 @@ const divisions = [
       fr: 'Rivière Centrale',
     }),
     denomination: 'region',
-    geonameId: 2412707,
+    // geonameId: 2412707,
   },
   {
     id: 3392,
@@ -64447,7 +64447,7 @@ const divisions = [
       fr: 'Rivière Inférieure',
     }),
     denomination: 'region',
-    geonameId: 2412716,
+    // geonameId: 2412716,
   },
   {
     id: 3393,
@@ -64466,7 +64466,7 @@ const divisions = [
       fr: 'Rive Nord',
     }),
     denomination: 'region',
-    geonameId: 2412353,
+    // geonameId: 2412353,
   },
   {
     id: 3394,
@@ -64485,7 +64485,7 @@ const divisions = [
       fr: 'Rivière Supérieure',
     }),
     denomination: 'region',
-    geonameId: 2411711,
+    // geonameId: 2411711,
   },
   {
     id: 3395,
@@ -64504,7 +64504,7 @@ const divisions = [
       fr: 'Côte Ouest',
     }),
     denomination: 'region',
-    geonameId: 2411683,
+    // geonameId: 2411683,
   },
   {
     id: 3396,
@@ -64523,7 +64523,7 @@ const divisions = [
       fr: 'Drenthe',
     }),
     denomination: 'province',
-    geonameId: 2756631,
+    // geonameId: 2756631,
   },
   {
     id: 3397,
@@ -64542,7 +64542,7 @@ const divisions = [
       fr: 'Flevoland',
     }),
     denomination: 'province',
-    geonameId: 3319179,
+    // geonameId: 3319179,
   },
   {
     id: 3398,
@@ -64561,7 +64561,7 @@ const divisions = [
       fr: 'Frise',
     }),
     denomination: 'province',
-    geonameId: 2755812,
+    // geonameId: 2755812,
   },
   {
     id: 3399,
@@ -64580,7 +64580,7 @@ const divisions = [
       fr: 'Gueldre',
     }),
     denomination: 'province',
-    geonameId: 2755634,
+    // geonameId: 2755634,
   },
   {
     id: 3400,
@@ -64599,7 +64599,7 @@ const divisions = [
       fr: 'Groningue',
     }),
     denomination: 'province',
-    geonameId: 2755249,
+    // geonameId: 2755249,
   },
   {
     id: 3401,
@@ -64618,7 +64618,7 @@ const divisions = [
       fr: 'Limbourg',
     }),
     denomination: 'province',
-    geonameId: 2751596,
+    // geonameId: 2751596,
   },
   {
     id: 3402,
@@ -64637,7 +64637,7 @@ const divisions = [
       fr: 'Brabant-Septentrional',
     }),
     denomination: 'province',
-    geonameId: 2749990,
+    // geonameId: 2749990,
   },
   {
     id: 3403,
@@ -64656,7 +64656,7 @@ const divisions = [
       fr: 'Hollande-Septentrionale',
     }),
     denomination: 'province',
-    geonameId: 2749879,
+    // geonameId: 2749879,
   },
   {
     id: 3404,
@@ -64675,7 +64675,7 @@ const divisions = [
       fr: 'Overijssel',
     }),
     denomination: 'province',
-    geonameId: 2748838,
+    // geonameId: 2748838,
   },
   {
     id: 3405,
@@ -64694,7 +64694,7 @@ const divisions = [
       fr: 'Hollande-Méridionale',
     }),
     denomination: 'province',
-    geonameId: 2743698,
+    // geonameId: 2743698,
   },
   {
     id: 3406,
@@ -64713,7 +64713,7 @@ const divisions = [
       fr: 'Utrecht',
     }),
     denomination: 'province',
-    geonameId: 2745909,
+    // geonameId: 2745909,
   },
   {
     id: 3407,
@@ -64732,7 +64732,7 @@ const divisions = [
       fr: 'Zélande',
     }),
     denomination: 'province',
-    geonameId: 2744011,
+    // geonameId: 2744011,
   },
   {
     id: 3408,
@@ -64751,7 +64751,7 @@ const divisions = [
       fr: 'Aileu',
     }),
     denomination: 'municipality',
-    geonameId: 1651815,
+    // geonameId: 1651815,
   },
   {
     id: 3409,
@@ -64770,7 +64770,7 @@ const divisions = [
       fr: 'Ainaro',
     }),
     denomination: 'municipality',
-    geonameId: 1651809,
+    // geonameId: 1651809,
   },
   {
     id: 3410,
@@ -64789,7 +64789,7 @@ const divisions = [
       fr: 'Baucau',
     }),
     denomination: 'municipality',
-    geonameId: 1649538,
+    // geonameId: 1649538,
   },
   {
     id: 3411,
@@ -64808,7 +64808,7 @@ const divisions = [
       fr: 'Bobonaro',
     }),
     denomination: 'municipality',
-    geonameId: 1648513,
+    // geonameId: 1648513,
   },
   {
     id: 3412,
@@ -64827,7 +64827,7 @@ const divisions = [
       fr: 'Cova Lima',
     }),
     denomination: 'municipality',
-    geonameId: 1639462,
+    // geonameId: 1639462,
   },
   {
     id: 3413,
@@ -64846,7 +64846,7 @@ const divisions = [
       fr: 'Dili',
     }),
     denomination: 'municipality',
-    geonameId: 1645456,
+    // geonameId: 1645456,
   },
   {
     id: 3414,
@@ -64865,7 +64865,7 @@ const divisions = [
       fr: 'Ermera',
     }),
     denomination: 'municipality',
-    geonameId: 1644865,
+    // geonameId: 1644865,
   },
   {
     id: 3415,
@@ -64884,7 +64884,7 @@ const divisions = [
       fr: 'Lautém',
     }),
     denomination: 'municipality',
-    geonameId: 1638294,
+    // geonameId: 1638294,
   },
   {
     id: 3416,
@@ -64903,7 +64903,7 @@ const divisions = [
       fr: 'Liquiçá',
     }),
     denomination: 'municipality',
-    geonameId: 1637729,
+    // geonameId: 1637729,
   },
   {
     id: 3417,
@@ -64922,7 +64922,7 @@ const divisions = [
       fr: 'Manatuto',
     }),
     denomination: 'municipality',
-    geonameId: 1636525,
+    // geonameId: 1636525,
   },
   {
     id: 3418,
@@ -64941,7 +64941,7 @@ const divisions = [
       fr: 'Manufahi',
     }),
     denomination: 'municipality',
-    geonameId: 1636309,
+    // geonameId: 1636309,
   },
   {
     id: 3419,
@@ -64960,7 +64960,7 @@ const divisions = [
       fr: 'Oecusse',
     }),
     denomination: 'municipality',
-    geonameId: 1651539,
+    // geonameId: 1651539,
   },
   {
     id: 3420,
@@ -64979,7 +64979,7 @@ const divisions = [
       fr: 'Viqueque',
     }),
     denomination: 'municipality',
-    geonameId: 1622470,
+    // geonameId: 1622470,
   },
   {
     id: 3421,
@@ -64998,7 +64998,7 @@ const divisions = [
       fr: 'Centrale',
     }),
     denomination: 'region',
-    geonameId: 2367237,
+    // geonameId: 2367237,
   },
   {
     id: 3422,
@@ -65017,7 +65017,7 @@ const divisions = [
       fr: 'Kara',
     }),
     denomination: 'region',
-    geonameId: 2597439,
+    // geonameId: 2597439,
   },
   {
     id: 3423,
@@ -65036,7 +65036,7 @@ const divisions = [
       fr: 'Maritime',
     }),
     denomination: 'region',
-    geonameId: 2365173,
+    // geonameId: 2365173,
   },
   {
     id: 3424,
@@ -65055,7 +65055,7 @@ const divisions = [
       fr: 'Plateaux',
     }),
     denomination: 'region',
-    geonameId: 2364370,
+    // geonameId: 2364370,
   },
   {
     id: 3425,
@@ -65074,7 +65074,7 @@ const divisions = [
       fr: 'Savanes',
     }),
     denomination: 'region',
-    geonameId: 2364205,
+    // geonameId: 2364205,
   },
   {
     id: 3426,
@@ -65093,7 +65093,7 @@ const divisions = [
       fr: 'Atafu',
     }),
     denomination: 'atoll',
-    geonameId: 4031116,
+    // geonameId: 4031116,
   },
   {
     id: 3427,
@@ -65112,7 +65112,7 @@ const divisions = [
       fr: 'Fakaofo',
     }),
     denomination: 'atoll',
-    geonameId: 4031112,
+    // geonameId: 4031112,
   },
   {
     id: 3428,
@@ -65131,7 +65131,7 @@ const divisions = [
       fr: 'Nukunonu',
     }),
     denomination: 'atoll',
-    geonameId: 4031091,
+    // geonameId: 4031091,
   },
   {
     id: 3429,
@@ -65150,7 +65150,7 @@ const divisions = [
       fr: 'Haapai',
     }),
     denomination: 'division',
-    geonameId: 4032637,
+    // geonameId: 4032637,
   },
   {
     id: 3430,
@@ -65169,7 +65169,7 @@ const divisions = [
       fr: 'Eua',
     }),
     denomination: 'division',
-    geonameId: 7668021,
+    // geonameId: 7668021,
   },
   {
     id: 3431,
@@ -65188,7 +65188,7 @@ const divisions = [
       fr: 'Niuas',
     }),
     denomination: 'division',
-    geonameId: 7668055,
+    // geonameId: 7668055,
   },
   {
     id: 3432,
@@ -65207,7 +65207,7 @@ const divisions = [
       fr: 'Tongatapu',
     }),
     denomination: 'division',
-    geonameId: 4032279,
+    // geonameId: 4032279,
   },
   {
     id: 3433,
@@ -65226,7 +65226,7 @@ const divisions = [
       fr: 'Vavau',
     }),
     denomination: 'division',
-    geonameId: 4032231,
+    // geonameId: 4032231,
   },
   {
     id: 3434,
@@ -65245,7 +65245,7 @@ const divisions = [
       fr: 'Arima',
     }),
     denomination: 'borough',
-    geonameId: 3575052,
+    // geonameId: 3575052,
   },
   {
     id: 3435,
@@ -65264,7 +65264,7 @@ const divisions = [
       fr: 'Chaguanas',
     }),
     denomination: 'city',
-    geonameId: 7521937,
+    // geonameId: 7521937,
   },
   {
     id: 3436,
@@ -65283,7 +65283,7 @@ const divisions = [
       fr: 'Couva-Tabaquite-Talparo',
     }),
     denomination: 'region',
-    geonameId: 7521938,
+    // geonameId: 7521938,
   },
   {
     id: 3437,
@@ -65302,7 +65302,7 @@ const divisions = [
       fr: 'Diego Martin',
     }),
     denomination: 'region',
-    geonameId: 7521939,
+    // geonameId: 7521939,
   },
   {
     id: 3438,
@@ -65321,7 +65321,7 @@ const divisions = [
       fr: 'Mayaro',
     }),
     denomination: 'region',
-    geonameId: 3574155,
+    // geonameId: 3574155,
   },
   {
     id: 3439,
@@ -65340,7 +65340,7 @@ const divisions = [
       fr: 'Penal/Debe',
     }),
     denomination: 'region',
-    geonameId: 7521941,
+    // geonameId: 7521941,
   },
   {
     id: 3440,
@@ -65359,7 +65359,7 @@ const divisions = [
       fr: 'Point Fortin',
     }),
     denomination: 'city',
-    geonameId: 7521943,
+    // geonameId: 7521943,
   },
   {
     id: 3441,
@@ -65378,7 +65378,7 @@ const divisions = [
       fr: "Port-d'Espagne",
     }),
     denomination: 'city',
-    geonameId: 3573891,
+    // geonameId: 3573891,
   },
   {
     id: 3442,
@@ -65397,7 +65397,7 @@ const divisions = [
       fr: 'Princes Town',
     }),
     denomination: 'region',
-    geonameId: 7521942,
+    // geonameId: 7521942,
   },
   {
     id: 3443,
@@ -65416,7 +65416,7 @@ const divisions = [
       fr: 'San Fernando',
     }),
     denomination: 'city',
-    geonameId: 3573739,
+    // geonameId: 3573739,
   },
   {
     id: 3444,
@@ -65435,7 +65435,7 @@ const divisions = [
       fr: 'San Juan/Laventille',
     }),
     denomination: 'region',
-    geonameId: 7521946,
+    // geonameId: 7521946,
   },
   {
     id: 3445,
@@ -65454,7 +65454,7 @@ const divisions = [
       fr: 'Sangre Grande',
     }),
     denomination: 'region',
-    geonameId: 7521944,
+    // geonameId: 7521944,
   },
   {
     id: 3446,
@@ -65473,7 +65473,7 @@ const divisions = [
       fr: 'Siparia',
     }),
     denomination: 'region',
-    geonameId: 7521945,
+    // geonameId: 7521945,
   },
   {
     id: 3447,
@@ -65492,7 +65492,7 @@ const divisions = [
       fr: 'Tobago',
     }),
     denomination: 'island',
-    geonameId: 3573606,
+    // geonameId: 3573606,
   },
   {
     id: 3448,
@@ -65511,7 +65511,7 @@ const divisions = [
       fr: 'Tunapuna/Piarco',
     }),
     denomination: 'region',
-    geonameId: 7521947,
+    // geonameId: 7521947,
   },
   {
     id: 3449,
@@ -65530,7 +65530,7 @@ const divisions = [
       fr: 'Ariana',
     }),
     denomination: 'governorate',
-    geonameId: 2473245,
+    // geonameId: 2473245,
   },
   {
     id: 3450,
@@ -65549,7 +65549,7 @@ const divisions = [
       fr: 'Béja',
     }),
     denomination: 'governorate',
-    geonameId: 2472770,
+    // geonameId: 2472770,
   },
   {
     id: 3451,
@@ -65568,7 +65568,7 @@ const divisions = [
       fr: 'Ben Arous',
     }),
     denomination: 'governorate',
-    geonameId: 2472477,
+    // geonameId: 2472477,
   },
   {
     id: 3452,
@@ -65587,7 +65587,7 @@ const divisions = [
       fr: 'Bizerte',
     }),
     denomination: 'governorate',
-    geonameId: 2472699,
+    // geonameId: 2472699,
   },
   {
     id: 3453,
@@ -65606,7 +65606,7 @@ const divisions = [
       fr: 'Gabès',
     }),
     denomination: 'governorate',
-    geonameId: 2468365,
+    // geonameId: 2468365,
   },
   {
     id: 3454,
@@ -65625,7 +65625,7 @@ const divisions = [
       fr: 'Gafsa',
     }),
     denomination: 'governorate',
-    geonameId: 2468351,
+    // geonameId: 2468351,
   },
   {
     id: 3455,
@@ -65644,7 +65644,7 @@ const divisions = [
       fr: 'Jendouba',
     }),
     denomination: 'governorate',
-    geonameId: 2470085,
+    // geonameId: 2470085,
   },
   {
     id: 3456,
@@ -65663,7 +65663,7 @@ const divisions = [
       fr: 'Kairouan',
     }),
     denomination: 'governorate',
-    geonameId: 2473451,
+    // geonameId: 2473451,
   },
   {
     id: 3457,
@@ -65682,7 +65682,7 @@ const divisions = [
       fr: 'Kasserine',
     }),
     denomination: 'governorate',
-    geonameId: 2473460,
+    // geonameId: 2473460,
   },
   {
     id: 3458,
@@ -65701,7 +65701,7 @@ const divisions = [
       fr: 'Kébili',
     }),
     denomination: 'governorate',
-    geonameId: 2468014,
+    // geonameId: 2468014,
   },
   {
     id: 3459,
@@ -65720,7 +65720,7 @@ const divisions = [
       fr: 'Le Kef',
     }),
     denomination: 'governorate',
-    geonameId: 2473637,
+    // geonameId: 2473637,
   },
   {
     id: 3460,
@@ -65739,7 +65739,7 @@ const divisions = [
       fr: 'Mahdia',
     }),
     denomination: 'governorate',
-    geonameId: 2473574,
+    // geonameId: 2473574,
   },
   {
     id: 3461,
@@ -65758,7 +65758,7 @@ const divisions = [
       fr: 'Manouba',
     }),
     denomination: 'governorate',
-    geonameId: 6201192,
+    // geonameId: 6201192,
   },
   {
     id: 3462,
@@ -65777,7 +65777,7 @@ const divisions = [
       fr: 'Médenine',
     }),
     denomination: 'governorate',
-    geonameId: 2469470,
+    // geonameId: 2469470,
   },
   {
     id: 3463,
@@ -65796,7 +65796,7 @@ const divisions = [
       fr: 'Monastir',
     }),
     denomination: 'governorate',
-    geonameId: 2473495,
+    // geonameId: 2473495,
   },
   {
     id: 3464,
@@ -65815,7 +65815,7 @@ const divisions = [
       fr: 'Nabeul',
     }),
     denomination: 'governorate',
-    geonameId: 2468576,
+    // geonameId: 2468576,
   },
   {
     id: 3465,
@@ -65834,7 +65834,7 @@ const divisions = [
       fr: 'Sfax',
     }),
     denomination: 'governorate',
-    geonameId: 2467450,
+    // geonameId: 2467450,
   },
   {
     id: 3466,
@@ -65853,7 +65853,7 @@ const divisions = [
       fr: 'Sidi Bouzid',
     }),
     denomination: 'governorate',
-    geonameId: 2465837,
+    // geonameId: 2465837,
   },
   {
     id: 3467,
@@ -65872,7 +65872,7 @@ const divisions = [
       fr: 'Siliana',
     }),
     denomination: 'governorate',
-    geonameId: 2465027,
+    // geonameId: 2465027,
   },
   {
     id: 3468,
@@ -65891,7 +65891,7 @@ const divisions = [
       fr: 'Sousse',
     }),
     denomination: 'governorate',
-    geonameId: 2464912,
+    // geonameId: 2464912,
   },
   {
     id: 3469,
@@ -65910,7 +65910,7 @@ const divisions = [
       fr: 'Tataouine',
     }),
     denomination: 'governorate',
-    geonameId: 2464698,
+    // geonameId: 2464698,
   },
   {
     id: 3470,
@@ -65929,7 +65929,7 @@ const divisions = [
       fr: 'Tozeur',
     }),
     denomination: 'governorate',
-    geonameId: 2464645,
+    // geonameId: 2464645,
   },
   {
     id: 3471,
@@ -65948,7 +65948,7 @@ const divisions = [
       fr: 'Tunis',
     }),
     denomination: 'governorate',
-    geonameId: 2464464,
+    // geonameId: 2464464,
   },
   {
     id: 3472,
@@ -65967,7 +65967,7 @@ const divisions = [
       fr: 'Zaghouan',
     }),
     denomination: 'governorate',
-    geonameId: 2464038,
+    // geonameId: 2464038,
   },
   {
     id: 3473,
@@ -65986,7 +65986,7 @@ const divisions = [
       fr: 'Adana',
     }),
     denomination: 'province',
-    geonameId: 325361,
+    // geonameId: 325361,
   },
   {
     id: 3474,
@@ -66005,7 +66005,7 @@ const divisions = [
       fr: 'Adıyaman',
     }),
     denomination: 'province',
-    geonameId: 325329,
+    // geonameId: 325329,
   },
   {
     id: 3475,
@@ -66024,7 +66024,7 @@ const divisions = [
       fr: 'Afyonkarahisar',
     }),
     denomination: 'province',
-    geonameId: 325302,
+    // geonameId: 325302,
   },
   {
     id: 3476,
@@ -66043,7 +66043,7 @@ const divisions = [
       fr: 'Ağrı',
     }),
     denomination: 'province',
-    geonameId: 325163,
+    // geonameId: 325163,
   },
   {
     id: 3477,
@@ -66062,7 +66062,7 @@ const divisions = [
       fr: 'Aksaray',
     }),
     denomination: 'province',
-    geonameId: 443185,
+    // geonameId: 443185,
   },
   {
     id: 3478,
@@ -66081,7 +66081,7 @@ const divisions = [
       fr: 'Amasya',
     }),
     denomination: 'province',
-    geonameId: 752014,
+    // geonameId: 752014,
   },
   {
     id: 3479,
@@ -66100,7 +66100,7 @@ const divisions = [
       fr: 'Ankara',
     }),
     denomination: 'province',
-    geonameId: 323784,
+    // geonameId: 323784,
   },
   {
     id: 3480,
@@ -66119,7 +66119,7 @@ const divisions = [
       fr: 'Antalya',
     }),
     denomination: 'province',
-    geonameId: 323776,
+    // geonameId: 323776,
   },
   {
     id: 3481,
@@ -66138,7 +66138,7 @@ const divisions = [
       fr: 'Ardahan',
     }),
     denomination: 'province',
-    geonameId: 862470,
+    // geonameId: 862470,
   },
   {
     id: 3482,
@@ -66157,7 +66157,7 @@ const divisions = [
       fr: 'Artvin',
     }),
     denomination: 'province',
-    geonameId: 751816,
+    // geonameId: 751816,
   },
   {
     id: 3483,
@@ -66176,7 +66176,7 @@ const divisions = [
       fr: 'Aydın',
     }),
     denomination: 'province',
-    geonameId: 322819,
+    // geonameId: 322819,
   },
   {
     id: 3484,
@@ -66195,7 +66195,7 @@ const divisions = [
       fr: 'Balıkesir',
     }),
     denomination: 'province',
-    geonameId: 322164,
+    // geonameId: 322164,
   },
   {
     id: 3485,
@@ -66214,7 +66214,7 @@ const divisions = [
       fr: 'Bartın',
     }),
     denomination: 'province',
-    geonameId: 862467,
+    // geonameId: 862467,
   },
   {
     id: 3486,
@@ -66233,7 +66233,7 @@ const divisions = [
       fr: 'Batman',
     }),
     denomination: 'province',
-    geonameId: 443186,
+    // geonameId: 443186,
   },
   {
     id: 3487,
@@ -66252,7 +66252,7 @@ const divisions = [
       fr: 'Bayburt',
     }),
     denomination: 'province',
-    geonameId: 862471,
+    // geonameId: 862471,
   },
   {
     id: 3488,
@@ -66271,7 +66271,7 @@ const divisions = [
       fr: 'Bilecik',
     }),
     denomination: 'province',
-    geonameId: 321122,
+    // geonameId: 321122,
   },
   {
     id: 3489,
@@ -66290,7 +66290,7 @@ const divisions = [
       fr: 'Bingöl',
     }),
     denomination: 'province',
-    geonameId: 321079,
+    // geonameId: 321079,
   },
   {
     id: 3490,
@@ -66309,7 +66309,7 @@ const divisions = [
       fr: 'Bitlis',
     }),
     denomination: 'province',
-    geonameId: 321022,
+    // geonameId: 321022,
   },
   {
     id: 3491,
@@ -66328,7 +66328,7 @@ const divisions = [
       fr: 'Bolu',
     }),
     denomination: 'province',
-    geonameId: 750510,
+    // geonameId: 750510,
   },
   {
     id: 3492,
@@ -66347,7 +66347,7 @@ const divisions = [
       fr: 'Burdur',
     }),
     denomination: 'province',
-    geonameId: 320390,
+    // geonameId: 320390,
   },
   {
     id: 3493,
@@ -66366,7 +66366,7 @@ const divisions = [
       fr: 'Bursa',
     }),
     denomination: 'province',
-    geonameId: 750268,
+    // geonameId: 750268,
   },
   {
     id: 3494,
@@ -66385,7 +66385,7 @@ const divisions = [
       fr: 'Çanakkale',
     }),
     denomination: 'province',
-    geonameId: 749778,
+    // geonameId: 749778,
   },
   {
     id: 3495,
@@ -66404,7 +66404,7 @@ const divisions = [
       fr: 'Çankırı',
     }),
     denomination: 'province',
-    geonameId: 749747,
+    // geonameId: 749747,
   },
   {
     id: 3496,
@@ -66423,7 +66423,7 @@ const divisions = [
       fr: 'Çorum',
     }),
     denomination: 'province',
-    geonameId: 748877,
+    // geonameId: 748877,
   },
   {
     id: 3497,
@@ -66442,7 +66442,7 @@ const divisions = [
       fr: 'Denizli',
     }),
     denomination: 'province',
-    geonameId: 317106,
+    // geonameId: 317106,
   },
   {
     id: 3498,
@@ -66461,7 +66461,7 @@ const divisions = [
       fr: 'Diyarbakır',
     }),
     denomination: 'province',
-    geonameId: 316540,
+    // geonameId: 316540,
   },
   {
     id: 3499,
@@ -66480,7 +66480,7 @@ const divisions = [
       fr: 'Düzce',
     }),
     denomination: 'province',
-    geonameId: 865521,
+    // geonameId: 865521,
   },
   {
     id: 3500,
@@ -66499,7 +66499,7 @@ const divisions = [
       fr: 'Edirne',
     }),
     denomination: 'province',
-    geonameId: 747711,
+    // geonameId: 747711,
   },
   {
     id: 3501,
@@ -66518,7 +66518,7 @@ const divisions = [
       fr: 'Elazığ',
     }),
     denomination: 'province',
-    geonameId: 315807,
+    // geonameId: 315807,
   },
   {
     id: 3502,
@@ -66537,7 +66537,7 @@ const divisions = [
       fr: 'Erzincan',
     }),
     denomination: 'province',
-    geonameId: 315372,
+    // geonameId: 315372,
   },
   {
     id: 3503,
@@ -66556,7 +66556,7 @@ const divisions = [
       fr: 'Erzurum',
     }),
     denomination: 'province',
-    geonameId: 315367,
+    // geonameId: 315367,
   },
   {
     id: 3504,
@@ -66575,7 +66575,7 @@ const divisions = [
       fr: 'Eskişehir',
     }),
     denomination: 'province',
-    geonameId: 315201,
+    // geonameId: 315201,
   },
   {
     id: 3505,
@@ -66594,7 +66594,7 @@ const divisions = [
       fr: 'Gaziantep',
     }),
     denomination: 'province',
-    geonameId: 314829,
+    // geonameId: 314829,
   },
   {
     id: 3506,
@@ -66613,7 +66613,7 @@ const divisions = [
       fr: 'Giresun',
     }),
     denomination: 'province',
-    geonameId: 746878,
+    // geonameId: 746878,
   },
   {
     id: 3507,
@@ -66632,7 +66632,7 @@ const divisions = [
       fr: 'Gümüşhane',
     }),
     denomination: 'province',
-    geonameId: 746423,
+    // geonameId: 746423,
   },
   {
     id: 3508,
@@ -66651,7 +66651,7 @@ const divisions = [
       fr: 'Hakkâri',
     }),
     denomination: 'province',
-    geonameId: 312888,
+    // geonameId: 312888,
   },
   {
     id: 3509,
@@ -66670,7 +66670,7 @@ const divisions = [
       fr: 'Hatay',
     }),
     denomination: 'province',
-    geonameId: 312394,
+    // geonameId: 312394,
   },
   {
     id: 3510,
@@ -66689,7 +66689,7 @@ const divisions = [
       fr: 'Iğdır',
     }),
     denomination: 'province',
-    geonameId: 443184,
+    // geonameId: 443184,
   },
   {
     id: 3511,
@@ -66708,7 +66708,7 @@ const divisions = [
       fr: 'Isparta',
     }),
     denomination: 'province',
-    geonameId: 311071,
+    // geonameId: 311071,
   },
   {
     id: 3512,
@@ -66727,7 +66727,7 @@ const divisions = [
       fr: 'Istanbul',
     }),
     denomination: 'province',
-    geonameId: 745042,
+    // geonameId: 745042,
   },
   {
     id: 3513,
@@ -66746,7 +66746,7 @@ const divisions = [
       fr: 'Izmir',
     }),
     denomination: 'province',
-    geonameId: 311044,
+    // geonameId: 311044,
   },
   {
     id: 3514,
@@ -66765,7 +66765,7 @@ const divisions = [
       fr: 'Kahramanmaraş',
     }),
     denomination: 'province',
-    geonameId: 310858,
+    // geonameId: 310858,
   },
   {
     id: 3515,
@@ -66784,7 +66784,7 @@ const divisions = [
       fr: 'Karabük',
     }),
     denomination: 'province',
-    geonameId: 862468,
+    // geonameId: 862468,
   },
   {
     id: 3516,
@@ -66803,7 +66803,7 @@ const divisions = [
       fr: 'Karaman',
     }),
     denomination: 'province',
-    geonameId: 443187,
+    // geonameId: 443187,
   },
   {
     id: 3517,
@@ -66822,7 +66822,7 @@ const divisions = [
       fr: 'Kars',
     }),
     denomination: 'province',
-    geonameId: 743942,
+    // geonameId: 743942,
   },
   {
     id: 3518,
@@ -66841,7 +66841,7 @@ const divisions = [
       fr: 'Kastamonu',
     }),
     denomination: 'province',
-    geonameId: 743881,
+    // geonameId: 743881,
   },
   {
     id: 3519,
@@ -66860,7 +66860,7 @@ const divisions = [
       fr: 'Kayseri',
     }),
     denomination: 'province',
-    geonameId: 308463,
+    // geonameId: 308463,
   },
   {
     id: 3520,
@@ -66879,7 +66879,7 @@ const divisions = [
       fr: 'Kilis',
     }),
     denomination: 'province',
-    geonameId: 443213,
+    // geonameId: 443213,
   },
   {
     id: 3521,
@@ -66898,7 +66898,7 @@ const divisions = [
       fr: 'Kırıkkale',
     }),
     denomination: 'province',
-    geonameId: 443188,
+    // geonameId: 443188,
   },
   {
     id: 3522,
@@ -66917,7 +66917,7 @@ const divisions = [
       fr: 'Kırklareli',
     }),
     denomination: 'province',
-    geonameId: 743165,
+    // geonameId: 743165,
   },
   {
     id: 3523,
@@ -66936,7 +66936,7 @@ const divisions = [
       fr: 'Kırşehir',
     }),
     denomination: 'province',
-    geonameId: 307513,
+    // geonameId: 307513,
   },
   {
     id: 3524,
@@ -66955,7 +66955,7 @@ const divisions = [
       fr: 'Kocaeli',
     }),
     denomination: 'province',
-    geonameId: 742865,
+    // geonameId: 742865,
   },
   {
     id: 3525,
@@ -66974,7 +66974,7 @@ const divisions = [
       fr: 'Konya',
     }),
     denomination: 'province',
-    geonameId: 306569,
+    // geonameId: 306569,
   },
   {
     id: 3526,
@@ -66993,7 +66993,7 @@ const divisions = [
       fr: 'Kütahya',
     }),
     denomination: 'province',
-    geonameId: 305267,
+    // geonameId: 305267,
   },
   {
     id: 3527,
@@ -67012,7 +67012,7 @@ const divisions = [
       fr: 'Malatya',
     }),
     denomination: 'province',
-    geonameId: 304919,
+    // geonameId: 304919,
   },
   {
     id: 3528,
@@ -67031,7 +67031,7 @@ const divisions = [
       fr: 'Manisa',
     }),
     denomination: 'province',
-    geonameId: 304825,
+    // geonameId: 304825,
   },
   {
     id: 3529,
@@ -67050,7 +67050,7 @@ const divisions = [
       fr: 'Mardin',
     }),
     denomination: 'province',
-    geonameId: 304794,
+    // geonameId: 304794,
   },
   {
     id: 3530,
@@ -67069,7 +67069,7 @@ const divisions = [
       fr: 'Mersin',
     }),
     denomination: 'province',
-    geonameId: 311728,
+    // geonameId: 311728,
   },
   {
     id: 3531,
@@ -67088,7 +67088,7 @@ const divisions = [
       fr: 'Muğla',
     }),
     denomination: 'province',
-    geonameId: 304183,
+    // geonameId: 304183,
   },
   {
     id: 3532,
@@ -67107,7 +67107,7 @@ const divisions = [
       fr: 'Muş',
     }),
     denomination: 'province',
-    geonameId: 304041,
+    // geonameId: 304041,
   },
   {
     id: 3533,
@@ -67126,7 +67126,7 @@ const divisions = [
       fr: 'Nevşehir',
     }),
     denomination: 'province',
-    geonameId: 303830,
+    // geonameId: 303830,
   },
   {
     id: 3534,
@@ -67145,7 +67145,7 @@ const divisions = [
       fr: 'Niğde',
     }),
     denomination: 'province',
-    geonameId: 303826,
+    // geonameId: 303826,
   },
   {
     id: 3535,
@@ -67164,7 +67164,7 @@ const divisions = [
       fr: 'Ordu',
     }),
     denomination: 'province',
-    geonameId: 741098,
+    // geonameId: 741098,
   },
   {
     id: 3536,
@@ -67183,7 +67183,7 @@ const divisions = [
       fr: 'Osmaniye',
     }),
     denomination: 'province',
-    geonameId: 443183,
+    // geonameId: 443183,
   },
   {
     id: 3537,
@@ -67202,7 +67202,7 @@ const divisions = [
       fr: 'Rize',
     }),
     denomination: 'province',
-    geonameId: 740481,
+    // geonameId: 740481,
   },
   {
     id: 3538,
@@ -67221,7 +67221,7 @@ const divisions = [
       fr: 'Sakarya',
     }),
     denomination: 'province',
-    geonameId: 740352,
+    // geonameId: 740352,
   },
   {
     id: 3539,
@@ -67240,7 +67240,7 @@ const divisions = [
       fr: 'Samsun',
     }),
     denomination: 'province',
-    geonameId: 740263,
+    // geonameId: 740263,
   },
   {
     id: 3540,
@@ -67259,7 +67259,7 @@ const divisions = [
       fr: 'Şanlıurfa',
     }),
     denomination: 'province',
-    geonameId: 298332,
+    // geonameId: 298332,
   },
   {
     id: 3541,
@@ -67278,7 +67278,7 @@ const divisions = [
       fr: 'Siirt',
     }),
     denomination: 'province',
-    geonameId: 300821,
+    // geonameId: 300821,
   },
   {
     id: 3542,
@@ -67297,7 +67297,7 @@ const divisions = [
       fr: 'Sinop',
     }),
     denomination: 'province',
-    geonameId: 739598,
+    // geonameId: 739598,
   },
   {
     id: 3543,
@@ -67316,7 +67316,7 @@ const divisions = [
       fr: 'Sivas',
     }),
     denomination: 'province',
-    geonameId: 300617,
+    // geonameId: 300617,
   },
   {
     id: 3544,
@@ -67335,7 +67335,7 @@ const divisions = [
       fr: 'Şırnak',
     }),
     denomination: 'province',
-    geonameId: 443189,
+    // geonameId: 443189,
   },
   {
     id: 3545,
@@ -67354,7 +67354,7 @@ const divisions = [
       fr: 'Tekirdağ',
     }),
     denomination: 'province',
-    geonameId: 738926,
+    // geonameId: 738926,
   },
   {
     id: 3546,
@@ -67373,7 +67373,7 @@ const divisions = [
       fr: 'Tokat',
     }),
     denomination: 'province',
-    geonameId: 738742,
+    // geonameId: 738742,
   },
   {
     id: 3547,
@@ -67392,7 +67392,7 @@ const divisions = [
       fr: 'Trabzon',
     }),
     denomination: 'province',
-    geonameId: 738647,
+    // geonameId: 738647,
   },
   {
     id: 3548,
@@ -67411,7 +67411,7 @@ const divisions = [
       fr: 'Tunceli',
     }),
     denomination: 'province',
-    geonameId: 298845,
+    // geonameId: 298845,
   },
   {
     id: 3549,
@@ -67430,7 +67430,7 @@ const divisions = [
       fr: 'Uşak',
     }),
     denomination: 'province',
-    geonameId: 298298,
+    // geonameId: 298298,
   },
   {
     id: 3550,
@@ -67449,7 +67449,7 @@ const divisions = [
       fr: 'Van',
     }),
     denomination: 'province',
-    geonameId: 298113,
+    // geonameId: 298113,
   },
   {
     id: 3551,
@@ -67468,7 +67468,7 @@ const divisions = [
       fr: 'Yalova',
     }),
     denomination: 'province',
-    geonameId: 862469,
+    // geonameId: 862469,
   },
   {
     id: 3552,
@@ -67487,7 +67487,7 @@ const divisions = [
       fr: 'Yozgat',
     }),
     denomination: 'province',
-    geonameId: 296560,
+    // geonameId: 296560,
   },
   {
     id: 3553,
@@ -67506,7 +67506,7 @@ const divisions = [
       fr: 'Zonguldak',
     }),
     denomination: 'province',
-    geonameId: 737021,
+    // geonameId: 737021,
   },
   {
     id: 3554,
@@ -67525,7 +67525,7 @@ const divisions = [
       fr: 'Ahal',
     }),
     denomination: 'region',
-    geonameId: 162181,
+    // geonameId: 162181,
   },
   {
     id: 3555,
@@ -67544,7 +67544,7 @@ const divisions = [
       fr: 'Achgabat',
     }),
     denomination: 'capital_city',
-    geonameId: 162182,
+    // geonameId: 162182,
   },
   {
     id: 3556,
@@ -67563,7 +67563,7 @@ const divisions = [
       fr: 'Balkan',
     }),
     denomination: 'region',
-    geonameId: 162152,
+    // geonameId: 162152,
   },
   {
     id: 3557,
@@ -67582,7 +67582,7 @@ const divisions = [
       fr: 'Daşoguz',
     }),
     denomination: 'region',
-    geonameId: 601465,
+    // geonameId: 601465,
   },
   {
     id: 3558,
@@ -67601,7 +67601,7 @@ const divisions = [
       fr: 'Lebap',
     }),
     denomination: 'region',
-    geonameId: 1219651,
+    // geonameId: 1219651,
   },
   {
     id: 3559,
@@ -67620,7 +67620,7 @@ const divisions = [
       fr: 'Mary',
     }),
     denomination: 'region',
-    geonameId: 1218666,
+    // geonameId: 1218666,
   },
   {
     id: 3560,
@@ -67639,7 +67639,7 @@ const divisions = [
       fr: 'Funafuti',
     }),
     denomination: 'atoll',
-    geonameId: 2110384,
+    // geonameId: 2110384,
   },
   {
     id: 3561,
@@ -67658,7 +67658,7 @@ const divisions = [
       fr: 'Nanumanga',
     }),
     denomination: 'island',
-    geonameId: 7601980,
+    // geonameId: 7601980,
   },
   {
     id: 3562,
@@ -67677,7 +67677,7 @@ const divisions = [
       fr: 'Nanumea',
     }),
     denomination: 'island',
-    geonameId: 2110345,
+    // geonameId: 2110345,
   },
   {
     id: 3563,
@@ -67696,7 +67696,7 @@ const divisions = [
       fr: 'Niutao',
     }),
     denomination: 'island',
-    geonameId: 7601979,
+    // geonameId: 7601979,
   },
   {
     id: 3564,
@@ -67715,7 +67715,7 @@ const divisions = [
       fr: 'Nui',
     }),
     denomination: 'island',
-    geonameId: 2110341,
+    // geonameId: 2110341,
   },
   {
     id: 3565,
@@ -67734,7 +67734,7 @@ const divisions = [
       fr: 'Nukufetau',
     }),
     denomination: 'atoll',
-    geonameId: 7601982,
+    // geonameId: 7601982,
   },
   {
     id: 3566,
@@ -67753,7 +67753,7 @@ const divisions = [
       fr: 'Nukulaelae',
     }),
     denomination: 'atoll',
-    geonameId: 7601983,
+    // geonameId: 7601983,
   },
   {
     id: 3567,
@@ -67772,7 +67772,7 @@ const divisions = [
       fr: 'Vaitupu',
     }),
     denomination: 'island',
-    geonameId: 7601981,
+    // geonameId: 7601981,
   },
   {
     id: 3568,
@@ -67791,7 +67791,7 @@ const divisions = [
       fr: 'Île Baker',
     }),
     denomination: 'island',
-    geonameId: 5854907,
+    // geonameId: 5854907,
   },
   {
     id: 3569,
@@ -67810,7 +67810,7 @@ const divisions = [
       fr: 'Île Howland',
     }),
     denomination: 'island',
-    geonameId: 5854922,
+    // geonameId: 5854922,
   },
   {
     id: 3570,
@@ -67829,7 +67829,7 @@ const divisions = [
       fr: 'Île Jarvis',
     }),
     denomination: 'island',
-    geonameId: 5854926,
+    // geonameId: 5854926,
   },
   {
     id: 3571,
@@ -67848,7 +67848,7 @@ const divisions = [
       fr: 'Atoll Johnston',
     }),
     denomination: 'atoll',
-    geonameId: 5854929,
+    // geonameId: 5854929,
   },
   {
     id: 3572,
@@ -67867,7 +67867,7 @@ const divisions = [
       fr: 'Récif Kingman',
     }),
     denomination: 'reef',
-    geonameId: 5854936,
+    // geonameId: 5854936,
   },
   {
     id: 3573,
@@ -67886,7 +67886,7 @@ const divisions = [
       fr: 'Îles Midway',
     }),
     denomination: 'islands',
-    geonameId: 5854943,
+    // geonameId: 5854943,
   },
   {
     id: 3574,
@@ -67905,7 +67905,7 @@ const divisions = [
       fr: 'Île Navassa',
     }),
     denomination: 'island',
-    geonameId: 4743755,
+    // geonameId: 4743755,
   },
   {
     id: 3575,
@@ -67924,7 +67924,7 @@ const divisions = [
       fr: 'Atoll Palmyra',
     }),
     denomination: 'atoll',
-    geonameId: 5854952,
+    // geonameId: 5854952,
   },
   {
     id: 3576,
@@ -67943,7 +67943,7 @@ const divisions = [
       fr: 'Île Wake',
     }),
     denomination: 'island',
-    geonameId: 4041685,
+    // geonameId: 4041685,
   },
   {
     id: 3577,
@@ -67962,7 +67962,7 @@ const divisions = [
       fr: 'Saint-Croix',
     }),
     denomination: 'island',
-    geonameId: 7267902,
+    // geonameId: 7267902,
   },
   {
     id: 3578,
@@ -67981,7 +67981,7 @@ const divisions = [
       fr: 'Saint-Jean',
     }),
     denomination: 'island',
-    geonameId: 7267903,
+    // geonameId: 7267903,
   },
   {
     id: 3579,
@@ -68000,7 +68000,7 @@ const divisions = [
       fr: 'Saint-Thomas',
     }),
     denomination: 'island',
-    geonameId: 7267904,
+    // geonameId: 7267904,
   },
   {
     id: 3580,
@@ -68019,7 +68019,7 @@ const divisions = [
       fr: 'Central',
     }),
     denomination: 'region',
-    geonameId: 234594,
+    // geonameId: 234594,
   },
   {
     id: 3581,
@@ -68038,7 +68038,7 @@ const divisions = [
       fr: 'Oriental',
     }),
     denomination: 'region',
-    geonameId: 8260673,
+    // geonameId: 8260673,
   },
   {
     id: 3582,
@@ -68057,7 +68057,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'region',
-    geonameId: 8260674,
+    // geonameId: 8260674,
   },
   {
     id: 3583,
@@ -68076,7 +68076,7 @@ const divisions = [
       fr: 'Occidental',
     }),
     denomination: 'region',
-    geonameId: 8260675,
+    // geonameId: 8260675,
   },
   {
     id: 3584,
@@ -68095,7 +68095,7 @@ const divisions = [
       fr: 'Tcherkassy',
     }),
     denomination: 'oblast',
-    geonameId: 710802,
+    // geonameId: 710802,
   },
   {
     id: 3585,
@@ -68114,7 +68114,7 @@ const divisions = [
       fr: 'Tchernihiv',
     }),
     denomination: 'oblast',
-    geonameId: 710734,
+    // geonameId: 710734,
   },
   {
     id: 3586,
@@ -68133,7 +68133,7 @@ const divisions = [
       fr: 'Tchernivtsi',
     }),
     denomination: 'oblast',
-    geonameId: 710720,
+    // geonameId: 710720,
   },
   {
     id: 3587,
@@ -68152,7 +68152,7 @@ const divisions = [
       fr: 'Crimée',
     }),
     denomination: 'autonomous_republic',
-    geonameId: 703883,
+    // geonameId: 703883,
   },
   {
     id: 3588,
@@ -68171,7 +68171,7 @@ const divisions = [
       fr: 'Dnipropetrovsk',
     }),
     denomination: 'oblast',
-    geonameId: 709929,
+    // geonameId: 709929,
   },
   {
     id: 3589,
@@ -68190,7 +68190,7 @@ const divisions = [
       fr: 'Donetsk',
     }),
     denomination: 'oblast',
-    geonameId: 709716,
+    // geonameId: 709716,
   },
   {
     id: 3590,
@@ -68209,7 +68209,7 @@ const divisions = [
       fr: 'Ivano-Frankivsk',
     }),
     denomination: 'oblast',
-    geonameId: 707470,
+    // geonameId: 707470,
   },
   {
     id: 3591,
@@ -68228,7 +68228,7 @@ const divisions = [
       fr: 'Kharkiv',
     }),
     denomination: 'oblast',
-    geonameId: 706482,
+    // geonameId: 706482,
   },
   {
     id: 3592,
@@ -68247,7 +68247,7 @@ const divisions = [
       fr: 'Kherson',
     }),
     denomination: 'oblast',
-    geonameId: 706442,
+    // geonameId: 706442,
   },
   {
     id: 3593,
@@ -68266,7 +68266,7 @@ const divisions = [
       fr: 'Khmelnytskyi',
     }),
     denomination: 'oblast',
-    geonameId: 706370,
+    // geonameId: 706370,
   },
   {
     id: 3594,
@@ -68285,7 +68285,7 @@ const divisions = [
       fr: 'Kirovohrad',
     }),
     denomination: 'oblast',
-    geonameId: 705811,
+    // geonameId: 705811,
   },
   {
     id: 3595,
@@ -68304,7 +68304,7 @@ const divisions = [
       fr: 'Kyiv',
     }),
     denomination: 'oblast',
-    geonameId: 703446,
+    // geonameId: 703446,
   },
   {
     id: 3596,
@@ -68323,7 +68323,7 @@ const divisions = [
       fr: 'Kyiv',
     }),
     denomination: 'city',
-    geonameId: 703447,
+    // geonameId: 703447,
   },
   {
     id: 3597,
@@ -68342,7 +68342,7 @@ const divisions = [
       fr: 'Lougansk',
     }),
     denomination: 'oblast',
-    geonameId: 702657,
+    // geonameId: 702657,
   },
   {
     id: 3598,
@@ -68361,7 +68361,7 @@ const divisions = [
       fr: 'Lviv',
     }),
     denomination: 'oblast',
-    geonameId: 702549,
+    // geonameId: 702549,
   },
   {
     id: 3599,
@@ -68380,7 +68380,7 @@ const divisions = [
       fr: 'Mykolaïv',
     }),
     denomination: 'oblast',
-    geonameId: 700567,
+    // geonameId: 700567,
   },
   {
     id: 3600,
@@ -68399,7 +68399,7 @@ const divisions = [
       fr: 'Odessa',
     }),
     denomination: 'oblast',
-    geonameId: 698738,
+    // geonameId: 698738,
   },
   {
     id: 3601,
@@ -68418,7 +68418,7 @@ const divisions = [
       fr: 'Poltava',
     }),
     denomination: 'oblast',
-    geonameId: 696634,
+    // geonameId: 696634,
   },
   {
     id: 3602,
@@ -68437,7 +68437,7 @@ const divisions = [
       fr: 'Rivne',
     }),
     denomination: 'oblast',
-    geonameId: 695592,
+    // geonameId: 695592,
   },
   {
     id: 3603,
@@ -68456,7 +68456,7 @@ const divisions = [
       fr: 'Sébastopol',
     }),
     denomination: 'city',
-    geonameId: 694422,
+    // geonameId: 694422,
   },
   {
     id: 3604,
@@ -68475,7 +68475,7 @@ const divisions = [
       fr: 'Soumy',
     }),
     denomination: 'oblast',
-    geonameId: 692196,
+    // geonameId: 692196,
   },
   {
     id: 3605,
@@ -68494,7 +68494,7 @@ const divisions = [
       fr: 'Ternopil',
     }),
     denomination: 'oblast',
-    geonameId: 691649,
+    // geonameId: 691649,
   },
   {
     id: 3606,
@@ -68513,7 +68513,7 @@ const divisions = [
       fr: 'Vinnytsia',
     }),
     denomination: 'oblast',
-    geonameId: 689559,
+    // geonameId: 689559,
   },
   {
     id: 3607,
@@ -68532,7 +68532,7 @@ const divisions = [
       fr: 'Volhynie',
     }),
     denomination: 'oblast',
-    geonameId: 689064,
+    // geonameId: 689064,
   },
   {
     id: 3608,
@@ -68551,7 +68551,7 @@ const divisions = [
       fr: 'Transcarpatie',
     }),
     denomination: 'oblast',
-    geonameId: 687869,
+    // geonameId: 687869,
   },
   {
     id: 3609,
@@ -68570,7 +68570,7 @@ const divisions = [
       fr: 'Zaporijia',
     }),
     denomination: 'oblast',
-    geonameId: 687699,
+    // geonameId: 687699,
   },
   {
     id: 3610,
@@ -68589,7 +68589,7 @@ const divisions = [
       fr: 'Jytomyr',
     }),
     denomination: 'oblast',
-    geonameId: 686966,
+    // geonameId: 686966,
   },
   {
     id: 3611,
@@ -68608,7 +68608,7 @@ const divisions = [
       fr: 'Abou Dabi',
     }),
     denomination: 'emirate',
-    geonameId: 292969,
+    // geonameId: 292969,
   },
   {
     id: 3612,
@@ -68627,7 +68627,7 @@ const divisions = [
       fr: 'Ajman',
     }),
     denomination: 'emirate',
-    geonameId: 292933,
+    // geonameId: 292933,
   },
   {
     id: 3613,
@@ -68646,7 +68646,7 @@ const divisions = [
       fr: 'Dubaï',
     }),
     denomination: 'emirate',
-    geonameId: 292224,
+    // geonameId: 292224,
   },
   {
     id: 3614,
@@ -68665,7 +68665,7 @@ const divisions = [
       fr: 'Fujaïrah',
     }),
     denomination: 'emirate',
-    geonameId: 292879,
+    // geonameId: 292879,
   },
   {
     id: 3615,
@@ -68684,7 +68684,7 @@ const divisions = [
       fr: 'Ras el Khaïmah',
     }),
     denomination: 'emirate',
-    geonameId: 291075,
+    // geonameId: 291075,
   },
   {
     id: 3616,
@@ -68703,7 +68703,7 @@ const divisions = [
       fr: 'Oumm al Qaïwaïn',
     }),
     denomination: 'emirate',
-    geonameId: 290595,
+    // geonameId: 290595,
   },
   {
     id: 3617,
@@ -68722,7 +68722,7 @@ const divisions = [
       fr: 'Charjah',
     }),
     denomination: 'emirate',
-    geonameId: 292673,
+    // geonameId: 292673,
   },
   {
     id: 3618,
@@ -68741,7 +68741,7 @@ const divisions = [
       fr: 'Angleterre',
     }),
     denomination: 'country',
-    geonameId: 6269131,
+    // geonameId: 6269131,
   },
   {
     id: 3619,
@@ -68760,7 +68760,7 @@ const divisions = [
       fr: 'Irlande du Nord',
     }),
     denomination: 'country',
-    geonameId: 2641364,
+    // geonameId: 2641364,
   },
   {
     id: 3620,
@@ -68779,7 +68779,7 @@ const divisions = [
       fr: 'Écosse',
     }),
     denomination: 'country',
-    geonameId: 2638360,
+    // geonameId: 2638360,
   },
   {
     id: 3621,
@@ -68798,7 +68798,7 @@ const divisions = [
       fr: 'Pays de Galles',
     }),
     denomination: 'country',
-    geonameId: 2634895,
+    // geonameId: 2634895,
   },
   {
     id: 3622,
@@ -68817,7 +68817,7 @@ const divisions = [
       fr: 'Alabama',
     }),
     denomination: 'state',
-    geonameId: 4829764,
+    // geonameId: 4829764,
   },
   {
     id: 3623,
@@ -68836,7 +68836,7 @@ const divisions = [
       fr: 'Alaska',
     }),
     denomination: 'state',
-    geonameId: 5879092,
+    // geonameId: 5879092,
   },
   {
     id: 3624,
@@ -68855,7 +68855,7 @@ const divisions = [
       fr: 'Arizona',
     }),
     denomination: 'state',
-    geonameId: 5551752,
+    // geonameId: 5551752,
   },
   {
     id: 3625,
@@ -68874,7 +68874,7 @@ const divisions = [
       fr: 'Arkansas',
     }),
     denomination: 'state',
-    geonameId: 4099753,
+    // geonameId: 4099753,
   },
   {
     id: 3626,
@@ -68893,7 +68893,7 @@ const divisions = [
       fr: 'Californie',
     }),
     denomination: 'state',
-    geonameId: 5332921,
+    // geonameId: 5332921,
   },
   {
     id: 3627,
@@ -68912,7 +68912,7 @@ const divisions = [
       fr: 'Colorado',
     }),
     denomination: 'state',
-    geonameId: 5417618,
+    // geonameId: 5417618,
   },
   {
     id: 3628,
@@ -68931,7 +68931,7 @@ const divisions = [
       fr: 'Connecticut',
     }),
     denomination: 'state',
-    geonameId: 4831725,
+    // geonameId: 4831725,
   },
   {
     id: 3629,
@@ -68950,7 +68950,7 @@ const divisions = [
       fr: 'Delaware',
     }),
     denomination: 'state',
-    geonameId: 4142224,
+    // geonameId: 4142224,
   },
   {
     id: 3630,
@@ -68969,7 +68969,7 @@ const divisions = [
       fr: 'District de Columbia',
     }),
     denomination: 'district',
-    geonameId: 4138106,
+    // geonameId: 4138106,
   },
   {
     id: 3631,
@@ -68988,7 +68988,7 @@ const divisions = [
       fr: 'Floride',
     }),
     denomination: 'state',
-    geonameId: 4155751,
+    // geonameId: 4155751,
   },
   {
     id: 3632,
@@ -69007,7 +69007,7 @@ const divisions = [
       fr: 'Géorgie',
     }),
     denomination: 'state',
-    geonameId: 4197000,
+    // geonameId: 4197000,
   },
   {
     id: 3633,
@@ -69026,7 +69026,7 @@ const divisions = [
       fr: 'Hawaï',
     }),
     denomination: 'state',
-    geonameId: 5855797,
+    // geonameId: 5855797,
   },
   {
     id: 3634,
@@ -69045,7 +69045,7 @@ const divisions = [
       fr: 'Idaho',
     }),
     denomination: 'state',
-    geonameId: 5596512,
+    // geonameId: 5596512,
   },
   {
     id: 3635,
@@ -69064,7 +69064,7 @@ const divisions = [
       fr: 'Illinois',
     }),
     denomination: 'state',
-    geonameId: 4896861,
+    // geonameId: 4896861,
   },
   {
     id: 3636,
@@ -69083,7 +69083,7 @@ const divisions = [
       fr: 'Indiana',
     }),
     denomination: 'state',
-    geonameId: 4921868,
+    // geonameId: 4921868,
   },
   {
     id: 3637,
@@ -69102,7 +69102,7 @@ const divisions = [
       fr: 'Iowa',
     }),
     denomination: 'state',
-    geonameId: 4862182,
+    // geonameId: 4862182,
   },
   {
     id: 3638,
@@ -69121,7 +69121,7 @@ const divisions = [
       fr: 'Kansas',
     }),
     denomination: 'state',
-    geonameId: 4273857,
+    // geonameId: 4273857,
   },
   {
     id: 3639,
@@ -69140,7 +69140,7 @@ const divisions = [
       fr: 'Kentucky',
     }),
     denomination: 'state',
-    geonameId: 6254925,
+    // geonameId: 6254925,
   },
   {
     id: 3640,
@@ -69159,7 +69159,7 @@ const divisions = [
       fr: 'Louisiane',
     }),
     denomination: 'state',
-    geonameId: 4331987,
+    // geonameId: 4331987,
   },
   {
     id: 3641,
@@ -69178,7 +69178,7 @@ const divisions = [
       fr: 'Maine',
     }),
     denomination: 'state',
-    geonameId: 4971068,
+    // geonameId: 4971068,
   },
   {
     id: 3642,
@@ -69197,7 +69197,7 @@ const divisions = [
       fr: 'Maryland',
     }),
     denomination: 'state',
-    geonameId: 4361885,
+    // geonameId: 4361885,
   },
   {
     id: 3643,
@@ -69216,7 +69216,7 @@ const divisions = [
       fr: 'Massachusetts',
     }),
     denomination: 'state',
-    geonameId: 6254926,
+    // geonameId: 6254926,
   },
   {
     id: 3644,
@@ -69235,7 +69235,7 @@ const divisions = [
       fr: 'Michigan',
     }),
     denomination: 'state',
-    geonameId: 5001836,
+    // geonameId: 5001836,
   },
   {
     id: 3645,
@@ -69254,7 +69254,7 @@ const divisions = [
       fr: 'Minnesota',
     }),
     denomination: 'state',
-    geonameId: 5037779,
+    // geonameId: 5037779,
   },
   {
     id: 3646,
@@ -69273,7 +69273,7 @@ const divisions = [
       fr: 'Mississippi',
     }),
     denomination: 'state',
-    geonameId: 4436296,
+    // geonameId: 4436296,
   },
   {
     id: 3647,
@@ -69292,7 +69292,7 @@ const divisions = [
       fr: 'Missouri',
     }),
     denomination: 'state',
-    geonameId: 4398678,
+    // geonameId: 4398678,
   },
   {
     id: 3648,
@@ -69311,7 +69311,7 @@ const divisions = [
       fr: 'Montana',
     }),
     denomination: 'state',
-    geonameId: 5667009,
+    // geonameId: 5667009,
   },
   {
     id: 3649,
@@ -69330,7 +69330,7 @@ const divisions = [
       fr: 'Nebraska',
     }),
     denomination: 'state',
-    geonameId: 5073708,
+    // geonameId: 5073708,
   },
   {
     id: 3650,
@@ -69349,7 +69349,7 @@ const divisions = [
       fr: 'Nevada',
     }),
     denomination: 'state',
-    geonameId: 5509151,
+    // geonameId: 5509151,
   },
   {
     id: 3651,
@@ -69368,7 +69368,7 @@ const divisions = [
       fr: 'New Hampshire',
     }),
     denomination: 'state',
-    geonameId: 5090174,
+    // geonameId: 5090174,
   },
   {
     id: 3652,
@@ -69387,7 +69387,7 @@ const divisions = [
       fr: 'New Jersey',
     }),
     denomination: 'state',
-    geonameId: 5101760,
+    // geonameId: 5101760,
   },
   {
     id: 3653,
@@ -69406,7 +69406,7 @@ const divisions = [
       fr: 'Nouveau-Mexique',
     }),
     denomination: 'state',
-    geonameId: 5481136,
+    // geonameId: 5481136,
   },
   {
     id: 3654,
@@ -69425,7 +69425,7 @@ const divisions = [
       fr: 'New York',
     }),
     denomination: 'state',
-    geonameId: 5128638,
+    // geonameId: 5128638,
   },
   {
     id: 3655,
@@ -69444,7 +69444,7 @@ const divisions = [
       fr: 'Caroline du Nord',
     }),
     denomination: 'state',
-    geonameId: 4482348,
+    // geonameId: 4482348,
   },
   {
     id: 3656,
@@ -69463,7 +69463,7 @@ const divisions = [
       fr: 'Dakota du Nord',
     }),
     denomination: 'state',
-    geonameId: 5690763,
+    // geonameId: 5690763,
   },
   {
     id: 3657,
@@ -69482,7 +69482,7 @@ const divisions = [
       fr: 'Ohio',
     }),
     denomination: 'state',
-    geonameId: 5165418,
+    // geonameId: 5165418,
   },
   {
     id: 3658,
@@ -69501,7 +69501,7 @@ const divisions = [
       fr: 'Oklahoma',
     }),
     denomination: 'state',
-    geonameId: 4544379,
+    // geonameId: 4544379,
   },
   {
     id: 3659,
@@ -69520,7 +69520,7 @@ const divisions = [
       fr: 'Oregon',
     }),
     denomination: 'state',
-    geonameId: 5744337,
+    // geonameId: 5744337,
   },
   {
     id: 3660,
@@ -69539,7 +69539,7 @@ const divisions = [
       fr: 'Pennsylvanie',
     }),
     denomination: 'state',
-    geonameId: 6254927,
+    // geonameId: 6254927,
   },
   {
     id: 3661,
@@ -69558,7 +69558,7 @@ const divisions = [
       fr: 'Rhode Island',
     }),
     denomination: 'state',
-    geonameId: 5224323,
+    // geonameId: 5224323,
   },
   {
     id: 3662,
@@ -69577,7 +69577,7 @@ const divisions = [
       fr: 'Caroline du Sud',
     }),
     denomination: 'state',
-    geonameId: 4597040,
+    // geonameId: 4597040,
   },
   {
     id: 3663,
@@ -69596,7 +69596,7 @@ const divisions = [
       fr: 'Dakota du Sud',
     }),
     denomination: 'state',
-    geonameId: 5769223,
+    // geonameId: 5769223,
   },
   {
     id: 3664,
@@ -69615,7 +69615,7 @@ const divisions = [
       fr: 'Tennessee',
     }),
     denomination: 'state',
-    geonameId: 4662168,
+    // geonameId: 4662168,
   },
   {
     id: 3665,
@@ -69634,7 +69634,7 @@ const divisions = [
       fr: 'Texas',
     }),
     denomination: 'state',
-    geonameId: 4736286,
+    // geonameId: 4736286,
   },
   {
     id: 3666,
@@ -69653,7 +69653,7 @@ const divisions = [
       fr: 'Utah',
     }),
     denomination: 'state',
-    geonameId: 5549030,
+    // geonameId: 5549030,
   },
   {
     id: 3667,
@@ -69672,7 +69672,7 @@ const divisions = [
       fr: 'Vermont',
     }),
     denomination: 'state',
-    geonameId: 5242283,
+    // geonameId: 5242283,
   },
   {
     id: 3668,
@@ -69691,7 +69691,7 @@ const divisions = [
       fr: 'Virginie',
     }),
     denomination: 'state',
-    geonameId: 6254928,
+    // geonameId: 6254928,
   },
   {
     id: 3669,
@@ -69710,7 +69710,7 @@ const divisions = [
       fr: 'Washington',
     }),
     denomination: 'state',
-    geonameId: 5815135,
+    // geonameId: 5815135,
   },
   {
     id: 3670,
@@ -69729,7 +69729,7 @@ const divisions = [
       fr: 'Virginie-Occidentale',
     }),
     denomination: 'state',
-    geonameId: 4826850,
+    // geonameId: 4826850,
   },
   {
     id: 3671,
@@ -69748,7 +69748,7 @@ const divisions = [
       fr: 'Wisconsin',
     }),
     denomination: 'state',
-    geonameId: 5279468,
+    // geonameId: 5279468,
   },
   {
     id: 3672,
@@ -69767,7 +69767,7 @@ const divisions = [
       fr: 'Wyoming',
     }),
     denomination: 'state',
-    geonameId: 5843591,
+    // geonameId: 5843591,
   },
   {
     id: 3673,
@@ -69786,7 +69786,7 @@ const divisions = [
       fr: 'Artigas',
     }),
     denomination: 'department',
-    geonameId: 3443756,
+    // geonameId: 3443756,
   },
   {
     id: 3674,
@@ -69805,7 +69805,7 @@ const divisions = [
       fr: 'Canelones',
     }),
     denomination: 'department',
-    geonameId: 3443411,
+    // geonameId: 3443411,
   },
   {
     id: 3675,
@@ -69824,7 +69824,7 @@ const divisions = [
       fr: 'Cerro Largo',
     }),
     denomination: 'department',
-    geonameId: 3443173,
+    // geonameId: 3443173,
   },
   {
     id: 3676,
@@ -69843,7 +69843,7 @@ const divisions = [
       fr: 'Colonia',
     }),
     denomination: 'department',
-    geonameId: 3443025,
+    // geonameId: 3443025,
   },
   {
     id: 3677,
@@ -69862,7 +69862,7 @@ const divisions = [
       fr: 'Durazno',
     }),
     denomination: 'department',
-    geonameId: 3442720,
+    // geonameId: 3442720,
   },
   {
     id: 3678,
@@ -69881,7 +69881,7 @@ const divisions = [
       fr: 'Flores',
     }),
     denomination: 'department',
-    geonameId: 3442587,
+    // geonameId: 3442587,
   },
   {
     id: 3679,
@@ -69900,7 +69900,7 @@ const divisions = [
       fr: 'Florida',
     }),
     denomination: 'department',
-    geonameId: 3442584,
+    // geonameId: 3442584,
   },
   {
     id: 3680,
@@ -69919,7 +69919,7 @@ const divisions = [
       fr: 'Lavalleja',
     }),
     denomination: 'department',
-    geonameId: 3442007,
+    // geonameId: 3442007,
   },
   {
     id: 3681,
@@ -69938,7 +69938,7 @@ const divisions = [
       fr: 'Maldonado',
     }),
     denomination: 'department',
-    geonameId: 3441890,
+    // geonameId: 3441890,
   },
   {
     id: 3682,
@@ -69957,7 +69957,7 @@ const divisions = [
       fr: 'Montevideo',
     }),
     denomination: 'department',
-    geonameId: 3441572,
+    // geonameId: 3441572,
   },
   {
     id: 3683,
@@ -69976,7 +69976,7 @@ const divisions = [
       fr: 'Paysandú',
     }),
     denomination: 'department',
-    geonameId: 3441242,
+    // geonameId: 3441242,
   },
   {
     id: 3684,
@@ -69995,7 +69995,7 @@ const divisions = [
       fr: 'Río Negro',
     }),
     denomination: 'department',
-    geonameId: 3440789,
+    // geonameId: 3440789,
   },
   {
     id: 3685,
@@ -70014,7 +70014,7 @@ const divisions = [
       fr: 'Rivera',
     }),
     denomination: 'department',
-    geonameId: 3440780,
+    // geonameId: 3440780,
   },
   {
     id: 3686,
@@ -70033,7 +70033,7 @@ const divisions = [
       fr: 'Rocha',
     }),
     denomination: 'department',
-    geonameId: 3440771,
+    // geonameId: 3440771,
   },
   {
     id: 3687,
@@ -70052,7 +70052,7 @@ const divisions = [
       fr: 'Salto',
     }),
     denomination: 'department',
-    geonameId: 3440711,
+    // geonameId: 3440711,
   },
   {
     id: 3688,
@@ -70071,7 +70071,7 @@ const divisions = [
       fr: 'San José',
     }),
     denomination: 'department',
-    geonameId: 3440645,
+    // geonameId: 3440645,
   },
   {
     id: 3689,
@@ -70090,7 +70090,7 @@ const divisions = [
       fr: 'Soriano',
     }),
     denomination: 'department',
-    geonameId: 3440054,
+    // geonameId: 3440054,
   },
   {
     id: 3690,
@@ -70109,7 +70109,7 @@ const divisions = [
       fr: 'Tacuarembó',
     }),
     denomination: 'department',
-    geonameId: 3440033,
+    // geonameId: 3440033,
   },
   {
     id: 3691,
@@ -70128,7 +70128,7 @@ const divisions = [
       fr: 'Treinta y Tres',
     }),
     denomination: 'department',
-    geonameId: 3439780,
+    // geonameId: 3439780,
   },
   {
     id: 3692,
@@ -70147,7 +70147,7 @@ const divisions = [
       fr: 'Andijan',
     }),
     denomination: 'region',
-    geonameId: 1484846,
+    // geonameId: 1484846,
   },
   {
     id: 3693,
@@ -70166,7 +70166,7 @@ const divisions = [
       fr: 'Boukhara',
     }),
     denomination: 'region',
-    geonameId: 1114929,
+    // geonameId: 1114929,
   },
   {
     id: 3694,
@@ -70185,7 +70185,7 @@ const divisions = [
       fr: 'Fergana',
     }),
     denomination: 'region',
-    geonameId: 1484845,
+    // geonameId: 1484845,
   },
   {
     id: 3695,
@@ -70204,7 +70204,7 @@ const divisions = [
       fr: 'Djizak',
     }),
     denomination: 'region',
-    geonameId: 1484844,
+    // geonameId: 1484844,
   },
   {
     id: 3696,
@@ -70223,7 +70223,7 @@ const divisions = [
       fr: 'Karakalpakstan',
     }),
     denomination: 'republic',
-    geonameId: 453752,
+    // geonameId: 453752,
   },
   {
     id: 3697,
@@ -70242,7 +70242,7 @@ const divisions = [
       fr: 'Namangan',
     }),
     denomination: 'region',
-    geonameId: 1484842,
+    // geonameId: 1484842,
   },
   {
     id: 3698,
@@ -70261,7 +70261,7 @@ const divisions = [
       fr: 'Navoi',
     }),
     denomination: 'region',
-    geonameId: 1484841,
+    // geonameId: 1484841,
   },
   {
     id: 3699,
@@ -70280,7 +70280,7 @@ const divisions = [
       fr: 'Kachkadaria',
     }),
     denomination: 'region',
-    geonameId: 1114928,
+    // geonameId: 1114928,
   },
   {
     id: 3700,
@@ -70299,7 +70299,7 @@ const divisions = [
       fr: 'Samarcande',
     }),
     denomination: 'region',
-    geonameId: 1114927,
+    // geonameId: 1114927,
   },
   {
     id: 3701,
@@ -70318,7 +70318,7 @@ const divisions = [
       fr: 'Syr-Daria',
     }),
     denomination: 'region',
-    geonameId: 1484840,
+    // geonameId: 1484840,
   },
   {
     id: 3702,
@@ -70337,7 +70337,7 @@ const divisions = [
       fr: 'Surkhan-Daria',
     }),
     denomination: 'region',
-    geonameId: 1114926,
+    // geonameId: 1114926,
   },
   {
     id: 3703,
@@ -70356,7 +70356,7 @@ const divisions = [
       fr: 'Tachkent',
     }),
     denomination: 'city',
-    geonameId: 1484839,
+    // geonameId: 1484839,
   },
   {
     id: 3704,
@@ -70375,7 +70375,7 @@ const divisions = [
       fr: 'Tachkent',
     }),
     denomination: 'region',
-    geonameId: 1484838,
+    // geonameId: 1484838,
   },
   {
     id: 3705,
@@ -70394,7 +70394,7 @@ const divisions = [
       fr: 'Khorezm',
     }),
     denomination: 'region',
-    geonameId: 1484843,
+    // geonameId: 1484843,
   },
   {
     id: 3706,
@@ -70413,7 +70413,7 @@ const divisions = [
       fr: 'Malampa',
     }),
     denomination: 'province',
-    geonameId: 2208265,
+    // geonameId: 2208265,
   },
   {
     id: 3707,
@@ -70432,7 +70432,7 @@ const divisions = [
       fr: 'Penama',
     }),
     denomination: 'province',
-    geonameId: 2208266,
+    // geonameId: 2208266,
   },
   {
     id: 3708,
@@ -70451,7 +70451,7 @@ const divisions = [
       fr: 'Sanma',
     }),
     denomination: 'province',
-    geonameId: 2134898,
+    // geonameId: 2134898,
   },
   {
     id: 3709,
@@ -70470,7 +70470,7 @@ const divisions = [
       fr: 'Shefa',
     }),
     denomination: 'province',
-    geonameId: 2208267,
+    // geonameId: 2208267,
   },
   {
     id: 3710,
@@ -70489,7 +70489,7 @@ const divisions = [
       fr: 'Tafea',
     }),
     denomination: 'province',
-    geonameId: 2134739,
+    // geonameId: 2134739,
   },
   {
     id: 3711,
@@ -70508,7 +70508,7 @@ const divisions = [
       fr: 'Torba',
     }),
     denomination: 'province',
-    geonameId: 2137421,
+    // geonameId: 2137421,
   },
   {
     id: 3712,
@@ -70527,7 +70527,7 @@ const divisions = [
       fr: 'Amazonas',
     }),
     denomination: 'state',
-    geonameId: 3649302,
+    // geonameId: 3649302,
   },
   {
     id: 3713,
@@ -70546,7 +70546,7 @@ const divisions = [
       fr: 'Anzoátegui',
     }),
     denomination: 'state',
-    geonameId: 3649198,
+    // geonameId: 3649198,
   },
   {
     id: 3714,
@@ -70565,7 +70565,7 @@ const divisions = [
       fr: 'Apure',
     }),
     denomination: 'state',
-    geonameId: 3649151,
+    // geonameId: 3649151,
   },
   {
     id: 3715,
@@ -70584,7 +70584,7 @@ const divisions = [
       fr: 'Aragua',
     }),
     denomination: 'state',
-    geonameId: 3649110,
+    // geonameId: 3649110,
   },
   {
     id: 3716,
@@ -70603,7 +70603,7 @@ const divisions = [
       fr: 'Barinas',
     }),
     denomination: 'state',
-    geonameId: 3648544,
+    // geonameId: 3648544,
   },
   {
     id: 3717,
@@ -70622,7 +70622,7 @@ const divisions = [
       fr: 'Bolívar',
     }),
     denomination: 'state',
-    geonameId: 3648106,
+    // geonameId: 3648106,
   },
   {
     id: 3718,
@@ -70641,7 +70641,7 @@ const divisions = [
       fr: 'Carabobo',
     }),
     denomination: 'state',
-    geonameId: 3646751,
+    // geonameId: 3646751,
   },
   {
     id: 3719,
@@ -70660,7 +70660,7 @@ const divisions = [
       fr: 'Cojedes',
     }),
     denomination: 'state',
-    geonameId: 3645386,
+    // geonameId: 3645386,
   },
   {
     id: 3720,
@@ -70679,7 +70679,7 @@ const divisions = [
       fr: 'Delta Amacuro',
     }),
     denomination: 'state',
-    geonameId: 3644541,
+    // geonameId: 3644541,
   },
   {
     id: 3721,
@@ -70698,7 +70698,7 @@ const divisions = [
       fr: 'Dépendances fédérales',
     }),
     denomination: 'federal_dependencies',
-    geonameId: 3640846,
+    // geonameId: 3640846,
   },
   {
     id: 3722,
@@ -70717,7 +70717,7 @@ const divisions = [
       fr: 'District fédéral',
     }),
     denomination: 'federal_district',
-    geonameId: 3640847,
+    // geonameId: 3640847,
   },
   {
     id: 3723,
@@ -70736,7 +70736,7 @@ const divisions = [
       fr: 'La Guaira',
     }),
     denomination: 'state',
-    geonameId: 3830309,
+    // geonameId: 3830309,
   },
   {
     id: 3724,
@@ -70755,7 +70755,7 @@ const divisions = [
       fr: 'Falcón',
     }),
     denomination: 'state',
-    geonameId: 3640873,
+    // geonameId: 3640873,
   },
   {
     id: 3725,
@@ -70774,7 +70774,7 @@ const divisions = [
       fr: 'Guárico',
     }),
     denomination: 'state',
-    geonameId: 3640017,
+    // geonameId: 3640017,
   },
   {
     id: 3726,
@@ -70793,7 +70793,7 @@ const divisions = [
       fr: 'Lara',
     }),
     denomination: 'state',
-    geonameId: 3636539,
+    // geonameId: 3636539,
   },
   {
     id: 3727,
@@ -70812,7 +70812,7 @@ const divisions = [
       fr: 'Mérida',
     }),
     denomination: 'state',
-    geonameId: 3632306,
+    // geonameId: 3632306,
   },
   {
     id: 3728,
@@ -70831,7 +70831,7 @@ const divisions = [
       fr: 'Miranda',
     }),
     denomination: 'state',
-    geonameId: 3632191,
+    // geonameId: 3632191,
   },
   {
     id: 3729,
@@ -70850,7 +70850,7 @@ const divisions = [
       fr: 'Monagas',
     }),
     denomination: 'state',
-    geonameId: 3632100,
+    // geonameId: 3632100,
   },
   {
     id: 3730,
@@ -70869,7 +70869,7 @@ const divisions = [
       fr: 'Nueva Esparta',
     }),
     denomination: 'state',
-    geonameId: 3631462,
+    // geonameId: 3631462,
   },
   {
     id: 3731,
@@ -70888,7 +70888,7 @@ const divisions = [
       fr: 'Portuguesa',
     }),
     denomination: 'state',
-    geonameId: 3629941,
+    // geonameId: 3629941,
   },
   {
     id: 3732,
@@ -70907,7 +70907,7 @@ const divisions = [
       fr: 'Sucre',
     }),
     denomination: 'state',
-    geonameId: 3626655,
+    // geonameId: 3626655,
   },
   {
     id: 3733,
@@ -70926,7 +70926,7 @@ const divisions = [
       fr: 'Táchira',
     }),
     denomination: 'state',
-    geonameId: 3626553,
+    // geonameId: 3626553,
   },
   {
     id: 3734,
@@ -70945,7 +70945,7 @@ const divisions = [
       fr: 'Trujillo',
     }),
     denomination: 'state',
-    geonameId: 3625974,
+    // geonameId: 3625974,
   },
   {
     id: 3735,
@@ -70964,7 +70964,7 @@ const divisions = [
       fr: 'Yaracuy',
     }),
     denomination: 'state',
-    geonameId: 3625210,
+    // geonameId: 3625210,
   },
   {
     id: 3736,
@@ -70983,7 +70983,7 @@ const divisions = [
       fr: 'Zulia',
     }),
     denomination: 'state',
-    geonameId: 3625035,
+    // geonameId: 3625035,
   },
   {
     id: 3737,
@@ -71002,7 +71002,7 @@ const divisions = [
       fr: 'An Giang',
     }),
     denomination: 'province',
-    geonameId: 1594446,
+    // geonameId: 1594446,
   },
   {
     id: 3738,
@@ -71021,7 +71021,7 @@ const divisions = [
       fr: 'Bà Rịa–Vũng Tàu',
     }),
     denomination: 'province',
-    geonameId: 1584534,
+    // geonameId: 1584534,
   },
   {
     id: 3739,
@@ -71040,7 +71040,7 @@ const divisions = [
       fr: 'Bắc Giang',
     }),
     denomination: 'province',
-    geonameId: 1905419,
+    // geonameId: 1905419,
   },
   {
     id: 3740,
@@ -71059,7 +71059,7 @@ const divisions = [
       fr: 'Bắc Kạn',
     }),
     denomination: 'province',
-    geonameId: 1905669,
+    // geonameId: 1905669,
   },
   {
     id: 3741,
@@ -71078,7 +71078,7 @@ const divisions = [
       fr: 'Bạc Liêu',
     }),
     denomination: 'province',
-    geonameId: 1905675,
+    // geonameId: 1905675,
   },
   {
     id: 3742,
@@ -71097,7 +71097,7 @@ const divisions = [
       fr: 'Bắc Ninh',
     }),
     denomination: 'province',
-    geonameId: 1905412,
+    // geonameId: 1905412,
   },
   {
     id: 3743,
@@ -71116,7 +71116,7 @@ const divisions = [
       fr: 'Bến Tre',
     }),
     denomination: 'province',
-    geonameId: 1587974,
+    // geonameId: 1587974,
   },
   {
     id: 3744,
@@ -71135,7 +71135,7 @@ const divisions = [
       fr: 'Bình Định',
     }),
     denomination: 'province',
-    geonameId: 1587871,
+    // geonameId: 1587871,
   },
   {
     id: 3745,
@@ -71154,7 +71154,7 @@ const divisions = [
       fr: 'Bình Dương',
     }),
     denomination: 'province',
-    geonameId: 1905475,
+    // geonameId: 1905475,
   },
   {
     id: 3746,
@@ -71173,7 +71173,7 @@ const divisions = [
       fr: 'Bình Phước',
     }),
     denomination: 'province',
-    geonameId: 1905480,
+    // geonameId: 1905480,
   },
   {
     id: 3747,
@@ -71192,7 +71192,7 @@ const divisions = [
       fr: 'Bình Thuận',
     }),
     denomination: 'province',
-    geonameId: 1581882,
+    // geonameId: 1581882,
   },
   {
     id: 3748,
@@ -71211,7 +71211,7 @@ const divisions = [
       fr: 'Cà Mau',
     }),
     denomination: 'province',
-    geonameId: 1905678,
+    // geonameId: 1905678,
   },
   {
     id: 3749,
@@ -71230,7 +71230,7 @@ const divisions = [
       fr: 'Can Tho',
     }),
     denomination: 'city',
-    geonameId: 1581188,
+    // geonameId: 1581188,
   },
   {
     id: 3750,
@@ -71249,7 +71249,7 @@ const divisions = [
       fr: 'Cao Bằng',
     }),
     denomination: 'province',
-    geonameId: 1586182,
+    // geonameId: 1586182,
   },
   {
     id: 3751,
@@ -71268,7 +71268,7 @@ const divisions = [
       fr: 'Da Nang',
     }),
     denomination: 'city',
-    geonameId: 1905468,
+    // geonameId: 1905468,
   },
   {
     id: 3752,
@@ -71287,7 +71287,7 @@ const divisions = [
       fr: 'Đắk Lắk',
     }),
     denomination: 'province',
-    geonameId: 1584169,
+    // geonameId: 1584169,
   },
   {
     id: 3753,
@@ -71306,7 +71306,7 @@ const divisions = [
       fr: 'Đăk Nông',
     }),
     denomination: 'province',
-    geonameId: 1904987,
+    // geonameId: 1904987,
   },
   {
     id: 3754,
@@ -71325,7 +71325,7 @@ const divisions = [
       fr: 'Điện Biên',
     }),
     denomination: 'province',
-    geonameId: 1905099,
+    // geonameId: 1905099,
   },
   {
     id: 3755,
@@ -71344,7 +71344,7 @@ const divisions = [
       fr: 'Đồng Nai',
     }),
     denomination: 'province',
-    geonameId: 1582720,
+    // geonameId: 1582720,
   },
   {
     id: 3756,
@@ -71363,7 +71363,7 @@ const divisions = [
       fr: 'Đồng Tháp',
     }),
     denomination: 'province',
-    geonameId: 1582562,
+    // geonameId: 1582562,
   },
   {
     id: 3757,
@@ -71382,7 +71382,7 @@ const divisions = [
       fr: 'Gia Lai',
     }),
     denomination: 'province',
-    geonameId: 1581088,
+    // geonameId: 1581088,
   },
   {
     id: 3758,
@@ -71401,7 +71401,7 @@ const divisions = [
       fr: 'Hà Giang',
     }),
     denomination: 'province',
-    geonameId: 1581030,
+    // geonameId: 1581030,
   },
   {
     id: 3759,
@@ -71420,7 +71420,7 @@ const divisions = [
       fr: 'Hà Nam',
     }),
     denomination: 'province',
-    geonameId: 1905637,
+    // geonameId: 1905637,
   },
   {
     id: 3760,
@@ -71439,7 +71439,7 @@ const divisions = [
       fr: 'Hà Tĩnh',
     }),
     denomination: 'province',
-    geonameId: 1580700,
+    // geonameId: 1580700,
   },
   {
     id: 3761,
@@ -71458,7 +71458,7 @@ const divisions = [
       fr: 'Hải Dương',
     }),
     denomination: 'province',
-    geonameId: 1905686,
+    // geonameId: 1905686,
   },
   {
     id: 3762,
@@ -71477,7 +71477,7 @@ const divisions = [
       fr: 'Haiphong',
     }),
     denomination: 'city',
-    geonameId: 1581297,
+    // geonameId: 1581297,
   },
   {
     id: 3763,
@@ -71496,7 +71496,7 @@ const divisions = [
       fr: 'Hanoï',
     }),
     denomination: 'city',
-    geonameId: 1581129,
+    // geonameId: 1581129,
   },
   {
     id: 3764,
@@ -71515,7 +71515,7 @@ const divisions = [
       fr: 'Hậu Giang',
     }),
     denomination: 'province',
-    geonameId: 7506719,
+    // geonameId: 7506719,
   },
   {
     id: 3765,
@@ -71534,7 +71534,7 @@ const divisions = [
       fr: 'Hô Chi Minh',
     }),
     denomination: 'city',
-    geonameId: 1580578,
+    // geonameId: 1580578,
   },
   {
     id: 3766,
@@ -71553,7 +71553,7 @@ const divisions = [
       fr: 'Hòa Bình',
     }),
     denomination: 'province',
-    geonameId: 1572594,
+    // geonameId: 1572594,
   },
   {
     id: 3767,
@@ -71572,7 +71572,7 @@ const divisions = [
       fr: 'Hưng Yên',
     }),
     denomination: 'province',
-    geonameId: 1905699,
+    // geonameId: 1905699,
   },
   {
     id: 3768,
@@ -71591,7 +71591,7 @@ const divisions = [
       fr: 'Khánh Hòa',
     }),
     denomination: 'province',
-    geonameId: 1579634,
+    // geonameId: 1579634,
   },
   {
     id: 3769,
@@ -71610,7 +71610,7 @@ const divisions = [
       fr: 'Kiên Giang',
     }),
     denomination: 'province',
-    geonameId: 1579008,
+    // geonameId: 1579008,
   },
   {
     id: 3770,
@@ -71629,7 +71629,7 @@ const divisions = [
       fr: 'Kon Tum',
     }),
     denomination: 'province',
-    geonameId: 1565088,
+    // geonameId: 1565088,
   },
   {
     id: 3771,
@@ -71648,7 +71648,7 @@ const divisions = [
       fr: 'Lai Châu',
     }),
     denomination: 'province',
-    geonameId: 1577954,
+    // geonameId: 1577954,
   },
   {
     id: 3772,
@@ -71667,7 +71667,7 @@ const divisions = [
       fr: 'Lâm Đồng',
     }),
     denomination: 'province',
-    geonameId: 1577882,
+    // geonameId: 1577882,
   },
   {
     id: 3773,
@@ -71686,7 +71686,7 @@ const divisions = [
       fr: 'Lạng Sơn',
     }),
     denomination: 'province',
-    geonameId: 1576632,
+    // geonameId: 1576632,
   },
   {
     id: 3774,
@@ -71705,7 +71705,7 @@ const divisions = [
       fr: 'Lào Cai',
     }),
     denomination: 'province',
-    geonameId: 1562412,
+    // geonameId: 1562412,
   },
   {
     id: 3775,
@@ -71724,7 +71724,7 @@ const divisions = [
       fr: 'Long An',
     }),
     denomination: 'province',
-    geonameId: 1575788,
+    // geonameId: 1575788,
   },
   {
     id: 3776,
@@ -71743,7 +71743,7 @@ const divisions = [
       fr: 'Nam Định',
     }),
     denomination: 'province',
-    geonameId: 1905626,
+    // geonameId: 1905626,
   },
   {
     id: 3777,
@@ -71762,7 +71762,7 @@ const divisions = [
       fr: 'Nghệ An',
     }),
     denomination: 'province',
-    geonameId: 1559969,
+    // geonameId: 1559969,
   },
   {
     id: 3778,
@@ -71781,7 +71781,7 @@ const divisions = [
       fr: 'Ninh Bình',
     }),
     denomination: 'province',
-    geonameId: 1559970,
+    // geonameId: 1559970,
   },
   {
     id: 3779,
@@ -71800,7 +71800,7 @@ const divisions = [
       fr: 'Ninh Thuận',
     }),
     denomination: 'province',
-    geonameId: 1559971,
+    // geonameId: 1559971,
   },
   {
     id: 3780,
@@ -71819,7 +71819,7 @@ const divisions = [
       fr: 'Phú Thọ',
     }),
     denomination: 'province',
-    geonameId: 1905577,
+    // geonameId: 1905577,
   },
   {
     id: 3781,
@@ -71838,7 +71838,7 @@ const divisions = [
       fr: 'Phú Yên',
     }),
     denomination: 'province',
-    geonameId: 1569805,
+    // geonameId: 1569805,
   },
   {
     id: 3782,
@@ -71857,7 +71857,7 @@ const divisions = [
       fr: 'Quảng Bình',
     }),
     denomination: 'province',
-    geonameId: 1568839,
+    // geonameId: 1568839,
   },
   {
     id: 3783,
@@ -71876,7 +71876,7 @@ const divisions = [
       fr: 'Quảng Nam',
     }),
     denomination: 'province',
-    geonameId: 1905516,
+    // geonameId: 1905516,
   },
   {
     id: 3784,
@@ -71895,7 +71895,7 @@ const divisions = [
       fr: 'Quảng Ngãi',
     }),
     denomination: 'province',
-    geonameId: 1568769,
+    // geonameId: 1568769,
   },
   {
     id: 3785,
@@ -71914,7 +71914,7 @@ const divisions = [
       fr: 'Quảng Ninh',
     }),
     denomination: 'province',
-    geonameId: 1568758,
+    // geonameId: 1568758,
   },
   {
     id: 3786,
@@ -71933,7 +71933,7 @@ const divisions = [
       fr: 'Quảng Trị',
     }),
     denomination: 'province',
-    geonameId: 1568733,
+    // geonameId: 1568733,
   },
   {
     id: 3787,
@@ -71952,7 +71952,7 @@ const divisions = [
       fr: 'Sóc Trăng',
     }),
     denomination: 'province',
-    geonameId: 1559972,
+    // geonameId: 1559972,
   },
   {
     id: 3788,
@@ -71971,7 +71971,7 @@ const divisions = [
       fr: 'Sơn La',
     }),
     denomination: 'province',
-    geonameId: 1567643,
+    // geonameId: 1567643,
   },
   {
     id: 3789,
@@ -71990,7 +71990,7 @@ const divisions = [
       fr: 'Tây Ninh',
     }),
     denomination: 'province',
-    geonameId: 1566557,
+    // geonameId: 1566557,
   },
   {
     id: 3790,
@@ -72009,7 +72009,7 @@ const divisions = [
       fr: 'Thái Bình',
     }),
     denomination: 'province',
-    geonameId: 1566338,
+    // geonameId: 1566338,
   },
   {
     id: 3791,
@@ -72028,7 +72028,7 @@ const divisions = [
       fr: 'Thái Nguyên',
     }),
     denomination: 'province',
-    geonameId: 1905497,
+    // geonameId: 1905497,
   },
   {
     id: 3792,
@@ -72047,7 +72047,7 @@ const divisions = [
       fr: 'Thanh Hóa',
     }),
     denomination: 'province',
-    geonameId: 1566165,
+    // geonameId: 1566165,
   },
   {
     id: 3793,
@@ -72066,7 +72066,7 @@ const divisions = [
       fr: 'Thừa Thiên Huế',
     }),
     denomination: 'province',
-    geonameId: 1565033,
+    // geonameId: 1565033,
   },
   {
     id: 3794,
@@ -72085,7 +72085,7 @@ const divisions = [
       fr: 'Tiền Giang',
     }),
     denomination: 'province',
-    geonameId: 1564676,
+    // geonameId: 1564676,
   },
   {
     id: 3795,
@@ -72104,7 +72104,7 @@ const divisions = [
       fr: 'Trà Vinh',
     }),
     denomination: 'province',
-    geonameId: 1559975,
+    // geonameId: 1559975,
   },
   {
     id: 3796,
@@ -72123,7 +72123,7 @@ const divisions = [
       fr: 'Tuyên Quang',
     }),
     denomination: 'province',
-    geonameId: 1559976,
+    // geonameId: 1559976,
   },
   {
     id: 3797,
@@ -72142,7 +72142,7 @@ const divisions = [
       fr: 'Vĩnh Long',
     }),
     denomination: 'province',
-    geonameId: 1559977,
+    // geonameId: 1559977,
   },
   {
     id: 3798,
@@ -72161,7 +72161,7 @@ const divisions = [
       fr: 'Vĩnh Phúc',
     }),
     denomination: 'province',
-    geonameId: 1905856,
+    // geonameId: 1905856,
   },
   {
     id: 3799,
@@ -72180,7 +72180,7 @@ const divisions = [
       fr: 'Yên Bái',
     }),
     denomination: 'province',
-    geonameId: 1559978,
+    // geonameId: 1559978,
   },
   {
     id: 3800,
@@ -72199,7 +72199,7 @@ const divisions = [
       fr: 'Alo',
     }),
     denomination: 'district',
-    geonameId: 4034884,
+    // geonameId: 4034884,
   },
   {
     id: 3801,
@@ -72218,7 +72218,7 @@ const divisions = [
       fr: 'Sigave',
     }),
     denomination: 'district',
-    geonameId: 4034776,
+    // geonameId: 4034776,
   },
   {
     id: 3802,
@@ -72237,7 +72237,7 @@ const divisions = [
       fr: 'Uvéa',
     }),
     denomination: 'district',
-    geonameId: 4034759,
+    // geonameId: 4034759,
   },
   {
     id: 3803,
@@ -72256,7 +72256,7 @@ const divisions = [
       fr: 'Abyan',
     }),
     denomination: 'governorate',
-    geonameId: 80425,
+    // geonameId: 80425,
   },
   {
     id: 3804,
@@ -72275,7 +72275,7 @@ const divisions = [
       fr: 'Ad Dali',
     }),
     denomination: 'governorate',
-    geonameId: 6201193,
+    // geonameId: 6201193,
   },
   {
     id: 3805,
@@ -72294,7 +72294,7 @@ const divisions = [
       fr: 'Aden',
     }),
     denomination: 'governorate',
-    geonameId: 80412,
+    // geonameId: 80412,
   },
   {
     id: 3806,
@@ -72313,7 +72313,7 @@ const divisions = [
       fr: 'Al Bayda',
     }),
     denomination: 'governorate',
-    geonameId: 79838,
+    // geonameId: 79838,
   },
   {
     id: 3807,
@@ -72332,7 +72332,7 @@ const divisions = [
       fr: 'Al Hudaydah',
     }),
     denomination: 'governorate',
-    geonameId: 79416,
+    // geonameId: 79416,
   },
   {
     id: 3808,
@@ -72351,7 +72351,7 @@ const divisions = [
       fr: 'Al Jawf',
     }),
     denomination: 'governorate',
-    geonameId: 74222,
+    // geonameId: 74222,
   },
   {
     id: 3809,
@@ -72370,7 +72370,7 @@ const divisions = [
       fr: 'Al Mahrah',
     }),
     denomination: 'governorate',
-    geonameId: 78985,
+    // geonameId: 78985,
   },
   {
     id: 3810,
@@ -72389,7 +72389,7 @@ const divisions = [
       fr: 'Al Mahwit',
     }),
     denomination: 'governorate',
-    geonameId: 73200,
+    // geonameId: 73200,
   },
   {
     id: 3811,
@@ -72408,7 +72408,7 @@ const divisions = [
       fr: 'Amanat Al Asimah',
     }),
     denomination: 'municipality',
-    geonameId: 6940571,
+    // geonameId: 6940571,
   },
   {
     id: 3812,
@@ -72427,7 +72427,7 @@ const divisions = [
       fr: 'Dhamar',
     }),
     denomination: 'governorate',
-    geonameId: 76183,
+    // geonameId: 76183,
   },
   {
     id: 3813,
@@ -72446,7 +72446,7 @@ const divisions = [
       fr: 'Hajjah',
     }),
     denomination: 'governorate',
-    geonameId: 6201195,
+    // geonameId: 6201195,
   },
   {
     id: 3814,
@@ -72465,7 +72465,7 @@ const divisions = [
       fr: 'Ibb',
     }),
     denomination: 'governorate',
-    geonameId: 6201196,
+    // geonameId: 6201196,
   },
   {
     id: 3815,
@@ -72484,7 +72484,7 @@ const divisions = [
       fr: 'Lahij',
     }),
     denomination: 'governorate',
-    geonameId: 6201197,
+    // geonameId: 6201197,
   },
   {
     id: 3816,
@@ -72503,7 +72503,7 @@ const divisions = [
       fr: 'Marib',
     }),
     denomination: 'governorate',
-    geonameId: 72966,
+    // geonameId: 72966,
   },
   {
     id: 3817,
@@ -72522,7 +72522,7 @@ const divisions = [
       fr: 'Hadramaut',
     }),
     denomination: 'governorate',
-    geonameId: 75411,
+    // geonameId: 75411,
   },
   {
     id: 3818,
@@ -72541,7 +72541,7 @@ const divisions = [
       fr: 'Amran',
     }),
     denomination: 'governorate',
-    geonameId: 6201194,
+    // geonameId: 6201194,
   },
   {
     id: 3819,
@@ -72560,7 +72560,7 @@ const divisions = [
       fr: 'Raymah',
     }),
     denomination: 'governorate',
-    geonameId: 71532,
+    // geonameId: 71532,
   },
   {
     id: 3820,
@@ -72579,7 +72579,7 @@ const divisions = [
       fr: "Sa'dah",
     }),
     denomination: 'governorate',
-    geonameId: 71333,
+    // geonameId: 71333,
   },
   {
     id: 3821,
@@ -72598,7 +72598,7 @@ const divisions = [
       fr: 'Sanaa',
     }),
     denomination: 'governorate',
-    geonameId: 71132,
+    // geonameId: 71132,
   },
   {
     id: 3822,
@@ -72617,7 +72617,7 @@ const divisions = [
       fr: 'Shabwa',
     }),
     denomination: 'governorate',
-    geonameId: 70935,
+    // geonameId: 70935,
   },
   {
     id: 3823,
@@ -72636,7 +72636,7 @@ const divisions = [
       fr: 'Socotra',
     }),
     denomination: 'governorate',
-    geonameId: 9645387,
+    // geonameId: 9645387,
   },
   {
     id: 3824,
@@ -72655,7 +72655,7 @@ const divisions = [
       fr: 'Taïz',
     }),
     denomination: 'governorate',
-    geonameId: 70222,
+    // geonameId: 70222,
   },
   {
     id: 3825,
@@ -72674,7 +72674,7 @@ const divisions = [
       fr: 'Centrale',
     }),
     denomination: 'province',
-    geonameId: 921064,
+    // geonameId: 921064,
   },
   {
     id: 3826,
@@ -72693,7 +72693,7 @@ const divisions = [
       fr: 'Copperbelt',
     }),
     denomination: 'province',
-    geonameId: 917524,
+    // geonameId: 917524,
   },
   {
     id: 3827,
@@ -72712,7 +72712,7 @@ const divisions = [
       fr: 'Orientale',
     }),
     denomination: 'province',
-    geonameId: 917388,
+    // geonameId: 917388,
   },
   {
     id: 3828,
@@ -72731,7 +72731,7 @@ const divisions = [
       fr: 'Luapula',
     }),
     denomination: 'province',
-    geonameId: 909845,
+    // geonameId: 909845,
   },
   {
     id: 3829,
@@ -72750,7 +72750,7 @@ const divisions = [
       fr: 'Lusaka',
     }),
     denomination: 'province',
-    geonameId: 909129,
+    // geonameId: 909129,
   },
   {
     id: 3830,
@@ -72769,7 +72769,7 @@ const divisions = [
       fr: 'Muchinga',
     }),
     denomination: 'province',
-    geonameId: 11154503,
+    // geonameId: 11154503,
   },
   {
     id: 3831,
@@ -72788,7 +72788,7 @@ const divisions = [
       fr: 'Nord-Ouest',
     }),
     denomination: 'province',
-    geonameId: 900594,
+    // geonameId: 900594,
   },
   {
     id: 3832,
@@ -72807,7 +72807,7 @@ const divisions = [
       fr: 'Nord',
     }),
     denomination: 'province',
-    geonameId: 900601,
+    // geonameId: 900601,
   },
   {
     id: 3833,
@@ -72826,7 +72826,7 @@ const divisions = [
       fr: 'Sud',
     }),
     denomination: 'province',
-    geonameId: 896972,
+    // geonameId: 896972,
   },
   {
     id: 3834,
@@ -72845,7 +72845,7 @@ const divisions = [
       fr: 'Ouest',
     }),
     denomination: 'province',
-    geonameId: 896140,
+    // geonameId: 896140,
   },
   {
     id: 3835,
@@ -72863,8 +72863,8 @@ const divisions = [
       es: 'Bulawayo',
       fr: 'Bulawayo',
     }),
-    denomination: '',
-    geonameId: 1105843,
+    denomination: 'province',
+    // geonameId: 1105843,
   },
   {
     id: 3836,
@@ -72882,8 +72882,8 @@ const divisions = [
       es: 'Harare',
       fr: 'Harare',
     }),
-    denomination: '',
-    geonameId: 1105844,
+    denomination: 'province',
+    // geonameId: 1105844,
   },
   {
     id: 3837,
@@ -72902,7 +72902,7 @@ const divisions = [
       fr: 'Manicaland',
     }),
     denomination: 'province',
-    geonameId: 887358,
+    // geonameId: 887358,
   },
   {
     id: 3838,
@@ -72921,7 +72921,7 @@ const divisions = [
       fr: 'Mashonaland Central',
     }),
     denomination: 'province',
-    geonameId: 886843,
+    // geonameId: 886843,
   },
   {
     id: 3839,
@@ -72940,7 +72940,7 @@ const divisions = [
       fr: 'Mashonaland Est',
     }),
     denomination: 'province',
-    geonameId: 886842,
+    // geonameId: 886842,
   },
   {
     id: 3840,
@@ -72959,7 +72959,7 @@ const divisions = [
       fr: 'Mashonaland Ouest',
     }),
     denomination: 'province',
-    geonameId: 886841,
+    // geonameId: 886841,
   },
   {
     id: 3841,
@@ -72978,7 +72978,7 @@ const divisions = [
       fr: 'Masvingo',
     }),
     denomination: 'province',
-    geonameId: 886761,
+    // geonameId: 886761,
   },
   {
     id: 3842,
@@ -72997,7 +72997,7 @@ const divisions = [
       fr: 'Matabeleland Nord',
     }),
     denomination: 'province',
-    geonameId: 886748,
+    // geonameId: 886748,
   },
   {
     id: 3843,
@@ -73016,7 +73016,7 @@ const divisions = [
       fr: 'Matabeleland Sud',
     }),
     denomination: 'province',
-    geonameId: 886747,
+    // geonameId: 886747,
   },
   {
     id: 3844,
@@ -73035,7 +73035,7 @@ const divisions = [
       fr: 'Midlands',
     }),
     denomination: 'province',
-    geonameId: 886119,
+    // geonameId: 886119,
   },
 ];
 
@@ -73047,7 +73047,7 @@ module.exports = {
       const batch = divisions.slice(i, i + batchSize);
       for (const division of batch) {
         await queryInterface.bulkInsert('geo_political_divisions', [division], {
-          updateOnDuplicate: [],
+          updateOnDuplicate: ['country_id', 'capital_id', 'name', 'denomination'],
         });
       }
     }

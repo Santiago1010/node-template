@@ -30,7 +30,7 @@ const countries = [
       es: 'República Islámica de Afganistán',
       fr: "République islamique d'Afghanistan",
     }),
-    abbreviation: { two: 'af', three: 'AFG' },
+    abbreviation: JSON.stringify({ two: 'af', three: 'AFG' }),
     tld: '.af',
   },
   {
@@ -62,7 +62,7 @@ const countries = [
       es: 'Islas Åland',
       fr: 'Îles Åland',
     }),
-    abbreviation: { two: 'ax', three: 'ALA' },
+    abbreviation: JSON.stringify({ two: 'ax', three: 'ALA' }),
     tld: '.ax',
   },
   {
@@ -94,7 +94,7 @@ const countries = [
       es: 'República de Albania',
       fr: "République d'Albanie",
     }),
-    abbreviation: { two: 'al', three: 'ALB' },
+    abbreviation: JSON.stringify({ two: 'al', three: 'ALB' }),
     tld: '.al',
   },
   {
@@ -126,7 +126,7 @@ const countries = [
       es: 'República Argelina Democrática y Popular',
       fr: 'République algérienne démocratique et populaire',
     }),
-    abbreviation: { two: 'dz', three: 'DZA' },
+    abbreviation: JSON.stringify({ two: 'dz', three: 'DZA' }),
     tld: '.dz',
   },
   {
@@ -158,7 +158,7 @@ const countries = [
       es: 'Samoa Americana',
       fr: 'Samoa américaines',
     }),
-    abbreviation: { two: 'as', three: 'ASM' },
+    abbreviation: JSON.stringify({ two: 'as', three: 'ASM' }),
     tld: '.as',
   },
   {
@@ -190,7 +190,7 @@ const countries = [
       es: 'Principado de Andorra',
       fr: "Principauté d'Andorre",
     }),
-    abbreviation: { two: 'ad', three: 'AND' },
+    abbreviation: JSON.stringify({ two: 'ad', three: 'AND' }),
     tld: '.ad',
   },
   {
@@ -222,7 +222,7 @@ const countries = [
       es: 'República de Angola',
       fr: "République d'Angola",
     }),
-    abbreviation: { two: 'ao', three: 'AGO' },
+    abbreviation: JSON.stringify({ two: 'ao', three: 'AGO' }),
     tld: '.ao',
   },
   {
@@ -254,7 +254,7 @@ const countries = [
       es: 'Anguila',
       fr: 'Anguilla',
     }),
-    abbreviation: { two: 'ai', three: 'AIA' },
+    abbreviation: JSON.stringify({ two: 'ai', three: 'AIA' }),
     tld: '.ai',
   },
   {
@@ -286,7 +286,7 @@ const countries = [
       es: 'Antártida',
       fr: 'Antarctique',
     }),
-    abbreviation: { two: 'aq', three: 'ATA' },
+    abbreviation: JSON.stringify({ two: 'aq', three: 'ATA' }),
     tld: '.aq',
   },
   {
@@ -318,7 +318,7 @@ const countries = [
       es: 'Antigua y Barbuda',
       fr: 'Antigua-et-Barbuda',
     }),
-    abbreviation: { two: 'ag', three: 'ATG' },
+    abbreviation: JSON.stringify({ two: 'ag', three: 'ATG' }),
     tld: '.ag',
   },
   {
@@ -350,7 +350,7 @@ const countries = [
       es: 'República Argentina',
       fr: 'République argentine',
     }),
-    abbreviation: { two: 'ar', three: 'ARG' },
+    abbreviation: JSON.stringify({ two: 'ar', three: 'ARG' }),
     tld: '.ar',
   },
   {
@@ -382,7 +382,7 @@ const countries = [
       es: 'República de Armenia',
       fr: "République d'Arménie",
     }),
-    abbreviation: { two: 'am', three: 'ARM' },
+    abbreviation: JSON.stringify({ two: 'am', three: 'ARM' }),
     tld: '.am',
   },
   {
@@ -414,7 +414,7 @@ const countries = [
       es: 'Aruba',
       fr: 'Aruba',
     }),
-    abbreviation: { two: 'aw', three: 'ABW' },
+    abbreviation: JSON.stringify({ two: 'aw', three: 'ABW' }),
     tld: '.aw',
   },
   {
@@ -446,7 +446,7 @@ const countries = [
       es: 'Mancomunidad de Australia',
       fr: "Commonwealth d'Australie",
     }),
-    abbreviation: { two: 'au', three: 'AUS' },
+    abbreviation: JSON.stringify({ two: 'au', three: 'AUS' }),
     tld: '.au',
   },
   {
@@ -478,7 +478,7 @@ const countries = [
       es: 'República de Austria',
       fr: "République d'Autriche",
     }),
-    abbreviation: { two: 'at', three: 'AUT' },
+    abbreviation: JSON.stringify({ two: 'at', three: 'AUT' }),
     tld: '.at',
   },
   {
@@ -510,7 +510,7 @@ const countries = [
       es: 'República de Azerbaiyán',
       fr: "République d'Azerbaïdjan",
     }),
-    abbreviation: { two: 'az', three: 'AZE' },
+    abbreviation: JSON.stringify({ two: 'az', three: 'AZE' }),
     tld: '.az',
   },
   {
@@ -542,7 +542,7 @@ const countries = [
       es: 'Mancomunidad de las Bahamas',
       fr: 'Commonwealth des Bahamas',
     }),
-    abbreviation: { two: 'bs', three: 'BHS' },
+    abbreviation: JSON.stringify({ two: 'bs', three: 'BHS' }),
     tld: '.bs',
   },
   {
@@ -574,7 +574,7 @@ const countries = [
       es: 'Reino de Baréin',
       fr: 'Royaume de Bahreïn',
     }),
-    abbreviation: { two: 'bh', three: 'BHR' },
+    abbreviation: JSON.stringify({ two: 'bh', three: 'BHR' }),
     tld: '.bh',
   },
   {
@@ -606,7 +606,7 @@ const countries = [
       es: 'República Popular de Bangladés',
       fr: 'République populaire du Bangladesh',
     }),
-    abbreviation: { two: 'bd', three: 'BGD' },
+    abbreviation: JSON.stringify({ two: 'bd', three: 'BGD' }),
     tld: '.bd',
   },
   {
@@ -638,7 +638,7 @@ const countries = [
       es: 'Barbados',
       fr: 'Barbade',
     }),
-    abbreviation: { two: 'bb', three: 'BRB' },
+    abbreviation: JSON.stringify({ two: 'bb', three: 'BRB' }),
     tld: '.bb',
   },
   {
@@ -670,7 +670,7 @@ const countries = [
       es: 'República de Bielorrusia',
       fr: 'République de Biélorussie',
     }),
-    abbreviation: { two: 'by', three: 'BLR' },
+    abbreviation: JSON.stringify({ two: 'by', three: 'BLR' }),
     tld: '.by',
   },
   {
@@ -702,7 +702,7 @@ const countries = [
       es: 'Reino de Bélgica',
       fr: 'Royaume de Belgique',
     }),
-    abbreviation: { two: 'be', three: 'BEL' },
+    abbreviation: JSON.stringify({ two: 'be', three: 'BEL' }),
     tld: '.be',
   },
   {
@@ -734,7 +734,7 @@ const countries = [
       es: 'Belice',
       fr: 'Belize',
     }),
-    abbreviation: { two: 'bz', three: 'BLZ' },
+    abbreviation: JSON.stringify({ two: 'bz', three: 'BLZ' }),
     tld: '.bz',
   },
   {
@@ -766,7 +766,7 @@ const countries = [
       es: 'República de Benín',
       fr: 'République du Bénin',
     }),
-    abbreviation: { two: 'bj', three: 'BEN' },
+    abbreviation: JSON.stringify({ two: 'bj', three: 'BEN' }),
     tld: '.bj',
   },
   {
@@ -798,7 +798,7 @@ const countries = [
       es: 'Bermudas',
       fr: 'Bermudes',
     }),
-    abbreviation: { two: 'bm', three: 'BMU' },
+    abbreviation: JSON.stringify({ two: 'bm', three: 'BMU' }),
     tld: '.bm',
   },
   {
@@ -830,7 +830,7 @@ const countries = [
       es: 'Reino de Bután',
       fr: 'Royaume du Bhoutan',
     }),
-    abbreviation: { two: 'bt', three: 'BTN' },
+    abbreviation: JSON.stringify({ two: 'bt', three: 'BTN' }),
     tld: '.bt',
   },
   {
@@ -862,7 +862,7 @@ const countries = [
       es: 'Estado Plurinacional de Bolivia',
       fr: 'État plurinational de Bolivie',
     }),
-    abbreviation: { two: 'bo', three: 'BOL' },
+    abbreviation: JSON.stringify({ two: 'bo', three: 'BOL' }),
     tld: '.bo',
   },
   {
@@ -894,7 +894,7 @@ const countries = [
       es: 'Bonaire, San Eustaquio y Saba',
       fr: 'Bonaire, Saint-Eustache et Saba',
     }),
-    abbreviation: { two: 'bq', three: 'BES' },
+    abbreviation: JSON.stringify({ two: 'bq', three: 'BES' }),
     tld: '.bq',
   },
   {
@@ -926,7 +926,7 @@ const countries = [
       es: 'Bosnia y Herzegovina',
       fr: 'Bosnie-Herzégovine',
     }),
-    abbreviation: { two: 'ba', three: 'BIH' },
+    abbreviation: JSON.stringify({ two: 'ba', three: 'BIH' }),
     tld: '.ba',
   },
   {
@@ -958,7 +958,7 @@ const countries = [
       es: 'República de Botsuana',
       fr: 'République du Botswana',
     }),
-    abbreviation: { two: 'bw', three: 'BWA' },
+    abbreviation: JSON.stringify({ two: 'bw', three: 'BWA' }),
     tld: '.bw',
   },
   {
@@ -990,7 +990,7 @@ const countries = [
       es: 'Isla Bouvet',
       fr: 'Île Bouvet',
     }),
-    abbreviation: { two: 'bv', three: 'BVT' },
+    abbreviation: JSON.stringify({ two: 'bv', three: 'BVT' }),
     tld: '.bv',
   },
   {
@@ -1022,7 +1022,7 @@ const countries = [
       es: 'República Federativa de Brasil',
       fr: 'République fédérative du Brésil',
     }),
-    abbreviation: { two: 'br', three: 'BRA' },
+    abbreviation: JSON.stringify({ two: 'br', three: 'BRA' }),
     tld: '.br',
   },
   {
@@ -1054,7 +1054,7 @@ const countries = [
       es: 'Territorio Británico del Océano Índico',
       fr: "Territoire britannique de l'océan Indien",
     }),
-    abbreviation: { two: 'io', three: 'IOT' },
+    abbreviation: JSON.stringify({ two: 'io', three: 'IOT' }),
     tld: '.io',
   },
   {
@@ -1086,7 +1086,7 @@ const countries = [
       es: 'Islas Vírgenes Británicas',
       fr: 'Îles Vierges britanniques',
     }),
-    abbreviation: { two: 'vg', three: 'VGB' },
+    abbreviation: JSON.stringify({ two: 'vg', three: 'VGB' }),
     tld: '.vg',
   },
   {
@@ -1118,7 +1118,7 @@ const countries = [
       es: 'Estado de Brunéi Darussalam',
       fr: 'État de Brunei Darussalam',
     }),
-    abbreviation: { two: 'bn', three: 'BRN' },
+    abbreviation: JSON.stringify({ two: 'bn', three: 'BRN' }),
     tld: '.bn',
   },
   {
@@ -1150,7 +1150,7 @@ const countries = [
       es: 'República de Bulgaria',
       fr: 'République de Bulgarie',
     }),
-    abbreviation: { two: 'bg', three: 'BGR' },
+    abbreviation: JSON.stringify({ two: 'bg', three: 'BGR' }),
     tld: '.bg',
   },
   {
@@ -1182,7 +1182,7 @@ const countries = [
       es: 'Burkina Faso',
       fr: 'Burkina Faso',
     }),
-    abbreviation: { two: 'bf', three: 'BFA' },
+    abbreviation: JSON.stringify({ two: 'bf', three: 'BFA' }),
     tld: '.bf',
   },
   {
@@ -1214,7 +1214,7 @@ const countries = [
       es: 'República de Burundi',
       fr: 'République du Burundi',
     }),
-    abbreviation: { two: 'bi', three: 'BDI' },
+    abbreviation: JSON.stringify({ two: 'bi', three: 'BDI' }),
     tld: '.bi',
   },
   {
@@ -1246,7 +1246,7 @@ const countries = [
       es: 'República de Cabo Verde',
       fr: 'République du Cap-Vert',
     }),
-    abbreviation: { two: 'cv', three: 'CPV' },
+    abbreviation: JSON.stringify({ two: 'cv', three: 'CPV' }),
     tld: '.cv',
   },
   {
@@ -1278,7 +1278,7 @@ const countries = [
       es: 'Reino de Camboya',
       fr: 'Royaume du Cambodge',
     }),
-    abbreviation: { two: 'kh', three: 'KHM' },
+    abbreviation: JSON.stringify({ two: 'kh', three: 'KHM' }),
     tld: '.kh',
   },
   {
@@ -1310,7 +1310,7 @@ const countries = [
       es: 'República de Camerún',
       fr: 'République du Cameroun',
     }),
-    abbreviation: { two: 'cm', three: 'CMR' },
+    abbreviation: JSON.stringify({ two: 'cm', three: 'CMR' }),
     tld: '.cm',
   },
   {
@@ -1342,7 +1342,7 @@ const countries = [
       es: 'Canadá',
       fr: 'Canada',
     }),
-    abbreviation: { two: 'ca', three: 'CAN' },
+    abbreviation: JSON.stringify({ two: 'ca', three: 'CAN' }),
     tld: '.ca',
   },
   {
@@ -1374,7 +1374,7 @@ const countries = [
       es: 'Islas Caimán',
       fr: 'Îles Caïmans',
     }),
-    abbreviation: { two: 'ky', three: 'CYM' },
+    abbreviation: JSON.stringify({ two: 'ky', three: 'CYM' }),
     tld: '.ky',
   },
   {
@@ -1406,7 +1406,7 @@ const countries = [
       es: 'República Centroafricana',
       fr: 'République centrafricaine',
     }),
-    abbreviation: { two: 'cf', three: 'CAF' },
+    abbreviation: JSON.stringify({ two: 'cf', three: 'CAF' }),
     tld: '.cf',
   },
   {
@@ -1438,7 +1438,7 @@ const countries = [
       es: 'República de Chad',
       fr: 'République du Tchad',
     }),
-    abbreviation: { two: 'td', three: 'TCD' },
+    abbreviation: JSON.stringify({ two: 'td', three: 'TCD' }),
     tld: '.td',
   },
   {
@@ -1470,7 +1470,7 @@ const countries = [
       es: 'República de Chile',
       fr: 'République du Chili',
     }),
-    abbreviation: { two: 'cl', three: 'CHL' },
+    abbreviation: JSON.stringify({ two: 'cl', three: 'CHL' }),
     tld: '.cl',
   },
   {
@@ -1502,7 +1502,7 @@ const countries = [
       es: 'República Popular China',
       fr: 'République populaire de Chine',
     }),
-    abbreviation: { two: 'cn', three: 'CHN' },
+    abbreviation: JSON.stringify({ two: 'cn', three: 'CHN' }),
     tld: '.cn',
   },
   {
@@ -1534,7 +1534,7 @@ const countries = [
       es: 'Isla de Navidad',
       fr: 'Île Christmas',
     }),
-    abbreviation: { two: 'cx', three: 'CXR' },
+    abbreviation: JSON.stringify({ two: 'cx', three: 'CXR' }),
     tld: '.cx',
   },
   {
@@ -1566,7 +1566,7 @@ const countries = [
       es: 'Islas Cocos (Keeling)',
       fr: 'Îles Cocos',
     }),
-    abbreviation: { two: 'cc', three: 'CCK' },
+    abbreviation: JSON.stringify({ two: 'cc', three: 'CCK' }),
     tld: '.cc',
   },
   {
@@ -1598,7 +1598,7 @@ const countries = [
       es: 'República de Colombia',
       fr: 'République de Colombie',
     }),
-    abbreviation: { two: 'co', three: 'COL' },
+    abbreviation: JSON.stringify({ two: 'co', three: 'COL' }),
     tld: '.co',
   },
   {
@@ -1630,7 +1630,7 @@ const countries = [
       es: 'Unión de las Comoras',
       fr: 'Union des Comores',
     }),
-    abbreviation: { two: 'km', three: 'COM' },
+    abbreviation: JSON.stringify({ two: 'km', three: 'COM' }),
     tld: '.km',
   },
   {
@@ -1662,7 +1662,7 @@ const countries = [
       es: 'República del Congo',
       fr: 'République du Congo',
     }),
-    abbreviation: { two: 'cg', three: 'COG' },
+    abbreviation: JSON.stringify({ two: 'cg', three: 'COG' }),
     tld: '.cg',
   },
   {
@@ -1694,7 +1694,7 @@ const countries = [
       es: 'Islas Cook',
       fr: 'Îles Cook',
     }),
-    abbreviation: { two: 'ck', three: 'COK' },
+    abbreviation: JSON.stringify({ two: 'ck', three: 'COK' }),
     tld: '.ck',
   },
   {
@@ -1726,7 +1726,7 @@ const countries = [
       es: 'República de Costa Rica',
       fr: 'République du Costa Rica',
     }),
-    abbreviation: { two: 'cr', three: 'CRI' },
+    abbreviation: JSON.stringify({ two: 'cr', three: 'CRI' }),
     tld: '.cr',
   },
   {
@@ -1758,7 +1758,7 @@ const countries = [
       es: 'República de Croacia',
       fr: 'République de Croatie',
     }),
-    abbreviation: { two: 'hr', three: 'HRV' },
+    abbreviation: JSON.stringify({ two: 'hr', three: 'HRV' }),
     tld: '.hr',
   },
   {
@@ -1790,7 +1790,7 @@ const countries = [
       es: 'República de Cuba',
       fr: 'République de Cuba',
     }),
-    abbreviation: { two: 'cu', three: 'CUB' },
+    abbreviation: JSON.stringify({ two: 'cu', three: 'CUB' }),
     tld: '.cu',
   },
   {
@@ -1822,7 +1822,7 @@ const countries = [
       es: 'País de Curazao',
       fr: 'Pays de Curaçao',
     }),
-    abbreviation: { two: 'cw', three: 'CUW' },
+    abbreviation: JSON.stringify({ two: 'cw', three: 'CUW' }),
     tld: '.cw',
   },
   {
@@ -1854,7 +1854,7 @@ const countries = [
       es: 'República de Chipre',
       fr: 'République de Chypre',
     }),
-    abbreviation: { two: 'cy', three: 'CYP' },
+    abbreviation: JSON.stringify({ two: 'cy', three: 'CYP' }),
     tld: '.cy',
   },
   {
@@ -1886,7 +1886,7 @@ const countries = [
       es: 'República Checa',
       fr: 'République tchèque',
     }),
-    abbreviation: { two: 'cz', three: 'CZE' },
+    abbreviation: JSON.stringify({ two: 'cz', three: 'CZE' }),
     tld: '.cz',
   },
   {
@@ -1918,7 +1918,7 @@ const countries = [
       es: 'Reino de Dinamarca',
       fr: 'Royaume du Danemark',
     }),
-    abbreviation: { two: 'dk', three: 'DNK' },
+    abbreviation: JSON.stringify({ two: 'dk', three: 'DNK' }),
     tld: '.dk',
   },
   {
@@ -1950,7 +1950,7 @@ const countries = [
       es: 'República de Yibuti',
       fr: 'République de Djibouti',
     }),
-    abbreviation: { two: 'dj', three: 'DJI' },
+    abbreviation: JSON.stringify({ two: 'dj', three: 'DJI' }),
     tld: '.dj',
   },
   {
@@ -1982,7 +1982,7 @@ const countries = [
       es: 'Mancomunidad de Dominica',
       fr: 'Commonwealth de la Dominique',
     }),
-    abbreviation: { two: 'dm', three: 'DMA' },
+    abbreviation: JSON.stringify({ two: 'dm', three: 'DMA' }),
     tld: '.dm',
   },
   {
@@ -2014,7 +2014,7 @@ const countries = [
       es: 'República Dominicana',
       fr: 'République dominicaine',
     }),
-    abbreviation: { two: 'do', three: 'DOM' },
+    abbreviation: JSON.stringify({ two: 'do', three: 'DOM' }),
     tld: '.do',
   },
   {
@@ -2046,7 +2046,7 @@ const countries = [
       es: 'República Democrática del Congo',
       fr: 'République démocratique du Congo',
     }),
-    abbreviation: { two: 'cd', three: 'COD' },
+    abbreviation: JSON.stringify({ two: 'cd', three: 'COD' }),
     tld: '.cd',
   },
   {
@@ -2078,7 +2078,7 @@ const countries = [
       es: 'República del Ecuador',
       fr: "République de l'Équateur",
     }),
-    abbreviation: { two: 'ec', three: 'ECU' },
+    abbreviation: JSON.stringify({ two: 'ec', three: 'ECU' }),
     tld: '.ec',
   },
   {
@@ -2110,7 +2110,7 @@ const countries = [
       es: 'República Árabe de Egipto',
       fr: "République arabe d'Égypte",
     }),
-    abbreviation: { two: 'eg', three: 'EGY' },
+    abbreviation: JSON.stringify({ two: 'eg', three: 'EGY' }),
     tld: '.eg',
   },
   {
@@ -2142,7 +2142,7 @@ const countries = [
       es: 'República de El Salvador',
       fr: 'République du Salvador',
     }),
-    abbreviation: { two: 'sv', three: 'SLV' },
+    abbreviation: JSON.stringify({ two: 'sv', three: 'SLV' }),
     tld: '.sv',
   },
   {
@@ -2174,7 +2174,7 @@ const countries = [
       es: 'República de Guinea Ecuatorial',
       fr: 'République de Guinée équatoriale',
     }),
-    abbreviation: { two: 'gq', three: 'GNQ' },
+    abbreviation: JSON.stringify({ two: 'gq', three: 'GNQ' }),
     tld: '.gq',
   },
   {
@@ -2206,7 +2206,7 @@ const countries = [
       es: 'Estado de Eritrea',
       fr: "État d'Érythrée",
     }),
-    abbreviation: { two: 'er', three: 'ERI' },
+    abbreviation: JSON.stringify({ two: 'er', three: 'ERI' }),
     tld: '.er',
   },
   {
@@ -2238,7 +2238,7 @@ const countries = [
       es: 'República de Estonia',
       fr: "République d'Estonie",
     }),
-    abbreviation: { two: 'ee', three: 'EST' },
+    abbreviation: JSON.stringify({ two: 'ee', three: 'EST' }),
     tld: '.ee',
   },
   {
@@ -2270,7 +2270,7 @@ const countries = [
       es: 'Reino de Esuatini',
       fr: "Royaume d'Eswatini",
     }),
-    abbreviation: { two: 'sz', three: 'SWZ' },
+    abbreviation: JSON.stringify({ two: 'sz', three: 'SWZ' }),
     tld: '.sz',
   },
   {
@@ -2302,7 +2302,7 @@ const countries = [
       es: 'República Democrática Federal de Etiopía',
       fr: "République fédérale démocratique d'Éthiopie",
     }),
-    abbreviation: { two: 'et', three: 'ETH' },
+    abbreviation: JSON.stringify({ two: 'et', three: 'ETH' }),
     tld: '.et',
   },
   {
@@ -2334,7 +2334,7 @@ const countries = [
       es: 'Islas Malvinas',
       fr: 'Îles Malouines',
     }),
-    abbreviation: { two: 'fk', three: 'FLK' },
+    abbreviation: JSON.stringify({ two: 'fk', three: 'FLK' }),
     tld: '.fk',
   },
   {
@@ -2366,7 +2366,7 @@ const countries = [
       es: 'Islas Feroe',
       fr: 'Îles Féroé',
     }),
-    abbreviation: { two: 'fo', three: 'FRO' },
+    abbreviation: JSON.stringify({ two: 'fo', three: 'FRO' }),
     tld: '.fo',
   },
   {
@@ -2398,7 +2398,7 @@ const countries = [
       es: 'República de Fiyi',
       fr: 'République des Fidji',
     }),
-    abbreviation: { two: 'fj', three: 'FJI' },
+    abbreviation: JSON.stringify({ two: 'fj', three: 'FJI' }),
     tld: '.fj',
   },
   {
@@ -2430,7 +2430,7 @@ const countries = [
       es: 'República de Finlandia',
       fr: 'République de Finlande',
     }),
-    abbreviation: { two: 'fi', three: 'FIN' },
+    abbreviation: JSON.stringify({ two: 'fi', three: 'FIN' }),
     tld: '.fi',
   },
   {
@@ -2462,7 +2462,7 @@ const countries = [
       es: 'República Francesa',
       fr: 'République française',
     }),
-    abbreviation: { two: 'fr', three: 'FRA' },
+    abbreviation: JSON.stringify({ two: 'fr', three: 'FRA' }),
     tld: '.fr',
   },
   {
@@ -2494,7 +2494,7 @@ const countries = [
       es: 'Guayana Francesa',
       fr: 'Guyane française',
     }),
-    abbreviation: { two: 'gf', three: 'GUF' },
+    abbreviation: JSON.stringify({ two: 'gf', three: 'GUF' }),
     tld: '.gf',
   },
   {
@@ -2526,7 +2526,7 @@ const countries = [
       es: 'Polinesia Francesa',
       fr: 'Polynésie française',
     }),
-    abbreviation: { two: 'pf', three: 'PYF' },
+    abbreviation: JSON.stringify({ two: 'pf', three: 'PYF' }),
     tld: '.pf',
   },
   {
@@ -2558,7 +2558,7 @@ const countries = [
       es: 'Tierras Australes y Antárticas Francesas',
       fr: 'Terres australes et antarctiques françaises',
     }),
-    abbreviation: { two: 'tf', three: 'ATF' },
+    abbreviation: JSON.stringify({ two: 'tf', three: 'ATF' }),
     tld: '.tf',
   },
   {
@@ -2590,7 +2590,7 @@ const countries = [
       es: 'República Gabonesa',
       fr: 'République gabonaise',
     }),
-    abbreviation: { two: 'ga', three: 'GAB' },
+    abbreviation: JSON.stringify({ two: 'ga', three: 'GAB' }),
     tld: '.ga',
   },
   {
@@ -2622,7 +2622,7 @@ const countries = [
       es: 'Georgia',
       fr: 'Géorgie',
     }),
-    abbreviation: { two: 'ge', three: 'GEO' },
+    abbreviation: JSON.stringify({ two: 'ge', three: 'GEO' }),
     tld: '.ge',
   },
   {
@@ -2654,7 +2654,7 @@ const countries = [
       es: 'República Federal de Alemania',
       fr: "République fédérale d'Allemagne",
     }),
-    abbreviation: { two: 'de', three: 'DEU' },
+    abbreviation: JSON.stringify({ two: 'de', three: 'DEU' }),
     tld: '.de',
   },
   {
@@ -2686,7 +2686,7 @@ const countries = [
       es: 'República de Ghana',
       fr: 'République du Ghana',
     }),
-    abbreviation: { two: 'gh', three: 'GHA' },
+    abbreviation: JSON.stringify({ two: 'gh', three: 'GHA' }),
     tld: '.gh',
   },
   {
@@ -2718,7 +2718,7 @@ const countries = [
       es: 'Gibraltar',
       fr: 'Gibraltar',
     }),
-    abbreviation: { two: 'gi', three: 'GIB' },
+    abbreviation: JSON.stringify({ two: 'gi', three: 'GIB' }),
     tld: '.gi',
   },
   {
@@ -2750,7 +2750,7 @@ const countries = [
       es: 'República Helénica',
       fr: 'République hellénique',
     }),
-    abbreviation: { two: 'gr', three: 'GRC' },
+    abbreviation: JSON.stringify({ two: 'gr', three: 'GRC' }),
     tld: '.gr',
   },
   {
@@ -2782,7 +2782,7 @@ const countries = [
       es: 'Groenlandia',
       fr: 'Groenland',
     }),
-    abbreviation: { two: 'gl', three: 'GRL' },
+    abbreviation: JSON.stringify({ two: 'gl', three: 'GRL' }),
     tld: '.gl',
   },
   {
@@ -2814,7 +2814,7 @@ const countries = [
       es: 'Granada',
       fr: 'Grenade',
     }),
-    abbreviation: { two: 'gd', three: 'GRD' },
+    abbreviation: JSON.stringify({ two: 'gd', three: 'GRD' }),
     tld: '.gd',
   },
   {
@@ -2846,7 +2846,7 @@ const countries = [
       es: 'Guadalupe',
       fr: 'Guadeloupe',
     }),
-    abbreviation: { two: 'gp', three: 'GLP' },
+    abbreviation: JSON.stringify({ two: 'gp', three: 'GLP' }),
     tld: '.gp',
   },
   {
@@ -2878,7 +2878,7 @@ const countries = [
       es: 'Guam',
       fr: 'Guam',
     }),
-    abbreviation: { two: 'gu', three: 'GUM' },
+    abbreviation: JSON.stringify({ two: 'gu', three: 'GUM' }),
     tld: '.gu',
   },
   {
@@ -2910,7 +2910,7 @@ const countries = [
       es: 'República de Guatemala',
       fr: 'République du Guatemala',
     }),
-    abbreviation: { two: 'gt', three: 'GTM' },
+    abbreviation: JSON.stringify({ two: 'gt', three: 'GTM' }),
     tld: '.gt',
   },
   {
@@ -2942,7 +2942,7 @@ const countries = [
       es: 'Bailía de Guernsey',
       fr: 'Bailliage de Guernesey',
     }),
-    abbreviation: { two: 'gg', three: 'GGY' },
+    abbreviation: JSON.stringify({ two: 'gg', three: 'GGY' }),
     tld: '.gg',
   },
   {
@@ -2974,7 +2974,7 @@ const countries = [
       es: 'República de Guinea',
       fr: 'République de Guinée',
     }),
-    abbreviation: { two: 'gn', three: 'GIN' },
+    abbreviation: JSON.stringify({ two: 'gn', three: 'GIN' }),
     tld: '.gn',
   },
   {
@@ -3006,7 +3006,7 @@ const countries = [
       es: 'República de Guinea-Bisáu',
       fr: 'République de Guinée-Bissau',
     }),
-    abbreviation: { two: 'gw', three: 'GNB' },
+    abbreviation: JSON.stringify({ two: 'gw', three: 'GNB' }),
     tld: '.gw',
   },
   {
@@ -3038,7 +3038,7 @@ const countries = [
       es: 'República Cooperativa de Guyana',
       fr: 'République coopérative de Guyana',
     }),
-    abbreviation: { two: 'gy', three: 'GUY' },
+    abbreviation: JSON.stringify({ two: 'gy', three: 'GUY' }),
     tld: '.gy',
   },
   {
@@ -3070,7 +3070,7 @@ const countries = [
       es: 'República de Haití',
       fr: "République d'Haïti",
     }),
-    abbreviation: { two: 'ht', three: 'HTI' },
+    abbreviation: JSON.stringify({ two: 'ht', three: 'HTI' }),
     tld: '.ht',
   },
   {
@@ -3102,7 +3102,7 @@ const countries = [
       es: 'Islas Heard y McDonald',
       fr: 'Îles Heard-et-MacDonald',
     }),
-    abbreviation: { two: 'hm', three: 'HMD' },
+    abbreviation: JSON.stringify({ two: 'hm', three: 'HMD' }),
     tld: '.hm',
   },
   {
@@ -3134,7 +3134,7 @@ const countries = [
       es: 'República de Honduras',
       fr: 'République du Honduras',
     }),
-    abbreviation: { two: 'hn', three: 'HND' },
+    abbreviation: JSON.stringify({ two: 'hn', three: 'HND' }),
     tld: '.hn',
   },
   {
@@ -3166,7 +3166,7 @@ const countries = [
       es: 'Región Administrativa Especial de Hong Kong de China',
       fr: 'Région administrative spéciale de Hong Kong de Chine',
     }),
-    abbreviation: { two: 'hk', three: 'HKG' },
+    abbreviation: JSON.stringify({ two: 'hk', three: 'HKG' }),
     tld: '.hk',
   },
   {
@@ -3198,7 +3198,7 @@ const countries = [
       es: 'Hungría',
       fr: 'Hongrie',
     }),
-    abbreviation: { two: 'hu', three: 'HUN' },
+    abbreviation: JSON.stringify({ two: 'hu', three: 'HUN' }),
     tld: '.hu',
   },
   {
@@ -3230,7 +3230,7 @@ const countries = [
       es: 'República de Islandia',
       fr: "République d'Islande",
     }),
-    abbreviation: { two: 'is', three: 'ISL' },
+    abbreviation: JSON.stringify({ two: 'is', three: 'ISL' }),
     tld: '.is',
   },
   {
@@ -3262,7 +3262,7 @@ const countries = [
       es: 'República de la India',
       fr: "République de l'Inde",
     }),
-    abbreviation: { two: 'in', three: 'IND' },
+    abbreviation: JSON.stringify({ two: 'in', three: 'IND' }),
     tld: '.in',
   },
   {
@@ -3294,7 +3294,7 @@ const countries = [
       es: 'República de Indonesia',
       fr: "République d'Indonésie",
     }),
-    abbreviation: { two: 'id', three: 'IDN' },
+    abbreviation: JSON.stringify({ two: 'id', three: 'IDN' }),
     tld: '.id',
   },
   {
@@ -3326,7 +3326,7 @@ const countries = [
       es: 'República Islámica de Irán',
       fr: "République islamique d'Iran",
     }),
-    abbreviation: { two: 'ir', three: 'IRN' },
+    abbreviation: JSON.stringify({ two: 'ir', three: 'IRN' }),
     tld: '.ir',
   },
   {
@@ -3358,7 +3358,7 @@ const countries = [
       es: 'República de Irak',
       fr: "République d'Irak",
     }),
-    abbreviation: { two: 'iq', three: 'IRQ' },
+    abbreviation: JSON.stringify({ two: 'iq', three: 'IRQ' }),
     tld: '.iq',
   },
   {
@@ -3390,7 +3390,7 @@ const countries = [
       es: 'República de Irlanda',
       fr: "République d'Irlande",
     }),
-    abbreviation: { two: 'ie', three: 'IRL' },
+    abbreviation: JSON.stringify({ two: 'ie', three: 'IRL' }),
     tld: '.ie',
   },
   {
@@ -3422,7 +3422,7 @@ const countries = [
       es: 'Isla de Man',
       fr: 'Île de Man',
     }),
-    abbreviation: { two: 'im', three: 'IMN' },
+    abbreviation: JSON.stringify({ two: 'im', three: 'IMN' }),
     tld: '.im',
   },
   {
@@ -3454,7 +3454,7 @@ const countries = [
       es: 'Estado de Israel',
       fr: "État d'Israël",
     }),
-    abbreviation: { two: 'il', three: 'ISR' },
+    abbreviation: JSON.stringify({ two: 'il', three: 'ISR' }),
     tld: '.il',
   },
   {
@@ -3486,7 +3486,7 @@ const countries = [
       es: 'República Italiana',
       fr: 'République italienne',
     }),
-    abbreviation: { two: 'it', three: 'ITA' },
+    abbreviation: JSON.stringify({ two: 'it', three: 'ITA' }),
     tld: '.it',
   },
   {
@@ -3518,7 +3518,7 @@ const countries = [
       es: 'República de Costa de Marfil',
       fr: "République de Côte d'Ivoire",
     }),
-    abbreviation: { two: 'ci', three: 'CIV' },
+    abbreviation: JSON.stringify({ two: 'ci', three: 'CIV' }),
     tld: '.ci',
   },
   {
@@ -3550,7 +3550,7 @@ const countries = [
       es: 'Jamaica',
       fr: 'Jamaïque',
     }),
-    abbreviation: { two: 'jm', three: 'JAM' },
+    abbreviation: JSON.stringify({ two: 'jm', three: 'JAM' }),
     tld: '.jm',
   },
   {
@@ -3582,7 +3582,7 @@ const countries = [
       es: 'Japón',
       fr: 'Japon',
     }),
-    abbreviation: { two: 'jp', three: 'JPN' },
+    abbreviation: JSON.stringify({ two: 'jp', three: 'JPN' }),
     tld: '.jp',
   },
   {
@@ -3614,7 +3614,7 @@ const countries = [
       es: 'Bailía de Jersey',
       fr: 'Bailliage de Jersey',
     }),
-    abbreviation: { two: 'je', three: 'JEY' },
+    abbreviation: JSON.stringify({ two: 'je', three: 'JEY' }),
     tld: '.je',
   },
   {
@@ -3646,7 +3646,7 @@ const countries = [
       es: 'Reino Hachemita de Jordania',
       fr: 'Royaume hachémite de Jordanie',
     }),
-    abbreviation: { two: 'jo', three: 'JOR' },
+    abbreviation: JSON.stringify({ two: 'jo', three: 'JOR' }),
     tld: '.jo',
   },
   {
@@ -3678,7 +3678,7 @@ const countries = [
       es: 'República de Kazajistán',
       fr: 'République du Kazakhstan',
     }),
-    abbreviation: { two: 'kz', three: 'KAZ' },
+    abbreviation: JSON.stringify({ two: 'kz', three: 'KAZ' }),
     tld: '.kz',
   },
   {
@@ -3710,7 +3710,7 @@ const countries = [
       es: 'República de Kenia',
       fr: 'République du Kenya',
     }),
-    abbreviation: { two: 'ke', three: 'KEN' },
+    abbreviation: JSON.stringify({ two: 'ke', three: 'KEN' }),
     tld: '.ke',
   },
   {
@@ -3742,7 +3742,7 @@ const countries = [
       es: 'República de Kiribati',
       fr: 'République de Kiribati',
     }),
-    abbreviation: { two: 'ki', three: 'KIR' },
+    abbreviation: JSON.stringify({ two: 'ki', three: 'KIR' }),
     tld: '.ki',
   },
   {
@@ -3774,7 +3774,7 @@ const countries = [
       es: 'República de Kosovo',
       fr: 'République du Kosovo',
     }),
-    abbreviation: { two: 'xk', three: 'XKX' },
+    abbreviation: JSON.stringify({ two: 'xk', three: 'XKX' }),
     tld: '.xk',
   },
   {
@@ -3806,7 +3806,7 @@ const countries = [
       es: 'Estado de Kuwait',
       fr: 'État du Koweït',
     }),
-    abbreviation: { two: 'kw', three: 'KWT' },
+    abbreviation: JSON.stringify({ two: 'kw', three: 'KWT' }),
     tld: '.kw',
   },
   {
@@ -3838,7 +3838,7 @@ const countries = [
       es: 'República Kirguisa',
       fr: 'République kirghize',
     }),
-    abbreviation: { two: 'kg', three: 'KGZ' },
+    abbreviation: JSON.stringify({ two: 'kg', three: 'KGZ' }),
     tld: '.kg',
   },
   {
@@ -3870,7 +3870,7 @@ const countries = [
       es: 'República Democrática Popular Lao',
       fr: 'République démocratique populaire lao',
     }),
-    abbreviation: { two: 'la', three: 'LAO' },
+    abbreviation: JSON.stringify({ two: 'la', three: 'LAO' }),
     tld: '.la',
   },
   {
@@ -3902,7 +3902,7 @@ const countries = [
       es: 'República de Letonia',
       fr: 'République de Lettonie',
     }),
-    abbreviation: { two: 'lv', three: 'LVA' },
+    abbreviation: JSON.stringify({ two: 'lv', three: 'LVA' }),
     tld: '.lv',
   },
   {
@@ -3934,7 +3934,7 @@ const countries = [
       es: 'República Libanesa',
       fr: 'République libanaise',
     }),
-    abbreviation: { two: 'lb', three: 'LBN' },
+    abbreviation: JSON.stringify({ two: 'lb', three: 'LBN' }),
     tld: '.lb',
   },
   {
@@ -3966,7 +3966,7 @@ const countries = [
       es: 'Reino de Lesoto',
       fr: 'Royaume du Lesotho',
     }),
-    abbreviation: { two: 'ls', three: 'LSO' },
+    abbreviation: JSON.stringify({ two: 'ls', three: 'LSO' }),
     tld: '.ls',
   },
   {
@@ -3998,7 +3998,7 @@ const countries = [
       es: 'República de Liberia',
       fr: 'République du Liberia',
     }),
-    abbreviation: { two: 'lr', three: 'LBR' },
+    abbreviation: JSON.stringify({ two: 'lr', three: 'LBR' }),
     tld: '.lr',
   },
   {
@@ -4030,7 +4030,7 @@ const countries = [
       es: 'Estado de Libia',
       fr: 'État de Libye',
     }),
-    abbreviation: { two: 'ly', three: 'LBY' },
+    abbreviation: JSON.stringify({ two: 'ly', three: 'LBY' }),
     tld: '.ly',
   },
   {
@@ -4062,7 +4062,7 @@ const countries = [
       es: 'Principado de Liechtenstein',
       fr: 'Principauté de Liechtenstein',
     }),
-    abbreviation: { two: 'li', three: 'LIE' },
+    abbreviation: JSON.stringify({ two: 'li', three: 'LIE' }),
     tld: '.li',
   },
   {
@@ -4094,7 +4094,7 @@ const countries = [
       es: 'República de Lituania',
       fr: 'République de Lituanie',
     }),
-    abbreviation: { two: 'lt', three: 'LTU' },
+    abbreviation: JSON.stringify({ two: 'lt', three: 'LTU' }),
     tld: '.lt',
   },
   {
@@ -4126,7 +4126,7 @@ const countries = [
       es: 'Gran Ducado de Luxemburgo',
       fr: 'Grand-Duché de Luxembourg',
     }),
-    abbreviation: { two: 'lu', three: 'LUX' },
+    abbreviation: JSON.stringify({ two: 'lu', three: 'LUX' }),
     tld: '.lu',
   },
   {
@@ -4158,7 +4158,7 @@ const countries = [
       es: 'Región Administrativa Especial de Macao de China',
       fr: 'Région administrative spéciale de Macao de Chine',
     }),
-    abbreviation: { two: 'mo', three: 'MAC' },
+    abbreviation: JSON.stringify({ two: 'mo', three: 'MAC' }),
     tld: '.mo',
   },
   {
@@ -4190,7 +4190,7 @@ const countries = [
       es: 'República de Madagascar',
       fr: 'République de Madagascar',
     }),
-    abbreviation: { two: 'mg', three: 'MDG' },
+    abbreviation: JSON.stringify({ two: 'mg', three: 'MDG' }),
     tld: '.mg',
   },
   {
@@ -4222,7 +4222,7 @@ const countries = [
       es: 'República de Malaui',
       fr: 'République du Malawi',
     }),
-    abbreviation: { two: 'mw', three: 'MWI' },
+    abbreviation: JSON.stringify({ two: 'mw', three: 'MWI' }),
     tld: '.mw',
   },
   {
@@ -4254,7 +4254,7 @@ const countries = [
       es: 'Malasia',
       fr: 'Malaisie',
     }),
-    abbreviation: { two: 'my', three: 'MYS' },
+    abbreviation: JSON.stringify({ two: 'my', three: 'MYS' }),
     tld: '.my',
   },
   {
@@ -4286,7 +4286,7 @@ const countries = [
       es: 'República de las Maldivas',
       fr: 'République des Maldives',
     }),
-    abbreviation: { two: 'mv', three: 'MDV' },
+    abbreviation: JSON.stringify({ two: 'mv', three: 'MDV' }),
     tld: '.mv',
   },
   {
@@ -4318,7 +4318,7 @@ const countries = [
       es: 'República de Malí',
       fr: 'République du Mali',
     }),
-    abbreviation: { two: 'ml', three: 'MLI' },
+    abbreviation: JSON.stringify({ two: 'ml', three: 'MLI' }),
     tld: '.ml',
   },
   {
@@ -4350,7 +4350,7 @@ const countries = [
       es: 'República de Malta',
       fr: 'République de Malte',
     }),
-    abbreviation: { two: 'mt', three: 'MLT' },
+    abbreviation: JSON.stringify({ two: 'mt', three: 'MLT' }),
     tld: '.mt',
   },
   {
@@ -4382,7 +4382,7 @@ const countries = [
       es: 'República de las Islas Marshall',
       fr: 'République des Îles Marshall',
     }),
-    abbreviation: { two: 'mh', three: 'MHL' },
+    abbreviation: JSON.stringify({ two: 'mh', three: 'MHL' }),
     tld: '.mh',
   },
   {
@@ -4414,7 +4414,7 @@ const countries = [
       es: 'Martinica',
       fr: 'Martinique',
     }),
-    abbreviation: { two: 'mq', three: 'MTQ' },
+    abbreviation: JSON.stringify({ two: 'mq', three: 'MTQ' }),
     tld: '.mq',
   },
   {
@@ -4446,7 +4446,7 @@ const countries = [
       es: 'República Islámica de Mauritania',
       fr: 'République islamique de Mauritanie',
     }),
-    abbreviation: { two: 'mr', three: 'MRT' },
+    abbreviation: JSON.stringify({ two: 'mr', three: 'MRT' }),
     tld: '.mr',
   },
   {
@@ -4478,7 +4478,7 @@ const countries = [
       es: 'República de Mauricio',
       fr: 'République de Maurice',
     }),
-    abbreviation: { two: 'mu', three: 'MUS' },
+    abbreviation: JSON.stringify({ two: 'mu', three: 'MUS' }),
     tld: '.mu',
   },
   {
@@ -4510,7 +4510,7 @@ const countries = [
       es: 'Departamento de Mayotte',
       fr: 'Département de Mayotte',
     }),
-    abbreviation: { two: 'yt', three: 'MYT' },
+    abbreviation: JSON.stringify({ two: 'yt', three: 'MYT' }),
     tld: '.yt',
   },
   {
@@ -4542,7 +4542,7 @@ const countries = [
       es: 'Estados Unidos Mexicanos',
       fr: 'États-Unis mexicains',
     }),
-    abbreviation: { two: 'mx', three: 'MEX' },
+    abbreviation: JSON.stringify({ two: 'mx', three: 'MEX' }),
     tld: '.mx',
   },
   {
@@ -4574,7 +4574,7 @@ const countries = [
       es: 'Estados Federados de Micronesia',
       fr: 'États fédérés de Micronésie',
     }),
-    abbreviation: { two: 'fm', three: 'FSM' },
+    abbreviation: JSON.stringify({ two: 'fm', three: 'FSM' }),
     tld: '.fm',
   },
   {
@@ -4606,7 +4606,7 @@ const countries = [
       es: 'República de Moldavia',
       fr: 'République de Moldavie',
     }),
-    abbreviation: { two: 'md', three: 'MDA' },
+    abbreviation: JSON.stringify({ two: 'md', three: 'MDA' }),
     tld: '.md',
   },
   {
@@ -4638,7 +4638,7 @@ const countries = [
       es: 'Principado de Mónaco',
       fr: 'Principauté de Monaco',
     }),
-    abbreviation: { two: 'mc', three: 'MCO' },
+    abbreviation: JSON.stringify({ two: 'mc', three: 'MCO' }),
     tld: '.mc',
   },
   {
@@ -4670,7 +4670,7 @@ const countries = [
       es: 'Mongolia',
       fr: 'Mongolie',
     }),
-    abbreviation: { two: 'mn', three: 'MNG' },
+    abbreviation: JSON.stringify({ two: 'mn', three: 'MNG' }),
     tld: '.mn',
   },
   {
@@ -4702,7 +4702,7 @@ const countries = [
       es: 'Montenegro',
       fr: 'Monténégro',
     }),
-    abbreviation: { two: 'me', three: 'MNE' },
+    abbreviation: JSON.stringify({ two: 'me', three: 'MNE' }),
     tld: '.me',
   },
   {
@@ -4734,7 +4734,7 @@ const countries = [
       es: 'Montserrat',
       fr: 'Montserrat',
     }),
-    abbreviation: { two: 'ms', three: 'MSR' },
+    abbreviation: JSON.stringify({ two: 'ms', three: 'MSR' }),
     tld: '.ms',
   },
   {
@@ -4766,7 +4766,7 @@ const countries = [
       es: 'Reino de Marruecos',
       fr: 'Royaume du Maroc',
     }),
-    abbreviation: { two: 'ma', three: 'MAR' },
+    abbreviation: JSON.stringify({ two: 'ma', three: 'MAR' }),
     tld: '.ma',
   },
   {
@@ -4798,7 +4798,7 @@ const countries = [
       es: 'República de Mozambique',
       fr: 'République du Mozambique',
     }),
-    abbreviation: { two: 'mz', three: 'MOZ' },
+    abbreviation: JSON.stringify({ two: 'mz', three: 'MOZ' }),
     tld: '.mz',
   },
   {
@@ -4830,7 +4830,7 @@ const countries = [
       es: 'República de la Unión de Myanmar',
       fr: "République de l'Union du Myanmar",
     }),
-    abbreviation: { two: 'mm', three: 'MMR' },
+    abbreviation: JSON.stringify({ two: 'mm', three: 'MMR' }),
     tld: '.mm',
   },
   {
@@ -4862,7 +4862,7 @@ const countries = [
       es: 'República de Namibia',
       fr: 'République de Namibie',
     }),
-    abbreviation: { two: 'na', three: 'NAM' },
+    abbreviation: JSON.stringify({ two: 'na', three: 'NAM' }),
     tld: '.na',
   },
   {
@@ -4894,7 +4894,7 @@ const countries = [
       es: 'República de Nauru',
       fr: 'République de Nauru',
     }),
-    abbreviation: { two: 'nr', three: 'NRU' },
+    abbreviation: JSON.stringify({ two: 'nr', three: 'NRU' }),
     tld: '.nr',
   },
   {
@@ -4926,7 +4926,7 @@ const countries = [
       es: 'República Federal Democrática de Nepal',
       fr: 'République fédérale démocratique du Népal',
     }),
-    abbreviation: { two: 'np', three: 'NPL' },
+    abbreviation: JSON.stringify({ two: 'np', three: 'NPL' }),
     tld: '.np',
   },
   {
@@ -4958,7 +4958,7 @@ const countries = [
       es: 'Nueva Caledonia',
       fr: 'Nouvelle-Calédonie',
     }),
-    abbreviation: { two: 'nc', three: 'NCL' },
+    abbreviation: JSON.stringify({ two: 'nc', three: 'NCL' }),
     tld: '.nc',
   },
   {
@@ -4990,7 +4990,7 @@ const countries = [
       es: 'Nueva Zelanda',
       fr: 'Nouvelle-Zélande',
     }),
-    abbreviation: { two: 'nz', three: 'NZL' },
+    abbreviation: JSON.stringify({ two: 'nz', three: 'NZL' }),
     tld: '.nz',
   },
   {
@@ -5022,7 +5022,7 @@ const countries = [
       es: 'República de Nicaragua',
       fr: 'République du Nicaragua',
     }),
-    abbreviation: { two: 'ni', three: 'NIC' },
+    abbreviation: JSON.stringify({ two: 'ni', three: 'NIC' }),
     tld: '.ni',
   },
   {
@@ -5054,7 +5054,7 @@ const countries = [
       es: 'República del Níger',
       fr: 'République du Niger',
     }),
-    abbreviation: { two: 'ne', three: 'NER' },
+    abbreviation: JSON.stringify({ two: 'ne', three: 'NER' }),
     tld: '.ne',
   },
   {
@@ -5086,7 +5086,7 @@ const countries = [
       es: 'República Federal de Nigeria',
       fr: 'République fédérale du Nigeria',
     }),
-    abbreviation: { two: 'ng', three: 'NGA' },
+    abbreviation: JSON.stringify({ two: 'ng', three: 'NGA' }),
     tld: '.ng',
   },
   {
@@ -5118,7 +5118,7 @@ const countries = [
       es: 'Niue',
       fr: 'Niue',
     }),
-    abbreviation: { two: 'nu', three: 'NIU' },
+    abbreviation: JSON.stringify({ two: 'nu', three: 'NIU' }),
     tld: '.nu',
   },
   {
@@ -5150,7 +5150,7 @@ const countries = [
       es: 'Isla Norfolk',
       fr: 'Île Norfolk',
     }),
-    abbreviation: { two: 'nf', three: 'NFK' },
+    abbreviation: JSON.stringify({ two: 'nf', three: 'NFK' }),
     tld: '.nf',
   },
   {
@@ -5182,7 +5182,7 @@ const countries = [
       es: 'República Popular Democrática de Corea',
       fr: 'République populaire démocratique de Corée',
     }),
-    abbreviation: { two: 'kp', three: 'PRK' },
+    abbreviation: JSON.stringify({ two: 'kp', three: 'PRK' }),
     tld: '.kp',
   },
   {
@@ -5214,7 +5214,7 @@ const countries = [
       es: 'República de Macedonia del Norte',
       fr: 'République de Macédoine du Nord',
     }),
-    abbreviation: { two: 'mk', three: 'MKD' },
+    abbreviation: JSON.stringify({ two: 'mk', three: 'MKD' }),
     tld: '.mk',
   },
   {
@@ -5246,7 +5246,7 @@ const countries = [
       es: 'Mancomunidad de las Islas Marianas del Norte',
       fr: 'Commonwealth des Îles Mariannes du Nord',
     }),
-    abbreviation: { two: 'mp', three: 'MNP' },
+    abbreviation: JSON.stringify({ two: 'mp', three: 'MNP' }),
     tld: '.mp',
   },
   {
@@ -5278,7 +5278,7 @@ const countries = [
       es: 'Reino de Noruega',
       fr: 'Royaume de Norvège',
     }),
-    abbreviation: { two: 'no', three: 'NOR' },
+    abbreviation: JSON.stringify({ two: 'no', three: 'NOR' }),
     tld: '.no',
   },
   {
@@ -5310,7 +5310,7 @@ const countries = [
       es: 'Sultanato de Omán',
       fr: "Sultanat d'Oman",
     }),
-    abbreviation: { two: 'om', three: 'OMN' },
+    abbreviation: JSON.stringify({ two: 'om', three: 'OMN' }),
     tld: '.om',
   },
   {
@@ -5342,7 +5342,7 @@ const countries = [
       es: 'República Islámica de Pakistán',
       fr: 'République islamique du Pakistan',
     }),
-    abbreviation: { two: 'pk', three: 'PAK' },
+    abbreviation: JSON.stringify({ two: 'pk', three: 'PAK' }),
     tld: '.pk',
   },
   {
@@ -5374,7 +5374,7 @@ const countries = [
       es: 'República de Palaos',
       fr: 'République des Palaos',
     }),
-    abbreviation: { two: 'pw', three: 'PLW' },
+    abbreviation: JSON.stringify({ two: 'pw', three: 'PLW' }),
     tld: '.pw',
   },
   {
@@ -5406,7 +5406,7 @@ const countries = [
       es: 'Estado de Palestina',
       fr: 'État de Palestine',
     }),
-    abbreviation: { two: 'ps', three: 'PSE' },
+    abbreviation: JSON.stringify({ two: 'ps', three: 'PSE' }),
     tld: '.ps',
   },
   {
@@ -5438,7 +5438,7 @@ const countries = [
       es: 'República de Panamá',
       fr: 'République du Panama',
     }),
-    abbreviation: { two: 'pa', three: 'PAN' },
+    abbreviation: JSON.stringify({ two: 'pa', three: 'PAN' }),
     tld: '.pa',
   },
   {
@@ -5470,7 +5470,7 @@ const countries = [
       es: 'Estado Independiente de Papúa Nueva Guinea',
       fr: 'État indépendant de Papouasie-Nouvelle-Guinée',
     }),
-    abbreviation: { two: 'pg', three: 'PNG' },
+    abbreviation: JSON.stringify({ two: 'pg', three: 'PNG' }),
     tld: '.pg',
   },
   {
@@ -5502,7 +5502,7 @@ const countries = [
       es: 'República del Paraguay',
       fr: 'République du Paraguay',
     }),
-    abbreviation: { two: 'py', three: 'PRY' },
+    abbreviation: JSON.stringify({ two: 'py', three: 'PRY' }),
     tld: '.py',
   },
   {
@@ -5534,7 +5534,7 @@ const countries = [
       es: 'República del Perú',
       fr: 'République du Pérou',
     }),
-    abbreviation: { two: 'pe', three: 'PER' },
+    abbreviation: JSON.stringify({ two: 'pe', three: 'PER' }),
     tld: '.pe',
   },
   {
@@ -5566,7 +5566,7 @@ const countries = [
       es: 'República de Filipinas',
       fr: 'République des Philippines',
     }),
-    abbreviation: { two: 'ph', three: 'PHL' },
+    abbreviation: JSON.stringify({ two: 'ph', three: 'PHL' }),
     tld: '.ph',
   },
   {
@@ -5598,7 +5598,7 @@ const countries = [
       es: 'Islas Pitcairn',
       fr: 'Îles Pitcairn',
     }),
-    abbreviation: { two: 'pn', three: 'PCN' },
+    abbreviation: JSON.stringify({ two: 'pn', three: 'PCN' }),
     tld: '.pn',
   },
   {
@@ -5630,7 +5630,7 @@ const countries = [
       es: 'República de Polonia',
       fr: 'République de Pologne',
     }),
-    abbreviation: { two: 'pl', three: 'POL' },
+    abbreviation: JSON.stringify({ two: 'pl', three: 'POL' }),
     tld: '.pl',
   },
   {
@@ -5662,7 +5662,7 @@ const countries = [
       es: 'República Portuguesa',
       fr: 'République portugaise',
     }),
-    abbreviation: { two: 'pt', three: 'PRT' },
+    abbreviation: JSON.stringify({ two: 'pt', three: 'PRT' }),
     tld: '.pt',
   },
   {
@@ -5694,7 +5694,7 @@ const countries = [
       es: 'Puerto Rico',
       fr: 'Porto Rico',
     }),
-    abbreviation: { two: 'pr', three: 'PRI' },
+    abbreviation: JSON.stringify({ two: 'pr', three: 'PRI' }),
     tld: '.pr',
   },
   {
@@ -5726,7 +5726,7 @@ const countries = [
       es: 'Estado de Catar',
       fr: 'État du Qatar',
     }),
-    abbreviation: { two: 'qa', three: 'QAT' },
+    abbreviation: JSON.stringify({ two: 'qa', three: 'QAT' }),
     tld: '.qa',
   },
   {
@@ -5758,7 +5758,7 @@ const countries = [
       es: 'Reunión',
       fr: 'La Réunion',
     }),
-    abbreviation: { two: 're', three: 'REU' },
+    abbreviation: JSON.stringify({ two: 're', three: 'REU' }),
     tld: '.re',
   },
   {
@@ -5790,7 +5790,7 @@ const countries = [
       es: 'Rumania',
       fr: 'Roumanie',
     }),
-    abbreviation: { two: 'ro', three: 'ROU' },
+    abbreviation: JSON.stringify({ two: 'ro', three: 'ROU' }),
     tld: '.ro',
   },
   {
@@ -5822,7 +5822,7 @@ const countries = [
       es: 'Federación de Rusia',
       fr: 'Fédération de Russie',
     }),
-    abbreviation: { two: 'ru', three: 'RUS' },
+    abbreviation: JSON.stringify({ two: 'ru', three: 'RUS' }),
     tld: '.ru',
   },
   {
@@ -5854,7 +5854,7 @@ const countries = [
       es: 'República de Ruanda',
       fr: 'République du Rwanda',
     }),
-    abbreviation: { two: 'rw', three: 'RWA' },
+    abbreviation: JSON.stringify({ two: 'rw', three: 'RWA' }),
     tld: '.rw',
   },
   {
@@ -5886,7 +5886,7 @@ const countries = [
       es: 'San Bartolomé',
       fr: 'Saint-Barthélemy',
     }),
-    abbreviation: { two: 'bl', three: 'BLM' },
+    abbreviation: JSON.stringify({ two: 'bl', three: 'BLM' }),
     tld: '.bl',
   },
   {
@@ -5918,7 +5918,7 @@ const countries = [
       es: 'Santa Elena',
       fr: 'Sainte-Hélène',
     }),
-    abbreviation: { two: 'sh', three: 'SHN' },
+    abbreviation: JSON.stringify({ two: 'sh', three: 'SHN' }),
     tld: '.sh',
   },
   {
@@ -5950,7 +5950,7 @@ const countries = [
       es: 'Santa Lucía',
       fr: 'Sainte-Lucie',
     }),
-    abbreviation: { two: 'lc', three: 'LCA' },
+    abbreviation: JSON.stringify({ two: 'lc', three: 'LCA' }),
     tld: '.lc',
   },
   {
@@ -5982,7 +5982,7 @@ const countries = [
       es: 'San Martín',
       fr: 'Saint-Martin',
     }),
-    abbreviation: { two: 'mf', three: 'MAF' },
+    abbreviation: JSON.stringify({ two: 'mf', three: 'MAF' }),
     tld: '.mf',
   },
   {
@@ -6014,7 +6014,7 @@ const countries = [
       es: 'San Pedro y Miquelón',
       fr: 'Saint-Pierre-et-Miquelon',
     }),
-    abbreviation: { two: 'pm', three: 'SPM' },
+    abbreviation: JSON.stringify({ two: 'pm', three: 'SPM' }),
     tld: '.pm',
   },
   {
@@ -6046,7 +6046,7 @@ const countries = [
       es: 'Estado Independiente de Samoa',
       fr: 'État indépendant des Samoa',
     }),
-    abbreviation: { two: 'ws', three: 'WSM' },
+    abbreviation: JSON.stringify({ two: 'ws', three: 'WSM' }),
     tld: '.ws',
   },
   {
@@ -6078,7 +6078,7 @@ const countries = [
       es: 'República de San Marino',
       fr: 'République de Saint-Marin',
     }),
-    abbreviation: { two: 'sm', three: 'SMR' },
+    abbreviation: JSON.stringify({ two: 'sm', three: 'SMR' }),
     tld: '.sm',
   },
   {
@@ -6110,7 +6110,7 @@ const countries = [
       es: 'República Democrática de Santo Tomé y Príncipe',
       fr: 'République démocratique de Sao Tomé-et-Principe',
     }),
-    abbreviation: { two: 'st', three: 'STP' },
+    abbreviation: JSON.stringify({ two: 'st', three: 'STP' }),
     tld: '.st',
   },
   {
@@ -6142,7 +6142,7 @@ const countries = [
       es: 'Reino de Arabia Saudita',
       fr: "Royaume d'Arabie saoudite",
     }),
-    abbreviation: { two: 'sa', three: 'SAU' },
+    abbreviation: JSON.stringify({ two: 'sa', three: 'SAU' }),
     tld: '.sa',
   },
   {
@@ -6174,7 +6174,7 @@ const countries = [
       es: 'República de Senegal',
       fr: 'République du Sénégal',
     }),
-    abbreviation: { two: 'sn', three: 'SEN' },
+    abbreviation: JSON.stringify({ two: 'sn', three: 'SEN' }),
     tld: '.sn',
   },
   {
@@ -6206,7 +6206,7 @@ const countries = [
       es: 'República de Serbia',
       fr: 'République de Serbie',
     }),
-    abbreviation: { two: 'rs', three: 'SRB' },
+    abbreviation: JSON.stringify({ two: 'rs', three: 'SRB' }),
     tld: '.rs',
   },
   {
@@ -6238,7 +6238,7 @@ const countries = [
       es: 'República de las Seychelles',
       fr: 'République des Seychelles',
     }),
-    abbreviation: { two: 'sc', three: 'SYC' },
+    abbreviation: JSON.stringify({ two: 'sc', three: 'SYC' }),
     tld: '.sc',
   },
   {
@@ -6270,7 +6270,7 @@ const countries = [
       es: 'República de Sierra Leona',
       fr: 'République de Sierra Leone',
     }),
-    abbreviation: { two: 'sl', three: 'SLE' },
+    abbreviation: JSON.stringify({ two: 'sl', three: 'SLE' }),
     tld: '.sl',
   },
   {
@@ -6302,7 +6302,7 @@ const countries = [
       es: 'República de Singapur',
       fr: 'République de Singapour',
     }),
-    abbreviation: { two: 'sg', three: 'SGP' },
+    abbreviation: JSON.stringify({ two: 'sg', three: 'SGP' }),
     tld: '.sg',
   },
   {
@@ -6334,7 +6334,7 @@ const countries = [
       es: 'Sint Maarten',
       fr: 'Saint-Martin',
     }),
-    abbreviation: { two: 'sx', three: 'SXM' },
+    abbreviation: JSON.stringify({ two: 'sx', three: 'SXM' }),
     tld: '.sx',
   },
   {
@@ -6366,7 +6366,7 @@ const countries = [
       es: 'República Eslovaca',
       fr: 'République slovaque',
     }),
-    abbreviation: { two: 'sk', three: 'SVK' },
+    abbreviation: JSON.stringify({ two: 'sk', three: 'SVK' }),
     tld: '.sk',
   },
   {
@@ -6398,7 +6398,7 @@ const countries = [
       es: 'República de Eslovenia',
       fr: 'République de Slovénie',
     }),
-    abbreviation: { two: 'si', three: 'SVN' },
+    abbreviation: JSON.stringify({ two: 'si', three: 'SVN' }),
     tld: '.si',
   },
   {
@@ -6430,7 +6430,7 @@ const countries = [
       es: 'Islas Salomón',
       fr: 'Îles Salomon',
     }),
-    abbreviation: { two: 'sb', three: 'SLB' },
+    abbreviation: JSON.stringify({ two: 'sb', three: 'SLB' }),
     tld: '.sb',
   },
   {
@@ -6462,7 +6462,7 @@ const countries = [
       es: 'República Federal de Somalia',
       fr: 'République fédérale de Somalie',
     }),
-    abbreviation: { two: 'so', three: 'SOM' },
+    abbreviation: JSON.stringify({ two: 'so', three: 'SOM' }),
     tld: '.so',
   },
   {
@@ -6494,7 +6494,7 @@ const countries = [
       es: 'República de Sudáfrica',
       fr: "République d'Afrique du Sud",
     }),
-    abbreviation: { two: 'za', three: 'ZAF' },
+    abbreviation: JSON.stringify({ two: 'za', three: 'ZAF' }),
     tld: '.za',
   },
   {
@@ -6526,7 +6526,7 @@ const countries = [
       es: 'Islas Georgias del Sur y Sandwich del Sur',
       fr: 'Géorgie du Sud-et-les Îles Sandwich du Sud',
     }),
-    abbreviation: { two: 'gs', three: 'SGS' },
+    abbreviation: JSON.stringify({ two: 'gs', three: 'SGS' }),
     tld: '.gs',
   },
   {
@@ -6558,7 +6558,7 @@ const countries = [
       es: 'República de Corea',
       fr: 'République de Corée',
     }),
-    abbreviation: { two: 'kr', three: 'KOR' },
+    abbreviation: JSON.stringify({ two: 'kr', three: 'KOR' }),
     tld: '.kr',
   },
   {
@@ -6590,7 +6590,7 @@ const countries = [
       es: 'República de Sudán del Sur',
       fr: 'République du Soudan du Sud',
     }),
-    abbreviation: { two: 'ss', three: 'SSD' },
+    abbreviation: JSON.stringify({ two: 'ss', three: 'SSD' }),
     tld: '.ss',
   },
   {
@@ -6622,7 +6622,7 @@ const countries = [
       es: 'Reino de España',
       fr: "Royaume d'Espagne",
     }),
-    abbreviation: { two: 'es', three: 'ESP' },
+    abbreviation: JSON.stringify({ two: 'es', three: 'ESP' }),
     tld: '.es',
   },
   {
@@ -6654,7 +6654,7 @@ const countries = [
       es: 'República Democrática Socialista de Sri Lanka',
       fr: 'République démocratique socialiste du Sri Lanka',
     }),
-    abbreviation: { two: 'lk', three: 'LKA' },
+    abbreviation: JSON.stringify({ two: 'lk', three: 'LKA' }),
     tld: '.lk',
   },
   {
@@ -6686,7 +6686,7 @@ const countries = [
       es: 'Federación de San Cristóbal y Nieves',
       fr: 'Fédération de Saint-Christophe-et-Niévès',
     }),
-    abbreviation: { two: 'kn', three: 'KNA' },
+    abbreviation: JSON.stringify({ two: 'kn', three: 'KNA' }),
     tld: '.kn',
   },
   {
@@ -6718,7 +6718,7 @@ const countries = [
       es: 'San Vicente y las Granadinas',
       fr: 'Saint-Vincent-et-les-Grenadines',
     }),
-    abbreviation: { two: 'vc', three: 'VCT' },
+    abbreviation: JSON.stringify({ two: 'vc', three: 'VCT' }),
     tld: '.vc',
   },
   {
@@ -6750,7 +6750,7 @@ const countries = [
       es: 'República del Sudán',
       fr: 'République du Soudan',
     }),
-    abbreviation: { two: 'sd', three: 'SDN' },
+    abbreviation: JSON.stringify({ two: 'sd', three: 'SDN' }),
     tld: '.sd',
   },
   {
@@ -6782,7 +6782,7 @@ const countries = [
       es: 'República de Surinam',
       fr: 'République du Suriname',
     }),
-    abbreviation: { two: 'sr', three: 'SUR' },
+    abbreviation: JSON.stringify({ two: 'sr', three: 'SUR' }),
     tld: '.sr',
   },
   {
@@ -6814,7 +6814,7 @@ const countries = [
       es: 'Svalbard y Jan Mayen',
       fr: 'Svalbard et Jan Mayen',
     }),
-    abbreviation: { two: 'sj', three: 'SJM' },
+    abbreviation: JSON.stringify({ two: 'sj', three: 'SJM' }),
     tld: '.sj',
   },
   {
@@ -6846,7 +6846,7 @@ const countries = [
       es: 'Reino de Suecia',
       fr: 'Royaume de Suède',
     }),
-    abbreviation: { two: 'se', three: 'SWE' },
+    abbreviation: JSON.stringify({ two: 'se', three: 'SWE' }),
     tld: '.se',
   },
   {
@@ -6878,7 +6878,7 @@ const countries = [
       es: 'Confederación Suiza',
       fr: 'Confédération suisse',
     }),
-    abbreviation: { two: 'ch', three: 'CHE' },
+    abbreviation: JSON.stringify({ two: 'ch', three: 'CHE' }),
     tld: '.ch',
   },
   {
@@ -6910,7 +6910,7 @@ const countries = [
       es: 'República Árabe Siria',
       fr: 'République arabe syrienne',
     }),
-    abbreviation: { two: 'sy', three: 'SYR' },
+    abbreviation: JSON.stringify({ two: 'sy', three: 'SYR' }),
     tld: '.sy',
   },
   {
@@ -6942,7 +6942,7 @@ const countries = [
       es: 'República de China (Taiwán)',
       fr: 'République de Chine (Taïwan)',
     }),
-    abbreviation: { two: 'tw', three: 'TWN' },
+    abbreviation: JSON.stringify({ two: 'tw', three: 'TWN' }),
     tld: '.tw',
   },
   {
@@ -6974,7 +6974,7 @@ const countries = [
       es: 'República de Tayikistán',
       fr: 'République du Tadjikistan',
     }),
-    abbreviation: { two: 'tj', three: 'TJK' },
+    abbreviation: JSON.stringify({ two: 'tj', three: 'TJK' }),
     tld: '.tj',
   },
   {
@@ -7006,7 +7006,7 @@ const countries = [
       es: 'República Unida de Tanzania',
       fr: 'République unie de Tanzanie',
     }),
-    abbreviation: { two: 'tz', three: 'TZA' },
+    abbreviation: JSON.stringify({ two: 'tz', three: 'TZA' }),
     tld: '.tz',
   },
   {
@@ -7038,7 +7038,7 @@ const countries = [
       es: 'Reino de Tailandia',
       fr: 'Royaume de Thaïlande',
     }),
-    abbreviation: { two: 'th', three: 'THA' },
+    abbreviation: JSON.stringify({ two: 'th', three: 'THA' }),
     tld: '.th',
   },
   {
@@ -7070,7 +7070,7 @@ const countries = [
       es: 'República de Gambia',
       fr: 'République de Gambie',
     }),
-    abbreviation: { two: 'gm', three: 'GMB' },
+    abbreviation: JSON.stringify({ two: 'gm', three: 'GMB' }),
     tld: '.gm',
   },
   {
@@ -7102,7 +7102,7 @@ const countries = [
       es: 'Reino de los Países Bajos',
       fr: 'Royaume des Pays-Bas',
     }),
-    abbreviation: { two: 'nl', three: 'NLD' },
+    abbreviation: JSON.stringify({ two: 'nl', three: 'NLD' }),
     tld: '.nl',
   },
   {
@@ -7134,7 +7134,7 @@ const countries = [
       es: 'República Democrática de Timor-Leste',
       fr: 'République démocratique du Timor oriental',
     }),
-    abbreviation: { two: 'tl', three: 'TLS' },
+    abbreviation: JSON.stringify({ two: 'tl', three: 'TLS' }),
     tld: '.tl',
   },
   {
@@ -7166,7 +7166,7 @@ const countries = [
       es: 'República Togolesa',
       fr: 'République togolaise',
     }),
-    abbreviation: { two: 'tg', three: 'TGO' },
+    abbreviation: JSON.stringify({ two: 'tg', three: 'TGO' }),
     tld: '.tg',
   },
   {
@@ -7198,7 +7198,7 @@ const countries = [
       es: 'Tokelau',
       fr: 'Tokelau',
     }),
-    abbreviation: { two: 'tk', three: 'TKL' },
+    abbreviation: JSON.stringify({ two: 'tk', three: 'TKL' }),
     tld: '.tk',
   },
   {
@@ -7230,7 +7230,7 @@ const countries = [
       es: 'Reino de Tonga',
       fr: 'Royaume des Tonga',
     }),
-    abbreviation: { two: 'to', three: 'TON' },
+    abbreviation: JSON.stringify({ two: 'to', three: 'TON' }),
     tld: '.to',
   },
   {
@@ -7262,7 +7262,7 @@ const countries = [
       es: 'República de Trinidad y Tobago',
       fr: 'République de Trinité-et-Tobago',
     }),
-    abbreviation: { two: 'tt', three: 'TTO' },
+    abbreviation: JSON.stringify({ two: 'tt', three: 'TTO' }),
     tld: '.tt',
   },
   {
@@ -7294,7 +7294,7 @@ const countries = [
       es: 'República de Túnez',
       fr: 'République tunisienne',
     }),
-    abbreviation: { two: 'tn', three: 'TUN' },
+    abbreviation: JSON.stringify({ two: 'tn', three: 'TUN' }),
     tld: '.tn',
   },
   {
@@ -7326,7 +7326,7 @@ const countries = [
       es: 'República de Turquía',
       fr: 'République de Turquie',
     }),
-    abbreviation: { two: 'tr', three: 'TUR' },
+    abbreviation: JSON.stringify({ two: 'tr', three: 'TUR' }),
     tld: '.tr',
   },
   {
@@ -7358,7 +7358,7 @@ const countries = [
       es: 'Turkmenistán',
       fr: 'Turkménistan',
     }),
-    abbreviation: { two: 'tm', three: 'TKM' },
+    abbreviation: JSON.stringify({ two: 'tm', three: 'TKM' }),
     tld: '.tm',
   },
   {
@@ -7390,7 +7390,7 @@ const countries = [
       es: 'Islas Turcas y Caicos',
       fr: 'Îles Turques-et-Caïques',
     }),
-    abbreviation: { two: 'tc', three: 'TCA' },
+    abbreviation: JSON.stringify({ two: 'tc', three: 'TCA' }),
     tld: '.tc',
   },
   {
@@ -7422,7 +7422,7 @@ const countries = [
       es: 'Tuvalu',
       fr: 'Tuvalu',
     }),
-    abbreviation: { two: 'tv', three: 'TUV' },
+    abbreviation: JSON.stringify({ two: 'tv', three: 'TUV' }),
     tld: '.tv',
   },
   {
@@ -7454,7 +7454,7 @@ const countries = [
       es: 'Islas Ultramarinas Menores de Estados Unidos',
       fr: 'Îles mineures éloignées des États-Unis',
     }),
-    abbreviation: { two: 'um', three: 'UMI' },
+    abbreviation: JSON.stringify({ two: 'um', three: 'UMI' }),
     tld: '.um',
   },
   {
@@ -7486,7 +7486,7 @@ const countries = [
       es: 'Islas Vírgenes de los Estados Unidos',
       fr: 'Îles Vierges des États-Unis',
     }),
-    abbreviation: { two: 'vi', three: 'VIR' },
+    abbreviation: JSON.stringify({ two: 'vi', three: 'VIR' }),
     tld: '.vi',
   },
   {
@@ -7518,7 +7518,7 @@ const countries = [
       es: 'República de Uganda',
       fr: "République de l'Ouganda",
     }),
-    abbreviation: { two: 'ug', three: 'UGA' },
+    abbreviation: JSON.stringify({ two: 'ug', three: 'UGA' }),
     tld: '.ug',
   },
   {
@@ -7550,7 +7550,7 @@ const countries = [
       es: 'Ucrania',
       fr: 'Ukraine',
     }),
-    abbreviation: { two: 'ua', three: 'UKR' },
+    abbreviation: JSON.stringify({ two: 'ua', three: 'UKR' }),
     tld: '.ua',
   },
   {
@@ -7582,7 +7582,7 @@ const countries = [
       es: 'Emiratos Árabes Unidos',
       fr: 'Émirats arabes unis',
     }),
-    abbreviation: { two: 'ae', three: 'ARE' },
+    abbreviation: JSON.stringify({ two: 'ae', three: 'ARE' }),
     tld: '.ae',
   },
   {
@@ -7614,7 +7614,7 @@ const countries = [
       es: 'Reino Unido de Gran Bretaña e Irlanda del Norte',
       fr: "Royaume-Uni de Grande-Bretagne et d'Irlande du Nord",
     }),
-    abbreviation: { two: 'gb', three: 'GBR' },
+    abbreviation: JSON.stringify({ two: 'gb', three: 'GBR' }),
     tld: '.uk',
   },
   {
@@ -7646,7 +7646,7 @@ const countries = [
       es: 'Estados Unidos de América',
       fr: "États-Unis d'Amérique",
     }),
-    abbreviation: { two: 'us', three: 'USA' },
+    abbreviation: JSON.stringify({ two: 'us', three: 'USA' }),
     tld: '.us',
   },
   {
@@ -7678,7 +7678,7 @@ const countries = [
       es: 'República Oriental del Uruguay',
       fr: "République orientale de l'Uruguay",
     }),
-    abbreviation: { two: 'uy', three: 'URY' },
+    abbreviation: JSON.stringify({ two: 'uy', three: 'URY' }),
     tld: '.uy',
   },
   {
@@ -7710,7 +7710,7 @@ const countries = [
       es: 'República de Uzbekistán',
       fr: "République d'Ouzbékistan",
     }),
-    abbreviation: { two: 'uz', three: 'UZB' },
+    abbreviation: JSON.stringify({ two: 'uz', three: 'UZB' }),
     tld: '.uz',
   },
   {
@@ -7742,7 +7742,7 @@ const countries = [
       es: 'República de Vanuatu',
       fr: 'République de Vanuatu',
     }),
-    abbreviation: { two: 'vu', three: 'VUT' },
+    abbreviation: JSON.stringify({ two: 'vu', three: 'VUT' }),
     tld: '.vu',
   },
   {
@@ -7774,7 +7774,7 @@ const countries = [
       es: 'Estado de la Ciudad del Vaticano',
       fr: 'État de la Cité du Vatican',
     }),
-    abbreviation: { two: 'va', three: 'VAT' },
+    abbreviation: JSON.stringify({ two: 'va', three: 'VAT' }),
     tld: '.va',
   },
   {
@@ -7806,7 +7806,7 @@ const countries = [
       es: 'República Bolivariana de Venezuela',
       fr: 'République bolivarienne du Venezuela',
     }),
-    abbreviation: { two: 've', three: 'VEN' },
+    abbreviation: JSON.stringify({ two: 've', three: 'VEN' }),
     tld: '.ve',
   },
   {
@@ -7838,7 +7838,7 @@ const countries = [
       es: 'República Socialista de Vietnam',
       fr: 'République socialiste du Viêt Nam',
     }),
-    abbreviation: { two: 'vn', three: 'VNM' },
+    abbreviation: JSON.stringify({ two: 'vn', three: 'VNM' }),
     tld: '.vn',
   },
   {
@@ -7870,7 +7870,7 @@ const countries = [
       es: 'Wallis y Futuna',
       fr: 'Wallis-et-Futuna',
     }),
-    abbreviation: { two: 'wf', three: 'WLF' },
+    abbreviation: JSON.stringify({ two: 'wf', three: 'WLF' }),
     tld: '.wf',
   },
   {
@@ -7902,7 +7902,7 @@ const countries = [
       es: 'Sahara Occidental',
       fr: 'Sahara occidental',
     }),
-    abbreviation: { two: 'eh', three: 'ESH' },
+    abbreviation: JSON.stringify({ two: 'eh', three: 'ESH' }),
     tld: '.eh',
   },
   {
@@ -7934,7 +7934,7 @@ const countries = [
       es: 'República de Yemen',
       fr: 'République du Yémen',
     }),
-    abbreviation: { two: 'ye', three: 'YEM' },
+    abbreviation: JSON.stringify({ two: 'ye', three: 'YEM' }),
     tld: '.ye',
   },
   {
@@ -7966,7 +7966,7 @@ const countries = [
       es: 'República de Zambia',
       fr: 'République de Zambie',
     }),
-    abbreviation: { two: 'zm', three: 'ZMB' },
+    abbreviation: JSON.stringify({ two: 'zm', three: 'ZMB' }),
     tld: '.zm',
   },
   {
@@ -7998,7 +7998,7 @@ const countries = [
       es: 'República de Zimbabue',
       fr: 'République du Zimbabwe',
     }),
-    abbreviation: { two: 'zw', three: 'ZWE' },
+    abbreviation: JSON.stringify({ two: 'zw', three: 'ZWE' }),
     tld: '.zw',
   },
 ];

@@ -24,12 +24,12 @@ module.exports = {
           comment: 'ID of the capital city of the subdivision.',
         },
         name: {
-          type: Sequelize.TEXT('tiny'),
+          type: Sequelize.JSON,
           allowNull: false,
-          comment: 'Original name of the subdivision.',
+          comment: 'Name of the political division in several languages.',
         },
         denomination: {
-          type: Sequelize.ENUM('state', 'department', 'province', 'county', 'district', 'parish'),
+          type: Sequelize.TEXT('tiny'),
           allowNull: false,
           comment: 'Definition of the type of subdivision (department, state, or province).',
         },
