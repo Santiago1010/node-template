@@ -23,8 +23,7 @@ const runSeeders = async () => {
     const tempConfig = {
       username: dbSecrets.user,
       password: dbSecrets.password,
-      // database: dbSecrets.name,
-      database: 'test_base',
+      database: dbSecrets.name,
       host: dbSecrets.host,
       dialect: 'mysql',
       port: dbSecrets.port || 3306,
