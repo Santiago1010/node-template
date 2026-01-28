@@ -128,6 +128,18 @@ module.exports = {
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
+
+    await queryInterface.addConstraint('usr_accesses', {
+      fields: ['account_id'],
+      type: 'foreign key',
+      name: 'usr_accesses_ibfk_1',
+      references: {
+        table: 'usr_accounts',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

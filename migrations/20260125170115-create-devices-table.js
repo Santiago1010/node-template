@@ -123,6 +123,18 @@ module.exports = {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
+
+    await queryInterface.addConstraint('usr_accesses', {
+      fields: ['device_id'],
+      type: 'foreign key',
+      name: 'usr_accesses_ibfk_2',
+      references: {
+        table: 'usr_devices',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

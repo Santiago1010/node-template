@@ -69,46 +69,17 @@ module.exports = {
       }
     );
 
-    // Índice único para el token
     await queryInterface.addIndex('usr_accesses', ['id_token'], {
       name: 'token_UN',
       unique: true,
     });
 
-    // Índice para account_id
     await queryInterface.addIndex('usr_accesses', ['account_id'], {
       name: 'account',
     });
 
-    // Índice para device_id
     await queryInterface.addIndex('usr_accesses', ['device_id'], {
       name: 'device',
-    });
-
-    // Foreign key para account_id
-    await queryInterface.addConstraint('usr_accesses', {
-      fields: ['account_id'],
-      type: 'foreign key',
-      name: 'usr_accesses_ibfk_1',
-      references: {
-        table: 'usr_accounts',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    // Foreign key para device_id
-    await queryInterface.addConstraint('usr_accesses', {
-      fields: ['device_id'],
-      type: 'foreign key',
-      name: 'usr_accesses_ibfk_2',
-      references: {
-        table: 'usr_devices',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
     });
   },
 
