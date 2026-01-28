@@ -1,6 +1,6 @@
 {
   "name": "node-template",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "description": "",
   "keywords": [
     "template",
@@ -47,6 +47,7 @@
     "**/*": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
   },
   "scripts": {
+    "db:setup": "npm run migrate && npm run seed",
     "debug": "node ./scripts/debug.script.js",
     "dev": "node --watch index.js",
     "dev:inspect": "node --watch --inspect index.js",
@@ -55,9 +56,12 @@
     "lint": "biome lint",
     "lint:docs-endpoints": "node ./scripts/docs-paths-lint.script.js",
     "lint:fix": "biome lint --fix",
+    "migrate": "node scripts/run-migrations.script.js",
+    "migrate:undo": "node scripts/run-migrations.script.js --undo",
     "models:create": "node ./scripts/createModels.script.js",
     "models:generate": "node ./scripts/createModels.script.js",
     "prepare": "husky",
+    "seed": "node scripts/run-seeders.script.js",
     "start": "node index.js",
     "sync-endpoints": "node ./scripts/endpoints.script.js",
     "test": "NODE_ENV=test jest --detectOpenHandles --passWithNoTests",

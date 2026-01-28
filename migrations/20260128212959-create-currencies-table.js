@@ -4,40 +4,45 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'geo_continents',
+      'data_currencies',
       {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          comment: 'Unique primary key for identifying each continent.',
+          comment: 'Unique identifier for each currency.',
         },
         name: {
           type: Sequelize.JSON,
           allowNull: false,
-          comment: 'Continent name, written in different languages for internationalization.',
+          comment: 'Official name of the currency in several languages.',
         },
         abbreviation: {
-          type: Sequelize.STRING(3),
+          type: Sequelize.STRING(15),
           allowNull: false,
-          unique: true,
-          comment: 'Continent abbreviation.',
+          unique: 'unique_abbreviation',
+          comment: 'Abbreviation for currency.',
+        },
+        symbol: {
+          type: Sequelize.STRING(10),
+          allowNull: false,
+          comment: 'Symbol that differentiates the currency.',
         },
       },
       {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Table that stores the continents.',
+        comment: 'Currencies of each country.',
       }
     );
 
-    await queryInterface.addConstraint('data_timezones', {
-      fields: ['continent_id'],
+    await queryInterface.addConstraint('geo_countries_has_currencies', {
+      fields: ['currency_id'],
       type: 'foreign key',
-      name: 'data_timezones_ibfk_1',
+      name: 'geo_countries_has_currencies_ibfk_2',
       references: {
-        table: 'geo_continents',
+        table: 'data_currencies',
         field: 'id',
       },
       onDelete: 'CASCADE',
@@ -46,6 +51,6 @@ module.exports = {
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('geo_continents');
+    await queryInterface.dropTable('data_currencies');
   },
 };

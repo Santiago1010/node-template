@@ -31,19 +31,19 @@ module.exports = {
             'Indicates whether the scope is selectable or deselectable to be configured for specific roles and/or accounts. If false, it should not be displayed to the public.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -57,6 +57,42 @@ module.exports = {
         comment: 'System-wide scopes.',
       }
     );
+
+    await queryInterface.addConstraint('config_endpoints_has_required_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_endpoints_required_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('config_pages_has_required_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_pages_has_required_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('config_roles_has_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_roles_has_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

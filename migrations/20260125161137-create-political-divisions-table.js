@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'geo_sub_divisions',
+      'geo_political_divisions',
       {
         id: {
           type: Sequelize.INTEGER,
@@ -24,12 +24,12 @@ module.exports = {
           comment: 'ID of the capital city of the subdivision.',
         },
         name: {
-          type: Sequelize.TINYTEXT,
+          type: Sequelize.JSON,
           allowNull: false,
-          comment: 'Original name of the subdivision.',
+          comment: 'Name of the political division in several languages.',
         },
         denomination: {
-          type: Sequelize.ENUM('state', 'department', 'province', 'county', 'district', 'parish'),
+          type: Sequelize.TEXT('tiny'),
           allowNull: false,
           comment: 'Definition of the type of subdivision (department, state, or province).',
         },
@@ -42,18 +42,18 @@ module.exports = {
       }
     );
 
-    await queryInterface.addIndex('geo_sub_divisions', ['country_id'], {
+    await queryInterface.addIndex('geo_political_divisions', ['country_id'], {
       name: 'country',
     });
 
-    await queryInterface.addIndex('geo_sub_divisions', ['capital_id'], {
+    await queryInterface.addIndex('geo_political_divisions', ['capital_id'], {
       name: 'capital',
     });
 
-    await queryInterface.addConstraint('geo_sub_divisions', {
+    await queryInterface.addConstraint('geo_political_divisions', {
       fields: ['country_id'],
       type: 'foreign key',
-      name: 'geo_sub_divisions_ibfk_1',
+      name: 'geo_divisions_ibfk_1',
       references: {
         table: 'geo_countries',
         field: 'id',
@@ -62,12 +62,12 @@ module.exports = {
       onUpdate: 'CASCADE',
     });
 
-    await queryInterface.addConstraint('geo_sub_divisions', {
-      fields: ['capital_id'],
+    await queryInterface.addConstraint('geo_cities', {
+      fields: ['sub_division_id'],
       type: 'foreign key',
-      name: 'geo_sub_divisions_ibfk_2',
+      name: 'geo_cities_ibfk_1',
       references: {
-        table: 'geo_cities',
+        table: 'geo_political_divisions',
         field: 'id',
       },
       onDelete: 'CASCADE',
@@ -76,6 +76,6 @@ module.exports = {
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('geo_sub_divisions');
+    await queryInterface.dropTable('geo_political_divisions');
   },
 };

@@ -37,29 +37,29 @@ module.exports = {
             'Purpose for which the OTP code was requested. Use login for user authentication, setup to enable two-factor authentication, transaction for in-app transactions, sensitive_actions for operations requiring elevated security, and secure_mode to disable secure mode.',
         },
         expires_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           comment: 'Deadline date and time for using the OTP code.',
         },
         used_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           comment: 'Date and time the OTP code was successfully used.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:

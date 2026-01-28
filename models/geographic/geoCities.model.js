@@ -20,7 +20,7 @@ const Schema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      table: 'geo_sub_divisions',
+      table: 'geo_political_divisions',
       column: 'id',
       model: 'geoSubDivisions',
       key: 'id',

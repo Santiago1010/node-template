@@ -23,19 +23,19 @@ module.exports = {
           comment: 'Scope ID.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -64,18 +64,6 @@ module.exports = {
       name: 'config_roles_has_scopes_ibfk_1',
       references: {
         table: 'config_roles',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    await queryInterface.addConstraint('config_roles_has_scopes', {
-      fields: ['scope_id'],
-      type: 'foreign key',
-      name: 'config_roles_has_scopes_ibfk_2',
-      references: {
-        table: 'config_scopes',
         field: 'id',
       },
       onDelete: 'RESTRICT',

@@ -31,7 +31,7 @@ module.exports = {
             'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
         },
         expires_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           comment: 'Date and time the access expires. Updated each time the token is refreshed.',
         },
@@ -42,19 +42,19 @@ module.exports = {
           comment: 'Indicates whether access was performed in safe mode.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -69,46 +69,17 @@ module.exports = {
       }
     );
 
-    // Índice único para el token
     await queryInterface.addIndex('usr_accesses', ['id_token'], {
       name: 'token_UN',
       unique: true,
     });
 
-    // Índice para account_id
     await queryInterface.addIndex('usr_accesses', ['account_id'], {
       name: 'account',
     });
 
-    // Índice para device_id
     await queryInterface.addIndex('usr_accesses', ['device_id'], {
       name: 'device',
-    });
-
-    // Foreign key para account_id
-    await queryInterface.addConstraint('usr_accesses', {
-      fields: ['account_id'],
-      type: 'foreign key',
-      name: 'usr_accesses_ibfk_1',
-      references: {
-        table: 'usr_accounts',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    // Foreign key para device_id
-    await queryInterface.addConstraint('usr_accesses', {
-      fields: ['device_id'],
-      type: 'foreign key',
-      name: 'usr_accesses_ibfk_2',
-      references: {
-        table: 'usr_devices',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
     });
   },
 

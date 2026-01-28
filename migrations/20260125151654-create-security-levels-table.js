@@ -39,19 +39,19 @@ module.exports = {
           comment: 'Indicate whether this is a default level. Only one can be marked as default.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -65,6 +65,30 @@ module.exports = {
         comment: 'Application access security levels.',
       }
     );
+
+    await queryInterface.addConstraint('config_endpoints_request_schema', {
+      fields: ['security_level_id'],
+      type: 'foreign key',
+      name: 'config_endpoints_request_schema_ibfk_3',
+      references: {
+        table: 'config_security_levels',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+
+    await queryInterface.addConstraint('config_roles', {
+      fields: ['security_level_id'],
+      type: 'foreign key',
+      name: 'config_roles_ibfk_1',
+      references: {
+        table: 'config_security_levels',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

@@ -28,19 +28,19 @@ module.exports = {
           comment: 'Example of how the number is normally displayed in the country.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -69,18 +69,6 @@ module.exports = {
       name: 'geo_countries_has_currencies_ibfk_1',
       references: {
         table: 'geo_countries',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-
-    await queryInterface.addConstraint('geo_countries_has_currencies', {
-      fields: ['currency_id'],
-      type: 'foreign key',
-      name: 'geo_countries_has_currencies_ibfk_2',
-      references: {
-        table: 'data_currencies',
         field: 'id',
       },
       onDelete: 'CASCADE',

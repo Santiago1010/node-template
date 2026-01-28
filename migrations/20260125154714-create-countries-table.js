@@ -44,12 +44,6 @@ module.exports = {
           comment:
             'ISO 3166-1 alpha-2 two-letter country codes and ISO 3166-1 alpha-3 three-letter country codes of the country.',
         },
-        surface_area: {
-          type: Sequelize.STRING(15),
-          allowNull: true,
-          defaultValue: null,
-          comment: 'Approximate surface area of the country (measured in km²).',
-        },
         tld: {
           type: Sequelize.STRING(10),
           allowNull: false,
@@ -74,30 +68,6 @@ module.exports = {
 
     await queryInterface.addIndex('geo_countries', ['flag_id'], {
       name: 'flag',
-    });
-
-    await queryInterface.addConstraint('geo_countries', {
-      fields: ['region_id'],
-      type: 'foreign key',
-      name: 'geo_countries_ibfk_1',
-      references: {
-        table: 'geo_regions',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-
-    await queryInterface.addConstraint('geo_countries', {
-      fields: ['capital_id'],
-      type: 'foreign key',
-      name: 'geo_countries_ibfk_2',
-      references: {
-        table: 'geo_cities',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
     });
 
     await queryInterface.addConstraint('geo_countries', {

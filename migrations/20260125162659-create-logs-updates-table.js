@@ -39,7 +39,7 @@ module.exports = {
           comment: 'Name of the affected table with the name of its respective model.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment:
