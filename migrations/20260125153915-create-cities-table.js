@@ -46,18 +46,6 @@ module.exports = {
     });
 
     await queryInterface.addConstraint('geo_cities', {
-      fields: ['sub_division_id'],
-      type: 'foreign key',
-      name: 'geo_cities_ibfk_1',
-      references: {
-        table: 'geo_political_divisions',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-
-    await queryInterface.addConstraint('geo_cities', {
       fields: ['timezone_id'],
       type: 'foreign key',
       name: 'geo_cities_ibfk_2',

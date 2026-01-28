@@ -65,18 +65,6 @@ module.exports = {
     await queryInterface.addIndex('config_roles', ['security_level_id'], {
       name: 'security_level',
     });
-
-    await queryInterface.addConstraint('config_roles', {
-      fields: ['security_level_id'],
-      type: 'foreign key',
-      name: 'config_roles_ibfk_1',
-      references: {
-        table: 'config_security_levels',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
   },
 
   async down(queryInterface, _Sequelize) {

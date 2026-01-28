@@ -55,6 +55,7 @@
     "lint": "biome lint",
     "lint:docs-endpoints": "node ./scripts/docs-paths-lint.script.js",
     "lint:fix": "biome lint --fix",
+    "migrate": "node scripts/run-migrations.script.js",
     "models:create": "node ./scripts/createModels.script.js",
     "models:generate": "node ./scripts/createModels.script.js",
     "prepare": "husky",

@@ -86,6 +86,18 @@ module.exports = {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
+
+    await queryInterface.addConstraint('config_pages_endpoints_has_schemas', {
+      fields: ['page_endpoint_id'],
+      type: 'foreign key',
+      name: 'config_pages_endpoints_has_schemas_ibfk_1',
+      references: {
+        table: 'config_pages_has_endpoints',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

@@ -32,7 +32,7 @@ module.exports = {
             'ID of the field to which it belongs. This is used for cases where the field is an object or an array of objects.',
         },
         name: {
-          type: Sequelize.TINYTEXT,
+          type: Sequelize.TEXT('tiny'),
           allowNull: false,
           comment:
             'Canonical name of the request parameter as expected by the API (e.g. in URL, headers, or body). Case-sensitive',
@@ -115,18 +115,6 @@ module.exports = {
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
-    });
-
-    await queryInterface.addConstraint('config_endpoints_request_schema', {
-      fields: ['security_level_id'],
-      type: 'foreign key',
-      name: 'config_endpoints_request_schema_ibfk_3',
-      references: {
-        table: 'config_security_levels',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
     });
   },
 

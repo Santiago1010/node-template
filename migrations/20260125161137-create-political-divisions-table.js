@@ -24,7 +24,7 @@ module.exports = {
           comment: 'ID of the capital city of the subdivision.',
         },
         name: {
-          type: Sequelize.TINYTEXT,
+          type: Sequelize.TEXT('tiny'),
           allowNull: false,
           comment: 'Original name of the subdivision.',
         },
@@ -56,6 +56,18 @@ module.exports = {
       name: 'geo_divisions_ibfk_1',
       references: {
         table: 'geo_countries',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('geo_cities', {
+      fields: ['sub_division_id'],
+      type: 'foreign key',
+      name: 'geo_cities_ibfk_1',
+      references: {
+        table: 'geo_political_divisions',
         field: 'id',
       },
       onDelete: 'CASCADE',

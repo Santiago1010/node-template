@@ -65,6 +65,30 @@ module.exports = {
         comment: 'Application access security levels.',
       }
     );
+
+    await queryInterface.addConstraint('config_endpoints_request_schema', {
+      fields: ['security_level_id'],
+      type: 'foreign key',
+      name: 'config_endpoints_request_schema_ibfk_3',
+      references: {
+        table: 'config_security_levels',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+
+    await queryInterface.addConstraint('config_roles', {
+      fields: ['security_level_id'],
+      type: 'foreign key',
+      name: 'config_roles_ibfk_1',
+      references: {
+        table: 'config_security_levels',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

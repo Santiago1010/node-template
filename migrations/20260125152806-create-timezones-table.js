@@ -42,18 +42,6 @@ module.exports = {
       name: 'continent',
       comment: 'Continent to which the time zone belongs.',
     });
-
-    await queryInterface.addConstraint('data_timezones', {
-      fields: ['continent_id'],
-      type: 'foreign key',
-      name: 'data_timezones_ibfk_1',
-      references: {
-        table: 'geo_continents',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
   },
 
   async down(queryInterface, _Sequelize) {
