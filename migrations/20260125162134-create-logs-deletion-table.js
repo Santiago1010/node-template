@@ -39,7 +39,7 @@ module.exports = {
           comment: 'Detailed justification for why the record was permanently deleted.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Exact date and time when the record was deleted.',

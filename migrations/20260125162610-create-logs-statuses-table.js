@@ -33,7 +33,7 @@ module.exports = {
           comment: 'Type of operation: Whether the record was deactivated or reactivated.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time the status was changed.',

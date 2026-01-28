@@ -82,7 +82,7 @@ module.exports = {
           comment: 'Error stack (just in development).',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
@@ -139,17 +139,6 @@ module.exports = {
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
-
-    await queryInterface.sequelize.query(`
-      ALTER TABLE logs_http_requests
-      PARTITION BY RANGE (TO_DAYS(created_at)) (
-        PARTITION p_week1 VALUES LESS THAN (TO_DAYS(DATE_ADD(CURDATE(), INTERVAL 1 WEEK))),
-        PARTITION p_week2 VALUES LESS THAN (TO_DAYS(DATE_ADD(CURDATE(), INTERVAL 2 WEEK))),
-        PARTITION p_week3 VALUES LESS THAN (TO_DAYS(DATE_ADD(CURDATE(), INTERVAL 3 WEEK))),
-        PARTITION p_week4 VALUES LESS THAN (TO_DAYS(DATE_ADD(CURDATE(), INTERVAL 4 WEEK))),
-        PARTITION p_future VALUES LESS THAN MAXVALUE
-      )
-    `);
   },
 
   async down(queryInterface, _Sequelize) {

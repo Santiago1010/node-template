@@ -77,19 +77,19 @@ module.exports = {
             'Partial or complete path of the circular flag format, with details that make it appear 3D and simulate a waving flag.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -105,42 +105,42 @@ module.exports = {
     );
 
     await queryInterface.addIndex('data_flags', ['name'], {
-      name: 'flag_name',
+      name: 'flag_name_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['location'], {
-      name: 'location',
+      name: 'location_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['flat_2d'], {
-      name: 'flat_2d',
+      name: 'flat_2d_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['rounded_2d'], {
-      name: 'rounded_2d',
+      name: 'rounded_2d_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['wave_2d'], {
-      name: 'wave_2d',
+      name: 'wave_2d_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['flat_3d'], {
-      name: 'flat_3d',
+      name: 'flat_3d_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['wave_3d'], {
-      name: 'wave_3d',
+      name: 'wave_3d_UN',
       unique: true,
     });
 
     await queryInterface.addIndex('data_flags', ['rounded_3d'], {
-      name: 'rounded_3d',
+      name: 'rounded_3d_UN',
     });
   },
 

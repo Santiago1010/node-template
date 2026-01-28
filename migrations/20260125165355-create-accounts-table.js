@@ -35,7 +35,7 @@ module.exports = {
           comment: 'Email account where recovery data will be sent, in case the primary account cannot be accessed.',
         },
         recovery_email_confirmed_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           comment: 'Indicates whether the recovery email has already been confirmed (other than null) or not (null).',
         },
@@ -54,19 +54,19 @@ module.exports = {
           comment: 'Indicates whether you have 2-step verification enabled or not.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: true,
           defaultValue: null,
           comment:
@@ -91,18 +91,6 @@ module.exports = {
 
     await queryInterface.addIndex('usr_accounts', ['dial_code_id'], {
       name: 'dial_code',
-    });
-
-    await queryInterface.addConstraint('usr_accounts', {
-      fields: ['user_id'],
-      type: 'foreign key',
-      name: 'usr_accounts_ibfk_1',
-      references: {
-        table: 'usr_users',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
     });
 
     await queryInterface.addConstraint('usr_accounts', {

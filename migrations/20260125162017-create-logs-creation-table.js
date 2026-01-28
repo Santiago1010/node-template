@@ -34,7 +34,7 @@ module.exports = {
           comment: 'Table name affects the name of its respective model.',
         },
         created_at: {
-          type: Sequelize.DATE,
+          type: 'TIMESTAMP',
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment:
