@@ -57,6 +57,42 @@ module.exports = {
         comment: 'System-wide scopes.',
       }
     );
+
+    await queryInterface.addConstraint('config_endpoints_has_required_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_endpoints_required_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('config_pages_has_required_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_pages_has_required_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+
+    await queryInterface.addConstraint('config_roles_has_scopes', {
+      fields: ['scope_id'],
+      type: 'foreign key',
+      name: 'config_roles_has_scopes_ibfk_2',
+      references: {
+        table: 'config_scopes',
+        field: 'id',
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
   },
 
   async down(queryInterface, _Sequelize) {

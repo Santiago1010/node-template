@@ -4,23 +4,23 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'config_roles_has_scopes',
+      'config_pages_has_required_scopes',
       {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          comment: 'Unique identifier for the relationship between role and scope.',
+          comment: 'Unique identifier for each relationship between page and mandatory scope.',
         },
-        role_id: {
+        page_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'Role ID.',
+          comment: 'Page ID.',
         },
         scope_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'Scope ID.',
+          comment: 'Scope ID that the user must have in order to run the page.',
         },
         created_at: {
           type: Sequelize.DATE,
@@ -46,32 +46,32 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Scopes that each role has.',
+        comment: 'Relationship between scopes and pages.',
       }
     );
 
-    await queryInterface.addIndex('config_roles_has_scopes', ['role_id'], {
-      name: 'role',
+    await queryInterface.addIndex('config_pages_has_required_scopes', ['page_id'], {
+      name: 'page',
     });
 
-    await queryInterface.addIndex('config_roles_has_scopes', ['scope_id'], {
-      name: 'scope_id',
+    await queryInterface.addIndex('config_pages_has_required_scopes', ['scope_id'], {
+      name: 'scope',
     });
 
-    await queryInterface.addConstraint('config_roles_has_scopes', {
-      fields: ['role_id'],
+    await queryInterface.addConstraint('config_pages_has_required_scopes', {
+      fields: ['page_id'],
       type: 'foreign key',
-      name: 'config_roles_has_scopes_ibfk_1',
+      name: 'config_pages_has_required_scopes_ibfk_1',
       references: {
-        table: 'config_roles',
+        table: 'config_pages',
         field: 'id',
       },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('config_roles_has_scopes');
+    await queryInterface.dropTable('config_pages_has_required_scopes');
   },
 };
