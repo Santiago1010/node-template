@@ -3,14 +3,14 @@
 const roles = [
   {
     id: 1,
-    security_level_id: 5,
+    security_level_id: 4,
     name: 'admin',
     target: 'employee',
     is_default: false,
   },
   {
     id: 2,
-    security_level_id: 5,
+    security_level_id: 4,
     name: 'technical_support',
     target: 'employee',
     is_default: false,
@@ -26,7 +26,7 @@ const roles = [
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.bulkInsert('config_roles', [roles], {
+    await queryInterface.bulkInsert('config_roles', roles, {
       updateOnDuplicate: ['security_level_id', 'name', 'target', 'is_default'],
     });
   },

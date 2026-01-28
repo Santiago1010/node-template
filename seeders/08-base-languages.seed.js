@@ -3,7 +3,7 @@
 const languages = [
   {
     id: 1,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'af',
     version: null,
     name: JSON.stringify({
@@ -20,11 +20,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 2,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sq',
     version: null,
     name: JSON.stringify({
@@ -41,11 +41,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 3,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'am',
     version: null,
     name: JSON.stringify({
@@ -62,11 +62,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 4,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ar',
     version: null,
     name: JSON.stringify({
@@ -83,11 +83,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 5,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hy',
     version: null,
     name: JSON.stringify({
@@ -104,11 +104,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 6,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ay',
     version: null,
     name: JSON.stringify({
@@ -125,11 +125,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 7,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'az',
     version: null,
     name: JSON.stringify({
@@ -146,11 +146,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 8,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bm',
     version: null,
     name: JSON.stringify({
@@ -167,11 +167,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 9,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'eu',
     version: null,
     name: JSON.stringify({
@@ -188,11 +188,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 10,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'be',
     version: null,
     name: JSON.stringify({
@@ -209,11 +209,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 11,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bem',
     version: null,
     name: JSON.stringify({
@@ -230,11 +230,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 12,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bn',
     version: null,
     name: JSON.stringify({
@@ -251,11 +251,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 13,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ber',
     version: null,
     name: JSON.stringify({
@@ -272,11 +272,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 14,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bho',
     version: null,
     name: JSON.stringify({
@@ -293,11 +293,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 15,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bi',
     version: null,
     name: JSON.stringify({
@@ -314,11 +314,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 16,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bs',
     version: null,
     name: JSON.stringify({
@@ -335,11 +335,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 17,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'bg',
     version: null,
     name: JSON.stringify({
@@ -356,11 +356,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 18,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'my',
     version: null,
     name: JSON.stringify({
@@ -377,11 +377,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 19,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kea',
     version: null,
     name: JSON.stringify({
@@ -398,11 +398,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 20,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ca',
     version: null,
     name: JSON.stringify({
@@ -419,11 +419,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 21,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ch',
     version: null,
     name: JSON.stringify({
@@ -440,11 +440,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 22,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ny',
     version: null,
     name: JSON.stringify({
@@ -461,11 +461,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 23,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'zh',
     version: null,
     name: JSON.stringify({
@@ -482,11 +482,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 24,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'zh',
     version: 'HK',
     name: JSON.stringify({
@@ -503,11 +503,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 25,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'swb',
     version: null,
     name: JSON.stringify({
@@ -524,11 +524,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 26,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'rar',
     version: null,
     name: JSON.stringify({
@@ -545,11 +545,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 27,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'crs',
     version: null,
     name: JSON.stringify({
@@ -566,11 +566,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 28,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hr',
     version: null,
     name: JSON.stringify({
@@ -587,11 +587,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 29,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'cs',
     version: null,
     name: JSON.stringify({
@@ -608,11 +608,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 30,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'da',
     version: null,
     name: JSON.stringify({
@@ -629,11 +629,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 31,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fa',
     version: 'AF',
     name: JSON.stringify({
@@ -650,11 +650,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 32,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'dv',
     version: null,
     name: JSON.stringify({
@@ -671,11 +671,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 33,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'din',
     version: null,
     name: JSON.stringify({
@@ -692,11 +692,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 34,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'dyu',
     version: null,
     name: JSON.stringify({
@@ -713,11 +713,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 35,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'nl',
     version: null,
     name: JSON.stringify({
@@ -734,11 +734,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 36,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'dz',
     version: null,
     name: JSON.stringify({
@@ -755,11 +755,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 37,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'en',
     version: null,
     name: JSON.stringify({
@@ -776,11 +776,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 1,
+    is_public: 1,
   },
   {
     id: 38,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'et',
     version: null,
     name: JSON.stringify({
@@ -797,11 +797,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 39,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ee',
     version: null,
     name: JSON.stringify({
@@ -818,11 +818,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 40,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fo',
     version: null,
     name: JSON.stringify({
@@ -839,11 +839,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 41,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fj',
     version: null,
     name: JSON.stringify({
@@ -860,11 +860,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 42,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fil',
     version: null,
     name: JSON.stringify({
@@ -881,11 +881,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 43,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fi',
     version: null,
     name: JSON.stringify({
@@ -902,11 +902,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 44,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fr',
     version: null,
     name: JSON.stringify({
@@ -923,11 +923,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 45,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ht',
     version: null,
     name: JSON.stringify({
@@ -944,11 +944,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 46,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fy',
     version: null,
     name: JSON.stringify({
@@ -965,11 +965,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 47,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fut',
     version: null,
     name: JSON.stringify({
@@ -986,11 +986,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 48,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gl',
     version: null,
     name: JSON.stringify({
@@ -1007,11 +1007,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 49,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ka',
     version: null,
     name: JSON.stringify({
@@ -1028,11 +1028,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 50,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'de',
     version: null,
     name: JSON.stringify({
@@ -1049,11 +1049,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 51,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gil',
     version: null,
     name: JSON.stringify({
@@ -1070,11 +1070,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 52,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'el',
     version: null,
     name: JSON.stringify({
@@ -1091,11 +1091,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 53,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kl',
     version: null,
     name: JSON.stringify({
@@ -1112,11 +1112,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 54,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gn',
     version: null,
     name: JSON.stringify({
@@ -1133,11 +1133,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 55,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ha',
     version: null,
     name: JSON.stringify({
@@ -1154,11 +1154,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 56,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'he',
     version: null,
     name: JSON.stringify({
@@ -1175,11 +1175,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 57,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hz',
     version: null,
     name: JSON.stringify({
@@ -1196,11 +1196,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 58,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hi',
     version: null,
     name: JSON.stringify({
@@ -1217,11 +1217,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 59,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hmo',
     version: null,
     name: JSON.stringify({
@@ -1238,11 +1238,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 60,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'hu',
     version: null,
     name: JSON.stringify({
@@ -1259,11 +1259,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 61,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'is',
     version: null,
     name: JSON.stringify({
@@ -1280,11 +1280,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 62,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ig',
     version: null,
     name: JSON.stringify({
@@ -1301,11 +1301,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 63,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'id',
     version: null,
     name: JSON.stringify({
@@ -1322,11 +1322,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 64,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ga',
     version: null,
     name: JSON.stringify({
@@ -1343,11 +1343,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 65,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'it',
     version: null,
     name: JSON.stringify({
@@ -1364,11 +1364,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 66,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'jam',
     version: null,
     name: JSON.stringify({
@@ -1385,11 +1385,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 67,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ja',
     version: null,
     name: JSON.stringify({
@@ -1406,11 +1406,11 @@ const languages = [
     }),
     description: null,
     orientation: 'T2BR2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 68,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'jv',
     version: null,
     name: JSON.stringify({
@@ -1427,11 +1427,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 69,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'dyo',
     version: null,
     name: JSON.stringify({
@@ -1448,11 +1448,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 70,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'nrf',
     version: null,
     name: JSON.stringify({
@@ -1469,11 +1469,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 71,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'quc',
     version: null,
     name: JSON.stringify({
@@ -1490,11 +1490,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 72,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kbp',
     version: null,
     name: JSON.stringify({
@@ -1511,11 +1511,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 73,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'knc',
     version: null,
     name: JSON.stringify({
@@ -1532,11 +1532,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 74,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kk',
     version: null,
     name: JSON.stringify({
@@ -1553,11 +1553,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 75,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'km',
     version: null,
     name: JSON.stringify({
@@ -1574,11 +1574,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 76,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'naq',
     version: null,
     name: JSON.stringify({
@@ -1595,11 +1595,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 77,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kg',
     version: null,
     name: JSON.stringify({
@@ -1616,11 +1616,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 78,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'rw',
     version: null,
     name: JSON.stringify({
@@ -1637,11 +1637,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 79,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'rn',
     version: null,
     name: JSON.stringify({
@@ -1658,11 +1658,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 80,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ktu',
     version: null,
     name: JSON.stringify({
@@ -1679,11 +1679,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 81,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ko',
     version: null,
     name: JSON.stringify({
@@ -1700,11 +1700,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 82,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kri',
     version: null,
     name: JSON.stringify({
@@ -1721,11 +1721,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 83,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ku',
     version: null,
     name: JSON.stringify({
@@ -1742,11 +1742,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 84,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gcf',
     version: null,
     name: JSON.stringify({
@@ -1763,11 +1763,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 85,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ky',
     version: null,
     name: JSON.stringify({
@@ -1784,11 +1784,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 86,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lo',
     version: null,
     name: JSON.stringify({
@@ -1805,11 +1805,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 87,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'la',
     version: null,
     name: JSON.stringify({
@@ -1826,11 +1826,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 88,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lv',
     version: null,
     name: JSON.stringify({
@@ -1847,11 +1847,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 89,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lbm',
     version: null,
     name: JSON.stringify({
@@ -1868,11 +1868,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 90,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ln',
     version: null,
     name: JSON.stringify({
@@ -1889,11 +1889,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 91,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lt',
     version: null,
     name: JSON.stringify({
@@ -1910,11 +1910,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 92,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lb',
     version: null,
     name: JSON.stringify({
@@ -1931,11 +1931,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 93,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mk',
     version: null,
     name: JSON.stringify({
@@ -1952,11 +1952,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 94,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mai',
     version: null,
     name: JSON.stringify({
@@ -1973,11 +1973,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 95,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mg',
     version: null,
     name: JSON.stringify({
@@ -1994,11 +1994,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 96,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ms',
     version: null,
     name: JSON.stringify({
@@ -2015,11 +2015,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 97,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mt',
     version: null,
     name: JSON.stringify({
@@ -2036,11 +2036,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 98,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mnk',
     version: null,
     name: JSON.stringify({
@@ -2057,11 +2057,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 99,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gv',
     version: null,
     name: JSON.stringify({
@@ -2078,11 +2078,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 100,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mr',
     version: null,
     name: JSON.stringify({
@@ -2099,11 +2099,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 101,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mh',
     version: null,
     name: JSON.stringify({
@@ -2120,11 +2120,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 102,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mfe',
     version: null,
     name: JSON.stringify({
@@ -2141,11 +2141,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 103,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'men',
     version: null,
     name: JSON.stringify({
@@ -2162,11 +2162,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 104,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mn',
     version: null,
     name: JSON.stringify({
@@ -2183,11 +2183,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 105,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'cnr',
     version: null,
     name: JSON.stringify({
@@ -2204,11 +2204,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 106,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'mi',
     version: null,
     name: JSON.stringify({
@@ -2225,11 +2225,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 107,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'na',
     version: null,
     name: JSON.stringify({
@@ -2246,11 +2246,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 108,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ne',
     version: null,
     name: JSON.stringify({
@@ -2267,11 +2267,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 109,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'nzs',
     version: null,
     name: JSON.stringify({
@@ -2288,11 +2288,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 110,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'niu',
     version: null,
     name: JSON.stringify({
@@ -2309,11 +2309,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 111,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'none',
     version: null,
     name: JSON.stringify({
@@ -2330,11 +2330,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 112,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pih',
     version: null,
     name: JSON.stringify({
@@ -2351,11 +2351,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 113,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'no',
     version: null,
     name: JSON.stringify({
@@ -2372,11 +2372,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 114,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'nus',
     version: null,
     name: JSON.stringify({
@@ -2393,11 +2393,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 115,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ny',
     version: null,
     name: JSON.stringify({
@@ -2414,11 +2414,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 116,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'om',
     version: null,
     name: JSON.stringify({
@@ -2435,11 +2435,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 117,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'kwn',
     version: null,
     name: JSON.stringify({
@@ -2456,11 +2456,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 118,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pau',
     version: null,
     name: JSON.stringify({
@@ -2477,11 +2477,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 119,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pap',
     version: null,
     name: JSON.stringify({
@@ -2498,11 +2498,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 120,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ps',
     version: null,
     name: JSON.stringify({
@@ -2519,11 +2519,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 121,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fa',
     version: null,
     name: JSON.stringify({
@@ -2540,11 +2540,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 122,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pih',
     version: null,
     name: JSON.stringify({
@@ -2561,11 +2561,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 123,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pl',
     version: null,
     name: JSON.stringify({
@@ -2582,11 +2582,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 124,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pt',
     version: null,
     name: JSON.stringify({
@@ -2603,11 +2603,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 125,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pt',
     version: 'BR',
     name: JSON.stringify({
@@ -2624,11 +2624,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 126,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'fuc',
     version: null,
     name: JSON.stringify({
@@ -2645,11 +2645,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 127,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pa',
     version: null,
     name: JSON.stringify({
@@ -2666,11 +2666,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 128,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'quc',
     version: null,
     name: JSON.stringify({
@@ -2687,11 +2687,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 129,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'qu',
     version: null,
     name: JSON.stringify({
@@ -2708,11 +2708,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 130,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ro',
     version: null,
     name: JSON.stringify({
@@ -2729,11 +2729,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 131,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'rm',
     version: null,
     name: JSON.stringify({
@@ -2750,11 +2750,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 132,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ru',
     version: null,
     name: JSON.stringify({
@@ -2771,11 +2771,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 133,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sm',
     version: null,
     name: JSON.stringify({
@@ -2792,11 +2792,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 134,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sg',
     version: null,
     name: JSON.stringify({
@@ -2813,11 +2813,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 135,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'gd',
     version: null,
     name: JSON.stringify({
@@ -2834,11 +2834,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 136,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sr',
     version: null,
     name: JSON.stringify({
@@ -2855,11 +2855,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 137,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sh',
     version: null,
     name: JSON.stringify({
@@ -2876,11 +2876,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 138,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'st',
     version: null,
     name: JSON.stringify({
@@ -2897,11 +2897,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 139,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tn',
     version: null,
     name: JSON.stringify({
@@ -2918,11 +2918,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 140,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'crs',
     version: null,
     name: JSON.stringify({
@@ -2939,11 +2939,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 141,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sn',
     version: null,
     name: JSON.stringify({
@@ -2960,11 +2960,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 142,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'nd',
     version: null,
     name: JSON.stringify({
@@ -2981,11 +2981,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 143,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sd',
     version: null,
     name: JSON.stringify({
@@ -3002,11 +3002,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 144,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'si',
     version: null,
     name: JSON.stringify({
@@ -3023,11 +3023,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 145,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sk',
     version: null,
     name: JSON.stringify({
@@ -3044,11 +3044,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 146,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sl',
     version: null,
     name: JSON.stringify({
@@ -3065,11 +3065,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 147,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'pis',
     version: null,
     name: JSON.stringify({
@@ -3086,11 +3086,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 148,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'so',
     version: null,
     name: JSON.stringify({
@@ -3107,11 +3107,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 149,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'st',
     version: null,
     name: JSON.stringify({
@@ -3128,11 +3128,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 150,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'es',
     version: null,
     name: JSON.stringify({
@@ -3149,11 +3149,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 1,
+    is_public: 1,
   },
   {
     id: 151,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'srn',
     version: null,
     name: JSON.stringify({
@@ -3170,11 +3170,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 152,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sw',
     version: null,
     name: JSON.stringify({
@@ -3191,11 +3191,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 153,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ss',
     version: null,
     name: JSON.stringify({
@@ -3212,11 +3212,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 154,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'sv',
     version: null,
     name: JSON.stringify({
@@ -3233,11 +3233,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 155,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ty',
     version: null,
     name: JSON.stringify({
@@ -3254,11 +3254,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 156,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tg',
     version: null,
     name: JSON.stringify({
@@ -3275,11 +3275,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 157,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ta',
     version: null,
     name: JSON.stringify({
@@ -3296,11 +3296,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 158,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'te',
     version: null,
     name: JSON.stringify({
@@ -3317,11 +3317,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 159,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tem',
     version: null,
     name: JSON.stringify({
@@ -3338,11 +3338,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 160,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tet',
     version: null,
     name: JSON.stringify({
@@ -3359,11 +3359,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 161,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'th',
     version: null,
     name: JSON.stringify({
@@ -3380,11 +3380,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 162,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'thr',
     version: null,
     name: JSON.stringify({
@@ -3401,11 +3401,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 163,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ti',
     version: null,
     name: JSON.stringify({
@@ -3422,11 +3422,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 164,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tpi',
     version: null,
     name: JSON.stringify({
@@ -3443,11 +3443,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 165,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tkl',
     version: null,
     name: JSON.stringify({
@@ -3464,11 +3464,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 166,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'to',
     version: null,
     name: JSON.stringify({
@@ -3485,11 +3485,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 167,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'lua',
     version: null,
     name: JSON.stringify({
@@ -3506,11 +3506,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 168,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tr',
     version: null,
     name: JSON.stringify({
@@ -3527,11 +3527,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 169,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tk',
     version: null,
     name: JSON.stringify({
@@ -3548,11 +3548,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 170,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'tvl',
     version: null,
     name: JSON.stringify({
@@ -3569,11 +3569,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 171,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'uk',
     version: null,
     name: JSON.stringify({
@@ -3590,11 +3590,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 172,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'ur',
     version: null,
     name: JSON.stringify({
@@ -3611,11 +3611,11 @@ const languages = [
     }),
     description: null,
     orientation: 'R2L',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 173,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'uz',
     version: null,
     name: JSON.stringify({
@@ -3632,11 +3632,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 174,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'vi',
     version: null,
     name: JSON.stringify({
@@ -3653,11 +3653,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 175,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'wls',
     version: null,
     name: JSON.stringify({
@@ -3674,11 +3674,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 176,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'wo',
     version: null,
     name: JSON.stringify({
@@ -3695,11 +3695,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 177,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'xh',
     version: null,
     name: JSON.stringify({
@@ -3716,11 +3716,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 178,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'yo',
     version: null,
     name: JSON.stringify({
@@ -3737,11 +3737,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 179,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'dje',
     version: null,
     name: JSON.stringify({
@@ -3758,11 +3758,11 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
   {
     id: 180,
-    id_flag: null,
+    flag_id: null,
     abbreviation: 'zu',
     version: null,
     name: JSON.stringify({
@@ -3779,7 +3779,7 @@ const languages = [
     }),
     description: null,
     orientation: 'L2R',
-    public: 0,
+    is_public: 0,
   },
 ];
 
@@ -3791,7 +3791,7 @@ module.exports = {
       const batch = languages.slice(i, i + batchSize);
       for (const language of batch) {
         await queryInterface.bulkInsert('data_languages', [language], {
-          updateOnDuplicate: ['flag_id', 'abbreviation', 'version', 'name', 'description', 'orientation', 'public'],
+          updateOnDuplicate: ['flag_id', 'abbreviation', 'version', 'name', 'description', 'orientation', 'is_public'],
         });
       }
     }
