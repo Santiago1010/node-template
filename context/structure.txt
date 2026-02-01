@@ -44,11 +44,7 @@
 │       ├── morgan.config.js
 │       └── README.md
 ├── context
-│   ├── app
-│   ├── bot
-│   ├── desktop
 │   ├── structure.txt
-│   ├── wearable
 │   └── web
 │       └── v1
 │           ├── auth
@@ -193,13 +189,9 @@
 │               └── get.public-key.usecase.puml
 ├── CONTRIBUTING.md
 ├── controllers
-│   ├── app
-│   ├── bot
 │   ├── common
 │   │   └── security
 │   │       └── keys.controller.js
-│   ├── desktop
-│   ├── wearable
 │   └── web
 │       └── auth
 │           ├── confirmation.controller.js
@@ -261,13 +253,28 @@
 │   │   └── index.js
 │   └── vault.helper.js
 ├── .husky
+│   ├── _
+│   │   ├── applypatch-msg
+│   │   ├── commit-msg
+│   │   ├── .gitignore
+│   │   ├── h
+│   │   ├── husky.sh
+│   │   ├── post-applypatch
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-rewrite
+│   │   ├── pre-applypatch
+│   │   ├── pre-auto-gc
+│   │   ├── pre-commit
+│   │   ├── pre-merge-commit
+│   │   ├── prepare-commit-msg
+│   │   ├── pre-push
+│   │   └── pre-rebase
 │   ├── pre-commit
 │   └── pre-push
 ├── index.js
 ├── jest.config.js
-├── kubernetes
-│   ├── deployment.yaml
-│   └── keys
 ├── LICENSE
 ├── middlewares
 │   ├── audit
@@ -308,7 +315,6 @@
 │   ├── 20260125152216-create-currencies-table.js
 │   ├── 20260125152554-create-languages-table.js
 │   ├── 20260125152806-create-timezones-table.js
-│   ├── 20260125153006-create-types-identification-table.js
 │   ├── 20260125153915-create-cities-table.js
 │   ├── 20260125154132-create-continents-table.js
 │   ├── 20260125154714-create-countries-table.js
@@ -316,7 +322,7 @@
 │   ├── 20260125160314-create-countries-languages-table.js
 │   ├── 20260125160650-create-dial-codes-table.js
 │   ├── 20260125161039-create-regions-table.js
-│   ├── 20260125161137-create-sub-divisions-table.js
+│   ├── 20260125161137-create-political-divisions-table.js
 │   ├── 20260125162017-create-logs-creation-table.js
 │   ├── 20260125162134-create-logs-deletion-table.js
 │   ├── 20260125162610-create-logs-statuses-table.js
@@ -331,7 +337,10 @@
 │   ├── 20260125170632-create-user-preferences-table.js
 │   ├── 20260125170816-create-tokens-table.js
 │   ├── 20260125170951-create-users-table.js
-│   └── 20260125171124-create-users-details-table.js
+│   ├── 20260125171124-create-users-details-table.js
+│   ├── 20260127171452-create-flags-table.js
+│   ├── 20260128202018-create-logs-http-table.js
+│   └── 20260128212959-create-currencies-table.js
 ├── models
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
@@ -403,7 +412,6 @@
 │   │   ├── pagination.params.js
 │   │   ├── README.md
 │   │   └── search.params.js
-│   ├── responses
 │   └── validations
 │       ├── filters.schema.js
 │       ├── index.js
@@ -420,20 +428,24 @@
 │   ├── generateCrudValidations.script.js
 │   ├── generate-rsa-keys.sh
 │   ├── generateServices.script.js
-│   └── private
-│       └── .gitkeep
+│   ├── private
+│   │   └── .gitkeep
+│   ├── run-migrations.script.js
+│   └── run-seeders.script.js
 ├── seeders
 │   ├── 01-base-continents.seed.js
 │   ├── 02-base-regions.seed.js
 │   ├── 03-base-security-levels.seed.js
 │   ├── 04-base-flags.seed.js
 │   ├── 05-base-countries.seed.js
-│   ├── 06-base-sub-divisions.seed.js
+│   ├── 06-base-divisions.seed.js
 │   ├── 07-base-timezones.seed.js
 │   ├── 08-base-languages.seed.js
 │   ├── 09-base-currencies.seed.js
 │   ├── 10-base-dial-code.seed.js
-│   └── 11-base-countries-currencies.seed.js
+│   ├── 11-base-countries-currencies.seed.js
+│   ├── 12-base-countries-languages.seed.js
+│   └── 13-base-roles.seed.js
 ├── .sequelizerc
 ├── services
 │   ├── auth
@@ -494,4 +506,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 406 files
+80 directories, 427 files
