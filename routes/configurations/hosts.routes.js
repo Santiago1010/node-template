@@ -6,8 +6,8 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const endpointsSchemas = require('./validations/endpoints.validations');
-const endpointsController = require('../../controllers/configurations/endpoints.controller');
+const hostsSchemas = require('./validations/hosts.validations');
+const hostsController = require('../../controllers/configurations/hosts.controller');
 const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
 const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
@@ -18,44 +18,44 @@ const router = express.Router();
 
 router.post(
   '/',
-  checkSchemaWithRegistry(endpointsSchemas.createEndpointSchema),
+  checkSchemaWithRegistry(hostsSchemas.createHostSchema),
   validationErrorHandler,
-  endpointsController.createEndpoint
+  hostsController.createHost
 );
 
 router.patch(
   '/',
-  checkSchemaWithRegistry(endpointsSchemas.updateEndpointsStatusSchema),
+  checkSchemaWithRegistry(hostsSchemas.updateHostsStatusSchema),
   validationErrorHandler,
-  endpointsController.updateEndpointsStatus
+  hostsController.updateHostsStatus
 );
 
 router.get(
   '/',
-  checkSchemaWithRegistry(endpointsSchemas.getListEndpointsSchema),
+  checkSchemaWithRegistry(hostsSchemas.getListHostsSchema),
   validationErrorHandler,
-  endpointsController.getListEndpoints
+  hostsController.getListHosts
 );
 
 router.get(
   '/:id',
-  checkSchemaWithRegistry(endpointsSchemas.getEndpointDetailsSchema),
+  checkSchemaWithRegistry(hostsSchemas.getHostDetailsSchema),
   validationErrorHandler,
-  endpointsController.getEndpointDetails
+  hostsController.getHostDetails
 );
 
 router.put(
   '/:id',
-  checkSchemaWithRegistry(endpointsSchemas.updateEndpointSchema),
+  checkSchemaWithRegistry(hostsSchemas.updateHostSchema),
   validationErrorHandler,
-  endpointsController.updateEndpoint
+  hostsController.updateHost
 );
 
 router.delete(
   '/:id',
-  checkSchemaWithRegistry(endpointsSchemas.deleteEndpointSchema),
+  checkSchemaWithRegistry(hostsSchemas.deleteHostSchema),
   validationErrorHandler,
-  endpointsController.deleteEndpoint
+  hostsController.deleteHost
 );
 
 // =============================================================================

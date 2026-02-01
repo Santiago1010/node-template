@@ -6,8 +6,8 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const {{PLURAL_NAME}}Schemas = require('./validations/{{PLURAL_NAME}}.validations');
 const {{CONTROLLER_NAME}} = require('../../controllers/{{GROUP_NAME}}/{{PLURAL_NAME}}.controller');
-const { {{PLURAL_NAME}}Schemas } = require('./validations/{{PLURAL_NAME}}.validations');
 const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
 const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
