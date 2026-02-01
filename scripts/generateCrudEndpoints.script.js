@@ -34,7 +34,7 @@ class CrudEndpointsGenerator {
       const { tableName, singularName } = this.validateArguments();
       const { groupName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
 
-      const endpointContent = await this.generateEndpoints(singularName, pluralName);
+      const endpointContent = await this.generateEndpoints(singularName, pluralName, groupName);
       await this.saveEndpoints(endpointContent, groupName, pluralName);
 
       const endTime = performance.now();
@@ -71,7 +71,7 @@ class CrudEndpointsGenerator {
     return { tableName, singularName };
   }
 
-  async generateEndpoints(singularName, pluralName) {
+  async generateEndpoints(singularName, pluralName, groupName) {
     try {
       console.log(`🔧 Generating endpoints for: ${pluralName}`);
 
@@ -86,6 +86,7 @@ class CrudEndpointsGenerator {
       endpointContent = this.replaceTemplatePlaceholders(endpointContent, {
         controllerName,
         pluralName: pluralCamelName,
+        groupName,
         methodNames,
       });
 
@@ -97,10 +98,11 @@ class CrudEndpointsGenerator {
   }
 
   replaceTemplatePlaceholders(template, replacements) {
-    const { controllerName, pluralName, methodNames } = replacements;
+    const { controllerName, pluralName, groupName, methodNames } = replacements;
 
     template = template.replace(/\{\{CONTROLLER_NAME\}\}/g, controllerName);
     template = template.replace(/\{\{PLURAL_NAME\}\}/g, pluralName);
+    template = template.replace(/\{\{GROUP_NAME\}\}/g, groupName);
 
     // Replace method name placeholders
     template = template.replace(/\{\{CREATE_METHOD\}\}/g, methodNames.create);

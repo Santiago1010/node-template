@@ -43,10 +43,10 @@ const FAKER_MAPPINGS = {
   numeric: (precision) => `faker.number.float({ min: 0.1, max: 1000.0, precision: ${precision || 0.01} })`,
   boolean: () => 'faker.datatype.boolean()',
   bool: () => 'faker.datatype.boolean()',
-  datetime: () => "moment(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
-  timestamp: () => "moment(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
-  date: () => "moment(faker.date.future()).format('YYYY-MM-DD')",
-  time: () => "moment(faker.date.recent()).format('HH:mm:ss')",
+  datetime: () => "dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
+  timestamp: () => "dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss')",
+  date: () => "dayjs(faker.date.future()).format('YYYY-MM-DD')",
+  time: () => "dayjs(faker.date.recent()).format('HH:mm:ss')",
   year: () => 'faker.date.recent().getFullYear()',
   json: () => 'faker.helpers.objectValue({ key1: "value1", key2: "value2" })',
   blob: () => '"base64encodeddata"',
@@ -72,6 +72,7 @@ class CrudDocsGenerator {
     this.crudHelper = new CrudHelper();
     this.startTime = performance.now();
     this.foreignKeyReferences = new Map();
+    this.enumColumns = new Map();
   }
 
   async run() {
@@ -85,6 +86,7 @@ class CrudDocsGenerator {
       const tableData = await this.analyzeTable(tableName);
 
       await this.analyzeForeignKeys(tableData);
+      await this.analyzeEnums(tableData);
 
       const documentation = await this.generateDocumentation(tableData, singularName, pluralName, tagName);
       await this.saveDocumentation(documentation, tableName, groupName);
@@ -181,6 +183,22 @@ class CrudDocsGenerator {
     }
   }
 
+  async analyzeEnums(tableData) {
+    console.log(`📝 Analyzing enums for table: ${tableData.tableName}`);
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
+      if (columnType.includes('enum')) {
+        const enumMatch = columnType.match(/enum\((.+)\)/);
+        if (enumMatch) {
+          const enumValues = enumMatch[1].split(',').map((v) => v.trim().replace(/['"]/g, ''));
+          this.enumColumns.set(columnName, enumValues);
+          console.log(`📝 Enum detected: ${columnName} -> [${enumValues.join(', ')}]`);
+        }
+      }
+    }
+  }
+
   calculateReferenceInfo(tableName) {
     const { tagName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
     const capitalizedPlural = formatCapitalize(pluralName);
@@ -194,9 +212,14 @@ class CrudDocsGenerator {
       let documentation = await this.crudHelper.getTemplate('crud', 'docs');
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
 
+      // Primero reemplazar los placeholders de nombres de métodos y tag
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
+
+      // Luego insertar los esquemas de propiedades
       documentation = this.insertPropertySchemas(documentation, tableData);
-      documentation = this.addMomentImport(documentation);
+
+      // Agregar imports si es necesario
+      documentation = this.addDayjsImport(documentation);
 
       if (this.foreignKeyReferences.size > 0) {
         documentation = this.addSetReferenceImport(documentation);
@@ -214,9 +237,9 @@ class CrudDocsGenerator {
     template = template.replace(/\{\{STATUS_NAME\}\}/g, methodNames.updateStatus);
     template = template.replace(/\{\{LIST_NAME\}\}/g, methodNames.list);
     template = template.replace(/\{\{DETAILS_NAME\}\}/g, methodNames.details);
+    template = template.replace(/\{\{UPDATE_NAME\}\}/g, methodNames.update);
     template = template.replace(/\{\{DELETE_NAME\}\}/g, methodNames.delete);
     template = template.replace(/\{\{TAG\}\}/g, `'${tagName}'`);
-    template = template.replace(/updateTest/g, methodNames.update);
 
     return template;
   }
@@ -224,6 +247,7 @@ class CrudDocsGenerator {
   insertPropertySchemas(documentation, tableData) {
     const { columnDetails } = tableData;
 
+    // Generar campos requeridos para CREATE
     const createRequiredCols = Object.keys(columnDetails).filter((colName) => {
       const col = columnDetails[colName];
       return col && this.crudHelper.isFieldRequired(colName, col);
@@ -231,19 +255,24 @@ class CrudDocsGenerator {
 
     const createRequired = JSON.stringify(createRequiredCols.map((c) => toCamelCase(c)));
 
+    // Generar propiedades para CREATE
     const createFields = Object.keys(columnDetails).filter((c) => {
       if (this.crudHelper.shouldSkipField(c)) return false;
       return true;
     });
-    const createProperties = this.generatePropertiesObject(columnDetails, createFields);
+    const createProperties = this.generatePropertiesObject(columnDetails, createFields, false);
 
+    // Generar propiedades para UPDATE (todos los campos son opcionales)
     const updateFields = createFields.slice();
     const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, true);
 
+    // Generar parámetros para LIST
     const listParameters = this.generateListParameters(columnDetails);
 
+    // Reemplazar placeholders
+    documentation = documentation.replace(/\{\{CREATE_PROPERTIES\}\}/g, createProperties);
     documentation = documentation.replace(/\{\{CRATE_PROPERTIES\}\}/g, createProperties);
-    documentation = documentation.replace(/required: \[\]/, `required: ${createRequired}`);
+    documentation = documentation.replace(/required: \[\]/g, `required: ${createRequired}`);
     documentation = documentation.replace(/\{\{UPDATE_PROPERTIES\}\}/g, updateProperties);
 
     if (listParameters) {
@@ -256,7 +285,7 @@ class CrudDocsGenerator {
     return documentation;
   }
 
-  generatePropertiesObject(columnDetails, fields, update = false) {
+  generatePropertiesObject(columnDetails, fields, isUpdate = false) {
     const lines = [];
 
     for (const fieldName of fields) {
@@ -264,7 +293,7 @@ class CrudDocsGenerator {
 
       const column = columnDetails[fieldName];
       const property = this.analyzeColumnForProperty(column);
-      const requiredFlag = column.NULLABLE === '1' || column.COLUMN_DEFAULT !== null || update ? false : true;
+      const requiredFlag = column.NULLABLE === '1' || column.COLUMN_DEFAULT !== null || isUpdate ? false : true;
 
       const foreignKeyInfo = this.foreignKeyReferences.get(fieldName);
 
@@ -569,10 +598,10 @@ class CrudDocsGenerator {
     return documentation;
   }
 
-  addMomentImport(documentation) {
+  addDayjsImport(documentation) {
     if (
-      !documentation.includes("const moment = require('moment')") &&
-      (documentation.includes('moment(') || documentation.includes('.format('))
+      !documentation.includes("const dayjs = require('dayjs')") &&
+      (documentation.includes('dayjs(') || documentation.includes('.format('))
     ) {
       documentation = documentation.replace(
         "const { faker } = require('@faker-js/faker');",

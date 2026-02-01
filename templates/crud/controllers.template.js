@@ -5,7 +5,6 @@
 // =============================================================================
 const {{SERVICE_NAME}} = require('../../services/{{SERVICE_VARIABLE}}.services');
 const { success } = require('../../helpers/response.helper');
-const { BadRequestError } = require('../../../helpers/error.helper');
 
 // =============================================================================
 // {{CONTROLLER_NAME}}
@@ -23,10 +22,10 @@ class {{CONTROLLER_NAME}} {
       const { {{ALL_FIELDS}} } = req.body;
       const { actor } = req;
 
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const new{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{CREATE_METHOD}}(
+      const new{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}Service.{{CREATE_METHOD}}(
         { {{ALL_FIELDS}} },
         { actor }
       );
@@ -48,10 +47,10 @@ class {{CONTROLLER_NAME}} {
       const { ids, active } = req.body;
       const { actor } = req;
 
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const result = await {{SERVICE_VARIABLE}}.{{UPDATE_STATUS_METHOD}}(ids, active, { actor });
+      const result = await {{SERVICE_VARIABLE}}Service.{{UPDATE_STATUS_METHOD}}(ids, active, { actor });
 
       return success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.updatedStatuses', data: result});
     } catch (error) {
@@ -67,10 +66,10 @@ class {{CONTROLLER_NAME}} {
    */
   static async {{LIST_METHOD}}(req, res, next) {
     try {
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const result = await {{SERVICE_VARIABLE}}.{{LIST_METHOD}}(req.query);
+      const result = await {{SERVICE_VARIABLE}}Service.{{LIST_METHOD}}(req.query);
 
       return success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.list', data: result});
     } catch (error) {
@@ -87,24 +86,11 @@ class {{CONTROLLER_NAME}} {
   static async {{DETAILS_METHOD}}(req, res, next) {
     try {
       const { id } = req.params;
-      const { search, fields, active, {{FILTERS}} includeHistory } = req.query;
 
-      // Validate that at least one filter parameter is provided
-      if (!id && !search && {{FILTERS_VALIDATION}} !active) {
-        throw new BadRequestError('At least one filter parameter is required');
-      }
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
-
-      const {{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{DETAILS_METHOD}}({
-        id,
-        search,
-        fields: fields ? fields.split(',') : [],
-        active: active !== undefined ? active === 'true' : undefined,
-        {{FILTERS_PARAMS}}
-        includeHistory: includeHistory === 'true'
-      });
+      const {{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}Service.{{DETAILS_METHOD}}({ id, ...req.query });
 
       return success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.details', data: {{SINGULAR_NAME}}});
     } catch (error) {
@@ -124,10 +110,10 @@ class {{CONTROLLER_NAME}} {
       const { {{ALL_FIELDS}}, active } = req.body;
       const { actor } = req;
 
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const updated{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{UPDATE_METHOD}}(
+      const updated{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}Service.{{UPDATE_METHOD}}(
         id,
         { {{ALL_FIELDS}}, active, actor }
       );
@@ -150,10 +136,10 @@ class {{CONTROLLER_NAME}} {
       const { justification } = req.body;
       const { actor } = req;
 
-      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
-      await {{SERVICE_VARIABLE}}.initialize();
+      const {{SERVICE_VARIABLE}}Service = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}Service.initialize();
 
-      const result = await {{SERVICE_VARIABLE}}.{{DELETE_METHOD}}(id, { justification, actor });
+      const result = await {{SERVICE_VARIABLE}}Service.{{DELETE_METHOD}}(id, { justification, actor });
 
       return success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.deleted', data: result});
     } catch (error) {

@@ -169,7 +169,7 @@ const PATHS = {
   DEBUG: ROOT + '/.debug',
   DOCS: ROOT + '/docs',
   DOCS_PATHS: ROOT + '/docs/paths',
-  ROUTES_DEFAULT: ROOT + '/routes/web',
+  ROUTES_DEFAULT: ROOT + '/routes',
   EMAIL_TEMPLATES: ROOT + '/templates/emails',
 };
 

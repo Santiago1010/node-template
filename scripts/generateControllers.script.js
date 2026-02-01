@@ -148,7 +148,7 @@ class CrudControllersGenerator {
 
   async generateController(tableData, singularName, pluralName) {
     try {
-      let controllerContent = await this.crudHelper.getTemplate('crud', 'controllers');
+      let controllerContent = await this.crudHelper.getTemplate('crud', 'controller');
 
       const controllerName = `${formatCapitalize(singularName)}Controllers`;
       const serviceName = `${formatCapitalize(pluralName)}Services`;
