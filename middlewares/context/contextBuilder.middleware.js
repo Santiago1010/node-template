@@ -130,12 +130,6 @@ const getFormattedTimestamp = () => dayjs().format(getTimestampFormat());
 // MIDDLEWARE FUNCTIONS
 // ============================================================================
 
-const setEnvironment = (environment) => async (_, __, next) => {
-  ContextHelper.run({ environment }, () => {
-    next();
-  });
-};
-
 const setHost = async (req, _, next) => {
   try {
     // Build host URL (protocol is typically 'http' or 'https', both 4-5 chars)
@@ -162,7 +156,9 @@ const setHost = async (req, _, next) => {
       throw error({ httpCode: 401, messagePath: 'errors.unauthorized' });
     }
 
-    ContextHelper.set('host', hostRecord);
+    ContextHelper.run({ host: hostRecord }, () => {
+      next();
+    });
 
     return next();
   } catch (err) {
@@ -333,9 +329,4 @@ const setEndpoint = async (req, _, next) => {
   }
 };
 
-module.exports = {
-  setEnvironment,
-  setHost,
-  setPage,
-  setEndpoint,
-};
+module.exports = { setHost, setPage, setEndpoint };

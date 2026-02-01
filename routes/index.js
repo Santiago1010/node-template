@@ -9,7 +9,8 @@ const userAgent = require('express-useragent');
 // =============================================================================
 const docs = require('../docs');
 const { isDevelopmentMode } = require('../helpers/debug.helper');
-const { setEnvironment } = require('../middlewares/context/contextBuilder.middleware');
+const { pageUseEndpoint } = require('../middlewares/audit/pageEndpointLogger.middleware');
+const { setHost, setPage, setEndpoint } = require('../middlewares/context/contextBuilder.middleware');
 
 // =============================================================================
 // ROUTER API
@@ -18,11 +19,7 @@ const routerApi = (app) => {
   app.use(userAgent.express());
 
   const routerBase = express.Router();
-  const routerAppV1 = express.Router();
-  const routerBotV1 = express.Router();
-  const routerDesktopV1 = express.Router();
-  const routerWearableV1 = express.Router();
-  const routerWebV1 = express.Router();
+  const routerApiV1 = express.Router();
 
   if (isDevelopmentMode(true)) {
     const swaggerUI = require('swagger-ui-express');
@@ -30,17 +27,20 @@ const routerApi = (app) => {
     routerBase.use('/docs', swaggerUI.serve, swaggerUI.setup(docs, { swaggerOptions: { docExpansion: 'none' } }));
   }
 
-  routerWebV1.use(require('./web'));
+  routerApiV1.use(setHost);
+  routerApiV1.use(setPage);
+  routerApiV1.use(setEndpoint);
+
+  routerApiV1.use(pageUseEndpoint);
+
+  routerApiV1.use('/auth', require('./auth'));
+  routerApiV1.use('/security', require('./security'));
 
   app.use('/api', routerBase);
-  app.use('/api/app/v1', setEnvironment('app'), routerAppV1);
-  app.use('/api/bot/v1', setEnvironment('bot'), routerBotV1);
-  app.use('/api/desktop/v1', setEnvironment('desktop'), routerDesktopV1);
-  app.use('/api/wearable/v1', setEnvironment('wearable'), routerWearableV1);
-  app.use('/api/web/v1', setEnvironment('web'), routerWebV1);
+  app.use('/api/v1', routerApiV1);
 };
 
 // =============================================================================
-// MODULE EXPORTS
+// MODULE EXPORTS)
 // =============================================================================
 module.exports = routerApi;
