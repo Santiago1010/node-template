@@ -1,5 +1,5 @@
-const ConfirmationService = require('../../../services/auth/confirmation.service');
-const { success } = require('../../../helpers/response.helper');
+const ConfirmationService = require('../../services/auth/confirmation.service');
+const { success } = require('../../helpers/response.helper');
 
 class ConfirmationController {
   static async sendConfirmationEmail(req, res, next) {

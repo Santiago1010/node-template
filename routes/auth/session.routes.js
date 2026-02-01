@@ -6,11 +6,11 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const SessionController = require('../../../controllers/web/auth/session.controller');
+const SessionController = require('../../controllers/auth/session.controller');
 const { sessionSchemas } = require('./validations');
-const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
-const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
-const { checkSchemaWithRegistry } = require('../../../utils/validationRegistry.util');
+const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
+const { validateWebSession } = require('../../middlewares/auth/sessionToken.middleware');
+const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
 // =============================================================================
 // SET UP ROUTER

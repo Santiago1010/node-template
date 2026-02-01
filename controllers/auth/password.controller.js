@@ -1,6 +1,6 @@
-const PasswordService = require('../../../services/auth/password.service');
-const { success } = require('../../../helpers/response.helper');
-const { getDeviceInfo } = require('../../../utils/utilities.util');
+const PasswordService = require('../../services/auth/password.service');
+const { success } = require('../../helpers/response.helper');
+const { getDeviceInfo } = require('../../utils/utilities.util');
 
 class PasswordController {
   static async fogotPassword(req, res, next) {

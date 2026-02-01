@@ -4,7 +4,7 @@
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const {{SERVICE_NAME}} = require('../../services/{{SERVICE_VARIABLE}}.services');
-const { success } = require('../../../helpers/response.helper');
+const { success } = require('../../helpers/response.helper');
 const { BadRequestError } = require('../../../helpers/error.helper');
 
 // =============================================================================

@@ -6,11 +6,11 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const DeviceController = require('../../../controllers/web/auth/devices.controller');
+const DeviceController = require('../../controllers/auth/devices.controller');
 const { deviceSchemas } = require('./validations');
-const { validateWebSession } = require('../../../middlewares/auth/sessionToken.middleware');
-const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
-const { checkSchemaWithRegistry } = require('../../../utils/validationRegistry.util');
+const { validateWebSession } = require('../../middlewares/auth/sessionToken.middleware');
+const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
+const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
 // =============================================================================
 // SET UP ROUTER

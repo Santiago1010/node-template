@@ -1,6 +1,6 @@
-const ConfirmationService = require('../../../services/auth/confirmation.service');
-const { success } = require('../../../helpers/response.helper');
-const DeviceServices = require('../../../services/users/devices.services');
+const ConfirmationService = require('../../services/auth/confirmation.service');
+const DeviceServices = require('../../services/users/devices.services');
+const { success } = require('../../helpers/response.helper');
 
 class DeviceController {
   static async confirmDevice(req, res, next) {

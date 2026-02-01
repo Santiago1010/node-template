@@ -1,5 +1,5 @@
-const TwoFactorService = require('../../../services/auth/two-factor.service');
-const { success } = require('../../../helpers/response.helper');
+const TwoFactorService = require('../../services/auth/two-factor.service');
+const { success } = require('../../helpers/response.helper');
 
 class TwoFactorController {
   static async get2FAStatus(req, res, next) {

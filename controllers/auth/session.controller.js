@@ -1,11 +1,11 @@
 const dayjs = require('dayjs');
 
 const config = require('../../../config/env');
-const SessionService = require('../../../services/auth/session.service');
+const SessionService = require('../../services/auth/session.service');
 const { isDevelopmentMode, clog } = require('../../../helpers/debug.helper');
 const { del, buildKey, increment, tagKey, set, ttl, get } = require('../../../helpers/cache.helper');
-const { success, error } = require('../../../helpers/response.helper');
-const { getDeviceInfo } = require('../../../utils/utilities.util');
+const { success, error } = require('../../helpers/response.helper');
+const { getDeviceInfo } = require('../../utils/utilities.util');
 
 class SessionController {
   static async signup(req, res, next) {

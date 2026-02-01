@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const i18n = require('../../../config/i18n');
 const { sms } = require('../../../config/env');
 const { getSecret } = require('../../../helpers/vault.helper');
-const { SECURITY_CONFIG } = require('../../../utils/constants.util');
+const { SECURITY_CONFIG } = require('../../utils/constants.util');
 
 class SMSService {
   static async getClient() {

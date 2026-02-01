@@ -6,10 +6,10 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const ConfirmationController = require('../../../controllers/web/auth/confirmation.controller');
+const ConfirmationController = require('../../controllers/auth/confirmation.controller');
 const { confirmationSchemas } = require('./validations');
-const { validationErrorHandler } = require('../../../middlewares/errors/validationError.middleware');
-const { checkSchemaWithRegistry } = require('../../../utils/validationRegistry.util');
+const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
+const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
 // =============================================================================
 // SET UP ROUTER
