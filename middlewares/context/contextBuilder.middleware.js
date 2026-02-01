@@ -159,8 +159,6 @@ const setHost = async (req, _, next) => {
     ContextHelper.run({ host: hostRecord }, () => {
       next();
     });
-
-    return next();
   } catch (err) {
     return next(err);
   }
@@ -224,25 +222,23 @@ const setEndpoint = async (req, _, next) => {
     // Split once and extract parts
     const parts = endpoint.split('/');
 
-    // Validate structure (must have at least: /<api>/<platform>/<version>/<group>)
-    if (parts.length < 5) {
+    // Validate structure (must have at least: /<api>/<version>/<group>)
+    if (parts.length < 4) {
       throw error({ httpCode: 404, messagePath: 'errors.notFound' });
     }
 
-    const platform = parts[2];
-    const version = parts[3];
-    const group = parts[4];
-    const path = '/' + parts.slice(5).join('/');
+    const version = parts[2];
+    const group = parts[3];
+    const path = '/' + parts.slice(4).join('/');
 
     const sequelize = await initializeConnection();
     const { configEndpoints } = sequelize.models;
 
     // Fetch candidates with optimized query
     const endpoints = await configEndpoints.findAll({
-      attributes: ['id', 'path', 'method', 'platform', 'version', 'endpointGroup'],
+      attributes: ['id', 'path', 'method', 'version', 'endpointGroup'],
       where: {
         method,
-        platform,
         version,
         endpointGroup: group,
       },
