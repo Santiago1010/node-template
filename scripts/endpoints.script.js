@@ -99,12 +99,11 @@ const processStack = (stack, basePath = '') => {
  * Parses endpoint path into structured components
  */
 const parseEndpointPath = (fullPath) => {
-  const regex = /^\/api\/([^\/]+)\/([^\/]+)\/([^\/]+)(.*)$/;
+  const regex = /^\/api\/([^\/]+)\/([^\/]+)(.*)$/;
   const match = fullPath.match(regex);
 
   if (!match) {
     return {
-      platform: null,
       version: null,
       group: null,
       path: fullPath,
@@ -112,10 +111,9 @@ const parseEndpointPath = (fullPath) => {
   }
 
   return {
-    platform: match[1],
-    version: match[2],
-    group: match[3],
-    path: match[4] || '/',
+    version: match[1],
+    group: match[2],
+    path: match[3] || '/',
   };
 };
 
@@ -348,10 +346,10 @@ const ensureDirectoryExists = async (dirPath) => {
  * @returns {Promise<void>}
  */
 const generateEndpointDiagrams = async (endpointData) => {
-  const { method, platform, version, group, path: endpointPath } = endpointData;
+  const { method, version, group, path: endpointPath } = endpointData;
 
   // Skip if missing required path components
-  if (!platform || !version || !group) {
+  if (!version || !group) {
     console.log(`    ⏭️  Skipping diagram generation (incomplete path structure)`);
     return;
   }
@@ -361,7 +359,7 @@ const generateEndpointDiagrams = async (endpointData) => {
   const filename = sanitizedPath || 'root';
 
   // Build directory structure
-  const contextDir = path.join(process.cwd(), 'context', platform, version, group);
+  const contextDir = path.join(process.cwd(), 'context', version, group);
   await ensureDirectoryExists(contextDir);
 
   // Define diagram types and their generators
@@ -406,20 +404,18 @@ const syncEndpoint = async (endpointData, transaction) => {
   const sequelize = await initializeConnection();
   const { configEndpoints } = sequelize.models;
 
-  const { method, platform, version, group, path, requiresAuthorization, hasSensitiveInformation, validationSchema } =
+  const { method, version, group, path, requiresAuthorization, hasSensitiveInformation, validationSchema } =
     endpointData;
 
   const [endpoint, created] = await configEndpoints.findOrCreate({
     where: {
       method,
-      platform,
       version,
       endpointGroup: group,
       path,
     },
     defaults: {
       method,
-      platform,
       version,
       endpointGroup: group,
       path,
@@ -439,9 +435,7 @@ const syncEndpoint = async (endpointData, transaction) => {
     );
   }
 
-  console.log(
-    `  ${created ? '✅ Created' : '🔄 Updated'}: ${method.toUpperCase()} ${platform}/${version}/${group}${path}`
-  );
+  console.log(`  ${created ? '✅ Created' : '🔄 Updated'}: ${method.toUpperCase()} ${version}/${group}${path}`);
 
   if (validationSchema) {
     await syncValidationSchema(endpoint.id, validationSchema, transaction);
@@ -516,7 +510,6 @@ const main = async () => {
 
       return {
         method,
-        platform: parsedPath.platform,
         version: parsedPath.version,
         group: parsedPath.group,
         path: parsedPath.path,
