@@ -276,7 +276,7 @@ class CrudServicesGenerator {
   async saveService(serviceContent, groupName, pluralName) {
     try {
       const fileName = `${toCamelCase(pluralName)}.services`;
-      const folderPath = await this.crudHelper.createFolder('SERVICES', 'common/' + groupName, '');
+      const folderPath = await this.crudHelper.createFolder('SERVICES', '/' + groupName, '');
       const filePath = await this.crudHelper.createFile(folderPath, fileName, serviceContent);
 
       console.log(`📄 Service saved to: ${filePath}`);

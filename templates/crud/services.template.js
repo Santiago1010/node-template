@@ -7,9 +7,9 @@ const { Op } = require('sequelize');
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const LogServices = require('../logs/logs.service');
-const { getSequelize } = require('../../../config/database/connection');
-const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../../helpers/database.helper');
-const { wrapLogging } = require('../../../helpers/debug.helper');
+const { getSequelize } = require('../../config/database/connection');
+const { bulkToggleSoftDelete, paginateModel, setSearchQuery } = require('../../helpers/database.helper');
+const { wrapLogging } = require('../../helpers/debug.helper');
 
 class {{SERVICE_NAME}} {
   constructor(sequelize = null) {
@@ -109,7 +109,7 @@ class {{SERVICE_NAME}} {
     search,
     fields = [],
     active,
-    {{FILTERS}}
+    {{FILTERS}},
     includeHistory = false
   } = {}) {
     const optionsQuery = {
