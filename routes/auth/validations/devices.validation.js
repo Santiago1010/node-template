@@ -1,4 +1,4 @@
-const { commonSchemas } = require('../../../../helpers/validations');
+const { commonSchemas } = require('../../../helpers/validations');
 
 const confirmDeviceSchema = {
   token: commonSchemas.stringSchema('token', 'params', { required: true, minSecurityLevel: 0 }),

@@ -1,7 +1,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const { commonSchemas } = require('../../../../helpers/validations');
+const { commonSchemas } = require('../../../helpers/validations');
 
 const enable2FASchema = {
   dialCodeId: commonSchemas.numberSchema('dialCodeId', 'body', {

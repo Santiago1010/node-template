@@ -6,7 +6,7 @@ const express = require('express');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const KeyController = require('../../../controllers/common/security/keys.controller');
+const KeyController = require('../../controllers/security/keys.controller');
 
 // =============================================================================
 // SET UP ROUTER

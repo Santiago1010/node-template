@@ -1,5 +1,5 @@
-const { commonSchemas } = require('../../../../helpers/validations');
-const paginationSchema = require('../../../../schemas/validations/pagination.schema');
+const { commonSchemas } = require('../../../helpers/validations');
+const paginationSchema = require('../../../schemas/validations/pagination.schema');
 
 const signupSchema = {
   firstName: commonSchemas.stringSchema('firstName', 'body', { required: true, maxLength: 100, minSecurityLevel: 0 }),

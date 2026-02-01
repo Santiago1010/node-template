@@ -1,5 +1,5 @@
-const KeyService = require('../../../services/security/keys.service');
-const { success } = require('../../../helpers/response.helper');
+const KeyService = require('../../services/security/keys.service');
+const { success } = require('../../helpers/response.helper');
 
 class KeyController {
   static async showPublicKey(_, res, next) {

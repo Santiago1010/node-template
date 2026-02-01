@@ -1,5 +1,5 @@
 const { {{MAIN_MODEL}}, {{MORE_MODELS}} } = require('../../../../config/database/connection').models;
-const { commonSchemas, databaseSchemas } = require('../../../../helpers/validations');
+const { commonSchemas, databaseSchemas } = require('../../../helpers/validations');
 const { paginationSchemas, searchSchemas, filtersSchemas } = require('../../../../schemas/validations');
 
 const {{CREATE_METHOD}}Schema = {
