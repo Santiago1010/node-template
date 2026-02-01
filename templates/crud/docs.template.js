@@ -16,9 +16,9 @@ const {
 } = require('../../../schemas/params/common.params');
 
 // =============================== BASE PATH =============================== //
-const {{CRATE_NAME}} = standardRequest('post', {
+const {{CREATE_NAME}} = standardRequest('post', {
   tags: [{{TAG}}],
-  operationId: '{{CRATE_NAME}}',
+  operationId: '{{CREATE_NAME}}',
   description: '',
   requestBody: {
     required: true,
@@ -28,7 +28,7 @@ const {{CRATE_NAME}} = standardRequest('post', {
           type: 'object',
           required: [],
           properties: {
-            {{CRATE_PROPERTIES}}
+            {{CREATE_PROPERTIES}}
           },
         },
       },
@@ -85,10 +85,11 @@ const {{DETAILS_NAME}} = standardRequest('get', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateTest = standardRequest('put', {
+const {{UPDATE_NAME}} = standardRequest('put', {
   tags: [{{TAG}}],
-  operationId: 'updateTest',
+  operationId: '{{UPDATE_NAME}}',
   description: '',
+  parameters: [...identifierParam],
   requestBody: {
     content: {
       'application/json': {
@@ -116,8 +117,8 @@ const {{DELETE_NAME}} = standardRequest('delete', {
 });
 
 // ================================ EXPORTS ================================ //
-const basePath = { ...{{CRATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
-const pathWithId = { ...{{DETAILS_NAME}}, ...updateTest, ...{{DELETE_NAME}} };
+const basePath = { ...{{CREATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
+const pathWithId = { ...{{DETAILS_NAME}}, ...{{UPDATE_NAME}}, ...{{DELETE_NAME}} };
 
 // =============================================================================
 // MODULE EXPORTS

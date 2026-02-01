@@ -22,7 +22,7 @@ router.patch('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{UPDATE_STATUS
 
 router.get('/', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{LIST_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{LIST_METHOD}});
 
-router.get('/:identifier', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{DETAILS_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{DETAILS_METHOD}});
+router.get('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{DETAILS_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{DETAILS_METHOD}});
 
 router.put('/:id', checkSchemaWithRegistry({{PLURAL_NAME}}Schemas.{{UPDATE_METHOD}}Schema), validationErrorHandler, {{CONTROLLER_NAME}}.{{UPDATE_METHOD}});
 

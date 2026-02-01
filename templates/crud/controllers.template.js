@@ -5,6 +5,7 @@
 // =============================================================================
 const {{SERVICE_NAME}} = require('../../services/{{SERVICE_VARIABLE}}.services');
 const { success } = require('../../../helpers/response.helper');
+const { BadRequestError } = require('../../../helpers/error.helper');
 
 // =============================================================================
 // {{CONTROLLER_NAME}}
@@ -20,14 +21,19 @@ class {{CONTROLLER_NAME}} {
   static async {{CREATE_METHOD}}(req, res, next) {
     try {
       const { {{ALL_FIELDS}} } = req.body;
+      const { actor } = req;
 
-      const new{{SINGULAR_NAME}} = await {{SERVICE_NAME}}.{{CREATE_METHOD}}({
-        {{ALL_FIELDS}},
-      });
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const new{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{CREATE_METHOD}}(
+        { {{ALL_FIELDS}} },
+        { actor }
+      );
 
       return success(res, {httpCode: 201, messagePath: '{{SINGULAR_NAME}}.created', data: new{{SINGULAR_NAME}}});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 
@@ -40,12 +46,16 @@ class {{CONTROLLER_NAME}} {
   static async {{UPDATE_STATUS_METHOD}}(req, res, next) {
     try {
       const { ids, active } = req.body;
+      const { actor } = req;
 
-      const result = await {{SERVICE_NAME}}.{{UPDATE_STATUS_METHOD}}(ids, active);
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const result = await {{SERVICE_VARIABLE}}.{{UPDATE_STATUS_METHOD}}(ids, active, { actor });
 
       return success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.updatedStatuses', data: result});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 
@@ -57,11 +67,14 @@ class {{CONTROLLER_NAME}} {
    */
   static async {{LIST_METHOD}}(req, res, next) {
     try {
-      const result = await {{SERVICE_NAME}}.{{LIST_METHOD}}(req.query);
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const result = await {{SERVICE_VARIABLE}}.{{LIST_METHOD}}(req.query);
 
       return success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.list', data: result});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 
@@ -74,12 +87,28 @@ class {{CONTROLLER_NAME}} {
   static async {{DETAILS_METHOD}}(req, res, next) {
     try {
       const { id } = req.params;
+      const { search, fields, active, {{FILTERS}} includeHistory } = req.query;
 
-      const {{SINGULAR_NAME}} = await {{SERVICE_NAME}}.{{DETAILS_METHOD}}(id);
+      // Validate that at least one filter parameter is provided
+      if (!id && !search && {{FILTERS_VALIDATION}} !active) {
+        throw new BadRequestError('At least one filter parameter is required');
+      }
+
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const {{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{DETAILS_METHOD}}({
+        id,
+        search,
+        fields: fields ? fields.split(',') : [],
+        active: active !== undefined ? active === 'true' : undefined,
+        {{FILTERS_PARAMS}}
+        includeHistory: includeHistory === 'true'
+      });
 
       return success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.details', data: {{SINGULAR_NAME}}});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 
@@ -92,15 +121,20 @@ class {{CONTROLLER_NAME}} {
   static async {{UPDATE_METHOD}}(req, res, next) {
     try {
       const { id } = req.params;
-      const { {{ALL_FIELDS}} } = req.body;
+      const { {{ALL_FIELDS}}, active } = req.body;
+      const { actor } = req;
 
-      const updated{{SINGULAR_NAME}} = await {{SERVICE_NAME}}.{{UPDATE_METHOD}}(id, {
-        {{ALL_FIELDS}},
-      });
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const updated{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}.{{UPDATE_METHOD}}(
+        id,
+        { {{ALL_FIELDS}}, active, actor }
+      );
 
       return success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.updated', data: updated{{SINGULAR_NAME}}});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 
@@ -113,12 +147,17 @@ class {{CONTROLLER_NAME}} {
   static async {{DELETE_METHOD}}(req, res, next) {
     try {
       const { id } = req.params;
+      const { justification } = req.body;
+      const { actor } = req;
 
-      const result = await {{SERVICE_NAME}}.{{DELETE_METHOD}}(id);
+      const {{SERVICE_VARIABLE}} = new {{SERVICE_NAME}}();
+      await {{SERVICE_VARIABLE}}.initialize();
+
+      const result = await {{SERVICE_VARIABLE}}.{{DELETE_METHOD}}(id, { justification, actor });
 
       return success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.deleted', data: result});
     } catch (error) {
-      return next(error)
+      return next(error);
     }
   }
 }
