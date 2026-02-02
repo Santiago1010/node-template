@@ -257,8 +257,8 @@ class CrudValidationsGenerator {
     if (this.foreignKeyReferences.has(columnName)) {
       const foreignKeyInfo = this.foreignKeyReferences.get(columnName);
       return {
-        create: `databaseSchemas.idSchema('${camelFieldName}', 'body', { model: ${foreignKeyInfo.modelName}, required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: ${foreignKeyInfo.modelName}, required: false, minSecurityLevel: 1 })`,
+        create: `databaseSchemas.idSchema('${camelFieldName}', 'body', { model: ${foreignKeyInfo.modelName}, required: ${isRequired} })`,
+        list: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: ${foreignKeyInfo.modelName}, required: false })`,
       };
     }
 
@@ -267,8 +267,8 @@ class CrudValidationsGenerator {
       const enumValues = this.enumColumns.get(columnName);
       const enumArray = enumValues.map((v) => `'${v}'`).join(', ');
       return {
-        create: `commonSchemas.inSchema('${camelFieldName}', [${enumArray}], 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `commonSchemas.inSchema('${camelFieldName}', [${enumArray}], 'query', { required: false, minSecurityLevel: 1 })`,
+        create: `commonSchemas.inSchema('${camelFieldName}', [${enumArray}], 'body', { required: ${isRequired} })`,
+        list: `commonSchemas.inSchema('${camelFieldName}', [${enumArray}], 'query', { required: false })`,
       };
     }
 
@@ -286,7 +286,6 @@ class CrudValidationsGenerator {
 
       const options = {
         required: isRequired,
-        minSecurityLevel: 1,
       };
 
       if (fieldName.includes('email')) {
@@ -297,8 +296,8 @@ class CrudValidationsGenerator {
         options.maxLength = 20;
       } else if (fieldName.includes('url') || fieldName.includes('link')) {
         return {
-          create: `commonSchemas.linkSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-          list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+          create: `commonSchemas.linkSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
+          list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false })`,
         };
       } else if (maxLength) {
         options.maxLength = maxLength;
@@ -307,7 +306,7 @@ class CrudValidationsGenerator {
       const optionsStr = this.formatOptions(options);
       return {
         create: `commonSchemas.stringSchema('${camelFieldName}', 'body', ${optionsStr})`,
-        list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+        list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false })`,
       };
     }
 
@@ -317,8 +316,8 @@ class CrudValidationsGenerator {
 
     if (isBoolean) {
       return {
-        create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `commonSchemas.booleanSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+        create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
+        list: `commonSchemas.booleanSchema('${camelFieldName}', 'query', { required: false })`,
       };
     }
 
@@ -330,7 +329,6 @@ class CrudValidationsGenerator {
         const { minValue, maxValue } = this.getNumericRange(columnType);
         const options = {
           required: isRequired,
-          minSecurityLevel: 1,
           minValue: minValue !== undefined ? minValue : 0,
           maxValue: maxValue !== undefined ? maxValue : 1,
         };
@@ -338,14 +336,13 @@ class CrudValidationsGenerator {
         const optionsStr = this.formatOptions(options);
         return {
           create: `commonSchemas.numberSchema('${camelFieldName}', 'body', ${optionsStr})`,
-          list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+          list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false })`,
         };
       }
 
       const { minValue, maxValue } = this.getNumericRange(columnType);
       const options = {
         required: isRequired,
-        minSecurityLevel: 1,
       };
 
       if (minValue !== undefined) options.minValue = minValue;
@@ -354,29 +351,29 @@ class CrudValidationsGenerator {
       const optionsStr = this.formatOptions(options);
       return {
         create: `commonSchemas.numberSchema('${camelFieldName}', 'body', ${optionsStr})`,
-        list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+        list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false })`,
       };
     }
 
     if (columnType.includes('date') || columnType.includes('timestamp')) {
       return {
-        create: `commonSchemas.dateSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `commonSchemas.dateSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+        create: `commonSchemas.dateSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
+        list: `commonSchemas.dateSchema('${camelFieldName}', 'query', { required: false })`,
       };
     }
 
     // JSON
     if (columnType.includes('json')) {
       return {
-        create: `commonSchemas.objectSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+        create: `commonSchemas.objectSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
+        list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false })`,
       };
     }
 
     // Default: String
     return {
-      create: `commonSchemas.stringSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-      list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+      create: `commonSchemas.stringSchema('${camelFieldName}', 'body', { required: ${isRequired} })`,
+      list: `commonSchemas.stringSchema('${camelFieldName}', 'query', { required: false })`,
     };
   }
 
@@ -417,8 +414,8 @@ class CrudValidationsGenerator {
   }
 
   generateUpdateStatusFields(mainModelName) {
-    return `ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: ${mainModelName}, required: true, minSecurityLevel: 1 }),
-  active: commonSchemas.booleanSchema('active', 'body', { required: true, minSecurityLevel: 1 })`;
+    return `ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: ${mainModelName}, required: true }),
+  active: commonSchemas.booleanSchema('active', 'body', { required: true })`;
   }
 
   formatOptions(options) {
@@ -472,7 +469,7 @@ class CrudValidationsGenerator {
 
   insertUpdateSchema(content, mainModelName, updateFields, methodName) {
     const searchPattern = new RegExp(`const ${methodName}Schema = \\{[\\s\\S]*?\\};`, 'm');
-    const replacement = `const ${methodName}Schema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: ${mainModelName}, required: true, minSecurityLevel: 1, paranoid: false }),\n${updateFields},\n  // Add any additional body parameters here\n};`;
+    const replacement = `const ${methodName}Schema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: ${mainModelName}, required: true, paranoid: false }),\n${updateFields},\n  // Add any additional body parameters here\n};`;
     return content.replace(searchPattern, replacement);
   }
 
