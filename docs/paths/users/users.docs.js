@@ -30,25 +30,25 @@ const createUser = standardRequest('post', {
           properties: {
             firstName: {
               type: 'string',
-              description: '**[Required]** First name of the user/customer.',
+              description: 'First name of the user/customer.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             secondName: {
               type: 'string',
-              description: '**[Optional]** Second name of the user/client (if applicable).',
+              description: 'Second name of the user/client (if applicable).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             firstLastName: {
               type: 'string',
-              description: '**[Required]** First surname of the user/customer.',
+              description: 'First surname of the user/customer.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             secondLastName: {
               type: 'string',
-              description: '**[Optional]** Second surname of the user/client (if applicable).',
+              description: 'Second surname of the user/client (if applicable).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
@@ -75,7 +75,7 @@ const updateUsersStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -121,25 +121,25 @@ const updateUser = standardRequest('put', {
           properties: {
             firstName: {
               type: 'string',
-              description: '**[Optional]** First name of the user/customer.',
+              description: 'First name of the user/customer.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             secondName: {
               type: 'string',
-              description: '**[Optional]** Second name of the user/client (if applicable).',
+              description: 'Second name of the user/client (if applicable).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             firstLastName: {
               type: 'string',
-              description: '**[Optional]** First surname of the user/customer.',
+              description: 'First surname of the user/customer.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             secondLastName: {
               type: 'string',
-              description: '**[Optional]** Second surname of the user/client (if applicable).',
+              description: 'Second surname of the user/client (if applicable).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },

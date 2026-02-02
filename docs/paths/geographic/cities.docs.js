@@ -30,7 +30,7 @@ const createCity = standardRequest('post', {
           properties: {
             idSubDivision: {
               type: 'integer',
-              description: '**[Required]** ID of the subdivision to which the city belongs.',
+              description: 'ID of the subdivision to which the city belongs.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
@@ -38,14 +38,14 @@ const createCity = standardRequest('post', {
             idTimezone: {
               type: 'integer',
               description:
-                '**[Required]** ID of the time zone governing the city. This setup allows for different time zones within a country or even a subdivision.',
+                'ID of the time zone governing the city. This setup allows for different time zones within a country or even a subdivision.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             name: {
               type: 'string',
-              description: '**[Required]** Original name of the city.',
+              description: 'Original name of the city.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
@@ -72,7 +72,7 @@ const updateCitiesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -118,7 +118,7 @@ const updateCity = standardRequest('put', {
           properties: {
             idSubDivision: {
               type: 'integer',
-              description: '**[Optional]** ID of the subdivision to which the city belongs.',
+              description: 'ID of the subdivision to which the city belongs.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
@@ -126,14 +126,14 @@ const updateCity = standardRequest('put', {
             idTimezone: {
               type: 'integer',
               description:
-                '**[Optional]** ID of the time zone governing the city. This setup allows for different time zones within a country or even a subdivision.',
+                'ID of the time zone governing the city. This setup allows for different time zones within a country or even a subdivision.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             name: {
               type: 'string',
-              description: '**[Optional]** Original name of the city.',
+              description: 'Original name of the city.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },

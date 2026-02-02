@@ -30,19 +30,19 @@ const createScope = standardRequest('post', {
           properties: {
             name: {
               type: 'string',
-              description: '**[Required]** Unique scope name (in snake_case and separated by a colon).',
+              description: 'Unique scope name (in snake_case and separated by a colon).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             description: {
               type: 'string',
-              description: '**[Optional]** Description of the permissions that the scope has.',
+              description: 'Description of the permissions that the scope has.',
               example: faker.lorem.sentences(10),
             },
             isSelectable: {
               type: 'boolean',
               description:
-                '**[Optional]** Indicates whether the scope is selectable or deselectable to be configured for specific roles and/or accounts. If false, it should not be displayed to the public.',
+                'Indicates whether the scope is selectable or deselectable to be configured for specific roles and/or accounts. If false, it should not be displayed to the public.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -69,7 +69,7 @@ const updateScopesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -115,19 +115,19 @@ const updateScope = standardRequest('put', {
           properties: {
             name: {
               type: 'string',
-              description: '**[Optional]** Unique scope name (in snake_case and separated by a colon).',
+              description: 'Unique scope name (in snake_case and separated by a colon).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             description: {
               type: 'string',
-              description: '**[Optional]** Description of the permissions that the scope has.',
+              description: 'Description of the permissions that the scope has.',
               example: faker.lorem.sentences(10),
             },
             isSelectable: {
               type: 'boolean',
               description:
-                '**[Optional]** Indicates whether the scope is selectable or deselectable to be configured for specific roles and/or accounts. If false, it should not be displayed to the public.',
+                'Indicates whether the scope is selectable or deselectable to be configured for specific roles and/or accounts. If false, it should not be displayed to the public.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },

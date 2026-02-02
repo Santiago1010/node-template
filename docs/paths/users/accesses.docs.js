@@ -48,19 +48,19 @@ const createAccess = standardRequest('post', {
             idToken: {
               type: 'string',
               description:
-                '**[Required]** Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
+                'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             expiresAt: {
               type: 'string',
-              description: '**[Required]** Date and time the access expires. Updated each time the token is refreshed.',
+              description: 'Date and time the access expires. Updated each time the token is refreshed.',
               format: 'date-time',
               example: dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss'),
             },
             isSafeMode: {
               type: 'boolean',
-              description: '**[Optional]** Indicates whether access was performed in safe mode.',
+              description: 'Indicates whether access was performed in safe mode.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -87,7 +87,7 @@ const updateAccessesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -111,14 +111,14 @@ const getListAccesses = standardRequest('get', {
     {
       name: 'accountId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
     {
       name: 'deviceId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
@@ -166,19 +166,19 @@ const updateAccess = standardRequest('put', {
             idToken: {
               type: 'string',
               description:
-                '**[Optional]** Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
+                'Unique ID of the encrypted JWT token (not the primary key because it is recommended to encrypt it).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             expiresAt: {
               type: 'string',
-              description: '**[Optional]** Date and time the access expires. Updated each time the token is refreshed.',
+              description: 'Date and time the access expires. Updated each time the token is refreshed.',
               format: 'date-time',
               example: dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss'),
             },
             isSafeMode: {
               type: 'boolean',
-              description: '**[Optional]** Indicates whether access was performed in safe mode.',
+              description: 'Indicates whether access was performed in safe mode.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },

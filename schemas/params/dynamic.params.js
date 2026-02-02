@@ -82,7 +82,7 @@ const config = require('../../config/env'); // Application configuration for bas
  * @example
  * // Basic usage for required parameter
  * const reference = setReference(true, "User ID for authentication", "auth", "login");
- * // Returns: "**[Required]** User ID for authentication You can get a reference..."
+ * // Returns: "User ID for authentication You can get a reference..."
  *
  * @example
  * // Advanced usage with error handling
@@ -123,7 +123,7 @@ const setReference = (required, description, tag, operationId) => {
   let reference = '';
 
   // Business rule: Prefix with requirement status for clear API documentation
-  reference += required ? '**[Required]** ' : '**[Optional]** ';
+  reference += required ? '' : '';
 
   // Include the descriptive text provided by the caller
   reference += description + ' ';

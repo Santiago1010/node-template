@@ -30,18 +30,18 @@ const createContinent = standardRequest('post', {
           properties: {
             name: {
               type: 'object',
-              description: '**[Required]** Continent name, written in different languages for internationalization.',
+              description: 'Continent name, written in different languages for internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'string',
-              description: '**[Required]** Continent abbreviation.',
+              description: 'Continent abbreviation.',
               maxLength: 3,
               example: faker.string.alphanumeric(3),
             },
             surfaceArea: {
               type: 'integer',
-              description: '**[Required]** Approximate surface area of the continent (measured in km²).',
+              description: 'Approximate surface area of the continent (measured in km²).',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
@@ -69,7 +69,7 @@ const updateContinentsStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -115,18 +115,18 @@ const updateContinent = standardRequest('put', {
           properties: {
             name: {
               type: 'object',
-              description: '**[Optional]** Continent name, written in different languages for internationalization.',
+              description: 'Continent name, written in different languages for internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'string',
-              description: '**[Optional]** Continent abbreviation.',
+              description: 'Continent abbreviation.',
               maxLength: 3,
               example: faker.string.alphanumeric(3),
             },
             surfaceArea: {
               type: 'integer',
-              description: '**[Optional]** Approximate surface area of the continent (measured in km²).',
+              description: 'Approximate surface area of the continent (measured in km²).',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),

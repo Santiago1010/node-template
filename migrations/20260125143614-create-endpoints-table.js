@@ -79,7 +79,7 @@ module.exports = {
       }
     );
 
-    await queryInterface.addIndex('config_endpoints', ['method', 'platform', 'version', 'endpoint_group', 'path'], {
+    await queryInterface.addIndex('config_endpoints', ['method', 'version', 'endpoint_group', 'path'], {
       unique: true,
       name: 'endpoint_UN',
     });

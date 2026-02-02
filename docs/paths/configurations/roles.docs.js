@@ -41,21 +41,20 @@ const createRole = standardRequest('post', {
             },
             name: {
               type: 'string',
-              description: '**[Required]** Role name.',
+              description: 'Role name.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             target: {
               type: 'string',
               description:
-                '**[Optional]** Defines who the profiles are available for (linked to the tables that store user information).',
+                'Defines who the profiles are available for (linked to the tables that store user information).',
               enum: ['employee', 'customer'],
               example: faker.helpers.arrayElement(['employee', 'customer']),
             },
             isDefault: {
               type: 'boolean',
-              description:
-                '**[Optional]** Indicates whether the role is the default. There can only be one per target.',
+              description: 'Indicates whether the role is the default. There can only be one per target.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -82,7 +81,7 @@ const updateRolesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -106,14 +105,14 @@ const getListRoles = standardRequest('get', {
     {
       name: 'securityLevelId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
     {
       name: 'target',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'string', enum: ['employee', 'customer'] },
     },
@@ -155,21 +154,20 @@ const updateRole = standardRequest('put', {
             },
             name: {
               type: 'string',
-              description: '**[Optional]** Role name.',
+              description: 'Role name.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             target: {
               type: 'string',
               description:
-                '**[Optional]** Defines who the profiles are available for (linked to the tables that store user information).',
+                'Defines who the profiles are available for (linked to the tables that store user information).',
               enum: ['employee', 'customer'],
               example: faker.helpers.arrayElement(['employee', 'customer']),
             },
             isDefault: {
               type: 'boolean',
-              description:
-                '**[Optional]** Indicates whether the role is the default. There can only be one per target.',
+              description: 'Indicates whether the role is the default. There can only be one per target.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },

@@ -30,51 +30,50 @@ const createCountry = standardRequest('post', {
           properties: {
             idRegion: {
               type: 'integer',
-              description: '**[Required]** ID of the region to which the country belongs.',
+              description: 'ID of the region to which the country belongs.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             idCapital: {
               type: 'integer',
-              description: "**[Optional]** ID of the country's capital city.",
+              description: "ID of the country's capital city.",
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             idFlag: {
               type: 'integer',
-              description: '**[Required]** ID of the country’s flag.',
+              description: 'ID of the country’s flag.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             popularName: {
               type: 'object',
-              description:
-                '**[Required]** Name of the country, written in different languages for internationalization.',
+              description: 'Name of the country, written in different languages for internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             officialName: {
               type: 'object',
-              description: '**[Required]** Official language of the country translated into several languages.',
+              description: 'Official language of the country translated into several languages.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'object',
               description:
-                '**[Required]** ISO 3166-1 alpha-2 two-letter country codes and ISO 3166-1 alpha-3 three-letter country codes of the country.',
+                'ISO 3166-1 alpha-2 two-letter country codes and ISO 3166-1 alpha-3 three-letter country codes of the country.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             surfaceArea: {
               type: 'string',
-              description: '**[Optional]** Approximate surface area of the country (measured in km²).',
+              description: 'Approximate surface area of the country (measured in km²).',
               maxLength: 15,
               example: faker.string.alphanumeric(15),
             },
             tld: {
               type: 'string',
-              description: '**[Required]** Internet top level domains',
+              description: 'Internet top level domains',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
@@ -101,7 +100,7 @@ const updateCountriesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -147,51 +146,50 @@ const updateCountry = standardRequest('put', {
           properties: {
             idRegion: {
               type: 'integer',
-              description: '**[Optional]** ID of the region to which the country belongs.',
+              description: 'ID of the region to which the country belongs.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             idCapital: {
               type: 'integer',
-              description: "**[Optional]** ID of the country's capital city.",
+              description: "ID of the country's capital city.",
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             idFlag: {
               type: 'integer',
-              description: '**[Optional]** ID of the country’s flag.',
+              description: 'ID of the country’s flag.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             popularName: {
               type: 'object',
-              description:
-                '**[Optional]** Name of the country, written in different languages for internationalization.',
+              description: 'Name of the country, written in different languages for internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             officialName: {
               type: 'object',
-              description: '**[Optional]** Official language of the country translated into several languages.',
+              description: 'Official language of the country translated into several languages.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'object',
               description:
-                '**[Optional]** ISO 3166-1 alpha-2 two-letter country codes and ISO 3166-1 alpha-3 three-letter country codes of the country.',
+                'ISO 3166-1 alpha-2 two-letter country codes and ISO 3166-1 alpha-3 three-letter country codes of the country.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             surfaceArea: {
               type: 'string',
-              description: '**[Optional]** Approximate surface area of the country (measured in km²).',
+              description: 'Approximate surface area of the country (measured in km²).',
               maxLength: 15,
               example: faker.string.alphanumeric(15),
             },
             tld: {
               type: 'string',
-              description: '**[Optional]** Internet top level domains',
+              description: 'Internet top level domains',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },

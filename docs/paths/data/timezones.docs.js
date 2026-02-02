@@ -31,21 +31,20 @@ const createTimezone = standardRequest('post', {
             idContinent: {
               type: 'integer',
               description:
-                '**[Required]** ID of the continent to which the time zone belongs. This facilitates more efficient filtering of the required time zones.',
+                'ID of the continent to which the time zone belongs. This facilitates more efficient filtering of the required time zones.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             name: {
               type: 'string',
-              description:
-                '**[Required]** International name or identifier of the time zone (in "Continent/Zone" format).',
+              description: 'International name or identifier of the time zone (in "Continent/Zone" format).',
               maxLength: 50,
               example: faker.string.alphanumeric(50),
             },
             utc: {
               type: 'string',
-              description: '**[Required]** Coordinated Universal Time (UTC) offset of each time zone.',
+              description: 'Coordinated Universal Time (UTC) offset of each time zone.',
               maxLength: 6,
               example: faker.string.alphanumeric(6),
             },
@@ -72,7 +71,7 @@ const updateTimezonesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -119,21 +118,20 @@ const updateTimezone = standardRequest('put', {
             idContinent: {
               type: 'integer',
               description:
-                '**[Optional]** ID of the continent to which the time zone belongs. This facilitates more efficient filtering of the required time zones.',
+                'ID of the continent to which the time zone belongs. This facilitates more efficient filtering of the required time zones.',
               min: 0,
               max: 2147483647,
               example: faker.number.int({ min: 0, max: 2147483647 }),
             },
             name: {
               type: 'string',
-              description:
-                '**[Optional]** International name or identifier of the time zone (in "Continent/Zone" format).',
+              description: 'International name or identifier of the time zone (in "Continent/Zone" format).',
               maxLength: 50,
               example: faker.string.alphanumeric(50),
             },
             utc: {
               type: 'string',
-              description: '**[Optional]** Coordinated Universal Time (UTC) offset of each time zone.',
+              description: 'Coordinated Universal Time (UTC) offset of each time zone.',
               maxLength: 6,
               example: faker.string.alphanumeric(6),
             },

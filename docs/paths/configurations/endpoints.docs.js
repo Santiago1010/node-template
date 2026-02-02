@@ -16,9 +16,9 @@ const {
 } = require('../../../schemas/params/common.params');
 
 // =============================== BASE PATH =============================== //
-const createEndpoin = standardRequest('post', {
+const createEndpoint = standardRequest('post', {
   tags: ['Configurations'],
-  operationId: 'createEndpoin',
+  operationId: 'createEndpoint',
   description: '',
   requestBody: {
     required: true,
@@ -30,48 +30,43 @@ const createEndpoin = standardRequest('post', {
           properties: {
             method: {
               type: 'string',
-              description: '**[Required]** Method of the endpoint to which permission will be granted.',
+              description: 'Method of the endpoint to which permission will be granted.',
               enum: ['post', 'get', 'put', 'patch', 'delete', 'options'],
               example: faker.helpers.arrayElement(['post', 'get', 'put', 'patch', 'delete', 'options']),
             },
             version: {
               type: 'string',
-              description: '**[Required]** Version identifier of the endpoint configuration',
+              description: 'Version identifier of the endpoint configuration',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
             endpointGroup: {
               type: 'string',
-              description: '**[Required]** Grouping of different endpoints',
+              description: 'Grouping of different endpoints',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             path: {
               type: 'string',
-              description: '**[Required]** Path of the endpoint to which permission will be granted.',
+              description: 'Path of the endpoint to which permission will be granted.',
               maxLength: 200,
               example: faker.string.alphanumeric(200),
             },
             description: {
               type: 'string',
-              description: "**[Optional]** Optional description of the endpoint's function.",
+              description: "Optional description of the endpoint's function.",
               example: faker.lorem.sentences(10),
             },
             requiresAuthorization: {
-              type: 'integer',
-              description:
-                '**[Optional]** Indicates whether or not the endpoint requires authorization to be executed.',
-              min: 0,
-              max: 9,
-              example: faker.number.int({ min: 0, max: 9 }),
+              type: 'boolean',
+              description: 'Indicates whether or not the endpoint requires authorization to be executed.',
+              example: faker.datatype.boolean(),
             },
             hasSensitiveInformation: {
-              type: 'integer',
+              type: 'boolean',
               description:
-                '**[Optional]** Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
-              min: 0,
-              max: 9,
-              example: faker.number.int({ min: 0, max: 9 }),
+                'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
+              example: faker.datatype.boolean(),
             },
           },
         },
@@ -96,7 +91,7 @@ const updateEndpointsStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -120,7 +115,7 @@ const getListEndpoints = standardRequest('get', {
     {
       name: 'method',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'string', enum: ['post', 'get', 'put', 'patch', 'delete', 'options'] },
     },
@@ -139,9 +134,9 @@ const getEndpoinDetails = standardRequest('get', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateEndpoin = standardRequest('put', {
+const updateEndpoint = standardRequest('put', {
   tags: ['Configurations'],
-  operationId: 'updateEndpoin',
+  operationId: 'updateEndpoint',
   description: '',
   parameters: [...identifierParam],
   requestBody: {
@@ -152,48 +147,43 @@ const updateEndpoin = standardRequest('put', {
           properties: {
             method: {
               type: 'string',
-              description: '**[Optional]** Method of the endpoint to which permission will be granted.',
+              description: 'Method of the endpoint to which permission will be granted.',
               enum: ['post', 'get', 'put', 'patch', 'delete', 'options'],
               example: faker.helpers.arrayElement(['post', 'get', 'put', 'patch', 'delete', 'options']),
             },
             version: {
               type: 'string',
-              description: '**[Optional]** Version identifier of the endpoint configuration',
+              description: 'Version identifier of the endpoint configuration',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
             endpointGroup: {
               type: 'string',
-              description: '**[Optional]** Grouping of different endpoints',
+              description: 'Grouping of different endpoints',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             path: {
               type: 'string',
-              description: '**[Optional]** Path of the endpoint to which permission will be granted.',
+              description: 'Path of the endpoint to which permission will be granted.',
               maxLength: 200,
               example: faker.string.alphanumeric(200),
             },
             description: {
               type: 'string',
-              description: "**[Optional]** Optional description of the endpoint's function.",
+              description: "Optional description of the endpoint's function.",
               example: faker.lorem.sentences(10),
             },
             requiresAuthorization: {
-              type: 'integer',
-              description:
-                '**[Optional]** Indicates whether or not the endpoint requires authorization to be executed.',
-              min: 0,
-              max: 9,
-              example: faker.number.int({ min: 0, max: 9 }),
+              type: 'boolean',
+              description: 'Indicates whether or not the endpoint requires authorization to be executed.',
+              example: faker.datatype.boolean(),
             },
             hasSensitiveInformation: {
-              type: 'integer',
+              type: 'boolean',
               description:
-                '**[Optional]** Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
-              min: 0,
-              max: 9,
-              example: faker.number.int({ min: 0, max: 9 }),
+                'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
+              example: faker.datatype.boolean(),
             },
             ...activeBody,
           },
@@ -205,9 +195,9 @@ const updateEndpoin = standardRequest('put', {
   security: [{ bearerAuth: [] }],
 });
 
-const deleteEndpoin = standardRequest('delete', {
+const deleteEndpoint = standardRequest('delete', {
   tags: ['Configurations'],
-  operationId: 'deleteEndpoin',
+  operationId: 'deleteEndpoint',
   description: '',
   parameters: [...identifierParam],
   responses: {},
@@ -215,8 +205,8 @@ const deleteEndpoin = standardRequest('delete', {
 });
 
 // ================================ EXPORTS ================================ //
-const basePath = { ...createEndpoin, ...updateEndpointsStatus, ...getListEndpoints };
-const pathWithId = { ...getEndpoinDetails, ...updateEndpoin, ...deleteEndpoin };
+const basePath = { ...createEndpoint, ...updateEndpointsStatus, ...getListEndpoints };
+const pathWithId = { ...getEndpoinDetails, ...updateEndpoint, ...deleteEndpoint };
 
 // =============================================================================
 // MODULE EXPORTS

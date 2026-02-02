@@ -51,33 +51,32 @@ const createPage = standardRequest('post', {
             },
             name: {
               type: 'string',
-              description: '**[Required]** Page name (extracted from Vue router 4).',
+              description: 'Page name (extracted from Vue router 4).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             path: {
               type: 'string',
               description:
-                '**[Required]** Path of the specific page for identification. It must be exactly the same as the path used by the end user to access the view.',
+                'Path of the specific page for identification. It must be exactly the same as the path used by the end user to access the view.',
               maxLength: 200,
               example: faker.string.alphanumeric(200),
             },
             description: {
               type: 'string',
-              description: '**[Optional]** Optional description of what can be done or viewed on the page.',
+              description: 'Optional description of what can be done or viewed on the page.',
               example: faker.lorem.sentences(10),
             },
             level: {
               type: 'integer',
-              description:
-                '**[Optional]** Indicates whether it is level 1, 2, or 3 (this being the last level allowed).',
+              description: 'Indicates whether it is level 1, 2, or 3 (this being the last level allowed).',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
             },
             requiresAuthorization: {
               type: 'integer',
-              description: '**[Optional]** Indicates whether the page requires authorization to access it.',
+              description: 'Indicates whether the page requires authorization to access it.',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
@@ -85,7 +84,7 @@ const createPage = standardRequest('post', {
             hasSensitiveInformation: {
               type: 'integer',
               description:
-                '**[Optional]** Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
+                'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
@@ -113,7 +112,7 @@ const updatePagesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -137,14 +136,14 @@ const getListPages = standardRequest('get', {
     {
       name: 'hostId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
     {
       name: 'pageId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
@@ -196,33 +195,32 @@ const updatePage = standardRequest('put', {
             },
             name: {
               type: 'string',
-              description: '**[Optional]** Page name (extracted from Vue router 4).',
+              description: 'Page name (extracted from Vue router 4).',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             path: {
               type: 'string',
               description:
-                '**[Optional]** Path of the specific page for identification. It must be exactly the same as the path used by the end user to access the view.',
+                'Path of the specific page for identification. It must be exactly the same as the path used by the end user to access the view.',
               maxLength: 200,
               example: faker.string.alphanumeric(200),
             },
             description: {
               type: 'string',
-              description: '**[Optional]** Optional description of what can be done or viewed on the page.',
+              description: 'Optional description of what can be done or viewed on the page.',
               example: faker.lorem.sentences(10),
             },
             level: {
               type: 'integer',
-              description:
-                '**[Optional]** Indicates whether it is level 1, 2, or 3 (this being the last level allowed).',
+              description: 'Indicates whether it is level 1, 2, or 3 (this being the last level allowed).',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
             },
             requiresAuthorization: {
               type: 'integer',
-              description: '**[Optional]** Indicates whether the page requires authorization to access it.',
+              description: 'Indicates whether the page requires authorization to access it.',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
@@ -230,7 +228,7 @@ const updatePage = standardRequest('put', {
             hasSensitiveInformation: {
               type: 'integer',
               description:
-                '**[Optional]** Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
+                'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),

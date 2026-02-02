@@ -30,18 +30,18 @@ const createCurrency = standardRequest('post', {
           properties: {
             name: {
               type: 'object',
-              description: '**[Required]** Official name of the currency in several languages.',
+              description: 'Official name of the currency in several languages.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'string',
-              description: '**[Required]** Abbreviation for currency.',
+              description: 'Abbreviation for currency.',
               maxLength: 15,
               example: faker.string.alphanumeric(15),
             },
             symbol: {
               type: 'string',
-              description: '**[Required]** Symbol that differentiates the currency.',
+              description: 'Symbol that differentiates the currency.',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
@@ -68,7 +68,7 @@ const updateCurrenciesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -114,18 +114,18 @@ const updateCurrency = standardRequest('put', {
           properties: {
             name: {
               type: 'object',
-              description: '**[Optional]** Official name of the currency in several languages.',
+              description: 'Official name of the currency in several languages.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             abbreviation: {
               type: 'string',
-              description: '**[Optional]** Abbreviation for currency.',
+              description: 'Abbreviation for currency.',
               maxLength: 15,
               example: faker.string.alphanumeric(15),
             },
             symbol: {
               type: 'string',
-              description: '**[Optional]** Symbol that differentiates the currency.',
+              description: 'Symbol that differentiates the currency.',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },

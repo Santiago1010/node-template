@@ -306,7 +306,7 @@ class CrudDocsGenerator {
           `              description: setReference(${requiredFlag}, '${description.replace(/'/g, "\\'")}', '${foreignKeyInfo.tagName}', '${foreignKeyInfo.operationId}'),`
         );
       } else {
-        const requiredText = requiredFlag ? '**[Required]** ' : '**[Optional]** ';
+        const requiredText = requiredFlag ? '' : '';
         lines.push(
           `              description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`
         );
@@ -547,7 +547,7 @@ class CrudDocsGenerator {
 
       if (property.format === 'date') {
         parameters.push(
-          `\n    {\n      name: '${camelField}From',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    },\n    {\n      name: '${camelField}To',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    }`
+          `\n    {\n      name: '${camelField}From',\n      in: 'query',\n      description: '',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    },\n    {\n      name: '${camelField}To',\n      in: 'query',\n      description: '',\n      required: false,\n      schema: { type: 'string', format: 'date' }\n    }`
         );
       } else {
         const parameterSchema = { type: property.type };
@@ -558,7 +558,7 @@ class CrudDocsGenerator {
         }
 
         parameters.push(
-          `\n    {\n      name: '${camelField}',\n      in: 'query',\n      description: '**[Optional]** ',\n      required: false,\n      schema: ${JSON.stringify(parameterSchema).replace(/"/g, "'")}\n    }`
+          `\n    {\n      name: '${camelField}',\n      in: 'query',\n      description: '',\n      required: false,\n      schema: ${JSON.stringify(parameterSchema).replace(/"/g, "'")}\n    }`
         );
       }
     }

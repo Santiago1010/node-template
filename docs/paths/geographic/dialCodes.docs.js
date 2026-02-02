@@ -41,13 +41,13 @@ const createDial_code = standardRequest('post', {
             },
             code: {
               type: 'string',
-              description: '**[Required]** Dialing code.',
+              description: 'Dialing code.',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
             mask: {
               type: 'string',
-              description: '**[Required]** Mask for each number that uses the dialing code.',
+              description: 'Mask for each number that uses the dialing code.',
               maxLength: 50,
               example: faker.string.alphanumeric(50),
             },
@@ -74,7 +74,7 @@ const updateDialcodesStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -98,7 +98,7 @@ const getListDialcodes = standardRequest('get', {
     {
       name: 'countryId',
       in: 'query',
-      description: '**[Optional]** ',
+      description: '',
       required: false,
       schema: { type: 'integer' },
     },
@@ -140,13 +140,13 @@ const updateDial_code = standardRequest('put', {
             },
             code: {
               type: 'string',
-              description: '**[Optional]** Dialing code.',
+              description: 'Dialing code.',
               maxLength: 10,
               example: faker.string.alphanumeric(10),
             },
             mask: {
               type: 'string',
-              description: '**[Optional]** Mask for each number that uses the dialing code.',
+              description: 'Mask for each number that uses the dialing code.',
               maxLength: 50,
               example: faker.string.alphanumeric(50),
             },

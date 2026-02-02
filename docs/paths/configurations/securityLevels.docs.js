@@ -30,31 +30,30 @@ const createSecurity_level = standardRequest('post', {
           properties: {
             slug: {
               type: 'string',
-              description: '**[Required]** Name of the security level in slug format.',
+              description: 'Name of the security level in slug format.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             name: {
               type: 'object',
-              description: '**[Required]** Name of the security level with internationalization.',
+              description: 'Name of the security level with internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             priority: {
               type: 'integer',
-              description: '**[Required]** 1 = least sensitive ... n = most sensitive.',
+              description: '1 = least sensitive ... n = most sensitive.',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
             },
             description: {
               type: 'object',
-              description: '**[Optional]** Detailed description of each security level with internationalization.',
+              description: 'Detailed description of each security level with internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             isDefault: {
               type: 'boolean',
-              description:
-                '**[Required]** Indicate whether this is a default level. Only one can be marked as default.',
+              description: 'Indicate whether this is a default level. Only one can be marked as default.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -81,7 +80,7 @@ const updateSecuritylevelsStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -127,31 +126,30 @@ const updateSecurity_level = standardRequest('put', {
           properties: {
             slug: {
               type: 'string',
-              description: '**[Optional]** Name of the security level in slug format.',
+              description: 'Name of the security level in slug format.',
               maxLength: 100,
               example: faker.string.alphanumeric(100),
             },
             name: {
               type: 'object',
-              description: '**[Optional]** Name of the security level with internationalization.',
+              description: 'Name of the security level with internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             priority: {
               type: 'integer',
-              description: '**[Optional]** 1 = least sensitive ... n = most sensitive.',
+              description: '1 = least sensitive ... n = most sensitive.',
               min: 0,
               max: 9,
               example: faker.number.int({ min: 0, max: 9 }),
             },
             description: {
               type: 'object',
-              description: '**[Optional]** Detailed description of each security level with internationalization.',
+              description: 'Detailed description of each security level with internationalization.',
               example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
             },
             isDefault: {
               type: 'boolean',
-              description:
-                '**[Optional]** Indicate whether this is a default level. Only one can be marked as default.',
+              description: 'Indicate whether this is a default level. Only one can be marked as default.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },

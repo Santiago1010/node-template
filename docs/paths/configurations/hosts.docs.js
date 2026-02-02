@@ -30,13 +30,13 @@ const createHost = standardRequest('post', {
           properties: {
             url: {
               type: 'string',
-              description: '**[Required]** URN of the allowed hosts.',
+              description: 'URN of the allowed hosts.',
               maxLength: 150,
               example: faker.string.alphanumeric(150),
             },
             isDefault: {
               type: 'boolean',
-              description: '**[Required]** Indicates whether this is the default host or not. There can only be one.',
+              description: 'Indicates whether this is the default host or not. There can only be one.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -63,7 +63,7 @@ const updateHostsStatus = standardRequest('patch', {
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -109,13 +109,13 @@ const updateHost = standardRequest('put', {
           properties: {
             url: {
               type: 'string',
-              description: '**[Optional]** URN of the allowed hosts.',
+              description: 'URN of the allowed hosts.',
               maxLength: 150,
               example: faker.string.alphanumeric(150),
             },
             isDefault: {
               type: 'boolean',
-              description: '**[Optional]** Indicates whether this is the default host or not. There can only be one.',
+              description: 'Indicates whether this is the default host or not. There can only be one.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
