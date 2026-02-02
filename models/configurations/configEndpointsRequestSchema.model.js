@@ -15,7 +15,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Primary key. Unique auto-incrementing identifier for each request schema parameter record',
   },
   endpointId: {

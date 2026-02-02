@@ -156,7 +156,7 @@ class LogServices {
    */
 
   async recordUpdateLog(user, model, oldData, newData, { transaction } = {}) {
-    return await this.models.logsUpdate.create(
+    return await this.models.logsUpdates.create(
       {
         rowId: this.getPrimaryKeyValue(newData),
         responsible: user,
@@ -260,14 +260,14 @@ class LogServices {
     const tableName = typeof Model.getTableName === 'function' ? Model.getTableName() : null;
 
     // Available log models (assumes these exist in the same sequelize instance scope)
-    const { logsCreation, logsDeletion, logsStatuses, logsUpdate } = this.models.models;
+    const { logsCreation, logsDeletion, logsStatuses, logsUpdates } = this.models.models;
 
     const wanted = new Set((types || []).map((t) => String(t).toLowerCase()));
 
     const queries = [];
     if (wanted.has('creation') && logsCreation) queries.push(logsCreation.findAll({ where: { rowId: id } }));
     if (wanted.has('deletion') && logsDeletion) queries.push(logsDeletion.findAll({ where: { rowId: id } }));
-    if (wanted.has('update') && logsUpdate) queries.push(logsUpdate.findAll({ where: { rowId: id } }));
+    if (wanted.has('update') && logsUpdates) queries.push(logsUpdates.findAll({ where: { rowId: id } }));
     if (wanted.has('status') && logsStatuses) queries.push(logsStatuses.findAll({ where: { rowId: id } }));
 
     // Run queries in parallel

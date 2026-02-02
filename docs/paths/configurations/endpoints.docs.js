@@ -38,19 +38,19 @@ const createEndpoint = standardRequest('post', {
               type: 'string',
               description: 'Version identifier of the endpoint configuration',
               maxLength: 10,
-              example: faker.string.alphanumeric(10),
+              example: 'v' + faker.number.int({ min: 0, max: 5 }),
             },
             endpointGroup: {
               type: 'string',
               description: 'Grouping of different endpoints',
               maxLength: 100,
-              example: faker.string.alphanumeric(100),
+              example: faker.helpers.arrayElement(['admin', 'user', 'guest', 'auth', 'config']),
             },
             path: {
               type: 'string',
               description: 'Path of the endpoint to which permission will be granted.',
               maxLength: 200,
-              example: faker.string.alphanumeric(200),
+              example: '/endpoint/path',
             },
             description: {
               type: 'string',
@@ -87,7 +87,7 @@ const updateEndpointsStatus = standardRequest('patch', {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['method', 'version', 'endpointGroup', 'path'],
+          required: ['ids', 'active'],
           properties: {
             ids: {
               type: 'array',
@@ -155,19 +155,19 @@ const updateEndpoint = standardRequest('put', {
               type: 'string',
               description: 'Version identifier of the endpoint configuration',
               maxLength: 10,
-              example: faker.string.alphanumeric(10),
+              example: 'v' + faker.number.int({ min: 0, max: 5 }),
             },
             endpointGroup: {
               type: 'string',
               description: 'Grouping of different endpoints',
               maxLength: 100,
-              example: faker.string.alphanumeric(100),
+              example: faker.helpers.arrayElement(['admin', 'user', 'guest', 'auth', 'config']),
             },
             path: {
               type: 'string',
               description: 'Path of the endpoint to which permission will be granted.',
               maxLength: 200,
-              example: faker.string.alphanumeric(200),
+              example: '/endpoint/path',
             },
             description: {
               type: 'string',
@@ -185,7 +185,6 @@ const updateEndpoint = standardRequest('put', {
                 'Indicates whether the page contains sensitive information. Useful for defining what is and is not allowed in "safe mode."',
               example: faker.datatype.boolean(),
             },
-            ...activeBody,
           },
         },
       },

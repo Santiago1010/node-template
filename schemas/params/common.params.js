@@ -125,7 +125,7 @@ const fieldsFilter = [
 
 const identifierParam = [
   {
-    name: 'identifier',
+    name: 'id',
     in: 'path',
     description: 'Unique identifier of the record.',
     schema: { type: 'integer' },

@@ -745,7 +745,7 @@ class CrudHelper {
 
     // Fix logging method calls to use original 'create' method
     template = template.replace(`await logsCreation.${methodNames.create}`, 'await logsCreation.create');
-    template = template.replace(`await logsUpdate.${methodNames.create}`, 'await logsUpdate.create');
+    template = template.replace(`await logsUpdates.${methodNames.create}`, 'await logsUpdates.create');
     template = template.replace(`await logsDeletion.${methodNames.create}`, 'await logsDeletion.create');
 
     return template;

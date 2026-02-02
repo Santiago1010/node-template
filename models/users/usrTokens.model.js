@@ -15,7 +15,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Unique primary key for identifying each created token.',
   },
   accountId: {

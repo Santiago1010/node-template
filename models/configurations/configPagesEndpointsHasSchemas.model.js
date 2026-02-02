@@ -15,7 +15,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Primary key, unique identifier for each page-endpoint-field relationship.',
   },
   pageEndpointId: {
