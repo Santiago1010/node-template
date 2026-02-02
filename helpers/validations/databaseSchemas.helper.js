@@ -116,45 +116,6 @@ const validateScope = (req, requiredScope) => {
   }
 };
 
-/**
- * Validates user security level requirements for field access
- *
- * @description Checks if the current user has sufficient security level to access/modify the field
- * @param {any} value - Field value being validated
- * @param {string} fieldName - Internationalized field name for error messages
- * @param {number} minSecurityLevel - Minimum required security level (0 = no restriction)
- * @param {object} req - Express request object containing user information
- * @returns {boolean} True if security level requirement is met
- * @throws {Error} When user security level is insufficient
- *
- * @example
- * // Throws error if user security level < 3
- * validateSecurityLevel(sensitiveData, 'Salary Field', 3, req);
- *
- * @complexity Time: O(1), Space: O(1)
- * @since Version 1.0.0
- */
-const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
-  if (minSecurityLevel === 0) return true;
-
-  const allowNull = false;
-  if (allowNull && value === null) return true;
-
-  const userSecurityLevel = req?.user?.securityLevel || 0;
-
-  if (userSecurityLevel < minSecurityLevel) {
-    throw new Error(
-      i18n.__mf('validations.insufficient_security_level', {
-        field: fieldName,
-        required: minSecurityLevel,
-        current: userSecurityLevel,
-      })
-    );
-  }
-
-  return true;
-};
-
 // =============================================================================
 // SCHEMA GENERATORS
 // =============================================================================
@@ -169,7 +130,6 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {Function[]} [options.formattingFunctions=[]] - Additional value formatting functions
  * @param {object} options.model - Sequelize model for database existence check
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
@@ -192,17 +152,12 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
  * @since Version 1.0.0
  * @see {@link validateValueAgainstModel} for more complex model-based validation
  */
-const idSchema = (
-  name,
-  location = 'body',
-  { required = true, formattingFunctions = [], model, minSecurityLevel = 1, requiredScope }
-) => {
+const idSchema = (name, location = 'body', { required = true, formattingFunctions = [], model, requiredScope }) => {
   const fieldName = getFieldName(name);
   const validationSchema = {
     in: location,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
         validateScope(req, requiredScope);
 
         const data = await model.findByPk(value);
@@ -251,7 +206,6 @@ const idSchema = (
  * @param {boolean} [options.shouldExist=false] - True to require existence, false to require uniqueness
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {any} [options.excludeValue=null] - Value to exclude from uniqueness check (for updates)
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
@@ -280,7 +234,7 @@ const idSchema = (
 const validateUniqueField = (
   name,
   location = 'body',
-  { model, field, shouldExist = false, required = true, excludeValue = null, minSecurityLevel = 1, requiredScope }
+  { model, field, shouldExist = false, required = true, excludeValue = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -288,7 +242,6 @@ const validateUniqueField = (
     in: location,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
         validateScope(req, requiredScope);
 
         const whereClause = { [field]: value };
@@ -342,7 +295,6 @@ const validateUniqueField = (
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {number} [options.minLength=1] - Minimum number of IDs required
  * @param {number} [options.maxLength=null] - Maximum number of IDs allowed
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
@@ -371,7 +323,7 @@ const validateUniqueField = (
 const validateMultipleIds = (
   name,
   location = 'body',
-  { model, required = true, minLength = 1, maxLength = null, minSecurityLevel = 1, requiredScope }
+  { model, required = true, minLength = 1, maxLength = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -385,7 +337,6 @@ const validateMultipleIds = (
     },
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
         validateScope(req, requiredScope);
 
         const idsArray = Array.isArray(value) ? value : parseToArray(value);
@@ -457,7 +408,6 @@ const validateMultipleIds = (
  * @param {object} options.model - Sequelize model to validate against
  * @param {boolean} [options.required=true] - Whether attributes are mandatory
  * @param {string[]} [options.allowedAttributes=null] - Custom allowed attributes (defaults to all model attributes)
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
@@ -483,7 +433,7 @@ const validateMultipleIds = (
 const validateModelAttributes = (
   name,
   location = 'body',
-  { model, required = true, allowedAttributes = null, minSecurityLevel = 1, requiredScope }
+  { model, required = true, allowedAttributes = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -496,7 +446,6 @@ const validateModelAttributes = (
     },
     custom: {
       options: (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
         validateScope(req, requiredScope);
 
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
@@ -551,7 +500,6 @@ const validateModelAttributes = (
  * @param {any} [options.excludeValue=null] - Value to exclude from checks (for updates)
  * @param {boolean} [options.allowPrimaryKey=true] - Whether to check against primary key
  * @param {boolean} [options.allowUniqueFields=true] - Whether to check against unique fields
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  * @throws {Error} When model configuration is invalid or missing
@@ -589,7 +537,6 @@ const validateValueAgainstModel = (
     excludeValue = null,
     allowPrimaryKey = true,
     allowUniqueFields = true,
-    minSecurityLevel = 1,
     requiredScope,
   } = {}
 ) => {
@@ -669,7 +616,6 @@ const validateValueAgainstModel = (
       : undefined,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
         validateScope(req, requiredScope);
 
         const Op =

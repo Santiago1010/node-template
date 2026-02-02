@@ -187,14 +187,11 @@ const validateWebSession = async (req, _, next) => {
     req.user = {
       ...userData,
       internalCode,
-      securityLevel: cleanAccount.rol.securityLevel.priority,
       account: cleanAccount,
       scopes,
       device: refreshTokenPayload.device,
       jti: refreshTokenPayload.jti,
     };
-
-    delete req.user.account.rol.securityLevel.priority;
 
     ContextHelper.set('user', req.user);
 
