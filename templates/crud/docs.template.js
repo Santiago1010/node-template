@@ -48,7 +48,7 @@ const {{STATUS_NAME}} = standardRequest('patch', {
       'application/json': {
         schema: {
           type: 'object',
-          required: [],
+          required: ['ids', 'active'],
           properties: {
             ids: {
               type: 'array',

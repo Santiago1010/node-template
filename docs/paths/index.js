@@ -1,7 +1,6 @@
 const auth = require('./auth');
-const config = require('./configurations');
 const security = require('./security');
 
-const paths = { ...auth, ...config, ...security };
+const paths = { ...auth, ...security };
 
 module.exports = { paths };

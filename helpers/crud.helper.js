@@ -703,6 +703,8 @@ class CrudHelper {
       lowerName.startsWith('has_') || // has_permission
       lowerName.endsWith('_has') || // user_has, role_has
       lowerName.endsWith('_has_') || // user_has_roles, role_has_user
+      lowerName.startsWith('allow') || // allow_create, allow_delete
+      lowerName.includes('support') || // support_email, support_phone
       lowerName.includes('enabled'); // enabled
 
     // If it matches boolean conventions, it should be BOOLEAN (return false)
