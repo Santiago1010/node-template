@@ -3,6 +3,7 @@
 // =============================================================================
 const i18n = require('../../config/i18n'); // Internationalization for error messages
 const { convertToNumber } = require('../../utils/numbers.util'); // Number conversion utility
+const { cerror } = require('../debug.helper'); // Debugging utilities
 
 // =============================================================================
 // HELPER FUNCTIONS
@@ -60,6 +61,62 @@ const parseToArray = (value) => {
 };
 
 /**
+ * Validates that the authenticated user possesses the required scope.
+ *
+ * @description Centralised, null-safe scope guard used by every schema generator.
+ * Execution order:
+ *   1. If `requiredScope` is falsy the function is a no-op (returns immediately).
+ *   2. `req` itself is checked — guards against destructuring edge-cases where
+ *      the second argument to a custom validator is undefined.
+ *   3. `req.user` is checked — the request may be unauthenticated.
+ *   4. `req.user.scopes` is checked for existence AND for Array type — a
+ *      misconfigured auth middleware could set it to null, undefined, a string, etc.
+ *   5. Finally, `.includes()` is called only when we are certain the target is an Array.
+ *
+ * @param {object|undefined} req           - The Express request object (may be undefined).
+ * @param {string}           requiredScope - The OAuth / RBAC scope that must be present.
+ * @throws {Error} `error.user_not_found`  — when `req.user` is missing.
+ * @throws {Error} `error.scopes_invalid`  — when `req.user.scopes` is not a valid Array.
+ * @throws {Error} `error.access_denied`   — when the scope is absent from the user's list.
+ *                                           The message includes the missing scope so logs
+ *                                           are immediately debuggable.
+ * @returns {void}
+ *
+ * @example
+ * // Inside any custom validator:
+ * validateScope(req, requiredScope); // throws or returns — nothing else needed
+ *
+ * @complexity Time: O(n) where n = user.scopes.length (single .includes pass)
+ * @since Version 1.1.0
+ */
+const validateScope = (req, requiredScope) => {
+  // 1. Nothing to do when no scope is required
+  if (!requiredScope) return;
+
+  // 2. req itself must exist (edge-case: express-validator passes { req } but
+  //    in rare middleware configurations req can be undefined)
+  if (!req || typeof req !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
+  }
+
+  // 3. An authenticated user must be present on the request
+  if (!req.user || typeof req.user !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
+  }
+
+  // 4. scopes must exist AND be an actual Array — guards against null, undefined,
+  //    a plain string, or any other type that would crash on .includes()
+  if (!Array.isArray(req.user.scopes)) {
+    throw new Error(i18n.__('error.scopes_invalid'));
+  }
+
+  // 5. The required scope must be present in the user's scope list
+  if (!req.user.scopes.includes(requiredScope)) {
+    throw new Error(i18n.__mf('error.access_denied', { scope: requiredScope }));
+  }
+};
+
+/**
  * Validates user security level requirements for field access
  *
  * @description Checks if the current user has sufficient security level to access/modify the field
@@ -105,7 +162,7 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
 /**
  * Generates validation schema for database ID fields with existence checking
  *
- * @description Validates that an ID exists in the specified database table, with security level checks
+ * @description Validates that an ID exists in the specified database table, with security level and scope checks
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate ('body', 'params', 'query')
  * @param {object} options - Configuration options
@@ -113,6 +170,7 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
  * @param {Function[]} [options.formattingFunctions=[]] - Additional value formatting functions
  * @param {object} options.model - Sequelize model for database existence check
  * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
@@ -122,12 +180,11 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
  * ]);
  *
  * @example
- * // Optional ID validation with custom formatting
- * app.get('/data', [
- *   check('refId', idSchema('referenceId', 'query', {
- *     required: false,
- *     model: Reference,
- *     formattingFunctions: [customFormatter]
+ * // ID validation with scope requirement
+ * app.get('/admin/data', [
+ *   check('id', idSchema('adminId', 'params', {
+ *     model: Admin,
+ *     requiredScope: 'admin.read'
  *   }))
  * ]);
  *
@@ -138,7 +195,7 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
 const idSchema = (
   name,
   location = 'body',
-  { required = true, formattingFunctions = [], model, minSecurityLevel = 1 }
+  { required = true, formattingFunctions = [], model, minSecurityLevel = 1, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
   const validationSchema = {
@@ -146,6 +203,7 @@ const idSchema = (
     custom: {
       options: async (value, { req }) => {
         validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        validateScope(req, requiredScope);
 
         const data = await model.findByPk(value);
         return data !== null;
@@ -194,6 +252,7 @@ const idSchema = (
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {any} [options.excludeValue=null] - Value to exclude from uniqueness check (for updates)
  * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
@@ -201,7 +260,8 @@ const idSchema = (
  * validateUniqueField('email', 'body', {
  *   model: User,
  *   field: 'email',
- *   shouldExist: false // Must NOT exist (unique)
+ *   shouldExist: false, // Must NOT exist (unique)
+ *   requiredScope: 'user.write'
  * })
  *
  * @example
@@ -210,7 +270,8 @@ const idSchema = (
  *   model: User,
  *   field: 'username',
  *   shouldExist: true, // Must exist
- *   excludeValue: currentUserId // For update scenarios
+ *   excludeValue: currentUserId,
+ *   requiredScope: 'user.update'
  * })
  *
  * @complexity Time: O(1) + 1 database query, Space: O(1)
@@ -219,7 +280,7 @@ const idSchema = (
 const validateUniqueField = (
   name,
   location = 'body',
-  { model, field, shouldExist = false, required = true, excludeValue = null, minSecurityLevel = 1 }
+  { model, field, shouldExist = false, required = true, excludeValue = null, minSecurityLevel = 1, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -228,6 +289,7 @@ const validateUniqueField = (
     custom: {
       options: async (value, { req }) => {
         validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        validateScope(req, requiredScope);
 
         const whereClause = { [field]: value };
 
@@ -281,6 +343,7 @@ const validateUniqueField = (
  * @param {number} [options.minLength=1] - Minimum number of IDs required
  * @param {number} [options.maxLength=null] - Maximum number of IDs allowed
  * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
@@ -288,16 +351,18 @@ const validateUniqueField = (
  * validateMultipleIds('categoryIds', 'body', {
  *   model: Category,
  *   minLength: 2,
- *   maxLength: 5
+ *   maxLength: 5,
+ *   requiredScope: 'product.create'
  * })
  *
  * @example
- * // Validate optional tag IDs (0-10 tags allowed)
+ * // Validate optional tag IDs (0-10 tags allowed) with admin scope
  * validateMultipleIds('tagIds', 'body', {
  *   model: Tag,
  *   required: false,
  *   minLength: 0,
- *   maxLength: 10
+ *   maxLength: 10,
+ *   requiredScope: 'admin.tags'
  * })
  *
  * @complexity Time: O(n) + 1 database query, Space: O(n) where n is number of IDs
@@ -306,7 +371,7 @@ const validateUniqueField = (
 const validateMultipleIds = (
   name,
   location = 'body',
-  { model, required = true, minLength = 1, maxLength = null, minSecurityLevel = 1 }
+  { model, required = true, minLength = 1, maxLength = null, minSecurityLevel = 1, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -321,6 +386,7 @@ const validateMultipleIds = (
     custom: {
       options: async (value, { req }) => {
         validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        validateScope(req, requiredScope);
 
         const idsArray = Array.isArray(value) ? value : parseToArray(value);
 
@@ -392,20 +458,23 @@ const validateMultipleIds = (
  * @param {boolean} [options.required=true] - Whether attributes are mandatory
  * @param {string[]} [options.allowedAttributes=null] - Custom allowed attributes (defaults to all model attributes)
  * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Validate sort fields against User model attributes
  * validateModelAttributes('sortBy', 'query', {
  *   model: User,
- *   allowedAttributes: ['name', 'email', 'createdAt'] // Only allow safe fields
+ *   allowedAttributes: ['name', 'email', 'createdAt'],
+ *   requiredScope: 'user.read'
  * })
  *
  * @example
- * // Validate select fields for API response shaping
+ * // Validate select fields for API response shaping with admin scope
  * validateModelAttributes('fields', 'query', {
  *   model: Product,
- *   required: false
+ *   required: false,
+ *   requiredScope: 'admin.products'
  * })
  *
  * @complexity Time: O(n) where n is number of attributes, Space: O(n)
@@ -414,7 +483,7 @@ const validateMultipleIds = (
 const validateModelAttributes = (
   name,
   location = 'body',
-  { model, required = true, allowedAttributes = null, minSecurityLevel = 1 }
+  { model, required = true, allowedAttributes = null, minSecurityLevel = 1, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -428,6 +497,7 @@ const validateModelAttributes = (
     custom: {
       options: (value, { req }) => {
         validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        validateScope(req, requiredScope);
 
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
 
@@ -482,6 +552,7 @@ const validateModelAttributes = (
  * @param {boolean} [options.allowPrimaryKey=true] - Whether to check against primary key
  * @param {boolean} [options.allowUniqueFields=true] - Whether to check against unique fields
  * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  * @throws {Error} When model configuration is invalid or missing
  *
@@ -490,16 +561,18 @@ const validateModelAttributes = (
  * validateValueAgainstModel('username', 'body', {
  *   model: User,
  *   shouldExist: true,
- *   allowPrimaryKey: false, // Only check unique fields like username/email
- *   allowUniqueFields: true
+ *   allowPrimaryKey: false,
+ *   allowUniqueFields: true,
+ *   requiredScope: 'user.update'
  * })
  *
  * @example
- * // Validate email doesn't exist for new registration (with formatting)
+ * // Validate email doesn't exist for new registration (with formatting and scope)
  * validateValueAgainstModel('email', 'body', {
  *   model: User,
  *   shouldExist: false,
- *   formattingFunctions: [emailFormatter, trimFormatter]
+ *   formattingFunctions: [emailFormatter, trimFormatter],
+ *   requiredScope: 'user.register'
  * })
  *
  * @complexity Time: O(1) + 1-3 database queries, Space: O(1)
@@ -517,6 +590,7 @@ const validateValueAgainstModel = (
     allowPrimaryKey = true,
     allowUniqueFields = true,
     minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -578,6 +652,7 @@ const validateValueAgainstModel = (
       }
     }
   } catch (e) {
+    cerror('helpers/validations/database.schemas.js.validateValueAgainstModel', e);
     throw new Error('Error validating value against model: ' + e.message);
   }
 
@@ -595,6 +670,7 @@ const validateValueAgainstModel = (
     custom: {
       options: async (value, { req }) => {
         validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        validateScope(req, requiredScope);
 
         const Op =
           model.sequelize && model.sequelize.Sequelize ? model.sequelize.Sequelize.Op : require('sequelize').Op;
