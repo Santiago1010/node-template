@@ -73,6 +73,7 @@ class CrudDocsGenerator {
     this.startTime = performance.now();
     this.foreignKeyReferences = new Map();
     this.enumColumns = new Map();
+    this.booleanColumns = new Set();
   }
 
   async run() {
@@ -87,6 +88,7 @@ class CrudDocsGenerator {
 
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
+      await this.analyzeBooleans(tableData);
 
       const documentation = await this.generateDocumentation(tableData, singularName, pluralName, tagName);
       await this.saveDocumentation(documentation, tableName, groupName);
@@ -199,6 +201,20 @@ class CrudDocsGenerator {
     }
   }
 
+  async analyzeBooleans(tableData) {
+    console.log(`🔲 Analyzing booleans for table: ${tableData.tableName}`);
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
+
+      // Check if it's a tinyint(1) and if it should be treated as boolean
+      if (columnType.includes('tinyint(1)') && !this.crudHelper.shouldBeTinyInt(columnName, columnType)) {
+        this.booleanColumns.add(columnName);
+        console.log(`🔲 Boolean detected: ${columnName}`);
+      }
+    }
+  }
+
   calculateReferenceInfo(tableName) {
     const { tagName, pluralName } = this.crudHelper.extractPrefixInfo(tableName);
     const capitalizedPlural = formatCapitalize(pluralName);
@@ -212,13 +228,13 @@ class CrudDocsGenerator {
       let documentation = await this.crudHelper.getTemplate('crud', 'docs');
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
 
-      // Primero reemplazar los placeholders de nombres de métodos y tag
+      // First replace method names and tag placeholders
       documentation = this.replaceTemplatePlaceholders(documentation, methodNames, tagName);
 
-      // Luego insertar los esquemas de propiedades
+      // Then insert property schemas
       documentation = this.insertPropertySchemas(documentation, tableData);
 
-      // Agregar imports si es necesario
+      // Add imports if necessary
       documentation = this.addDayjsImport(documentation);
 
       if (this.foreignKeyReferences.size > 0) {
@@ -247,7 +263,7 @@ class CrudDocsGenerator {
   insertPropertySchemas(documentation, tableData) {
     const { columnDetails } = tableData;
 
-    // Generar campos requeridos para CREATE
+    // Generate required fields for CREATE
     const createRequiredCols = Object.keys(columnDetails).filter((colName) => {
       const col = columnDetails[colName];
       return col && this.crudHelper.isFieldRequired(colName, col);
@@ -255,31 +271,46 @@ class CrudDocsGenerator {
 
     const createRequired = JSON.stringify(createRequiredCols.map((c) => toCamelCase(c)));
 
-    // Generar propiedades para CREATE
+    // Generate properties for CREATE
     const createFields = Object.keys(columnDetails).filter((c) => {
       if (this.crudHelper.shouldSkipField(c)) return false;
       return true;
     });
     const createProperties = this.generatePropertiesObject(columnDetails, createFields, false);
 
-    // Generar propiedades para UPDATE (todos los campos son opcionales)
+    // Generate properties for UPDATE (all fields are optional)
     const updateFields = createFields.slice();
     const updateProperties = this.generatePropertiesObject(columnDetails, updateFields, true);
 
-    // Generar parámetros para LIST
-    const listParameters = this.generateListParameters(columnDetails);
+    // Generate parameters for LIST and DETAILS
+    const listParameters = this.generateFilterParameters(columnDetails);
+    const detailsParameters = this.generateFilterParameters(columnDetails);
 
-    // Reemplazar placeholders
+    // Replace placeholders
     documentation = documentation.replace(/\{\{CREATE_PROPERTIES\}\}/g, createProperties);
     documentation = documentation.replace(/\{\{CRATE_PROPERTIES\}\}/g, createProperties);
     documentation = documentation.replace(/required: \[\]/g, `required: ${createRequired}`);
     documentation = documentation.replace(/\{\{UPDATE_PROPERTIES\}\}/g, updateProperties);
 
+    // Replace LIST parameters
     if (listParameters) {
       documentation = documentation.replace(
         /parameters: \[\.\.\.commonListParams, \.\.\.activeParams\]/,
         `parameters: [\n    ...commonListParams,\n    ...activeParams,${listParameters}\n  ]`
       );
+    }
+
+    // Replace DETAILS parameters (same as LIST for now)
+    // Note: You may want to adjust this based on your specific needs
+    // Currently adding the same filters to DETAILS endpoint
+    const detailsParamsRegex = /(\{\{DETAILS_NAME\}\}:.*?parameters:\s*\[)(.*?)(\])/s;
+    const detailsMatch = documentation.match(detailsParamsRegex);
+
+    if (detailsMatch && detailsParameters) {
+      const currentParams = detailsMatch[2].trim();
+      const newParams = currentParams ? `${currentParams},${detailsParameters}\n  ` : detailsParameters.substring(1); // Remove leading comma
+
+      documentation = documentation.replace(detailsParamsRegex, `$1${newParams}$3`);
     }
 
     return documentation;
@@ -306,10 +337,8 @@ class CrudDocsGenerator {
           `              description: setReference(${requiredFlag}, '${description.replace(/'/g, "\\'")}', '${foreignKeyInfo.tagName}', '${foreignKeyInfo.operationId}'),`
         );
       } else {
-        const requiredText = requiredFlag ? '' : '';
-        lines.push(
-          `              description: '${requiredText}${(column.COLUMN_COMMENT || '').replace(/'/g, "\\'")}',`
-        );
+        const description = column.COLUMN_COMMENT || '';
+        lines.push(`              description: '${description.replace(/'/g, "\\'")}',`);
       }
 
       if (!foreignKeyInfo) {
@@ -340,7 +369,6 @@ class CrudDocsGenerator {
 
   analyzeColumnForProperty(column) {
     const columnType = (column.COLUMN_TYPE || '').toLowerCase();
-    const fieldName = (column.COLUMN_NAME || '').toLowerCase();
     const property = {};
 
     const lengthMatch = columnType.match(/\((\d+)\)/);
@@ -377,9 +405,11 @@ class CrudDocsGenerator {
       columnType.includes('int') ||
       columnType.includes('bigint')
     ) {
-      const isBooleanField = fieldName.endsWith('_is') || fieldName.startsWith('is_');
+      // Check if this tinyint(1) should be treated as boolean
+      const shouldBeBoolean =
+        columnType.includes('tinyint(1)') && !this.crudHelper.shouldBeTinyInt(column.COLUMN_NAME, columnType);
 
-      if (isBooleanField && columnType.includes('tinyint') && length === 1) {
+      if (shouldBeBoolean) {
         property.type = 'boolean';
         property.enum = [true, false];
         property.example = FAKER_MAPPINGS.boolean();
@@ -525,19 +555,42 @@ class CrudDocsGenerator {
     return property;
   }
 
-  generateListParameters(columnDetails) {
+  /**
+   * Check if a field should be included as a filterable parameter
+   * @private
+   * @param {string} fieldName - Field name to check
+   * @param {Object} column - Column details object
+   * @returns {boolean} True if field should be filterable
+   */
+  isFilterableField(fieldName, column) {
+    if (this.crudHelper.shouldSkipField(fieldName)) return false;
+
+    const columnType = (column.COLUMN_TYPE || '').toLowerCase();
+
+    // Check if it's an enum
+    const isEnum = columnType.includes('enum');
+
+    // Check if it's a foreign key
+    const isForeignKey = this.crudHelper.isForeignKey(fieldName, column);
+
+    // Check if it's a boolean (tinyint(1) that should be boolean)
+    const isBoolean = columnType.includes('tinyint(1)') && !this.crudHelper.shouldBeTinyInt(fieldName, columnType);
+
+    return isEnum || isForeignKey || isBoolean;
+  }
+
+  /**
+   * Generate filter parameters for LIST and DETAILS endpoints
+   * @private
+   * @param {Object} columnDetails - Column details object
+   * @returns {string} Generated parameters string
+   */
+  generateFilterParameters(columnDetails) {
     const parameters = [];
 
     const filterableFields = Object.keys(columnDetails).filter((fieldName) => {
-      if (this.crudHelper.shouldSkipField(fieldName)) return false;
-
       const column = columnDetails[fieldName];
-      const columnType = (column.COLUMN_TYPE || '').toLowerCase();
-
-      const isEnum = columnType.includes('enum');
-      const isForeignKey = this.crudHelper.isForeignKey(fieldName, column);
-
-      return isEnum || isForeignKey;
+      return this.isFilterableField(fieldName, column);
     });
 
     for (const fieldName of filterableFields) {
@@ -553,7 +606,8 @@ class CrudDocsGenerator {
         const parameterSchema = { type: property.type };
 
         if (property.maxLength) parameterSchema.maxLength = property.maxLength;
-        if (property.enum) {
+        if (property.enum && !property.enum.includes(false) && !property.enum.includes(true)) {
+          console.log(property.enum);
           parameterSchema.enum = property.enum.map((v) => v.replace(/'/g, ''));
         }
 
