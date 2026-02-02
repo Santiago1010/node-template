@@ -32,7 +32,7 @@ const createHost = standardRequest('post', {
               type: 'string',
               description: 'URN of the allowed hosts.',
               maxLength: 150,
-              example: faker.string.alphanumeric(150),
+              example: faker.internet.url(),
             },
             isDefault: {
               type: 'boolean',
@@ -111,7 +111,7 @@ const updateHost = standardRequest('put', {
               type: 'string',
               description: 'URN of the allowed hosts.',
               maxLength: 150,
-              example: faker.string.alphanumeric(150),
+              example: faker.internet.url(),
             },
             isDefault: {
               type: 'boolean',
