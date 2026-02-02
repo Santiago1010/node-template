@@ -25,6 +25,7 @@ class CrudValidationsGenerator {
     this.startTime = performance.now();
     this.foreignKeyReferences = new Map();
     this.enumColumns = new Map();
+    this.booleanColumns = new Set(); // Added for boolean detection
   }
 
   async run() {
@@ -39,6 +40,7 @@ class CrudValidationsGenerator {
 
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
+      await this.analyzeBooleans(tableData); // Added boolean analysis
 
       const validationsContent = await this.generateValidations(tableData, singularName, pluralName);
       await this.saveValidations(validationsContent, groupName, pluralName);
@@ -146,6 +148,21 @@ class CrudValidationsGenerator {
     }
   }
 
+  // Added method to analyze boolean columns
+  async analyzeBooleans(tableData) {
+    console.log(`🔲 Analyzing booleans for table: ${tableData.tableName}`);
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
+
+      // Check if it's a tinyint(1) and if it should be treated as boolean
+      if (columnType.includes('tinyint(1)') && !this.crudHelper.shouldBeTinyInt(columnName, columnType)) {
+        this.booleanColumns.add(columnName);
+        console.log(`🔲 Boolean detected: ${columnName}`);
+      }
+    }
+  }
+
   async generateValidations(tableData, singularName, pluralName) {
     try {
       let validationsContent = await this.crudHelper.getTemplate('crud', 'validations');
@@ -173,7 +190,7 @@ class CrudValidationsGenerator {
         methodNames.updateStatus
       );
       validationsContent = this.insertListSchema(validationsContent, schemas.listSchema, methodNames.list);
-      validationsContent = this.insertDetailsSchema(validationsContent, methodNames.details);
+      validationsContent = this.insertDetailsSchema(validationsContent, schemas.listSchema, methodNames.list);
       validationsContent = this.insertUpdateSchema(
         validationsContent,
         mainModelName,
@@ -294,13 +311,34 @@ class CrudValidationsGenerator {
       };
     }
 
-    if (this.isNumericType(columnType)) {
-      const isBoolean = (fieldName.endsWith('_is') || fieldName.startsWith('is_')) && columnType.includes('tinyint(1)');
+    // Check if it's a boolean (including tinyint(1) that should be boolean)
+    const isBoolean =
+      this.booleanColumns.has(columnName) || columnType.includes('boolean') || columnType.includes('bool');
 
-      if (isBoolean) {
+    if (isBoolean) {
+      return {
+        create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
+        list: `commonSchemas.booleanSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+      };
+    }
+
+    if (this.isNumericType(columnType)) {
+      // Check for tinyint(1) that should be treated as numeric (not boolean)
+      const isTinyInt1 = columnType.includes('tinyint(1)') && this.crudHelper.shouldBeTinyInt(columnName, columnType);
+
+      if (isTinyInt1) {
+        const { minValue, maxValue } = this.getNumericRange(columnType);
+        const options = {
+          required: isRequired,
+          minSecurityLevel: 1,
+          minValue: minValue !== undefined ? minValue : 0,
+          maxValue: maxValue !== undefined ? maxValue : 1,
+        };
+
+        const optionsStr = this.formatOptions(options);
         return {
-          create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-          list: `commonSchemas.booleanSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
+          create: `commonSchemas.numberSchema('${camelFieldName}', 'body', ${optionsStr})`,
+          list: `commonSchemas.numberSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
         };
       }
 
@@ -324,13 +362,6 @@ class CrudValidationsGenerator {
       return {
         create: `commonSchemas.dateSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
         list: `commonSchemas.dateSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
-      };
-    }
-
-    if (columnType.includes('boolean') || columnType.includes('bool')) {
-      return {
-        create: `commonSchemas.booleanSchema('${camelFieldName}', 'body', { required: ${isRequired}, minSecurityLevel: 1 })`,
-        list: `commonSchemas.booleanSchema('${camelFieldName}', 'query', { required: false, minSecurityLevel: 1 })`,
       };
     }
 
@@ -370,7 +401,7 @@ class CrudValidationsGenerator {
     } else if (columnType.includes('mediumint')) {
       return { minValue: isUnsigned ? 0 : -8388608, maxValue: isUnsigned ? 16777215 : 8388607 };
     } else if (columnType.includes('bigint')) {
-      return { minValue: undefined, maxValue: undefined }; // Evitar overflow
+      return { minValue: undefined, maxValue: undefined }; // Avoid overflow
     } else if (columnType.includes('int')) {
       return { minValue: isUnsigned ? 0 : -2147483648, maxValue: isUnsigned ? 4294967295 : 2147483647 };
     }
@@ -380,7 +411,9 @@ class CrudValidationsGenerator {
 
   shouldIncludeInListFilters(columnName, columnDetails) {
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
-    return columnType.includes('enum') || this.foreignKeyReferences.has(columnName);
+    const isBoolean =
+      this.booleanColumns.has(columnName) || columnType.includes('boolean') || columnType.includes('bool');
+    return columnType.includes('enum') || this.foreignKeyReferences.has(columnName) || isBoolean;
   }
 
   generateUpdateStatusFields(mainModelName) {
@@ -393,7 +426,7 @@ class CrudValidationsGenerator {
 
     for (const [key, value] of Object.entries(options)) {
       if (typeof value === 'string' && value.startsWith("'/")) {
-        // Es un pattern regex
+        // It's a regex pattern
         parts.push(`${key}: ${value}`);
       } else if (typeof value === 'string') {
         parts.push(`${key}: '${value}'`);
@@ -428,8 +461,12 @@ class CrudValidationsGenerator {
     return content;
   }
 
-  insertDetailsSchema(content) {
-    // No hay cambios necesarios en details, mantiene el template
+  insertDetailsSchema(content, listFields) {
+    if (listFields) {
+      const searchPattern = `  // Add any additional detail's query parameters here`;
+      const replacement = `  ${listFields},\n  // Add any additional detail's query parameters here`;
+      return content.replace(searchPattern, replacement);
+    }
     return content;
   }
 

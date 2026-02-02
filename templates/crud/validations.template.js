@@ -1,6 +1,6 @@
-const { {{MAIN_MODEL}}{{MORE_MODELS}} } = require('../../../../config/database/connection').models;
+const { {{MAIN_MODEL}}{{MORE_MODELS}} } = require('../../../config/database/connection').models;
 const { commonSchemas, databaseSchemas } = require('../../../helpers/validations');
-const { paginationSchemas, searchSchemas, filtersSchemas } = require('../../../../schemas/validations');
+const { paginationSchemas, searchSchemas, filtersSchemas } = require('../../../schemas/validations');
 
 const {{CREATE_METHOD}}Schema = {
   // Add any additional body parameters here
@@ -23,16 +23,15 @@ const {{LIST_METHOD}}Schema = {
 const {{DETAILS_METHOD}}Schema = {
   id: databaseSchemas.validateValueAgainstModel('id', 'params', {
     model: {{MAIN_MODEL}},
-    required: false,
+    required: true,
     minSecurityLevel: 1,
     paranoid: false,
   }),
-  search: commonSchemas.stringSchema('search', 'query', { required: false, minSecurityLevel: 1 }),
-  fields: commonSchemas.stringSchema('fields', 'query', { required: false, minSecurityLevel: 1 }),
+  ...searchSchemas,
+  ...filtersSchemas({{MAIN_MODEL}}),
   active: commonSchemas.booleanSchema('active', 'query', { required: false, minSecurityLevel: 1 }),
   includeHistory: commonSchemas.booleanSchema('includeHistory', 'query', { required: false, minSecurityLevel: 1 }),
-  ...filtersSchemas({{MAIN_MODEL}}),
-  // Add any additional query parameters here
+  // Add any additional detail's query parameters here
 };
 
 const {{UPDATE_METHOD}}Schema = {
