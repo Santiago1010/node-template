@@ -86,8 +86,7 @@ const validateWebSession = async (req, _, next) => {
     }
 
     const now = dayjs().valueOf();
-    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, configSecurityLevels, usrCredentials } =
-      sequelize.models;
+    const { usrAccounts, usrAccesses, usrDevices, configRoles, usrUsers, usrCredentials } = sequelize.models;
 
     // Single optimized database query with all required data
     const account = await usrAccounts.findOne({
@@ -116,12 +115,6 @@ const validateWebSession = async (req, _, next) => {
           as: 'rol',
           attributes: ['id', 'name'],
           required: true,
-          include: {
-            model: configSecurityLevels,
-            as: 'securityLevel',
-            attributes: ['id', 'slug', 'name', 'description', 'priority'],
-            required: true,
-          },
         },
         {
           model: usrAccesses,

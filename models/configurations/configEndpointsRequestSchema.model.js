@@ -30,19 +30,6 @@ const Schema = {
       'Foreign key reference to the associated API endpoint. Identifies which endpoint this parameter belongs to',
     field: 'endpoint_id',
   },
-  securityLevelId: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: null,
-    references: {
-      table: 'config_security_levels',
-      column: 'id',
-      model: 'configSecurityLevels',
-      key: 'id',
-    },
-    comment: 'ID of the security level required to use this property on the endpoint.',
-    field: 'security_level_id',
-  },
   fieldId: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -158,13 +145,6 @@ class ExtendedModel extends Model {
       as: 'field',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
-    });
-    this.belongsTo(models.configSecurityLevels, {
-      foreignKey: 'securityLevelId',
-      targetKey: 'id',
-      as: 'securityLevel',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
     });
 
     // References

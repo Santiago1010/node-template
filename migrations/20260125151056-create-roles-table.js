@@ -12,11 +12,6 @@ module.exports = {
           autoIncrement: true,
           comment: 'Unique primary key for identifying each rol.',
         },
-        security_level_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          comment: 'ID of the security level that the role can access.',
-        },
         name: {
           type: Sequelize.STRING(100),
           allowNull: false,
@@ -61,10 +56,6 @@ module.exports = {
         comment: 'Table that stores roles and their availability.',
       }
     );
-
-    await queryInterface.addIndex('config_roles', ['security_level_id'], {
-      name: 'security_level',
-    });
   },
 
   async down(queryInterface, _Sequelize) {

@@ -998,7 +998,7 @@ const PROTECTED_FIELDS = [
  * @since Version 2.1.0
  */
 const ROLE_PROTECTED_FIELDS = {
-  user: ['rolId', 'securityLevelId', 'permissions', 'scopes', 'isAdmin'],
+  user: ['rolId', 'permissions', 'scopes', 'isAdmin'],
   admin: ['isSuperAdmin', 'systemRole'],
   system: [],
 };
@@ -1047,8 +1047,6 @@ const INTERNAL_FIELDS = [
   'internalCode',
   'internalId',
   'systemId',
-  'securityLevel',
-  'securityLevelId',
   'rolId',
   'employeeId',
   'createdBy',

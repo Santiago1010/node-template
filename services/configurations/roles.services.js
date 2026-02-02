@@ -75,9 +75,7 @@ class RoleServices {
   async getListRoles({ limit, page, search, ids = [], fields = [], active, securityLevelId, target } = {}) {
     const optionsQuery = {
       where: {},
-      include: [
-        // { model: configSecurityLevels, as: 'configsecuritylevels' }
-      ],
+      include: [],
       paranoid: false,
       subQuery: false,
       logging: wrapLogging('[RoleServices.getListRoles] '),
@@ -100,9 +98,7 @@ class RoleServices {
   async getRoleDetails({ id, search, fields = [], active, securityLevelId, target, includeHistory = false } = {}) {
     const optionsQuery = {
       where: {},
-      include: [
-        // { model: configSecurityLevels, as: 'configsecuritylevels' }
-      ],
+      include: [],
       paranoid: false,
       subQuery: false,
       logging: wrapLogging('[RoleServices.getRoleDetails] '),

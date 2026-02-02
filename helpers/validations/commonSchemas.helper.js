@@ -1,61 +1,4 @@
 // =============================================================================
-// VALIDATION SCHEMA GENERATORS - Comprehensive Validation Framework
-// =============================================================================
-// PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides a comprehensive set of validation schema generators for Express.js
-// - Supports multiple data types with extensive validation options
-// - Integrates security validation, internationalization, and data sanitization
-// - Expected inputs: Field configurations with validation rules
-// - Expected outputs: Express-validator compatible validation schemas
-//
-// ARCHITECTURAL DECISIONS:
-// - Chose factory function pattern for schema generation to ensure consistency
-// - Implemented security level validation integrated with user authentication
-// - Used internationalization (i18n) for user-friendly error messages
-// - Designed with extensibility for custom validation rules and sanitization
-// - Separation of concerns: validation logic isolated from business logic
-//
-// ALTERNATIVE APPROACHES ANALYSIS:
-// - JSON Schema: More standardized but less flexible for custom validations
-// - Joi/Yup: Feature-rich but introduces external dependencies
-// - Custom middleware: More control but higher maintenance overhead
-// - Class-based validators: Better organization but more complex for simple cases
-// - Chose current approach for optimal balance of flexibility and simplicity
-//
-// PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for schema generation, O(n) for array validations
-// - Space complexity: Minimal memory footprint for schema definitions
-// - Scalability: Stateless functions suitable for high-concurrency environments
-// - Bottlenecks: Complex nested object validation in large datasets
-//
-// SECURITY CONSIDERATIONS:
-// - Input sanitization for XSS prevention in HTML fields
-// - JWT token validation with configurable claim requirements
-// - Password strength validation with configurable complexity rules
-// - Security level-based field access control
-// - URL validation with domain and protocol restrictions
-//
-// USAGE EXAMPLES:
-// - Basic field validation with required/optional constraints
-// - Complex validation chains with multiple conditional rules
-// - Security-integrated validation for sensitive data fields
-// - Internationalized error messages for multi-language support
-//
-// MAINTENANCE & TROUBLESHOOTING:
-// - Common issues: Missing field name mappings in i18n configuration
-// - Debugging: Use development mode for relaxed validation rules
-// - Performance: Monitor array validation with large datasets
-// - Enhancement: Easy to add new schema types or validation rules
-//
-// DEPENDENCIES & COMPATIBILITY:
-// - Required: Node.js 14+ with Express.js and express-validator
-// - Third-party: i18n for internationalization
-// - Internal: Utility helpers for number, string, and security operations
-// - Environment: Development mode enables relaxed password rules
-//
-// =============================================================================
-
-// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
 const numberHelper = require('../../utils/numbers.util'); // Number validation and formatting utilities
@@ -90,43 +33,59 @@ const getFieldName = (name) => {
 };
 
 /**
- * Validates user security level for field access
+ * Validates that the authenticated user possesses the required scope.
  *
- * @description Checks if the current user has sufficient security level to access/modify the field
- * @param {boolean} allowNull - Whether null values are allowed for this field
- * @param {*} value - Field value being validated
- * @param {string} fieldName - Internationalized field name for error messages
- * @param {number} minSecurityLevel - Minimum required security level (0 = no restriction)
- * @param {object} req - Express request object containing user information
- * @returns {boolean} True if security validation passes
- * @throws {Error} When user lacks required security level
+ * @description Centralised, null-safe scope guard used by every schema generator.
+ * Execution order:
+ *   1. If `requiredScope` is falsy the function is a no-op (returns immediately).
+ *   2. `req` itself is checked — guards against destructuring edge-cases where
+ *      the second argument to a custom validator is undefined.
+ *   3. `req.user` is checked — the request may be unauthenticated.
+ *   4. `req.user.scopes` is checked for existence AND for Array type — a
+ *      misconfigured auth middleware could set it to null, undefined, a string, etc.
+ *   5. Finally, `.includes()` is called only when we are certain the target is an Array.
+ *
+ * @param {object|undefined} req           - The Express request object (may be undefined).
+ * @param {string}           requiredScope - The OAuth / RBAC scope that must be present.
+ * @throws {Error} `error.user_not_found`  — when `req.user` is missing.
+ * @throws {Error} `error.scopes_invalid`  — when `req.user.scopes` is not a valid Array.
+ * @throws {Error} `error.access_denied`   — when the scope is absent from the user's list.
+ *                                           The message includes the missing scope so logs
+ *                                           are immediately debuggable.
+ * @returns {void}
  *
  * @example
- * // Throws error if user security level < 3
- * validateSecurityLevel(false, 'secretData', 'Secret Field', 3, req);
+ * // Inside any custom validator:
+ * validateScope(req, requiredScope); // throws or returns — nothing else needed
  *
- * @complexity Time: O(1), Space: O(1)
- * @since Version 1.0.0
- * @see {@link securityHelper} for additional security utilities
+ * @complexity Time: O(n) where n = user.scopes.length (single .includes pass)
+ * @since Version 1.1.0
  */
-const validateSecurityLevel = (allowNull, value, fieldName, minSecurityLevel, req) => {
-  if (parseInt(minSecurityLevel) === 0) return true;
+const validateScope = (req, requiredScope) => {
+  // 1. Nothing to do when no scope is required
+  if (!requiredScope) return;
 
-  if (allowNull && value === null) return true;
-
-  const userSecurityLevel = req?.user?.securityLevel || 0;
-
-  if (userSecurityLevel < minSecurityLevel) {
-    throw new Error(
-      i18n.__mf('validations.insufficient_security_level', {
-        field: fieldName,
-        required: minSecurityLevel,
-        current: userSecurityLevel,
-      })
-    );
+  // 2. req itself must exist (edge-case: express-validator passes { req } but
+  //    in rare middleware configurations req can be undefined)
+  if (!req || typeof req !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
   }
 
-  return true;
+  // 3. An authenticated user must be present on the request
+  if (!req.user || typeof req.user !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
+  }
+
+  // 4. scopes must exist AND be an actual Array — guards against null, undefined,
+  //    a plain string, or any other type that would crash on .includes()
+  if (!Array.isArray(req.user.scopes)) {
+    throw new Error(i18n.__('error.scopes_invalid'));
+  }
+
+  // 5. The required scope must be present in the user's scope list
+  if (!req.user.scopes.includes(requiredScope)) {
+    throw new Error(i18n.__mf('error.access_denied', { scope: requiredScope }));
+  }
 };
 
 // =============================================================================
@@ -137,7 +96,7 @@ const validateSecurityLevel = (allowNull, value, fieldName, minSecurityLevel, re
  * Generates validation schema for number fields
  *
  * @description Creates comprehensive number validation with integer/float support, range limits,
- *              decimal precision, and security level validation
+ *              and decimal precision
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -150,7 +109,7 @@ const validateSecurityLevel = (allowNull, value, fieldName, minSecurityLevel, re
  * @param {number} [options.maxLength] - Maximum digit length (string representation)
  * @param {number} [options.minDecimal] - Minimum decimal places required
  * @param {number} [options.maxDecimal] - Maximum decimal places allowed
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -183,7 +142,7 @@ const numberSchema = (
     maxLength,
     minDecimal,
     maxDecimal,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -210,8 +169,11 @@ const numberSchema = (
   // Null value handling
   if (allowNull) {
     validationSchema.custom = {
-      options: (value) => {
+      options: (value, { req } = {}) => {
         if (value === null) return true;
+
+        validateScope(req, requiredScope);
+
         return value !== undefined;
       },
       errorMessage: i18n.__mf('validations.invalid', { field: fieldName }),
@@ -264,17 +226,15 @@ const numberSchema = (
     };
   }
 
-  // Decimal precision validation with security integration
+  // Decimal precision validation + scope (when allowNull custom was not already set)
   if (minDecimal !== undefined || maxDecimal !== undefined) {
     const existingCustom = validationSchema.custom;
     validationSchema.custom = {
-      options: (value, { req }) => {
+      options: (value, { req } = {}) => {
         if (existingCustom) {
-          const result = existingCustom.options(value);
+          const result = existingCustom.options(value, { req });
           if (result !== true) return result;
         }
-
-        validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
 
         if (value === null) return true;
 
@@ -289,20 +249,22 @@ const numberSchema = (
           throw new Error(i18n.__mf('validations.maxDecimal', { field: fieldName, maxDecimal }));
         }
 
+        // Scope is validated here when there was no prior custom block,
+        // or after decimal checks when there was one (allowNull path already ran it)
+        if (!existingCustom) {
+          validateScope(req, requiredScope);
+        }
+
         return true;
       },
     };
-  } else if (minSecurityLevel !== 0) {
-    // Security level validation for non-decimal numbers
-    const existingCustom = validationSchema.custom;
+  } else if (!allowNull && requiredScope) {
+    // Neither allowNull nor decimal validation created a custom block —
+    // we need one solely for the scope check
     validationSchema.custom = {
-      options: (value, { req }) => {
-        if (existingCustom) {
-          const result = existingCustom.options(value);
-          if (result !== true) return result;
-        }
-
-        return validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
+      options: (_, { req } = {}) => {
+        validateScope(req, requiredScope);
+        return true;
       },
     };
   }
@@ -325,7 +287,7 @@ const numberSchema = (
  * Generates validation schema for string fields
  *
  * @description Creates comprehensive string validation with length limits, character type restrictions,
- *              pattern matching, case formatting, and security validation
+ *              pattern matching, and case formatting
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -342,7 +304,7 @@ const numberSchema = (
  * @param {boolean} [options.toLowerCase=false] - Convert to lowercase
  * @param {boolean} [options.toUpperCase=false] - Convert to uppercase
  * @param {boolean} [options.capitalize=false] - Capitalize first letter
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -382,7 +344,7 @@ const stringSchema = (
     toLowerCase = false,
     toUpperCase = false,
     capitalize = false,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -431,48 +393,47 @@ const stringSchema = (
     };
   }
 
-  // Character type validation with security integration
+  // Character type validation + scope check
   if (alphaOnly) {
     validationSchema.custom = {
-      options: (value, { req }) => {
-        validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+      options: (value, { req } = {}) => {
         if (allowNull && value === null) return true;
         if (!stringHelper.isAlphaOnly(value)) {
           throw new Error(i18n.__mf('validations.alphaOnly', { field: fieldName }));
         }
+        validateScope(req, requiredScope);
         return true;
       },
     };
   } else if (numericOnly) {
     validationSchema.custom = {
-      options: (value, { req }) => {
-        validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+      options: (value, { req } = {}) => {
         if (allowNull && value === null) return true;
         if (!stringHelper.isNumericOnly(value)) {
           throw new Error(i18n.__mf('validations.numericOnly', { field: fieldName }));
         }
+        validateScope(req, requiredScope);
         return true;
       },
     };
   } else if (alphanumericOnly) {
     validationSchema.custom = {
-      options: (value, { req }) => {
-        validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+      options: (value, { req } = {}) => {
         if (allowNull && value === null) return true;
         if (!stringHelper.isAlphanumeric(value)) {
           throw new Error(i18n.__mf('validations.alphanumericOnly', { field: fieldName }));
         }
+        validateScope(req, requiredScope);
         return true;
       },
     };
-  } else if (minSecurityLevel !== 0) {
-    // Security-only validation when no character type restrictions
+  } else if (requiredScope) {
+    // No character-type custom block exists — create one solely for scope
     validationSchema.custom = {
-      options: (value, { req }) => {
-        return validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
+      options: (value, { req } = {}) => {
+        if (allowNull && value === null) return true;
+        validateScope(req, requiredScope);
+        return true;
       },
     };
   }
@@ -515,7 +476,7 @@ const stringSchema = (
  * Generates validation schema for enum/constrained value fields
  *
  * @description Creates validation for fields that must match one of predefined values
- *              with case sensitivity options and security validation
+ *              with case sensitivity options
  * @param {string} name - Field identifier for internationalization
  * @param {Array<*>} allowedValues - Array of permitted values
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
@@ -524,7 +485,7 @@ const stringSchema = (
  * @param {boolean} [options.allowNull=false] - Whether null values are allowed
  * @param {Array<Function>} [options.formattingFunctions=[]] - Custom sanitization functions
  * @param {boolean} [options.caseSensitive=true] - Whether value comparison is case-sensitive
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -546,7 +507,7 @@ const inSchema = (
   name,
   allowedValues,
   location = 'body',
-  { required = true, allowNull = false, formattingFunctions = [], caseSensitive = true, minSecurityLevel = 1 } = {}
+  { required = true, allowNull = false, formattingFunctions = [], caseSensitive = true, requiredScope } = {}
 ) => {
   const fieldName = getFieldName(name);
   const validationSchema = { in: location };
@@ -569,11 +530,9 @@ const inSchema = (
     }
   }
 
-  // Enum value validation with security and case sensitivity
+  // Enum value validation with case sensitivity + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       let compareValues = allowedValues;
@@ -593,6 +552,9 @@ const inSchema = (
           })
         );
       }
+
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -615,7 +577,7 @@ const inSchema = (
  * Generates validation schema for date fields
  *
  * @description Creates comprehensive date validation with format checking, range limits,
- *              temporal constraints (past/future), and security validation
+ *              and temporal constraints (past/future)
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -627,7 +589,7 @@ const inSchema = (
  * @param {string|Date} [options.maxDate] - Maximum allowed date (inclusive)
  * @param {boolean} [options.futureOnly=false] - Restrict to future dates only
  * @param {boolean} [options.pastOnly=false] - Restrict to past dates only
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -661,7 +623,7 @@ const dateSchema = (
     maxDate,
     futureOnly = false,
     pastOnly = false,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -702,11 +664,9 @@ const dateSchema = (
   // Convert to Date object for further validation
   validationSchema.toDate = true;
 
-  // Comprehensive date validation with security and temporal constraints
+  // Comprehensive date validation with temporal constraints + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       const date = new Date(value);
@@ -740,6 +700,8 @@ const dateSchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -762,7 +724,7 @@ const dateSchema = (
  * Generates validation schema for date range fields (start and end dates)
  *
  * @description Creates coordinated validation for start and end date pairs with logical
- *              consistency checks, range duration limits, and security validation
+ *              consistency checks and range duration limits
  * @param {string} startDateName - Start date field identifier
  * @param {string} endDateName - End date field identifier
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
@@ -771,7 +733,7 @@ const dateSchema = (
  * @param {boolean} [options.allowNull=false] - Whether null values are allowed
  * @param {number} [options.maxDaysRange] - Maximum allowed days between start and end
  * @param {number} [options.minDaysRange] - Minimum required days between start and end
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for these fields
  * @returns {object} Express-validator compatible validation schema object with both fields
  *
  * @example
@@ -796,21 +758,26 @@ const dateRangeSchema = (
   startDateName,
   endDateName,
   location = 'body',
-  { required = true, allowNull = false, maxDaysRange, minDaysRange, minSecurityLevel = 1 } = {}
+  { required = true, allowNull = false, maxDaysRange, minDaysRange, requiredScope } = {}
 ) => {
   const startFieldName = getFieldName(startDateName);
   const endFieldName = getFieldName(endDateName);
 
   const schema = {};
 
-  // Generate individual date schemas for both fields
-  schema[startDateName] = dateSchema(startDateName, location, { required, allowNull, minSecurityLevel });
-  schema[endDateName] = dateSchema(endDateName, location, { required, allowNull, minSecurityLevel });
+  // Generate individual date schemas for both fields.
+  // requiredScope is intentionally passed here so each field's own dateSchema
+  // custom block will run the scope guard independently — if either date is
+  // submitted without the scope the request is rejected before range logic runs.
+  schema[startDateName] = dateSchema(startDateName, location, { required, allowNull, requiredScope });
+  schema[endDateName] = dateSchema(endDateName, location, { required, allowNull, requiredScope });
 
-  // Add range validation to end date field
+  // Override end-date custom with range validation.
+  // Scope was already checked by the dateSchema custom block on startDateName;
+  // we still call it here for defence-in-depth (the override replaces dateSchema's custom).
   schema[endDateName].custom = {
-    options: (endDateValue, { req }) => {
-      const startDateValue = req[location][startDateName];
+    options: (endDateValue, { req } = {}) => {
+      const startDateValue = req?.[location]?.[startDateName];
 
       // Handle null values if allowed
       if ((allowNull && startDateValue === null) || (allowNull && endDateValue === null)) {
@@ -857,6 +824,11 @@ const dateRangeSchema = (
         );
       }
 
+      // Defence-in-depth: scope guard runs even though startDateName's schema
+      // already checked it, because this custom block completely replaces the
+      // one that dateSchema generated for endDateName.
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -868,7 +840,7 @@ const dateRangeSchema = (
  * Generates validation schema for array fields
  *
  * @description Creates comprehensive array validation with length limits, item type checking,
- *              enum constraints, uniqueness requirements, and security validation
+ *              enum constraints, and uniqueness requirements
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -880,7 +852,7 @@ const dateRangeSchema = (
  * @param {string} [options.itemType] - Required type for array items: 'string', 'number', 'boolean'
  * @param {Array<*>} [options.allowedValues] - Permitted values for array items
  * @param {boolean} [options.uniqueItems=false] - Whether array items must be unique
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -917,7 +889,7 @@ const arraySchema = (
     itemType,
     allowedValues,
     uniqueItems = false,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -946,11 +918,9 @@ const arraySchema = (
     errorMessage: i18n.__mf('validations.array', { field: fieldName }),
   };
 
-  // Comprehensive array content validation
+  // Comprehensive array content validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
       if (!Array.isArray(value)) return true;
 
@@ -1016,6 +986,8 @@ const arraySchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -1037,8 +1009,8 @@ const arraySchema = (
 /**
  * Generates validation schema for boolean fields
  *
- * @description Creates boolean validation with strict/lenient parsing options,
- *              security validation, and custom formatting
+ * @description Creates boolean validation with strict/lenient parsing options
+ *              and custom formatting
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -1046,7 +1018,7 @@ const arraySchema = (
  * @param {boolean} [options.allowNull=false] - Whether null values are allowed
  * @param {Array<Function>} [options.formattingFunctions=[]] - Custom sanitization functions
  * @param {boolean} [options.strictMode=false] - Whether to use strict boolean validation
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1067,7 +1039,7 @@ const arraySchema = (
 const booleanSchema = (
   name,
   location = 'body',
-  { required = true, allowNull = false, formattingFunctions = [], strictMode = false, minSecurityLevel = 1 } = {}
+  { required = true, allowNull = false, formattingFunctions = [], strictMode = false, requiredScope } = {}
 ) => {
   const fieldName = getFieldName(name);
   const validationSchema = { in: location };
@@ -1111,11 +1083,14 @@ const booleanSchema = (
     };
   }
 
-  // Security level validation
-  if (minSecurityLevel !== 0) {
+  // Scope check — booleanSchema has no pre-existing custom block so we always
+  // add one when a scope is required
+  if (requiredScope) {
     validationSchema.custom = {
-      options: (value, { req }) => {
-        return validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
+      options: (value, { req } = {}) => {
+        if (allowNull && value === null) return true;
+        validateScope(req, requiredScope);
+        return true;
       },
     };
   }
@@ -1141,7 +1116,7 @@ const booleanSchema = (
  * Generates validation schema for object fields
  *
  * @description Creates comprehensive object validation with property requirements,
- *              type checking, size limits, strict property enforcement, and security validation
+ *              type checking, size limits, and strict property enforcement
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -1153,7 +1128,7 @@ const booleanSchema = (
  * @param {number} [options.minProperties] - Minimum number of properties required
  * @param {number} [options.maxProperties] - Maximum number of properties allowed
  * @param {boolean} [options.strictProperties=false] - Whether to enforce only allowed properties
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1193,7 +1168,7 @@ const objectSchema = (
     minProperties,
     maxProperties,
     strictProperties = false,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -1217,11 +1192,9 @@ const objectSchema = (
     }
   }
 
-  // Comprehensive object structure validation
+  // Comprehensive object structure validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       // Plain object validation
@@ -1318,6 +1291,8 @@ const objectSchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -1339,8 +1314,8 @@ const objectSchema = (
 /**
  * Generates validation schema for password fields
  *
- * @description Creates comprehensive password validation with configurable complexity rules,
- *              security requirements, and development mode overrides
+ * @description Creates comprehensive password validation with configurable complexity rules
+ *              and development mode overrides
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -1356,7 +1331,7 @@ const objectSchema = (
  * @param {string} [options.specialChars='!@#$%^&*()_+-=[]{}|;:,.<>?'] - Allowed special characters
  * @param {boolean} [options.noSpaces=true] - Disallow whitespace characters
  * @param {Array<string|RegExp>} [options.forbiddenPatterns=[]] - Patterns to reject
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1392,7 +1367,7 @@ const passwordSchema = (
     specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?',
     noSpaces = true,
     forbiddenPatterns = [],
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -1443,11 +1418,9 @@ const passwordSchema = (
     }),
   };
 
-  // Comprehensive password complexity validation
+  // Comprehensive password complexity validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       if (!stringHelper.isValidString(value)) {
@@ -1500,6 +1473,8 @@ const passwordSchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -1536,7 +1511,7 @@ const passwordSchema = (
  * @param {Array<*>} [options.allowedValues] - Permitted values for array items
  * @param {boolean} [options.uniqueItems=true] - Whether array items must be unique
  * @param {boolean} [options.trimItems=true] - Whether to trim whitespace from items
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1575,7 +1550,7 @@ const arrayStringSchema = (
     allowedValues,
     uniqueItems = true,
     trimItems = true,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -1621,11 +1596,9 @@ const arrayStringSchema = (
     errorMessage: i18n.__mf('validations.array', { field: fieldName }),
   };
 
-  // Comprehensive array content validation after conversion
+  // Comprehensive array content validation after conversion + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
       if (!Array.isArray(value)) return true;
 
@@ -1680,6 +1653,8 @@ const arrayStringSchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -1705,7 +1680,7 @@ const arrayStringSchema = (
  * Generates validation schema for URL/link fields
  *
  * @description Creates comprehensive URL validation with protocol restrictions,
- *              domain whitelisting, TLD requirements, and security validation
+ *              domain whitelisting, and TLD requirements
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -1716,7 +1691,7 @@ const arrayStringSchema = (
  * @param {Array<string>} [options.allowedDomains] - Whitelisted domain names
  * @param {boolean} [options.requireTLD=true] - Whether to require top-level domain
  * @param {boolean} [options.trim=true] - Automatically trim whitespace
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1745,7 +1720,7 @@ const linkSchema = (
     allowedDomains,
     requireTLD = true,
     trim = true,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -1779,11 +1754,9 @@ const linkSchema = (
     errorMessage: i18n.__mf('validations.string', { field: fieldName }),
   };
 
-  // Comprehensive URL validation
+  // Comprehensive URL validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       // Basic URL format validation
@@ -1826,8 +1799,19 @@ const linkSchema = (
           }
         }
 
+        validateScope(req, requiredScope);
+
         return true;
       } catch (error) {
+        // Re-throw validation errors directly without wrapping
+        if (
+          error.message &&
+          (error.message.includes(i18n.__('error.user_not_found')) ||
+            error.message.includes(i18n.__('error.scopes_invalid')) ||
+            error.message.includes(i18n.__('error.access_denied')))
+        ) {
+          throw error;
+        }
         cerror('helpers/validations/common.schemas.js.linkSchema', error);
         throw new Error(i18n.__mf('validations.url', { field: fieldName }));
       }
@@ -1862,7 +1846,7 @@ const linkSchema = (
  * @param {boolean} [options.validatePayload=false] - Whether to validate JWT payload structure
  * @param {Array<string>} [options.requiredClaims=[]] - Required JWT claims
  * @param {boolean} [options.checkExpiry=false] - Whether to check token expiration
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -1892,7 +1876,7 @@ const jwtSchema = (
     validatePayload = false,
     requiredClaims = [],
     checkExpiry = false,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -1921,11 +1905,9 @@ const jwtSchema = (
     errorMessage: i18n.__mf('validations.string', { field: fieldName }),
   };
 
-  // Comprehensive JWT validation
+  // Comprehensive JWT validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       // Basic JWT structure validation (3 parts separated by dots)
@@ -1971,8 +1953,19 @@ const jwtSchema = (
           }
         }
 
+        validateScope(req, requiredScope);
+
         return true;
       } catch (error) {
+        // Re-throw validation errors directly without wrapping
+        if (
+          error.message &&
+          (error.message.includes(i18n.__('error.user_not_found')) ||
+            error.message.includes(i18n.__('error.scopes_invalid')) ||
+            error.message.includes(i18n.__('error.access_denied')))
+        ) {
+          throw error;
+        }
         cerror('helpers/validations/common.schemas.js.jwtSchema', error);
         throw new Error(i18n.__mf('validations.jwt', { field: fieldName }));
       }
@@ -1997,7 +1990,7 @@ const jwtSchema = (
  * Generates validation schema for UUID fields
  *
  * @description Creates comprehensive UUID validation with version support,
- *              format flexibility, case sensitivity options, and security validation
+ *              format flexibility, and case sensitivity options
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -2007,7 +2000,7 @@ const jwtSchema = (
  * @param {Array<number>} [options.versions=[1,2,3,4,5]] - Allowed UUID versions
  * @param {boolean} [options.caseSensitive=false] - Whether validation is case-sensitive
  * @param {boolean} [options.requireHyphens=true] - Whether hyphens are required
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -2035,7 +2028,7 @@ const uuidSchema = (
     versions = [1, 2, 3, 4, 5],
     caseSensitive = false,
     requireHyphens = true,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -2069,11 +2062,9 @@ const uuidSchema = (
     errorMessage: i18n.__mf('validations.string', { field: fieldName }),
   };
 
-  // Comprehensive UUID validation
+  // Comprehensive UUID validation + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       if (!stringHelper.isValidString(value)) {
@@ -2112,6 +2103,8 @@ const uuidSchema = (
         }
       }
 
+      validateScope(req, requiredScope);
+
       return true;
     },
   };
@@ -2134,7 +2127,7 @@ const uuidSchema = (
  * Generates validation schema for HTML content fields
  *
  * @description Creates comprehensive HTML validation with XSS protection,
- *              tag/attribute whitelisting, content length limits, and security validation
+ *              tag/attribute whitelisting, and content length limits
  * @param {string} name - Field identifier for internationalization
  * @param {string} [location='body'] - Request location: 'body', 'query', 'params', 'cookies'
  * @param {object} [options] - Validation configuration options
@@ -2146,7 +2139,7 @@ const uuidSchema = (
  * @param {boolean} [options.stripDangerousTags=true] - Whether to remove dangerous HTML tags
  * @param {Array<string>} [options.allowedTags=['p','br','strong','em','u','ul','ol','li','h1','h2','h3','h4','h5','h6']] - Permitted HTML tags
  * @param {Array<string>} [options.allowedAttributes=['class','style']] - Permitted HTML attributes
- * @param {number} [options.minSecurityLevel=1] - Minimum user security level required
+ * @param {string} [options.requiredScope] - Required scope for this field
  * @returns {object} Express-validator compatible validation schema
  *
  * @example
@@ -2177,7 +2170,7 @@ const htmlSchema = (
     stripDangerousTags = true,
     allowedTags = ['p', 'br', 'strong', 'em', 'u', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     allowedAttributes = ['class', 'style'],
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
@@ -2221,11 +2214,9 @@ const htmlSchema = (
     };
   }
 
-  // XSS detection and security validation
+  // XSS detection + scope check
   validationSchema.custom = {
-    options: (value, { req }) => {
-      validateSecurityLevel(allowNull, value, fieldName, minSecurityLevel, req);
-
+    options: (value, { req } = {}) => {
       if (allowNull && value === null) return true;
 
       // XSS attempt detection with security logging
@@ -2233,6 +2224,8 @@ const htmlSchema = (
         securityHelper.logSecurityEvent('HTML_XSS_ATTEMPT', { field: name }, THREAT_LEVELS.HIGH);
         throw new Error(i18n.__mf('validations.htmlSecurity', { field: fieldName }));
       }
+
+      validateScope(req, requiredScope);
 
       return true;
     },

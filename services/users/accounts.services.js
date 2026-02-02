@@ -162,12 +162,6 @@ class AccountServices {
           attributes: ['id', 'name', 'target', 'targetInt'],
           where: {},
           required: true,
-          include: {
-            model: this.models.configSecurityLevels,
-            as: 'securityLevel',
-            attributes: ['id', 'slug', 'name', 'priority', 'description'],
-            required: true,
-          },
         },
         {
           model: this.models.usrCredentials,

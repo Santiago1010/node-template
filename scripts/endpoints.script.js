@@ -17,42 +17,6 @@ const { initializeConnection } = require('../config/database/connection');
 const { getRegisteredSchemas } = require('../utils/validationRegistry.util');
 
 /**
- * Extracts minimum security level from validation schema
- *
- * @description Analyzes field validation schema to extract minSecurityLevel value.
- *              Searches through custom validation options for security level configuration.
- *
- * @param {Object} fieldSchema - Express-validator field validation schema
- * @returns {number} Minimum security level (0 if not specified)
- *
- * @example
- * const level = extractSecurityLevel({ custom: { options: (value, { req }) => {...} } });
- *
- * @complexity Time: O(1), Space: O(1)
- * @since Version 1.0.0
- */
-const extractSecurityLevel = (fieldSchema) => {
-  // Check if there's a custom validation function that might contain security level
-  if (fieldSchema.custom && typeof fieldSchema.custom.options === 'function') {
-    // Convert function to string to search for minSecurityLevel parameter
-    const funcString = fieldSchema.custom.options.toString();
-    const securityLevelMatch = funcString.match(/minSecurityLevel[,\s)]/);
-
-    if (securityLevelMatch) {
-      // Try to extract the value from the function closure
-      // This requires the schema to be structured consistently
-      const valueMatch = funcString.match(/minSecurityLevel\s*[,=]\s*(\d+)/);
-      if (valueMatch) {
-        return parseInt(valueMatch[1]);
-      }
-    }
-  }
-
-  // Default to 0 (no security restriction)
-  return 0;
-};
-
-/**
  * Extracts validation schema from Express route middleware
  */
 const extractSchemaFromRoute = (route, basePath = '') => {
@@ -153,68 +117,22 @@ const mapLocation = (location) => {
 };
 
 /**
- * Finds security level by priority
- *
- * @param {number} priority - Security priority level
- * @param {Object} transaction - Sequelize transaction object
- * @returns {Promise<Object|null>} Security level record or null
- */
-const getSecurityLevelByPriority = async (priority, transaction) => {
-  const sequelize = await initializeConnection();
-  const { configSecurityLevels } = sequelize.models;
-
-  return await configSecurityLevels.findOne({
-    where: { priority },
-    transaction,
-  });
-};
-
-/**
- * Processes nested field structures in validation schemas with security levels
+ * Processes nested field structures in validation schemas
  *
  * @param {string} fieldName - Name of the field being processed
  * @param {Object} fieldSchema - Validation schema for the field
  * @param {number} endpointId - Database ID of the parent endpoint
- * @param {number} defaultSecurityLevelId - Default security level ID
  * @param {number|null} parentFieldId - Database ID of parent field
  * @param {Object} transaction - Sequelize transaction object
  * @returns {Promise<Object>} Created or updated field record
  */
-const processNestedFields = async (
-  fieldName,
-  fieldSchema,
-  endpointId,
-  defaultSecurityLevelId,
-  parentFieldId = null,
-  transaction
-) => {
+const processNestedFields = async (fieldName, fieldSchema, endpointId, parentFieldId = null, transaction) => {
   const sequelize = await initializeConnection();
   const { configEndpointsRequestSchema } = sequelize.models;
 
   const location = mapLocation(fieldSchema.in);
   const dataType = mapSchemaDataType(fieldSchema);
   const isRequired = isFieldRequired(fieldSchema);
-
-  // Extract security level from schema
-  const minSecurityLevel = extractSecurityLevel(fieldSchema);
-
-  // Determine final security level ID
-  let finalSecurityLevelId = defaultSecurityLevelId;
-
-  if (minSecurityLevel !== 0) {
-    // Look up security level by priority
-    const securityLevel = await getSecurityLevelByPriority(minSecurityLevel, transaction);
-    if (securityLevel) {
-      finalSecurityLevelId = securityLevel.id;
-    } else {
-      console.warn(
-        `  ⚠️  Security level with priority ${minSecurityLevel} not found for field ${fieldName}. Using default.`
-      );
-    }
-  } else {
-    // If minSecurityLevel is 0, set to null
-    finalSecurityLevelId = null;
-  }
 
   // Find existing field
   const existingField = await configEndpointsRequestSchema.findOne({
@@ -227,37 +145,14 @@ const processNestedFields = async (
   });
 
   if (existingField) {
-    // Check if we should update security level
-    let shouldUpdate = true;
-
-    if (finalSecurityLevelId !== null && existingField.securityLevelId !== null) {
-      // Get priorities for comparison
-      const newSecurityLevel = await getSecurityLevelByPriority(minSecurityLevel, transaction);
-      const existingSecurityLevel = await sequelize.models.configSecurityLevels.findByPk(
-        existingField.securityLevelId,
-        { transaction }
-      );
-
-      // Don't update if new priority is lower (potential sabotage)
-      if (newSecurityLevel && existingSecurityLevel && newSecurityLevel.priority < existingSecurityLevel.priority) {
-        console.warn(
-          `  🚫 Skipping security level downgrade for field ${fieldName} (${newSecurityLevel.priority} < ${existingSecurityLevel.priority})`
-        );
-        shouldUpdate = false;
-      }
-    }
-
-    if (shouldUpdate) {
-      await existingField.update(
-        {
-          securityLevelId: finalSecurityLevelId,
-          fieldId: parentFieldId,
-          dataType,
-          isRequired,
-        },
-        { transaction }
-      );
-    }
+    await existingField.update(
+      {
+        fieldId: parentFieldId,
+        dataType,
+        isRequired,
+      },
+      { transaction }
+    );
 
     return existingField;
   }
@@ -271,7 +166,6 @@ const processNestedFields = async (
     },
     defaults: {
       endpointId,
-      securityLevelId: finalSecurityLevelId,
       fieldId: parentFieldId,
       name: fieldName,
       location,
@@ -452,19 +346,7 @@ const syncEndpoint = async (endpointData, transaction) => {
  */
 const syncValidationSchema = async (endpointId, validationSchema, transaction) => {
   const sequelize = await initializeConnection();
-  const { configEndpointsRequestSchema, configSecurityLevels } = sequelize.models;
-
-  const defaultSecurityLevel = await configSecurityLevels.findOne({
-    where: { isDefault: true },
-    transaction,
-  });
-
-  if (!defaultSecurityLevel) {
-    console.warn('  ⚠️  No default security level found. Skipping schema synchronization.');
-    return;
-  }
-
-  const defaultSecurityLevelId = defaultSecurityLevel.id;
+  const { configEndpointsRequestSchema } = sequelize.models;
 
   const existingFields = await configEndpointsRequestSchema.findAll({
     where: { endpointId },
@@ -481,7 +363,7 @@ const syncValidationSchema = async (endpointId, validationSchema, transaction) =
   }
 
   for (const [fieldName, fieldSchema] of Object.entries(validationSchema)) {
-    await processNestedFields(fieldName, fieldSchema, endpointId, defaultSecurityLevelId, null, transaction);
+    await processNestedFields(fieldName, fieldSchema, endpointId, null, transaction);
 
     const action = existingFieldNames.has(fieldName) ? 'updated' : 'created';
     console.log(`    📝 Field ${action}: ${fieldName}`);

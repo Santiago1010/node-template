@@ -18,12 +18,6 @@ module.exports = {
           comment:
             'Foreign key reference to the associated API endpoint. Identifies which endpoint this parameter belongs to',
         },
-        security_level_id: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-          defaultValue: null,
-          comment: 'ID of the security level required to use this property on the endpoint.',
-        },
         field_id: {
           type: Sequelize.INTEGER,
           allowNull: true,
@@ -87,10 +81,6 @@ module.exports = {
 
     await queryInterface.addIndex('config_endpoints_request_schema', ['field_id'], {
       name: 'field',
-    });
-
-    await queryInterface.addIndex('config_endpoints_request_schema', ['security_level_id'], {
-      name: 'security_level',
     });
 
     await queryInterface.addConstraint('config_endpoints_request_schema', {
