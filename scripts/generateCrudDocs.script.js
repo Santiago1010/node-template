@@ -286,12 +286,6 @@ class CrudDocsGenerator {
     const listParameters = this.generateFilterParameters(columnDetails);
     const detailsParameters = this.generateFilterParameters(columnDetails);
 
-    // Replace placeholders
-    documentation = documentation.replace(/\{\{CREATE_PROPERTIES\}\}/g, createProperties);
-    documentation = documentation.replace(/\{\{CRATE_PROPERTIES\}\}/g, createProperties);
-    documentation = documentation.replace(/required: \[\]/g, `required: ${createRequired}`);
-    documentation = documentation.replace(/\{\{UPDATE_PROPERTIES\}\}/g, updateProperties);
-
     // Replace LIST parameters
     if (listParameters) {
       documentation = documentation.replace(
@@ -300,18 +294,20 @@ class CrudDocsGenerator {
       );
     }
 
-    // Replace DETAILS parameters (same as LIST for now)
-    // Note: You may want to adjust this based on your specific needs
-    // Currently adding the same filters to DETAILS endpoint
-    const detailsParamsRegex = /(\{\{DETAILS_NAME\}\}:.*?parameters:\s*\[)(.*?)(\])/s;
-    const detailsMatch = documentation.match(detailsParamsRegex);
-
-    if (detailsMatch && detailsParameters) {
-      const currentParams = detailsMatch[2].trim();
-      const newParams = currentParams ? `${currentParams},${detailsParameters}\n  ` : detailsParameters.substring(1); // Remove leading comma
-
-      documentation = documentation.replace(detailsParamsRegex, `$1${newParams}$3`);
+    // Replace DETAILS parameters
+    if (detailsParameters) {
+      const detailsParamsRegex = /parameters: \[\.\.\.detailsParams\]/;
+      documentation = documentation.replace(
+        detailsParamsRegex,
+        `parameters: [\n    ...detailsParams,${detailsParameters}\n  ]`
+      );
     }
+
+    // Replace placeholders
+    documentation = documentation.replace(/\{\{CREATE_PROPERTIES\}\}/g, createProperties);
+    documentation = documentation.replace(/\{\{CRATE_PROPERTIES\}\}/g, createProperties);
+    documentation = documentation.replace(/required: \[\]/g, `required: ${createRequired}`);
+    documentation = documentation.replace(/\{\{UPDATE_PROPERTIES\}\}/g, updateProperties);
 
     return documentation;
   }
@@ -583,6 +579,7 @@ class CrudDocsGenerator {
    * Generate filter parameters for LIST and DETAILS endpoints
    * @private
    * @param {Object} columnDetails - Column details object
+   * @param {boolean} isDetailsEndpoint - If true, generates parameters for DETAILS endpoint
    * @returns {string} Generated parameters string
    */
   generateFilterParameters(columnDetails) {
@@ -607,7 +604,6 @@ class CrudDocsGenerator {
 
         if (property.maxLength) parameterSchema.maxLength = property.maxLength;
         if (property.enum && !property.enum.includes(false) && !property.enum.includes(true)) {
-          console.log(property.enum);
           parameterSchema.enum = property.enum.map((v) => v.replace(/'/g, ''));
         }
 

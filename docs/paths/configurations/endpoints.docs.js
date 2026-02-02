@@ -145,7 +145,30 @@ const getEndpointDetails = standardRequest('get', {
   tags: ['Configurations'],
   operationId: 'getEndpointDetails',
   description: '',
-  parameters: [...detailsParams],
+  parameters: [
+    ...detailsParams,
+    {
+      name: 'method',
+      in: 'query',
+      description: '',
+      required: false,
+      schema: { type: 'string', enum: ['post', 'get', 'put', 'patch', 'delete', 'options'] },
+    },
+    {
+      name: 'requiresAuthorization',
+      in: 'query',
+      description: '',
+      required: false,
+      schema: { type: 'boolean' },
+    },
+    {
+      name: 'hasSensitiveInformation',
+      in: 'query',
+      description: '',
+      required: false,
+      schema: { type: 'boolean' },
+    },
+  ],
   responses: {},
   security: [{ bearerAuth: [] }],
 });
