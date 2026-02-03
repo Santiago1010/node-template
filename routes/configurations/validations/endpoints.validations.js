@@ -1,4 +1,3 @@
-const { configEndpoints } = require('../../../config/database/connection').models;
 const { commonSchemas, databaseSchemas } = require('../../../helpers/validations');
 const { paginationSchemas, searchSchemas, filtersSchemas } = require('../../../schemas/validations');
 
@@ -16,7 +15,7 @@ const createEndpointSchema = {
 };
 
 const updateEndpointsStatusSchema = {
-  ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: configEndpoints, required: true }),
+  ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: 'configEndpoints', required: true }),
   active: commonSchemas.booleanSchema('active', 'body', { required: true }),
   // Add any additional body parameters here
 };
@@ -24,7 +23,7 @@ const updateEndpointsStatusSchema = {
 const getListEndpointsSchema = {
   ...paginationSchemas,
   ...searchSchemas,
-  ...filtersSchemas(configEndpoints),
+  ...filtersSchemas('configEndpoints'),
   active: commonSchemas.booleanSchema('active', 'query', { required: false }),
   method: commonSchemas.inSchema('method', ['post', 'get', 'put', 'patch', 'delete', 'options'], 'query', {
     required: false,
@@ -36,12 +35,12 @@ const getListEndpointsSchema = {
 
 const getEndpointDetailsSchema = {
   id: databaseSchemas.validateValueAgainstModel('id', 'params', {
-    model: configEndpoints,
+    model: 'configEndpoints',
     required: true,
     paranoid: false,
   }),
   ...searchSchemas,
-  ...filtersSchemas(configEndpoints),
+  ...filtersSchemas('configEndpoints'),
   active: commonSchemas.booleanSchema('active', 'query', { required: false }),
   includeHistory: commonSchemas.booleanSchema('includeHistory', 'query', { required: false }),
   method: commonSchemas.inSchema('method', ['post', 'get', 'put', 'patch', 'delete', 'options'], 'query', {
@@ -53,7 +52,7 @@ const getEndpointDetailsSchema = {
 };
 
 const updateEndpointSchema = {
-  id: databaseSchemas.idSchema('id', 'params', { model: configEndpoints, required: true, paranoid: false }),
+  id: databaseSchemas.idSchema('id', 'params', { model: 'configEndpoints', required: true, paranoid: false }),
   method: commonSchemas.inSchema('method', ['post', 'get', 'put', 'patch', 'delete', 'options'], 'body', {
     required: false,
   }),
@@ -67,7 +66,7 @@ const updateEndpointSchema = {
 };
 
 const deleteEndpointSchema = {
-  id: databaseSchemas.idSchema('id', 'params', { model: configEndpoints, required: true, paranoid: false }),
+  id: databaseSchemas.idSchema('id', 'params', { model: 'configEndpoints', required: true, paranoid: false }),
 };
 
 module.exports = {

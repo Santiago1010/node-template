@@ -1,9 +1,10 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const i18n = require('../../config/i18n'); // Internationalization for error messages
-const { convertToNumber } = require('../../utils/numbers.util'); // Number conversion utility
-const { cerror } = require('../debug.helper'); // Debugging utilities
+const i18n = require('../../config/i18n');
+const { convertToNumber } = require('../../utils/numbers.util');
+const { cerror } = require('../debug.helper');
+const { getSequelize } = require('../../config/database/connection');
 
 // =============================================================================
 // HELPER FUNCTIONS
@@ -90,30 +91,45 @@ const parseToArray = (value) => {
  * @since Version 1.1.0
  */
 const validateScope = (req, requiredScope) => {
-  // 1. Nothing to do when no scope is required
   if (!requiredScope) return;
 
-  // 2. req itself must exist (edge-case: express-validator passes { req } but
-  //    in rare middleware configurations req can be undefined)
   if (!req || typeof req !== 'object') {
     throw new Error(i18n.__('error.user_not_found'));
   }
 
-  // 3. An authenticated user must be present on the request
   if (!req.user || typeof req.user !== 'object') {
     throw new Error(i18n.__('error.user_not_found'));
   }
 
-  // 4. scopes must exist AND be an actual Array — guards against null, undefined,
-  //    a plain string, or any other type that would crash on .includes()
   if (!Array.isArray(req.user.scopes)) {
     throw new Error(i18n.__('error.scopes_invalid'));
   }
 
-  // 5. The required scope must be present in the user's scope list
   if (!req.user.scopes.includes(requiredScope)) {
     throw new Error(i18n.__mf('error.access_denied', { scope: requiredScope }));
   }
+};
+
+/**
+ * Retrieves model instance from Sequelize connection
+ *
+ * @description Asynchronously resolves model from the database connection
+ * @param {string} modelName - Name of the Sequelize model
+ * @returns {Promise<object>} Sequelize model instance
+ * @throws {Error} When model is not found
+ *
+ * @complexity Time: O(1), Space: O(1)
+ * @since Version 1.1.0
+ */
+const getModel = async (modelName) => {
+  const sequelize = await getSequelize();
+  const model = sequelize.models[modelName];
+
+  if (!model) {
+    throw new Error(`Model "${modelName}" not found in Sequelize models`);
+  }
+
+  return model;
 };
 
 // =============================================================================
@@ -129,21 +145,21 @@ const validateScope = (req, requiredScope) => {
  * @param {object} options - Configuration options
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {Function[]} [options.formattingFunctions=[]] - Additional value formatting functions
- * @param {object} options.model - Sequelize model for database existence check
+ * @param {string} options.model - Name of Sequelize model for database existence check
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Basic ID validation for User model
  * app.post('/user/:id', [
- *   check('id', idSchema('userId', 'params', { model: User }))
+ *   check('id', idSchema('userId', 'params', { model: 'User' }))
  * ]);
  *
  * @example
  * // ID validation with scope requirement
  * app.get('/admin/data', [
  *   check('id', idSchema('adminId', 'params', {
- *     model: Admin,
+ *     model: 'Admin',
  *     requiredScope: 'admin.read'
  *   }))
  * ]);
@@ -160,7 +176,8 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
       options: async (value, { req }) => {
         validateScope(req, requiredScope);
 
-        const data = await model.findByPk(value);
+        const modelInstance = await getModel(model);
+        const data = await modelInstance.findByPk(value);
         return data !== null;
       },
       errorMessage: i18n.__mf('validations.not_exists', { field: fieldName }),
@@ -201,7 +218,7 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for database operations
+ * @param {string} options.model - Name of Sequelize model for database operations
  * @param {string} options.field - Database field name to check
  * @param {boolean} [options.shouldExist=false] - True to require existence, false to require uniqueness
  * @param {boolean} [options.required=true] - Whether the field is mandatory
@@ -212,18 +229,18 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
  * @example
  * // Email uniqueness check for user registration
  * validateUniqueField('email', 'body', {
- *   model: User,
+ *   model: 'User',
  *   field: 'email',
- *   shouldExist: false, // Must NOT exist (unique)
+ *   shouldExist: false,
  *   requiredScope: 'user.write'
  * })
  *
  * @example
  * // Username existence check for password reset (excluding current user)
  * validateUniqueField('username', 'body', {
- *   model: User,
+ *   model: 'User',
  *   field: 'username',
- *   shouldExist: true, // Must exist
+ *   shouldExist: true,
  *   excludeValue: currentUserId,
  *   requiredScope: 'user.update'
  * })
@@ -244,18 +261,19 @@ const validateUniqueField = (
       options: async (value, { req }) => {
         validateScope(req, requiredScope);
 
+        const modelInstance = await getModel(model);
         const whereClause = { [field]: value };
 
         if (excludeValue !== null) {
           whereClause[field] = {
-            [model.sequelize.Sequelize.Op.and]: [
-              { [model.sequelize.Sequelize.Op.eq]: value },
-              { [model.sequelize.Sequelize.Op.ne]: excludeValue },
+            [modelInstance.sequelize.Sequelize.Op.and]: [
+              { [modelInstance.sequelize.Sequelize.Op.eq]: value },
+              { [modelInstance.sequelize.Sequelize.Op.ne]: excludeValue },
             ],
           };
         }
 
-        const existingData = await model.findOne({ where: whereClause });
+        const existingData = await modelInstance.findOne({ where: whereClause });
         const exists = existingData !== null;
 
         if (shouldExist && !exists) {
@@ -291,7 +309,7 @@ const validateUniqueField = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for existence checks
+ * @param {string} options.model - Name of Sequelize model for existence checks
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {number} [options.minLength=1] - Minimum number of IDs required
  * @param {number} [options.maxLength=null] - Maximum number of IDs allowed
@@ -301,7 +319,7 @@ const validateUniqueField = (
  * @example
  * // Validate category IDs for product creation (2-5 categories required)
  * validateMultipleIds('categoryIds', 'body', {
- *   model: Category,
+ *   model: 'Category',
  *   minLength: 2,
  *   maxLength: 5,
  *   requiredScope: 'product.create'
@@ -310,7 +328,7 @@ const validateUniqueField = (
  * @example
  * // Validate optional tag IDs (0-10 tags allowed) with admin scope
  * validateMultipleIds('tagIds', 'body', {
- *   model: Tag,
+ *   model: 'Tag',
  *   required: false,
  *   minLength: 0,
  *   maxLength: 10,
@@ -339,6 +357,7 @@ const validateMultipleIds = (
       options: async (value, { req }) => {
         validateScope(req, requiredScope);
 
+        const modelInstance = await getModel(model);
         const idsArray = Array.isArray(value) ? value : parseToArray(value);
 
         if (idsArray.length < minLength) {
@@ -359,10 +378,10 @@ const validateMultipleIds = (
           );
         }
 
-        const existingRecords = await model.findAll({
+        const existingRecords = await modelInstance.findAll({
           where: {
             id: {
-              [model.sequelize.Sequelize.Op.in]: idsArray,
+              [modelInstance.sequelize.Sequelize.Op.in]: idsArray,
             },
           },
           attributes: ['id'],
@@ -405,7 +424,7 @@ const validateMultipleIds = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model to validate against
+ * @param {string} options.model - Name of Sequelize model to validate against
  * @param {boolean} [options.required=true] - Whether attributes are mandatory
  * @param {string[]} [options.allowedAttributes=null] - Custom allowed attributes (defaults to all model attributes)
  * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
@@ -414,7 +433,7 @@ const validateMultipleIds = (
  * @example
  * // Validate sort fields against User model attributes
  * validateModelAttributes('sortBy', 'query', {
- *   model: User,
+ *   model: 'User',
  *   allowedAttributes: ['name', 'email', 'createdAt'],
  *   requiredScope: 'user.read'
  * })
@@ -422,7 +441,7 @@ const validateMultipleIds = (
  * @example
  * // Validate select fields for API response shaping with admin scope
  * validateModelAttributes('fields', 'query', {
- *   model: Product,
+ *   model: 'Product',
  *   required: false,
  *   requiredScope: 'admin.products'
  * })
@@ -445,16 +464,17 @@ const validateModelAttributes = (
       },
     },
     custom: {
-      options: (value, { req }) => {
+      options: async (value, { req }) => {
         validateScope(req, requiredScope);
 
+        const modelInstance = await getModel(model);
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
 
         if (attributesArray.length === 0) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
-        const modelAttributes = Object.keys(model.rawAttributes);
+        const modelAttributes = Object.keys(modelInstance.rawAttributes);
         const validAttributes = allowedAttributes || modelAttributes;
         const invalidAttributes = attributesArray.filter((attr) => !validAttributes.includes(attr));
 
@@ -493,7 +513,7 @@ const validateModelAttributes = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for validation
+ * @param {string} options.model - Name of Sequelize model for validation
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {Function[]} [options.formattingFunctions=[]] - Value formatting functions
  * @param {boolean} [options.shouldExist=true] - True to require existence, false to require non-existence
@@ -507,7 +527,7 @@ const validateModelAttributes = (
  * @example
  * // Validate username exists for password reset
  * validateValueAgainstModel('username', 'body', {
- *   model: User,
+ *   model: 'User',
  *   shouldExist: true,
  *   allowPrimaryKey: false,
  *   allowUniqueFields: true,
@@ -517,7 +537,7 @@ const validateModelAttributes = (
  * @example
  * // Validate email doesn't exist for new registration (with formatting and scope)
  * validateValueAgainstModel('email', 'body', {
- *   model: User,
+ *   model: 'User',
  *   shouldExist: false,
  *   formattingFunctions: [emailFormatter, trimFormatter],
  *   requiredScope: 'user.register'
@@ -543,64 +563,7 @@ const validateValueAgainstModel = (
   const fieldName = getFieldName(name);
 
   if (!model) {
-    throw new Error('validateValueAgainstModel requires a Sequelize model in options.model');
-  }
-
-  // Extract primary key attribute with fallback strategies
-  let primaryKeyAttr = null;
-  if (typeof model.primaryKeyAttribute === 'string' && model.primaryKeyAttribute.length > 0) {
-    primaryKeyAttr = model.primaryKeyAttribute;
-  } else if (Array.isArray(model.primaryKeyAttributes) && model.primaryKeyAttributes.length > 0) {
-    primaryKeyAttr = model.primaryKeyAttributes[0];
-  } else {
-    // Fallback: manually search for primary key in attributes
-    for (const attr of Object.keys(model.rawAttributes || {})) {
-      if (model.rawAttributes[attr].primaryKey) {
-        primaryKeyAttr = attr;
-        break;
-      }
-    }
-  }
-
-  // Extract unique attributes from model definition
-  const uniqueAttrsSet = new Set();
-  const rawAttrs = model.rawAttributes || {};
-
-  // Find unique attributes from field definitions
-  for (const attrName of Object.keys(rawAttrs)) {
-    const attr = rawAttrs[attrName];
-    if (attr && attr.unique === true) {
-      uniqueAttrsSet.add(attrName);
-    }
-  }
-
-  // Find unique attributes from model indexes
-  const indexes = (model.options && model.options.indexes) || [];
-  for (const idx of indexes) {
-    if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
-      const f = idx.fields[0];
-      const fname =
-        typeof f === 'string' ? f : f && (f.attribute || f.name || f.field) ? f.attribute || f.name || f.field : null;
-      if (fname) uniqueAttrsSet.add(fname);
-    }
-  }
-
-  // Filter out primary key from unique attributes
-  const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
-
-  // Auto-detect numeric primary keys for automatic number conversion
-  try {
-    const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
-    const pkTypeKey =
-      pkAttrDef && pkAttrDef.type && pkAttrDef.type.key ? String(pkAttrDef.type.key).toUpperCase() : null;
-    if (pkTypeKey && (pkTypeKey.includes('INT') || pkTypeKey === 'BIGINT')) {
-      if (!formattingFunctions.includes(convertToNumber)) {
-        formattingFunctions.push(convertToNumber);
-      }
-    }
-  } catch (e) {
-    cerror('helpers/validations/database.schemas.js.validateValueAgainstModel', e);
-    throw new Error('Error validating value against model: ' + e.message);
+    throw new Error('validateValueAgainstModel requires a Sequelize model name in options.model');
   }
 
   const validationSchema = {
@@ -618,16 +581,76 @@ const validateValueAgainstModel = (
       options: async (value, { req }) => {
         validateScope(req, requiredScope);
 
+        const modelInstance = await getModel(model);
         const Op =
-          model.sequelize && model.sequelize.Sequelize ? model.sequelize.Sequelize.Op : require('sequelize').Op;
+          modelInstance.sequelize && modelInstance.sequelize.Sequelize
+            ? modelInstance.sequelize.Sequelize.Op
+            : require('sequelize').Op;
 
         if ((value === null || typeof value === 'undefined' || value === '') && required) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
+        // Extract primary key attribute with fallback strategies
+        let primaryKeyAttr = null;
+        if (typeof modelInstance.primaryKeyAttribute === 'string' && modelInstance.primaryKeyAttribute.length > 0) {
+          primaryKeyAttr = modelInstance.primaryKeyAttribute;
+        } else if (Array.isArray(modelInstance.primaryKeyAttributes) && modelInstance.primaryKeyAttributes.length > 0) {
+          primaryKeyAttr = modelInstance.primaryKeyAttributes[0];
+        } else {
+          for (const attr of Object.keys(modelInstance.rawAttributes || {})) {
+            if (modelInstance.rawAttributes[attr].primaryKey) {
+              primaryKeyAttr = attr;
+              break;
+            }
+          }
+        }
+
+        // Extract unique attributes from model definition
+        const uniqueAttrsSet = new Set();
+        const rawAttrs = modelInstance.rawAttributes || {};
+
+        for (const attrName of Object.keys(rawAttrs)) {
+          const attr = rawAttrs[attrName];
+          if (attr && attr.unique === true) {
+            uniqueAttrsSet.add(attrName);
+          }
+        }
+
+        const indexes = (modelInstance.options && modelInstance.options.indexes) || [];
+        for (const idx of indexes) {
+          if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
+            const f = idx.fields[0];
+            const fname =
+              typeof f === 'string'
+                ? f
+                : f && (f.attribute || f.name || f.field)
+                  ? f.attribute || f.name || f.field
+                  : null;
+            if (fname) uniqueAttrsSet.add(fname);
+          }
+        }
+
+        const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
+
+        // Auto-detect numeric primary keys for automatic number conversion
+        try {
+          const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
+          const pkTypeKey =
+            pkAttrDef && pkAttrDef.type && pkAttrDef.type.key ? String(pkAttrDef.type.key).toUpperCase() : null;
+          if (pkTypeKey && (pkTypeKey.includes('INT') || pkTypeKey === 'BIGINT')) {
+            if (!formattingFunctions.includes(convertToNumber)) {
+              formattingFunctions.push(convertToNumber);
+            }
+          }
+        } catch (e) {
+          cerror('helpers/validations/database.schemas.js.validateValueAgainstModel', e);
+          throw new Error('Error validating value against model: ' + e.message);
+        }
+
         // Check against primary key if enabled
         if (allowPrimaryKey && primaryKeyAttr) {
-          const byPk = await model.findByPk(value, { attributes: [primaryKeyAttr] });
+          const byPk = await modelInstance.findByPk(value, { attributes: [primaryKeyAttr] });
           const existsPk = byPk !== null;
 
           if (existsPk) {
@@ -649,7 +672,7 @@ const validateValueAgainstModel = (
               };
             }
 
-            const found = await model.findOne({
+            const found = await modelInstance.findOne({
               where,
               attributes: [primaryKeyAttr || attr],
             });

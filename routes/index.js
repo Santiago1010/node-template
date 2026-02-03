@@ -34,6 +34,7 @@ const routerApi = (app) => {
   routerApiV1.use(pageUseEndpoint);
 
   routerApiV1.use('/auth', require('./auth'));
+  routerApiV1.use('/config', require('./configurations'));
   routerApiV1.use('/security', require('./security'));
 
   app.use('/api', routerBase);

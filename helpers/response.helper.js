@@ -35,7 +35,7 @@ const normalizeStatusCode = (code, fallback = 500) => {
  *
  * @returns {Response} Express response object with JSON response
  */
-const success = (res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
+const success = (_req, res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
   const responseData = {};
 
   if (messagePath) {
@@ -91,8 +91,6 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   // Convert to Boom
   const boomError = Boom.boomify(baseError, { statusCode });
 
-  console.error(boomError);
-
   // Clean up payload: remove stack & timestamp if any middleware adds them
   if (boomError.output?.payload) {
     delete boomError.output.payload.stack;
@@ -107,7 +105,11 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   return boomError;
 };
 
+const registerHttpRequest = async (_req, _res) => {
+  //
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = { success, error };
+module.exports = { success, error, registerHttpRequest };

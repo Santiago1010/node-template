@@ -22,7 +22,19 @@
     "number": "fields.number",
     "channel": "fields.channel",
     "purpose": "fields.purpose",
-    "deviceId": "fields.deviceId"
+    "deviceId": "fields.deviceId",
+    "search": "fields.search",
+    "method": "fields.method",
+    "version": "fields.version",
+    "endpointGroup": "fields.endpointGroup",
+    "path": "fields.path",
+    "description": "fields.description",
+    "requiresAuthorization": "fields.requiresAuthorization",
+    "hasSensitiveInformation": "fields.hasSensitiveInformation",
+    "ids": "fields.ids",
+    "fields": "fields.fields",
+    "id": "fields.id",
+    "includeHistory": "fields.includeHistory"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -39,7 +51,8 @@
     "alphanumericOnly": "validations.alphanumericOnly",
     "insufficient_security_level": "validations.insufficient_security_level",
     "boolean": "validations.boolean",
-    "pattern": "validations.pattern"
+    "pattern": "validations.pattern",
+    "not_exists": "validations.not_exists"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -62,7 +75,9 @@
     "validation": "error.validation",
     "database": "error.database",
     "invalid_input": "error.invalid_input",
-    "malformed_json": "error.malformed_json"
+    "malformed_json": "error.malformed_json",
+    "unique_constraint": "error.unique_constraint",
+    "unique_conflict": "error.unique_conflict"
   },
   "auth": {
     "login": {
@@ -87,7 +102,8 @@
     "confirmEmail": {
       "invalidToken": "auth.confirmEmail.invalidToken",
       "confirmationEmailSent": "auth.confirmEmail.confirmationEmailSent",
-      "emailConfirmed": "auth.confirmEmail.emailConfirmed"
+      "emailConfirmed": "auth.confirmEmail.emailConfirmed",
+      "wrongPassword": "auth.confirmEmail.wrongPassword"
     },
     "sendConfirmationEmail": {
       "emailAlreadyConfirmed": "auth.sendConfirmationEmail.emailAlreadyConfirmed"
@@ -142,6 +158,9 @@
     },
     "purpose": {
       "undefined": "enums.purpose.undefined"
+    },
+    "method": {
+      "options": "enums.method.options"
     }
   },
   "common": {
@@ -289,5 +308,8 @@
   },
   "showPublicKey": {
     "success": "showPublicKey.success"
+  },
+  "endpoint": {
+    "created": "endpoint.created"
   }
 }
