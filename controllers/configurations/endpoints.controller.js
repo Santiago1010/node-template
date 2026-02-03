@@ -1,9 +1,7 @@
-'use strict';
-
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const EndpointsServices = require('../../services/endpoint.services');
+const EndpointsServices = require('../../services/configurations/endpoints.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================
@@ -21,17 +19,18 @@ class EndpointController {
     try {
       const { method, version, endpointGroup, path, description, requiresAuthorization, hasSensitiveInformation } =
         req.body;
-      const { actor } = req;
 
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const newendpoint = await endpointService.createEndpoint(
-        { method, version, endpointGroup, path, description, requiresAuthorization, hasSensitiveInformation },
-        { actor }
-      );
+      const newendpoint = await endpointsService.createEndpoint(method, version, endpointGroup, path, {
+        description,
+        requiresAuthorization,
+        hasSensitiveInformation,
+        actor: req.user,
+      });
 
-      return success(res, { httpCode: 201, messagePath: 'endpoint.created', data: newendpoint });
+      return success(req, res, { httpCode: 201, messagePath: 'endpoint.created', data: newendpoint });
     } catch (error) {
       return next(error);
     }
@@ -46,14 +45,13 @@ class EndpointController {
   static async updateEndpointsStatus(req, res, next) {
     try {
       const { ids, active } = req.body;
-      const { actor } = req;
 
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const result = await endpointService.updateEndpointsStatus(ids, active, { actor });
+      const result = await endpointsService.updateEndpointsStatus(ids, active, { actor: req.user });
 
-      return success(res, { httpCode: 200, messagePath: 'endpoints.updatedStatuses', data: result });
+      return success(req, res, { httpCode: 200, messagePath: 'endpoints.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -67,12 +65,12 @@ class EndpointController {
    */
   static async getListEndpoints(req, res, next) {
     try {
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const result = await endpointService.getListEndpoints(req.query);
+      const result = await endpointsService.getListEndpoints(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'endpoints.list', data: result });
+      return success(req, res, { httpCode: 200, messagePath: 'endpoints.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -88,12 +86,12 @@ class EndpointController {
     try {
       const { id } = req.params;
 
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const endpoint = await endpointService.getEndpointDetails({ id, ...req.query });
+      const endpoint = await endpointsService.getEndpointDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'endpoint.details', data: endpoint });
+      return success(req, res, { httpCode: 200, messagePath: 'endpoint.details', data: endpoint });
     } catch (error) {
       return next(error);
     }
@@ -118,12 +116,11 @@ class EndpointController {
         hasSensitiveInformation,
         active,
       } = req.body;
-      const { actor } = req;
 
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const updatedendpoint = await endpointService.updateEndpoint(id, {
+      const updatedendpoint = await endpointsService.updateEndpoint(id, {
         method,
         version,
         endpointGroup,
@@ -132,10 +129,10 @@ class EndpointController {
         requiresAuthorization,
         hasSensitiveInformation,
         active,
-        actor,
+        actor: req.user,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'endpoint.updated', data: updatedendpoint });
+      return success(req, res, { httpCode: 200, messagePath: 'endpoint.updated', data: updatedendpoint });
     } catch (error) {
       return next(error);
     }
@@ -151,14 +148,13 @@ class EndpointController {
     try {
       const { id } = req.params;
       const { justification } = req.body;
-      const { actor } = req;
 
-      const endpointService = new EndpointsServices();
-      await endpointService.initialize();
+      const endpointsService = new EndpointsServices();
+      await endpointsService.initialize();
 
-      const result = await endpointService.deleteEndpoint(id, { justification, actor });
+      const result = await endpointsService.deleteEndpoint(id, { justification, actor: req.user });
 
-      return success(res, { httpCode: 200, messagePath: 'endpoint.deleted', data: result });
+      return success(req, res, { httpCode: 200, messagePath: 'endpoint.deleted', data: result });
     } catch (error) {
       return next(error);
     }

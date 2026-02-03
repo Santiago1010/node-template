@@ -112,6 +112,18 @@ const {{DELETE_NAME}} = standardRequest('delete', {
   operationId: '{{DELETE_NAME}}',
   description: '',
   parameters: [...identifierParam],
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            justification: { type: 'string', description: 'The reason why the record is deleted.', example: faker.lorem.sentence() },
+          },
+        },
+      },
+    },
+  },
   responses: {},
   security: [{ bearerAuth: [] }],
 });
