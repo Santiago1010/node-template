@@ -118,7 +118,11 @@ const {{DELETE_NAME}} = standardRequest('delete', {
         schema: {
           type: 'object',
           properties: {
-            justification: { type: 'string', description: 'The reason why the record is deleted.', example: faker.lorem.sentence() },
+            justification: {
+              type: 'string',
+              description: 'The reason why the record is deleted.',
+              example: faker.lorem.sentence(),
+            },
           },
         },
       },
