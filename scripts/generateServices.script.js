@@ -25,6 +25,7 @@ class CrudServicesGenerator {
     this.startTime = performance.now();
     this.foreignKeyReferences = new Map();
     this.enumColumns = new Map();
+    this.booleanColumns = new Set();
   }
 
   async run() {
@@ -39,6 +40,7 @@ class CrudServicesGenerator {
 
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
+      await this.analyzeBooleans(tableData);
 
       const serviceContent = await this.generateService(tableData, singularName, pluralName);
       await this.saveService(serviceContent, groupName, pluralName);
@@ -146,6 +148,20 @@ class CrudServicesGenerator {
     }
   }
 
+  async analyzeBooleans(tableData) {
+    console.log(`🔲 Analyzing booleans for table: ${tableData.tableName}`);
+
+    for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
+      const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
+
+      // Check if it's a tinyint(1) and if it should be treated as boolean
+      if (columnType.includes('tinyint(1)') && !this.crudHelper.shouldBeTinyInt(columnName, columnType)) {
+        this.booleanColumns.add(columnName);
+        console.log(`🔲 Boolean detected: ${columnName}`);
+      }
+    }
+  }
+
   async generateService(tableData, singularName, pluralName) {
     try {
       let serviceContent = await this.crudHelper.getTemplate('crud', 'services');
@@ -230,18 +246,33 @@ class CrudServicesGenerator {
     for (const [columnName, columnDetails] of Object.entries(tableData.columnDetails)) {
       if (this.shouldIncludeInFilters(columnName, columnDetails)) {
         const camelFieldName = toCamelCase(columnName);
-        filterConditions.push(`if (${camelFieldName}) optionsQuery.where.${camelFieldName} = ${camelFieldName};`);
+        filterConditions.push(
+          `if (${camelFieldName} !== undefined) optionsQuery.where.${camelFieldName} = ${camelFieldName};`
+        );
       }
     }
 
     return filterConditions.join('\n    ');
   }
 
+  /**
+   * Determines whether a column should appear as a filterable field
+   * in the LIST and DETAILS methods. Mirrors the same criteria used
+   * by the docs generator's isFilterableField method.
+   */
   shouldIncludeInFilters(columnName, columnDetails) {
+    if (this.crudHelper.shouldSkipField(columnName)) return false;
+
     const columnType = (columnDetails.COLUMN_TYPE || '').toLowerCase();
 
+    // Enum columns are filterable
     if (columnType.includes('enum')) return true;
+
+    // Foreign key columns are filterable
     if (this.foreignKeyReferences.has(columnName)) return true;
+
+    // Boolean columns (tinyint(1) that should not remain as tinyint) are filterable
+    if (this.booleanColumns.has(columnName)) return true;
 
     return false;
   }

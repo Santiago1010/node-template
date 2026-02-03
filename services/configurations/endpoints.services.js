@@ -86,7 +86,17 @@ class EndpointServices {
     });
   }
 
-  async getListEndpoints({ limit, page, search, ids = [], fields = [], active, method } = {}) {
+  async getListEndpoints({
+    limit,
+    page,
+    search,
+    ids = [],
+    fields = [],
+    active,
+    method,
+    requiresAuthorization,
+    hasSensitiveInformation,
+  } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -103,14 +113,27 @@ class EndpointServices {
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
-    if (method) optionsQuery.where.method = method;
+    if (method !== undefined) optionsQuery.where.method = method;
+
+    if (requiresAuthorization !== undefined) optionsQuery.where.requiresAuthorization = requiresAuthorization;
+
+    if (hasSensitiveInformation !== undefined) optionsQuery.where.hasSensitiveInformation = hasSensitiveInformation;
 
     if (search) optionsQuery.where = setSearchQuery(this.models.configEndpoints, search, optionsQuery);
 
     return await paginateModel(this.models.configEndpoints, limit, page, optionsQuery);
   }
 
-  async getEndpointDetails({ id, search, fields = [], active, method, includeHistory = false } = {}) {
+  async getEndpointDetails({
+    id,
+    search,
+    fields = [],
+    active,
+    method,
+    requiresAuthorization,
+    hasSensitiveInformation,
+    includeHistory = false,
+  } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -127,7 +150,11 @@ class EndpointServices {
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
-    if (method) optionsQuery.where.method = method;
+    if (method !== undefined) optionsQuery.where.method = method;
+
+    if (requiresAuthorization !== undefined) optionsQuery.where.requiresAuthorization = requiresAuthorization;
+
+    if (hasSensitiveInformation !== undefined) optionsQuery.where.hasSensitiveInformation = hasSensitiveInformation;
 
     if (search) optionsQuery.where = setSearchQuery(this.models.configEndpoints, search, optionsQuery);
 
