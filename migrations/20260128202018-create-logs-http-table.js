@@ -27,6 +27,13 @@ module.exports = {
           allowNull: false,
           comment: 'Endpoint ID of the endpoint where the request was made.',
         },
+        id_operation: {
+          type: Sequelize.STRING(36),
+          allowNull: false,
+          charset: 'utf8mb4',
+          collate: 'utf8mb4_general_ci',
+          comment: 'Unique ID of the operation.',
+        },
         id_request: {
           type: Sequelize.STRING(36),
           allowNull: false,
@@ -44,16 +51,19 @@ module.exports = {
         query: {
           type: Sequelize.JSON,
           allowNull: true,
+          defaultValue: null,
           comment: 'Request query parameters.',
         },
         headers: {
           type: Sequelize.JSON,
           allowNull: true,
+          defaultValue: null,
           comment: 'Request headers (exclude sensitive).',
         },
         body: {
           type: Sequelize.JSON,
           allowNull: true,
+          defaultValue: null,
           comment: 'Request body (exclude sensitive).',
         },
         http_code: {
@@ -61,24 +71,28 @@ module.exports = {
           allowNull: false,
           comment: 'HTTP response code.',
         },
-        status_code: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          comment: 'Status code of the response.',
-        },
         response_body: {
           type: Sequelize.JSON,
           allowNull: true,
+          defaultValue: null,
           comment: 'Response body (exclude sensitive).',
+        },
+        status_code: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: null,
+          comment: 'Status code of the response. Mostly used for errors and to differentiate HTTP response codes.',
         },
         error_message: {
           type: Sequelize.TEXT,
           allowNull: true,
+          defaultValue: null,
           comment: 'Error message.',
         },
         error_stack: {
           type: Sequelize.TEXT,
           allowNull: true,
+          defaultValue: null,
           comment: 'Error stack (just in development).',
         },
         created_at: {
