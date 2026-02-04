@@ -319,6 +319,10 @@ const setEndpoint = async (req, _, next) => {
     ContextHelper.set('endpoint', matched);
     ContextHelper.set('params', params);
 
+    if (req.headers['request_id']) ContextHelper.set('requestId', req.headers['request_id']);
+
+    if (req.headers['operation_id']) ContextHelper.set('operationId', req.headers['operation_id']);
+
     return next();
   } catch (err) {
     return next(err);

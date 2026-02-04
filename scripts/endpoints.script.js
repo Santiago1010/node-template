@@ -385,20 +385,25 @@ const main = async () => {
     const endpoints = expressEndpoints(app);
     const schemas = getRegisteredSchemas();
 
-    const endpointsWithSchemas = endpoints.map((endpoint) => {
-      const schema = schemas.find((s) => endpoint.path.includes(s.path) && endpoint.methods.includes(s.method));
+    const endpointsWithSchemas = endpoints.flatMap((endpoint) => {
       const parsedPath = parseEndpointPath(endpoint.path);
-      const method = endpoint.methods[0]?.toLowerCase() || 'get';
 
-      return {
-        method,
-        version: parsedPath.version,
-        group: parsedPath.group,
-        path: parsedPath.path,
-        requiresAuthorization: true,
-        hasSensitiveInformation: true,
-        validationSchema: schema ? schema.schema : null,
-      };
+      return endpoint.methods.map((method) => {
+        const normalizedMethod = method.toLowerCase();
+        const schema = schemas.find(
+          (s) => endpoint.path.includes(s.path) && s.method.toLowerCase() === normalizedMethod
+        );
+
+        return {
+          method: normalizedMethod,
+          version: parsedPath.version,
+          group: parsedPath.group,
+          path: parsedPath.path,
+          requiresAuthorization: true,
+          hasSensitiveInformation: true,
+          validationSchema: schema ? schema.schema : null,
+        };
+      });
     });
 
     console.log(`📊 Total endpoints found: ${endpointsWithSchemas.length}\n`);
