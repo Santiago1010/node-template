@@ -27,7 +27,11 @@ class Political_divisionController {
 
       const newpolitical_division = await politicalDivisionService.createPolitical_division({}, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'political_division.created', data: newpolitical_division });
+      return await success(res, {
+        httpCode: 201,
+        messagePath: 'political_division.created',
+        data: newpolitical_division,
+      });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +53,11 @@ class Political_divisionController {
 
       const result = await politicalDivisionService.updatePoliticaldivisionsStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'politicalDivisions.updatedStatuses', data: result });
+      return await success(res, {
+        httpCode: 200,
+        messagePath: 'politicalDivisions.updatedStatuses',
+        data: result,
+      });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +76,7 @@ class Political_divisionController {
 
       const result = await politicalDivisionService.getListPoliticaldivisions(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'politicalDivisions.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'politicalDivisions.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +97,11 @@ class Political_divisionController {
 
       const political_division = await politicalDivisionService.getPolitical_divisionDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'political_division.details', data: political_division });
+      return await success(res, {
+        httpCode: 200,
+        messagePath: 'political_division.details',
+        data: political_division,
+      });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +124,7 @@ class Political_divisionController {
 
       const updatedpolitical_division = await politicalDivisionService.updatePolitical_division(id, { active, actor });
 
-      return success(res, {
+      return await success(res, {
         httpCode: 200,
         messagePath: 'political_division.updated',
         data: updatedpolitical_division,
@@ -139,7 +151,7 @@ class Political_divisionController {
 
       const result = await politicalDivisionService.deletePolitical_division(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'political_division.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'political_division.deleted', data: result });
     } catch (error) {
       return next(error);
     }

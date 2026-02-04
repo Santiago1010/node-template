@@ -31,7 +31,7 @@ class PageController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'page.created', data: newpage });
+      return await success(res, { httpCode: 201, messagePath: 'page.created', data: newpage });
     } catch (error) {
       return next(error);
     }
@@ -53,7 +53,7 @@ class PageController {
 
       const result = await pageService.updatePagesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'pages.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'pages.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -72,7 +72,7 @@ class PageController {
 
       const result = await pageService.getListPages(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'pages.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'pages.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -93,7 +93,7 @@ class PageController {
 
       const page = await pageService.getPageDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'page.details', data: page });
+      return await success(res, { httpCode: 200, messagePath: 'page.details', data: page });
     } catch (error) {
       return next(error);
     }
@@ -128,7 +128,7 @@ class PageController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'page.updated', data: updatedpage });
+      return await success(res, { httpCode: 200, messagePath: 'page.updated', data: updatedpage });
     } catch (error) {
       return next(error);
     }
@@ -151,7 +151,7 @@ class PageController {
 
       const result = await pageService.deletePage(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'page.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'page.deleted', data: result });
     } catch (error) {
       return next(error);
     }

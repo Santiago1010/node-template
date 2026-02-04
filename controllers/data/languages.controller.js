@@ -30,7 +30,7 @@ class LanguageController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'language.created', data: newlanguage });
+      return await success(res, { httpCode: 201, messagePath: 'language.created', data: newlanguage });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class LanguageController {
 
       const result = await languageService.updateLanguagesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'languages.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'languages.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class LanguageController {
 
       const result = await languageService.getListLanguages(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'languages.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'languages.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class LanguageController {
 
       const language = await languageService.getLanguageDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'language.details', data: language });
+      return await success(res, { httpCode: 200, messagePath: 'language.details', data: language });
     } catch (error) {
       return next(error);
     }
@@ -125,7 +125,7 @@ class LanguageController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'language.updated', data: updatedlanguage });
+      return await success(res, { httpCode: 200, messagePath: 'language.updated', data: updatedlanguage });
     } catch (error) {
       return next(error);
     }
@@ -148,7 +148,7 @@ class LanguageController {
 
       const result = await languageService.deleteLanguage(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'language.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'language.deleted', data: result });
     } catch (error) {
       return next(error);
     }

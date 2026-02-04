@@ -24,7 +24,7 @@ class {{CONTROLLER_NAME}} {
 
       const new{{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}Service.{{CREATE_METHOD}}({{CREATE_CALL_SIGNATURE}});
 
-      return success(req, res, {httpCode: 201, messagePath: '{{SINGULAR_NAME}}.created', data: new{{SINGULAR_NAME}}});
+      return await success(res, {httpCode: 201, messagePath: '{{SINGULAR_NAME}}.created', data: new{{SINGULAR_NAME}}});
     } catch (error) {
       return next(error);
     }
@@ -45,7 +45,7 @@ class {{CONTROLLER_NAME}} {
 
       const result = await {{SERVICE_VARIABLE}}Service.{{UPDATE_STATUS_METHOD}}(ids, active, { actor: req.user });
 
-      return success(req, res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.updatedStatuses', data: result});
+      return await success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.updatedStatuses', data: result});
     } catch (error) {
       return next(error);
     }
@@ -64,7 +64,7 @@ class {{CONTROLLER_NAME}} {
 
       const result = await {{SERVICE_VARIABLE}}Service.{{LIST_METHOD}}(req.query);
 
-      return success(req, res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.list', data: result});
+      return await success(res, {httpCode: 200, messagePath: '{{PLURAL_NAME}}.list', data: result});
     } catch (error) {
       return next(error);
     }
@@ -85,7 +85,7 @@ class {{CONTROLLER_NAME}} {
 
       const {{SINGULAR_NAME}} = await {{SERVICE_VARIABLE}}Service.{{DETAILS_METHOD}}({ id, ...req.query });
 
-      return success(req, res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.details', data: {{SINGULAR_NAME}}});
+      return await success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.details', data: {{SINGULAR_NAME}}});
     } catch (error) {
       return next(error);
     }
@@ -110,7 +110,7 @@ class {{CONTROLLER_NAME}} {
         { {{ALL_FIELDS}}, active, actor: req.user }
       );
 
-      return success(req, res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.updated', data: updated{{SINGULAR_NAME}}});
+      return await success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.updated', data: updated{{SINGULAR_NAME}}});
     } catch (error) {
       return next(error);
     }
@@ -132,7 +132,7 @@ class {{CONTROLLER_NAME}} {
 
       const result = await {{SERVICE_VARIABLE}}Service.{{DELETE_METHOD}}(id, { justification, actor: req.user });
 
-      return success(req, res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.deleted', data: result});
+      return await success(res, {httpCode: 200, messagePath: '{{SINGULAR_NAME}}.deleted', data: result});
     } catch (error) {
       return next(error);
     }

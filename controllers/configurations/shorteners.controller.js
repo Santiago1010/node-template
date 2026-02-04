@@ -27,7 +27,7 @@ class ShortenerController {
 
       const newshortener = await shortenerService.createShortener({ url, codeShortener, expiresAt }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'shortener.created', data: newshortener });
+      return await success(res, { httpCode: 201, messagePath: 'shortener.created', data: newshortener });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class ShortenerController {
 
       const result = await shortenerService.updateShortenersStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'shorteners.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'shorteners.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class ShortenerController {
 
       const result = await shortenerService.getListShorteners(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'shorteners.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'shorteners.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class ShortenerController {
 
       const shortener = await shortenerService.getShortenerDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'shortener.details', data: shortener });
+      return await success(res, { httpCode: 200, messagePath: 'shortener.details', data: shortener });
     } catch (error) {
       return next(error);
     }
@@ -118,7 +118,7 @@ class ShortenerController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'shortener.updated', data: updatedshortener });
+      return await success(res, { httpCode: 200, messagePath: 'shortener.updated', data: updatedshortener });
     } catch (error) {
       return next(error);
     }
@@ -141,7 +141,7 @@ class ShortenerController {
 
       const result = await shortenerService.deleteShortener(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'shortener.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'shortener.deleted', data: result });
     } catch (error) {
       return next(error);
     }

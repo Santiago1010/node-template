@@ -31,7 +31,7 @@ class AccountController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'account.created', data: newaccount });
+      return await success(res, { httpCode: 201, messagePath: 'account.created', data: newaccount });
     } catch (error) {
       return next(error);
     }
@@ -53,7 +53,7 @@ class AccountController {
 
       const result = await accountService.updateAccountsStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'accounts.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'accounts.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -72,7 +72,7 @@ class AccountController {
 
       const result = await accountService.getListAccounts(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'accounts.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'accounts.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -93,7 +93,7 @@ class AccountController {
 
       const account = await accountService.getAccountDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'account.details', data: account });
+      return await success(res, { httpCode: 200, messagePath: 'account.details', data: account });
     } catch (error) {
       return next(error);
     }
@@ -127,7 +127,7 @@ class AccountController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'account.updated', data: updatedaccount });
+      return await success(res, { httpCode: 200, messagePath: 'account.updated', data: updatedaccount });
     } catch (error) {
       return next(error);
     }
@@ -150,7 +150,7 @@ class AccountController {
 
       const result = await accountService.deleteAccount(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'account.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'account.deleted', data: result });
     } catch (error) {
       return next(error);
     }

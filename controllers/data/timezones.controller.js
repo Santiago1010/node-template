@@ -27,7 +27,7 @@ class TimezoneController {
 
       const newtimezone = await timezoneService.createTimezone({ idContinent, name, utc }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'timezone.created', data: newtimezone });
+      return await success(res, { httpCode: 201, messagePath: 'timezone.created', data: newtimezone });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class TimezoneController {
 
       const result = await timezoneService.updateTimezonesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'timezones.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'timezones.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class TimezoneController {
 
       const result = await timezoneService.getListTimezones(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'timezones.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'timezones.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class TimezoneController {
 
       const timezone = await timezoneService.getTimezoneDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'timezone.details', data: timezone });
+      return await success(res, { httpCode: 200, messagePath: 'timezone.details', data: timezone });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class TimezoneController {
 
       const updatedtimezone = await timezoneService.updateTimezone(id, { idContinent, name, utc, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'timezone.updated', data: updatedtimezone });
+      return await success(res, { httpCode: 200, messagePath: 'timezone.updated', data: updatedtimezone });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class TimezoneController {
 
       const result = await timezoneService.deleteTimezone(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'timezone.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'timezone.deleted', data: result });
     } catch (error) {
       return next(error);
     }

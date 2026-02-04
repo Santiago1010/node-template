@@ -174,6 +174,10 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
     in: location,
     custom: {
       options: async (value, { req }) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return true;
+        }
+
         validateScope(req, requiredScope);
 
         const modelInstance = await getModel(model);
@@ -201,6 +205,10 @@ const idSchema = (name, location = 'body', { required = true, formattingFunction
   if (formattingFunctions.length > 0) {
     validationSchema.customSanitizer = {
       options: (value) => {
+        // No formatear valores vacíos en campos opcionales
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         return formattingFunctions.reduce((acc, func) => {
           return typeof func === 'function' ? func(acc) : acc;
         }, value);
@@ -259,6 +267,10 @@ const validateUniqueField = (
     in: location,
     custom: {
       options: async (value, { req }) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return true;
+        }
+
         validateScope(req, requiredScope);
 
         const modelInstance = await getModel(model);
@@ -289,6 +301,7 @@ const validateUniqueField = (
     },
   };
 
+  // Solo agregar validaciones de existencia si el campo es requerido
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -349,12 +362,22 @@ const validateMultipleIds = (
     in: location,
     customSanitizer: {
       options: (value) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         const idsArray = parseToArray(value);
         return idsArray.map((id) => convertToNumber(id)).filter((id) => !isNaN(id));
       },
     },
     custom: {
       options: async (value, { req }) => {
+        if (
+          !required &&
+          (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0))
+        ) {
+          return true;
+        }
+
         validateScope(req, requiredScope);
 
         const modelInstance = await getModel(model);
@@ -460,17 +483,27 @@ const validateModelAttributes = (
     in: location,
     customSanitizer: {
       options: (value) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         return parseToArray(value);
       },
     },
     custom: {
       options: async (value, { req }) => {
+        if (
+          !required &&
+          (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0))
+        ) {
+          return true;
+        }
+
         validateScope(req, requiredScope);
 
         const modelInstance = await getModel(model);
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
 
-        if (attributesArray.length === 0) {
+        if (attributesArray.length === 0 && required) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
@@ -571,6 +604,9 @@ const validateValueAgainstModel = (
     customSanitizer: formattingFunctions.length
       ? {
           options: (value) => {
+            if (!required && (value === undefined || value === null || value === '')) {
+              return value;
+            }
             return formattingFunctions.reduce((acc, fn) => {
               return typeof fn === 'function' ? fn(acc) : acc;
             }, value);
@@ -579,6 +615,10 @@ const validateValueAgainstModel = (
       : undefined,
     custom: {
       options: async (value, { req }) => {
+        if (!required && (value === null || typeof value === 'undefined' || value === '')) {
+          return true;
+        }
+
         validateScope(req, requiredScope);
 
         const modelInstance = await getModel(model);

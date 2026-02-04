@@ -27,7 +27,7 @@ class HostController {
 
       const newhost = await hostService.createHost({ url, isDefault }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'host.created', data: newhost });
+      return await success(res, { httpCode: 201, messagePath: 'host.created', data: newhost });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class HostController {
 
       const result = await hostService.updateHostsStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'hosts.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'hosts.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class HostController {
 
       const result = await hostService.getListHosts(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'hosts.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'hosts.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class HostController {
 
       const host = await hostService.getHostDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'host.details', data: host });
+      return await success(res, { httpCode: 200, messagePath: 'host.details', data: host });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class HostController {
 
       const updatedhost = await hostService.updateHost(id, { url, isDefault, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'host.updated', data: updatedhost });
+      return await success(res, { httpCode: 200, messagePath: 'host.updated', data: updatedhost });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class HostController {
 
       const result = await hostService.deleteHost(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'host.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'host.deleted', data: result });
     } catch (error) {
       return next(error);
     }

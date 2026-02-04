@@ -14,7 +14,7 @@ class DeviceController {
 
       await confirmationService.confirmDevice(token, 'secure_device', password, jti, rely, block);
 
-      return success(res, { messagePath: 'auth.confirmDevice.deviceConfirmed' });
+      return await success(res, { messagePath: 'auth.confirmDevice.deviceConfirmed' });
     } catch (error) {
       return next(error);
     }
@@ -29,7 +29,7 @@ class DeviceController {
 
       const devices = await deviceService.getListDevices({ accountId });
 
-      return success(res, { data: devices, messagePath: 'auth.readAllDevices.success' });
+      return await success(res, { data: devices, messagePath: 'auth.readAllDevices.success' });
     } catch (error) {
       return next(error);
     }
@@ -45,7 +45,7 @@ class DeviceController {
 
       await deviceService.updateDevice(deviceId, { isTrusted: rely, isBlocked: block, active });
 
-      return success(res, { messagePath: 'auth.updateDevice.success' });
+      return await success(res, { messagePath: 'auth.updateDevice.success' });
     } catch (error) {
       return next(error);
     }

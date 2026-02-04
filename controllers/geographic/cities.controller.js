@@ -27,7 +27,7 @@ class CityController {
 
       const newcity = await cityService.createCity({ idSubDivision, idTimezone, name }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'city.created', data: newcity });
+      return await success(res, { httpCode: 201, messagePath: 'city.created', data: newcity });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class CityController {
 
       const result = await cityService.updateCitiesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'cities.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'cities.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class CityController {
 
       const result = await cityService.getListCities(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'cities.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'cities.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class CityController {
 
       const city = await cityService.getCityDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'city.details', data: city });
+      return await success(res, { httpCode: 200, messagePath: 'city.details', data: city });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class CityController {
 
       const updatedcity = await cityService.updateCity(id, { idSubDivision, idTimezone, name, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'city.updated', data: updatedcity });
+      return await success(res, { httpCode: 200, messagePath: 'city.updated', data: updatedcity });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class CityController {
 
       const result = await cityService.deleteCity(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'city.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'city.deleted', data: result });
     } catch (error) {
       return next(error);
     }

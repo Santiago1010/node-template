@@ -30,7 +30,7 @@ class PreferenceController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'preference.created', data: newpreference });
+      return await success(res, { httpCode: 201, messagePath: 'preference.created', data: newpreference });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class PreferenceController {
 
       const result = await preferenceService.updatePreferencesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'preferences.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'preferences.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class PreferenceController {
 
       const result = await preferenceService.getListPreferences(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'preferences.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'preferences.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class PreferenceController {
 
       const preference = await preferenceService.getPreferenceDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'preference.details', data: preference });
+      return await success(res, { httpCode: 200, messagePath: 'preference.details', data: preference });
     } catch (error) {
       return next(error);
     }
@@ -125,7 +125,7 @@ class PreferenceController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'preference.updated', data: updatedpreference });
+      return await success(res, { httpCode: 200, messagePath: 'preference.updated', data: updatedpreference });
     } catch (error) {
       return next(error);
     }
@@ -148,7 +148,7 @@ class PreferenceController {
 
       const result = await preferenceService.deletePreference(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'preference.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'preference.deleted', data: result });
     } catch (error) {
       return next(error);
     }

@@ -14,7 +14,7 @@ class PasswordController {
 
       passwordService.passwordMailer.sendPasswordResetEmail(email, token);
 
-      return success(res, { messagePath: 'auth.fogotPassword.success' });
+      return await success(res, { messagePath: 'auth.fogotPassword.success' });
     } catch (error) {
       return next(error);
     }
@@ -33,7 +33,7 @@ class PasswordController {
       const deviceInfo = getDeviceInfo(req, true);
       passwordService.passwordMailer.sendPasswordChangedEmail(email, deviceInfo);
 
-      return success(res, { messagePath: 'auth.recoverPassword.success' });
+      return await success(res, { messagePath: 'auth.recoverPassword.success' });
     } catch (error) {
       return next(error);
     }
@@ -48,7 +48,7 @@ class PasswordController {
 
       await passwordService.changePassword(req.user.id, currentPassword, newPassword);
 
-      return success(res, { messagePath: 'auth.changePassword.success' });
+      return await success(res, { messagePath: 'auth.changePassword.success' });
     } catch (error) {
       return next(error);
     }

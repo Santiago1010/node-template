@@ -30,7 +30,7 @@ class CountryController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'country.created', data: newcountry });
+      return await success(res, { httpCode: 201, messagePath: 'country.created', data: newcountry });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class CountryController {
 
       const result = await countryService.updateCountriesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'countries.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'countries.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class CountryController {
 
       const result = await countryService.getListCountries(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'countries.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'countries.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class CountryController {
 
       const country = await countryService.getCountryDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'country.details', data: country });
+      return await success(res, { httpCode: 200, messagePath: 'country.details', data: country });
     } catch (error) {
       return next(error);
     }
@@ -127,7 +127,7 @@ class CountryController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'country.updated', data: updatedcountry });
+      return await success(res, { httpCode: 200, messagePath: 'country.updated', data: updatedcountry });
     } catch (error) {
       return next(error);
     }
@@ -150,7 +150,7 @@ class CountryController {
 
       const result = await countryService.deleteCountry(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'country.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'country.deleted', data: result });
     } catch (error) {
       return next(error);
     }

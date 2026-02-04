@@ -52,7 +52,8 @@
     "insufficient_security_level": "validations.insufficient_security_level",
     "boolean": "validations.boolean",
     "pattern": "validations.pattern",
-    "not_exists": "validations.not_exists"
+    "not_exists": "validations.not_exists",
+    "min_length": "validations.min_length"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -160,7 +161,10 @@
       "undefined": "enums.purpose.undefined"
     },
     "method": {
-      "options": "enums.method.options"
+      "options": "enums.method.options",
+      "patch": "enums.method.patch",
+      "post": "enums.method.post",
+      "get": "enums.method.get"
     }
   },
   "common": {
@@ -311,5 +315,8 @@
   },
   "endpoint": {
     "created": "endpoint.created"
+  },
+  "endpoints": {
+    "list": "endpoints.list"
   }
 }

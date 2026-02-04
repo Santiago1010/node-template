@@ -27,7 +27,7 @@ class Dial_codeController {
 
       const newdial_code = await dialCodeService.createDial_code({ countryId, code, mask }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'dial_code.created', data: newdial_code });
+      return await success(res, { httpCode: 201, messagePath: 'dial_code.created', data: newdial_code });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class Dial_codeController {
 
       const result = await dialCodeService.updateDialcodesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'dialCodes.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'dialCodes.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class Dial_codeController {
 
       const result = await dialCodeService.getListDialcodes(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'dialCodes.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'dialCodes.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class Dial_codeController {
 
       const dial_code = await dialCodeService.getDial_codeDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'dial_code.details', data: dial_code });
+      return await success(res, { httpCode: 200, messagePath: 'dial_code.details', data: dial_code });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class Dial_codeController {
 
       const updateddial_code = await dialCodeService.updateDial_code(id, { countryId, code, mask, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'dial_code.updated', data: updateddial_code });
+      return await success(res, { httpCode: 200, messagePath: 'dial_code.updated', data: updateddial_code });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class Dial_codeController {
 
       const result = await dialCodeService.deleteDial_code(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'dial_code.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'dial_code.deleted', data: result });
     } catch (error) {
       return next(error);
     }

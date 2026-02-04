@@ -30,7 +30,7 @@ class DeviceController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'device.created', data: newdevice });
+      return await success(res, { httpCode: 201, messagePath: 'device.created', data: newdevice });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class DeviceController {
 
       const result = await deviceService.updateDevicesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'devices.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'devices.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class DeviceController {
 
       const result = await deviceService.getListDevices(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'devices.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'devices.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class DeviceController {
 
       const device = await deviceService.getDeviceDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'device.details', data: device });
+      return await success(res, { httpCode: 200, messagePath: 'device.details', data: device });
     } catch (error) {
       return next(error);
     }
@@ -129,7 +129,7 @@ class DeviceController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'device.updated', data: updateddevice });
+      return await success(res, { httpCode: 200, messagePath: 'device.updated', data: updateddevice });
     } catch (error) {
       return next(error);
     }
@@ -152,7 +152,7 @@ class DeviceController {
 
       const result = await deviceService.deleteDevice(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'device.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'device.deleted', data: result });
     } catch (error) {
       return next(error);
     }

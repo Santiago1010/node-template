@@ -6,7 +6,9 @@ const Boom = require('@hapi/boom');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const ContextHelper = require('./context.helper');
 const i18n = require('../config/i18n');
+const { getSequelize } = require('../config/database/connection');
 
 /**
  * Normalize and validate an HTTP status code. Returns a valid status code
@@ -35,7 +37,7 @@ const normalizeStatusCode = (code, fallback = 500) => {
  *
  * @returns {Response} Express response object with JSON response
  */
-const success = (_req, res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
+const success = async (res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
   const responseData = {};
 
   if (messagePath) {
@@ -54,7 +56,11 @@ const success = (_req, res, { httpCode = 200, messagePath, messageData = {}, dat
 
   if (Object.keys(data).length > 0) Object.assign(responseData, JSON.parse(JSON.stringify(data)));
 
-  return res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
+  const response = res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
+
+  await registerHttpRequest(response, normalizeStatusCode(httpCode, 200), responseData);
+
+  return response;
 };
 
 /**
@@ -105,8 +111,38 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   return boomError;
 };
 
-const registerHttpRequest = async (_req, _res) => {
-  //
+const registerHttpRequest = async (res, httpCode, responseBody) => {
+  const sequelize = await getSequelize();
+
+  const { host: _, cookie: __, accept: ___, 'x-path': ____, ...headers } = res.req.headers;
+  const { page, endpoint } = ContextHelper.get();
+
+  const access = await sequelize.models.usrAccesses.findOne({
+    attributes: ['id'],
+    where: { accountId: res.req.user.id },
+    include: {
+      model: sequelize.models.usrDevices,
+      as: 'device',
+      attributes: [],
+      where: { accountId: res.req.user.id, fingerprint: res.req.user.device.fingerprint },
+      required: true,
+    },
+    raw: true,
+  });
+
+  const createData = {
+    accessId: access.id,
+    pageId: page.id,
+    endpointId: endpoint.id,
+    path: res.req.baseUrl,
+    query: JSON.stringify(res.req.query),
+    headers: JSON.stringify(headers),
+    body: JSON.stringify(res.req.body),
+    httpCode,
+    responseBody: JSON.stringify(responseBody),
+  };
+
+  console.log(createData);
 };
 
 // =============================================================================

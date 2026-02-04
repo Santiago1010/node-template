@@ -27,7 +27,7 @@ class UserController {
 
       const newuser = await userService.createUser({ firstName, secondName, firstLastName, secondLastName }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'user.created', data: newuser });
+      return await success(res, { httpCode: 201, messagePath: 'user.created', data: newuser });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class UserController {
 
       const result = await userService.updateUsersStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'users.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'users.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class UserController {
 
       const result = await userService.getListUsers(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'users.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'users.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class UserController {
 
       const user = await userService.getUserDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'user.details', data: user });
+      return await success(res, { httpCode: 200, messagePath: 'user.details', data: user });
     } catch (error) {
       return next(error);
     }
@@ -119,7 +119,7 @@ class UserController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'user.updated', data: updateduser });
+      return await success(res, { httpCode: 200, messagePath: 'user.updated', data: updateduser });
     } catch (error) {
       return next(error);
     }
@@ -142,7 +142,7 @@ class UserController {
 
       const result = await userService.deleteUser(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'user.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'user.deleted', data: result });
     } catch (error) {
       return next(error);
     }

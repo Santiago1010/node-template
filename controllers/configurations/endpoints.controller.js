@@ -30,7 +30,7 @@ class EndpointController {
         actor: req.user,
       });
 
-      return success(req, res, { httpCode: 201, messagePath: 'endpoint.created', data: newendpoint });
+      return await success(res, { httpCode: 201, messagePath: 'endpoint.created', data: newendpoint });
     } catch (error) {
       return next(error);
     }
@@ -51,7 +51,7 @@ class EndpointController {
 
       const result = await endpointsService.updateEndpointsStatus(ids, active, { actor: req.user });
 
-      return success(req, res, { httpCode: 200, messagePath: 'endpoints.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'endpoints.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -70,7 +70,7 @@ class EndpointController {
 
       const result = await endpointsService.getListEndpoints(req.query);
 
-      return success(req, res, { httpCode: 200, messagePath: 'endpoints.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'endpoints.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -91,7 +91,7 @@ class EndpointController {
 
       const endpoint = await endpointsService.getEndpointDetails({ id, ...req.query });
 
-      return success(req, res, { httpCode: 200, messagePath: 'endpoint.details', data: endpoint });
+      return await success(res, { httpCode: 200, messagePath: 'endpoint.details', data: endpoint });
     } catch (error) {
       return next(error);
     }
@@ -132,7 +132,7 @@ class EndpointController {
         actor: req.user,
       });
 
-      return success(req, res, { httpCode: 200, messagePath: 'endpoint.updated', data: updatedendpoint });
+      return await success(res, { httpCode: 200, messagePath: 'endpoint.updated', data: updatedendpoint });
     } catch (error) {
       return next(error);
     }
@@ -154,7 +154,7 @@ class EndpointController {
 
       const result = await endpointsService.deleteEndpoint(id, { justification, actor: req.user });
 
-      return success(req, res, { httpCode: 200, messagePath: 'endpoint.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'endpoint.deleted', data: result });
     } catch (error) {
       return next(error);
     }

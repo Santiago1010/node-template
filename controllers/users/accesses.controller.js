@@ -30,7 +30,7 @@ class AccessController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'access.created', data: newaccess });
+      return await success(res, { httpCode: 201, messagePath: 'access.created', data: newaccess });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class AccessController {
 
       const result = await accessService.updateAccessesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'accesses.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'accesses.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class AccessController {
 
       const result = await accessService.getListAccesses(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'accesses.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'accesses.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class AccessController {
 
       const access = await accessService.getAccessDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'access.details', data: access });
+      return await success(res, { httpCode: 200, messagePath: 'access.details', data: access });
     } catch (error) {
       return next(error);
     }
@@ -123,7 +123,7 @@ class AccessController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'access.updated', data: updatedaccess });
+      return await success(res, { httpCode: 200, messagePath: 'access.updated', data: updatedaccess });
     } catch (error) {
       return next(error);
     }
@@ -146,7 +146,7 @@ class AccessController {
 
       const result = await accessService.deleteAccess(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'access.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'access.deleted', data: result });
     } catch (error) {
       return next(error);
     }

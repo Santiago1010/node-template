@@ -27,7 +27,7 @@ class ContinentController {
 
       const newcontinent = await continentService.createContinent({ name, abbreviation, surfaceArea }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'continent.created', data: newcontinent });
+      return await success(res, { httpCode: 201, messagePath: 'continent.created', data: newcontinent });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class ContinentController {
 
       const result = await continentService.updateContinentsStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'continents.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'continents.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class ContinentController {
 
       const result = await continentService.getListContinents(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'continents.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'continents.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class ContinentController {
 
       const continent = await continentService.getContinentDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'continent.details', data: continent });
+      return await success(res, { httpCode: 200, messagePath: 'continent.details', data: continent });
     } catch (error) {
       return next(error);
     }
@@ -118,7 +118,7 @@ class ContinentController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'continent.updated', data: updatedcontinent });
+      return await success(res, { httpCode: 200, messagePath: 'continent.updated', data: updatedcontinent });
     } catch (error) {
       return next(error);
     }
@@ -141,7 +141,7 @@ class ContinentController {
 
       const result = await continentService.deleteContinent(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'continent.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'continent.deleted', data: result });
     } catch (error) {
       return next(error);
     }

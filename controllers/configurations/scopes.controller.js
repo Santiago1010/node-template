@@ -27,7 +27,7 @@ class ScopeController {
 
       const newscope = await scopeService.createScope({ name, description, isSelectable }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'scope.created', data: newscope });
+      return await success(res, { httpCode: 201, messagePath: 'scope.created', data: newscope });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class ScopeController {
 
       const result = await scopeService.updateScopesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'scopes.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'scopes.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class ScopeController {
 
       const result = await scopeService.getListScopes(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'scopes.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'scopes.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class ScopeController {
 
       const scope = await scopeService.getScopeDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'scope.details', data: scope });
+      return await success(res, { httpCode: 200, messagePath: 'scope.details', data: scope });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class ScopeController {
 
       const updatedscope = await scopeService.updateScope(id, { name, description, isSelectable, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'scope.updated', data: updatedscope });
+      return await success(res, { httpCode: 200, messagePath: 'scope.updated', data: updatedscope });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class ScopeController {
 
       const result = await scopeService.deleteScope(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'scope.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'scope.deleted', data: result });
     } catch (error) {
       return next(error);
     }

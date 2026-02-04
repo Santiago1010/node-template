@@ -19,7 +19,7 @@ class SessionController {
 
       sessionService.sessionMailer.sendWelcomeEmail(email, firstName, token);
 
-      return success(res, { messagePath: 'auth.signup.success' });
+      return await success(res, { messagePath: 'auth.signup.success' });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class SessionController {
           600
         );
 
-        return success(res, {
+        return await success(res, {
           messagePath: 'auth.login.otpRequired',
           data: {
             requires2FA: true,
@@ -118,7 +118,7 @@ class SessionController {
         sessionService.sessionMailer.sendUnknownDeviceAlert(credential, deviceInfo, secureToken);
       }
 
-      return success(res, { messagePath: 'auth.login.success' });
+      return await success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
       return next(error);
     }
@@ -189,7 +189,7 @@ class SessionController {
         sessionService.sessionMailer.sendUnknownDeviceAlert(accountId, deviceInfo, secureToken);
       }
 
-      return success(res, { messagePath: 'auth.login.success' });
+      return await success(res, { messagePath: 'auth.login.success' });
     } catch (error) {
       return next(error);
     }
@@ -234,7 +234,7 @@ class SessionController {
       clog('New access token', accessToken);
       clog('New refresh token', refreshToken);
 
-      return success(res, { httpCode: 204 });
+      return await success(res, { httpCode: 204 });
     } catch (error) {
       return next(error);
     }
@@ -263,7 +263,7 @@ class SessionController {
         sameSite: 'strict',
       });
 
-      return success(res, { messagePath: 'auth.logout.success' });
+      return await success(res, { messagePath: 'auth.logout.success' });
     } catch (error) {
       return next(error);
     }
@@ -279,7 +279,7 @@ class SessionController {
 
       const sessions = await sessionService.getSessions(accountId, req.query);
 
-      return success(res, { messagePath: 'auth.getSessions.success', data: sessions });
+      return await success(res, { messagePath: 'auth.getSessions.success', data: sessions });
     } catch (error) {
       return next(error);
     }
@@ -296,7 +296,7 @@ class SessionController {
 
       await sessionService.revokeSession(parseInt(sessionId), accountId, jti, fingerprint);
 
-      return success(res, { messagePath: 'auth.revokeSession.success' });
+      return await success(res, { messagePath: 'auth.revokeSession.success' });
     } catch (error) {
       return next(error);
     }
@@ -311,7 +311,7 @@ class SessionController {
 
       await sessionService.revokeAllSessionExceptCurrent(accountId, jti);
 
-      return success(res, { messagePath: 'auth.revokeAllSessionExceptCurrent.success' });
+      return await success(res, { messagePath: 'auth.revokeAllSessionExceptCurrent.success' });
     } catch (error) {
       return next(error);
     }

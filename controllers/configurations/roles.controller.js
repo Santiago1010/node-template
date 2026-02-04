@@ -27,7 +27,7 @@ class RoleController {
 
       const newrole = await roleService.createRole({ securityLevelId, name, target, isDefault }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'role.created', data: newrole });
+      return await success(res, { httpCode: 201, messagePath: 'role.created', data: newrole });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class RoleController {
 
       const result = await roleService.updateRolesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'roles.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'roles.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class RoleController {
 
       const result = await roleService.getListRoles(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'roles.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'roles.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class RoleController {
 
       const role = await roleService.getRoleDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'role.details', data: role });
+      return await success(res, { httpCode: 200, messagePath: 'role.details', data: role });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class RoleController {
 
       const updatedrole = await roleService.updateRole(id, { securityLevelId, name, target, isDefault, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'role.updated', data: updatedrole });
+      return await success(res, { httpCode: 200, messagePath: 'role.updated', data: updatedrole });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class RoleController {
 
       const result = await roleService.deleteRole(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'role.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'role.deleted', data: result });
     } catch (error) {
       return next(error);
     }

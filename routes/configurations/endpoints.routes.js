@@ -8,6 +8,7 @@ const express = require('express');
 // =============================================================================
 const endpointsSchemas = require('./validations/endpoints.validations');
 const endpointsController = require('../../controllers/configurations/endpoints.controller');
+const { validateWebSession } = require('../../middlewares/auth/sessionToken.middleware');
 const { validationErrorHandler } = require('../../middlewares/errors/validationError.middleware');
 const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util');
 
@@ -15,6 +16,8 @@ const { checkSchemaWithRegistry } = require('../../utils/validationRegistry.util
 // SET UP ROUTER
 // =============================================================================
 const router = express.Router();
+
+router.use(validateWebSession);
 
 router.post(
   '/',

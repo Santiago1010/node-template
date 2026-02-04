@@ -25,8 +25,7 @@ const getJWTSecrets = async () => {
     return jwtSecretsCache;
   }
 
-  const environment = ContextHelper.get('environment');
-  const secrets = await getSecret(`jwt/${environment}`);
+  const secrets = await getSecret(`jwt`);
 
   jwtSecretsCache = secrets;
   secretsCacheTime = now;

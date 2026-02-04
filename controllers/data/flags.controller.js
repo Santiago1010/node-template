@@ -30,7 +30,7 @@ class FlagController {
         { actor }
       );
 
-      return success(res, { httpCode: 201, messagePath: 'flag.created', data: newflag });
+      return await success(res, { httpCode: 201, messagePath: 'flag.created', data: newflag });
     } catch (error) {
       return next(error);
     }
@@ -52,7 +52,7 @@ class FlagController {
 
       const result = await flagService.updateFlagsStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'flags.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'flags.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -71,7 +71,7 @@ class FlagController {
 
       const result = await flagService.getListFlags(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'flags.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'flags.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -92,7 +92,7 @@ class FlagController {
 
       const flag = await flagService.getFlagDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'flag.details', data: flag });
+      return await success(res, { httpCode: 200, messagePath: 'flag.details', data: flag });
     } catch (error) {
       return next(error);
     }
@@ -127,7 +127,7 @@ class FlagController {
         actor,
       });
 
-      return success(res, { httpCode: 200, messagePath: 'flag.updated', data: updatedflag });
+      return await success(res, { httpCode: 200, messagePath: 'flag.updated', data: updatedflag });
     } catch (error) {
       return next(error);
     }
@@ -150,7 +150,7 @@ class FlagController {
 
       const result = await flagService.deleteFlag(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'flag.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'flag.deleted', data: result });
     } catch (error) {
       return next(error);
     }

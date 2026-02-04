@@ -27,7 +27,7 @@ class CurrencyController {
 
       const newcurrency = await currencyService.createCurrency({ name, abbreviation, symbol }, { actor });
 
-      return success(res, { httpCode: 201, messagePath: 'currency.created', data: newcurrency });
+      return await success(res, { httpCode: 201, messagePath: 'currency.created', data: newcurrency });
     } catch (error) {
       return next(error);
     }
@@ -49,7 +49,7 @@ class CurrencyController {
 
       const result = await currencyService.updateCurrenciesStatus(ids, active, { actor });
 
-      return success(res, { httpCode: 200, messagePath: 'currencies.updatedStatuses', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'currencies.updatedStatuses', data: result });
     } catch (error) {
       return next(error);
     }
@@ -68,7 +68,7 @@ class CurrencyController {
 
       const result = await currencyService.getListCurrencies(req.query);
 
-      return success(res, { httpCode: 200, messagePath: 'currencies.list', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'currencies.list', data: result });
     } catch (error) {
       return next(error);
     }
@@ -89,7 +89,7 @@ class CurrencyController {
 
       const currency = await currencyService.getCurrencyDetails({ id, ...req.query });
 
-      return success(res, { httpCode: 200, messagePath: 'currency.details', data: currency });
+      return await success(res, { httpCode: 200, messagePath: 'currency.details', data: currency });
     } catch (error) {
       return next(error);
     }
@@ -112,7 +112,7 @@ class CurrencyController {
 
       const updatedcurrency = await currencyService.updateCurrency(id, { name, abbreviation, symbol, active, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'currency.updated', data: updatedcurrency });
+      return await success(res, { httpCode: 200, messagePath: 'currency.updated', data: updatedcurrency });
     } catch (error) {
       return next(error);
     }
@@ -135,7 +135,7 @@ class CurrencyController {
 
       const result = await currencyService.deleteCurrency(id, { justification, actor });
 
-      return success(res, { httpCode: 200, messagePath: 'currency.deleted', data: result });
+      return await success(res, { httpCode: 200, messagePath: 'currency.deleted', data: result });
     } catch (error) {
       return next(error);
     }
