@@ -114,7 +114,15 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
 const registerHttpRequest = async (res, httpCode, responseBody) => {
   const sequelize = await getSequelize();
 
-  const { host: _, cookie: __, accept: ___, 'x-path': ____, ...headers } = res.req.headers;
+  const {
+    host: _,
+    cookie: __,
+    accept: ___,
+    'x-path': ____,
+    request_id: requestId,
+    operation_id: operationId,
+    ...headers
+  } = res.req.headers;
   const { page, endpoint } = ContextHelper.get();
 
   const access = await sequelize.models.usrAccesses.findOne({
@@ -134,6 +142,8 @@ const registerHttpRequest = async (res, httpCode, responseBody) => {
     accessId: access.id,
     pageId: page.id,
     endpointId: endpoint.id,
+    requestId,
+    operationId,
     path: res.req.baseUrl,
     query: JSON.stringify(res.req.query),
     headers: JSON.stringify(headers),
