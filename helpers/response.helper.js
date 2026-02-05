@@ -11,6 +11,34 @@ const i18n = require('../config/i18n');
 const { getSequelize } = require('../config/database/connection');
 
 /**
+ * Deep converts empty objects/arrays to null
+ * @param {*} obj - Object to process
+ * @returns {*} Processed object
+ */
+const sanitizeEmptyObjects = (obj) => {
+  if (obj === null || obj === undefined) {
+    return null;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.length === 0 ? null : obj.map(sanitizeEmptyObjects);
+  }
+
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj);
+    if (keys.length === 0) return null;
+
+    const sanitized = {};
+    for (const key of keys) {
+      sanitized[key] = sanitizeEmptyObjects(obj[key]);
+    }
+    return sanitized;
+  }
+
+  return obj;
+};
+
+/**
  * Normalize and validate an HTTP status code. Returns a valid status code
  * (number between 100 and 599). If invalid, returns fallback (500).
  * @param {any} code
@@ -120,6 +148,8 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
  */
 const registerHttpRequest = async (res, httpCode, responseBody, error = null) => {
   try {
+    if (!res.req.user) return;
+
     const sequelize = await getSequelize();
 
     // Extract headers, excluding sensitive ones
@@ -151,7 +181,7 @@ const registerHttpRequest = async (res, httpCode, responseBody, error = null) =>
     });
 
     // Prepare data for insertion
-    const createData = {
+    const createData = sanitizeEmptyObjects({
       accessId: access.id,
       pageId: page.id,
       endpointId: endpoint.id,
@@ -166,7 +196,7 @@ const registerHttpRequest = async (res, httpCode, responseBody, error = null) =>
       statusCode: error?.statusCode || null,
       errorMessage: error?.message || null,
       errorStack: error?.stack || null,
-    };
+    });
 
     // Insert into database
     await sequelize.models.logsHttpRequests.create(createData);
