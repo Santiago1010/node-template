@@ -15,7 +15,7 @@ class ScopeServices {
   constructor(sequelize = null) {
     this.sequelize = sequelize;
     this.models = sequelize ? sequelize.models : null;
-    this.logService = null;
+    this.logService = new LogServices(this.sequelize);
 
     return this;
   }
@@ -32,39 +32,47 @@ class ScopeServices {
   }
 
   // ================================= CRUD ================================= //
-  async createScope(user, name, description) {
-    const createData = { name, description };
+  async createScope(name, { description, isSelectable, actor, t } = {}) {
+    const createData = { name, description, isSelectable };
 
     return await this.sequelize.transaction(async (transaction) => {
       const scope = await this.models.configScopes.create(createData, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[ScopeServices.createScope] ', createData),
       });
 
-      await this.logService.recordCreationLog(user, this.models.configScopes, scope, { transaction });
+      if (actor) {
+        await this.logService.recordCreationLog(actor, this.models.configScopes, scope, {
+          transaction: t || transaction,
+        });
+      }
 
       return scope;
     });
   }
 
-  async updateScopesStatus(user, ids, active) {
+  async updateScopesStatus(ids, active, { actor, t } = {}) {
     return await this.sequelize.transaction(async (transaction) => {
       const result = await bulkToggleSoftDelete(this.models.configScopes, { id: { [Op.in]: ids } }, active, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[ScopeServices.updateScopesStatus]'),
       });
 
-      const logsPromises = ids.map(async (id) => {
-        return await this.logService.recordStatusChangeLog(user, this.models.configScopes, id, active, { transaction });
-      });
+      if (actor) {
+        const logsPromises = ids.map(async (id) => {
+          return await this.logService.recordStatusChangeLog(actor, this.models.configScopes, id, active, {
+            transaction: t || transaction,
+          });
+        });
 
-      await Promise.all(logsPromises);
+        await Promise.all(logsPromises);
+      }
 
       return result;
     });
   }
 
-  async getListScopes({ limit, page, search, ids = [], fields = [], active } = {}) {
+  async getListScopes({ limit, page, search, ids = [], fields = [], active, isSelectable } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -81,14 +89,16 @@ class ScopeServices {
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
+    if (isSelectable !== undefined) optionsQuery.where.isSelectable = isSelectable;
+
     if (search) optionsQuery.where = setSearchQuery(this.models.configScopes, search, optionsQuery);
 
     return await paginateModel(this.models.configScopes, limit, page, optionsQuery);
   }
 
-  async getScopeDetails(identifier, { fields = [], includeHistory = false } = {}) {
+  async getScopeDetails({ id, search, fields = [], active, isSelectable, includeHistory = false } = {}) {
     const optionsQuery = {
-      where: { [Op.or]: [{ id: identifier }] },
+      where: {},
       include: [
         // Add your model includes here
       ],
@@ -97,17 +107,25 @@ class ScopeServices {
       logging: wrapLogging('[ScopeServices.getScopeDetails] '),
     };
 
+    if (id) optionsQuery.where.id = id;
+
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
+
+    if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
+
+    if (isSelectable !== undefined) optionsQuery.where.isSelectable = isSelectable;
+
+    if (search) optionsQuery.where = setSearchQuery(this.models.configScopes, search, optionsQuery);
 
     const scope = await this.models.configScopes.findOne(optionsQuery);
 
-    if (includeHistory) scope.dataValues.history = await this.logService.getFullLogsHistory(scope);
+    if (includeHistory && scope) scope.dataValues.history = await this.logService.getFullLogsHistory(scope);
 
     return scope;
   }
 
-  async updateScope(user, id, { name, description } = {}) {
-    const updateData = { name, description };
+  async updateScope(id, { name, description, isSelectable, active, actor, t } = {}) {
+    const updateData = { name, description, isSelectable };
 
     const scope = await this.models.configScopes.findByPk(id, {
       paranoid: false,
@@ -118,17 +136,23 @@ class ScopeServices {
 
     return await this.sequelize.transaction(async (transaction) => {
       const updatedData = await scope.update(updateData, {
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[ScopeServices.updateScope] ', updateData),
       });
 
-      await this.logService.recordUpdateLog(user, this.models.configScopes, oldData, updatedData, { transaction });
+      if (active !== undefined) await this.updateScopesStatus([id], active, { actor, t: t || transaction });
+
+      if (actor && Object.values(updateData).some((value) => value !== undefined)) {
+        await this.logService.recordUpdateLog(actor, this.models.configScopes, oldData, updatedData, {
+          transaction: t || transaction,
+        });
+      }
 
       return updatedData;
     });
   }
 
-  async deleteScope(user, id, { justification } = {}) {
+  async deleteScope(id, { justification, actor, t } = {}) {
     const scope = await this.models.configScopes.findByPk(id, {
       paranoid: false,
       logging: wrapLogging('[ScopeServices.deleteScope]'),
@@ -137,14 +161,16 @@ class ScopeServices {
     return await this.sequelize.transaction(async (transaction) => {
       const deletedData = await scope.destroy({
         force: true,
-        transaction,
+        transaction: t || transaction,
         logging: wrapLogging('[ScopeServices.deleteScope]'),
       });
 
-      await this.logService.recordDeletionLog(user, this.models.configScopes, deletedData, {
-        justification,
-        transaction,
-      });
+      if (actor) {
+        await this.logService.recordDeletionLog(actor, this.models.configScopes, deletedData, {
+          justification,
+          transaction: t || transaction,
+        });
+      }
 
       return deletedData;
     });

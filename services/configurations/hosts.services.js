@@ -72,7 +72,7 @@ class HostServices {
     });
   }
 
-  async getListHosts({ limit, page, search, ids = [], fields = [], active } = {}) {
+  async getListHosts({ limit, page, search, ids = [], fields = [], active, isDefault } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -89,12 +89,14 @@ class HostServices {
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
 
+    if (isDefault !== undefined) optionsQuery.where.isDefault = isDefault;
+
     if (search) optionsQuery.where = setSearchQuery(this.models.configHosts, search, optionsQuery);
 
     return await paginateModel(this.models.configHosts, limit, page, optionsQuery);
   }
 
-  async getHostDetails({ id, search, fields = [], active, includeHistory = false } = {}) {
+  async getHostDetails({ id, search, fields = [], active, isDefault, includeHistory = false } = {}) {
     const optionsQuery = {
       where: {},
       include: [
@@ -110,6 +112,8 @@ class HostServices {
     if (fields && fields.length > 0) optionsQuery.attributes = fields;
 
     if (active !== undefined) optionsQuery.where.deletedAt = active ? null : { [Op.not]: null };
+
+    if (isDefault !== undefined) optionsQuery.where.isDefault = isDefault;
 
     if (search) optionsQuery.where = setSearchQuery(this.models.configHosts, search, optionsQuery);
 

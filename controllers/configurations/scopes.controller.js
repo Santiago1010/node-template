@@ -1,9 +1,7 @@
-'use strict';
-
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const ScopesServices = require('../../services/scope.services');
+const ScopesServices = require('../../services/configurations/scopes.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================
@@ -20,12 +18,11 @@ class ScopeController {
   static async createScope(req, res, next) {
     try {
       const { name, description, isSelectable } = req.body;
-      const { actor } = req;
 
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const newscope = await scopeService.createScope({ name, description, isSelectable }, { actor });
+      const newscope = await scopesService.createScope(name, { description, isSelectable, actor: req.user });
 
       return await success(res, { httpCode: 201, messagePath: 'scope.created', data: newscope });
     } catch (error) {
@@ -42,12 +39,11 @@ class ScopeController {
   static async updateScopesStatus(req, res, next) {
     try {
       const { ids, active } = req.body;
-      const { actor } = req;
 
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const result = await scopeService.updateScopesStatus(ids, active, { actor });
+      const result = await scopesService.updateScopesStatus(ids, active, { actor: req.user });
 
       return await success(res, { httpCode: 200, messagePath: 'scopes.updatedStatuses', data: result });
     } catch (error) {
@@ -63,10 +59,10 @@ class ScopeController {
    */
   static async getListScopes(req, res, next) {
     try {
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const result = await scopeService.getListScopes(req.query);
+      const result = await scopesService.getListScopes(req.query);
 
       return await success(res, { httpCode: 200, messagePath: 'scopes.list', data: result });
     } catch (error) {
@@ -84,10 +80,10 @@ class ScopeController {
     try {
       const { id } = req.params;
 
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const scope = await scopeService.getScopeDetails({ id, ...req.query });
+      const scope = await scopesService.getScopeDetails({ id, ...req.query });
 
       return await success(res, { httpCode: 200, messagePath: 'scope.details', data: scope });
     } catch (error) {
@@ -105,12 +101,17 @@ class ScopeController {
     try {
       const { id } = req.params;
       const { name, description, isSelectable, active } = req.body;
-      const { actor } = req;
 
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const updatedscope = await scopeService.updateScope(id, { name, description, isSelectable, active, actor });
+      const updatedscope = await scopesService.updateScope(id, {
+        name,
+        description,
+        isSelectable,
+        active,
+        actor: req.user,
+      });
 
       return await success(res, { httpCode: 200, messagePath: 'scope.updated', data: updatedscope });
     } catch (error) {
@@ -128,12 +129,11 @@ class ScopeController {
     try {
       const { id } = req.params;
       const { justification } = req.body;
-      const { actor } = req;
 
-      const scopeService = new ScopesServices();
-      await scopeService.initialize();
+      const scopesService = new ScopesServices();
+      await scopesService.initialize();
 
-      const result = await scopeService.deleteScope(id, { justification, actor });
+      const result = await scopesService.deleteScope(id, { justification, actor: req.user });
 
       return await success(res, { httpCode: 200, messagePath: 'scope.deleted', data: result });
     } catch (error) {

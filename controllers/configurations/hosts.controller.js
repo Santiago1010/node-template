@@ -1,9 +1,7 @@
-'use strict';
-
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const HostsServices = require('../../services/host.services');
+const HostsServices = require('../../services/configurations/hosts.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================
@@ -20,12 +18,11 @@ class HostController {
   static async createHost(req, res, next) {
     try {
       const { url, isDefault } = req.body;
-      const { actor } = req;
 
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const newhost = await hostService.createHost({ url, isDefault }, { actor });
+      const newhost = await hostsService.createHost(url, isDefault, { actor: req.user });
 
       return await success(res, { httpCode: 201, messagePath: 'host.created', data: newhost });
     } catch (error) {
@@ -42,12 +39,11 @@ class HostController {
   static async updateHostsStatus(req, res, next) {
     try {
       const { ids, active } = req.body;
-      const { actor } = req;
 
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const result = await hostService.updateHostsStatus(ids, active, { actor });
+      const result = await hostsService.updateHostsStatus(ids, active, { actor: req.user });
 
       return await success(res, { httpCode: 200, messagePath: 'hosts.updatedStatuses', data: result });
     } catch (error) {
@@ -63,10 +59,10 @@ class HostController {
    */
   static async getListHosts(req, res, next) {
     try {
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const result = await hostService.getListHosts(req.query);
+      const result = await hostsService.getListHosts(req.query);
 
       return await success(res, { httpCode: 200, messagePath: 'hosts.list', data: result });
     } catch (error) {
@@ -84,10 +80,10 @@ class HostController {
     try {
       const { id } = req.params;
 
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const host = await hostService.getHostDetails({ id, ...req.query });
+      const host = await hostsService.getHostDetails({ id, ...req.query });
 
       return await success(res, { httpCode: 200, messagePath: 'host.details', data: host });
     } catch (error) {
@@ -105,12 +101,11 @@ class HostController {
     try {
       const { id } = req.params;
       const { url, isDefault, active } = req.body;
-      const { actor } = req;
 
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const updatedhost = await hostService.updateHost(id, { url, isDefault, active, actor });
+      const updatedhost = await hostsService.updateHost(id, { url, isDefault, active, actor: req.user });
 
       return await success(res, { httpCode: 200, messagePath: 'host.updated', data: updatedhost });
     } catch (error) {
@@ -128,12 +123,11 @@ class HostController {
     try {
       const { id } = req.params;
       const { justification } = req.body;
-      const { actor } = req;
 
-      const hostService = new HostsServices();
-      await hostService.initialize();
+      const hostsService = new HostsServices();
+      await hostsService.initialize();
 
-      const result = await hostService.deleteHost(id, { justification, actor });
+      const result = await hostsService.deleteHost(id, { justification, actor: req.user });
 
       return await success(res, { httpCode: 200, messagePath: 'host.deleted', data: result });
     } catch (error) {
