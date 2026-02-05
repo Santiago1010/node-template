@@ -1,23 +1,4 @@
 // =============================================================================
-// REQUEST LOGGING MIDDLEWARE - Comprehensive HTTP Request Logging and Monitoring
-// =============================================================================
-// Advanced logging middleware for Express applications providing:
-// - Detailed request/response logging with sanitization of sensitive data
-// - Error logging with contextual information
-// - Performance monitoring with memory and timing metrics
-// - Configurable logging levels and thresholds
-// - Request tracking with unique IDs for traceability
-//
-// Key Features:
-// - Sensitive data redaction for security compliance
-// - Timezone-aware timestamp generation
-// - Performance threshold monitoring for slow requests
-// - Customizable logging levels for different environments
-// - Factory patterns for pre-configured logger instances
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const moment = require('moment-timezone'); // Timezone-aware date manipulation

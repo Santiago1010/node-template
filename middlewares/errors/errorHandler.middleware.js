@@ -1,25 +1,4 @@
 // =============================================================================
-// ERROR HANDLER MIDDLEWARE - Centralized Express Error Handling
-// =============================================================================
-// Centralized error handling middleware for Express applications.
-// Handles various error types including:
-// - Boom HTTP errors
-// - Sequelize database errors
-// - Zod validation errors
-// - JWT authentication errors
-// - General validation errors
-// - Syntax errors
-// - Generic unexpected errors
-//
-// Features:
-// - Comprehensive error logging with Winston
-// - Internationalization support
-// - Development/production mode differentiation
-// - Structured error response formatting
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities
@@ -31,6 +10,7 @@ const dayjs = require('dayjs'); // Date/time manipulation
 const i18n = require('../../config/i18n'); // Internationalizationn
 const { logger } = require('../../config/tools/logger.config'); // Winston logger
 const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environment detectio
+const { registerHttpRequest } = require('../../helpers/response.helper'); // HTTP request logging
 
 /**
  * Central error handling middleware for Express applications
@@ -39,7 +19,7 @@ const { isDevelopmentMode } = require('../../helpers/debug.helper'); // Environm
  * @param {Response} res - Express response object
  * @param {NextFunction} next - Express next function
  */
-const errorHandler = (error, req, res, next) => {
+const errorHandler = async (error, req, res, next) => {
   // Log error details with Winston
   logger.error('Error caught by errorHandler middleware:', {
     message: error.message,
@@ -76,6 +56,13 @@ const errorHandler = (error, req, res, next) => {
   }
 
   const { statusCode, payload } = boomError.output;
+
+  // Register HTTP request with error details
+  try {
+    await registerHttpRequest(res, statusCode, payload, error);
+  } catch (logError) {
+    console.error('Failed to log error request:', logError);
+  }
 
   // Send formatted error response
   res.status(statusCode).json(payload);

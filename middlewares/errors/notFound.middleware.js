@@ -1,20 +1,4 @@
 // =============================================================================
-// NOT FOUND HANDLER MIDDLEWARE - Express Smart 404 Handler with Enhanced Logging
-// =============================================================================
-// Comprehensive 404 error handling middleware for Express applications.
-// Provides multiple approaches to handle missing routes with intelligent suggestions,
-// detailed logging, and optional redirect capabilities.
-//
-// Key Features:
-// - Detailed logging of 404 requests with Winston
-// - Intelligent route suggestions for common typos and similar paths
-// - API vs non-API request differentiation
-// - Configurable redirect options for common URL changes
-// - Levenshtein distance algorithm for similarity matching
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities

@@ -111,48 +111,69 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   return boomError;
 };
 
-const registerHttpRequest = async (res, httpCode, responseBody) => {
-  const sequelize = await getSequelize();
+/**
+ * Registers HTTP request details to database
+ * @param {Response} res - Express response object
+ * @param {number} httpCode - HTTP status code
+ * @param {Object} responseBody - Response body data
+ * @param {Error} [error] - Optional error object for failed requests
+ */
+const registerHttpRequest = async (res, httpCode, responseBody, error = null) => {
+  try {
+    const sequelize = await getSequelize();
 
-  const {
-    host: _,
-    cookie: __,
-    accept: ___,
-    'x-path': ____,
-    request_id: requestId,
-    operation_id: operationId,
-    ...headers
-  } = res.req.headers;
-  const { page, endpoint } = ContextHelper.get();
+    // Extract headers, excluding sensitive ones
+    const {
+      host: _,
+      cookie: __,
+      accept: ___,
+      'x-path': ____,
+      request_id: requestId,
+      operation_id: operationId,
+      ...headers
+    } = res.req.headers;
 
-  const access = await sequelize.models.usrAccesses.findOne({
-    attributes: ['id'],
-    where: { accountId: res.req.user.id },
-    include: {
-      model: sequelize.models.usrDevices,
-      as: 'device',
-      attributes: [],
-      where: { accountId: res.req.user.id, fingerprint: res.req.user.device.fingerprint },
-      required: true,
-    },
-    raw: true,
-  });
+    // Get context information
+    const { page, endpoint } = ContextHelper.get();
 
-  const createData = {
-    accessId: access.id,
-    pageId: page.id,
-    endpointId: endpoint.id,
-    requestId,
-    operationId,
-    path: res.req.baseUrl,
-    query: JSON.stringify(res.req.query),
-    headers: JSON.stringify(headers),
-    body: JSON.stringify(res.req.body),
-    httpCode,
-    responseBody: JSON.stringify(responseBody),
-  };
+    // Find access record
+    const access = await sequelize.models.usrAccesses.findOne({
+      attributes: ['id'],
+      where: { accountId: res.req.user.id },
+      include: {
+        model: sequelize.models.usrDevices,
+        as: 'device',
+        attributes: [],
+        where: { accountId: res.req.user.id, fingerprint: res.req.user.device.fingerprint },
+        required: true,
+      },
+      raw: true,
+    });
 
-  console.log(createData);
+    // Prepare data for insertion
+    const createData = {
+      accessId: access.id,
+      pageId: page.id,
+      endpointId: endpoint.id,
+      idRequest: requestId,
+      idOperation: operationId || null,
+      path: res.req.baseUrl || res.req.path,
+      query: res.req.query,
+      headers: headers,
+      body: res.req.body,
+      httpCode,
+      responseBody: responseBody,
+      statusCode: error?.statusCode || null,
+      errorMessage: error?.message || null,
+      errorStack: error?.stack || null,
+    };
+
+    // Insert into database
+    await sequelize.models.logsHttpRequests.create(createData);
+  } catch (err) {
+    // Log error but don't throw to avoid breaking the request flow
+    console.error('Error registering HTTP request:', err);
+  }
 };
 
 // =============================================================================

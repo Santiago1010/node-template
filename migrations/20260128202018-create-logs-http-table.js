@@ -27,19 +27,20 @@ module.exports = {
           allowNull: false,
           comment: 'Endpoint ID of the endpoint where the request was made.',
         },
-        id_operation: {
-          type: Sequelize.STRING(36),
-          allowNull: false,
-          charset: 'utf8mb4',
-          collate: 'utf8mb4_general_ci',
-          comment: 'Unique ID of the operation.',
-        },
         id_request: {
           type: Sequelize.STRING(36),
           allowNull: false,
           charset: 'utf8mb4',
           collate: 'utf8mb4_general_ci',
           comment: 'Unique ID of the request.',
+        },
+        id_operation: {
+          type: Sequelize.STRING(36),
+          allowNull: true,
+          defaultValue: null,
+          charset: 'utf8mb4',
+          collate: 'utf8mb4_general_ci',
+          comment: 'Unique ID of the operation.',
         },
         path: {
           type: Sequelize.STRING(150),

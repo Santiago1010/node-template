@@ -1,21 +1,4 @@
 // =============================================================================
-// ASYNC ERROR HANDLER MIDDLEWARE - Express Async Error Handling and Process Management
-// =============================================================================
-// Comprehensive solution for handling asynchronous errors in Express applications.
-// Provides multiple approaches to catch and handle async errors at different levels:
-// - Individual async function wrapping
-// - Global process error handlers for unhandled rejections and exceptions
-// - Class-based utilities for wrapping multiple middlewares and controllers
-//
-// Key Features:
-// - Prevents unhandled promise rejections from crashing the application
-// - Provides graceful shutdown in production environments
-// - Supports wrapping individual functions, multiple middlewares, or entire controllers
-// - Maintains proper error propagation through Express middleware chain
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const { isDevelopmentMode } = require('../../helpers/debug.helper');
