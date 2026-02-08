@@ -106,12 +106,12 @@ describe('success', () => {
     });
   });
 
-  test('should return the response object for chaining', () => {
+  test('should return the response object for chaining', async () => {
     const messagePath = 'response.message';
     const messageData = { name: 'John' };
     const data = { id: 1 };
 
-    const result = success(res, { httpCode: 200, messagePath, messageData, data });
+    const result = await success(res, { httpCode: 200, messagePath, messageData, data });
 
     expect(result).toBe(res);
   });
