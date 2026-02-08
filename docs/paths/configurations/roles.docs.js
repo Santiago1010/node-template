@@ -16,9 +16,9 @@ const {
 } = require('../../../schemas/params/common.params');
 
 // =============================== BASE PATH =============================== //
-const createHost = standardRequest('post', {
+const createRole = standardRequest('post', {
   tags: ['Configurations'],
-  operationId: 'createHost',
+  operationId: 'createRole',
   description: '',
   requestBody: {
     required: true,
@@ -26,17 +26,24 @@ const createHost = standardRequest('post', {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['url', 'isDefault'],
+          required: ['name'],
           properties: {
-            url: {
+            name: {
               type: 'string',
-              description: 'URN of the allowed hosts.',
-              maxLength: 150,
-              example: faker.internet.url(),
+              description: 'Role name.',
+              maxLength: 100,
+              example: faker.lorem.slug(),
+            },
+            target: {
+              type: 'string',
+              description:
+                'Defines who the profiles are available for (linked to the tables that store user information).',
+              enum: ['employee', 'customer'],
+              example: faker.helpers.arrayElement(['employee', 'customer']),
             },
             isDefault: {
               type: 'boolean',
-              description: 'Indicates whether this is the default host or not. There can only be one.',
+              description: 'Indicates whether the role is the default. There can only be one per target.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -49,9 +56,9 @@ const createHost = standardRequest('post', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateHostsStatus = standardRequest('patch', {
+const updateRolesStatus = standardRequest('patch', {
   tags: ['Configurations'],
-  operationId: 'updateHostsStatus',
+  operationId: 'updateRolesStatus',
   description: '',
   requestBody: {
     required: true,
@@ -77,13 +84,20 @@ const updateHostsStatus = standardRequest('patch', {
   security: [{ bearerAuth: [] }],
 });
 
-const getListHosts = standardRequest('get', {
+const getListRoles = standardRequest('get', {
   tags: ['Configurations'],
-  operationId: 'getListHosts',
+  operationId: 'getListRoles',
   description: '',
   parameters: [
     ...commonListParams,
     ...activeParams,
+    {
+      name: 'target',
+      in: 'query',
+      description: '',
+      required: false,
+      schema: { type: 'string', enum: ['employee', 'customer'] },
+    },
     {
       name: 'isDefault',
       in: 'query',
@@ -97,12 +111,19 @@ const getListHosts = standardRequest('get', {
 });
 
 // ============================== PATH WITH ID ============================== //
-const getHostDetails = standardRequest('get', {
+const getRoleDetails = standardRequest('get', {
   tags: ['Configurations'],
-  operationId: 'getHostDetails',
+  operationId: 'getRoleDetails',
   description: '',
   parameters: [
     ...detailsParams,
+    {
+      name: 'target',
+      in: 'query',
+      description: '',
+      required: false,
+      schema: { type: 'string', enum: ['employee', 'customer'] },
+    },
     {
       name: 'isDefault',
       in: 'query',
@@ -115,9 +136,9 @@ const getHostDetails = standardRequest('get', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateHost = standardRequest('put', {
+const updateRole = standardRequest('put', {
   tags: ['Configurations'],
-  operationId: 'updateHost',
+  operationId: 'updateRole',
   description: '',
   parameters: [...identifierParam],
   requestBody: {
@@ -126,15 +147,22 @@ const updateHost = standardRequest('put', {
         schema: {
           type: 'object',
           properties: {
-            url: {
+            name: {
               type: 'string',
-              description: 'URN of the allowed hosts.',
-              maxLength: 150,
-              example: faker.internet.url(),
+              description: 'Role name.',
+              maxLength: 100,
+              example: faker.lorem.slug(),
+            },
+            target: {
+              type: 'string',
+              description:
+                'Defines who the profiles are available for (linked to the tables that store user information).',
+              enum: ['employee', 'customer'],
+              example: faker.helpers.arrayElement(['employee', 'customer']),
             },
             isDefault: {
               type: 'boolean',
-              description: 'Indicates whether this is the default host or not. There can only be one.',
+              description: 'Indicates whether the role is the default. There can only be one per target.',
               enum: [true, false],
               example: faker.datatype.boolean(),
             },
@@ -148,9 +176,9 @@ const updateHost = standardRequest('put', {
   security: [{ bearerAuth: [] }],
 });
 
-const deleteHost = standardRequest('delete', {
+const deleteRole = standardRequest('delete', {
   tags: ['Configurations'],
-  operationId: 'deleteHost',
+  operationId: 'deleteRole',
   description: '',
   parameters: [...identifierParam],
   requestBody: {
@@ -174,8 +202,8 @@ const deleteHost = standardRequest('delete', {
 });
 
 // ================================ EXPORTS ================================ //
-const basePath = { ...createHost, ...updateHostsStatus, ...getListHosts };
-const pathWithId = { ...getHostDetails, ...updateHost, ...deleteHost };
+const basePath = { ...createRole, ...updateRolesStatus, ...getListRoles };
+const pathWithId = { ...getRoleDetails, ...updateRole, ...deleteRole };
 
 // =============================================================================
 // MODULE EXPORTS

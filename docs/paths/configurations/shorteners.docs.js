@@ -1,6 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const dayjs = require('dayjs');
 const { faker } = require('@faker-js/faker');
 
 // =============================================================================
@@ -16,9 +17,9 @@ const {
 } = require('../../../schemas/params/common.params');
 
 // =============================== BASE PATH =============================== //
-const createCurrency = standardRequest('post', {
-  tags: ['Data'],
-  operationId: 'createCurrency',
+const createShortener = standardRequest('post', {
+  tags: ['Configurations'],
+  operationId: 'createShortener',
   description: '',
   requestBody: {
     required: true,
@@ -26,24 +27,25 @@ const createCurrency = standardRequest('post', {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['name', 'abbreviation', 'symbol'],
+          required: ['url', 'codeShortener'],
           properties: {
-            name: {
-              type: 'object',
-              description: 'Official name of the currency in several languages.',
-              example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
-            },
-            abbreviation: {
+            url: {
               type: 'string',
-              description: 'Abbreviation for currency.',
-              maxLength: 15,
-              example: faker.string.alphanumeric(15),
+              description: 'Full URL.',
+              maxLength: 255,
+              example: faker.string.alphanumeric(255),
             },
-            symbol: {
+            codeShortener: {
               type: 'string',
-              description: 'Symbol that differentiates the currency.',
-              maxLength: 10,
-              example: faker.string.alphanumeric(10),
+              description: 'Unique identification code for link.',
+              maxLength: 8,
+              example: faker.string.alphanumeric(8),
+            },
+            expiresAt: {
+              type: 'string',
+              description: 'Date and time limit for use of the shortener.',
+              format: 'date-time',
+              example: dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss'),
             },
           },
         },
@@ -54,9 +56,9 @@ const createCurrency = standardRequest('post', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateCurrenciesStatus = standardRequest('patch', {
-  tags: ['Data'],
-  operationId: 'updateCurrenciesStatus',
+const updateShortenersStatus = standardRequest('patch', {
+  tags: ['Configurations'],
+  operationId: 'updateShortenersStatus',
   description: '',
   requestBody: {
     required: true,
@@ -64,7 +66,7 @@ const updateCurrenciesStatus = standardRequest('patch', {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['name', 'abbreviation', 'symbol'],
+          required: ['ids', 'active'],
           properties: {
             ids: {
               type: 'array',
@@ -82,9 +84,9 @@ const updateCurrenciesStatus = standardRequest('patch', {
   security: [{ bearerAuth: [] }],
 });
 
-const getListCurrencies = standardRequest('get', {
-  tags: ['Data'],
-  operationId: 'getListCurrencies',
+const getListShorteners = standardRequest('get', {
+  tags: ['Configurations'],
+  operationId: 'getListShorteners',
   description: '',
   parameters: [...commonListParams, ...activeParams],
   responses: {},
@@ -92,18 +94,18 @@ const getListCurrencies = standardRequest('get', {
 });
 
 // ============================== PATH WITH ID ============================== //
-const getCurrencyDetails = standardRequest('get', {
-  tags: ['Data'],
-  operationId: 'getCurrencyDetails',
+const getShortenerDetails = standardRequest('get', {
+  tags: ['Configurations'],
+  operationId: 'getShortenerDetails',
   description: '',
   parameters: [...detailsParams],
   responses: {},
   security: [{ bearerAuth: [] }],
 });
 
-const updateCurrency = standardRequest('put', {
-  tags: ['Data'],
-  operationId: 'updateCurrency',
+const updateShortener = standardRequest('put', {
+  tags: ['Configurations'],
+  operationId: 'updateShortener',
   description: '',
   parameters: [...identifierParam],
   requestBody: {
@@ -112,22 +114,23 @@ const updateCurrency = standardRequest('put', {
         schema: {
           type: 'object',
           properties: {
-            name: {
-              type: 'object',
-              description: 'Official name of the currency in several languages.',
-              example: faker.helpers.objectValue({ key1: 'value1', key2: 'value2' }),
-            },
-            abbreviation: {
+            url: {
               type: 'string',
-              description: 'Abbreviation for currency.',
-              maxLength: 15,
-              example: faker.string.alphanumeric(15),
+              description: 'Full URL.',
+              maxLength: 255,
+              example: faker.string.alphanumeric(255),
             },
-            symbol: {
+            codeShortener: {
               type: 'string',
-              description: 'Symbol that differentiates the currency.',
-              maxLength: 10,
-              example: faker.string.alphanumeric(10),
+              description: 'Unique identification code for link.',
+              maxLength: 8,
+              example: faker.string.alphanumeric(8),
+            },
+            expiresAt: {
+              type: 'string',
+              description: 'Date and time limit for use of the shortener.',
+              format: 'date-time',
+              example: dayjs(faker.date.future()).format('YYYY-MM-DD HH:mm:ss'),
             },
             ...activeBody,
           },
@@ -139,18 +142,34 @@ const updateCurrency = standardRequest('put', {
   security: [{ bearerAuth: [] }],
 });
 
-const deleteCurrency = standardRequest('delete', {
-  tags: ['Data'],
-  operationId: 'deleteCurrency',
+const deleteShortener = standardRequest('delete', {
+  tags: ['Configurations'],
+  operationId: 'deleteShortener',
   description: '',
   parameters: [...identifierParam],
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            justification: {
+              type: 'string',
+              description: 'The reason why the record is deleted.',
+              example: faker.lorem.sentence(),
+            },
+          },
+        },
+      },
+    },
+  },
   responses: {},
   security: [{ bearerAuth: [] }],
 });
 
 // ================================ EXPORTS ================================ //
-const basePath = { ...createCurrency, ...updateCurrenciesStatus, ...getListCurrencies };
-const pathWithId = { ...getCurrencyDetails, ...updateCurrency, ...deleteCurrency };
+const basePath = { ...createShortener, ...updateShortenersStatus, ...getListShorteners };
+const pathWithId = { ...getShortenerDetails, ...updateShortener, ...deleteShortener };
 
 // =============================================================================
 // MODULE EXPORTS

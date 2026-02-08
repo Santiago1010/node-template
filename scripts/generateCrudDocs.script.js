@@ -617,7 +617,7 @@ class CrudDocsGenerator {
   }
 
   addSetReferenceImport(documentation) {
-    if (!documentation.includes("const { setReference } = require('../schemas/params/dynamic.params');")) {
+    if (!documentation.includes("const { setReference } = require('../../../schemas/params/dynamic.params');")) {
       const requireRegex = /const .+ = require\(.+\);/g;
       const matches = [...documentation.matchAll(requireRegex)];
 
@@ -627,7 +627,7 @@ class CrudDocsGenerator {
 
         documentation =
           documentation.slice(0, insertPosition) +
-          "\nconst { setReference } = require('../schemas/params/dynamic.params');" +
+          "\nconst { setReference } = require('../../../schemas/params/dynamic.params');" +
           documentation.slice(insertPosition);
       } else {
         const lines = documentation.split('\n');
@@ -640,7 +640,7 @@ class CrudDocsGenerator {
           insertIndex++;
         }
 
-        lines.splice(insertIndex, 0, "const { setReference } = require('../schemas/params/dynamic.params');");
+        lines.splice(insertIndex, 0, "const { setReference } = require('../../../schemas/params/dynamic.params');");
         documentation = lines.join('\n');
       }
     }

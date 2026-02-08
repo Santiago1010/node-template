@@ -173,7 +173,7 @@ class CrudValidationsGenerator {
       const imports = this.generateImports(tableData);
       const schemas = this.generateSchemas(tableData, mainModelName);
 
-      validationsContent = validationsContent.replace(/\{\{MAIN_MODEL\}\}/g, mainModelName);
+      validationsContent = validationsContent.replace(/\{\{MAIN_MODEL\}\}/g, "'" + mainModelName + "'");
       validationsContent = validationsContent.replace(/\{\{MORE_MODELS\}\}/g, imports.moreModels);
 
       validationsContent = validationsContent.replace(/\{\{CREATE_METHOD\}\}/g, methodNames.create);
@@ -257,8 +257,8 @@ class CrudValidationsGenerator {
     if (this.foreignKeyReferences.has(columnName)) {
       const foreignKeyInfo = this.foreignKeyReferences.get(columnName);
       return {
-        create: `databaseSchemas.idSchema('${camelFieldName}', 'body', { model: ${foreignKeyInfo.modelName}, required: ${isRequired} })`,
-        list: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: ${foreignKeyInfo.modelName}, required: false })`,
+        create: `databaseSchemas.idSchema('${camelFieldName}', 'body', { model: \'${foreignKeyInfo.modelName}\', required: ${isRequired} })`,
+        list: `databaseSchemas.idSchema('${camelFieldName}', 'query', { model: \'${foreignKeyInfo.modelName}\', required: false })`,
       };
     }
 
@@ -414,7 +414,7 @@ class CrudValidationsGenerator {
   }
 
   generateUpdateStatusFields(mainModelName) {
-    return `ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: ${mainModelName}, required: true }),
+    return `ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: \'${mainModelName}\', required: true }),
   active: commonSchemas.booleanSchema('active', 'body', { required: true })`;
   }
 
@@ -469,7 +469,7 @@ class CrudValidationsGenerator {
 
   insertUpdateSchema(content, mainModelName, updateFields, methodName) {
     const searchPattern = new RegExp(`const ${methodName}Schema = \\{[\\s\\S]*?\\};`, 'm');
-    const replacement = `const ${methodName}Schema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: ${mainModelName}, required: true, paranoid: false }),\n${updateFields},\n  // Add any additional body parameters here\n};`;
+    const replacement = `const ${methodName}Schema = {\n  id: databaseSchemas.idSchema('id', 'params', { model: \'${mainModelName}\', required: true, paranoid: false }),\n${updateFields},\n  // Add any additional body parameters here\n};`;
     return content.replace(searchPattern, replacement);
   }
 

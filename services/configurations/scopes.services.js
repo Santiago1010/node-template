@@ -1,6 +1,7 @@
 // =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
+const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 
 // =============================================================================
@@ -186,7 +187,7 @@ class ScopeServices {
         include: {
           model: this.models.usrAccounts,
           as: 'accounts',
-          through: { attributes: [] },
+          through: { attributes: [], where: { expiresAt: { [Op.gte]: dayjs().toDate() } } },
           attributes: [],
           where: { id: accountId },
           required: true,

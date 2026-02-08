@@ -32,7 +32,7 @@ const createScope = standardRequest('post', {
               type: 'string',
               description: 'Unique scope name (in snake_case and separated by a colon).',
               maxLength: 100,
-              example: faker.string.alphanumeric(100),
+              example: 'fake:scope:example',
             },
             description: {
               type: 'string',
@@ -136,7 +136,7 @@ const updateScope = standardRequest('put', {
               type: 'string',
               description: 'Unique scope name (in snake_case and separated by a colon).',
               maxLength: 100,
-              example: faker.string.alphanumeric(100),
+              example: 'fake:scope:example',
             },
             description: {
               type: 'string',
