@@ -3,6 +3,7 @@ const hosts = require('./hosts.docs');
 const pages = require('./pages.docs');
 const roles = require('./roles.docs');
 const scopes = require('./scopes.docs');
+const shorteners = require('./shorteners.docs');
 
 module.exports = {
   '/config/endpoints': { ...endpoints.basePath },
@@ -15,4 +16,6 @@ module.exports = {
   '/config/roles/{id}': { ...roles.pathWithId },
   '/config/scopes': { ...scopes.basePath },
   '/config/scopes/{id}': { ...scopes.pathWithId },
+  '/config/shorteners': { ...shorteners.basePath },
+  '/config/shorteners/{id}': { ...shorteners.pathWithId },
 };
