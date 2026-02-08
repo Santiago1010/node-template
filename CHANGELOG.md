@@ -1,5 +1,73 @@
 
 
+## [1.25.0] - 2026-02-08
+
+**Released:** 2026-02-08 15:21:06 UTC
+
+### [Refactor project structure and add new CRUD endpoints](https://github.com/Santiago1010/node-template/pull/97)
+
+#### 📋 Summary
+This PR restructures the project by flattening the directory hierarchy and adds new CRUD endpoints for configurations, data, geographic, and user management modules. The changes include comprehensive internationalization updates and restructured routing.
+
+#### 🔍 What Changed
+### Added
+- New CRUD controllers for configurations (endpoints, hosts, pages, roles, scopes, shorteners)
+- New CRUD controllers for data (currencies, flags, languages, timezones)
+- New CRUD controllers for geographic (cities, continents, countries, dialcodes, politicaldivisions, regions)
+- New CRUD controllers for users (accesses, accounts, devices, preferences, users)
+- Comprehensive OpenAPI documentation for all new endpoints
+- New i18n translation keys for fields, validations, and error messages
+- New template updates for CRUD service generation
+
+### Changed
+- Restructured project from platform-specific directories (web/app/bot/desktop/wearable) to flattened structure
+- Moved context files from `context/web/v1/` to `context/v1/`
+- Reorganized controllers from `controllers/web/` and `controllers/common/` to `controllers/`
+- Updated routes structure from platform-based to module-based organization
+- Refactored service templates to use `actor` parameter instead of `user`
+- Enhanced validation schemas with additional parameters
+- Updated `structure.txt` to reflect new directory organization
+
+### Fixed
+- N/A
+
+### Removed
+- Platform-specific directories (app, bot, desktop, wearable, web)
+- Kubernetes deployment files
+- Type identification migration (20260125153006-create-types-identification-table.js)
+- Duplicate patch.recover-password files (merged functionality)
+
+#### 📝 Additional Notes
+- This is a breaking change due to directory restructuring and path changes
+- Controllers now use `actor` parameter instead of `user` for consistency
+- New endpoints follow consistent RESTful patterns with proper validation
+- Internationalization now supports many new fields and error types
+- Migration and seeder scripts have been updated for new tables
+
+**Type of Change:** New Feature
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: enhancement
+- Commits: 10
+
+**Commits:**
+- [`1dcc125`](https://github.com/Santiago1010/node-template/commit/1dcc125bbbba4d56b6b9036a67b68ee834439881) feat(api): add CRUD endpoints for data timezones resource
+- [`e69a622`](https://github.com/Santiago1010/node-template/commit/e69a622634abbebc61236b9bcc52d1f0a44f9121) feat(geographic): add CRUD endpoints for cities resource
+- [`683b2fb`](https://github.com/Santiago1010/node-template/commit/683b2fb184aab5dc5308d124707ce05976bb0283) feat(geographic): add CRUD endpoints for continents resource
+- [`422ba31`](https://github.com/Santiago1010/node-template/commit/422ba31b11cd350ed3f89fdca896530f7927b0fb) feat(geographic): add CRUD endpoints for countries resource
+- [`cba7cac`](https://github.com/Santiago1010/node-template/commit/cba7cac85d4b5bbb1cc56751ef4d3986b83549f5) feat(geographic): add CRUD endpoints for dial codes resource
+- [`e030f82`](https://github.com/Santiago1010/node-template/commit/e030f82b3cc3442d4870af38d73d0147b9beb8b3) feat(geographic): add skeleton CRUD endpoints for political divisions
+- [`8480b4f`](https://github.com/Santiago1010/node-template/commit/8480b4f787abdec0de7edc61c2029f4be6d4ea5e) feat(users): add CRUD endpoints for accesses and accounts resources
+- [`55865b5`](https://github.com/Santiago1010/node-template/commit/55865b544419428133ef3f0322a33cb53547fce4) feat(users): add CRUD endpoints for users resource
+- [`8bebe2c`](https://github.com/Santiago1010/node-template/commit/8bebe2c5053f21d5fa4fce2d264bff8118a14553) feat(users): add CRUD endpoints for devices and preferences resources
+- [`ed4091e`](https://github.com/Santiago1010/node-template/commit/ed4091e57f803fdb8f7b6beb042f16e9ea1fa201) chore(docs): standardize API documentation formatting across all resources
+
+---
+
+
+
 ## [1.24.0] - 2026-01-28
 
 **Released:** 2026-01-28 22:48:18 UTC
