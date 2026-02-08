@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const CountriesServices = require('../../services/country.services');
+const CountriesServices = require('../../services/geographic/countries.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const CitiesServices = require('../../services/city.services');
+const CitiesServices = require('../../services/geographic/cities.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

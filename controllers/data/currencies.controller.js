@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const CurrenciesServices = require('../../services/currency.services');
+const CurrencyServices = require('../../services/data/currencies.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================
@@ -22,7 +22,7 @@ class CurrencyController {
       const { name, abbreviation, symbol } = req.body;
       const { actor } = req;
 
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const newcurrency = await currencyService.createCurrency({ name, abbreviation, symbol }, { actor });
@@ -44,7 +44,7 @@ class CurrencyController {
       const { ids, active } = req.body;
       const { actor } = req;
 
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const result = await currencyService.updateCurrenciesStatus(ids, active, { actor });
@@ -63,7 +63,7 @@ class CurrencyController {
    */
   static async getListCurrencies(req, res, next) {
     try {
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const result = await currencyService.getListCurrencies(req.query);
@@ -84,7 +84,7 @@ class CurrencyController {
     try {
       const { id } = req.params;
 
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const currency = await currencyService.getCurrencyDetails({ id, ...req.query });
@@ -107,7 +107,7 @@ class CurrencyController {
       const { name, abbreviation, symbol, active } = req.body;
       const { actor } = req;
 
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const updatedcurrency = await currencyService.updateCurrency(id, { name, abbreviation, symbol, active, actor });
@@ -130,7 +130,7 @@ class CurrencyController {
       const { justification } = req.body;
       const { actor } = req;
 
-      const currencyService = new CurrenciesServices();
+      const currencyService = new CurrencyServices();
       await currencyService.initialize();
 
       const result = await currencyService.deleteCurrency(id, { justification, actor });

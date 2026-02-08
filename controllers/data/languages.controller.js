@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const LanguagesServices = require('../../services/language.services');
+const LanguagesServices = require('../../services/data/languages.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

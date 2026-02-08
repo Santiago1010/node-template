@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const DialcodesServices = require('../../services/dialCode.services');
+const DialcodesServices = require('../../services/geographic/dialcodes.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

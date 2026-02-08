@@ -11,12 +11,10 @@ const router = express.Router();
 // =============================================================================
 // ROUTES
 // =============================================================================
-router.use('/endpoints', require('./endpoints.routes'));
-router.use('/hosts', require('./hosts.routes'));
-router.use('/pages', require('./pages.routes'));
-router.use('/roles', require('./roles.routes'));
-router.use('/scopes', require('./scopes.routes'));
-router.use('/shorteners', require('./shorteners.routes'));
+router.use('/currencies', require('./currencies.routes'));
+router.use('/flags', require('./flags.routes'));
+router.use('/languages', require('./languages.routes'));
+router.use('/timezones', require('./timezones.routes'));
 
 // =============================================================================
 // MODULE EXPORTS

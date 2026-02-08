@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const PoliticaldivisionsServices = require('../../services/politicalDivision.services');
+const PoliticaldivisionsServices = require('../../services/geographic/politicaldivisions.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

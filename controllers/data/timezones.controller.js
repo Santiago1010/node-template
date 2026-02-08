@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const TimezonesServices = require('../../services/timezone.services');
+const TimezonesServices = require('../../services/data/timezones.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================

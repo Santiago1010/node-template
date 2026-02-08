@@ -11,12 +11,12 @@ const router = express.Router();
 // =============================================================================
 // ROUTES
 // =============================================================================
-router.use('/endpoints', require('./endpoints.routes'));
-router.use('/hosts', require('./hosts.routes'));
-router.use('/pages', require('./pages.routes'));
-router.use('/roles', require('./roles.routes'));
-router.use('/scopes', require('./scopes.routes'));
-router.use('/shorteners', require('./shorteners.routes'));
+router.use('/cities', require('./cities.routes'));
+router.use('/continents', require('./continents.routes'));
+router.use('/countries', require('./countries.routes'));
+router.use('/dialCodes', require('./dialcodes.routes'));
+router.use('/politicalDivisions', require('./politicaldivisions.routes'));
+router.use('/regions', require('./regions.routes'));
 
 // =============================================================================
 // MODULE EXPORTS

@@ -3,7 +3,7 @@
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const FlagsServices = require('../../services/flag.services');
+const FlagsServices = require('../../services/data/flags.services');
 const { success } = require('../../helpers/response.helper');
 
 // =============================================================================
