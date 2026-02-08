@@ -1,4 +1,3 @@
-const { configRoles } = require('../../../config/database/connection').models;
 const { commonSchemas, databaseSchemas } = require('../../../helpers/validations');
 const { paginationSchemas, searchSchemas, filtersSchemas } = require('../../../schemas/validations');
 
@@ -10,7 +9,7 @@ const createRoleSchema = {
 };
 
 const updateRolesStatusSchema = {
-  ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: configRoles, required: true }),
+  ids: databaseSchemas.validateMultipleIds('ids', 'body', { model: 'configRoles', required: true }),
   active: commonSchemas.booleanSchema('active', 'body', { required: true }),
   // Add any additional body parameters here
 };
@@ -18,7 +17,7 @@ const updateRolesStatusSchema = {
 const getListRolesSchema = {
   ...paginationSchemas,
   ...searchSchemas,
-  ...filtersSchemas(configRoles),
+  ...filtersSchemas('configRoles'),
   active: commonSchemas.booleanSchema('active', 'query', { required: false }),
   target: commonSchemas.inSchema('target', ['employee', 'customer'], 'query', { required: false }),
   isDefault: commonSchemas.booleanSchema('isDefault', 'query', { required: false }),
@@ -27,12 +26,12 @@ const getListRolesSchema = {
 
 const getRoleDetailsSchema = {
   id: databaseSchemas.validateValueAgainstModel('id', 'params', {
-    model: configRoles,
+    model: 'configRoles',
     required: true,
     paranoid: false,
   }),
   ...searchSchemas,
-  ...filtersSchemas(configRoles),
+  ...filtersSchemas('configRoles'),
   active: commonSchemas.booleanSchema('active', 'query', { required: false }),
   includeHistory: commonSchemas.booleanSchema('includeHistory', 'query', { required: false }),
   target: commonSchemas.inSchema('target', ['employee', 'customer'], 'query', { required: false }),
@@ -41,7 +40,7 @@ const getRoleDetailsSchema = {
 };
 
 const updateRoleSchema = {
-  id: databaseSchemas.idSchema('id', 'params', { model: configRoles, required: true, paranoid: false }),
+  id: databaseSchemas.idSchema('id', 'params', { model: 'configRoles', required: true, paranoid: false }),
   name: commonSchemas.stringSchema('name', 'body', { required: false, maxLength: 100 }),
   target: commonSchemas.inSchema('target', ['employee', 'customer'], 'body', { required: false }),
   isDefault: commonSchemas.booleanSchema('isDefault', 'body', { required: false }),
@@ -49,7 +48,7 @@ const updateRoleSchema = {
 };
 
 const deleteRoleSchema = {
-  id: databaseSchemas.idSchema('id', 'params', { model: configRoles, required: true, paranoid: false }),
+  id: databaseSchemas.idSchema('id', 'params', { model: 'configRoles', required: true, paranoid: false }),
 };
 
 module.exports = {
