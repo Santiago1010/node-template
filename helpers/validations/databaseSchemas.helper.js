@@ -1,63 +1,10 @@
 // =============================================================================
-// EXPRESS VALIDATION SCHEMA GENERATORS - Sequelize Integration
-// =============================================================================
-// PRIMARY PURPOSE & FUNCTIONALITY:
-// - Provides comprehensive validation schema generators for Express.js middleware
-// - Integrates seamlessly with Sequelize ORM for database validation
-// - Supports internationalization (i18n) for error messages
-// - Handles security level-based access control for field validation
-// - Validates existence, uniqueness, and relationships in database records
-//
-// ARCHITECTURAL DECISIONS:
-// - Modular schema generators for reusability across different models
-// - Separation of validation logic from route handlers
-// - Integration with express-validator middleware chain
-// - Support for both single field and complex multi-field validations
-// - Built-in security level checks for sensitive field validation
-//
-// ALTERNATIVE APPROACHES ANALYSIS:
-// - Manual validation in controllers: More repetitive, harder to maintain
-// - Third-party validation libraries: Less integration with Sequelize
-// - Database constraints only: No request-level validation or custom error messages
-// - Custom middleware per route: Inconsistent validation patterns
-// - Chosen approach provides centralized, reusable validation with full ORM integration
-//
-// PERFORMANCE CHARACTERISTICS:
-// - Time complexity: O(1) for simple validations, O(n) for multi-ID validations
-// - Space complexity: O(1) for single fields, O(k) for array validations (k = array size)
-// - Database queries optimized with bulk operations where possible
-// - Caching considerations: None - requires fresh database state for validation
-//
-// SECURITY CONSIDERATIONS:
-// - Security level validation prevents unauthorized field access
-// - SQL injection protection through Sequelize parameterized queries
-// - Input sanitization and type conversion for safe database operations
-// - Field-level authorization based on user security levels
-//
-// USAGE EXAMPLES:
-// - Basic ID validation for foreign key relationships
-// - Unique field validation for user registration
-// - Bulk ID validation for many-to-many relationships
-// - Dynamic attribute validation for flexible query building
-//
-// MAINTENANCE & TROUBLESHOOTING:
-// - Common issues: Missing model definitions, incorrect field references
-// - Debugging: Enable Sequelize logging for query inspection
-// - Performance: Monitor N+1 query patterns in multi-ID validations
-// - Testing: Ensure all validation paths have proper test coverage
-//
-// DEPENDENCIES & COMPATIBILITY:
-// - Required: Express.js, Sequelize ORM, i18n internationalization
-// - Node.js: >= 12.0.0 (for optional chaining and nullish coalescing)
-// - Third-party: express-validator for validation middleware
-//
-// =============================================================================
-
-// =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
-const i18n = require('../../config/i18n'); // Internationalization for error messages
-const { convertToNumber } = require('../../utils/numbers.util'); // Number conversion utility
+const i18n = require('../../config/i18n');
+const { convertToNumber } = require('../../utils/numbers.util');
+const { cerror } = require('../debug.helper');
+const { getSequelize } = require('../../config/database/connection');
 
 // =============================================================================
 // HELPER FUNCTIONS
@@ -115,42 +62,74 @@ const parseToArray = (value) => {
 };
 
 /**
- * Validates user security level requirements for field access
+ * Validates that the authenticated user possesses the required scope.
  *
- * @description Checks if the current user has sufficient security level to access/modify the field
- * @param {any} value - Field value being validated
- * @param {string} fieldName - Internationalized field name for error messages
- * @param {number} minSecurityLevel - Minimum required security level (0 = no restriction)
- * @param {object} req - Express request object containing user information
- * @returns {boolean} True if security level requirement is met
- * @throws {Error} When user security level is insufficient
+ * @description Centralised, null-safe scope guard used by every schema generator.
+ * Execution order:
+ *   1. If `requiredScope` is falsy the function is a no-op (returns immediately).
+ *   2. `req` itself is checked — guards against destructuring edge-cases where
+ *      the second argument to a custom validator is undefined.
+ *   3. `req.user` is checked — the request may be unauthenticated.
+ *   4. `req.user.scopes` is checked for existence AND for Array type — a
+ *      misconfigured auth middleware could set it to null, undefined, a string, etc.
+ *   5. Finally, `.includes()` is called only when we are certain the target is an Array.
+ *
+ * @param {object|undefined} req           - The Express request object (may be undefined).
+ * @param {string}           requiredScope - The OAuth / RBAC scope that must be present.
+ * @throws {Error} `error.user_not_found`  — when `req.user` is missing.
+ * @throws {Error} `error.scopes_invalid`  — when `req.user.scopes` is not a valid Array.
+ * @throws {Error} `error.access_denied`   — when the scope is absent from the user's list.
+ *                                           The message includes the missing scope so logs
+ *                                           are immediately debuggable.
+ * @returns {void}
  *
  * @example
- * // Throws error if user security level < 3
- * validateSecurityLevel(sensitiveData, 'Salary Field', 3, req);
+ * // Inside any custom validator:
+ * validateScope(req, requiredScope); // throws or returns — nothing else needed
  *
- * @complexity Time: O(1), Space: O(1)
- * @since Version 1.0.0
+ * @complexity Time: O(n) where n = user.scopes.length (single .includes pass)
+ * @since Version 1.1.0
  */
-const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
-  if (minSecurityLevel === 0) return true;
+const validateScope = (req, requiredScope) => {
+  if (!requiredScope) return;
 
-  const allowNull = false;
-  if (allowNull && value === null) return true;
-
-  const userSecurityLevel = req?.user?.securityLevel || 0;
-
-  if (userSecurityLevel < minSecurityLevel) {
-    throw new Error(
-      i18n.__mf('validations.insufficient_security_level', {
-        field: fieldName,
-        required: minSecurityLevel,
-        current: userSecurityLevel,
-      })
-    );
+  if (!req || typeof req !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
   }
 
-  return true;
+  if (!req.user || typeof req.user !== 'object') {
+    throw new Error(i18n.__('error.user_not_found'));
+  }
+
+  if (!Array.isArray(req.user.scopes)) {
+    throw new Error(i18n.__('error.scopes_invalid'));
+  }
+
+  if (!req.user.scopes.includes(requiredScope)) {
+    throw new Error(i18n.__mf('error.access_denied', { scope: requiredScope }));
+  }
+};
+
+/**
+ * Retrieves model instance from Sequelize connection
+ *
+ * @description Asynchronously resolves model from the database connection
+ * @param {string} modelName - Name of the Sequelize model
+ * @returns {Promise<object>} Sequelize model instance
+ * @throws {Error} When model is not found
+ *
+ * @complexity Time: O(1), Space: O(1)
+ * @since Version 1.1.0
+ */
+const getModel = async (modelName) => {
+  const sequelize = await getSequelize();
+  const model = sequelize.models[modelName];
+
+  if (!model) {
+    throw new Error(`Model "${modelName}" not found in Sequelize models`);
+  }
+
+  return model;
 };
 
 // =============================================================================
@@ -160,29 +139,28 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
 /**
  * Generates validation schema for database ID fields with existence checking
  *
- * @description Validates that an ID exists in the specified database table, with security level checks
+ * @description Validates that an ID exists in the specified database table, with security level and scope checks
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate ('body', 'params', 'query')
  * @param {object} options - Configuration options
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {Function[]} [options.formattingFunctions=[]] - Additional value formatting functions
- * @param {object} options.model - Sequelize model for database existence check
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} options.model - Name of Sequelize model for database existence check
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Basic ID validation for User model
  * app.post('/user/:id', [
- *   check('id', idSchema('userId', 'params', { model: User }))
+ *   check('id', idSchema('userId', 'params', { model: 'User' }))
  * ]);
  *
  * @example
- * // Optional ID validation with custom formatting
- * app.get('/data', [
- *   check('refId', idSchema('referenceId', 'query', {
- *     required: false,
- *     model: Reference,
- *     formattingFunctions: [customFormatter]
+ * // ID validation with scope requirement
+ * app.get('/admin/data', [
+ *   check('id', idSchema('adminId', 'params', {
+ *     model: 'Admin',
+ *     requiredScope: 'admin.read'
  *   }))
  * ]);
  *
@@ -190,19 +168,20 @@ const validateSecurityLevel = (value, fieldName, minSecurityLevel, req) => {
  * @since Version 1.0.0
  * @see {@link validateValueAgainstModel} for more complex model-based validation
  */
-const idSchema = (
-  name,
-  location = 'body',
-  { required = true, formattingFunctions = [], model, minSecurityLevel = 1 }
-) => {
+const idSchema = (name, location = 'body', { required = true, formattingFunctions = [], model, requiredScope }) => {
   const fieldName = getFieldName(name);
   const validationSchema = {
     in: location,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        if (!required && (value === undefined || value === null || value === '')) {
+          return true;
+        }
 
-        const data = await model.findByPk(value);
+        validateScope(req, requiredScope);
+
+        const modelInstance = await getModel(model);
+        const data = await modelInstance.findByPk(value);
         return data !== null;
       },
       errorMessage: i18n.__mf('validations.not_exists', { field: fieldName }),
@@ -226,6 +205,10 @@ const idSchema = (
   if (formattingFunctions.length > 0) {
     validationSchema.customSanitizer = {
       options: (value) => {
+        // No formatear valores vacíos en campos opcionales
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         return formattingFunctions.reduce((acc, func) => {
           return typeof func === 'function' ? func(acc) : acc;
         }, value);
@@ -243,29 +226,31 @@ const idSchema = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for database operations
+ * @param {string} options.model - Name of Sequelize model for database operations
  * @param {string} options.field - Database field name to check
  * @param {boolean} [options.shouldExist=false] - True to require existence, false to require uniqueness
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {any} [options.excludeValue=null] - Value to exclude from uniqueness check (for updates)
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Email uniqueness check for user registration
  * validateUniqueField('email', 'body', {
- *   model: User,
+ *   model: 'User',
  *   field: 'email',
- *   shouldExist: false // Must NOT exist (unique)
+ *   shouldExist: false,
+ *   requiredScope: 'user.write'
  * })
  *
  * @example
  * // Username existence check for password reset (excluding current user)
  * validateUniqueField('username', 'body', {
- *   model: User,
+ *   model: 'User',
  *   field: 'username',
- *   shouldExist: true, // Must exist
- *   excludeValue: currentUserId // For update scenarios
+ *   shouldExist: true,
+ *   excludeValue: currentUserId,
+ *   requiredScope: 'user.update'
  * })
  *
  * @complexity Time: O(1) + 1 database query, Space: O(1)
@@ -274,7 +259,7 @@ const idSchema = (
 const validateUniqueField = (
   name,
   location = 'body',
-  { model, field, shouldExist = false, required = true, excludeValue = null, minSecurityLevel = 1 }
+  { model, field, shouldExist = false, required = true, excludeValue = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -282,20 +267,25 @@ const validateUniqueField = (
     in: location,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        if (!required && (value === undefined || value === null || value === '')) {
+          return true;
+        }
 
+        validateScope(req, requiredScope);
+
+        const modelInstance = await getModel(model);
         const whereClause = { [field]: value };
 
         if (excludeValue !== null) {
           whereClause[field] = {
-            [model.sequelize.Sequelize.Op.and]: [
-              { [model.sequelize.Sequelize.Op.eq]: value },
-              { [model.sequelize.Sequelize.Op.ne]: excludeValue },
+            [modelInstance.sequelize.Sequelize.Op.and]: [
+              { [modelInstance.sequelize.Sequelize.Op.eq]: value },
+              { [modelInstance.sequelize.Sequelize.Op.ne]: excludeValue },
             ],
           };
         }
 
-        const existingData = await model.findOne({ where: whereClause });
+        const existingData = await modelInstance.findOne({ where: whereClause });
         const exists = existingData !== null;
 
         if (shouldExist && !exists) {
@@ -311,6 +301,7 @@ const validateUniqueField = (
     },
   };
 
+  // Solo agregar validaciones de existencia si el campo es requerido
   if (required) {
     validationSchema.exists = {
       errorMessage: i18n.__mf('validations.required', { field: fieldName }),
@@ -331,28 +322,30 @@ const validateUniqueField = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for existence checks
+ * @param {string} options.model - Name of Sequelize model for existence checks
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {number} [options.minLength=1] - Minimum number of IDs required
  * @param {number} [options.maxLength=null] - Maximum number of IDs allowed
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Validate category IDs for product creation (2-5 categories required)
  * validateMultipleIds('categoryIds', 'body', {
- *   model: Category,
+ *   model: 'Category',
  *   minLength: 2,
- *   maxLength: 5
+ *   maxLength: 5,
+ *   requiredScope: 'product.create'
  * })
  *
  * @example
- * // Validate optional tag IDs (0-10 tags allowed)
+ * // Validate optional tag IDs (0-10 tags allowed) with admin scope
  * validateMultipleIds('tagIds', 'body', {
- *   model: Tag,
+ *   model: 'Tag',
  *   required: false,
  *   minLength: 0,
- *   maxLength: 10
+ *   maxLength: 10,
+ *   requiredScope: 'admin.tags'
  * })
  *
  * @complexity Time: O(n) + 1 database query, Space: O(n) where n is number of IDs
@@ -361,7 +354,7 @@ const validateUniqueField = (
 const validateMultipleIds = (
   name,
   location = 'body',
-  { model, required = true, minLength = 1, maxLength = null, minSecurityLevel = 1 }
+  { model, required = true, minLength = 1, maxLength = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -369,14 +362,25 @@ const validateMultipleIds = (
     in: location,
     customSanitizer: {
       options: (value) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         const idsArray = parseToArray(value);
         return idsArray.map((id) => convertToNumber(id)).filter((id) => !isNaN(id));
       },
     },
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        if (
+          !required &&
+          (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0))
+        ) {
+          return true;
+        }
 
+        validateScope(req, requiredScope);
+
+        const modelInstance = await getModel(model);
         const idsArray = Array.isArray(value) ? value : parseToArray(value);
 
         if (idsArray.length < minLength) {
@@ -397,10 +401,10 @@ const validateMultipleIds = (
           );
         }
 
-        const existingRecords = await model.findAll({
+        const existingRecords = await modelInstance.findAll({
           where: {
             id: {
-              [model.sequelize.Sequelize.Op.in]: idsArray,
+              [modelInstance.sequelize.Sequelize.Op.in]: idsArray,
             },
           },
           attributes: ['id'],
@@ -443,24 +447,26 @@ const validateMultipleIds = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model to validate against
+ * @param {string} options.model - Name of Sequelize model to validate against
  * @param {boolean} [options.required=true] - Whether attributes are mandatory
  * @param {string[]} [options.allowedAttributes=null] - Custom allowed attributes (defaults to all model attributes)
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  *
  * @example
  * // Validate sort fields against User model attributes
  * validateModelAttributes('sortBy', 'query', {
- *   model: User,
- *   allowedAttributes: ['name', 'email', 'createdAt'] // Only allow safe fields
+ *   model: 'User',
+ *   allowedAttributes: ['name', 'email', 'createdAt'],
+ *   requiredScope: 'user.read'
  * })
  *
  * @example
- * // Validate select fields for API response shaping
+ * // Validate select fields for API response shaping with admin scope
  * validateModelAttributes('fields', 'query', {
- *   model: Product,
- *   required: false
+ *   model: 'Product',
+ *   required: false,
+ *   requiredScope: 'admin.products'
  * })
  *
  * @complexity Time: O(n) where n is number of attributes, Space: O(n)
@@ -469,7 +475,7 @@ const validateMultipleIds = (
 const validateModelAttributes = (
   name,
   location = 'body',
-  { model, required = true, allowedAttributes = null, minSecurityLevel = 1 }
+  { model, required = true, allowedAttributes = null, requiredScope }
 ) => {
   const fieldName = getFieldName(name);
 
@@ -477,20 +483,31 @@ const validateModelAttributes = (
     in: location,
     customSanitizer: {
       options: (value) => {
+        if (!required && (value === undefined || value === null || value === '')) {
+          return value;
+        }
         return parseToArray(value);
       },
     },
     custom: {
-      options: (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+      options: async (value, { req }) => {
+        if (
+          !required &&
+          (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0))
+        ) {
+          return true;
+        }
 
+        validateScope(req, requiredScope);
+
+        const modelInstance = await getModel(model);
         const attributesArray = Array.isArray(value) ? value : parseToArray(value);
 
-        if (attributesArray.length === 0) {
+        if (attributesArray.length === 0 && required) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
-        const modelAttributes = Object.keys(model.rawAttributes);
+        const modelAttributes = Object.keys(modelInstance.rawAttributes);
         const validAttributes = allowedAttributes || modelAttributes;
         const invalidAttributes = attributesArray.filter((attr) => !validAttributes.includes(attr));
 
@@ -529,32 +546,34 @@ const validateModelAttributes = (
  * @param {string} name - Field name for internationalization
  * @param {string} [location='body'] - Request location to validate
  * @param {object} options - Configuration options
- * @param {object} options.model - Sequelize model for validation
+ * @param {string} options.model - Name of Sequelize model for validation
  * @param {boolean} [options.required=true] - Whether the field is mandatory
  * @param {Function[]} [options.formattingFunctions=[]] - Value formatting functions
  * @param {boolean} [options.shouldExist=true] - True to require existence, false to require non-existence
  * @param {any} [options.excludeValue=null] - Value to exclude from checks (for updates)
  * @param {boolean} [options.allowPrimaryKey=true] - Whether to check against primary key
  * @param {boolean} [options.allowUniqueFields=true] - Whether to check against unique fields
- * @param {number} [options.minSecurityLevel=1] - Minimum security level required
+ * @param {string} [options.requiredScope] - Required OAuth/RBAC scope for this field
  * @returns {object} Express-validator validation schema object
  * @throws {Error} When model configuration is invalid or missing
  *
  * @example
  * // Validate username exists for password reset
  * validateValueAgainstModel('username', 'body', {
- *   model: User,
+ *   model: 'User',
  *   shouldExist: true,
- *   allowPrimaryKey: false, // Only check unique fields like username/email
- *   allowUniqueFields: true
+ *   allowPrimaryKey: false,
+ *   allowUniqueFields: true,
+ *   requiredScope: 'user.update'
  * })
  *
  * @example
- * // Validate email doesn't exist for new registration (with formatting)
+ * // Validate email doesn't exist for new registration (with formatting and scope)
  * validateValueAgainstModel('email', 'body', {
- *   model: User,
+ *   model: 'User',
  *   shouldExist: false,
- *   formattingFunctions: [emailFormatter, trimFormatter]
+ *   formattingFunctions: [emailFormatter, trimFormatter],
+ *   requiredScope: 'user.register'
  * })
  *
  * @complexity Time: O(1) + 1-3 database queries, Space: O(1)
@@ -571,69 +590,13 @@ const validateValueAgainstModel = (
     excludeValue = null,
     allowPrimaryKey = true,
     allowUniqueFields = true,
-    minSecurityLevel = 1,
+    requiredScope,
   } = {}
 ) => {
   const fieldName = getFieldName(name);
 
   if (!model) {
-    throw new Error('validateValueAgainstModel requires a Sequelize model in options.model');
-  }
-
-  // Extract primary key attribute with fallback strategies
-  let primaryKeyAttr = null;
-  if (typeof model.primaryKeyAttribute === 'string' && model.primaryKeyAttribute.length > 0) {
-    primaryKeyAttr = model.primaryKeyAttribute;
-  } else if (Array.isArray(model.primaryKeyAttributes) && model.primaryKeyAttributes.length > 0) {
-    primaryKeyAttr = model.primaryKeyAttributes[0];
-  } else {
-    // Fallback: manually search for primary key in attributes
-    for (const attr of Object.keys(model.rawAttributes || {})) {
-      if (model.rawAttributes[attr].primaryKey) {
-        primaryKeyAttr = attr;
-        break;
-      }
-    }
-  }
-
-  // Extract unique attributes from model definition
-  const uniqueAttrsSet = new Set();
-  const rawAttrs = model.rawAttributes || {};
-
-  // Find unique attributes from field definitions
-  for (const attrName of Object.keys(rawAttrs)) {
-    const attr = rawAttrs[attrName];
-    if (attr && attr.unique === true) {
-      uniqueAttrsSet.add(attrName);
-    }
-  }
-
-  // Find unique attributes from model indexes
-  const indexes = (model.options && model.options.indexes) || [];
-  for (const idx of indexes) {
-    if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
-      const f = idx.fields[0];
-      const fname =
-        typeof f === 'string' ? f : f && (f.attribute || f.name || f.field) ? f.attribute || f.name || f.field : null;
-      if (fname) uniqueAttrsSet.add(fname);
-    }
-  }
-
-  // Filter out primary key from unique attributes
-  const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
-
-  // Auto-detect numeric primary keys for automatic number conversion
-  try {
-    const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
-    const pkTypeKey =
-      pkAttrDef && pkAttrDef.type && pkAttrDef.type.key ? String(pkAttrDef.type.key).toUpperCase() : null;
-    if (pkTypeKey && (pkTypeKey.includes('INT') || pkTypeKey === 'BIGINT')) {
-      if (!formattingFunctions.includes(convertToNumber)) {
-        formattingFunctions.push(convertToNumber);
-      }
-    }
-  } catch (e) {
-    throw new Error('Error validating value against model: ' + e.message);
+    throw new Error('validateValueAgainstModel requires a Sequelize model name in options.model');
   }
 
   const validationSchema = {
@@ -641,6 +604,9 @@ const validateValueAgainstModel = (
     customSanitizer: formattingFunctions.length
       ? {
           options: (value) => {
+            if (!required && (value === undefined || value === null || value === '')) {
+              return value;
+            }
             return formattingFunctions.reduce((acc, fn) => {
               return typeof fn === 'function' ? fn(acc) : acc;
             }, value);
@@ -649,18 +615,82 @@ const validateValueAgainstModel = (
       : undefined,
     custom: {
       options: async (value, { req }) => {
-        validateSecurityLevel(value, fieldName, minSecurityLevel, req);
+        if (!required && (value === null || typeof value === 'undefined' || value === '')) {
+          return true;
+        }
 
+        validateScope(req, requiredScope);
+
+        const modelInstance = await getModel(model);
         const Op =
-          model.sequelize && model.sequelize.Sequelize ? model.sequelize.Sequelize.Op : require('sequelize').Op;
+          modelInstance.sequelize && modelInstance.sequelize.Sequelize
+            ? modelInstance.sequelize.Sequelize.Op
+            : require('sequelize').Op;
 
         if ((value === null || typeof value === 'undefined' || value === '') && required) {
           throw new Error(i18n.__mf('validations.required', { field: fieldName }));
         }
 
+        // Extract primary key attribute with fallback strategies
+        let primaryKeyAttr = null;
+        if (typeof modelInstance.primaryKeyAttribute === 'string' && modelInstance.primaryKeyAttribute.length > 0) {
+          primaryKeyAttr = modelInstance.primaryKeyAttribute;
+        } else if (Array.isArray(modelInstance.primaryKeyAttributes) && modelInstance.primaryKeyAttributes.length > 0) {
+          primaryKeyAttr = modelInstance.primaryKeyAttributes[0];
+        } else {
+          for (const attr of Object.keys(modelInstance.rawAttributes || {})) {
+            if (modelInstance.rawAttributes[attr].primaryKey) {
+              primaryKeyAttr = attr;
+              break;
+            }
+          }
+        }
+
+        // Extract unique attributes from model definition
+        const uniqueAttrsSet = new Set();
+        const rawAttrs = modelInstance.rawAttributes || {};
+
+        for (const attrName of Object.keys(rawAttrs)) {
+          const attr = rawAttrs[attrName];
+          if (attr && attr.unique === true) {
+            uniqueAttrsSet.add(attrName);
+          }
+        }
+
+        const indexes = (modelInstance.options && modelInstance.options.indexes) || [];
+        for (const idx of indexes) {
+          if (idx.unique && Array.isArray(idx.fields) && idx.fields.length === 1) {
+            const f = idx.fields[0];
+            const fname =
+              typeof f === 'string'
+                ? f
+                : f && (f.attribute || f.name || f.field)
+                  ? f.attribute || f.name || f.field
+                  : null;
+            if (fname) uniqueAttrsSet.add(fname);
+          }
+        }
+
+        const uniqueAttrs = Array.from(uniqueAttrsSet).filter((a) => a !== primaryKeyAttr);
+
+        // Auto-detect numeric primary keys for automatic number conversion
+        try {
+          const pkAttrDef = primaryKeyAttr ? rawAttrs[primaryKeyAttr] : null;
+          const pkTypeKey =
+            pkAttrDef && pkAttrDef.type && pkAttrDef.type.key ? String(pkAttrDef.type.key).toUpperCase() : null;
+          if (pkTypeKey && (pkTypeKey.includes('INT') || pkTypeKey === 'BIGINT')) {
+            if (!formattingFunctions.includes(convertToNumber)) {
+              formattingFunctions.push(convertToNumber);
+            }
+          }
+        } catch (e) {
+          cerror('helpers/validations/database.schemas.js.validateValueAgainstModel', e);
+          throw new Error('Error validating value against model: ' + e.message);
+        }
+
         // Check against primary key if enabled
         if (allowPrimaryKey && primaryKeyAttr) {
-          const byPk = await model.findByPk(value, { attributes: [primaryKeyAttr] });
+          const byPk = await modelInstance.findByPk(value, { attributes: [primaryKeyAttr] });
           const existsPk = byPk !== null;
 
           if (existsPk) {
@@ -682,7 +712,7 @@ const validateValueAgainstModel = (
               };
             }
 
-            const found = await model.findOne({
+            const found = await modelInstance.findOne({
               where,
               attributes: [primaryKeyAttr || attr],
             });

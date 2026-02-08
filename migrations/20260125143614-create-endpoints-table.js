@@ -18,11 +18,6 @@ module.exports = {
           allowNull: false,
           comment: 'Method of the endpoint to which permission will be granted.',
         },
-        platform: {
-          type: Sequelize.STRING(50),
-          allowNull: false,
-          comment: 'Target platform for the endpoint configuration',
-        },
         version: {
           type: Sequelize.STRING(10),
           allowNull: false,
@@ -84,7 +79,7 @@ module.exports = {
       }
     );
 
-    await queryInterface.addIndex('config_endpoints', ['method', 'platform', 'version', 'endpoint_group', 'path'], {
+    await queryInterface.addIndex('config_endpoints', ['method', 'version', 'endpoint_group', 'path'], {
       unique: true,
       name: 'endpoint_UN',
     });

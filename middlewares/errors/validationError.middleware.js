@@ -1,24 +1,4 @@
 // =============================================================================
-// VALIDATION ERROR HANDLER MIDDLEWARE - Express Validation Error Handling and Transformation
-// =============================================================================
-// Comprehensive validation error handling middleware for Express applications.
-// Provides multiple approaches to handle validation errors from different sources:
-// - express-validator validation results
-// - Zod schema validation
-// - Custom validation with message customization
-// - Multi-source validation (body, params, query simultaneously)
-// - Validation with data sanitization support
-//
-// Key Features:
-// - Standardized error formatting across different validation libraries
-// - Support for grouped errors by field for better client-side handling
-// - Boom integration for consistent HTTP error responses
-// - Flexible validation source targeting (body, params, query)
-// - Data sanitization capabilities
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const boom = require('@hapi/boom'); // HTTP error utilities

@@ -15,7 +15,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Unique primary key to identify each endpoint.',
   },
   method: {
@@ -41,12 +40,6 @@ const Schema = {
     set(_) {
       throw new Error('You cannot assign a value to a virtual column.');
     },
-  },
-  platform: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    unique: 'endpoint_UN',
-    comment: 'Target platform for the endpoint configuration',
   },
   version: {
     type: DataTypes.STRING(10),

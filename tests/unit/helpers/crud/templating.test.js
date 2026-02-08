@@ -25,7 +25,7 @@ describe('Crud Helper - Templating', () => {
         someObject.delete();
 
         await logsCreation.create();
-        await logsUpdate.create();
+        await logsUpdates.create();
         await logsDeletion.create();
       `;
 
@@ -45,7 +45,7 @@ describe('Crud Helper - Templating', () => {
         someObject.deleteUser();
 
         await logsCreation.create();
-        await logsUpdate.create();
+        await logsUpdates.create();
         await logsDeletion.create();
       `;
 

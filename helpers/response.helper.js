@@ -6,7 +6,37 @@ const Boom = require('@hapi/boom');
 // =============================================================================
 // INTERNAL DEPENDENCIES
 // =============================================================================
+const ContextHelper = require('./context.helper');
 const i18n = require('../config/i18n');
+const { getSequelize } = require('../config/database/connection');
+
+/**
+ * Deep converts empty objects/arrays to null
+ * @param {*} obj - Object to process
+ * @returns {*} Processed object
+ */
+const sanitizeEmptyObjects = (obj) => {
+  if (obj === null || obj === undefined) {
+    return null;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.length === 0 ? null : obj.map(sanitizeEmptyObjects);
+  }
+
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj);
+    if (keys.length === 0) return null;
+
+    const sanitized = {};
+    for (const key of keys) {
+      sanitized[key] = sanitizeEmptyObjects(obj[key]);
+    }
+    return sanitized;
+  }
+
+  return obj;
+};
 
 /**
  * Normalize and validate an HTTP status code. Returns a valid status code
@@ -35,7 +65,7 @@ const normalizeStatusCode = (code, fallback = 500) => {
  *
  * @returns {Response} Express response object with JSON response
  */
-const success = (res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
+const success = async (res, { httpCode = 200, messagePath, messageData = {}, data = {} } = {}) => {
   const responseData = {};
 
   if (messagePath) {
@@ -54,7 +84,11 @@ const success = (res, { httpCode = 200, messagePath, messageData = {}, data = {}
 
   if (Object.keys(data).length > 0) Object.assign(responseData, JSON.parse(JSON.stringify(data)));
 
-  return res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
+  const response = res.status(normalizeStatusCode(httpCode, 200)).json(responseData);
+
+  await registerHttpRequest(response, normalizeStatusCode(httpCode, 200), responseData);
+
+  return response;
 };
 
 /**
@@ -91,8 +125,6 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   // Convert to Boom
   const boomError = Boom.boomify(baseError, { statusCode });
 
-  console.error(boomError);
-
   // Clean up payload: remove stack & timestamp if any middleware adds them
   if (boomError.output?.payload) {
     delete boomError.output.payload.stack;
@@ -107,7 +139,74 @@ const error = ({ httpCode = 500, messagePath, messageData, details } = {}) => {
   return boomError;
 };
 
+/**
+ * Registers HTTP request details to database
+ * @param {Response} res - Express response object
+ * @param {number} httpCode - HTTP status code
+ * @param {Object} responseBody - Response body data
+ * @param {Error} [error] - Optional error object for failed requests
+ */
+const registerHttpRequest = async (res, httpCode, responseBody, error = null) => {
+  try {
+    if (!res.req.user) return;
+
+    const sequelize = await getSequelize();
+
+    // Extract headers, excluding sensitive ones
+    const {
+      host: _,
+      cookie: __,
+      accept: ___,
+      'x-path': ____,
+      request_id: requestId,
+      operation_id: operationId,
+      ...headers
+    } = res.req.headers;
+
+    // Get context information
+    const { page, endpoint } = ContextHelper.get();
+
+    // Find access record
+    const access = await sequelize.models.usrAccesses.findOne({
+      attributes: ['id'],
+      where: { accountId: res.req.user.id },
+      include: {
+        model: sequelize.models.usrDevices,
+        as: 'device',
+        attributes: [],
+        where: { accountId: res.req.user.id, fingerprint: res.req.user.device.fingerprint },
+        required: true,
+      },
+      raw: true,
+    });
+
+    // Prepare data for insertion
+    const createData = sanitizeEmptyObjects({
+      accessId: access.id,
+      pageId: page.id,
+      endpointId: endpoint.id,
+      idRequest: requestId,
+      idOperation: operationId || null,
+      path: res.req.baseUrl || res.req.path,
+      query: res.req.query,
+      headers: headers,
+      body: res.req.body,
+      httpCode,
+      responseBody: responseBody,
+      statusCode: error?.statusCode || null,
+      errorMessage: error?.message || null,
+      errorStack: error?.stack || null,
+    });
+
+    // Insert into database
+    await sequelize.models.logsHttpRequests.create(createData);
+  } catch (err) {
+    // Log error but don't throw to avoid breaking the request flow
+    console.error('Error registering HTTP request:', err);
+  }
+};
+
 // =============================================================================
 // MODULE EXPORTS
 // =============================================================================
-module.exports = { success, error };
+module.exports = { success, error, registerHttpRequest };

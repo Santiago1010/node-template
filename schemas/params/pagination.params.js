@@ -86,7 +86,7 @@ const paginationParameters = [
     name: 'limit',
     in: 'query',
     description:
-      '**[Optional]** Specifies the maximum number of records to return per page. Defaults to 10 if not provided. Must be used in conjunction with `page`. Maximum allowed value: 100 records per page.',
+      'Specifies the maximum number of records to return per page. Defaults to 10 if not provided. Must be used in conjunction with `page`. Maximum allowed value: 100 records per page.',
     schema: { type: 'integer', minimum: 1, maximum: 100, example: 10 },
     required: false,
   },
@@ -94,7 +94,7 @@ const paginationParameters = [
     name: 'page',
     in: 'query',
     description:
-      '**[Optional]** Indicates the page number of results to retrieve. Defaults to the first page if not provided. Must be used in conjunction with `limit`. Minimum value: 1',
+      'Indicates the page number of results to retrieve. Defaults to the first page if not provided. Must be used in conjunction with `limit`. Minimum value: 1',
     schema: { type: 'integer', minimum: 1, example: 1 },
     required: false,
   },

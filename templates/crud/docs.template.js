@@ -16,9 +16,9 @@ const {
 } = require('../../../schemas/params/common.params');
 
 // =============================== BASE PATH =============================== //
-const {{CRATE_NAME}} = standardRequest('post', {
+const {{CREATE_NAME}} = standardRequest('post', {
   tags: [{{TAG}}],
-  operationId: '{{CRATE_NAME}}',
+  operationId: '{{CREATE_NAME}}',
   description: '',
   requestBody: {
     required: true,
@@ -28,7 +28,7 @@ const {{CRATE_NAME}} = standardRequest('post', {
           type: 'object',
           required: [],
           properties: {
-            {{CRATE_PROPERTIES}}
+            {{CREATE_PROPERTIES}}
           },
         },
       },
@@ -48,11 +48,11 @@ const {{STATUS_NAME}} = standardRequest('patch', {
       'application/json': {
         schema: {
           type: 'object',
-          required: [],
+          required: ['ids', 'active'],
           properties: {
             ids: {
               type: 'array',
-              description: '**[Required]** Array of IDs of the records to be deactivated or reactivated.',
+              description: 'Array of IDs of the records to be deactivated or reactivated.',
               items: { type: 'integer' },
               example: faker.helpers.arrayElements([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             },
@@ -85,10 +85,11 @@ const {{DETAILS_NAME}} = standardRequest('get', {
   security: [{ bearerAuth: [] }],
 });
 
-const updateTest = standardRequest('put', {
+const {{UPDATE_NAME}} = standardRequest('put', {
   tags: [{{TAG}}],
-  operationId: 'updateTest',
+  operationId: '{{UPDATE_NAME}}',
   description: '',
+  parameters: [...identifierParam],
   requestBody: {
     content: {
       'application/json': {
@@ -111,13 +112,29 @@ const {{DELETE_NAME}} = standardRequest('delete', {
   operationId: '{{DELETE_NAME}}',
   description: '',
   parameters: [...identifierParam],
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            justification: {
+              type: 'string',
+              description: 'The reason why the record is deleted.',
+              example: faker.lorem.sentence(),
+            },
+          },
+        },
+      },
+    },
+  },
   responses: {},
   security: [{ bearerAuth: [] }],
 });
 
 // ================================ EXPORTS ================================ //
-const basePath = { ...{{CRATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
-const pathWithId = { ...{{DETAILS_NAME}}, ...updateTest, ...{{DELETE_NAME}} };
+const basePath = { ...{{CREATE_NAME}}, ...{{STATUS_NAME}}, ...{{LIST_NAME}} };
+const pathWithId = { ...{{DETAILS_NAME}}, ...{{UPDATE_NAME}}, ...{{DELETE_NAME}} };
 
 // =============================================================================
 // MODULE EXPORTS

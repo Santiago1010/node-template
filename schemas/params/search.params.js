@@ -92,7 +92,7 @@ const searchParams = [
     name: 'search',
     in: 'query',
     description:
-      '**[Optional]** Filters records by searching for the specified string in all fields. Only records containing the string will be displayed. Uses the `search` function from `@helpers/database.helper.js`. Supports partial matches and case-insensitive search. Maximum search term length: 256 characters.',
+      'Filters records by searching for the specified string in all fields. Only records containing the string will be displayed. Uses the `search` function from `@helpers/database.helper.js`. Supports partial matches and case-insensitive search. Maximum search term length: 256 characters.',
     schema: { type: 'string', maxLength: 256 },
     required: false,
   },

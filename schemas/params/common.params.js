@@ -92,7 +92,7 @@ const idsFilter = [
     name: 'ids',
     in: 'query',
     description:
-      '**[Optional]** Filters records by their primary IDs. Provide a comma-separated list of IDs (e.g., `1,2,3,4`). If not provided, no filtering by IDs will be applied.',
+      'Filters records by their primary IDs. Provide a comma-separated list of IDs (e.g., `1,2,3,4`). If not provided, no filtering by IDs will be applied.',
     schema: { type: 'string' },
     required: false,
   },
@@ -117,7 +117,7 @@ const fieldsFilter = [
     name: 'fields',
     in: 'query',
     description:
-      '**[Optional]** Specifies the fields to include in the response. Provide a comma-separated list of field names (e.g., `id,created_at,updated_at,deleted_at`). If not provided, all fields will be returned.',
+      'Specifies the fields to include in the response. Provide a comma-separated list of field names (e.g., `id,created_at,updated_at,deleted_at`). If not provided, all fields will be returned.',
     schema: { type: 'string' },
     required: false,
   },
@@ -125,9 +125,9 @@ const fieldsFilter = [
 
 const identifierParam = [
   {
-    name: 'identifier',
+    name: 'id',
     in: 'path',
-    description: '**[Required]** Unique identifier of the record.',
+    description: 'Unique identifier of the record.',
     schema: { type: 'integer' },
     required: true,
   },
@@ -154,7 +154,7 @@ const detailsParams = [
     name: 'includeHistory',
     in: 'query',
     description:
-      '**[Optional]** If set to `true`, the history of the record will be included in the response. If not provided, the history will not be included.',
+      'If set to `true`, the history of the record will be included in the response. If not provided, the history will not be included.',
     schema: { type: 'boolean', enum: [true, false], default: false },
     required: false,
   },
@@ -179,7 +179,7 @@ const activeParams = [
     name: 'active',
     in: 'query',
     description:
-      '**[Optional]** If set to `true`, only active records will be returned; if set to `false`, only inactive records will be returned. If not provided, all records will be returned.',
+      'If set to `true`, only active records will be returned; if set to `false`, only inactive records will be returned. If not provided, all records will be returned.',
     schema: { type: 'boolean', enum: [true, false] },
     required: false,
   },
@@ -212,7 +212,7 @@ const activeBody = {
   active: {
     type: 'boolean',
     description:
-      '**[Optional]** If set to `true`, the record will be marked as active; if set to `false`, the record will be marked as inactive using soft deletion. If not provided, the record will not be modified.',
+      'If set to `true`, the record will be marked as active; if set to `false`, the record will be marked as inactive using soft deletion. If not provided, the record will not be modified.',
     enum: [true, false],
     example: faker.datatype.boolean(),
     required: false,

@@ -22,7 +22,55 @@
     "number": "fields.number",
     "channel": "fields.channel",
     "purpose": "fields.purpose",
-    "deviceId": "fields.deviceId"
+    "deviceId": "fields.deviceId",
+    "search": "fields.search",
+    "method": "fields.method",
+    "version": "fields.version",
+    "endpointGroup": "fields.endpointGroup",
+    "path": "fields.path",
+    "description": "fields.description",
+    "requiresAuthorization": "fields.requiresAuthorization",
+    "hasSensitiveInformation": "fields.hasSensitiveInformation",
+    "ids": "fields.ids",
+    "fields": "fields.fields",
+    "id": "fields.id",
+    "includeHistory": "fields.includeHistory",
+    "url": "fields.url",
+    "isDefault": "fields.isDefault",
+    "hostId": "fields.hostId",
+    "pageId": "fields.pageId",
+    "name": "fields.name",
+    "level": "fields.level",
+    "target": "fields.target",
+    "isSelectable": "fields.isSelectable",
+    "codeShortener": "fields.codeShortener",
+    "expiresAt": "fields.expiresAt",
+    "abbreviation": "fields.abbreviation",
+    "symbol": "fields.symbol",
+    "emoji": "fields.emoji",
+    "location": "fields.location",
+    "flat2d": "fields.flat2d",
+    "rounded2d": "fields.rounded2d",
+    "wave2d": "fields.wave2d",
+    "flat3d": "fields.flat3d",
+    "rounded3d": "fields.rounded3d",
+    "wave3d": "fields.wave3d",
+    "flagId": "fields.flagId",
+    "orientation": "fields.orientation",
+    "isPublic": "fields.isPublic",
+    "continentId": "fields.continentId",
+    "utc": "fields.utc",
+    "subDivisionId": "fields.subDivisionId",
+    "timezoneId": "fields.timezoneId",
+    "regionId": "fields.regionId",
+    "capitalId": "fields.capitalId",
+    "popularName": "fields.popularName",
+    "officialName": "fields.officialName",
+    "tld": "fields.tld",
+    "countryId": "fields.countryId",
+    "code": "fields.code",
+    "mask": "fields.mask",
+    "denomination": "fields.denomination"
   },
   "validations": {
     "required": "The {field} field is required",
@@ -39,7 +87,10 @@
     "alphanumericOnly": "validations.alphanumericOnly",
     "insufficient_security_level": "validations.insufficient_security_level",
     "boolean": "validations.boolean",
-    "pattern": "validations.pattern"
+    "pattern": "validations.pattern",
+    "not_exists": "validations.not_exists",
+    "min_length": "validations.min_length",
+    "date": "validations.date"
   },
   "errors": {
     "tooManyRequests": "errors.tooManyRequests",
@@ -62,7 +113,9 @@
     "validation": "error.validation",
     "database": "error.database",
     "invalid_input": "error.invalid_input",
-    "malformed_json": "error.malformed_json"
+    "malformed_json": "error.malformed_json",
+    "unique_constraint": "error.unique_constraint",
+    "unique_conflict": "error.unique_conflict"
   },
   "auth": {
     "login": {
@@ -87,7 +140,8 @@
     "confirmEmail": {
       "invalidToken": "auth.confirmEmail.invalidToken",
       "confirmationEmailSent": "auth.confirmEmail.confirmationEmailSent",
-      "emailConfirmed": "auth.confirmEmail.emailConfirmed"
+      "emailConfirmed": "auth.confirmEmail.emailConfirmed",
+      "wrongPassword": "auth.confirmEmail.wrongPassword"
     },
     "sendConfirmationEmail": {
       "emailAlreadyConfirmed": "auth.sendConfirmationEmail.emailAlreadyConfirmed"
@@ -142,6 +196,12 @@
     },
     "purpose": {
       "undefined": "enums.purpose.undefined"
+    },
+    "method": {
+      "options": "enums.method.options",
+      "patch": "enums.method.patch",
+      "post": "enums.method.post",
+      "get": "enums.method.get"
     }
   },
   "common": {
@@ -289,5 +349,11 @@
   },
   "showPublicKey": {
     "success": "showPublicKey.success"
+  },
+  "endpoint": {
+    "created": "endpoint.created"
+  },
+  "endpoints": {
+    "list": "endpoints.list"
   }
 }

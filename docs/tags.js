@@ -1,20 +1,12 @@
 module.exports = {
   tags: [
     { name: 'Auth', description: 'Authentication and Authorization' },
-    { name: 'Administration', description: 'System administration and management' },
     { name: 'Configurations', description: 'System configuration settings' },
     { name: 'Data', description: 'Data operations and management' },
-    { name: 'Documents', description: 'Document management and operations' },
-    { name: 'Financial', description: 'Financial operations and reporting' },
     { name: 'Geographic', description: 'Geographic data and maps' },
-    { name: 'Human-Resources', description: 'Human resources management' },
-    { name: 'Inventories', description: 'Inventory management and tracking' },
     { name: 'Logs', description: 'System logs and audit trails' },
-    { name: 'Projects', description: 'Project management and planning' },
-    { name: 'Research-And-Development', description: 'Research and development activities' },
     { name: 'Security', description: 'Security settings and monitoring' },
     { name: 'Support', description: 'Customer support and helpdesk' },
-    { name: 'Templates', description: 'Document and data templates' },
     { name: 'Users', description: 'User account management' },
   ],
 };

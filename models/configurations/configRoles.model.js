@@ -15,20 +15,7 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Unique primary key for identifying each rol.',
-  },
-  securityLevelId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      table: 'config_security_levels',
-      column: 'id',
-      model: 'configSecurityLevels',
-      key: 'id',
-    },
-    comment: 'ID of the security level that the role can access.',
-    field: 'security_level_id',
   },
   name: {
     type: DataTypes.STRING(100),
@@ -94,13 +81,6 @@ const Schema = {
 class ExtendedModel extends Model {
   static associate(models) {
     // Indexes
-    this.belongsTo(models.configSecurityLevels, {
-      foreignKey: 'securityLevelId',
-      targetKey: 'id',
-      as: 'securityLevel',
-      onUpdate: 'RESTRICT',
-      onDelete: 'RESTRICT',
-    });
 
     // References
     // this.hasMany(models.docPermissions, {

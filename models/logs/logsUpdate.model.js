@@ -4,8 +4,8 @@ const { Model, DataTypes } = require('sequelize');
 
 // Table that stores important updated information.
 
-const TABLE_NAME = 'logs_update';
-const MODEL_NAME = 'logsUpdate';
+const TABLE_NAME = 'logs_updates';
+const MODEL_NAME = 'logsUpdates';
 
 const Schema = {
   id: {
@@ -13,7 +13,6 @@ const Schema = {
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-    unique: 'PRIMARY',
     comment: 'Unique primary key to identify each update log.',
   },
   rowId: {

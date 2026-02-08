@@ -40,7 +40,7 @@ class CrudControllersGenerator {
       await this.analyzeForeignKeys(tableData);
       await this.analyzeEnums(tableData);
 
-      const controllerContent = await this.generateController(tableData, singularName, pluralName);
+      const controllerContent = await this.generateController(tableData, singularName, pluralName, groupName);
       await this.saveController(controllerContent, groupName, pluralName);
 
       const endTime = performance.now();
@@ -146,16 +146,19 @@ class CrudControllersGenerator {
     }
   }
 
-  async generateController(tableData, singularName, pluralName) {
+  async generateController(tableData, singularName, pluralName, groupName) {
     try {
       let controllerContent = await this.crudHelper.getTemplate('crud', 'controllers');
 
-      const controllerName = `${formatCapitalize(singularName)}Controllers`;
+      const controllerName = `${formatCapitalize(singularName)}Controller`;
       const serviceName = `${formatCapitalize(pluralName)}Services`;
-      const serviceVariable = `${toCamelCase(singularName)}`;
+      const serviceVariable = `${toCamelCase(pluralName)}`;
 
       const methodNames = this.crudHelper.generateMethodNames(singularName, pluralName);
       const fields = this.generateFieldLists(tableData);
+
+      // Build the create method call signature based on required vs optional fields
+      const createCallSignature = this.buildCreateCallSignature(fields);
 
       controllerContent = this.replaceTemplatePlaceholders(controllerContent, {
         controllerName,
@@ -165,6 +168,8 @@ class CrudControllersGenerator {
         pluralName,
         methodNames,
         fields,
+        groupName,
+        createCallSignature,
       });
 
       return controllerContent;
@@ -196,14 +201,49 @@ class CrudControllersGenerator {
       allFields: allFieldsArray.join(', '),
       requiredFields: requiredFieldsArray.join(', '),
       optionalFields: optionalFieldsArray.join(', '),
+      requiredFieldsArray,
+      optionalFieldsArray,
     };
   }
 
+  /**
+   * Builds the argument list for the service create call.
+   * Required fields are passed as individual positional parameters,
+   * optional fields are grouped into an options object alongside actor.
+   */
+  buildCreateCallSignature(fields) {
+    const { requiredFieldsArray, optionalFieldsArray } = fields;
+
+    // Positional args: each required field as its own argument
+    const positionalArgs = requiredFieldsArray.slice();
+
+    // Options object: optional fields + actor
+    const optionsEntries = optionalFieldsArray.slice();
+    optionsEntries.push('actor: req.user');
+
+    const optionsObject = `{ ${optionsEntries.join(', ')} }`;
+
+    // Combine positional + options object
+    const allArgs = [...positionalArgs, optionsObject];
+
+    return allArgs.join(', ');
+  }
+
   replaceTemplatePlaceholders(template, replacements) {
-    const { controllerName, serviceName, serviceVariable, singularName, pluralName, methodNames, fields } =
-      replacements;
+    const {
+      controllerName,
+      serviceName,
+      serviceVariable,
+      singularName,
+      pluralName,
+      methodNames,
+      fields,
+      groupName,
+      createCallSignature,
+    } = replacements;
 
     template = template.replace(/\{\{CONTROLLER_NAME\}\}/g, controllerName);
+    template = template.replace(/\{\{GROUP_NAME\}\}/g, groupName);
     template = template.replace(/\{\{SERVICE_NAME\}\}/g, serviceName);
     template = template.replace(/\{\{SERVICE_VARIABLE\}\}/g, serviceVariable);
     template = template.replace(/\{\{SINGULAR_NAME\}\}/g, singularName);
@@ -219,14 +259,15 @@ class CrudControllersGenerator {
     template = template.replace(/\{\{ALL_FIELDS\}\}/g, fields.allFields);
     template = template.replace(/\{\{REQUIRED_FIELDS\}\}/g, fields.requiredFields);
     template = template.replace(/\{\{OPTIONAL_FIELDS\}\}/g, fields.optionalFields);
+    template = template.replace(/\{\{CREATE_CALL_SIGNATURE\}\}/g, createCallSignature);
 
     return template;
   }
 
   async saveController(controllerContent, groupName, pluralName) {
     try {
-      const fileName = `${toCamelCase(pluralName)}.controllers`;
-      const folderPath = await this.crudHelper.createFolder('CONTROLLERS', 'common/' + groupName, '');
+      const fileName = `${toCamelCase(pluralName)}.controller`;
+      const folderPath = await this.crudHelper.createFolder('CONTROLLERS', '/' + groupName, '');
       const filePath = await this.crudHelper.createFile(folderPath, fileName, controllerContent);
 
       console.log(`📄 Controller saved to: ${filePath}`);

@@ -44,169 +44,146 @@
 │       ├── morgan.config.js
 │       └── README.md
 ├── context
-│   ├── app
-│   ├── bot
-│   ├── desktop
 │   ├── structure.txt
-│   ├── wearable
-│   └── web
-│       └── v1
-│           ├── auth
-│           │   ├── delete.disable-2fa.activity.puml
-│           │   ├── delete.disable-2fa.communication.puml
-│           │   ├── delete.disable-2fa.component.puml
-│           │   ├── delete.disable-2fa.dataflow.puml
-│           │   ├── delete.disable-2fa.sequence.puml
-│           │   ├── delete.disable-2fa.usecase.puml
-│           │   ├── delete.logout.activity.puml
-│           │   ├── delete.logout.communication.puml
-│           │   ├── delete.logout.component.puml
-│           │   ├── delete.logout.dataflow.puml
-│           │   ├── delete.logout.sequence.puml
-│           │   ├── delete.logout.usecase.puml
-│           │   ├── delete.session-{sessionId}-revoke.activity.puml
-│           │   ├── delete.session-{sessionId}-revoke.communication.puml
-│           │   ├── delete.session-{sessionId}-revoke.component.puml
-│           │   ├── delete.session-{sessionId}-revoke.dataflow.puml
-│           │   ├── delete.session-{sessionId}-revoke.sequence.puml
-│           │   ├── delete.session-{sessionId}-revoke.usecase.puml
-│           │   ├── delete.sessions-revoke-all-except-current.activity.puml
-│           │   ├── delete.sessions-revoke-all-except-current.communication.puml
-│           │   ├── delete.sessions-revoke-all-except-current.component.puml
-│           │   ├── delete.sessions-revoke-all-except-current.dataflow.puml
-│           │   ├── delete.sessions-revoke-all-except-current.sequence.puml
-│           │   ├── delete.sessions-revoke-all-except-current.usecase.puml
-│           │   ├── get.devices.activity.puml
-│           │   ├── get.devices.communication.puml
-│           │   ├── get.devices.component.puml
-│           │   ├── get.devices.dataflow.puml
-│           │   ├── get.devices.sequence.puml
-│           │   ├── get.devices.usecase.puml
-│           │   ├── get.get-2fa-status.activity.puml
-│           │   ├── get.get-2fa-status.communication.puml
-│           │   ├── get.get-2fa-status.component.puml
-│           │   ├── get.get-2fa-status.dataflow.puml
-│           │   ├── get.get-2fa-status.sequence.puml
-│           │   ├── get.get-2fa-status.usecase.puml
-│           │   ├── get.sessions.activity.puml
-│           │   ├── get.sessions.communication.puml
-│           │   ├── get.sessions.component.puml
-│           │   ├── get.sessions.dataflow.puml
-│           │   ├── get.sessions.sequence.puml
-│           │   ├── get.sessions.usecase.puml
-│           │   ├── patch.change-password.activity.puml
-│           │   ├── patch.change-password.communication.puml
-│           │   ├── patch.change-password.component.puml
-│           │   ├── patch.change-password.dataflow.puml
-│           │   ├── patch.change-password.sequence.puml
-│           │   ├── patch.change-password.usecase.puml
-│           │   ├── patch.confirm-email-{token}.activity.puml
-│           │   ├── patch.confirm-email-{token}.communication.puml
-│           │   ├── patch.confirm-email-{token}.component.puml
-│           │   ├── patch.confirm-email-{token}.dataflow.puml
-│           │   ├── patch.confirm-email-{token}.sequence.puml
-│           │   ├── patch.confirm-email-{token}.usecase.puml
-│           │   ├── patch.devices-{deviceId}.activity.puml
-│           │   ├── patch.devices-{deviceId}.communication.puml
-│           │   ├── patch.devices-{deviceId}.component.puml
-│           │   ├── patch.devices-{deviceId}.dataflow.puml
-│           │   ├── patch.devices-{deviceId}.sequence.puml
-│           │   ├── patch.devices-{deviceId}.usecase.puml
-│           │   ├── patch.enable-2fa.activity.puml
-│           │   ├── patch.enable-2fa.communication.puml
-│           │   ├── patch.enable-2fa.component.puml
-│           │   ├── patch.enable-2fa.dataflow.puml
-│           │   ├── patch.enable-2fa.sequence.puml
-│           │   ├── patch.enable-2fa.usecase.puml
-│           │   ├── patch.recover-password.activity.puml
-│           │   ├── patch.recover-password.communication.puml
-│           │   ├── patch.recover-password.component.puml
-│           │   ├── patch.recover-password.dataflow.puml
-│           │   ├── patch.recover-password.sequence.puml
-│           │   ├── patch.recover-password-{token}.activity.puml
-│           │   ├── patch.recover-password-{token}.communication.puml
-│           │   ├── patch.recover-password-{token}.component.puml
-│           │   ├── patch.recover-password-{token}.dataflow.puml
-│           │   ├── patch.recover-password-{token}.sequence.puml
-│           │   ├── patch.recover-password-{token}.usecase.puml
-│           │   ├── patch.recover-password.usecase.puml
-│           │   ├── patch.refresh-token.activity.puml
-│           │   ├── patch.refresh-token.communication.puml
-│           │   ├── patch.refresh-token.component.puml
-│           │   ├── patch.refresh-token.dataflow.puml
-│           │   ├── patch.refresh-token.sequence.puml
-│           │   ├── patch.refresh-token.usecase.puml
-│           │   ├── patch.verify-device-{token}.activity.puml
-│           │   ├── patch.verify-device-{token}.communication.puml
-│           │   ├── patch.verify-device-{token}.component.puml
-│           │   ├── patch.verify-device-{token}.dataflow.puml
-│           │   ├── patch.verify-device-{token}.sequence.puml
-│           │   ├── patch.verify-device-{token}.usecase.puml
-│           │   ├── post.forgot-password.activity.puml
-│           │   ├── post.forgot-password.communication.puml
-│           │   ├── post.forgot-password.component.puml
-│           │   ├── post.forgot-password.dataflow.puml
-│           │   ├── post.forgot-password.sequence.puml
-│           │   ├── post.forgot-password.usecase.puml
-│           │   ├── post.login.activity.puml
-│           │   ├── post.login.communication.puml
-│           │   ├── post.login.component.puml
-│           │   ├── post.login.dataflow.puml
-│           │   ├── post.login.sequence.puml
-│           │   ├── post.login.usecase.puml
-│           │   ├── post.resend-confirmation.activity.puml
-│           │   ├── post.resend-confirmation.communication.puml
-│           │   ├── post.resend-confirmation.component.puml
-│           │   ├── post.resend-confirmation.dataflow.puml
-│           │   ├── post.resend-confirmation.sequence.puml
-│           │   ├── post.resend-confirmation.usecase.puml
-│           │   ├── post.send-verify-code.activity.puml
-│           │   ├── post.send-verify-code.communication.puml
-│           │   ├── post.send-verify-code.component.puml
-│           │   ├── post.send-verify-code.dataflow.puml
-│           │   ├── post.send-verify-code.sequence.puml
-│           │   ├── post.send-verify-code.usecase.puml
-│           │   ├── post.signup.activity.puml
-│           │   ├── post.signup.communication.puml
-│           │   ├── post.signup.component.puml
-│           │   ├── post.signup.dataflow.puml
-│           │   ├── post.signup.sequence.puml
-│           │   ├── post.signup.usecase.puml
-│           │   ├── post.verify-code.activity.puml
-│           │   ├── post.verify-code.communication.puml
-│           │   ├── post.verify-code.component.puml
-│           │   ├── post.verify-code.dataflow.puml
-│           │   ├── post.verify-code.sequence.puml
-│           │   ├── post.verify-code.usecase.puml
-│           │   ├── post.veryfy-code.activity.puml
-│           │   ├── post.veryfy-code.communication.puml
-│           │   ├── post.veryfy-code.component.puml
-│           │   ├── post.veryfy-code.dataflow.puml
-│           │   ├── post.veryfy-code.sequence.puml
-│           │   └── post.veryfy-code.usecase.puml
-│           └── security
-│               ├── get.public-key.activity.puml
-│               ├── get.public-key.communication.puml
-│               ├── get.public-key.component.puml
-│               ├── get.public-key.dataflow.puml
-│               ├── get.public-key.sequence.puml
-│               └── get.public-key.usecase.puml
+│   └── v1
+│       ├── auth
+│       │   ├── delete.disable-2fa.activity.puml
+│       │   ├── delete.disable-2fa.communication.puml
+│       │   ├── delete.disable-2fa.component.puml
+│       │   ├── delete.disable-2fa.dataflow.puml
+│       │   ├── delete.disable-2fa.sequence.puml
+│       │   ├── delete.disable-2fa.usecase.puml
+│       │   ├── delete.logout.activity.puml
+│       │   ├── delete.logout.communication.puml
+│       │   ├── delete.logout.component.puml
+│       │   ├── delete.logout.dataflow.puml
+│       │   ├── delete.logout.sequence.puml
+│       │   ├── delete.logout.usecase.puml
+│       │   ├── delete.session-{sessionId}-revoke.activity.puml
+│       │   ├── delete.session-{sessionId}-revoke.communication.puml
+│       │   ├── delete.session-{sessionId}-revoke.component.puml
+│       │   ├── delete.session-{sessionId}-revoke.dataflow.puml
+│       │   ├── delete.session-{sessionId}-revoke.sequence.puml
+│       │   ├── delete.session-{sessionId}-revoke.usecase.puml
+│       │   ├── delete.sessions-revoke-all-except-current.activity.puml
+│       │   ├── delete.sessions-revoke-all-except-current.communication.puml
+│       │   ├── delete.sessions-revoke-all-except-current.component.puml
+│       │   ├── delete.sessions-revoke-all-except-current.dataflow.puml
+│       │   ├── delete.sessions-revoke-all-except-current.sequence.puml
+│       │   ├── delete.sessions-revoke-all-except-current.usecase.puml
+│       │   ├── get.devices.activity.puml
+│       │   ├── get.devices.communication.puml
+│       │   ├── get.devices.component.puml
+│       │   ├── get.devices.dataflow.puml
+│       │   ├── get.devices.sequence.puml
+│       │   ├── get.devices.usecase.puml
+│       │   ├── get.get-2fa-status.activity.puml
+│       │   ├── get.get-2fa-status.communication.puml
+│       │   ├── get.get-2fa-status.component.puml
+│       │   ├── get.get-2fa-status.dataflow.puml
+│       │   ├── get.get-2fa-status.sequence.puml
+│       │   ├── get.get-2fa-status.usecase.puml
+│       │   ├── get.sessions.activity.puml
+│       │   ├── get.sessions.communication.puml
+│       │   ├── get.sessions.component.puml
+│       │   ├── get.sessions.dataflow.puml
+│       │   ├── get.sessions.sequence.puml
+│       │   ├── get.sessions.usecase.puml
+│       │   ├── patch.change-password.activity.puml
+│       │   ├── patch.change-password.communication.puml
+│       │   ├── patch.change-password.component.puml
+│       │   ├── patch.change-password.dataflow.puml
+│       │   ├── patch.change-password.sequence.puml
+│       │   ├── patch.change-password.usecase.puml
+│       │   ├── patch.confirm-email-{token}.activity.puml
+│       │   ├── patch.confirm-email-{token}.communication.puml
+│       │   ├── patch.confirm-email-{token}.component.puml
+│       │   ├── patch.confirm-email-{token}.dataflow.puml
+│       │   ├── patch.confirm-email-{token}.sequence.puml
+│       │   ├── patch.confirm-email-{token}.usecase.puml
+│       │   ├── patch.devices-{deviceId}.activity.puml
+│       │   ├── patch.devices-{deviceId}.communication.puml
+│       │   ├── patch.devices-{deviceId}.component.puml
+│       │   ├── patch.devices-{deviceId}.dataflow.puml
+│       │   ├── patch.devices-{deviceId}.sequence.puml
+│       │   ├── patch.devices-{deviceId}.usecase.puml
+│       │   ├── patch.enable-2fa.activity.puml
+│       │   ├── patch.enable-2fa.communication.puml
+│       │   ├── patch.enable-2fa.component.puml
+│       │   ├── patch.enable-2fa.dataflow.puml
+│       │   ├── patch.enable-2fa.sequence.puml
+│       │   ├── patch.enable-2fa.usecase.puml
+│       │   ├── patch.recover-password-{token}.activity.puml
+│       │   ├── patch.recover-password-{token}.communication.puml
+│       │   ├── patch.recover-password-{token}.component.puml
+│       │   ├── patch.recover-password-{token}.dataflow.puml
+│       │   ├── patch.recover-password-{token}.sequence.puml
+│       │   ├── patch.recover-password-{token}.usecase.puml
+│       │   ├── patch.refresh-token.activity.puml
+│       │   ├── patch.refresh-token.communication.puml
+│       │   ├── patch.refresh-token.component.puml
+│       │   ├── patch.refresh-token.dataflow.puml
+│       │   ├── patch.refresh-token.sequence.puml
+│       │   ├── patch.refresh-token.usecase.puml
+│       │   ├── patch.verify-device-{token}.activity.puml
+│       │   ├── patch.verify-device-{token}.communication.puml
+│       │   ├── patch.verify-device-{token}.component.puml
+│       │   ├── patch.verify-device-{token}.dataflow.puml
+│       │   ├── patch.verify-device-{token}.sequence.puml
+│       │   ├── patch.verify-device-{token}.usecase.puml
+│       │   ├── post.forgot-password.activity.puml
+│       │   ├── post.forgot-password.communication.puml
+│       │   ├── post.forgot-password.component.puml
+│       │   ├── post.forgot-password.dataflow.puml
+│       │   ├── post.forgot-password.sequence.puml
+│       │   ├── post.forgot-password.usecase.puml
+│       │   ├── post.login.activity.puml
+│       │   ├── post.login.communication.puml
+│       │   ├── post.login.component.puml
+│       │   ├── post.login.dataflow.puml
+│       │   ├── post.login.sequence.puml
+│       │   ├── post.login.usecase.puml
+│       │   ├── post.resend-confirmation.activity.puml
+│       │   ├── post.resend-confirmation.communication.puml
+│       │   ├── post.resend-confirmation.component.puml
+│       │   ├── post.resend-confirmation.dataflow.puml
+│       │   ├── post.resend-confirmation.sequence.puml
+│       │   ├── post.resend-confirmation.usecase.puml
+│       │   ├── post.send-verify-code.activity.puml
+│       │   ├── post.send-verify-code.communication.puml
+│       │   ├── post.send-verify-code.component.puml
+│       │   ├── post.send-verify-code.dataflow.puml
+│       │   ├── post.send-verify-code.sequence.puml
+│       │   ├── post.send-verify-code.usecase.puml
+│       │   ├── post.signup.activity.puml
+│       │   ├── post.signup.communication.puml
+│       │   ├── post.signup.component.puml
+│       │   ├── post.signup.dataflow.puml
+│       │   ├── post.signup.sequence.puml
+│       │   ├── post.signup.usecase.puml
+│       │   ├── post.verify-code.activity.puml
+│       │   ├── post.verify-code.communication.puml
+│       │   ├── post.verify-code.component.puml
+│       │   ├── post.verify-code.dataflow.puml
+│       │   ├── post.verify-code.sequence.puml
+│       │   └── post.verify-code.usecase.puml
+│       └── security
+│           ├── get.public-key.activity.puml
+│           ├── get.public-key.communication.puml
+│           ├── get.public-key.component.puml
+│           ├── get.public-key.dataflow.puml
+│           ├── get.public-key.sequence.puml
+│           └── get.public-key.usecase.puml
 ├── CONTRIBUTING.md
 ├── controllers
-│   ├── app
-│   ├── bot
-│   ├── common
-│   │   └── security
-│   │       └── keys.controller.js
-│   ├── desktop
-│   ├── wearable
-│   └── web
-│       └── auth
-│           ├── confirmation.controller.js
-│           ├── devices.controller.js
-│           ├── password.controller.js
-│           ├── session.controller.js
-│           └── two-factor.controller.js
+│   ├── auth
+│   │   ├── confirmation.controller.js
+│   │   ├── devices.controller.js
+│   │   ├── password.controller.js
+│   │   ├── session.controller.js
+│   │   └── two-factor.controller.js
+│   └── security
+│       └── keys.controller.js
 ├── .debug
 ├── DEVELOPER_SETUP.md
 ├── docker-compose.yml
@@ -261,13 +238,28 @@
 │   │   └── index.js
 │   └── vault.helper.js
 ├── .husky
+│   ├── _
+│   │   ├── applypatch-msg
+│   │   ├── commit-msg
+│   │   ├── .gitignore
+│   │   ├── h
+│   │   ├── husky.sh
+│   │   ├── post-applypatch
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-rewrite
+│   │   ├── pre-applypatch
+│   │   ├── pre-auto-gc
+│   │   ├── pre-commit
+│   │   ├── pre-merge-commit
+│   │   ├── prepare-commit-msg
+│   │   ├── pre-push
+│   │   └── pre-rebase
 │   ├── pre-commit
 │   └── pre-push
 ├── index.js
 ├── jest.config.js
-├── kubernetes
-│   ├── deployment.yaml
-│   └── keys
 ├── LICENSE
 ├── middlewares
 │   ├── audit
@@ -308,7 +300,6 @@
 │   ├── 20260125152216-create-currencies-table.js
 │   ├── 20260125152554-create-languages-table.js
 │   ├── 20260125152806-create-timezones-table.js
-│   ├── 20260125153006-create-types-identification-table.js
 │   ├── 20260125153915-create-cities-table.js
 │   ├── 20260125154132-create-continents-table.js
 │   ├── 20260125154714-create-countries-table.js
@@ -316,7 +307,7 @@
 │   ├── 20260125160314-create-countries-languages-table.js
 │   ├── 20260125160650-create-dial-codes-table.js
 │   ├── 20260125161039-create-regions-table.js
-│   ├── 20260125161137-create-sub-divisions-table.js
+│   ├── 20260125161137-create-political-divisions-table.js
 │   ├── 20260125162017-create-logs-creation-table.js
 │   ├── 20260125162134-create-logs-deletion-table.js
 │   ├── 20260125162610-create-logs-statuses-table.js
@@ -331,7 +322,10 @@
 │   ├── 20260125170632-create-user-preferences-table.js
 │   ├── 20260125170816-create-tokens-table.js
 │   ├── 20260125170951-create-users-table.js
-│   └── 20260125171124-create-users-details-table.js
+│   ├── 20260125171124-create-users-details-table.js
+│   ├── 20260127171452-create-flags-table.js
+│   ├── 20260128202018-create-logs-http-table.js
+│   └── 20260128212959-create-currencies-table.js
 ├── models
 │   ├── configurations
 │   │   ├── configEndpoints.model.js
@@ -369,33 +363,23 @@
 ├── package-lock.json
 ├── README.md
 ├── routes
-│   ├── app
-│   │   └── index.js
-│   ├── bot
-│   │   └── index.js
-│   ├── desktop
-│   │   └── index.js
+│   ├── auth
+│   │   ├── confirmation.routes.js
+│   │   ├── device.routes.js
+│   │   ├── index.js
+│   │   ├── password.routes.js
+│   │   ├── session.routes.js
+│   │   ├── two-factor.routes.js
+│   │   └── validations
+│   │       ├── confirmation.validation.js
+│   │       ├── devices.validation.js
+│   │       ├── index.js
+│   │       ├── password.validation.js
+│   │       ├── session.validations.js
+│   │       └── two-factor.validation.js
 │   ├── index.js
-│   ├── wearable
-│   │   └── index.js
-│   └── web
-│       ├── auth
-│       │   ├── confirmation.routes.js
-│       │   ├── device.routes.js
-│       │   ├── index.js
-│       │   ├── password.routes.js
-│       │   ├── session.routes.js
-│       │   ├── two-factor.routes.js
-│       │   └── validations
-│       │       ├── confirmation.validation.js
-│       │       ├── devices.validation.js
-│       │       ├── index.js
-│       │       ├── password.validation.js
-│       │       ├── session.validations.js
-│       │       └── two-factor.validation.js
-│       ├── index.js
-│       └── security
-│           └── index.js
+│   └── security
+│       └── index.js
 ├── schemas
 │   ├── params
 │   │   ├── common.params.js
@@ -403,7 +387,6 @@
 │   │   ├── pagination.params.js
 │   │   ├── README.md
 │   │   └── search.params.js
-│   ├── responses
 │   └── validations
 │       ├── filters.schema.js
 │       ├── index.js
@@ -420,20 +403,24 @@
 │   ├── generateCrudValidations.script.js
 │   ├── generate-rsa-keys.sh
 │   ├── generateServices.script.js
-│   └── private
-│       └── .gitkeep
+│   ├── private
+│   │   └── .gitkeep
+│   ├── run-migrations.script.js
+│   └── run-seeders.script.js
 ├── seeders
 │   ├── 01-base-continents.seed.js
 │   ├── 02-base-regions.seed.js
 │   ├── 03-base-security-levels.seed.js
 │   ├── 04-base-flags.seed.js
 │   ├── 05-base-countries.seed.js
-│   ├── 06-base-sub-divisions.seed.js
+│   ├── 06-base-divisions.seed.js
 │   ├── 07-base-timezones.seed.js
 │   ├── 08-base-languages.seed.js
 │   ├── 09-base-currencies.seed.js
 │   ├── 10-base-dial-code.seed.js
-│   └── 11-base-countries-currencies.seed.js
+│   ├── 11-base-countries-currencies.seed.js
+│   ├── 12-base-countries-languages.seed.js
+│   └── 13-base-roles.seed.js
 ├── .sequelizerc
 ├── services
 │   ├── auth
@@ -494,4 +481,4 @@
     ├── extensions.json
     └── settings.json
 
-90 directories, 406 files
+72 directories, 410 files
