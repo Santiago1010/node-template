@@ -1,21 +1,4 @@
 // =============================================================================
-// DOCUMENTATION LINTER SCRIPT
-// =============================================================================
-// This script validates that all Express endpoints are documented in the
-// OpenAPI/Swagger documentation and vice versa. It's designed to run as a
-// pre-push Git hook via Husky to ensure documentation stays in sync with the
-// codebase before code is pushed to the remote repository.
-//
-// EXIT CODES:
-//   0 - All endpoints are documented and no orphaned documentation exists
-//   1 - Inconsistencies found (undocumented endpoints or orphaned docs)
-//
-// USAGE:
-//   node ~/scripts/docs-paths-lint.script.js
-//
-// =============================================================================
-
-// =============================================================================
 // THIRD-PARTY DEPENDENCIES
 // =============================================================================
 const expressEndpoints = require('express-list-endpoints'); // Express route introspection utility
@@ -39,8 +22,8 @@ const documented = new Set();
 
 // Process each endpoint from the Express app
 listEnpoints.forEach((endpoint) => {
-  // Remove API version prefix (e.g., /api/tenant/v1 -> empty string)
-  const cleanedPath = endpoint.path.replace(/\/api\/[^/]+\/v[^/]*/g, '');
+  // Remove API version prefix (e.g., /api/v1/auth/login -> /auth/login)
+  const cleanedPath = endpoint.path.replace(/^\/api\/v\d+/, '');
 
   // Transform Express route params to OpenAPI format (e.g., /:id -> /{id})
   const transformedPath = cleanedPath.replace(/\/:([^/]+)/g, '/{$1}');

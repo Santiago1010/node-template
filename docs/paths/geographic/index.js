@@ -6,16 +6,16 @@ const politicalDivisions = require('./politicalDivisions.docs');
 const regions = require('./regions.docs');
 
 module.exports = {
-  '/geographic/cities': { ...cities.basePath },
-  '/geographic/cities/{id}': { ...cities.pathWithId },
-  '/geographic/continents': { ...continents.basePath },
-  '/geographic/continents/{id}': { ...continents.pathWithId },
-  '/geographic/countries': { ...countries.basePath },
-  '/geographic/countries/{id}': { ...countries.pathWithId },
-  '/geographic/dialCodes': { ...dialCodes.basePath },
-  '/geographic/dialCodes/{id}': { ...dialCodes.pathWithId },
-  '/geographic/politicalDivisions': { ...politicalDivisions.basePath },
-  '/geographic/politicalDivisions/{id}': { ...politicalDivisions.pathWithId },
-  '/geographic/regions': { ...regions.basePath },
-  '/geographic/regions/{id}': { ...regions.pathWithId },
+  '/geo/cities': { ...cities.basePath },
+  '/geo/cities/{id}': { ...cities.pathWithId },
+  '/geo/continents': { ...continents.basePath },
+  '/geo/continents/{id}': { ...continents.pathWithId },
+  '/geo/countries': { ...countries.basePath },
+  '/geo/countries/{id}': { ...countries.pathWithId },
+  '/geo/dialCodes': { ...dialCodes.basePath },
+  '/geo/dialCodes/{id}': { ...dialCodes.pathWithId },
+  '/geo/politicalDivisions': { ...politicalDivisions.basePath },
+  '/geo/politicalDivisions/{id}': { ...politicalDivisions.pathWithId },
+  '/geo/regions': { ...regions.basePath },
+  '/geo/regions/{id}': { ...regions.pathWithId },
 };
