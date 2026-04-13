@@ -4,48 +4,47 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'usr_credentials',
+      'hr_positions',
       {
         id: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.BIGINT,
           primaryKey: true,
           autoIncrement: true,
-          comment: 'Unique ID for each credential.',
-        },
-        account_id: {
-          type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'ID of the account to which the credential belongs.',
+          comment: 'Primary key. Unique identifier for each position.',
         },
-        credential_type: {
-          type: Sequelize.ENUM('email', 'phone', 'document', 'internal_code'),
+        code: {
+          type: Sequelize.STRING(50),
           allowNull: false,
-          comment: 'Type of credential.',
+          unique: true,
+          comment: 'Unique business identifier for the position (e.g. POS-BACKEND-001). Used across HR processes.',
         },
-        credential_value: {
-          type: Sequelize.STRING(150),
+        name: {
+          type: Sequelize.JSON,
           allowNull: false,
-          comment: 'Credential value.',
+          comment: 'Position name. Stored as JSON to support multilingual representations if needed.',
         },
-        verified_at: {
-          type: 'TIMESTAMP',
+        description: {
+          type: Sequelize.TEXT,
           allowNull: true,
-          comment: 'Timestamp of when the credential was verified.',
+          defaultValue: null,
+          comment:
+            'Detailed description of the role, responsibilities, and expectations. Optional but useful for recruiting and HR processes.',
         },
         created_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: true,
           defaultValue: null,
           comment:
@@ -56,28 +55,17 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Credentials available for each account.',
+        comment: 'HR positions table.',
       }
     );
 
-    await queryInterface.addIndex('usr_credentials', ['account_id'], {
-      name: 'account',
-    });
-
-    await queryInterface.addConstraint('usr_credentials', {
-      fields: ['account_id'],
-      type: 'foreign key',
-      name: 'usr_credentials_ibfk_1',
-      references: {
-        table: 'usr_accounts',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
+    await queryInterface.addIndex('hr_positions', ['code'], {
+      name: 'uq_hr_code',
+      unique: true,
     });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('usr_credentials');
+    await queryInterface.dropTable('hr_positions');
   },
 };

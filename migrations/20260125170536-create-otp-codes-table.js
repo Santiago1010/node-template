@@ -32,7 +32,7 @@ module.exports = {
           type: Sequelize.ENUM('login', 'setup', 'transaction', 'sensitive_actions', 'secure_mode', 'disable'),
           allowNull: false,
           charset: 'utf8mb4',
-          collate: 'utf8mb4_0900_ai_ci',
+          collate: 'utf8mb4_general_ci',
           comment:
             'Purpose for which the OTP code was requested. Use login for user authentication, setup to enable two-factor authentication, transaction for in-app transactions, sensitive_actions for operations requiring elevated security, and secure_mode to disable secure mode.',
         },
@@ -69,7 +69,7 @@ module.exports = {
       {
         engine: 'InnoDB',
         charset: 'utf8mb4',
-        collate: 'utf8mb4_0900_ai_ci',
+        collate: 'utf8mb4_general_ci',
         comment: 'OTP codes for different purposes.',
       }
     );

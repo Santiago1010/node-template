@@ -4,48 +4,58 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'usr_credentials',
+      'ai_providers',
       {
         id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
-          comment: 'Unique ID for each credential.',
-        },
-        account_id: {
-          type: Sequelize.INTEGER,
           allowNull: false,
-          comment: 'ID of the account to which the credential belongs.',
+          comment: 'Unique and auto-numbering key for each AI provider.',
         },
-        credential_type: {
-          type: Sequelize.ENUM('email', 'phone', 'document', 'internal_code'),
+        slug: {
+          type: Sequelize.STRING(50),
           allowNull: false,
-          comment: 'Type of credential.',
+          unique: true,
+          comment: 'Stable internal identifier used in code (e.g. anthropic, openai, google).',
         },
-        credential_value: {
-          type: Sequelize.STRING(150),
+        name: {
+          type: Sequelize.STRING(100),
           allowNull: false,
-          comment: 'Credential value.',
+          comment: 'Display name of the provider (e.g. Anthropic, OpenAI, Google).',
         },
-        verified_at: {
-          type: 'TIMESTAMP',
+        base_url: {
+          type: Sequelize.STRING(300),
           allowNull: true,
-          comment: 'Timestamp of when the credential was verified.',
+          defaultValue: null,
+          comment: 'Base API URL used to reach the provider. Null if managed via SDK without explicit URL.',
+        },
+        description: {
+          type: Sequelize.TEXT,
+          allowNull: true,
+          defaultValue: null,
+          comment: 'Optional notes about the provider, its capabilities, or usage constraints.',
+        },
+        is_enabled: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: true,
+          comment: 'Indicates whether the provider is active and available for use in the system.',
         },
         created_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was created in the table.',
         },
         updated_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
           comment: 'Date and time when the record was last modified.',
         },
         deleted_at: {
-          type: 'TIMESTAMP',
+          type: Sequelize.DATE,
           allowNull: true,
           defaultValue: null,
           comment:
@@ -56,28 +66,12 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Credentials available for each account.',
+        comment: 'Catalog of AI providers available in the system',
       }
     );
-
-    await queryInterface.addIndex('usr_credentials', ['account_id'], {
-      name: 'account',
-    });
-
-    await queryInterface.addConstraint('usr_credentials', {
-      fields: ['account_id'],
-      type: 'foreign key',
-      name: 'usr_credentials_ibfk_1',
-      references: {
-        table: 'usr_accounts',
-        field: 'id',
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('usr_credentials');
+    await queryInterface.dropTable('ai_providers');
   },
 };

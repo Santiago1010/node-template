@@ -1,5 +1,87 @@
 
 
+## [1.26.0] - 2026-04-13
+
+**Released:** 2026-04-13 15:25:05 UTC
+
+### [Add accounting, AI, and core catalog database schema](https://github.com/Santiago1010/node-template/pull/98)
+
+#### 📋 Summary
+This PR introduces comprehensive database migrations for the accounting module, AI agent infrastructure, and unified core catalog. It establishes the foundational schema for chart of accounts, journal entries, fiscal periods, counterparties, documents, AI providers/models/agents/sessions/usage tracking, items with attributes/variants/categories, addresses, branches, and legal entities. Additionally, it standardizes collation to `utf8mb4_general_ci` on two existing tables.
+
+#### 🔍 What Changed
+### Added
+- **Accounting module migrations:**
+  - `acct_account_types` – defines account categories (asset, liability, equity, revenue, expense) with normal balance and financial statement classification.
+  - `acct_accounts` – chart of accounts with hierarchical parent-child relationships, posting controls, and system protection.
+  - `acct_counterparties` – third parties involved in transactions (customers, suppliers, employees, banks, etc.).
+  - `acct_documents` – business documents (invoices, receipts, payments) linking to journal entries and counterparties.
+  - `acct_document_applications` – links payments to documents for settlement tracking.
+  - `acct_document_sequences` – configurable numbering sequences for document codes.
+  - `acct_document_lines` – line items within documents with account mapping and inventory references.
+  - `acct_document_types` – defines document behavior (affects accounting, requires counterparty, auto-post).
+  - `acct_fiscal_periods` – fiscal years, quarters, months with closing status and hierarchy.
+  - `acct_journal_entries` – core accounting transactions with status (draft/posted/reversed), source, and fiscal period linkage.
+  - `acct_journal_entry_lines` – debit/credit lines with multi-currency support and counterparty association.
+  - `acct_settings` – versioned accounting configuration (base currency, FX gain/loss accounts, rounding precision).
+
+- **AI module migrations:**
+  - `ai_providers` – catalog of AI service providers (Anthropic, OpenAI, Google, etc.).
+  - `ai_models` – specific models per provider with capabilities (tools, vision, JSON mode) and cost tracking.
+  - `ai_agents` – AI agent identities with type (assistant/task/pipeline) and account scoping.
+  - `ai_agent_versions` – versioned snapshots of agent configuration (model, system prompt, hyperparameters).
+  - `ai_sessions` – execution context for agent interactions, tracking token usage and cost.
+  - `ai_messages` – (implied via foreign key references in tool calls and usage logs).
+  - `ai_tool_calls` – records every tool invocation made by an agent with arguments and results.
+  - `ai_usage_logs` – immutable ledger of every AI provider API call for cost analysis and audit.
+
+- **Core module migrations:**
+  - `core_addresses` – reusable physical addresses for accounts, counterparties, orders, and billing.
+  - `core_items` – unified catalog for physical goods, digital products, and services.
+  - `core_item_variants` – sellable variants of items (e.g., size/color combinations).
+  - `core_item_attributes` – attribute definitions with data types and variant-axis flags.
+  - `core_item_attribute_options` – predefined selectable values for attributes.
+  - `core_item_attribute_values` – EAV storage for item attribute values.
+  - `core_item_categories` – hierarchical category tree for item classification.
+  - `core_legal_entities` – legal entities for multi-entity operations.
+  - `core_branches` – operational branches linked to legal entities.
+
+### Changed
+- `migrations/20260125165529-create-credentials-table.js` – collation changed from `utf8mb4_0900_ai_ci` to `utf8mb4_general_ci`.
+- `migrations/20260125170536-create-otp-codes-table.js` – collation changed from `utf8mb4_0900_ai_ci` to `utf8mb4_general_ci`.
+
+### Fixed
+- None.
+
+### Removed
+- None.
+
+#### 📝 Additional Notes
+- The accounting schema follows double-entry principles with soft deletes and audit timestamps.
+- AI module supports multi-tenant agent configurations and detailed usage cost tracking.
+- Core catalog unifies items across inventory, assets, and services with extensible attributes.
+- Collation standardization improves compatibility and reduces charset-related edge cases.
+
+**Type of Change:** New Feature, Documentation
+
+**Details:**
+- Author: [@Santiago1010](https://github.com/Santiago1010)
+- Approved by: [@DiegoAlejandroNino](https://github.com/DiegoAlejandroNino)
+- Labels: documentation, enhancement, automation
+- Commits: 6
+
+**Commits:**
+- [`403cb00`](https://github.com/Santiago1010/node-template/commit/403cb00612c05c66e9ee40001c3a35288c48f29d) feat(db): add accounting module database schema
+- [`f3cff2d`](https://github.com/Santiago1010/node-template/commit/f3cff2d04b74105d0c45a9523a23eade0930faab) feat(db): add journal entry lines, accounting settings, and ai module tables
+- [`8d19331`](https://github.com/Santiago1010/node-template/commit/8d193310a89880f30b6d653d2ab1b1934d428271) feat(db): add core module tables for addresses, items, and catalog management
+- [`a1cc635`](https://github.com/Santiago1010/node-template/commit/a1cc63582b702350a7265c4ae9486be00dd3c398) feat(db): add crm module tables and normalize collation
+- [`2fc9810`](https://github.com/Santiago1010/node-template/commit/2fc98103f4c7ecd050a7e39c775174e67a29b62b) feat(db): add hr module tables for employee management and performance
+- [`391135f`](https://github.com/Santiago1010/node-template/commit/391135f6af35816b3bcc2d6ae123c3c00a918bce) feat(db): add hr performance review tables and termination management
+
+---
+
+
+
 ## [1.25.0] - 2026-02-08
 
 **Released:** 2026-02-08 15:21:06 UTC
