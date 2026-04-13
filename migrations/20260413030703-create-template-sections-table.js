@@ -4,65 +4,71 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'hr_performance_rating_scale_levels',
+      'hr_performance_review_template_sections',
       {
         id: {
           type: Sequelize.BIGINT,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
-          comment: 'Primary key. Unique identifier for each scale level.',
+          comment: 'Primary key. Unique identifier for each template section.',
         },
         code: {
           type: Sequelize.STRING(50),
           allowNull: false,
-          comment: 'Unique business identifier for the level within a scale (e.g. LEVEL-1, EXCELLENT).',
+          comment: 'Unique business identifier for the section within a template (e.g. COMPETENCIES, OBJECTIVES).',
+        },
+        template_id: {
+          type: Sequelize.BIGINT,
+          allowNull: false,
+          comment: 'FK to hr_performance_review_templates. Template this section belongs to.',
         },
         rating_scale_id: {
           type: Sequelize.BIGINT,
-          allowNull: false,
-          comment: 'FK to hr_performance_rating_scales. Scale this level belongs to.',
+          allowNull: true,
+          defaultValue: null,
+          comment: 'FK to hr_performance_rating_scales. Defines which rating scale applies to this section.',
         },
         name: {
           type: Sequelize.JSON,
           allowNull: false,
-          comment: 'Display name of the level in multiple languages (e.g. {"en":"Excellent","es":"Excelente"}).',
+          comment: 'Display name of the section in multiple languages.',
         },
         description: {
           type: Sequelize.TEXT,
           allowNull: true,
           defaultValue: null,
-          comment: 'Optional explanation of what this level represents in behavioral or performance terms.',
+          comment: 'Optional explanation of what this section evaluates.',
         },
-        is_active: {
+        is_required: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
           defaultValue: true,
-          comment: 'Indicates whether this level is currently usable.',
+          comment: 'Indicates whether this section must be completed before submitting the review.',
         },
-        is_system: {
+        allow_comments: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
-          defaultValue: false,
-          comment: 'Indicates whether this level is system-defined and protected from deletion.',
+          defaultValue: true,
+          comment: 'Indicates whether textual feedback is allowed or required in this section.',
         },
         metadata: {
           type: Sequelize.JSON,
           allowNull: true,
           defaultValue: null,
-          comment: 'Flexible configuration (e.g. percentage mapping, color codes, behavioral anchors).',
+          comment: 'Flexible configuration (e.g. custom rules, UI hints, conditional visibility).',
         },
-        numeric_value: {
+        weight: {
           type: Sequelize.DECIMAL(5, 2),
           allowNull: true,
           defaultValue: null,
-          comment: 'Numeric value associated with this level (e.g. 1.00–5.00). Null for purely categorical scales.',
+          comment: 'Relative weight of this section in overall scoring (e.g. 40.00 means 40%). Null if not used.',
         },
         position: {
           type: Sequelize.INTEGER,
           allowNull: false,
           defaultValue: 1,
-          comment: 'Order of the level within the scale (1 = lowest or first).',
+          comment: 'Defines the order of the section within the template (1 = first).',
         },
         created_at: {
           type: Sequelize.DATE,
@@ -88,33 +94,48 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Performance rating scale levels.',
       }
     );
 
-    await queryInterface.addIndex('hr_performance_rating_scale_levels', ['rating_scale_id', 'code'], {
+    // Unique composite constraint on (template_id, code)
+    await queryInterface.addIndex('hr_performance_review_template_sections', ['template_id', 'code'], {
       unique: true,
-      name: 'uq_hr_performance_rating_scale_levels_scale_code',
+      name: 'uq_hr_perf_template_sections_template_code',
     });
 
-    await queryInterface.addIndex('hr_performance_rating_scale_levels', ['rating_scale_id'], {
-      name: 'idx_hr_performance_rating_scale_levels_scale_id',
+    await queryInterface.addIndex('hr_performance_review_template_sections', ['template_id'], {
+      name: 'idx_hr_perf_template_sections_template',
+    });
+    await queryInterface.addIndex('hr_performance_review_template_sections', ['rating_scale_id'], {
+      name: 'idx_hr_perf_template_sections_rating_scale',
     });
 
-    await queryInterface.addConstraint('hr_performance_rating_scale_levels', {
-      fields: ['rating_scale_id'],
+    await queryInterface.addConstraint('hr_performance_review_template_sections', {
+      fields: ['template_id'],
       type: 'foreign key',
-      name: 'fk_hr_perf_scale_levels_scale',
+      name: 'fk_hr_perf_sections_template',
       references: {
-        table: 'hr_performance_rating_scales',
+        table: 'hr_performance_review_templates',
         field: 'id',
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
+
+    await queryInterface.addConstraint('hr_performance_review_template_sections', {
+      fields: ['rating_scale_id'],
+      type: 'foreign key',
+      name: 'fk_hr_perf_sections_rating_scale',
+      references: {
+        table: 'hr_performance_rating_scales',
+        field: 'id',
+      },
+      onDelete: 'SET NULL',
+      onUpdate: 'CASCADE',
+    });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('hr_performance_rating_scale_levels');
+    await queryInterface.dropTable('hr_performance_review_template_sections');
   },
 };

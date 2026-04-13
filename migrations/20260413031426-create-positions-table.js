@@ -4,51 +4,32 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      'hr_job_levels',
+      'hr_positions',
       {
         id: {
           type: Sequelize.BIGINT,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
-          comment: 'Primary key. Unique identifier for each job level.',
+          comment: 'Primary key. Unique identifier for each position.',
         },
         code: {
           type: Sequelize.STRING(50),
           allowNull: false,
-          comment:
-            'Unique business identifier for the job level (e.g. JL-JR, JL-SR, JL-DIR). Used across HR and compensation structures.',
-        },
-        level_order: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          comment:
-            'Numeric order representing hierarchy (e.g. 1 = lowest, higher numbers = more senior). Used for comparisons, promotions, and validations.',
+          unique: true,
+          comment: 'Unique business identifier for the position (e.g. POS-BACKEND-001). Used across HR processes.',
         },
         name: {
           type: Sequelize.JSON,
           allowNull: false,
-          comment:
-            'Job level name (e.g. Junior, Senior, Director). Stored as JSON to support multilingual representations if needed.',
+          comment: 'Position name. Stored as JSON to support multilingual representations if needed.',
         },
         description: {
           type: Sequelize.TEXT,
           allowNull: true,
           defaultValue: null,
-          comment: 'Optional description of the level, including expectations, scope, and responsibilities.',
-        },
-        is_management_level: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
           comment:
-            'Indicates if this level is considered managerial (e.g. Manager, Director). Used for approvals and organizational rules.',
-        },
-        is_executive_level: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
-          comment: 'Indicates if this level is executive (e.g. C-level). Useful for governance and compensation rules.',
+            'Detailed description of the role, responsibilities, and expectations. Optional but useful for recruiting and HR processes.',
         },
         created_at: {
           type: Sequelize.DATE,
@@ -74,22 +55,17 @@ module.exports = {
         engine: 'InnoDB',
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        comment: 'Job levels definition.',
+        comment: 'HR positions table.',
       }
     );
 
-    await queryInterface.addIndex('hr_job_levels', ['code'], {
+    await queryInterface.addIndex('hr_positions', ['code'], {
+      name: 'uq_hr_code',
       unique: true,
-      name: 'uq_hr_job_levels_code',
-    });
-
-    await queryInterface.addIndex('hr_job_levels', ['level_order'], {
-      unique: true,
-      name: 'uq_hr_job_levels_level_order',
     });
   },
 
   async down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable('hr_job_levels');
+    await queryInterface.dropTable('hr_positions');
   },
 };
